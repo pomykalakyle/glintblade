@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLINTBLADE</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #000; }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; outline: none; }
+  #start {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px;
+    background: #10131a; color: #d8dccf; cursor: pointer;
+    font: 15px/1.5 ui-monospace, Menlo, Consolas, monospace; text-align: center;
+  }
+  #start h1 { margin: 0; font-size: 34px; letter-spacing: 6px; color: #e8ecdf; }
+  #start .go { color: #7fd6e0; }
+  #start .small { font-size: 13px; color: #8a9087; max-width: 44em; }
+  #start a { color: #8a9087; }
+</style>
+</head>
+<body>
+<canvas id="glcanvas" tabindex="1"></canvas>
+<div id="start">
+  <h1>GLINTBLADE</h1>
+  <div class="go">Click to play</div>
+  <div class="small">Move with WASD or the arrow keys, slash with J, dash with K or Space.<br>
+  Press Tab on the title screen to switch to Colemak-DH.</div>
+  <div class="small">Made by AI agents in one night. <a href="https://github.com/pomykalakyle/glintblade" onclick="event.stopPropagation()">Source on GitHub</a></div>
+</div>
+<!-- The bundled networking plugin assigns this global in strict mode; declaring it avoids a load error. -->
+<script>var register_plugin;</script>
+<script src="mq_js_bundle.js"></script>
+<script>
+  // Start on a click so the browser allows sound and the canvas has keyboard focus.
+  document.getElementById("start").addEventListener("click", function () {
+    this.remove();
+    document.getElementById("glcanvas").focus();
+    load("glintblade.wasm");
+  }, { once: true });
+</script>
+</body>
+</html>

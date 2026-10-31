@@ -2,6 +2,8 @@
 
 **This is AI slop.** I wanted to see the coolest game AI agents could come up with in one night, October 30-31, 2026. Agents, mostly Anthropic's Claude Opus 5.5 and OpenAI's GPT-6.1 Sol, wrote the code and drew the pixel art. The music came from AI music models, and the sound effects are Python synthesis with some AI-generated layers. My part was direction and feedback. I didn't write any code or draw any art.
 
+**[Play it in your browser](https://pomykalakyle.github.io/glintblade/)**
+
 ![Highlights](docs/media/highlights.gif)
 
 Videos (no sound): [highlights](docs/media/highlights.mp4), [combat](docs/media/combat.mp4), [the Warden fight and ending](docs/media/warden_fight.mp4).
@@ -27,7 +29,9 @@ The result is okay for a video game, but it didn't make me go "wow," and there a
 
 ## Play
 
-You need a recent stable Rust toolchain. I've only run it on macOS (Apple Silicon) and haven't tried Linux or Windows.
+The easiest way is [in your browser](https://pomykalakyle.github.io/glintblade/). It works with a keyboard and mouse; gamepads only work in the desktop build.
+
+To build it yourself, you need a recent stable Rust toolchain. I've only run it on macOS (Apple Silicon) and haven't tried Linux or Windows.
 
 ```sh
 cargo run --release

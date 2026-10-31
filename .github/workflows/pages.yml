@@ -1,0 +1,42 @@
+# Builds the browser version and publishes it to GitHub Pages.
+name: Web build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Rust with the WebAssembly target
+        run: rustup toolchain install stable --profile minimal --target wasm32-unknown-unknown
+      - name: Build
+        run: cargo build --release --target wasm32-unknown-unknown
+      - name: Assemble site
+        run: cp target/wasm32-unknown-unknown/release/glintblade.wasm web/
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

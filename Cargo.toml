@@ -7,9 +7,12 @@ build = "build.rs"
 [dependencies]
 macroquad = { version = "0.4.16", features = ["audio"] }
 png = "0.18"
-gilrs = "0.11"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+
+# Gamepads go through gilrs on desktop; the browser build has keyboard and mouse only.
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+gilrs = "0.11"
 
 [profile.dev]
 opt-level = 2

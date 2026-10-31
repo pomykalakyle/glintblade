@@ -1,0 +1,4 @@
+# quad-snd (macroquad audio) calls JavaScript functions that the page provides;
+# newer Rust links fail on those imports unless undefined symbols are allowed.
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "link-arg=--allow-undefined"]

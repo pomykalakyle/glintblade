@@ -93,7 +93,9 @@ impl Music {
     }
 }
 
-fn sample_input(gil: &mut Option<gilrs::Gilrs>, pad: &mut PadState) -> Raw {
+// The gamepad block that updates these is compiled out of the browser build.
+#[cfg_attr(target_arch = "wasm32", allow(unused_mut))]
+fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> Raw {
     let mut mx = 0.0f32;
     let mut my = 0.0f32;
     // Default QWERTY: WASD move, J slash, K dash. Colemak-DH (for keyboards that send
@@ -125,6 +127,9 @@ fn sample_input(gil: &mut Option<gilrs::Gilrs>, pad: &mut PadState) -> Raw {
     let mut confirm = is_key_down(KeyCode::Enter) || is_key_down(KeyCode::KpEnter) || is_key_down(KeyCode::Space);
     let mut pause = is_key_down(KeyCode::Escape) || is_key_down(KeyCode::P);
 
+    #[cfg(target_arch = "wasm32")]
+    let _ = gil;
+    #[cfg(not(target_arch = "wasm32"))]
     if let Some(g) = gil.as_mut() {
         while let Some(ev) = g.next_event() {
             let _ = ev;
@@ -164,6 +169,19 @@ fn sample_input(gil: &mut Option<gilrs::Gilrs>, pad: &mut PadState) -> Raw {
 #[derive(Default)]
 struct PadState;
 
+#[cfg(not(target_arch = "wasm32"))]
+type Gamepads = gilrs::Gilrs;
+// The browser build has no gamepad support.
+#[cfg(target_arch = "wasm32")]
+struct Gamepads;
+
+fn open_gamepads() -> Option<Gamepads> {
+    #[cfg(not(target_arch = "wasm32"))]
+    return gilrs::Gilrs::new().ok();
+    #[cfg(target_arch = "wasm32")]
+    return None;
+}
+
 pub async fn run(opts: Options) {
     if std::env::args().any(|a| a == "--colemak") || std::env::var("GLINT_KEYS").is_ok_and(|v| v.eq_ignore_ascii_case("colemak")) {
         crate::input::set_layout(crate::input::KeyLayout::ColemakDh);
@@ -192,7 +210,7 @@ pub async fn run(opts: Options) {
     }
     let mut last_played: HashMap<String, f64> = HashMap::new();
     let mut music = Music { cache: HashMap::new(), cur: None, old: Vec::new() };
-    let mut gil = gilrs::Gilrs::new().ok();
+    let mut gil = open_gamepads();
     let mut pad = PadState;
     let mut input = Input::default();
     let mut acc = 0.0f64;

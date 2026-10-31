@@ -1,0 +1,88 @@
+{
+ "anchor": [
+  24,
+  61
+ ],
+ "emissive": [
+  "#cdc3db"
+ ],
+ "anims": {
+  "aqua_a": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "light": {
+    "color": "#cdc3db",
+    "radius": 44,
+    "intensity": 0.28,
+    "offset": [
+     0,
+     -24
+    ]
+   },
+   "footprint": [
+    30,
+    8
+   ]
+  },
+  "violet_a": {
+   "row": 1,
+   "frames": 1,
+   "fps": 1,
+   "light": {
+    "color": "#cdc3db",
+    "radius": 44,
+    "intensity": 0.28,
+    "offset": [
+     0,
+     -24
+    ]
+   },
+   "footprint": [
+    30,
+    8
+   ]
+  },
+  "aqua_b": {
+   "row": 2,
+   "frames": 1,
+   "fps": 1,
+   "light": {
+    "color": "#cdc3db",
+    "radius": 44,
+    "intensity": 0.28,
+    "offset": [
+     0,
+     -24
+    ]
+   },
+   "footprint": [
+    30,
+    8
+   ]
+  },
+  "violet_b": {
+   "row": 3,
+   "frames": 1,
+   "fps": 1,
+   "light": {
+    "color": "#cdc3db",
+    "radius": 44,
+    "intensity": 0.28,
+    "offset": [
+     0,
+     -24
+    ]
+   },
+   "footprint": [
+    30,
+    8
+   ]
+  }
+ },
+ "notes": "Style v2 pale iris landmarks on slate mineral roots (round 6, 2026-10-31). Four distinct silhouettes: aqua_a a dark column with a light-facing chisel cut, violet_a a left-leaning spear before a broad unlit back shard, aqua_b a lit crystal toppled across a dark upright one, violet_b a squat crown. Each has one broad lit plane broken by a fracture, a larger unlit mass, small emissive tip caps (at least 5 within 18 px of the anchor column, which the lighting bake needs to add the crystal source) and a slate root overlapping every base. Upper-left light, so these read best unflipped. Legacy aqua/violet animation names, 48x64 cells, 24,61 anchor, footprints and light metadata preserved. Alpha is binary and a transparent margin prevents clipping or wrapped pixels. Rebuild with tools/glasswater/v2style.py (facet plans in tools/glasswater/landmarks.py).",
+ "cell": [
+  48,
+  64
+ ]
+}

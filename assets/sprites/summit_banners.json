@@ -1,0 +1,23 @@
+{
+ "cell": [
+  32,
+  64
+ ],
+ "anchor": [
+  8,
+  59
+ ],
+ "emissive": [],
+ "anims": {
+  "banner": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    4,
+    3
+   ]
+  }
+ },
+ "notes": "The Long Quiet v2. regions.warden palette. Broad slotted waterworks, quiet unlit stone; only burner coals emit. Rebuild: uv run --no-project --with pillow python3 tools/summit/style_v2.py"
+}

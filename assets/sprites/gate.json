@@ -1,0 +1,65 @@
+{
+ "cell": [
+  48,
+  64
+ ],
+ "anchor": [
+  24,
+  61
+ ],
+ "emissive": [
+  "#b7add0",
+  "#e2d8e9",
+  "#e2d8e9",
+  "#e2d8e9"
+ ],
+ "footprint": [
+  42,
+  8
+ ],
+ "anims": {
+  "closed": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1
+  },
+  "opening": {
+   "row": 1,
+   "frames": 6,
+   "fps": 10,
+   "durations": [
+    14,
+    8,
+    8,
+    6,
+    5,
+    6
+   ]
+  },
+  "open": {
+   "row": 2,
+   "frames": 8,
+   "fps": 8,
+   "durations": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "light": {
+    "color": "#e2d8e9",
+    "radius": 56,
+    "intensity": 0.7,
+    "offset": [
+     0,
+     -16
+    ]
+   }
+  }
+ },
+ "notes": "Exit gate shared by every region (no regional vegetation). closed: dormant seal with an engraved shard outline; the keystone socket is empty. opening: play once after the shard pickup: the socket lights (hold), the glyphs light and the engraved lines crack open, the pane splits, flash. open: looping portal. Walk-in zone: the opening, x 14..33 of the cell = anchor x -10..+9, up to 8 px in front of the anchor. footprint covers the plinth; pillars should block too (two 10x6 boxes at anchor x -19..-10 and +10..+19) if the engine supports it. Style v2: old ivory frame; iris light belongs to the inserted Prism. No cyan architecture."
+}

@@ -1,0 +1,26 @@
+{
+ "cell": [16, 32],
+ "anchor": [8, 30],
+ "emissive": ["#d48670", "#efb68a", "#f1d4a6"],
+ "anims": {
+  "brazier_lit": {
+   "row": 0,
+   "frames": 6,
+   "durations": [6, 6, 5, 5, 6, 6],
+   "footprint": [10, 5],
+   "light": {
+    "color": "#efb68a",
+    "radius": 64,
+    "intensity": 0.9,
+    "offset": [0, -20]
+   }
+  },
+  "brazier_unlit": {
+   "row": 1,
+   "frames": 1,
+   "footprint": [10, 5],
+   "fps": 1
+  }
+ },
+ "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. "
+}

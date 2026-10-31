@@ -1,0 +1,2164 @@
+{
+ "cell": [
+  16,
+  16
+ ],
+ "anchor": [
+  0,
+  0
+ ],
+ "emissive": [
+  "#e2d8e9"
+ ],
+ "tiles": {
+  "course16_a_00": [
+   0,
+   0
+  ],
+  "course16_a_10": [
+   1,
+   0
+  ],
+  "course16_a_20": [
+   2,
+   0
+  ],
+  "course16_a_30": [
+   3,
+   0
+  ],
+  "course16_b_00": [
+   4,
+   0
+  ],
+  "course16_b_10": [
+   5,
+   0
+  ],
+  "course16_b_20": [
+   6,
+   0
+  ],
+  "course16_b_30": [
+   7,
+   0
+  ],
+  "course16_c_00": [
+   8,
+   0
+  ],
+  "course16_c_10": [
+   9,
+   0
+  ],
+  "course16_c_20": [
+   10,
+   0
+  ],
+  "course16_c_30": [
+   11,
+   0
+  ],
+  "course16_d_00": [
+   0,
+   1
+  ],
+  "course16_d_10": [
+   1,
+   1
+  ],
+  "course16_d_20": [
+   2,
+   1
+  ],
+  "course16_d_30": [
+   3,
+   1
+  ],
+  "course16_e_00": [
+   4,
+   1
+  ],
+  "course16_e_10": [
+   5,
+   1
+  ],
+  "course16_e_20": [
+   6,
+   1
+  ],
+  "course16_e_30": [
+   7,
+   1
+  ],
+  "course16_f_00": [
+   8,
+   1
+  ],
+  "course16_f_10": [
+   9,
+   1
+  ],
+  "course16_f_20": [
+   10,
+   1
+  ],
+  "course16_f_30": [
+   11,
+   1
+  ],
+  "course16_g_00": [
+   0,
+   2
+  ],
+  "course16_g_10": [
+   1,
+   2
+  ],
+  "course16_g_20": [
+   2,
+   2
+  ],
+  "course16_g_30": [
+   3,
+   2
+  ],
+  "course16_h_00": [
+   4,
+   2
+  ],
+  "course16_h_10": [
+   5,
+   2
+  ],
+  "course16_h_20": [
+   6,
+   2
+  ],
+  "course16_h_30": [
+   7,
+   2
+  ],
+  "course32_a_00": [
+   8,
+   2
+  ],
+  "course32_a_10": [
+   9,
+   2
+  ],
+  "course32_a_20": [
+   10,
+   2
+  ],
+  "course32_a_30": [
+   11,
+   2
+  ],
+  "course32_a_01": [
+   8,
+   3
+  ],
+  "course32_a_11": [
+   9,
+   3
+  ],
+  "course32_a_21": [
+   10,
+   3
+  ],
+  "course32_a_31": [
+   11,
+   3
+  ],
+  "course32_b_00": [
+   0,
+   4
+  ],
+  "course32_b_10": [
+   1,
+   4
+  ],
+  "course32_b_20": [
+   2,
+   4
+  ],
+  "course32_b_30": [
+   3,
+   4
+  ],
+  "course32_b_01": [
+   0,
+   5
+  ],
+  "course32_b_11": [
+   1,
+   5
+  ],
+  "course32_b_21": [
+   2,
+   5
+  ],
+  "course32_b_31": [
+   3,
+   5
+  ],
+  "course32_c_00": [
+   4,
+   4
+  ],
+  "course32_c_10": [
+   5,
+   4
+  ],
+  "course32_c_20": [
+   6,
+   4
+  ],
+  "course32_c_30": [
+   7,
+   4
+  ],
+  "course32_c_01": [
+   4,
+   5
+  ],
+  "course32_c_11": [
+   5,
+   5
+  ],
+  "course32_c_21": [
+   6,
+   5
+  ],
+  "course32_c_31": [
+   7,
+   5
+  ],
+  "course32_d_00": [
+   8,
+   4
+  ],
+  "course32_d_10": [
+   9,
+   4
+  ],
+  "course32_d_20": [
+   10,
+   4
+  ],
+  "course32_d_30": [
+   11,
+   4
+  ],
+  "course32_d_01": [
+   8,
+   5
+  ],
+  "course32_d_11": [
+   9,
+   5
+  ],
+  "course32_d_21": [
+   10,
+   5
+  ],
+  "course32_d_31": [
+   11,
+   5
+  ],
+  "course32_e_00": [
+   0,
+   6
+  ],
+  "course32_e_10": [
+   1,
+   6
+  ],
+  "course32_e_20": [
+   2,
+   6
+  ],
+  "course32_e_30": [
+   3,
+   6
+  ],
+  "course32_e_01": [
+   0,
+   7
+  ],
+  "course32_e_11": [
+   1,
+   7
+  ],
+  "course32_e_21": [
+   2,
+   7
+  ],
+  "course32_e_31": [
+   3,
+   7
+  ],
+  "course32_f_00": [
+   4,
+   6
+  ],
+  "course32_f_10": [
+   5,
+   6
+  ],
+  "course32_f_20": [
+   6,
+   6
+  ],
+  "course32_f_30": [
+   7,
+   6
+  ],
+  "course32_f_01": [
+   4,
+   7
+  ],
+  "course32_f_11": [
+   5,
+   7
+  ],
+  "course32_f_21": [
+   6,
+   7
+  ],
+  "course32_f_31": [
+   7,
+   7
+  ],
+  "rune_0_dim": [
+   0,
+   8
+  ],
+  "rune_1_dim": [
+   1,
+   8
+  ],
+  "rune_2_dim": [
+   2,
+   8
+  ],
+  "rune_3_dim": [
+   3,
+   8
+  ],
+  "rune_4_dim": [
+   4,
+   8
+  ],
+  "rune_5_dim": [
+   5,
+   8
+  ],
+  "rune_0_lit": [
+   6,
+   8
+  ],
+  "rune_1_lit": [
+   7,
+   8
+  ],
+  "rune_2_lit": [
+   8,
+   8
+  ],
+  "rune_3_lit": [
+   9,
+   8
+  ],
+  "rune_4_lit": [
+   10,
+   8
+  ],
+  "rune_5_lit": [
+   11,
+   8
+  ],
+  "seal_dim_00": [
+   0,
+   9
+  ],
+  "seal_dim_10": [
+   1,
+   9
+  ],
+  "seal_dim_20": [
+   2,
+   9
+  ],
+  "seal_dim_30": [
+   3,
+   9
+  ],
+  "seal_dim_40": [
+   4,
+   9
+  ],
+  "seal_dim_50": [
+   5,
+   9
+  ],
+  "seal_dim_01": [
+   0,
+   10
+  ],
+  "seal_dim_11": [
+   1,
+   10
+  ],
+  "seal_dim_21": [
+   2,
+   10
+  ],
+  "seal_dim_31": [
+   3,
+   10
+  ],
+  "seal_dim_41": [
+   4,
+   10
+  ],
+  "seal_dim_51": [
+   5,
+   10
+  ],
+  "seal_dim_02": [
+   0,
+   11
+  ],
+  "seal_dim_12": [
+   1,
+   11
+  ],
+  "seal_dim_22": [
+   2,
+   11
+  ],
+  "seal_dim_32": [
+   3,
+   11
+  ],
+  "seal_dim_42": [
+   4,
+   11
+  ],
+  "seal_dim_52": [
+   5,
+   11
+  ],
+  "seal_dim_03": [
+   0,
+   12
+  ],
+  "seal_dim_13": [
+   1,
+   12
+  ],
+  "seal_dim_23": [
+   2,
+   12
+  ],
+  "seal_dim_33": [
+   3,
+   12
+  ],
+  "seal_dim_43": [
+   4,
+   12
+  ],
+  "seal_dim_53": [
+   5,
+   12
+  ],
+  "seal_dim_04": [
+   0,
+   13
+  ],
+  "seal_dim_14": [
+   1,
+   13
+  ],
+  "seal_dim_24": [
+   2,
+   13
+  ],
+  "seal_dim_34": [
+   3,
+   13
+  ],
+  "seal_dim_44": [
+   4,
+   13
+  ],
+  "seal_dim_54": [
+   5,
+   13
+  ],
+  "seal_dim_05": [
+   0,
+   14
+  ],
+  "seal_dim_15": [
+   1,
+   14
+  ],
+  "seal_dim_25": [
+   2,
+   14
+  ],
+  "seal_dim_35": [
+   3,
+   14
+  ],
+  "seal_dim_45": [
+   4,
+   14
+  ],
+  "seal_dim_55": [
+   5,
+   14
+  ],
+  "seal_lit_00": [
+   6,
+   9
+  ],
+  "seal_lit_10": [
+   7,
+   9
+  ],
+  "seal_lit_20": [
+   8,
+   9
+  ],
+  "seal_lit_30": [
+   9,
+   9
+  ],
+  "seal_lit_40": [
+   10,
+   9
+  ],
+  "seal_lit_50": [
+   11,
+   9
+  ],
+  "seal_lit_01": [
+   6,
+   10
+  ],
+  "seal_lit_11": [
+   7,
+   10
+  ],
+  "seal_lit_21": [
+   8,
+   10
+  ],
+  "seal_lit_31": [
+   9,
+   10
+  ],
+  "seal_lit_41": [
+   10,
+   10
+  ],
+  "seal_lit_51": [
+   11,
+   10
+  ],
+  "seal_lit_02": [
+   6,
+   11
+  ],
+  "seal_lit_12": [
+   7,
+   11
+  ],
+  "seal_lit_22": [
+   8,
+   11
+  ],
+  "seal_lit_32": [
+   9,
+   11
+  ],
+  "seal_lit_42": [
+   10,
+   11
+  ],
+  "seal_lit_52": [
+   11,
+   11
+  ],
+  "seal_lit_03": [
+   6,
+   12
+  ],
+  "seal_lit_13": [
+   7,
+   12
+  ],
+  "seal_lit_23": [
+   8,
+   12
+  ],
+  "seal_lit_33": [
+   9,
+   12
+  ],
+  "seal_lit_43": [
+   10,
+   12
+  ],
+  "seal_lit_53": [
+   11,
+   12
+  ],
+  "seal_lit_04": [
+   6,
+   13
+  ],
+  "seal_lit_14": [
+   7,
+   13
+  ],
+  "seal_lit_24": [
+   8,
+   13
+  ],
+  "seal_lit_34": [
+   9,
+   13
+  ],
+  "seal_lit_44": [
+   10,
+   13
+  ],
+  "seal_lit_54": [
+   11,
+   13
+  ],
+  "seal_lit_05": [
+   6,
+   14
+  ],
+  "seal_lit_15": [
+   7,
+   14
+  ],
+  "seal_lit_25": [
+   8,
+   14
+  ],
+  "seal_lit_35": [
+   9,
+   14
+  ],
+  "seal_lit_45": [
+   10,
+   14
+  ],
+  "seal_lit_55": [
+   11,
+   14
+  ],
+  "ground_a": [
+   0,
+   15
+  ],
+  "ground_b": [
+   1,
+   15
+  ],
+  "ground_c": [
+   2,
+   15
+  ],
+  "ground_d": [
+   3,
+   15
+  ],
+  "ground_e": [
+   4,
+   15
+  ],
+  "ground_f": [
+   5,
+   15
+  ],
+  "ground_big_a_00": [
+   6,
+   15
+  ],
+  "ground_big_a_10": [
+   7,
+   15
+  ],
+  "ground_big_a_01": [
+   6,
+   16
+  ],
+  "ground_big_a_11": [
+   7,
+   16
+  ],
+  "ground_big_b_00": [
+   8,
+   15
+  ],
+  "ground_big_b_10": [
+   9,
+   15
+  ],
+  "ground_big_b_01": [
+   8,
+   16
+  ],
+  "ground_big_b_11": [
+   9,
+   16
+  ],
+  "fg_0001_a": [
+   0,
+   17
+  ],
+  "fg_0001_b": [
+   1,
+   17
+  ],
+  "fg_0001_c": [
+   2,
+   17
+  ],
+  "fg_0010_a": [
+   3,
+   17
+  ],
+  "fg_0010_b": [
+   4,
+   17
+  ],
+  "fg_0010_c": [
+   5,
+   17
+  ],
+  "fg_0011_a": [
+   6,
+   17
+  ],
+  "fg_0011_b": [
+   7,
+   17
+  ],
+  "fg_0011_c": [
+   8,
+   17
+  ],
+  "fg_0100_a": [
+   9,
+   17
+  ],
+  "fg_0100_b": [
+   10,
+   17
+  ],
+  "fg_0100_c": [
+   11,
+   17
+  ],
+  "fg_0101_a": [
+   0,
+   18
+  ],
+  "fg_0101_b": [
+   1,
+   18
+  ],
+  "fg_0101_c": [
+   2,
+   18
+  ],
+  "fg_0110_a": [
+   3,
+   18
+  ],
+  "fg_0110_b": [
+   4,
+   18
+  ],
+  "fg_0110_c": [
+   5,
+   18
+  ],
+  "fg_0111_a": [
+   6,
+   18
+  ],
+  "fg_0111_b": [
+   7,
+   18
+  ],
+  "fg_0111_c": [
+   8,
+   18
+  ],
+  "fg_1000_a": [
+   9,
+   18
+  ],
+  "fg_1000_b": [
+   10,
+   18
+  ],
+  "fg_1000_c": [
+   11,
+   18
+  ],
+  "fg_1001_a": [
+   0,
+   19
+  ],
+  "fg_1001_b": [
+   1,
+   19
+  ],
+  "fg_1001_c": [
+   2,
+   19
+  ],
+  "fg_1010_a": [
+   3,
+   19
+  ],
+  "fg_1010_b": [
+   4,
+   19
+  ],
+  "fg_1010_c": [
+   5,
+   19
+  ],
+  "fg_1011_a": [
+   6,
+   19
+  ],
+  "fg_1011_b": [
+   7,
+   19
+  ],
+  "fg_1011_c": [
+   8,
+   19
+  ],
+  "fg_1100_a": [
+   9,
+   19
+  ],
+  "fg_1100_b": [
+   10,
+   19
+  ],
+  "fg_1100_c": [
+   11,
+   19
+  ],
+  "fg_1101_a": [
+   0,
+   20
+  ],
+  "fg_1101_b": [
+   1,
+   20
+  ],
+  "fg_1101_c": [
+   2,
+   20
+  ],
+  "fg_1110_a": [
+   3,
+   20
+  ],
+  "fg_1110_b": [
+   4,
+   20
+  ],
+  "fg_1110_c": [
+   5,
+   20
+  ],
+  "cliff_top_a": [
+   0,
+   21
+  ],
+  "cliff_top_b": [
+   1,
+   21
+  ],
+  "cliff_top_c": [
+   2,
+   21
+  ],
+  "cliff_top_d": [
+   3,
+   21
+  ],
+  "cliff_top_e": [
+   4,
+   21
+  ],
+  "cliff_top_f": [
+   5,
+   21
+  ],
+  "cliff_top_g": [
+   6,
+   21
+  ],
+  "cliff_top_h": [
+   7,
+   21
+  ],
+  "cliff_top_a_l": [
+   0,
+   22
+  ],
+  "cliff_top_b_l": [
+   1,
+   22
+  ],
+  "cliff_top_c_l": [
+   2,
+   22
+  ],
+  "cliff_top_d_l": [
+   3,
+   22
+  ],
+  "cliff_top_e_l": [
+   4,
+   22
+  ],
+  "cliff_top_f_l": [
+   5,
+   22
+  ],
+  "cliff_top_g_l": [
+   6,
+   22
+  ],
+  "cliff_top_h_l": [
+   7,
+   22
+  ],
+  "cliff_top_a_r": [
+   0,
+   23
+  ],
+  "cliff_top_b_r": [
+   1,
+   23
+  ],
+  "cliff_top_c_r": [
+   2,
+   23
+  ],
+  "cliff_top_d_r": [
+   3,
+   23
+  ],
+  "cliff_top_e_r": [
+   4,
+   23
+  ],
+  "cliff_top_f_r": [
+   5,
+   23
+  ],
+  "cliff_top_g_r": [
+   6,
+   23
+  ],
+  "cliff_top_h_r": [
+   7,
+   23
+  ],
+  "cliff_mid_a": [
+   0,
+   24
+  ],
+  "cliff_mid_b": [
+   1,
+   24
+  ],
+  "cliff_mid_c": [
+   2,
+   24
+  ],
+  "cliff_mid_d": [
+   3,
+   24
+  ],
+  "cliff_mid_e": [
+   4,
+   24
+  ],
+  "cliff_mid_f": [
+   5,
+   24
+  ],
+  "cliff_mid_g": [
+   6,
+   24
+  ],
+  "cliff_mid_h": [
+   7,
+   24
+  ],
+  "cliff_mid_a_l": [
+   0,
+   25
+  ],
+  "cliff_mid_b_l": [
+   1,
+   25
+  ],
+  "cliff_mid_c_l": [
+   2,
+   25
+  ],
+  "cliff_mid_d_l": [
+   3,
+   25
+  ],
+  "cliff_mid_e_l": [
+   4,
+   25
+  ],
+  "cliff_mid_f_l": [
+   5,
+   25
+  ],
+  "cliff_mid_g_l": [
+   6,
+   25
+  ],
+  "cliff_mid_h_l": [
+   7,
+   25
+  ],
+  "cliff_mid_a_r": [
+   0,
+   26
+  ],
+  "cliff_mid_b_r": [
+   1,
+   26
+  ],
+  "cliff_mid_c_r": [
+   2,
+   26
+  ],
+  "cliff_mid_d_r": [
+   3,
+   26
+  ],
+  "cliff_mid_e_r": [
+   4,
+   26
+  ],
+  "cliff_mid_f_r": [
+   5,
+   26
+  ],
+  "cliff_mid_g_r": [
+   6,
+   26
+  ],
+  "cliff_mid_h_r": [
+   7,
+   26
+  ],
+  "wall_top_a": [
+   0,
+   27
+  ],
+  "wall_top_b": [
+   1,
+   27
+  ],
+  "wall_top_c": [
+   2,
+   27
+  ],
+  "wall_top_d": [
+   3,
+   27
+  ],
+  "wall_top_e": [
+   4,
+   27
+  ],
+  "wall_top_f": [
+   5,
+   27
+  ],
+  "wall_top_g": [
+   6,
+   27
+  ],
+  "wall_top_h": [
+   7,
+   27
+  ],
+  "wall_top_a_l": [
+   0,
+   28
+  ],
+  "wall_top_b_l": [
+   1,
+   28
+  ],
+  "wall_top_c_l": [
+   2,
+   28
+  ],
+  "wall_top_d_l": [
+   3,
+   28
+  ],
+  "wall_top_e_l": [
+   4,
+   28
+  ],
+  "wall_top_f_l": [
+   5,
+   28
+  ],
+  "wall_top_g_l": [
+   6,
+   28
+  ],
+  "wall_top_h_l": [
+   7,
+   28
+  ],
+  "wall_top_a_r": [
+   0,
+   29
+  ],
+  "wall_top_b_r": [
+   1,
+   29
+  ],
+  "wall_top_c_r": [
+   2,
+   29
+  ],
+  "wall_top_d_r": [
+   3,
+   29
+  ],
+  "wall_top_e_r": [
+   4,
+   29
+  ],
+  "wall_top_f_r": [
+   5,
+   29
+  ],
+  "wall_top_g_r": [
+   6,
+   29
+  ],
+  "wall_top_h_r": [
+   7,
+   29
+  ],
+  "cliff_bot_a_00": [
+   0,
+   30
+  ],
+  "cliff_bot_a_01": [
+   0,
+   31
+  ],
+  "cliff_bot_b_00": [
+   1,
+   30
+  ],
+  "cliff_bot_b_01": [
+   1,
+   31
+  ],
+  "cliff_bot_c_00": [
+   2,
+   30
+  ],
+  "cliff_bot_c_01": [
+   2,
+   31
+  ],
+  "cliff_bot_d_00": [
+   3,
+   30
+  ],
+  "cliff_bot_d_01": [
+   3,
+   31
+  ],
+  "cliff_bot_e_00": [
+   4,
+   30
+  ],
+  "cliff_bot_e_01": [
+   4,
+   31
+  ],
+  "cliff_bot_f_00": [
+   5,
+   30
+  ],
+  "cliff_bot_f_01": [
+   5,
+   31
+  ],
+  "cliff_bot_g_00": [
+   6,
+   30
+  ],
+  "cliff_bot_g_01": [
+   6,
+   31
+  ],
+  "cliff_bot_h_00": [
+   7,
+   30
+  ],
+  "cliff_bot_h_01": [
+   7,
+   31
+  ],
+  "cliff_bot_a_l_00": [
+   0,
+   32
+  ],
+  "cliff_bot_a_l_01": [
+   0,
+   33
+  ],
+  "cliff_bot_b_l_00": [
+   1,
+   32
+  ],
+  "cliff_bot_b_l_01": [
+   1,
+   33
+  ],
+  "cliff_bot_c_l_00": [
+   2,
+   32
+  ],
+  "cliff_bot_c_l_01": [
+   2,
+   33
+  ],
+  "cliff_bot_d_l_00": [
+   3,
+   32
+  ],
+  "cliff_bot_d_l_01": [
+   3,
+   33
+  ],
+  "cliff_bot_e_l_00": [
+   4,
+   32
+  ],
+  "cliff_bot_e_l_01": [
+   4,
+   33
+  ],
+  "cliff_bot_f_l_00": [
+   5,
+   32
+  ],
+  "cliff_bot_f_l_01": [
+   5,
+   33
+  ],
+  "cliff_bot_g_l_00": [
+   6,
+   32
+  ],
+  "cliff_bot_g_l_01": [
+   6,
+   33
+  ],
+  "cliff_bot_h_l_00": [
+   7,
+   32
+  ],
+  "cliff_bot_h_l_01": [
+   7,
+   33
+  ],
+  "cliff_bot_a_r_00": [
+   0,
+   34
+  ],
+  "cliff_bot_a_r_01": [
+   0,
+   35
+  ],
+  "cliff_bot_b_r_00": [
+   1,
+   34
+  ],
+  "cliff_bot_b_r_01": [
+   1,
+   35
+  ],
+  "cliff_bot_c_r_00": [
+   2,
+   34
+  ],
+  "cliff_bot_c_r_01": [
+   2,
+   35
+  ],
+  "cliff_bot_d_r_00": [
+   3,
+   34
+  ],
+  "cliff_bot_d_r_01": [
+   3,
+   35
+  ],
+  "cliff_bot_e_r_00": [
+   4,
+   34
+  ],
+  "cliff_bot_e_r_01": [
+   4,
+   35
+  ],
+  "cliff_bot_f_r_00": [
+   5,
+   34
+  ],
+  "cliff_bot_f_r_01": [
+   5,
+   35
+  ],
+  "cliff_bot_g_r_00": [
+   6,
+   34
+  ],
+  "cliff_bot_g_r_01": [
+   6,
+   35
+  ],
+  "cliff_bot_h_r_00": [
+   7,
+   34
+  ],
+  "cliff_bot_h_r_01": [
+   7,
+   35
+  ],
+  "rim_n_rock": [
+   0,
+   36
+  ],
+  "rim_w_rock": [
+   1,
+   36
+  ],
+  "rim_e_rock": [
+   2,
+   36
+  ],
+  "rim_nw_rock": [
+   3,
+   36
+  ],
+  "rim_ne_rock": [
+   4,
+   36
+  ],
+  "rim_n_pave": [
+   5,
+   36
+  ],
+  "rim_w_pave": [
+   6,
+   36
+  ],
+  "rim_e_pave": [
+   7,
+   36
+  ],
+  "rim_nw_pave": [
+   8,
+   36
+  ],
+  "rim_ne_pave": [
+   9,
+   36
+  ],
+  "frost_a": [
+   0,
+   37
+  ],
+  "frost_b": [
+   1,
+   37
+  ],
+  "frost_c_00": [
+   2,
+   37
+  ],
+  "frost_c_10": [
+   3,
+   37
+  ],
+  "frost_d": [
+   4,
+   37
+  ],
+  "moss_a": [
+   5,
+   37
+  ],
+  "moss_b": [
+   6,
+   37
+  ],
+  "moss_c_00": [
+   7,
+   37
+  ],
+  "moss_c_10": [
+   8,
+   37
+  ],
+  "moss_joint": [
+   9,
+   37
+  ]
+ },
+ "groups": {
+  "course16": [
+   "course16_a",
+   "course16_b",
+   "course16_c",
+   "course16_d",
+   "course16_e",
+   "course16_f",
+   "course16_g",
+   "course16_h"
+  ],
+  "course32": [
+   "course32_a",
+   "course32_b",
+   "course32_c",
+   "course32_d",
+   "course32_e",
+   "course32_f"
+  ],
+  "rune_dim": [
+   "rune_0_dim",
+   "rune_1_dim",
+   "rune_2_dim",
+   "rune_3_dim",
+   "rune_4_dim",
+   "rune_5_dim"
+  ],
+  "rune_lit": [
+   "rune_0_lit",
+   "rune_1_lit",
+   "rune_2_lit",
+   "rune_3_lit",
+   "rune_4_lit",
+   "rune_5_lit"
+  ],
+  "seal": [
+   "seal_dim",
+   "seal_lit"
+  ],
+  "ground": [
+   "ground_a",
+   "ground_b",
+   "ground_c",
+   "ground_d",
+   "ground_e",
+   "ground_f"
+  ],
+  "ground_big": [
+   "ground_big_a",
+   "ground_big_b"
+  ],
+  "fg_0001": [
+   "fg_0001_a",
+   "fg_0001_b",
+   "fg_0001_c"
+  ],
+  "fg_0010": [
+   "fg_0010_a",
+   "fg_0010_b",
+   "fg_0010_c"
+  ],
+  "fg_0011": [
+   "fg_0011_a",
+   "fg_0011_b",
+   "fg_0011_c"
+  ],
+  "fg_0100": [
+   "fg_0100_a",
+   "fg_0100_b",
+   "fg_0100_c"
+  ],
+  "fg_0101": [
+   "fg_0101_a",
+   "fg_0101_b",
+   "fg_0101_c"
+  ],
+  "fg_0110": [
+   "fg_0110_a",
+   "fg_0110_b",
+   "fg_0110_c"
+  ],
+  "fg_0111": [
+   "fg_0111_a",
+   "fg_0111_b",
+   "fg_0111_c"
+  ],
+  "fg_1000": [
+   "fg_1000_a",
+   "fg_1000_b",
+   "fg_1000_c"
+  ],
+  "fg_1001": [
+   "fg_1001_a",
+   "fg_1001_b",
+   "fg_1001_c"
+  ],
+  "fg_1010": [
+   "fg_1010_a",
+   "fg_1010_b",
+   "fg_1010_c"
+  ],
+  "fg_1011": [
+   "fg_1011_a",
+   "fg_1011_b",
+   "fg_1011_c"
+  ],
+  "fg_1100": [
+   "fg_1100_a",
+   "fg_1100_b",
+   "fg_1100_c"
+  ],
+  "fg_1101": [
+   "fg_1101_a",
+   "fg_1101_b",
+   "fg_1101_c"
+  ],
+  "fg_1110": [
+   "fg_1110_a",
+   "fg_1110_b",
+   "fg_1110_c"
+  ],
+  "cliff_top": [
+   "cliff_top_a",
+   "cliff_top_b",
+   "cliff_top_c",
+   "cliff_top_d",
+   "cliff_top_e",
+   "cliff_top_f",
+   "cliff_top_g",
+   "cliff_top_h"
+  ],
+  "cliff_top_l": [
+   "cliff_top_a_l",
+   "cliff_top_b_l",
+   "cliff_top_c_l",
+   "cliff_top_d_l",
+   "cliff_top_e_l",
+   "cliff_top_f_l",
+   "cliff_top_g_l",
+   "cliff_top_h_l"
+  ],
+  "cliff_top_r": [
+   "cliff_top_a_r",
+   "cliff_top_b_r",
+   "cliff_top_c_r",
+   "cliff_top_d_r",
+   "cliff_top_e_r",
+   "cliff_top_f_r",
+   "cliff_top_g_r",
+   "cliff_top_h_r"
+  ],
+  "cliff_mid": [
+   "cliff_mid_a",
+   "cliff_mid_b",
+   "cliff_mid_c",
+   "cliff_mid_d",
+   "cliff_mid_e",
+   "cliff_mid_f",
+   "cliff_mid_g",
+   "cliff_mid_h"
+  ],
+  "cliff_mid_l": [
+   "cliff_mid_a_l",
+   "cliff_mid_b_l",
+   "cliff_mid_c_l",
+   "cliff_mid_d_l",
+   "cliff_mid_e_l",
+   "cliff_mid_f_l",
+   "cliff_mid_g_l",
+   "cliff_mid_h_l"
+  ],
+  "cliff_mid_r": [
+   "cliff_mid_a_r",
+   "cliff_mid_b_r",
+   "cliff_mid_c_r",
+   "cliff_mid_d_r",
+   "cliff_mid_e_r",
+   "cliff_mid_f_r",
+   "cliff_mid_g_r",
+   "cliff_mid_h_r"
+  ],
+  "wall_top": [
+   "wall_top_a",
+   "wall_top_b",
+   "wall_top_c",
+   "wall_top_d",
+   "wall_top_e",
+   "wall_top_f",
+   "wall_top_g",
+   "wall_top_h"
+  ],
+  "wall_top_l": [
+   "wall_top_a_l",
+   "wall_top_b_l",
+   "wall_top_c_l",
+   "wall_top_d_l",
+   "wall_top_e_l",
+   "wall_top_f_l",
+   "wall_top_g_l",
+   "wall_top_h_l"
+  ],
+  "wall_top_r": [
+   "wall_top_a_r",
+   "wall_top_b_r",
+   "wall_top_c_r",
+   "wall_top_d_r",
+   "wall_top_e_r",
+   "wall_top_f_r",
+   "wall_top_g_r",
+   "wall_top_h_r"
+  ],
+  "cliff_bot": [
+   "cliff_bot_a",
+   "cliff_bot_b",
+   "cliff_bot_c",
+   "cliff_bot_d",
+   "cliff_bot_e",
+   "cliff_bot_f",
+   "cliff_bot_g",
+   "cliff_bot_h"
+  ],
+  "cliff_bot_l": [
+   "cliff_bot_a_l",
+   "cliff_bot_b_l",
+   "cliff_bot_c_l",
+   "cliff_bot_d_l",
+   "cliff_bot_e_l",
+   "cliff_bot_f_l",
+   "cliff_bot_g_l",
+   "cliff_bot_h_l"
+  ],
+  "cliff_bot_r": [
+   "cliff_bot_a_r",
+   "cliff_bot_b_r",
+   "cliff_bot_c_r",
+   "cliff_bot_d_r",
+   "cliff_bot_e_r",
+   "cliff_bot_f_r",
+   "cliff_bot_g_r",
+   "cliff_bot_h_r"
+  ],
+  "rim": [
+   "rim_n_rock",
+   "rim_w_rock",
+   "rim_e_rock",
+   "rim_nw_rock",
+   "rim_ne_rock",
+   "rim_n_pave",
+   "rim_w_pave",
+   "rim_e_pave",
+   "rim_nw_pave",
+   "rim_ne_pave"
+  ],
+  "frost": [
+   "frost_a",
+   "frost_b",
+   "frost_c",
+   "frost_d"
+  ],
+  "moss": [
+   "moss_a",
+   "moss_b",
+   "moss_c",
+   "moss_joint"
+  ]
+ },
+ "blocks": {
+  "course16_a": {
+   "at": [
+    0,
+    0
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course16_b": {
+   "at": [
+    4,
+    0
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course16_c": {
+   "at": [
+    8,
+    0
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course16_d": {
+   "at": [
+    0,
+    1
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course16_e": {
+   "at": [
+    4,
+    1
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course16_f": {
+   "at": [
+    8,
+    1
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course16_g": {
+   "at": [
+    0,
+    2
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course16_h": {
+   "at": [
+    4,
+    2
+   ],
+   "size": [
+    4,
+    1
+   ]
+  },
+  "course32_a": {
+   "at": [
+    8,
+    2
+   ],
+   "size": [
+    4,
+    2
+   ]
+  },
+  "course32_b": {
+   "at": [
+    0,
+    4
+   ],
+   "size": [
+    4,
+    2
+   ]
+  },
+  "course32_c": {
+   "at": [
+    4,
+    4
+   ],
+   "size": [
+    4,
+    2
+   ]
+  },
+  "course32_d": {
+   "at": [
+    8,
+    4
+   ],
+   "size": [
+    4,
+    2
+   ]
+  },
+  "course32_e": {
+   "at": [
+    0,
+    6
+   ],
+   "size": [
+    4,
+    2
+   ]
+  },
+  "course32_f": {
+   "at": [
+    4,
+    6
+   ],
+   "size": [
+    4,
+    2
+   ]
+  },
+  "seal_dim": {
+   "at": [
+    0,
+    9
+   ],
+   "size": [
+    6,
+    6
+   ]
+  },
+  "seal_lit": {
+   "at": [
+    6,
+    9
+   ],
+   "size": [
+    6,
+    6
+   ]
+  },
+  "ground_big_a": {
+   "at": [
+    6,
+    15
+   ],
+   "size": [
+    2,
+    2
+   ]
+  },
+  "ground_big_b": {
+   "at": [
+    8,
+    15
+   ],
+   "size": [
+    2,
+    2
+   ]
+  },
+  "cliff_bot_a": {
+   "at": [
+    0,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_b": {
+   "at": [
+    1,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_c": {
+   "at": [
+    2,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_d": {
+   "at": [
+    3,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_e": {
+   "at": [
+    4,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_f": {
+   "at": [
+    5,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_g": {
+   "at": [
+    6,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_h": {
+   "at": [
+    7,
+    30
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_a_l": {
+   "at": [
+    0,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_b_l": {
+   "at": [
+    1,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_c_l": {
+   "at": [
+    2,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_d_l": {
+   "at": [
+    3,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_e_l": {
+   "at": [
+    4,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_f_l": {
+   "at": [
+    5,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_g_l": {
+   "at": [
+    6,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_h_l": {
+   "at": [
+    7,
+    32
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_a_r": {
+   "at": [
+    0,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_b_r": {
+   "at": [
+    1,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_c_r": {
+   "at": [
+    2,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_d_r": {
+   "at": [
+    3,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_e_r": {
+   "at": [
+    4,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_f_r": {
+   "at": [
+    5,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_g_r": {
+   "at": [
+    6,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "cliff_bot_h_r": {
+   "at": [
+    7,
+    34
+   ],
+   "size": [
+    1,
+    2
+   ]
+  },
+  "frost_c": {
+   "at": [
+    2,
+    37
+   ],
+   "size": [
+    2,
+    1
+   ]
+  },
+  "moss_c": {
+   "at": [
+    7,
+    37
+   ],
+   "size": [
+    2,
+    1
+   ]
+  }
+ },
+ "notes": "The Long Quiet v2. Authored by tools/summit/style_v2.py; regions.warden only. Dormant distributor carving is non-emissive; iris pixels appear only in explicit lit-event tiles. Coordinates, tile names and block dimensions retained."
+}

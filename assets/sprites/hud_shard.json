@@ -1,0 +1,33 @@
+{
+ "cell": [
+  10,
+  14
+ ],
+ "anchor": [
+  1,
+  2
+ ],
+ "emissive": [],
+ "anims": {
+  "idle": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1
+  },
+  "pop": {
+   "row": 1,
+   "frames": 3,
+   "fps": 15,
+   "durations": [
+    3,
+    3,
+    4
+   ]
+  }
+ },
+ "icon_size": [
+  6,
+  10
+ ],
+ "notes": "Style v2 Prism shard counter icon: a 6x10 fractured fragment in the fx.prism iris ramp with one cyan lit facet, outlined in deep iris #38324a, matching shard.png. Anchor = icon top-left. The count follows in font_small, bone #dce0ce. Play 'pop' when the count goes up (bone flash, hop up 2 px, settle). UI layer, unlit, no glow."
+}

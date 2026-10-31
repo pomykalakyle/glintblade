@@ -1,0 +1,2449 @@
+{
+ "cell": [
+  48,
+  48
+ ],
+ "anchor": [
+  24,
+  33
+ ],
+ "emissive": [
+  "#63d7e0",
+  "#71d5db",
+  "#baf5ec",
+  "#edf9ef"
+ ],
+ "anims": {
+  "idle_down": {
+   "row": 0,
+   "frames": 8,
+   "fps": 7.27,
+   "durations": [
+    14,
+    4,
+    4,
+    4,
+    8,
+    16,
+    6,
+    10
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     24,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     12,
+     38
+    ],
+    [
+     12,
+     38
+    ],
+    [
+     12,
+     38
+    ],
+    [
+     12,
+     38
+    ],
+    [
+     12,
+     39
+    ],
+    [
+     12,
+     39
+    ],
+    [
+     12,
+     39
+    ],
+    [
+     12,
+     38
+    ]
+   ]
+  },
+  "idle_right": {
+   "row": 1,
+   "frames": 8,
+   "fps": 7.27,
+   "durations": [
+    14,
+    4,
+    4,
+    4,
+    8,
+    16,
+    6,
+    10
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     18,
+     25
+    ],
+    [
+     18,
+     25
+    ],
+    [
+     18,
+     25
+    ],
+    [
+     18,
+     25
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     36,
+     36
+    ],
+    [
+     36,
+     36
+    ],
+    [
+     36,
+     36
+    ],
+    [
+     36,
+     36
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     36
+    ]
+   ]
+  },
+  "idle_up": {
+   "row": 2,
+   "frames": 8,
+   "fps": 7.27,
+   "durations": [
+    14,
+    4,
+    4,
+    4,
+    8,
+    16,
+    6,
+    10
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     24,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     38
+    ],
+    [
+     36,
+     38
+    ],
+    [
+     36,
+     38
+    ],
+    [
+     36,
+     37
+    ]
+   ]
+  },
+  "idle_left": {
+   "row": 3,
+   "frames": 8,
+   "fps": 7.27,
+   "durations": [
+    14,
+    4,
+    4,
+    4,
+    8,
+    16,
+    6,
+    10
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     30,
+     25
+    ],
+    [
+     30,
+     25
+    ],
+    [
+     30,
+     25
+    ],
+    [
+     30,
+     25
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     12,
+     36
+    ],
+    [
+     12,
+     36
+    ],
+    [
+     12,
+     36
+    ],
+    [
+     12,
+     36
+    ],
+    [
+     12,
+     37
+    ],
+    [
+     12,
+     37
+    ],
+    [
+     12,
+     37
+    ],
+    [
+     12,
+     36
+    ]
+   ]
+  },
+  "run_down": {
+   "row": 4,
+   "frames": 8,
+   "fps": 15.0,
+   "durations": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     24,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     24,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     12,
+     39
+    ],
+    [
+     12,
+     40
+    ],
+    [
+     12,
+     38
+    ],
+    [
+     8,
+     35
+    ],
+    [
+     8,
+     36
+    ],
+    [
+     8,
+     37
+    ],
+    [
+     12,
+     38
+    ],
+    [
+     12,
+     38
+    ]
+   ]
+  },
+  "run_right": {
+   "row": 5,
+   "frames": 8,
+   "fps": 15.0,
+   "durations": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     20,
+     25
+    ],
+    [
+     20,
+     26
+    ],
+    [
+     20,
+     25
+    ],
+    [
+     20,
+     24
+    ],
+    [
+     20,
+     25
+    ],
+    [
+     20,
+     26
+    ],
+    [
+     20,
+     25
+    ],
+    [
+     20,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     38,
+     32
+    ],
+    [
+     38,
+     33
+    ],
+    [
+     38,
+     36
+    ],
+    [
+     39,
+     35
+    ],
+    [
+     39,
+     36
+    ],
+    [
+     39,
+     37
+    ],
+    [
+     38,
+     36
+    ],
+    [
+     38,
+     31
+    ]
+   ]
+  },
+  "run_up": {
+   "row": 6,
+   "frames": 8,
+   "fps": 15.0,
+   "durations": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     24,
+     24
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     24,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     36,
+     38
+    ],
+    [
+     36,
+     39
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     40,
+     34
+    ],
+    [
+     40,
+     35
+    ],
+    [
+     40,
+     36
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     36,
+     37
+    ]
+   ]
+  },
+  "run_left": {
+   "row": 7,
+   "frames": 8,
+   "fps": 15.0,
+   "durations": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     28,
+     25
+    ],
+    [
+     28,
+     26
+    ],
+    [
+     28,
+     25
+    ],
+    [
+     28,
+     24
+    ],
+    [
+     28,
+     25
+    ],
+    [
+     28,
+     26
+    ],
+    [
+     28,
+     25
+    ],
+    [
+     28,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     10,
+     32
+    ],
+    [
+     10,
+     33
+    ],
+    [
+     10,
+     36
+    ],
+    [
+     9,
+     35
+    ],
+    [
+     9,
+     36
+    ],
+    [
+     9,
+     37
+    ],
+    [
+     10,
+     36
+    ],
+    [
+     10,
+     31
+    ]
+   ]
+  },
+  "attack1_down": {
+   "row": 8,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     25,
+     24
+    ],
+    [
+     23,
+     26
+    ],
+    [
+     21,
+     25
+    ],
+    [
+     21,
+     25
+    ],
+    [
+     23,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     39,
+     14
+    ],
+    [
+     10,
+     41
+    ],
+    [
+     6,
+     35
+    ],
+    [
+     5,
+     29
+    ],
+    [
+     8,
+     37
+    ]
+   ]
+  },
+  "attack1_right": {
+   "row": 9,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     16,
+     25
+    ],
+    [
+     21,
+     25
+    ],
+    [
+     22,
+     26
+    ],
+    [
+     21,
+     26
+    ],
+    [
+     19,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     20,
+     10
+    ],
+    [
+     44,
+     36
+    ],
+    [
+     38,
+     38
+    ],
+    [
+     32,
+     39
+    ],
+    [
+     37,
+     36
+    ]
+   ]
+  },
+  "attack1_up": {
+   "row": 10,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     21,
+     24
+    ],
+    [
+     24,
+     23
+    ],
+    [
+     25,
+     23
+    ],
+    [
+     25,
+     25
+    ],
+    [
+     23,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     8,
+     20
+    ],
+    [
+     40,
+     10
+    ],
+    [
+     43,
+     18
+    ],
+    [
+     43,
+     26
+    ],
+    [
+     40,
+     36
+    ]
+   ]
+  },
+  "attack1_left": {
+   "row": 11,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     32,
+     25
+    ],
+    [
+     27,
+     25
+    ],
+    [
+     26,
+     26
+    ],
+    [
+     27,
+     26
+    ],
+    [
+     29,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     28,
+     10
+    ],
+    [
+     4,
+     36
+    ],
+    [
+     10,
+     38
+    ],
+    [
+     16,
+     39
+    ],
+    [
+     11,
+     36
+    ]
+   ]
+  },
+  "attack2_down": {
+   "row": 12,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     21,
+     24
+    ],
+    [
+     25,
+     26
+    ],
+    [
+     25,
+     25
+    ],
+    [
+     25,
+     25
+    ],
+    [
+     23,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     7,
+     22
+    ],
+    [
+     39,
+     41
+    ],
+    [
+     42,
+     34
+    ],
+    [
+     43,
+     27
+    ],
+    [
+     33,
+     38
+    ]
+   ]
+  },
+  "attack2_right": {
+   "row": 13,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     17,
+     26
+    ],
+    [
+     21,
+     25
+    ],
+    [
+     21,
+     24
+    ],
+    [
+     20,
+     24
+    ],
+    [
+     19,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     19,
+     38
+    ],
+    [
+     43,
+     12
+    ],
+    [
+     36,
+     10
+    ],
+    [
+     29,
+     9
+    ],
+    [
+     37,
+     36
+    ]
+   ]
+  },
+  "attack2_up": {
+   "row": 14,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     25,
+     24
+    ],
+    [
+     22,
+     23
+    ],
+    [
+     21,
+     23
+    ],
+    [
+     21,
+     25
+    ],
+    [
+     23,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     41,
+     20
+    ],
+    [
+     8,
+     10
+    ],
+    [
+     5,
+     18
+    ],
+    [
+     5,
+     26
+    ],
+    [
+     10,
+     36
+    ]
+   ]
+  },
+  "attack2_left": {
+   "row": 15,
+   "frames": 5,
+   "fps": 17.65,
+   "durations": [
+    3,
+    2,
+    3,
+    4,
+    5
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     31,
+     26
+    ],
+    [
+     27,
+     25
+    ],
+    [
+     27,
+     24
+    ],
+    [
+     28,
+     24
+    ],
+    [
+     29,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     29,
+     38
+    ],
+    [
+     5,
+     12
+    ],
+    [
+     12,
+     10
+    ],
+    [
+     19,
+     9
+    ],
+    [
+     11,
+     36
+    ]
+   ]
+  },
+  "attack3_down": {
+   "row": 16,
+   "frames": 6,
+   "fps": 15.0,
+   "durations": [
+    3,
+    2,
+    2,
+    3,
+    6,
+    8
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     25,
+     26
+    ],
+    [
+     23,
+     21
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     22,
+     27
+    ],
+    [
+     21,
+     26
+    ],
+    [
+     23,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     42,
+     27
+    ],
+    [
+     33,
+     10
+    ],
+    [
+     10,
+     43
+    ],
+    [
+     6,
+     37
+    ],
+    [
+     4,
+     29
+    ],
+    [
+     8,
+     37
+    ]
+   ]
+  },
+  "attack3_right": {
+   "row": 17,
+   "frames": 6,
+   "fps": 15.0,
+   "durations": [
+    3,
+    2,
+    2,
+    3,
+    6,
+    8
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     16,
+     27
+    ],
+    [
+     18,
+     22
+    ],
+    [
+     21,
+     24
+    ],
+    [
+     23,
+     27
+    ],
+    [
+     22,
+     27
+    ],
+    [
+     19,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     9,
+     33
+    ],
+    [
+     21,
+     7
+    ],
+    [
+     45,
+     35
+    ],
+    [
+     40,
+     40
+    ],
+    [
+     33,
+     41
+    ],
+    [
+     37,
+     36
+    ]
+   ]
+  },
+  "attack3_up": {
+   "row": 18,
+   "frames": 6,
+   "fps": 15.0,
+   "durations": [
+    3,
+    2,
+    2,
+    3,
+    6,
+    8
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     21,
+     26
+    ],
+    [
+     23,
+     21
+    ],
+    [
+     24,
+     22
+    ],
+    [
+     25,
+     26
+    ],
+    [
+     25,
+     26
+    ],
+    [
+     23,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     8,
+     32
+    ],
+    [
+     11,
+     11
+    ],
+    [
+     41,
+     8
+    ],
+    [
+     45,
+     25
+    ],
+    [
+     44,
+     32
+    ],
+    [
+     39,
+     36
+    ]
+   ]
+  },
+  "attack3_left": {
+   "row": 19,
+   "frames": 6,
+   "fps": 15.0,
+   "durations": [
+    3,
+    2,
+    2,
+    3,
+    6,
+    8
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     32,
+     27
+    ],
+    [
+     30,
+     22
+    ],
+    [
+     27,
+     24
+    ],
+    [
+     25,
+     27
+    ],
+    [
+     26,
+     27
+    ],
+    [
+     29,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     39,
+     33
+    ],
+    [
+     27,
+     7
+    ],
+    [
+     3,
+     35
+    ],
+    [
+     8,
+     40
+    ],
+    [
+     15,
+     41
+    ],
+    [
+     11,
+     36
+    ]
+   ]
+  },
+  "dash_down": {
+   "row": 20,
+   "frames": 3,
+   "fps": 18.0,
+   "durations": [
+    4,
+    3,
+    3
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     25,
+     27
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     27
+    ]
+   ],
+   "blade_tip": [
+    [
+     7,
+     14
+    ],
+    [
+     11,
+     12
+    ],
+    [
+     8,
+     38
+    ]
+   ]
+  },
+  "dash_right": {
+   "row": 21,
+   "frames": 3,
+   "fps": 18.0,
+   "durations": [
+    4,
+    3,
+    3
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     19,
+     27
+    ],
+    [
+     21,
+     26
+    ],
+    [
+     17,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     13,
+     24
+    ],
+    [
+     12,
+     27
+    ],
+    [
+     35,
+     40
+    ]
+   ]
+  },
+  "dash_up": {
+   "row": 22,
+   "frames": 3,
+   "fps": 18.0,
+   "durations": [
+    4,
+    3,
+    3
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     24,
+     26
+    ],
+    [
+     24,
+     23
+    ],
+    [
+     22,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     32,
+     39
+    ],
+    [
+     37,
+     38
+    ],
+    [
+     36,
+     38
+    ]
+   ]
+  },
+  "dash_left": {
+   "row": 23,
+   "frames": 3,
+   "fps": 18.0,
+   "durations": [
+    4,
+    3,
+    3
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     29,
+     27
+    ],
+    [
+     27,
+     26
+    ],
+    [
+     31,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     35,
+     24
+    ],
+    [
+     36,
+     27
+    ],
+    [
+     13,
+     40
+    ]
+   ]
+  },
+  "charge_down": {
+   "row": 24,
+   "frames": 4,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     17
+    ]
+   ]
+  },
+  "charge_right": {
+   "row": 25,
+   "frames": 4,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     17
+    ]
+   ]
+  },
+  "charge_up": {
+   "row": 26,
+   "frames": 4,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     17
+    ]
+   ]
+  },
+  "charge_left": {
+   "row": 27,
+   "frames": 4,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     17
+    ]
+   ]
+  },
+  "hurt_down": {
+   "row": 28,
+   "frames": 3,
+   "fps": 12.0,
+   "durations": [
+    4,
+    5,
+    6
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     23,
+     23
+    ],
+    [
+     24,
+     26
+    ],
+    [
+     23,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     7,
+     16
+    ],
+    [
+     12,
+     39
+    ],
+    [
+     12,
+     38
+    ]
+   ]
+  },
+  "hurt_right": {
+   "row": 29,
+   "frames": 3,
+   "fps": 12.0,
+   "durations": [
+    4,
+    5,
+    6
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     16,
+     25
+    ],
+    [
+     17,
+     26
+    ],
+    [
+     18,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     33,
+     14
+    ],
+    [
+     32,
+     39
+    ],
+    [
+     36,
+     36
+    ]
+   ]
+  },
+  "hurt_up": {
+   "row": 30,
+   "frames": 3,
+   "fps": 12.0,
+   "durations": [
+    4,
+    5,
+    6
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     24,
+     25
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     23,
+     24
+    ]
+   ],
+   "blade_tip": [
+    [
+     41,
+     16
+    ],
+    [
+     36,
+     39
+    ],
+    [
+     36,
+     37
+    ]
+   ]
+  },
+  "hurt_left": {
+   "row": 31,
+   "frames": 3,
+   "fps": 12.0,
+   "durations": [
+    4,
+    5,
+    6
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     32,
+     25
+    ],
+    [
+     31,
+     26
+    ],
+    [
+     30,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     15,
+     14
+    ],
+    [
+     16,
+     39
+    ],
+    [
+     12,
+     36
+    ]
+   ]
+  },
+  "spin": {
+   "row": 32,
+   "frames": 8,
+   "fps": 20.0,
+   "durations": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    10
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     23,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     24,
+     42
+    ],
+    [
+     8,
+     41
+    ],
+    [
+     10,
+     27
+    ],
+    [
+     8,
+     12
+    ],
+    [
+     24,
+     10
+    ],
+    [
+     40,
+     12
+    ],
+    [
+     41,
+     27
+    ],
+    [
+     39,
+     40
+    ]
+   ]
+  },
+  "death": {
+   "row": 33,
+   "frames": 5,
+   "fps": 4.69,
+   "durations": [
+    6,
+    6,
+    10,
+    12,
+    30
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     23,
+     23
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     24,
+     29
+    ],
+    [
+     23,
+     30
+    ],
+    [
+     24,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     11,
+     15
+    ],
+    [
+     8,
+     38
+    ],
+    [
+     18,
+     38
+    ],
+    [
+     9,
+     40
+    ],
+    [
+     8,
+     32
+    ]
+   ]
+  },
+  "death_left": {
+   "row": 34,
+   "frames": 5,
+   "fps": 4.69,
+   "durations": [
+    6,
+    6,
+    10,
+    12,
+    30
+   ],
+   "loop": false,
+   "scarf_anchor": [
+    [
+     23,
+     23
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     24,
+     29
+    ],
+    [
+     23,
+     30
+    ],
+    [
+     24,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     11,
+     15
+    ],
+    [
+     8,
+     38
+    ],
+    [
+     18,
+     38
+    ],
+    [
+     9,
+     40
+    ],
+    [
+     8,
+     32
+    ]
+   ]
+  },
+  "charge_walk_down": {
+   "row": 35,
+   "frames": 8,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     16
+    ],
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     17
+    ],
+    [
+     16,
+     16
+    ],
+    [
+     16,
+     17
+    ]
+   ]
+  },
+  "charge_walk_right": {
+   "row": 36,
+   "frames": 8,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     25
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     26
+    ],
+    [
+     18,
+     25
+    ],
+    [
+     18,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     16
+    ],
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     17
+    ],
+    [
+     34,
+     16
+    ],
+    [
+     34,
+     17
+    ]
+   ]
+  },
+  "charge_walk_up": {
+   "row": 37,
+   "frames": 8,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     23,
+     25
+    ]
+   ],
+   "blade_tip": [
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     16
+    ],
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     17
+    ],
+    [
+     32,
+     16
+    ],
+    [
+     32,
+     17
+    ]
+   ]
+  },
+  "charge_walk_left": {
+   "row": 38,
+   "frames": 8,
+   "fps": 12.0,
+   "durations": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "loop": true,
+   "scarf_anchor": [
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     25
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     26
+    ],
+    [
+     30,
+     25
+    ],
+    [
+     30,
+     26
+    ]
+   ],
+   "blade_tip": [
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     16
+    ],
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     17
+    ],
+    [
+     14,
+     16
+    ],
+    [
+     14,
+     17
+    ]
+   ]
+  }
+ },
+ "notes": "Glint, by the hero pixel artist (hand-authored grids + a code rig, every pixel on the native grid; source in tools/hero/). The Long Quiet hero palette from assets/concept/palettes_v2.json; 16 colors. The two deepest cloak shades share the v2 shadow. Craft polish (2026-10-31): combo keys coil the shoulders over forward hips on the windup (side view hides the chest band), then counter-rotate through the strike with the rear boot planted and the lead boot stepping wide, and the hem swings through on recovery; timing, rows, cells and anchor unchanged, blade_tip/scarf_anchor regenerated from the art. Design: big hood with a shadow face and two cyan eyes, scarf knot at the throat, an A-line cloak ending above the knees with a front split, dark legs and boots planted apart, the sword hand held off the cloak with a sleeve. The crystal blade has the same construction in all 16 directions: white ridge, cyan lit face toward the upper-left light, deep-cyan shadow face, one white facet, 1 px point. Emissive = eyes (#71d5db, #edf9ef when flaring) and the blade's ridge, lit face and point (#63d7e0, #baf5ec, #edf9ef); the shadow face #429aa9 is deliberately not emissive, so the glow stays a hard-edged on-grid shape. The scarf tail and slash smears are left to the engine: scarf_anchor is the knot (per frame), blade_tip the blade's tip pixel (per frame), both in cell pixels. Durations are 60 Hz ticks matched to player.rs: attack1/2 = 17 ticks (hits on 3-8), attack3 = 24 (hits on 5-11), dash = 10, hurt = 15, spin = 24. Dash frame 0 is the streak pose the engine copies for afterimages; death frame 0 is the full silhouette the engine shatters into pixels (the rest is a kneel-and-collapse for an engine that plays it out). Smear direction: facing right the blade sweeps top->bottom on attack1/3 and bottom->top on attack2, matching draw_slash. Every directional anim has a _left variant: the right-facing pose mirrored and re-shaded for upper-left light, with the blade drawn natively at the mirrored hand, and scarf_anchor/blade_tip mirrored to match. death_left is an unflipped copy of the front-view death. spin is directionless and must not be flipped (drawn turning clockwise from facing down; its left-facing step is relit). Silent before/after in-engine captures and exact geometry audit: tools/hero/style_v2.py. Locomotion pass (2026-10-31): the dash keys are a coiled launch, a long extension and a planted recovery (rows, counts, durations and anchor unchanged; afterimages copy whichever dash key is live). charge_walk_{down,right,up,left} are appended after death_left: the held charge upper body (same grip, blade and 20-tick pulse) over an 8-key stepping cycle of 5 ticks, for player.rs's existing charge_walk request. Gait pass (2026-10-31, round 11): run_right/run_left hold a forward lean (hood 1 px and chest 1 px further ahead of the hips) with the hem trailing on the landing keys and following through on the pass and push-off keys; idle breath overlaps (shoulders and sword hand lead on keys 4 and 7, the hood follows one key later). Rows, counts, durations, loop flags, anchor and every other cell unchanged."
+}

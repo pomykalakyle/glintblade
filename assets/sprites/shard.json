@@ -1,0 +1,42 @@
+{
+ "cell": [
+  16,
+  24
+ ],
+ "anchor": [
+  8,
+  22
+ ],
+ "emissive": [
+  "#63d7e0",
+  "#e2d8e9"
+ ],
+ "anims": {
+  "spin": {
+   "row": 0,
+   "frames": 8,
+   "fps": 8,
+   "light": {
+    "color": "#63d7e0",
+    "radius": 24,
+    "intensity": 0.5,
+    "offset": [
+     0,
+     -10
+    ]
+   }
+  },
+  "pickup": {
+   "row": 1,
+   "frames": 4,
+   "fps": 20,
+   "durations": [
+    3,
+    3,
+    3,
+    4
+   ]
+  }
+ },
+ "notes": "Prism shard, style v2: a broken fragment (fractured right side) spinning 45 degrees per frame, iris body (fx.prism) with a cyan lit facet, deep iris #38324a outline. Floats about 10 px above its anchor with a 1 px bob; draw a small soft shadow at the anchor. pickup plays once: pale flash, the edge-on sliver, a thin ring, a broken ring. Only the cyan facet and the pale flash glow."
+}

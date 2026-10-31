@@ -1,0 +1,50 @@
+{
+ "cell": [
+  24,
+  40
+ ],
+ "anchor": [
+  12,
+  37
+ ],
+ "emissive": [
+  "#ded5ba",
+  "#ded5ba"
+ ],
+ "anims": {
+  "unlit": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    12,
+    5
+   ]
+  },
+  "lit": {
+   "row": 1,
+   "frames": 4,
+   "fps": 8,
+   "durations": [
+    9,
+    7,
+    8,
+    6
+   ],
+   "footprint": [
+    12,
+    5
+   ],
+   "light": {
+    "color": "#ded5ba",
+    "radius": 36,
+    "intensity": 0.6,
+    "offset": [
+     0,
+     -21
+    ]
+   }
+  }
+ },
+ "notes": "Stone lantern, ~33 px tall. Use 'unlit' by default (Bloomwild is daylight); 'lit' only where a lit lantern makes sense (a shrine, a shaded spot), sparingly. The flame is the only emissive part."
+}

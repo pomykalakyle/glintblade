@@ -1,0 +1,32 @@
+{
+ "cell": [
+  12,
+  12
+ ],
+ "anchor": [
+  6,
+  6
+ ],
+ "emissive": [
+  "#796c91",
+  "#a195b8",
+  "#cdc3db",
+  "#e2d8e9"
+ ],
+ "anims": {
+  "fly": {
+   "row": 0,
+   "frames": 4,
+   "durations": [
+    4,
+    4,
+    4,
+    4
+   ],
+   "fps": 15.0,
+   "loop": true
+  }
+ },
+ "colors_used": 5,
+ "notes": "Wisp bolt: a small pale iris fireball (about 7x8) with a chalk-bright core whose flame tip licks upward and flickers side to side. Direction-free: projectiles.rs moves it, adds its light and trail. Anchor = center of the ball."
+}

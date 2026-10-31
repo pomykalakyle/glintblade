@@ -1,0 +1,22 @@
+{
+ "cell": [
+  64,
+  128
+ ],
+ "anchor": [
+  32,
+  125
+ ],
+ "anims": {
+  "fin": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    12,
+    6
+   ]
+  }
+ },
+ "notes": "109px surviving distributor fin at the entrance. Replaces one arch_post at the same world point with the same 12x6 footprint; the low connecting channel uses the original arch_span."
+}

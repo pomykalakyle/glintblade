@@ -1,0 +1,37 @@
+{
+ "cell": [16, 16],
+ "anchor": [8, 8],
+ "anims": {
+  "ground_ash": {
+   "row": 0,
+   "frames": 3,
+   "fps": 1
+  },
+  "crack": {
+   "row": 1,
+   "frames": 3,
+   "fps": 1
+  },
+  "ash_drift": {
+   "row": 2,
+   "frames": 2,
+   "fps": 1
+  },
+  "scorch": {
+   "row": 3,
+   "frames": 1,
+   "fps": 1
+  },
+  "bone_bits": {
+   "row": 4,
+   "frames": 1,
+   "fps": 1
+  },
+  "pebbles": {
+   "row": 5,
+   "frames": 1,
+   "fps": 1
+  }
+ },
+ "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. Row 0: three ash ground fills (base #363340) that tile seamlessly in any mix. Other rows are transparent decals for the code-painted ground: no outlines, place them anywhere on ash. Lava banks and cliffs are painted in code by the region builder, so there are no bank tiles. Multi-frame rows are variants to pick from, not animations."
+}

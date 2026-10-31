@@ -1,0 +1,24 @@
+{
+ "cell": [
+  1,
+  3
+ ],
+ "anchor": [
+  0,
+  0
+ ],
+ "emissive": [],
+ "anims": {
+  "fill": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1
+  }
+ },
+ "columns": {
+  "fill": 0,
+  "chip": 1,
+  "flash": 2
+ },
+ "notes": "1 px wide fill columns for hud_bossbar's fill_rect; repeat a column horizontally."
+}

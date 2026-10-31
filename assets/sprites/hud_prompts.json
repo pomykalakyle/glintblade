@@ -1,0 +1,619 @@
+{
+ "cell": [
+  29,
+  13
+ ],
+ "anchor": [
+  0,
+  12
+ ],
+ "emissive": [],
+ "anims": {
+  "key_a": {
+   "row": 0,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_b": {
+   "row": 1,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_c": {
+   "row": 2,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_d": {
+   "row": 3,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_e": {
+   "row": 4,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_f": {
+   "row": 5,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_g": {
+   "row": 6,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_h": {
+   "row": 7,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_i": {
+   "row": 8,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_j": {
+   "row": 9,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_k": {
+   "row": 10,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_l": {
+   "row": 11,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_m": {
+   "row": 12,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_n": {
+   "row": 13,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_o": {
+   "row": 14,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_p": {
+   "row": 15,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_q": {
+   "row": 16,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_r": {
+   "row": 17,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_s": {
+   "row": 18,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_t": {
+   "row": 19,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_u": {
+   "row": 20,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_v": {
+   "row": 21,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_w": {
+   "row": 22,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_x": {
+   "row": 23,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_y": {
+   "row": 24,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_z": {
+   "row": 25,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_0": {
+   "row": 26,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_1": {
+   "row": 27,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_2": {
+   "row": 28,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_3": {
+   "row": 29,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_4": {
+   "row": 30,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_5": {
+   "row": 31,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_6": {
+   "row": 32,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_7": {
+   "row": 33,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_8": {
+   "row": 34,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_9": {
+   "row": 35,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_up": {
+   "row": 36,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_down": {
+   "row": 37,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_left": {
+   "row": 38,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_right": {
+   "row": 39,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_space": {
+   "row": 40,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_enter": {
+   "row": 41,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_shift": {
+   "row": 42,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_esc": {
+   "row": 43,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_tab": {
+   "row": 44,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_blank": {
+   "row": 45,
+   "frames": 2,
+   "fps": 4
+  },
+  "key_blank_wide": {
+   "row": 46,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_a": {
+   "row": 47,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_b": {
+   "row": 48,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_x": {
+   "row": 49,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_y": {
+   "row": 50,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_south": {
+   "row": 51,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_east": {
+   "row": 52,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_west": {
+   "row": 53,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_north": {
+   "row": 54,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_lb": {
+   "row": 55,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_rb": {
+   "row": 56,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_lt": {
+   "row": 57,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_rt": {
+   "row": 58,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_dpad": {
+   "row": 59,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_dpad_up": {
+   "row": 60,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_dpad_down": {
+   "row": 61,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_dpad_left": {
+   "row": 62,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_dpad_right": {
+   "row": 63,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_lstick": {
+   "row": 64,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_rstick": {
+   "row": 65,
+   "frames": 2,
+   "fps": 4
+  },
+  "pad_menu": {
+   "row": 66,
+   "frames": 2,
+   "fps": 4
+  }
+ },
+ "sizes": {
+  "key_a": [
+   12,
+   11
+  ],
+  "key_b": [
+   12,
+   11
+  ],
+  "key_c": [
+   12,
+   11
+  ],
+  "key_d": [
+   12,
+   11
+  ],
+  "key_e": [
+   11,
+   11
+  ],
+  "key_f": [
+   11,
+   11
+  ],
+  "key_g": [
+   12,
+   11
+  ],
+  "key_h": [
+   12,
+   11
+  ],
+  "key_i": [
+   11,
+   11
+  ],
+  "key_j": [
+   11,
+   11
+  ],
+  "key_k": [
+   12,
+   11
+  ],
+  "key_l": [
+   11,
+   11
+  ],
+  "key_m": [
+   11,
+   11
+  ],
+  "key_n": [
+   12,
+   11
+  ],
+  "key_o": [
+   12,
+   11
+  ],
+  "key_p": [
+   12,
+   11
+  ],
+  "key_q": [
+   12,
+   11
+  ],
+  "key_r": [
+   12,
+   11
+  ],
+  "key_s": [
+   12,
+   11
+  ],
+  "key_t": [
+   11,
+   11
+  ],
+  "key_u": [
+   12,
+   11
+  ],
+  "key_v": [
+   11,
+   11
+  ],
+  "key_w": [
+   11,
+   11
+  ],
+  "key_x": [
+   11,
+   11
+  ],
+  "key_y": [
+   11,
+   11
+  ],
+  "key_z": [
+   11,
+   11
+  ],
+  "key_0": [
+   11,
+   11
+  ],
+  "key_1": [
+   11,
+   11
+  ],
+  "key_2": [
+   11,
+   11
+  ],
+  "key_3": [
+   11,
+   11
+  ],
+  "key_4": [
+   11,
+   11
+  ],
+  "key_5": [
+   11,
+   11
+  ],
+  "key_6": [
+   11,
+   11
+  ],
+  "key_7": [
+   11,
+   11
+  ],
+  "key_8": [
+   11,
+   11
+  ],
+  "key_9": [
+   11,
+   11
+  ],
+  "key_up": [
+   11,
+   11
+  ],
+  "key_down": [
+   11,
+   11
+  ],
+  "key_left": [
+   11,
+   11
+  ],
+  "key_right": [
+   11,
+   11
+  ],
+  "key_space": [
+   29,
+   11
+  ],
+  "key_enter": [
+   27,
+   11
+  ],
+  "key_shift": [
+   27,
+   11
+  ],
+  "key_esc": [
+   19,
+   11
+  ],
+  "key_tab": [
+   19,
+   11
+  ],
+  "key_blank": [
+   11,
+   11
+  ],
+  "key_blank_wide": [
+   17,
+   11
+  ],
+  "pad_a": [
+   11,
+   13
+  ],
+  "pad_b": [
+   11,
+   13
+  ],
+  "pad_x": [
+   11,
+   13
+  ],
+  "pad_y": [
+   11,
+   13
+  ],
+  "pad_south": [
+   10,
+   11
+  ],
+  "pad_east": [
+   10,
+   11
+  ],
+  "pad_west": [
+   10,
+   11
+  ],
+  "pad_north": [
+   10,
+   11
+  ],
+  "pad_lb": [
+   14,
+   11
+  ],
+  "pad_rb": [
+   15,
+   11
+  ],
+  "pad_lt": [
+   13,
+   12
+  ],
+  "pad_rt": [
+   14,
+   12
+  ],
+  "pad_dpad": [
+   11,
+   13
+  ],
+  "pad_dpad_up": [
+   11,
+   13
+  ],
+  "pad_dpad_down": [
+   11,
+   13
+  ],
+  "pad_dpad_left": [
+   11,
+   13
+  ],
+  "pad_dpad_right": [
+   11,
+   13
+  ],
+  "pad_lstick": [
+   11,
+   13
+  ],
+  "pad_rstick": [
+   11,
+   13
+  ],
+  "pad_menu": [
+   11,
+   11
+  ]
+ },
+ "notes": "Button prompt glyphs. Each prompt is a row: frame 0 = up, frame 1 = pressed (play the anim at 4 fps for a 'tap this' blink, or hold frame 1 while the button is held). Glyphs are left- and bottom-aligned in the cell; anchor = bottom-left; sizes[name] = [w, h] of the drawn glyph, for laying out text after it. Inline with font_small: put the glyph's bottom row on the text baseline + 2 (key caps are 11 px tall, the text caps 7 px) and leave 2 px on each side. pad_south/east/west/north are platform-neutral face-button positions (the lit dot is the button); pad_a/b/x/y are labelled Xbox-style. key_blank / key_blank_wide + font_tiny can make any other key."
+}

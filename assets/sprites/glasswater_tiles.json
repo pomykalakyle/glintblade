@@ -1,0 +1,825 @@
+{
+ "cell": [
+  16,
+  16
+ ],
+ "anchor": [
+  0,
+  0
+ ],
+ "emissive": [
+  "#cdc3db"
+ ],
+ "tiles": {
+  "floor_0_0": [
+   0,
+   0
+  ],
+  "floor_1_0": [
+   1,
+   0
+  ],
+  "floor_2_0": [
+   2,
+   0
+  ],
+  "floor_3_0": [
+   3,
+   0
+  ],
+  "floor_0_1": [
+   4,
+   0
+  ],
+  "floor_1_1": [
+   5,
+   0
+  ],
+  "floor_2_1": [
+   6,
+   0
+  ],
+  "floor_3_1": [
+   7,
+   0
+  ],
+  "floor_0_2": [
+   8,
+   0
+  ],
+  "floor_1_2": [
+   9,
+   0
+  ],
+  "floor_2_2": [
+   10,
+   0
+  ],
+  "floor_3_2": [
+   11,
+   0
+  ],
+  "floor_0_3": [
+   12,
+   0
+  ],
+  "floor_1_3": [
+   13,
+   0
+  ],
+  "floor_2_3": [
+   14,
+   0
+  ],
+  "floor_3_3": [
+   15,
+   0
+  ],
+  "decal_pebbles_a": [
+   0,
+   1
+  ],
+  "decal_pebbles_b": [
+   1,
+   1
+  ],
+  "decal_stone": [
+   2,
+   1
+  ],
+  "decal_crack_a": [
+   3,
+   1
+  ],
+  "decal_crack_b": [
+   4,
+   1
+  ],
+  "decal_shards_aqua": [
+   5,
+   1
+  ],
+  "decal_shards_violet": [
+   6,
+   1
+  ],
+  "decal_moss": [
+   7,
+   1
+  ],
+  "floor_shade_n_0": [
+   8,
+   1
+  ],
+  "floor_shade_n_1": [
+   9,
+   1
+  ],
+  "floor_shade_n_2": [
+   10,
+   1
+  ],
+  "floor_shade_w_0": [
+   11,
+   1
+  ],
+  "floor_shade_w_1": [
+   12,
+   1
+  ],
+  "floor_shade_nw": [
+   13,
+   1
+  ],
+  "floor_shade_c": [
+   14,
+   1
+  ],
+  "shore_0000": [
+   15,
+   1
+  ],
+  "deep_0000": [
+   0,
+   2
+  ],
+  "shore_0001": [
+   1,
+   2
+  ],
+  "deep_0001": [
+   2,
+   2
+  ],
+  "shore_0010": [
+   3,
+   2
+  ],
+  "deep_0010": [
+   4,
+   2
+  ],
+  "shore_0011": [
+   5,
+   2
+  ],
+  "deep_0011": [
+   6,
+   2
+  ],
+  "shore_0100": [
+   7,
+   2
+  ],
+  "deep_0100": [
+   8,
+   2
+  ],
+  "shore_0101": [
+   9,
+   2
+  ],
+  "deep_0101": [
+   10,
+   2
+  ],
+  "shore_0110": [
+   11,
+   2
+  ],
+  "deep_0110": [
+   12,
+   2
+  ],
+  "shore_0111": [
+   13,
+   2
+  ],
+  "deep_0111": [
+   14,
+   2
+  ],
+  "shore_1000": [
+   15,
+   2
+  ],
+  "deep_1000": [
+   0,
+   3
+  ],
+  "shore_1001": [
+   1,
+   3
+  ],
+  "deep_1001": [
+   2,
+   3
+  ],
+  "shore_1010": [
+   3,
+   3
+  ],
+  "deep_1010": [
+   4,
+   3
+  ],
+  "shore_1011": [
+   5,
+   3
+  ],
+  "deep_1011": [
+   6,
+   3
+  ],
+  "shore_1100": [
+   7,
+   3
+  ],
+  "deep_1100": [
+   8,
+   3
+  ],
+  "shore_1101": [
+   9,
+   3
+  ],
+  "deep_1101": [
+   10,
+   3
+  ],
+  "shore_1110": [
+   11,
+   3
+  ],
+  "deep_1110": [
+   12,
+   3
+  ],
+  "shore_1111": [
+   13,
+   3
+  ],
+  "deep_1111": [
+   14,
+   3
+  ],
+  "water_0": [
+   15,
+   3
+  ],
+  "water_1": [
+   0,
+   4
+  ],
+  "water_2": [
+   1,
+   4
+  ],
+  "cliff_face_top_0": [
+   2,
+   4
+  ],
+  "cliff_face_top_l_0": [
+   3,
+   4
+  ],
+  "cliff_face_top_r_0": [
+   4,
+   4
+  ],
+  "cliff_face_mid_0": [
+   5,
+   4
+  ],
+  "cliff_face_mid_l_0": [
+   6,
+   4
+  ],
+  "cliff_face_mid_r_0": [
+   7,
+   4
+  ],
+  "cliff_face_bot_0": [
+   8,
+   4
+  ],
+  "cliff_face_bot_l_0": [
+   9,
+   4
+  ],
+  "cliff_face_bot_r_0": [
+   10,
+   4
+  ],
+  "cliff_face_top_1": [
+   11,
+   4
+  ],
+  "cliff_face_top_l_1": [
+   12,
+   4
+  ],
+  "cliff_face_top_r_1": [
+   13,
+   4
+  ],
+  "cliff_face_mid_1": [
+   14,
+   4
+  ],
+  "cliff_face_mid_l_1": [
+   15,
+   4
+  ],
+  "cliff_face_mid_r_1": [
+   0,
+   5
+  ],
+  "cliff_face_bot_1": [
+   1,
+   5
+  ],
+  "cliff_face_bot_l_1": [
+   2,
+   5
+  ],
+  "cliff_face_bot_r_1": [
+   3,
+   5
+  ],
+  "cliff_face_top_2": [
+   4,
+   5
+  ],
+  "cliff_face_top_l_2": [
+   5,
+   5
+  ],
+  "cliff_face_top_r_2": [
+   6,
+   5
+  ],
+  "cliff_face_mid_2": [
+   7,
+   5
+  ],
+  "cliff_face_mid_l_2": [
+   8,
+   5
+  ],
+  "cliff_face_mid_r_2": [
+   9,
+   5
+  ],
+  "cliff_face_bot_2": [
+   10,
+   5
+  ],
+  "cliff_face_bot_l_2": [
+   11,
+   5
+  ],
+  "cliff_face_bot_r_2": [
+   12,
+   5
+  ],
+  "cliff_face_top_3": [
+   13,
+   5
+  ],
+  "cliff_face_top_l_3": [
+   14,
+   5
+  ],
+  "cliff_face_top_r_3": [
+   15,
+   5
+  ],
+  "cliff_face_mid_3": [
+   0,
+   6
+  ],
+  "cliff_face_mid_l_3": [
+   1,
+   6
+  ],
+  "cliff_face_mid_r_3": [
+   2,
+   6
+  ],
+  "cliff_face_bot_3": [
+   3,
+   6
+  ],
+  "cliff_face_bot_l_3": [
+   4,
+   6
+  ],
+  "cliff_face_bot_r_3": [
+   5,
+   6
+  ],
+  "cliff_face_top_4": [
+   6,
+   6
+  ],
+  "cliff_face_top_l_4": [
+   7,
+   6
+  ],
+  "cliff_face_top_r_4": [
+   8,
+   6
+  ],
+  "cliff_face_mid_4": [
+   9,
+   6
+  ],
+  "cliff_face_mid_l_4": [
+   10,
+   6
+  ],
+  "cliff_face_mid_r_4": [
+   11,
+   6
+  ],
+  "cliff_face_bot_4": [
+   12,
+   6
+  ],
+  "cliff_face_bot_l_4": [
+   13,
+   6
+  ],
+  "cliff_face_bot_r_4": [
+   14,
+   6
+  ],
+  "cliff_face_top_5": [
+   15,
+   6
+  ],
+  "cliff_face_top_l_5": [
+   0,
+   7
+  ],
+  "cliff_face_top_r_5": [
+   1,
+   7
+  ],
+  "cliff_face_mid_5": [
+   2,
+   7
+  ],
+  "cliff_face_mid_l_5": [
+   3,
+   7
+  ],
+  "cliff_face_mid_r_5": [
+   4,
+   7
+  ],
+  "cliff_face_bot_5": [
+   5,
+   7
+  ],
+  "cliff_face_bot_l_5": [
+   6,
+   7
+  ],
+  "cliff_face_bot_r_5": [
+   7,
+   7
+  ],
+  "cliff_face_top_5_vein": [
+   8,
+   7
+  ],
+  "cliff_face_mid_5_vein": [
+   9,
+   7
+  ],
+  "cliff_face_bot_5_vein": [
+   10,
+   7
+  ],
+  "cliff_face_top_6": [
+   11,
+   7
+  ],
+  "cliff_face_top_l_6": [
+   12,
+   7
+  ],
+  "cliff_face_top_r_6": [
+   13,
+   7
+  ],
+  "cliff_face_mid_6": [
+   14,
+   7
+  ],
+  "cliff_face_mid_l_6": [
+   15,
+   7
+  ],
+  "cliff_face_mid_r_6": [
+   0,
+   8
+  ],
+  "cliff_face_bot_6": [
+   1,
+   8
+  ],
+  "cliff_face_bot_l_6": [
+   2,
+   8
+  ],
+  "cliff_face_bot_r_6": [
+   3,
+   8
+  ],
+  "cliff_face_top_7": [
+   4,
+   8
+  ],
+  "cliff_face_top_l_7": [
+   5,
+   8
+  ],
+  "cliff_face_top_r_7": [
+   6,
+   8
+  ],
+  "cliff_face_mid_7": [
+   7,
+   8
+  ],
+  "cliff_face_mid_l_7": [
+   8,
+   8
+  ],
+  "cliff_face_mid_r_7": [
+   9,
+   8
+  ],
+  "cliff_face_bot_7": [
+   10,
+   8
+  ],
+  "cliff_face_bot_l_7": [
+   11,
+   8
+  ],
+  "cliff_face_bot_r_7": [
+   12,
+   8
+  ],
+  "cliff_face_top_7_crack": [
+   13,
+   8
+  ],
+  "cliff_face_mid_7_crack": [
+   14,
+   8
+  ],
+  "cliff_face_bot_7_crack": [
+   15,
+   8
+  ],
+  "cliff_face_top_8": [
+   0,
+   9
+  ],
+  "cliff_face_top_l_8": [
+   1,
+   9
+  ],
+  "cliff_face_top_r_8": [
+   2,
+   9
+  ],
+  "cliff_face_mid_8": [
+   3,
+   9
+  ],
+  "cliff_face_mid_l_8": [
+   4,
+   9
+  ],
+  "cliff_face_mid_r_8": [
+   5,
+   9
+  ],
+  "cliff_face_bot_8": [
+   6,
+   9
+  ],
+  "cliff_face_bot_l_8": [
+   7,
+   9
+  ],
+  "cliff_face_bot_r_8": [
+   8,
+   9
+  ],
+  "cliff_face_top_9": [
+   9,
+   9
+  ],
+  "cliff_face_top_l_9": [
+   10,
+   9
+  ],
+  "cliff_face_top_r_9": [
+   11,
+   9
+  ],
+  "cliff_face_mid_9": [
+   12,
+   9
+  ],
+  "cliff_face_mid_l_9": [
+   13,
+   9
+  ],
+  "cliff_face_mid_r_9": [
+   14,
+   9
+  ],
+  "cliff_face_bot_9": [
+   15,
+   9
+  ],
+  "cliff_face_bot_l_9": [
+   0,
+   10
+  ],
+  "cliff_face_bot_r_9": [
+   1,
+   10
+  ],
+  "cliff_top": [
+   2,
+   10
+  ],
+  "cliff_top_inse": [
+   3,
+   10
+  ],
+  "cliff_top_insw": [
+   4,
+   10
+  ],
+  "cliff_top_inswse": [
+   5,
+   10
+  ],
+  "cliff_top_inne": [
+   6,
+   10
+  ],
+  "cliff_top_innese": [
+   7,
+   10
+  ],
+  "cliff_top_innesw": [
+   8,
+   10
+  ],
+  "cliff_top_inneswse": [
+   9,
+   10
+  ],
+  "cliff_top_innw": [
+   10,
+   10
+  ],
+  "cliff_top_innwse": [
+   11,
+   10
+  ],
+  "cliff_top_innwsw": [
+   12,
+   10
+  ],
+  "cliff_top_innwswse": [
+   13,
+   10
+  ],
+  "cliff_top_innwne": [
+   14,
+   10
+  ],
+  "cliff_top_innwnese": [
+   15,
+   10
+  ],
+  "cliff_top_innwnesw": [
+   0,
+   11
+  ],
+  "cliff_top_innwneswse": [
+   1,
+   11
+  ],
+  "cliff_top_e": [
+   2,
+   11
+  ],
+  "cliff_top_e_insw": [
+   3,
+   11
+  ],
+  "cliff_top_e_innw": [
+   4,
+   11
+  ],
+  "cliff_top_e_innwsw": [
+   5,
+   11
+  ],
+  "cliff_top_w": [
+   6,
+   11
+  ],
+  "cliff_top_w_inse": [
+   7,
+   11
+  ],
+  "cliff_top_w_inne": [
+   8,
+   11
+  ],
+  "cliff_top_w_innese": [
+   9,
+   11
+  ],
+  "cliff_top_we": [
+   10,
+   11
+  ],
+  "cliff_top_n": [
+   11,
+   11
+  ],
+  "cliff_top_n_inse": [
+   12,
+   11
+  ],
+  "cliff_top_n_insw": [
+   13,
+   11
+  ],
+  "cliff_top_n_inswse": [
+   14,
+   11
+  ],
+  "cliff_top_ne": [
+   15,
+   11
+  ],
+  "cliff_top_ne_insw": [
+   0,
+   12
+  ],
+  "cliff_top_nw": [
+   1,
+   12
+  ],
+  "cliff_top_nw_inse": [
+   2,
+   12
+  ],
+  "cliff_top_nwe": [
+   3,
+   12
+  ],
+  "cliff_top_n_v1": [
+   4,
+   12
+  ],
+  "cliff_top_w_v1": [
+   5,
+   12
+  ],
+  "cliff_top_e_v1": [
+   6,
+   12
+  ],
+  "cliff_top_1": [
+   7,
+   12
+  ],
+  "cliff_top_2": [
+   8,
+   12
+  ],
+  "cliff_top_3": [
+   9,
+   12
+  ]
+ },
+ "anims": {},
+ "notes": "Style v2: slate rock, calm water and one pale iris mineral family. Existing layout and names preserved, including legacy aqua names rendered as iris. Macro floor is 64px. Fractured cliff faces span tile seams with unequal planes. Decals are sparse connected stones with attached contact; only broken crystal tips emit. No luminous lichen or wall veins. Rebuild with tools/glasswater/v2style.py."
+}

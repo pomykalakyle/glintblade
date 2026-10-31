@@ -1,0 +1,49 @@
+{
+  "cell": [
+    20,
+    24
+  ],
+  "anchor": [
+    9,
+    21
+  ],
+  "emissive": [
+    "#e2d8e9"
+  ],
+  "anims": {
+    "intact": {
+      "row": 0,
+      "frames": 4,
+      "fps": 4.62,
+      "durations": [
+        18,
+        10,
+        14,
+        10
+      ],
+      "loop": true
+    },
+    "cracked": {
+      "row": 1,
+      "frames": 4,
+      "fps": 6.32,
+      "durations": [
+        6,
+        12,
+        4,
+        16
+      ],
+      "loop": true
+    },
+    "broken": {
+      "row": 2,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": true
+    }
+  },
+  "notes": "Weak-point prism shards wedged in a stone sill (the gate towers' crowns and the hands' cuffs). Drawn for the screen-left shoulder; mirror it for the right. Anchor = where the sill sits on its seat. intact pulses in step with the heart (same durations). cracked: tip snapped, light flickers. broken: dead stumps, no glow."
+}

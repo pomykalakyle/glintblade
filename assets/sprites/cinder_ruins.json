@@ -1,0 +1,26 @@
+{
+ "cell": [64, 48],
+ "anchor": [32, 45],
+ "anims": {
+  "wall_long": {
+   "row": 0,
+   "frames": 1,
+   "footprint": [54, 8],
+   "fps": 1
+  },
+  "wall_low": {
+   "row": 1,
+   "frames": 1,
+   "footprint": [44, 8],
+   "fps": 1
+  },
+  "arch_broken": {
+   "row": 2,
+   "frames": 1,
+   "footprint": [46, 8],
+   "notes": "Solid piers x9-19 and x44-54; the gap remains walkable.",
+   "fps": 1
+  }
+ },
+ "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. "
+}

@@ -1,0 +1,19 @@
+{
+ "cell": [
+  12,
+  7
+ ],
+ "anchor": [
+  0,
+  3
+ ],
+ "emissive": [],
+ "anims": {
+  "idle": {
+   "row": 0,
+   "frames": 2,
+   "fps": 3
+  }
+ },
+ "notes": "Menu cursor, style v2: a slim bone pennant with a blade-cut point (no cyan, no gold). Anchor = left middle; put it 3 px left of the selected item with its middle row on the text's x-height middle. 'idle' nudges it 1 px right and back."
+}

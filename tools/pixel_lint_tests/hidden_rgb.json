@@ -1,0 +1,20 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "anchor": [
+    16,
+    27
+  ],
+  "emissive": [
+    "#8ff8ff"
+  ],
+  "anims": {
+    "idle": {
+      "row": 0,
+      "frames": 1,
+      "fps": 6
+    }
+  }
+}

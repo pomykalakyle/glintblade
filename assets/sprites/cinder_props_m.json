@@ -1,0 +1,44 @@
+{
+ "cell": [32, 32],
+ "anchor": [16, 29],
+ "emissive": ["#d48670", "#efb68a", "#f1d4a6"],
+ "anims": {
+  "lava_boulder": {
+   "row": 0,
+   "frames": 4,
+   "durations": [20, 14, 20, 14],
+   "footprint": [22, 8],
+   "light": {
+    "color": "#efb68a",
+    "radius": 36,
+    "intensity": 0.7,
+    "offset": [0, -10]
+   }
+  },
+  "shard_cluster": {
+   "row": 1,
+   "frames": 1,
+   "footprint": [22, 6],
+   "fps": 1
+  },
+  "stele": {
+   "row": 2,
+   "frames": 1,
+   "footprint": [12, 5],
+   "fps": 1
+  },
+  "slab_fallen": {
+   "row": 3,
+   "frames": 1,
+   "footprint": [24, 8],
+   "anchor": [16, 28],
+   "fps": 1
+  },
+  "slab_bits": {
+   "row": 4,
+   "frames": 1,
+   "fps": 1
+  }
+ },
+ "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. Broad fractured basalt, slotted stele and fallen sluice slab; cold faces stay calm."
+}

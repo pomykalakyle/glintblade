@@ -1,0 +1,15 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "anims": {
+    "idle": {
+      "row": 0,
+      "frames": 1,
+      "durations": [
+        0
+      ]
+    }
+  }
+}

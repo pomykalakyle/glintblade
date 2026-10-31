@@ -1,0 +1,37 @@
+{
+ "cell": [
+  12,
+  12
+ ],
+ "anchor": [
+  6,
+  6
+ ],
+ "emissive": [],
+ "anims": {
+  "fly": {
+   "row": 0,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    4,
+    4,
+    4,
+    4
+   ],
+   "notes": "loop while in flight; the engine draws the ground shadow"
+  },
+  "hit": {
+   "row": 1,
+   "frames": 3,
+   "fps": 15,
+   "durations": [
+    3,
+    4,
+    6
+   ],
+   "notes": "play once on impact or when it lands, then remove"
+  }
+ },
+ "notes": "Thorn imp seed projectile, 7x7 px with its outline. Same husk and matte split as the seed the imp holds in windup_* and attack_*#0; spawn it on the imp's release_frame at release_offset. No emissive colors. Husk uses the palettes_v2.json thorn_imp seed and earth ramps; the seam is dried rose and ivory."
+}

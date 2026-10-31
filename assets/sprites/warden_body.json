@@ -1,0 +1,41 @@
+{
+  "cell": [
+    120,
+    112
+  ],
+  "anchor": [
+    60,
+    109
+  ],
+  "emissive": [],
+  "anims": {
+    "idle": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": true
+    },
+    "awake": {
+      "row": 1,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": true
+    },
+    "damaged": {
+      "row": 2,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": true
+    }
+  },
+  "notes": "Weir Keeper: a section of an old garden weir that stood up. Unequal gate towers (the left tall with a spillway slot, the right snapped), outboard shoulders stepping down past them, a sluice gate of stone planks holding the heart's valve ring, a crest notch for the head, and a culvert arch between stub piers, darker below an old tide line, with stains, mineral streaks and moss. Anchor = ground under the middle of the feet. idle: dormant, channels dry. awake: the guide channels and drain carry dull iris water (not emissive). damaged: two gate planks fallen out, the left tower's crown corner and the right tower's outer slab broken away, the right shoulder's top block gone, a fracture from the valve ring. The heart socket, neck notch and both crystal seats stay in place in every state. Light from the upper left."
+}

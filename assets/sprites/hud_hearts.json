@@ -1,0 +1,61 @@
+{
+ "cell": [
+  15,
+  14
+ ],
+ "anchor": [
+  2,
+  2
+ ],
+ "emissive": [],
+ "anims": {
+  "full": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1
+  },
+  "half": {
+   "row": 1,
+   "frames": 1,
+   "fps": 1
+  },
+  "empty": {
+   "row": 2,
+   "frames": 1,
+   "fps": 1
+  },
+  "flash": {
+   "row": 3,
+   "frames": 1,
+   "fps": 1
+  },
+  "lose": {
+   "row": 4,
+   "frames": 5,
+   "fps": 15,
+   "durations": [
+    3,
+    4,
+    4,
+    4,
+    1
+   ]
+  },
+  "gain": {
+   "row": 5,
+   "frames": 3,
+   "fps": 15,
+   "durations": [
+    2,
+    4,
+    1
+   ]
+  }
+ },
+ "heart_size": [
+  5,
+  5
+ ],
+ "spacing": 8,
+ "notes": "Style v2 player health: small straight marks (5x5, lower-right corner clipped) in the dried-rose ui.health ramp; an empty mark is the same footprint carved into the plate (ink top/left wall, plate floor, ash lower-right lip), so it reads as a hole. The 15x14 cell leaves room for the 'lose' chips. Anchor = the mark's top-left pixel: draw mark i at (x0 + 8*i, y0) on a slate #303949 plate. Play 'lose' once on a mark that empties (bone flash, split along the cut, chips fall away), 'gain' on one that fills, then hold 'full'/'empty'. UI layer, unlit, no glow."
+}

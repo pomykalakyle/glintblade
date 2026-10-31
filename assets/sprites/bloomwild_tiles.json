@@ -1,0 +1,870 @@
+{
+ "cell": [
+  16,
+  16
+ ],
+ "anchor": [
+  0,
+  0
+ ],
+ "tiles": {
+  "grass_0": [
+   0,
+   0
+  ],
+  "grass_1": [
+   1,
+   0
+  ],
+  "grass_2": [
+   2,
+   0
+  ],
+  "grass_3": [
+   3,
+   0
+  ],
+  "grass_4": [
+   4,
+   0
+  ],
+  "grass_5": [
+   5,
+   0
+  ],
+  "grass_6": [
+   6,
+   0
+  ],
+  "grass_7": [
+   7,
+   0
+  ],
+  "teal_0": [
+   8,
+   0
+  ],
+  "teal_1": [
+   9,
+   0
+  ],
+  "teal_2": [
+   10,
+   0
+  ],
+  "teal_3": [
+   11,
+   0
+  ],
+  "teal_4": [
+   12,
+   0
+  ],
+  "teal_5": [
+   13,
+   0
+  ],
+  "teal_6": [
+   14,
+   0
+  ],
+  "teal_7": [
+   15,
+   0
+  ],
+  "flowers_0": [
+   0,
+   1
+  ],
+  "flowers_1": [
+   1,
+   1
+  ],
+  "flowers_2": [
+   2,
+   1
+  ],
+  "path_0": [
+   3,
+   1
+  ],
+  "path_1": [
+   4,
+   1
+  ],
+  "path_2": [
+   5,
+   1
+  ],
+  "path_3": [
+   6,
+   1
+  ],
+  "ruin_0": [
+   7,
+   1
+  ],
+  "ruin_1": [
+   8,
+   1
+  ],
+  "ruin_2": [
+   9,
+   1
+  ],
+  "ruin_3": [
+   10,
+   1
+  ],
+  "ruin_4": [
+   11,
+   1
+  ],
+  "ruin_5": [
+   12,
+   1
+  ],
+  "ruin_6": [
+   13,
+   1
+  ],
+  "ruin_7": [
+   14,
+   1
+  ],
+  "ruin_8": [
+   15,
+   1
+  ],
+  "ruin_9": [
+   0,
+   2
+  ],
+  "ruin_10": [
+   1,
+   2
+  ],
+  "ruin_11": [
+   2,
+   2
+  ],
+  "grass_path_0001": [
+   3,
+   2
+  ],
+  "grass_path_0010": [
+   4,
+   2
+  ],
+  "grass_path_0011": [
+   5,
+   2
+  ],
+  "grass_path_0011_1": [
+   6,
+   2
+  ],
+  "grass_path_0100": [
+   7,
+   2
+  ],
+  "grass_path_0101": [
+   8,
+   2
+  ],
+  "grass_path_0101_1": [
+   9,
+   2
+  ],
+  "grass_path_0110": [
+   10,
+   2
+  ],
+  "grass_path_0111": [
+   11,
+   2
+  ],
+  "grass_path_1000": [
+   12,
+   2
+  ],
+  "grass_path_1001": [
+   13,
+   2
+  ],
+  "grass_path_1010": [
+   14,
+   2
+  ],
+  "grass_path_1010_1": [
+   15,
+   2
+  ],
+  "grass_path_1011": [
+   0,
+   3
+  ],
+  "grass_path_1100": [
+   1,
+   3
+  ],
+  "grass_path_1100_1": [
+   2,
+   3
+  ],
+  "grass_path_1101": [
+   3,
+   3
+  ],
+  "grass_path_1110": [
+   4,
+   3
+  ],
+  "grass_ruin_0001": [
+   5,
+   3
+  ],
+  "grass_ruin_0010": [
+   6,
+   3
+  ],
+  "grass_ruin_0011": [
+   7,
+   3
+  ],
+  "grass_ruin_0011_1": [
+   8,
+   3
+  ],
+  "grass_ruin_0100": [
+   9,
+   3
+  ],
+  "grass_ruin_0101": [
+   10,
+   3
+  ],
+  "grass_ruin_0101_1": [
+   11,
+   3
+  ],
+  "grass_ruin_0110": [
+   12,
+   3
+  ],
+  "grass_ruin_0111": [
+   13,
+   3
+  ],
+  "grass_ruin_1000": [
+   14,
+   3
+  ],
+  "grass_ruin_1001": [
+   15,
+   3
+  ],
+  "grass_ruin_1010": [
+   0,
+   4
+  ],
+  "grass_ruin_1010_1": [
+   1,
+   4
+  ],
+  "grass_ruin_1011": [
+   2,
+   4
+  ],
+  "grass_ruin_1100": [
+   3,
+   4
+  ],
+  "grass_ruin_1100_1": [
+   4,
+   4
+  ],
+  "grass_ruin_1101": [
+   5,
+   4
+  ],
+  "grass_ruin_1110": [
+   6,
+   4
+  ],
+  "grass_teal_0001": [
+   7,
+   4
+  ],
+  "grass_teal_0010": [
+   8,
+   4
+  ],
+  "grass_teal_0011": [
+   9,
+   4
+  ],
+  "grass_teal_0011_1": [
+   10,
+   4
+  ],
+  "grass_teal_0100": [
+   11,
+   4
+  ],
+  "grass_teal_0101": [
+   12,
+   4
+  ],
+  "grass_teal_0101_1": [
+   13,
+   4
+  ],
+  "grass_teal_0110": [
+   14,
+   4
+  ],
+  "grass_teal_0111": [
+   15,
+   4
+  ],
+  "grass_teal_1000": [
+   0,
+   5
+  ],
+  "grass_teal_1001": [
+   1,
+   5
+  ],
+  "grass_teal_1010": [
+   2,
+   5
+  ],
+  "grass_teal_1010_1": [
+   3,
+   5
+  ],
+  "grass_teal_1011": [
+   4,
+   5
+  ],
+  "grass_teal_1100": [
+   5,
+   5
+  ],
+  "grass_teal_1100_1": [
+   6,
+   5
+  ],
+  "grass_teal_1101": [
+   7,
+   5
+  ],
+  "grass_teal_1110": [
+   8,
+   5
+  ],
+  "cliff_top_l": [
+   9,
+   5
+  ],
+  "cliff_top_c_0": [
+   10,
+   5
+  ],
+  "cliff_top_c_1": [
+   11,
+   5
+  ],
+  "cliff_top_c_2": [
+   12,
+   5
+  ],
+  "cliff_top_r": [
+   13,
+   5
+  ],
+  "cliff_mid_l": [
+   14,
+   5
+  ],
+  "cliff_mid_c_0": [
+   15,
+   5
+  ],
+  "cliff_mid_c_1": [
+   0,
+   6
+  ],
+  "cliff_mid_c_2": [
+   1,
+   6
+  ],
+  "cliff_mid_r": [
+   2,
+   6
+  ],
+  "cliff_bot_l": [
+   3,
+   6
+  ],
+  "cliff_bot_c_0": [
+   4,
+   6
+  ],
+  "cliff_bot_c_1": [
+   5,
+   6
+  ],
+  "cliff_bot_c_2": [
+   6,
+   6
+  ],
+  "cliff_bot_r": [
+   7,
+   6
+  ],
+  "rim_n": [
+   8,
+   6
+  ],
+  "rim_w": [
+   9,
+   6
+  ],
+  "rim_e": [
+   10,
+   6
+  ],
+  "rim_nw": [
+   11,
+   6
+  ],
+  "rim_ne": [
+   12,
+   6
+  ],
+  "edge_top_l": [
+   13,
+   6
+  ],
+  "edge_top_c_0": [
+   14,
+   6
+  ],
+  "edge_top_c_1": [
+   15,
+   6
+  ],
+  "edge_top_c_2": [
+   0,
+   7
+  ],
+  "edge_top_r": [
+   1,
+   7
+  ],
+  "edge_mid_l": [
+   2,
+   7
+  ],
+  "edge_mid_c_0": [
+   3,
+   7
+  ],
+  "edge_mid_c_1": [
+   4,
+   7
+  ],
+  "edge_mid_c_2": [
+   5,
+   7
+  ],
+  "edge_mid_r": [
+   6,
+   7
+  ],
+  "edge_haze_l": [
+   7,
+   7
+  ],
+  "edge_haze_c_0": [
+   8,
+   7
+  ],
+  "edge_haze_c_1": [
+   9,
+   7
+  ],
+  "edge_haze_c_2": [
+   10,
+   7
+  ],
+  "edge_haze_r": [
+   11,
+   7
+  ],
+  "edge_under_l": [
+   12,
+   7
+  ],
+  "edge_under_c_0": [
+   13,
+   7
+  ],
+  "edge_under_c_1": [
+   14,
+   7
+  ],
+  "edge_under_c_2": [
+   15,
+   7
+  ],
+  "edge_under_r": [
+   0,
+   8
+  ],
+  "slab_a_00": [
+   0,
+   9
+  ],
+  "slab_a_10": [
+   1,
+   9
+  ],
+  "slab_a_20": [
+   2,
+   9
+  ],
+  "slab_a_01": [
+   0,
+   10
+  ],
+  "slab_a_11": [
+   1,
+   10
+  ],
+  "slab_a_21": [
+   2,
+   10
+  ],
+  "slab_a_02": [
+   0,
+   11
+  ],
+  "slab_a_12": [
+   1,
+   11
+  ],
+  "slab_a_22": [
+   2,
+   11
+  ],
+  "slab_b_00": [
+   3,
+   9
+  ],
+  "slab_b_10": [
+   4,
+   9
+  ],
+  "slab_b_20": [
+   5,
+   9
+  ],
+  "slab_b_01": [
+   3,
+   10
+  ],
+  "slab_b_11": [
+   4,
+   10
+  ],
+  "slab_b_21": [
+   5,
+   10
+  ],
+  "slab_b_02": [
+   3,
+   11
+  ],
+  "slab_b_12": [
+   4,
+   11
+  ],
+  "slab_b_22": [
+   5,
+   11
+  ],
+  "slab_c_00": [
+   6,
+   9
+  ],
+  "slab_c_10": [
+   7,
+   9
+  ],
+  "slab_c_20": [
+   8,
+   9
+  ],
+  "slab_c_01": [
+   6,
+   10
+  ],
+  "slab_c_11": [
+   7,
+   10
+  ],
+  "slab_c_21": [
+   8,
+   10
+  ],
+  "slab_c_02": [
+   6,
+   11
+  ],
+  "slab_c_12": [
+   7,
+   11
+  ],
+  "slab_c_22": [
+   8,
+   11
+  ],
+  "slab_d_00": [
+   9,
+   9
+  ],
+  "slab_d_10": [
+   10,
+   9
+  ],
+  "slab_d_20": [
+   11,
+   9
+  ],
+  "slab_d_01": [
+   9,
+   10
+  ],
+  "slab_d_11": [
+   10,
+   10
+  ],
+  "slab_d_21": [
+   11,
+   10
+  ],
+  "slab_e_00": [
+   12,
+   9
+  ],
+  "slab_e_10": [
+   13,
+   9
+  ],
+  "slab_e_20": [
+   14,
+   9
+  ],
+  "slab_e_01": [
+   12,
+   10
+  ],
+  "slab_e_11": [
+   13,
+   10
+  ],
+  "slab_e_21": [
+   14,
+   10
+  ],
+  "slab_f_00": [
+   0,
+   12
+  ],
+  "slab_f_10": [
+   1,
+   12
+  ],
+  "slab_f_01": [
+   0,
+   13
+  ],
+  "slab_f_11": [
+   1,
+   13
+  ],
+  "slab_f_02": [
+   0,
+   14
+  ],
+  "slab_f_12": [
+   1,
+   14
+  ],
+  "slab_g_00": [
+   2,
+   12
+  ],
+  "slab_g_10": [
+   3,
+   12
+  ],
+  "slab_g_01": [
+   2,
+   13
+  ],
+  "slab_g_11": [
+   3,
+   13
+  ],
+  "slab_g_02": [
+   2,
+   14
+  ],
+  "slab_g_12": [
+   3,
+   14
+  ],
+  "slab_h_00": [
+   4,
+   12
+  ],
+  "slab_h_10": [
+   5,
+   12
+  ],
+  "slab_h_01": [
+   4,
+   13
+  ],
+  "slab_h_11": [
+   5,
+   13
+  ],
+  "slab_i_00": [
+   6,
+   12
+  ],
+  "slab_i_10": [
+   7,
+   12
+  ],
+  "slab_i_01": [
+   6,
+   13
+  ],
+  "slab_i_11": [
+   7,
+   13
+  ]
+ },
+ "groups": {
+  "grass": "dust-sage grass with quiet plain variant and sparse rooted details",
+  "teal": "cool sage damp-ground variants",
+  "flowers": "grass with small flowers",
+  "path": "packed sand path; _0 plain",
+  "slab_{a..i}": "white flagstone floor as multi-tile blocks (see \"blocks\": a,b,c 3x3 tiles; d,e 3x2; f,g 2x3; h,i 2x2). Tile names are slab_x_{cx}{cy}. Fill a floor greedily with random blocks (try bigger ones first), then fill leftover cells with ruin_0..7. Every block and filler has its joints on its top/left edges, so any packing is seamless",
+  "ruin": "1x1 flagstone pieces with the same edge rule as the slab blocks: ruin_0..7 fillers (use for leftover cells only), ruin_8 cracked, ruin_9 moss along a joint, ruin_10 small broken hole, ruin_11 broken hole with a sprout (accents: a few per floor at most)",
+  "grass_path_NNNN / grass_ruin_NNNN / grass_teal_NNNN": "corner transitions. Terrain is defined per tile CORNER (vertex). Bits are the corners nw,ne,sw,se; 1 = path/ruin/teal at that corner, 0 = grass. Straight edges (0011, 1100, 0101, 1010) have a _1 variant: mix them",
+  "cliff_{top,mid,bot}_{l,c_0,c_1,c_2,r}": "south-facing face of raised ground, 3 rows tall (repeat mid for taller). Pick c_{tx % 3} by tile column so the rock is seamless. l/r are the ends (they include the side strip). bot ends with lower grass at rows 10-15",
+  "rim_{n,w,e,nw,ne}": "top-surface edges of raised ground (or the island) where no face is seen: n = lit lip, w = lit side strip, e = shaded side strip. Transparent pixels show what is below: lower grass for a plateau, the void/backdrop on the island edge",
+  "edge_{top,mid,haze,under}_{l,c_0,c_1,c_2,r}": "island's south edge falling away into the clouds: lip, rock face, hazier face, underside (transparent below its jagged bottom). Stack top, mid, haze, under; pick c_{tx % 3}"
+ },
+ "blocks": {
+  "slab_a": {
+   "at": [
+    0,
+    9
+   ],
+   "size": [
+    3,
+    3
+   ]
+  },
+  "slab_b": {
+   "at": [
+    3,
+    9
+   ],
+   "size": [
+    3,
+    3
+   ]
+  },
+  "slab_c": {
+   "at": [
+    6,
+    9
+   ],
+   "size": [
+    3,
+    3
+   ]
+  },
+  "slab_d": {
+   "at": [
+    9,
+    9
+   ],
+   "size": [
+    3,
+    2
+   ]
+  },
+  "slab_e": {
+   "at": [
+    12,
+    9
+   ],
+   "size": [
+    3,
+    2
+   ]
+  },
+  "slab_f": {
+   "at": [
+    0,
+    12
+   ],
+   "size": [
+    2,
+    3
+   ]
+  },
+  "slab_g": {
+   "at": [
+    2,
+    12
+   ],
+   "size": [
+    2,
+    3
+   ]
+  },
+  "slab_h": {
+   "at": [
+    4,
+    12
+   ],
+   "size": [
+    2,
+    2
+   ]
+  },
+  "slab_i": {
+   "at": [
+    6,
+    12
+   ],
+   "size": [
+    2,
+    2
+   ]
+  }
+ },
+ "anims": {},
+ "notes": "Style v2 dusty sage terrain and worn old-ivory paving. Calm matching slab bodies, interrupted seams, selective fractures and joint moss. All original tile/block coordinates retained; path base uses earth[3]."
+}

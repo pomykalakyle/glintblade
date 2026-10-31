@@ -1,0 +1,43 @@
+{
+ "cell": [
+  24,
+  40
+ ],
+ "anchor": [
+  12,
+  36
+ ],
+ "emissive": [
+  "#ded0ad"
+ ],
+ "anims": {
+  "brazier": {
+   "row": 0,
+   "frames": 6,
+   "fps": 8,
+   "footprint": [
+    14,
+    6
+   ],
+   "light": {
+    "color": "#ded0ad",
+    "radius": 34,
+    "intensity": 0.45,
+    "offset": [
+     0,
+     -20
+    ]
+   }
+  },
+  "brazier_cold": {
+   "row": 1,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    14,
+    6
+   ]
+  }
+ },
+ "notes": "The Long Quiet v2. regions.warden palette. Broad slotted waterworks, quiet unlit stone; only burner coals emit. Rebuild: uv run --no-project --with pillow python3 tools/summit/style_v2.py"
+}

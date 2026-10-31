@@ -1,0 +1,28 @@
+{
+ "cell": [
+  64,
+  72
+ ],
+ "anchor": [
+  32,
+  69
+ ],
+ "anims": {
+  "arch_post": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    12,
+    6
+   ]
+  },
+  "arch_span": {
+   "row": 1,
+   "frames": 1,
+   "fps": 1,
+   "layer": "canopy"
+  }
+ },
+ "notes": "Broken slotted water-channel lintel on paired narrow fins. Original opening, cell, layer and footprints retained."
+}

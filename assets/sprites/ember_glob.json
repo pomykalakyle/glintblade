@@ -1,0 +1,38 @@
+{
+ "cell": [
+  12,
+  12
+ ],
+ "anchor": [
+  6,
+  6
+ ],
+ "emissive": [
+  "#d48670",
+  "#efb68a",
+  "#f1d4a6"
+ ],
+ "anims": {
+  "fly": {
+   "row": 0,
+   "frames": 4,
+   "durations": [
+    4,
+    4,
+    4,
+    4
+   ]
+  },
+  "pop": {
+   "row": 1,
+   "frames": 4,
+   "durations": [
+    3,
+    3,
+    4,
+    4
+   ]
+  }
+ },
+ "notes": "Style V2: source-bound salmon melt in two unequal lobes joined by a hot neck, one dark crust plate and a core deep in the big lobe; palettes_v2.json Cinder lava ramp. Original fly/pop API, 12x12 cell, (6,6) anchor and all durations retained. The engine supplies flight, trail, light and splash timing."
+}

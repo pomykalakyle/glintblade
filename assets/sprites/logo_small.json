@@ -1,0 +1,19 @@
+{
+ "cell": [
+  108,
+  17
+ ],
+ "anchor": [
+  54,
+  13
+ ],
+ "emissive": [],
+ "anims": {
+  "idle": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1
+  }
+ },
+ "notes": "GLINTBLADE style v2 crafted credit wordmark, 2026-10-31. Private 12 px native narrow capital forms: open hooked G, cantilever T, unequal B chambers, wedge-foot L, intact flat-apex A and diagonal-ended E. One angled blade incision at the B waist, preserving its left stem. Optical spacing keeps every letter separate. Bone #dce0ce faces, slate #98a49f side facets, ink #252d3c and a 1 px #303949 cast edge. Centered letter-baseline anchor; static, binary alpha, no shine or emissive colors. Rebuild both sheets with tools/ui/logo_v2.py; no display-font dependency."
+}

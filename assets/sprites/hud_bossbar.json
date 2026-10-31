@@ -1,0 +1,25 @@
+{
+ "cell": [
+  208,
+  19
+ ],
+ "anchor": [
+  104,
+  0
+ ],
+ "emissive": [],
+ "anims": {
+  "frame": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1
+  }
+ },
+ "fill_rect": [
+  13,
+  8,
+  190,
+  3
+ ],
+ "notes": "Style v2 Warden health bar: a thin slate well (3 px fill) with an ink rim, a lit ash hairline above, a lit slate floor where health is missing and a 45-degree blade-cut right end, plus a small cut-stone emblem holding the Warden's pale iris heart. Anchor = top center. fill_rect [x, y, w, h] is the well in cell coords; fill it from the left with hud_bossbar_fill columns: 0 = health (dried rose), 1 = recently lost chip (bone/ash), 2 = bone hit flash. Name: font_small 'The Warden' above the bar at x = fill_rect.x."
+}

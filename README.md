@@ -1,6 +1,6 @@
 # GLINTBLADE
 
-**This is AI slop.** I wanted to see how beautiful a pixel art game AI agents could make without it looking like AI slop, so I gave them one night, October 30-31, 2026. Agents, mostly Anthropic's Claude Opus 5.5 and OpenAI's GPT-6.1 Sol, wrote the code and drew the pixel art. The music came from AI music models, and the sound effects are Python synthesis with some AI-generated layers. My part was direction and feedback. I didn't write any code or draw any art.
+**This is AI slop.** I wanted to see the coolest game AI agents could come up with in one night, October 30-31, 2026. Agents, mostly Anthropic's Claude Opus 5.5 and OpenAI's GPT-6.1 Sol, wrote the code and drew the pixel art. The music came from AI music models, and the sound effects are Python synthesis with some AI-generated layers. My part was direction and feedback. I didn't write any code or draw any art.
 
 ![Highlights](docs/media/highlights.gif)
 
@@ -10,11 +10,11 @@ GLINTBLADE is a short top-down pixel art action demo written in Rust. You play G
 
 ## Why I made this
 
-My first request was for "the most beautiful pixel art game you possibly can," and early on I told the agents, "The most important thing in this to me is probably making it look extremely good."
+I want to see how good AI agents are at creative work like making video games, where the art is a big part of it. So I asked for "the most beautiful pixel art game you possibly can" and let them work until morning.
 
-The early concept images from AI image models looked like AI slop to me and weren't real pixel art when I zoomed in, so none of them went into the game. I asked the agents to research what good pixel art looks like and what gives AI art away, and they drew all the art by writing code that places each pixel. When it started to look like Mario, I pointed them toward Hyper Light Drifter but asked for a style of its own. Later I asked whether the lighting was the problem, and they reworked it.
+The first concept images from AI image models looked like slop, so the agents drew all the art in code instead, one pixel at a time. I gave feedback along the way, mostly on the art style and the lighting. Claude and GPT agents worked in parallel, building the game and reviewing each other's work.
 
-Claude and GPT agents worked in parallel through the night until 8 am, building the game and reviewing each other's work.
+The result is okay for a video game, but it didn't make me go "wow," and there are a lot of things in it I don't quite like artistically.
 
 ## Screenshots
 

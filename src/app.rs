@@ -98,11 +98,12 @@ impl Music {
 fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> Raw {
     let mut mx = 0.0f32;
     let mut my = 0.0f32;
-    // Default QWERTY: WASD move, J slash, K dash. Colemak-DH (for keyboards that send
-    // Colemak-DH letters): M/N/E/I move left/down/up/right, T slash, S dash.
+    // Default QWERTY: WASD move, J slash, K dash. Colemak-DH mode is for keyboards that
+    // send Colemak-DH letters (a firmware layout): it keeps the same physical keys, which
+    // send W A R S for WASD, N for J and E for K.
     let colemak = crate::input::layout() == crate::input::KeyLayout::ColemakDh;
     let (kl, kd, ku, kr, ka, kdash) = if colemak {
-        (KeyCode::M, KeyCode::N, KeyCode::E, KeyCode::I, KeyCode::T, KeyCode::S)
+        (KeyCode::A, KeyCode::R, KeyCode::W, KeyCode::S, KeyCode::N, KeyCode::E)
     } else {
         (KeyCode::A, KeyCode::S, KeyCode::W, KeyCode::D, KeyCode::J, KeyCode::K)
     };
@@ -125,7 +126,9 @@ fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> Raw {
         || is_key_down(KeyCode::C)
         || is_mouse_button_down(MouseButton::Right);
     let mut confirm = is_key_down(KeyCode::Enter) || is_key_down(KeyCode::KpEnter) || is_key_down(KeyCode::Space);
-    let mut pause = is_key_down(KeyCode::Escape) || is_key_down(KeyCode::P);
+    // The physical P key sends ";" on Colemak-DH.
+    let kpause = if colemak { KeyCode::Semicolon } else { KeyCode::P };
+    let mut pause = is_key_down(KeyCode::Escape) || is_key_down(kpause);
 
     #[cfg(target_arch = "wasm32")]
     let _ = gil;
@@ -222,7 +225,9 @@ pub async fn run(opts: Options) {
             use crate::input::{KeyLayout, layout, set_layout};
             set_layout(if layout() == KeyLayout::Qwerty { KeyLayout::ColemakDh } else { KeyLayout::Qwerty });
         }
-        if is_key_pressed(KeyCode::F) || (is_key_down(KeyCode::LeftSuper) && is_key_pressed(KeyCode::Enter)) {
+        // The physical F key sends T on Colemak-DH.
+        let kfull = if crate::input::layout() == crate::input::KeyLayout::ColemakDh { KeyCode::T } else { KeyCode::F };
+        if is_key_pressed(kfull) || (is_key_down(KeyCode::LeftSuper) && is_key_pressed(KeyCode::Enter)) {
             fullscreen = !fullscreen;
             set_fullscreen(fullscreen);
         }

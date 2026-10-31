@@ -66,7 +66,8 @@ impl Input {
 }
 
 /// Which keyboard layout the keys follow. Default: QWERTY (WASD move, J slash, K dash).
-/// Colemak-DH (M/N/E/I move, T slash, S dash) is for keyboards that send Colemak-DH letters.
+/// Colemak-DH is for keyboards that send Colemak-DH letters (a firmware layout). It keeps the
+/// same physical keys as QWERTY: those keys send W/A/R/S to move, N to slash and E to dash.
 /// Switch with `--colemak` or Tab on the title or pause screen.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum KeyLayout {
@@ -88,6 +89,7 @@ pub fn set_layout(l: KeyLayout) {
 pub fn key_labels() -> (&'static str, &'static str, &'static str) {
     match layout() {
         KeyLayout::Qwerty => ("W A S D", "J", "K"),
-        KeyLayout::ColemakDh => ("M N E I", "T", "S"),
+        // What the same physical keys type on a Colemak-DH keyboard.
+        KeyLayout::ColemakDh => ("W A R S", "N", "E"),
     }
 }

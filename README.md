@@ -47,7 +47,7 @@ cargo run --release
 | Pause | Esc or P |
 | Fullscreen | F |
 
-For Colemak-DH, press Tab on the title or pause screen, or run `cargo run --release -- --colemak`. Then M N E I move, T slashes and S dashes. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
+If your keyboard types Colemak-DH on its own (a firmware layout), press Tab on the title or pause screen, or run `cargo run --release -- --colemak`, to keep the usual physical keys. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
 
 ## How it was made
 

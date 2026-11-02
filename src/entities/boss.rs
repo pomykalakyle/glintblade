@@ -157,8 +157,10 @@ pub struct Boss {
     pylons: Vec<Pylon>,
     heart: Heart,
     player: (f32, f32),
-    /// Ticks Glint has been hugging the Warden's front (it swats).
+    /// Ticks Glint has stayed in the lane in front of the Warden (it swats).
     hug: u32,
+    /// A planned attack must separate counter-swats.
+    swat_ready: bool,
     rock_t: u32,
     recent: [u32; 16],
     recent_i: usize,
@@ -222,6 +224,7 @@ impl Boss {
             heart: Heart::default(),
             player: (x, y + 120.0),
             hug: 0,
+            swat_ready: true,
             rock_t: 0,
             recent: [0; 16],
             recent_i: 0,
@@ -564,14 +567,19 @@ impl Boss {
         }
     }
 
+    /// The original lane width, extending far enough out for normal melee dodges.
+    fn in_swat_range(&self, (px, py): (f32, f32)) -> bool {
+        let (bx, by) = self.base();
+        (px - bx).abs() < 66.0 && py > by - 10.0 && py < by + 100.0
+    }
+
     /// Advance the attack pattern and detect broken shield openings.
     fn fight(&mut self, ctx: &mut EnemyCtx) {
         self.settle();
         self.eyes = 1.0;
         let (bx, by) = self.base();
         let (px, py) = ctx.player;
-        // hugging the front: it will swat
-        if (px - bx).abs() < 66.0 && py > by - 10.0 && py < by + 54.0 {
+        if self.in_swat_range(ctx.player) {
             self.hug += 1;
         } else {
             self.hug = self.hug.saturating_sub(2);
@@ -629,11 +637,18 @@ impl Boss {
         let (bx, _) = self.base();
         let px = ctx.player.0;
         let near_side = if px < bx { 0 } else { 1 };
-        // hugging: swat with the fist on Glint's side
-        if self.hug > 100 && self.fists[near_side].free() && self.fists[near_side].st == St::Rest {
+        // Either resting hand can sweep the front; do not steal a grounded punish window.
+        let swat_side = [near_side, 1 - near_side]
+            .into_iter()
+            .find(|&side| self.fists[side].st == St::Rest);
+        if self.swat_ready && self.hug > 100 && self.in_swat_range(ctx.player)
+            && let Some(side) = swat_side
+        {
             self.hug = 0;
-            self.fists[near_side].swat(ctx.fx);
-            self.attack = Some(Attack::Swat { side: near_side });
+            self.swat_ready = false;
+            let base = self.base();
+            self.fists[side].swat(base, ctx.player, ctx.fx);
+            self.attack = Some(Attack::Swat { side });
             return;
         }
         let plan = PLANS[self.phase];
@@ -690,6 +705,7 @@ impl Boss {
         };
         if started {
             self.plan_i += 1;
+            self.swat_ready = true;
         } else {
             self.cool = 2;
         }
@@ -2488,6 +2504,9 @@ mod cohesion_audit;
 
 #[cfg(test)]
 mod kneel_tests;
+
+#[cfg(test)]
+mod swat_tests;
 
 #[cfg(test)]
 mod torso_pose_tests {

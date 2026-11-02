@@ -659,7 +659,8 @@ fn capture_warden_cohesion() {
         }
         let mut scene = Scene::new(phase);
         scene.action(|b, ctx| {
-            b.fists[0].swat(ctx.fx);
+            let base = b.base();
+            b.fists[0].swat(base, ctx.player, ctx.fx);
             b.attack = Some(Attack::Swat { side: 0 });
         });
         for (index, state) in [

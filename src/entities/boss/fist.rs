@@ -97,7 +97,8 @@ pub const TEMPO: [Tempo; 3] = [
 pub const HOVER: f32 = 62.0;
 pub const FIST_CRYSTAL_HP: i32 = 5;
 const DROP: u32 = 5;
-const SWAT_R: f32 = 58.0;
+const SWAT_MIN_R: f32 = 58.0;
+const SWAT_MAX_R: f32 = 128.0;
 
 pub struct Fist {
     /// 0 = screen-left, 1 = screen-right.
@@ -122,6 +123,8 @@ pub struct Fist {
     /// Recent drawn positions for the drop smear.
     pub trail: [(f32, f32, f32); 3],
     pub t: u32,
+    /// Locked at windup; shared by the telegraph and the damaging arc.
+    swat_r: f32,
 }
 
 pub const GROW: u32 = 48;
@@ -159,6 +162,7 @@ impl Fist {
             impact: false,
             trail: [(x, y, 0.0); 3],
             t: 0,
+            swat_r: SWAT_MIN_R,
         }
     }
 
@@ -214,7 +218,11 @@ impl Fist {
         self.enter(St::Raise(0));
     }
     /// Wind up a readable close-range sweep.
-    pub fn swat(&mut self, fx: &mut Fx) {
+    pub fn swat(&mut self, base: (f32, f32), target: (f32, f32), fx: &mut Fx) {
+        // Keep the same thin elliptical band, placing it at the player's distance.
+        self.swat_r = (target.0 - base.0)
+            .hypot((target.1 - base.1 - 8.0) / 0.8)
+            .clamp(SWAT_MIN_R, SWAT_MAX_R);
         self.hit_id = fx.hit_id();
         self.enter(St::SwatWind(0));
     }
@@ -432,13 +440,13 @@ impl Fist {
                     -PI * 0.02
                 };
                 let goal = (
-                    bx + a0.cos() * (SWAT_R + 16.0),
-                    by + 8.0 + a0.sin() * SWAT_R * 0.8,
+                    bx + a0.cos() * (self.swat_r + 16.0),
+                    by + 8.0 + a0.sin() * self.swat_r * 0.8,
                     10.0,
                 );
                 let k = ease_out_cubic((t + 1) as f32 / len as f32);
                 self.tween(goal, k);
-                swat_marker(c.fx, bx, by, self.side, k * 0.7, 0, self.t);
+                swat_marker(c.fx, bx, by, self.side, self.swat_r, k * 0.7, 0, self.t);
                 if t + 1 >= len {
                     self.enter(St::SwatHold(0));
                     c.fx.sound_vol("boss_telegraph", 0.8);
@@ -449,7 +457,7 @@ impl Fist {
             St::SwatHold(t) => {
                 let len = 14;
                 self.jit = if (t / 2) % 2 == 0 { 1 } else { -1 };
-                swat_marker(c.fx, bx, by, self.side, 1.0, t + 1, self.t);
+                swat_marker(c.fx, bx, by, self.side, self.swat_r, 1.0, t + 1, self.t);
                 if t + 1 >= len {
                     self.enter(St::SwatSweep(0));
                     c.fx.sound_vol("spin", 0.7);
@@ -458,7 +466,8 @@ impl Fist {
                 }
             }
             St::SwatSweep(t) => {
-                let len = 14;
+                // Longer arcs keep the original travel speed and continuous hit coverage.
+                let len = (14.0 * self.swat_r / SWAT_MIN_R).ceil() as u32;
                 let (a0, a1) = if self.side == 0 {
                     (PI * 1.02, PI * 0.12)
                 } else {
@@ -466,10 +475,10 @@ impl Fist {
                 };
                 let k = ease_in_out((t + 1) as f32 / len as f32);
                 let a = a0 + (a1 - a0) * k;
-                self.x = bx + a.cos() * SWAT_R;
-                self.y = by + 8.0 + a.sin() * SWAT_R * 0.8;
+                self.x = bx + a.cos() * self.swat_r;
+                self.y = by + 8.0 + a.sin() * self.swat_r * 0.8;
                 self.z = 8.0;
-                swat_marker(c.fx, bx, by, self.side, 1.0, 20, self.t);
+                swat_marker(c.fx, bx, by, self.side, self.swat_r, 1.0, 20, self.t);
                 c.hits.push(
                     Hit::new(
                         Shape::Circle {
@@ -590,13 +599,13 @@ impl Fist {
 }
 
 /// The swat's danger arc on the ground: the band the fist will sweep through.
-fn swat_marker(fx: &mut Fx, bx: f32, by: f32, side: usize, k: f32, locked: u32, t: u32) {
+fn swat_marker(fx: &mut Fx, bx: f32, by: f32, side: usize, radius: f32, k: f32, locked: u32, t: u32) {
     let (a0, a1) = if side == 0 {
         (PI * 0.12, PI * 1.02)
     } else {
         (-PI * 0.02, PI * 0.88)
     };
-    let (r0, r1) = (SWAT_R - 12.0, SWAT_R + 12.0);
+    let (r0, r1) = (radius - 12.0, radius + 12.0);
     let c_edge = if locked > 0 && locked < 6 {
         hazards::D4
     } else if locked > 0 {

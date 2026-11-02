@@ -35,6 +35,7 @@ fn blit(z: &mut Zone, c: &Cell, x: i32, y: i32) {
             let p = c.at(px, py);
             if p.a {
                 z.gset(x + px, y + py, p.c);
+                z.gset_surface(x + px, y + py, c, px, py, false, 0.0);
             }
         }
     }
@@ -109,6 +110,7 @@ fn material(m: &Map, x: i32, y: i32) -> u8 {
 /// Paint all static pixels once and return their physical material mask.
 pub fn paint(z: &mut Zone, m: &Map) -> Vec<u8> {
     z.ground.fill(HOLE);
+    z.terrain_volumes.clear();
     let mut mask = vec![mat::VOID; (z.pw * z.ph) as usize];
     for y in 0..z.ph {
         for x in 0..z.pw {
@@ -167,8 +169,83 @@ pub fn paint(z: &mut Zone, m: &Map) -> Vec<u8> {
     // Apply these last: a facade must not erase the coping, turf or its own foundation.
     banks(z, &mask);
     terrain_contacts(z, m, &mask);
+    terrain_surfaces(z, &mask);
+    stair_retaining_masses(z, &mask);
     terrace_endcaps(z, m, &mut mask);
     mask
+}
+
+/// The cliff front terminates at the stair, but its masonry still has depth
+/// beside the passage. Retain that local solid jamb instead of treating the
+/// wall as a paper sheet with no side capable of shading the stair treads.
+fn stair_retaining_masses(z: &mut Zone, mask: &[u8]) {
+    if z.ph <= 351 { return; }
+    let material = |x: i32| {
+        if x < 0 || x >= z.pw { return mat::VOID; }
+        mask[(320 * z.pw + x) as usize]
+    };
+    let mut x = 0;
+    while x < z.pw {
+        if material(x) != mat::STAIRS { x += 1; continue; }
+        let left = x;
+        while x < z.pw && material(x) == mat::STAIRS { x += 1; }
+        let right = x;
+        for (edge, side) in [(left, -1), (right, 1)] {
+            let mut depth = 0;
+            while depth < 32 {
+                let sample = if side < 0 { edge - depth - 1 } else { edge + depth };
+                if material(sample) != mat::CLIFF { break; }
+                depth += 1;
+            }
+            if depth == 0 { continue; }
+            let (x0, x1) = if side < 0 { (edge - depth, edge) } else { (edge, edge + depth) };
+            // Native front pixel centers satisfy screenY + Z = 352.5.
+            // Thirty-two units of bank behind that front close the exposed
+            // side while leaving the authored stair passage completely open.
+            z.terrain_volumes.push(crate::world::TerrainVolume {
+                min: [x0 as f32, 320.5, 0.0],
+                max: [x1 as f32, 352.5, 32.0],
+            });
+        }
+    }
+    z.invalidate_lighting();
+}
+
+/// Painted geometry owns the lighting planes, just as it owns collision. Stair
+/// nosings are shallow relief; the island's hanging rock is below the meadow,
+/// never an upright obstacle rising above it. Keep native rock normals while
+/// excluding those undersides from above-ground shadow casting.
+fn terrain_surfaces(z: &mut Zone, mask: &[u8]) {
+    for y in 0..z.ph {
+        for x in 0..z.pw {
+            let i = (y * z.pw + x) as usize;
+            if z.ground[i] == HOLE { continue; }
+            if mask[i] == mat::EDGE {
+                let native = z.ground_surfaces[i];
+                let normal = if native.present() {
+                    native.normal.map(|n| n as f32 / 127.0)
+                } else {
+                    [0.0, 1.0, 0.0]
+                };
+                z.gset_plane_surface(x, y, normal, 0.0);
+            } else if mask[i] == mat::STAIRS {
+                let row = (y - 320).rem_euclid(5);
+                let (normal, height) = if row < 3 {
+                    ([0.0, 0.0, 1.0], 2.0)
+                } else {
+                    ([0.0, 1.0, 0.0], (5 - row) as f32)
+                };
+                z.gset_plane_surface(x, y, normal, height);
+            } else if mask[i] == mat::CLIFF {
+                if (320..325).contains(&y) {
+                    let normal = if y < 322 { [0.0, 0.0, 1.0] } else { [0.0, 1.0, 0.0] };
+                    z.gset_plane_surface(x, y, normal, (352 - y) as f32);
+                } else if !z.ground_surfaces[i].present() {
+                    z.gset_plane_surface(x, y, [0.0, 1.0, 0.0], (352 - y).max(0) as f32);
+                }
+            }
+        }
+    }
 }
 
 /// Singular remnants explain the old garden: a broken medallion at its shrine,
@@ -634,6 +711,8 @@ fn terrace_endcaps(z: &mut Zone, m: &Map, mask: &mut [u8]) {
                     }
                     z.ground[i] = color;
                     mask[i] = mat::EDGE;
+                    let normal = if row < 2 { [0.0, 0.0, 1.0] } else { [side as f32, 0.0, 0.0] };
+                    z.gset_plane_surface(x, y, normal, (32 - row) as f32);
                 }
             }
         }
@@ -846,6 +925,9 @@ fn bridge_decks(z: &mut Zone, mask: &[u8]) {
                     pal::STONE[4]
                 };
                 z.gset(x, y, c);
+                // This final masonry pass replaces the earlier material art. Its
+                // matching geometric normals are completed after painting.
+                z.ground_surfaces[(y * z.pw + x) as usize] = Default::default();
             }
         }
         // Worn approach stones taper into the existing path rather than ending at a
@@ -1491,6 +1573,14 @@ fn opening_steps(z: &mut Zone, mask: &mut [u8]) {
                 pal::STONE[3]
             };
             z.gset(x, y, c);
+            let (normal, height) = if y >= 726 {
+                ([0.0, 1.0, 0.0], (728 - y) as f32)
+            } else if [702, 713, 724].contains(&y) {
+                ([0.0, 1.0, 0.0], 1.0)
+            } else {
+                ([0.0, 0.0, 1.0], 2.0)
+            };
+            z.gset_plane_surface(x, y, normal, height);
             mask[i] = mat::SLAB;
         }
     }
@@ -1982,6 +2072,24 @@ fn altar(z: &mut Zone) {
                 pal::STONE[3]
             };
             z.gset(cx + x, cy + y, c);
+            let normal = if y > 19 {
+                [0.0, 1.0, 0.0]
+            } else if d > 26 {
+                let diagonal = (x.abs() + y.abs() + 8) * 2 / 3;
+                let normal = if x.abs() >= (y.abs() + 8).max(diagonal) {
+                    [x.signum() as f32, 0.0, 1.0]
+                } else if y.abs() + 8 >= diagonal {
+                    [0.0, y.signum() as f32, 1.0]
+                } else {
+                    [x.signum() as f32, y.signum() as f32, 1.0]
+                };
+                normal
+            } else {
+                [0.0, 0.0, 1.0]
+            };
+            // The walkable top and its actors share the zero-height ground plane.
+            // Its painted front hangs below that plane, like the island underside.
+            z.gset_plane_surface(cx + x, cy + y, normal, 0.0);
         }
     }
     for y in -15i32..=15 {
@@ -2002,6 +2110,61 @@ mod material_tests {
     use super::*;
     use crate::gfx::{Rgb, Sheet};
     use crate::world::ZoneId;
+
+    #[test]
+    fn floor_blits_keep_exact_native_normals_and_plinth_owns_its_final_geometry() {
+        let mut z = Zone::new(ZoneId::Bloomwild, 30, 20);
+        let mut cell = Cell::from_ascii(&["aa"], &[('a', pal::STONE[3])], &[]);
+        cell.surface = vec![
+            crate::gfx::surface::NormalPixel { n: [60, 30, 108], a: true, emit: false },
+            crate::gfx::surface::NormalPixel { n: [-60, -30, 108], a: true, emit: false },
+        ].into();
+        blit(&mut z, &cell, 10, 12);
+        for x in 0..2 {
+            let normal = cell.surface[x as usize].n.map(|n| f32::from(n) / 127.0);
+            assert_eq!(z.ground_surfaces[(12 * z.pw + 10 + x) as usize],
+                crate::gfx::lighting::TerrainSurface::new([normal[0], -normal[1], normal[2]], 0.0));
+        }
+        altar(&mut z);
+        let surface = |dx, dy| z.ground_surfaces[((176 + dy) * z.pw + 408 + dx) as usize];
+        assert_eq!(surface(0, 0).normal, [0, 0, 127], "inlaid compass is flush on the top");
+        assert_eq!(surface(30, 0).normal, [90, 0, 90], "east bevel follows the octagonal edge");
+        assert_eq!(surface(-30, 0).normal, [-90, 0, 90], "west bevel faces the other way");
+        assert_eq!(surface(0, 21).normal, [0, 127, 0], "south face stays upright");
+        assert_eq!(surface(0, 0).height, 0, "walkable plinth cannot lift above its actors");
+        assert_eq!(surface(0, 21).height, 0, "painted front hangs below the walkable plane");
+    }
+
+    #[test]
+    fn stairs_and_hanging_cliffs_have_distinct_authored_lighting_planes() {
+        let m = Map::parse();
+        let mut z = Zone::new(ZoneId::Bloomwild, m.tw, m.th);
+        let mask = paint(&mut z, &m);
+        let surface = |x, y| z.ground_surfaces[(y * z.pw + x) as usize];
+        for (x, tread, riser) in [(1128, 321, 323), (330, 700, 702)] {
+            assert_eq!(surface(x, tread).normal, [0, 0, 127], "stair tread faces upward");
+            assert_eq!(surface(x, riser).normal, [0, 127, 0], "short riser faces south");
+            assert!(surface(x, riser).height <= 2, "a stair nosing is not a full retaining wall");
+        }
+        assert_eq!(surface(330, 726).height, 2, "bottom riser begins at its tread height");
+        assert_eq!(surface(330, 727).height, 1, "bottom riser descends toward the lower floor");
+        assert_eq!(surface(1000, 320).normal, [0, 0, 127], "coping is a top plane");
+        assert_eq!(surface(1000, 330).height, 22, "actual retaining wall keeps its native height");
+        assert_eq!(surface(1299, 330).normal, [127, 0, 0], "exposed east end faces east");
+        assert!(surface(1299, 330).height > 0, "retaining-wall end is still a raised blocker");
+        let mut hanging = 0;
+        for y in 400..z.ph {
+            for x in 0..z.pw {
+                let i = (y * z.pw + x) as usize;
+                if mask[i] != mat::EDGE || z.ground[i] == HOLE { continue; }
+                hanging += 1;
+                assert!(surface(x, y).present(), "procedural cliff returns have a geometric normal");
+                assert_eq!(surface(x, y).height, 0, "hanging rock cannot rise above the meadow");
+            }
+        }
+        assert!(hanging > 1000, "exercise actual native crags and procedural returns");
+        assert_eq!(physical_surface(&z, &mask)[(336 * z.pw + 1128) as usize], crate::world::Tile::Floor);
+    }
 
     #[test]
     fn bounded_and_empty_gardens_do_not_paint_orphan_level_details_into_sky() {

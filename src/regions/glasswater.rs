@@ -9,6 +9,7 @@
 mod art;
 mod life;
 mod materials;
+mod normals;
 mod paint;
 mod place;
 mod water;
@@ -150,6 +151,8 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     let mut decor = Vec::new();
     place::populate(&mut z, &mut decor, &m);
     paint::lit_banks(&mut z, &m, &fl, &decor);
+    paint::walkable_surfaces(&mut z, &m, &fl);
+    normals::apply(&mut z, &m, &fl);
     let water = water::Water::new(&m, &fl, &z.ground, &decor);
     let mut life = life::Life::new();
     place::drips(&mut life);

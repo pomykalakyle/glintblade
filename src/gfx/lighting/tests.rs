@@ -28,6 +28,23 @@ fn fractional_native_light_planes_match_the_drawn_sprite_raster() {
     }}
 }
 
+#[test]
+fn fallback_rock_relief_preserves_authored_heights_native_normals_and_sky() {
+    let mut zone = small(ZoneId::Cinder);
+    zone.set_tile(4, 4, Tile::Wall);
+    zone.set_tile(5, 5, Tile::Void);
+    zone.gset_plane_surface(65, 65, [0.2, 0.3, 0.9], 7.0);
+    zone.gset(81, 81, crate::world::HOLE);
+    let field = Field::bake(&zone, &NoRegion, geometry_key(&zone));
+    let at = |x, y| field.terrain[(y * zone.pw + x) as usize];
+    assert_eq!(at(65, 65), zone.ground_surfaces[(65 * zone.pw + 65) as usize],
+        "a retained native surface must not receive the fallback a second time");
+    assert_eq!(at(70, 70).height, 18, "wall detail cannot flatten its authored altitude");
+    assert_eq!(at(82, 82).height, 20, "opaque void-edge rock keeps its existing face height");
+    assert_ne!(at(70, 70).normal, at(71, 70).normal, "the opaque wall receives actual varying relief");
+    assert!(!at(81, 81).present(), "sky retains no geometry or texture");
+}
+
 /// Real crystal keys survive native base refinement; dimensions do not encode light identity.
 #[test]
 fn glasswater_native_crystal_keys_survive_collision_refinement() {
@@ -123,16 +140,18 @@ fn summit_collision_companions_do_not_add_planes() {
     assert_eq!(with.dark, without.dark, "physics-only support spans never stamp shadows into the sky");
 }
 
-/// Painted cave and arena terrain does not acquire a box plane from an invisible collision tile.
+/// Authored terrain does not acquire a box plane from an invisible collision tile.
 #[test]
 fn authored_terrain_ignores_collision_grid_planes() {
-    for id in [ZoneId::Glasswater, ZoneId::Summit] {
+    for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Summit] {
         let mut zone = small(id);
         let before = Field::bake(&zone, &NoRegion, geometry_key(&zone));
         zone.set_tile(8, 7, Tile::Wall);
         let after = Field::bake(&zone, &NoRegion, geometry_key(&zone));
         assert_eq!(before.light, after.light);
         assert_eq!(before.raised, after.raised);
+        assert_eq!(before.contact, after.contact);
+        assert_eq!(before.terrain, after.terrain);
     }
 }
 
@@ -176,7 +195,14 @@ fn zone_owned_cache_invalidates_geometry_and_breakage() {
     assert_eq!(broken.light, sample(&b, (0, 0)).light);
     a.set_tile(8, 7, Tile::Wall);
     assert!(a.lighting.borrow().is_none());
-    assert_ne!(sample(&a, (0, 0)).light, broken.light);
+    assert!(sample(&a, (0, 0)).light == broken.light,
+        "a collision-only edit rebakes but cannot invent a painted Bloomwild wall");
+    a.gset_plane_surface(130, 120, [0.0, 1.0, 0.0], 12.0);
+    assert!(a.lighting.borrow().is_none());
+    sample(&a, (0, 0));
+    assert_eq!(a.lighting.borrow().as_ref().unwrap().terrain[(120 * a.pw + 130) as usize],
+        TerrainSurface::new([0.0, 1.0, 0.0], 12.0),
+        "authored geometry must replace the cached receiving plane");
     a.gset(2, 2, crate::world::HOLE);
     assert!(a.lighting.borrow().is_none());
     sample(&a, (0, 0));

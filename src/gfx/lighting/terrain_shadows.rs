@@ -129,7 +129,10 @@ impl Geometry {
         let x1 = ((light.x + light.radius).ceil() as i32).min(zone.pw - 1);
         let y0 = ((light.y - ry).floor() as i32).max(0);
         let y1 = ((light.y + ry).ceil() as i32).min(zone.ph - 1);
-        self.occupied_rect(zone, x0, y0, x1, y1)
+        self.occupied_rect(zone, x0, y0, x1, y1) || zone.terrain_volumes.iter().any(|volume|
+            volume.max[0] >= x0 as f32 && volume.min[0] <= x1 as f32
+            && volume.max[1] - volume.min[2] >= y0 as f32
+            && volume.min[1] - volume.max[2] <= y1 as f32)
     }
 }
 
@@ -173,6 +176,10 @@ fn cell_after(origin: f64, delta: f64, step: i32, t: f64) -> i32 {
 /// Receiver -> source traversal. Only a terrain receiver's own contiguous
 /// cap/front sheet is exempt; actors and separate sprite surfaces are not.
 fn blocked(zone: &Zone, geometry: &Geometry, receiver: [f32; 3], own_terrain: bool, light: PointLight) -> bool {
+    let direction = [f64::from(light.x) - f64::from(receiver[0]),
+        f64::from(light.y) + f64::from(light.height) - f64::from(receiver[1]) - f64::from(receiver[2]),
+        f64::from(light.height) - f64::from(receiver[2])];
+    if super::terrain_volumes::any(&zone.terrain_volumes, receiver.map(f64::from), direction, 1.0, own_terrain) { return true; }
     if !geometry.occupied_rect(zone,
         receiver[0].min(light.x).floor() as i32, receiver[1].min(light.y).floor() as i32,
         receiver[0].max(light.x).floor() as i32, receiver[1].max(light.y).floor() as i32) { return false; }
@@ -262,6 +269,10 @@ fn blocked(zone: &Zone, geometry: &Geometry, receiver: [f32; 3], own_terrain: bo
 
 #[cfg(test)]
 fn blocked_reference(zone: &Zone, geometry: &Geometry, receiver: [f32; 3], own_terrain: bool, light: PointLight) -> bool {
+    let direction = [f64::from(light.x) - f64::from(receiver[0]),
+        f64::from(light.y) + f64::from(light.height) - f64::from(receiver[1]) - f64::from(receiver[2]),
+        f64::from(light.height) - f64::from(receiver[2])];
+    if super::terrain_volumes::any(&zone.terrain_volumes, receiver.map(f64::from), direction, 1.0, own_terrain) { return true; }
     if !geometry.occupied_rect(zone,
         receiver[0].min(light.x).floor() as i32, receiver[1].min(light.y).floor() as i32,
         receiver[0].max(light.x).floor() as i32, receiver[1].max(light.y).floor() as i32) { return false; }
@@ -490,6 +501,34 @@ mod tests {
         zone.gset_plane_surface(20, 20, [0.0, 1.0, 0.0], 12.0);
         let geometry = Geometry::new(&zone);
         assert!(!blocked(&zone, &geometry, [30.5, 20.5, 0.0], false, source), "ray must cross actual native height, not a column from zero");
+    }
+
+    #[test]
+    fn actual_stair_jamb_blocks_point_light_across_its_side_but_not_through_the_passage() {
+        let (zone, region) = crate::regions::build(ZoneId::Bloomwild);
+        let field = Field::bake(&zone, region.as_ref(), super::super::geometry_key(&zone));
+        let geometry = &field.terrain_shadow;
+        let receiver = [1112.5, 331.5, 2.0];
+        let across = light(1080.5, 313.5, 20.0);
+        let open = light(1120.5, 313.5, 20.0);
+        assert!(blocked(&zone, geometry, receiver, true, across), "the wall's real side blocks the source");
+        assert!(!blocked(&zone, geometry, receiver, true, open), "a source inside the stair passage stays visible");
+        for (cam_x, cam_y) in [(1000, 260), (1007, 271)] {
+            let mut frame = Frame::new();
+            frame.cam_x = cam_x;
+            frame.cam_y = cam_y;
+            let i = (331 - cam_y) as usize * W + (1112 - cam_x) as usize;
+            frame.surfaces[i] = zone.ground_surfaces[(331 * zone.pw + 1112) as usize].surface();
+            for _ in 0..3 {
+                let mut mask = vec![255; W * H];
+                occlude(&zone, &field, &frame, across, &mut mask);
+                assert_eq!(mask[i], 0, "point shadow survives camera movement and cache promotion");
+                let mut visible = vec![255; W * H];
+                occlude(&zone, &field, &frame, open, &mut visible);
+                assert_eq!(visible[i], 255);
+                assert!(mask.iter().enumerate().all(|(j, &v)| j == i || v == 255), "no point shadow in sky");
+            }
+        }
     }
 
     #[test]

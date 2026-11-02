@@ -56,3 +56,73 @@ pub fn placeholder(id: ZoneId, title: &str, floor: (u32, u32), wall: u32, ambien
     z.shard = Some(((tw - 8) as f32 * TILE as f32, (th / 2) as f32 * TILE as f32));
     z
 }
+
+#[cfg(test)]
+mod normal_coverage_tests {
+    use super::*;
+
+    /// Audit the finished native movement mask, including painter-created margins
+    /// and crossings that cannot be checked through the coarse navigation grid.
+    #[test]
+    fn every_walkable_pixel_has_a_retained_normal_in_every_region() {
+        for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Cinder, ZoneId::Summit] {
+            let (zone, _) = build(id);
+            let mut walkable = 0;
+            let mut missing = 0;
+            let mut first_missing = None;
+            for y in 0..zone.ph {
+                for x in 0..zone.pw {
+                    let i = (y * zone.pw + x) as usize;
+                    if zone.ground[i] == crate::world::HOLE || zone.tile_at(x as f32, y as f32).solid() {
+                        continue;
+                    }
+                    walkable += 1;
+                    let surface = zone.ground_surfaces[i];
+                    if !surface.present() {
+                        missing += 1;
+                        first_missing.get_or_insert((x, y));
+                        continue;
+                    }
+                    let length = surface.normal.iter().map(|&n| (n as f32 / 127.0).powi(2)).sum::<f32>().sqrt();
+                    assert!((length - 1.0).abs() < 0.015, "{id:?} invalid normal at ({x},{y}): {:?}", surface.normal);
+                }
+            }
+            println!("WALKABLE_NORMALS {id:?}: {walkable} pixels, {missing} missing");
+            assert!(walkable > 10_000, "audit must cover real region geometry");
+            assert_eq!(missing, 0, "{id:?} missing walkable normals, first at {first_missing:?}");
+        }
+    }
+
+    /// A populated UP vector is still flat. Check finished, native-quantized
+    /// material normals after every overlay, not just the presence of metadata.
+    #[test]
+    fn dry_terrain_has_material_relief_after_all_region_builders() {
+        for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Cinder, ZoneId::Summit] {
+            let (zone, _) = build(id);
+            let mut slopes = Vec::new();
+            let mut incidence = Vec::new();
+            for y in 0..zone.ph {
+                for x in 0..zone.pw {
+                    let i = (y * zone.pw + x) as usize;
+                    if zone.ground[i].r < 0.0 || zone.tile_at(x as f32, y as f32) != Tile::Floor {
+                        continue;
+                    }
+                    let n = zone.ground_surfaces[i].normal.map(|n| n as f32 / 127.0);
+                    if n[2] < 0.6 { continue; } // Authored upright risers are a separate plane.
+                    slopes.push(n[0].hypot(n[1]));
+                    incidence.push(n[0] * -0.56 + n[1] * -0.32 + n[2] * 0.76);
+                }
+            }
+            slopes.sort_by(f32::total_cmp);
+            incidence.sort_by(f32::total_cmp);
+            let count = slopes.len();
+            assert!(count > 100_000, "audit must sample the real region");
+            let textured = slopes.iter().filter(|&&v| v > 0.05).count();
+            let median = slopes[count / 2];
+            let span = incidence[count * 95 / 100] - incidence[count * 5 / 100];
+            println!("TERRAIN_RELIEF {id:?}: {count} dry top pixels, {:.2}% textured, median {median:.4}, directional span {span:.4}", textured as f32 * 100.0 / count as f32);
+            assert!(textured * 100 > count * 70, "{id:?} still has broad flat ground");
+            assert!(median > 0.08 && span > 0.12, "{id:?} has ineffective material relief");
+        }
+    }
+}

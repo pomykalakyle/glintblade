@@ -94,6 +94,15 @@ fn workyards(z: &mut Zone, kinds: &Grid<u8>) {
                     && !((cy - 10..cy - 5).contains(&y) || (cy + 7..cy + 12).contains(&y))
                 {
                     z.gset(x, y, c.lerp(O3, 0.47));
+                    z.gset_plane_surface(x, y, [0.0, 0.0, 1.0], 0.0);
+                    // The tiny inset replaces the substrate at its own footprint.
+                    // Its flanks face into the geometric groove, never toward an
+                    // inferred dark/bright direction in the underlying mineral art.
+                    for (dx, nx) in [(-1, 0.24), (1, -0.24)] {
+                        if kinds.inside(x + dx, y) && kinds.at(x + dx, y) == K_PAVE {
+                            z.gset_plane_surface(x + dx, y, [nx, 0.0, 0.97], 0.0);
+                        }
+                    }
                 }
             }
         }
@@ -108,6 +117,8 @@ fn workyards(z: &mut Zone, kinds: &Grid<u8>) {
                     let old = z.gget(wx, wy);
                     let ink = if dy == 2 { C2 } else { O3 };
                     z.gset(wx, wy, old.lerp(ink, 0.58));
+                    let ny = if dy == 0 { 0.25 } else if dy == 2 { -0.25 } else { 0.0 };
+                    z.gset_plane_surface(wx, wy, [0.0, ny, 0.97], 0.0);
                 }
             }
         }
@@ -212,6 +223,12 @@ fn cooled_flows(z: &mut Zone, kinds: &Grid<u8>) {
                             if dy == 2 { 0.19 } else { 0.30 },
                         ),
                     );
+                    // A shallow cooled seam and its lower lip follow this exact
+                    // painted curve; broad ash shading never enters the geometry.
+                    let slope = 2.0 * t * bend as f32 / (length as f32 * 0.5)
+                        * if flip { -1.0 } else { 1.0 };
+                    let ny = if dy == 0 { 0.20 } else if dy == 2 { -0.20 } else { 0.0 };
+                    z.gset_plane_surface(wx, wy, [-slope * ny, ny, 0.98], 0.0);
                 }
             }
         }

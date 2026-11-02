@@ -78,6 +78,15 @@ pub struct LightingSettings {
     pub shadow_tint: Rgb,
 }
 
+/// Authored solid terrain in world X/right, Y/down, Z/up coordinates. Painted
+/// height sheets describe visible fronts; these optional masses also retain
+/// their real sides where a passage cuts into a bank. Collision stays separate.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(crate) struct TerrainVolume {
+    pub min: [f32; 3],
+    pub max: [f32; 3],
+}
+
 impl LightingSettings {
     /// Preserve the selected lighting profiles until a region deliberately tunes its values.
     pub fn for_zone(id: ZoneId) -> Self {
@@ -111,8 +120,9 @@ pub struct Zone {
     pub surface_tiles: Option<Vec<Tile>>,
     /// Pre-rendered ground albedo, pw*ph. Region builders paint this once at load.
     pub ground: Vec<Rgb>,
-    /// Exact native source normals retained by terrain painters (four bytes per pixel).
+    /// Native source or authored geometric normals retained by terrain painters (four bytes per pixel).
     pub(crate) ground_surfaces: Vec<crate::gfx::lighting::TerrainSurface>,
+    pub(crate) terrain_volumes: Vec<TerrainVolume>,
     /// Pre-rendered ground emissive (glowing moss, lava cracks...), pw*ph.
     pub ground_emit: Vec<Rgb>,
     pub props: Vec<Prop>,
@@ -154,6 +164,7 @@ impl Zone {
             surface_tiles: None,
             ground: vec![Rgb::BLACK; (pw * ph) as usize],
             ground_surfaces: vec![crate::gfx::lighting::TerrainSurface::default(); (pw * ph) as usize],
+            terrain_volumes: Vec::new(),
             ground_emit: vec![Rgb::BLACK; (pw * ph) as usize],
             props: Vec::new(),
             lights: Vec::new(),
@@ -255,6 +266,23 @@ impl Zone {
         if x < 0 || y < 0 || x >= self.pw || y >= self.ph { return; }
         self.ground_surfaces[(y * self.pw + x) as usize] = crate::gfx::lighting::TerrainSurface::new(normal, height);
         self.invalidate_lighting();
+    }
+    /// Complete painted walkable geometry without replacing exact source normals.
+    /// Call after installing the painter's native movement mask. Material relief
+    /// belongs to the painter; this helper never derives geometry from albedo.
+    pub(crate) fn fill_walkable_surfaces(&mut self, mut sample: impl FnMut(i32, i32) -> ([f32; 3], f32)) {
+        let mut changed = false;
+        for y in 0..self.ph {
+            for x in 0..self.pw {
+                let i = (y * self.pw + x) as usize;
+                if self.ground[i].r < 0.0 || self.ground_surfaces[i].present()
+                    || self.tile_at(x as f32, y as f32).solid() { continue; }
+                let (normal, height) = sample(x, y);
+                self.ground_surfaces[i] = crate::gfx::lighting::TerrainSurface::new(normal, height);
+                changed = true;
+            }
+        }
+        if changed { self.invalidate_lighting(); }
     }
     #[inline]
     pub fn gget(&self, x: i32, y: i32) -> Rgb {
@@ -422,6 +450,42 @@ mod surface_tests {
     use super::*;
     use crate::entities::{Player, player::PlayerCtx};
     use crate::input::{Input, Raw};
+
+    #[test]
+    fn walkable_normal_completion_obeys_native_collision_and_preserves_painted_surfaces() {
+        let mut zone = Zone::new(ZoneId::Bloomwild, 2, 1);
+        zone.ground.fill(Rgb::WHITE);
+        zone.set_tile(1, 0, Tile::Wall);
+        let mut physical = vec![Tile::Void; zone.ground.len()];
+        for (x, tile) in [(1, Tile::Floor), (2, Tile::Shallow), (3, Tile::Wall),
+            (4, Tile::Deep), (5, Tile::Lava), (7, Tile::Floor), (8, Tile::Floor), (17, Tile::Floor)] {
+            physical[x] = tile;
+        }
+        zone.set_surface_tiles(physical);
+        zone.gset(7, 0, HOLE);
+        zone.gset_plane_surface(8, 0, [-0.4, 0.2, 1.0], 3.0);
+        let source = zone.ground_surfaces[8];
+        let albedo = zone.ground.clone();
+        let native = zone.surface_tiles.clone();
+        let coarse = zone.tiles.clone();
+        let revision = zone.lighting_revision;
+        let mut sampled = Vec::new();
+        zone.fill_walkable_surfaces(|x, y| {
+            sampled.push((x, y));
+            ([0.3, -0.2, 1.0], 0.0)
+        });
+        assert_eq!(sampled, [(1, 0), (2, 0), (17, 0)], "precise floor and shallows win over coarse walls; holes and blocked terrain are excluded");
+        assert_eq!(zone.ground_surfaces[8], source, "authored native geometry survives completion");
+        for (i, surface) in zone.ground_surfaces.iter().enumerate() {
+            assert_eq!(surface.present(), [1, 2, 8, 17].contains(&i));
+        }
+        assert_eq!(zone.ground, albedo);
+        assert_eq!(zone.surface_tiles, native);
+        assert_eq!(zone.tiles, coarse);
+        assert_eq!(zone.lighting_revision, revision + 1, "bulk completion invalidates the bake once");
+        zone.fill_walkable_surfaces(|_, _| panic!("completed geometry must not be sampled again"));
+        assert_eq!(zone.lighting_revision, revision + 1);
+    }
 
     #[test]
     fn native_surface_uses_full_half_open_feet_and_preserves_coarse_map() {

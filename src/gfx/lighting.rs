@@ -8,6 +8,7 @@ mod dynamic;
 mod patch;
 mod surface_shadows;
 mod terrain_shadows;
+mod terrain_volumes;
 mod sun_shadows;
 use patch::{Planes, Rect, incremental, procedural_bounds, prop_bounds};
 
@@ -58,12 +59,6 @@ fn sprite_companion(z: &Zone, p: &crate::world::Prop) -> bool {
         && z.props.iter().any(|other| other.alive
             && (other.x - p.x).abs() <= 2.0 && (other.y - p.y).abs() <= 2.0
             && other.sheet().and_then(|s| s.anim(&other.anim)).is_some())
-}
-
-/// Keep the authored bright cliff lip and the first receiving rows facing the daylight key.
-fn cliff_cap(z: &Zone, x: i32, y: i32) -> bool {
-    z.gget(x, y).luma() > 0.66
-        || (1..=3).any(|d| matches!(z.tile_at(x as f32, (y - d) as f32), Tile::Floor | Tile::Shallow))
 }
 
 #[derive(Clone, Copy)]
@@ -145,6 +140,10 @@ pub(crate) struct Field {
 fn geometry_key(z: &Zone) -> u64 {
     let mut hash = std::collections::hash_map::DefaultHasher::new();
     (z.id, z.pw, z.ph, z.tw, z.th, z.lighting_revision).hash(&mut hash);
+    z.terrain_volumes.len().hash(&mut hash);
+    for volume in &z.terrain_volumes {
+        for component in volume.min.into_iter().chain(volume.max) { component.to_bits().hash(&mut hash); }
+    }
     for c in [z.lighting_settings.fill, z.lighting_settings.shadow_tint] {
         for v in [c.r, c.g, c.b] { v.to_bits().hash(&mut hash); }
     }
@@ -617,7 +616,7 @@ impl Field {
         let mut planes = Planes::new(f.clip);
         let walls = f.clip.expand(24).clamp(z);
         // These regions paint curved, pixel-defined faces that deliberately differ from collision tiles.
-        let authored_terrain = matches!(z.id, ZoneId::Glasswater | ZoneId::Summit);
+        let authored_terrain = matches!(z.id, ZoneId::Bloomwild | ZoneId::Glasswater | ZoneId::Summit);
         for y in walls.y0..walls.y1 {
             for x in walls.x0..walls.x1 {
                 let i = (y * z.pw + x) as usize;
@@ -643,9 +642,7 @@ impl Field {
                             front = front.min((ty + step) * TILE - y - 1);
                         }
                     }
-                    let (nx, ny, nz) = if z.id == ZoneId::Bloomwild && cliff_cap(z, x, y) {
-                        (0.0, 0.0, 1.0)
-                    } else if left < 9 && left < right && left < front {
+                    let (nx, ny, nz) = if left < 9 && left < right && left < front {
                         (-0.85, 0.0, 0.45)
                     } else if right < 9 && right < front {
                         (0.85, 0.0, 0.45)
@@ -682,14 +679,13 @@ impl Field {
                         }
                     }
                 } else if inside && !authored_terrain && tile == Tile::Void && z.ground[i].r >= 0.0 {
-                    let cap = z.id == ZoneId::Bloomwild && cliff_cap(z, x, y);
                     planes.set(
                         x,
                         y,
                         Plane {
                             h: 20.0,
-                            ny: if cap { 0.0 } else { 0.9 },
-                            nz: if cap { 1.0 } else { 0.4 },
+                            ny: 0.9,
+                            nz: 0.4,
                             ..Plane::default()
                         },
                     );
@@ -732,7 +728,12 @@ impl Field {
                 } else if native.present() {
                     native
                 } else {
-                    TerrainSurface::new([p.nx, p.ny, p.nz], p.h)
+                    let base = [p.nx, p.ny, p.nz];
+                    let normal = if !authored_terrain
+                        && matches!(z.tile_at(x as f32, y as f32), Tile::Wall | Tile::Void) {
+                        crate::gfx::terrain_detail::normal(crate::gfx::terrain_detail::Material::Rock, x, y, base)
+                    } else { base };
+                    TerrainSurface::new(normal, p.h)
                 };
             }
         }
@@ -887,8 +888,9 @@ pub fn ground_surface(zone: &Zone, region: &dyn Region, f: &mut Frame) {
     }
 }
 
-/// Diagnostic counts: opaque terrain with exact source-UV metadata, raised
-/// source pixels, and distinct world normals. No lighting or geometry is changed.
+/// Diagnostic counts: opaque terrain with retained normals (native source UVs,
+/// authored geometry or completed planes), raised pixels and distinct normals.
+/// No lighting or geometry is changed.
 pub fn terrain_normal_coverage(zone: &Zone) -> (usize, usize, usize) {
     let mut pixels = 0;
     let mut raised = 0;

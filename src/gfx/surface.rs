@@ -271,6 +271,16 @@ fn apply_inner(zone: Option<&crate::world::Zone>, f: &mut Frame) {
             if s.kind == 0 {
                 continue;
             }
+            if s.kind == 1 && s.normal[2] > 0.5 {
+                // Broad directional skylight still reaches shaded ground. A
+                // horizontal receiver keeps its current exposure; small turf
+                // facets retain restrained relief when the direct sun is hidden.
+                let sky_dot = (-0.45 * s.normal[0] - 0.35 * s.normal[1]
+                    + 0.82 * s.normal[2]).max(0.0);
+                let sky = ((0.45 + 0.55 * sky_dot) / (0.45 + 0.55 * 0.82))
+                    .clamp(0.82, 1.16);
+                *light = light.scale(sky);
+            }
             let dot = (direction[0] * s.normal[0]
                 + direction[1] * s.normal[1]
                 + direction[2] * s.normal[2])
@@ -1038,5 +1048,38 @@ mod tests {
         f.normal_sun = true;
         apply(&mut f);
         assert!(f.light[i].r > light.r);
+    }
+
+    #[test]
+    fn shaded_ground_keeps_material_relief_without_a_false_direct_sun() {
+        use crate::world::{NoRegion, TerrainVolume, Zone, ZoneId};
+        let mut zone = Zone::new(ZoneId::Bloomwild, 32, 20);
+        zone.ground.fill(Rgb::WHITE);
+        zone.terrain_volumes.push(TerrainVolume {
+            min: [60.0, 80.0, 0.0], max: [100.0, 110.0, 40.0],
+        });
+        super::super::lighting::prepare(&zone, &NoRegion);
+        let mut frame = Frame::new();
+        frame.begin(Rgb::BLACK, Rgb::gray(0.5));
+        frame.surface_lighting = true;
+        let indices = [114 * W + 110, 114 * W + 112, 114 * W + 114];
+        for (index, normal) in indices.into_iter().zip([
+            [-0.25, 0.0, 0.9375_f32.sqrt()],
+            [0.25, 0.0, 0.9375_f32.sqrt()],
+            [0.0, 0.0, 1.0],
+        ]) {
+            frame.surfaces[index] = Surface { normal, height: 0.0, owner: 0, kind: 1 };
+        }
+        apply_world(&zone, &mut frame);
+        assert!(indices.into_iter().all(|i| frame.light[i] == Rgb::gray(0.5)),
+            "night fill must not acquire an invented daylight direction");
+        frame.normal_sun = true;
+        let direction = super::super::lighting::sun_direction(frame.t);
+        let visibility = super::super::lighting::sun_visibility(Some(&zone), &frame, direction);
+        assert!(indices.into_iter().all(|i| visibility[i] == 0), "fixture must be in actual geometric shade");
+        apply_world(&zone, &mut frame);
+        assert!((frame.light[indices[0]].r - frame.light[indices[1]].r) > 0.04,
+            "opposing turf facets must remain distinguishable under skylight in full cast shade");
+        assert_eq!(frame.light[indices[2]], Rgb::gray(0.5), "flat ground retains its previous fill exposure");
     }
 }

@@ -6,6 +6,7 @@ pub mod lighting;
 pub mod post;
 pub mod sprite;
 pub mod surface;
+pub(crate) mod terrain_detail;
 pub mod water;
 
 pub use frame::{BH, BW, Caster, Frame, H, HI, Look, Rgb, W, WI, rgb};

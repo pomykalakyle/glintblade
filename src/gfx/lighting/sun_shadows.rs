@@ -499,6 +499,7 @@ pub(super) struct SunTerrain {
     texels: Vec<Texel>,
     texel_rows: Vec<TexelRow>,
     max_height: u8,
+    volumes: Vec<crate::world::TerrainVolume>,
 }
 
 impl SunTerrain {
@@ -574,7 +575,7 @@ impl SunTerrain {
             TerrainLevel { size, columns: level_columns, maxima, planes }
         }).collect();
         Self { width: zone.pw, height: zone.ph, columns, heights, blocks, occupied_prefix,
-            block_planes, coarse, texels, texel_rows, max_height }
+            block_planes, coarse, texels, texel_rows, max_height, volumes: zone.terrain_volumes.clone() }
     }
 
     fn at(&self, x: i32, y: i32) -> u8 {
@@ -613,14 +614,17 @@ impl SunTerrain {
 
     /// Parallel projected-ray DDA for sparse raised receivers. Empty 8px blocks
     /// are skipped, and traversal ends naturally above the tallest native sheet.
+    #[cfg(test)]
     fn blocked(&self, receiver: [f64; 3], own_terrain: bool, direction: [f64; 3]) -> bool {
-        self.blocked_hierarchy(receiver, own_terrain, direction)
+        super::terrain_volumes::any(&self.volumes, receiver, direction, f64::INFINITY, own_terrain)
+            || self.blocked_hierarchy(receiver, own_terrain, direction)
     }
 
     /// Turning off the block proof retains the original pixel traversal for
     /// regression comparisons. Both paths use the exact same sheet geometry.
     #[cfg(test)]
     fn blocked_inner<const BLOCK_PROOF: bool>(&self, receiver: [f64; 3], own_terrain: bool, direction: [f64; 3]) -> bool {
+        if super::terrain_volumes::any(&self.volumes, receiver, direction, f64::INFINITY, own_terrain) { return true; }
         let ray = [direction[0], direction[1] - direction[2], direction[2]];
         let mut interval = [EPS, (f64::from(self.max_height) + 0.5 - receiver[2]) / ray[2]];
         if interval[1] <= interval[0] { return false; }
@@ -800,10 +804,11 @@ impl SunTerrain {
     /// pixels use exact forward projection, avoiding a ray walk per floor pixel.
     /// Raised actors/scenery use the same physical ray through sparse terrain.
     pub(super) fn occlude(&self, f: &Frame, direction: [f32; 3], result: &mut [u8]) {
-        if self.max_height == 0 || direction[2] <= 0.0
+        if self.max_height == 0 && self.volumes.is_empty() || direction[2] <= 0.0
             || direction.iter().any(|v| !v.is_finite()) { return; }
         assert_eq!(result.len(), W * H);
         let direction = direction.map(f64::from);
+        self.occlude_volumes(f, direction, result);
         let slope = [direction[0] / direction[2], direction[1] / direction[2]];
         let ray = [direction[0], direction[1] - direction[2], direction[2]];
         let mut projection = [Projection::default(); 256];
@@ -871,9 +876,35 @@ impl SunTerrain {
             let y = (i / W) as i32 + f.cam_y;
             let own_terrain = surface.owner == 0 && x >= 0 && y >= 0 && x < self.width && y < self.height
                 && (f32::from(self.at(x, y)) - surface.height).abs() < 0.001;
-            if self.blocked([f64::from(x) + 0.5, f64::from(y) + 0.5, f64::from(surface.height)], own_terrain, direction) {
+            if self.blocked_hierarchy([f64::from(x) + 0.5, f64::from(y) + 0.5, f64::from(surface.height)], own_terrain, direction) {
                 result[i] = 0;
             }
+        }
+    }
+
+    fn occlude_volumes(&self, f: &Frame, direction: [f64; 3], result: &mut [u8]) {
+        let slope = [direction[0] / direction[2], direction[1] / direction[2]];
+        for &volume in &self.volumes {
+            let top = f64::from(volume.max[2]);
+            let dx = -slope[0] * top;
+            // Enclose projections onto every nonnegative receiving height,
+            // including raised stair treads. These are only candidate bounds;
+            // every candidate still intersects the exact finite solid below.
+            let dy = [-slope[1] * top, -top];
+            let x0 = ((f64::from(volume.min[0]) + dx.min(0.0)).floor() as i32 - f.cam_x).max(0);
+            let x1 = ((f64::from(volume.max[0]) + dx.max(0.0)).ceil() as i32 - f.cam_x).min(W as i32 - 1);
+            let y0 = ((f64::from(volume.min[1]) + dy[0].min(dy[1]).min(0.0)).floor() as i32 - f.cam_y).max(0);
+            let y1 = ((f64::from(volume.max[1]) + dy[0].max(dy[1]).max(0.0)).ceil() as i32 - f.cam_y).min(H as i32 - 1);
+            for y in y0..=y1 { for x in x0..=x1 {
+                let i = y as usize * W + x as usize;
+                let surface = f.surfaces[i];
+                if result[i] == 0 || surface.kind == 0 || f64::from(surface.height) > top { continue; }
+                let (wx, wy) = (x + f.cam_x, y + f.cam_y);
+                let own = surface.owner == 0 && wx >= 0 && wy >= 0 && wx < self.width && wy < self.height
+                    && (f32::from(self.at(wx, wy)) - surface.height).abs() < 0.001;
+                let receiver = [f64::from(wx) + 0.5, f64::from(wy) + 0.5, f64::from(surface.height)];
+                if super::terrain_volumes::blocked(volume, receiver, direction, f64::INFINITY, own) { result[i] = 0; }
+            } }
         }
     }
 }
@@ -927,6 +958,7 @@ mod tests {
     /// the original pixel DDA as an independent optimization-output oracle.
     fn terrain_visibility_reference(terrain: &SunTerrain, f: &Frame, direction: [f32; 3], mut result: Vec<u8>) -> Vec<u8> {
         let direction = direction.map(f64::from);
+        terrain_volumes_reference(terrain, f, direction, &mut result);
         let slope = [direction[0] / direction[2], direction[1] / direction[2]];
         let ray = [direction[0], direction[1] - direction[2], direction[2]];
         let vertical_reach = (1.0 - slope[1]) * (f64::from(terrain.max_height) + 0.5);
@@ -1089,6 +1121,7 @@ mod tests {
                 || direction.iter().any(|v| !v.is_finite()) { return; }
             assert_eq!(result.len(), W * H);
             let direction = direction.map(f64::from);
+            terrain_volumes_reference(terrain, f, direction, result);
             let slope = [direction[0] / direction[2], direction[1] / direction[2]];
             let ray = [direction[0], direction[1] - direction[2], direction[2]];
             let mut projection = [Projection::default(); 256];
@@ -1147,6 +1180,20 @@ mod tests {
                 }
             }
         }
+
+    /// Unbounded receiver traversal checks the optimized volume projection
+    /// candidates against the same physical solids without reusing its bounds.
+    fn terrain_volumes_reference(terrain: &SunTerrain, f: &Frame, direction: [f64; 3], result: &mut [u8]) {
+        for (i, surface) in f.surfaces.iter().enumerate() {
+            if result[i] == 0 || surface.kind == 0 { continue; }
+            let x = (i % W) as i32 + f.cam_x;
+            let y = (i / W) as i32 + f.cam_y;
+            let own = surface.owner == 0 && x >= 0 && y >= 0 && x < terrain.width && y < terrain.height
+                && (f32::from(terrain.at(x, y)) - surface.height).abs() < 0.001;
+            let receiver = [f64::from(x) + 0.5, f64::from(y) + 0.5, f64::from(surface.height)];
+            if super::super::terrain_volumes::any(&terrain.volumes, receiver, direction, f64::INFINITY, own) { result[i] = 0; }
+        }
+    }
 
     /// Exactly the raised-receiver pass of occlude, isolated so the paired
     /// hierarchy timing does not include unchanged forward-projected ground.
@@ -1646,6 +1693,85 @@ mod tests {
         let i = W + 20;
         f.surfaces[i] = Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 };
         assert_eq!(visibility(&f, [-1.0, 0.0, 1.0])[i], 0);
+    }
+
+    #[test]
+    fn opening_stair_shadows_stay_shallow_through_the_sun_cycle() {
+        let (zone, _) = crate::regions::build(crate::world::ZoneId::Bloomwild);
+        let terrain = SunTerrain::new(&zone);
+        let mut frame = Frame::new();
+        frame.cam_x = 220;
+        frame.cam_y = 660;
+        for (i, surface) in frame.surfaces.iter_mut().enumerate() {
+            let x = (i % W) as i32 + frame.cam_x;
+            let y = (i / W) as i32 + frame.cam_y;
+            if x >= zone.pw || y >= zone.ph { continue; }
+            let j = (y * zone.pw + x) as usize;
+            if zone.ground[j].r < 0.0 { continue; }
+            let native = zone.ground_surfaces[j];
+            *surface = Surface { normal: native.normal.map(|n| f32::from(n) / 127.0),
+                height: f32::from(native.height), owner: 0, kind: 1 };
+        }
+        for tick in (0..2160).step_by(270) {
+            let sun = direction(tick);
+            let mut visible = vec![255; W * H];
+            terrain.occlude(&frame, sun, &mut visible);
+            let mut shadows = 0;
+            for (i, &visibility) in visible.iter().enumerate() {
+                if visibility != 0 { continue; }
+                shadows += 1;
+                let x = (i % W) as i32 + frame.cam_x;
+                let y = (i / W) as i32 + frame.cam_y;
+                assert!((282..382).contains(&x) && (694..732).contains(&y),
+                    "hanging cliff must not cast an above-ground shadow at {x},{y}, tick {tick}");
+            }
+            assert!(shadows > 0, "real stair nosings still cast short shadows at tick {tick}");
+            assert!(terrain.blocked([1000.5, 356.5, 0.0], false, sun.map(f64::from)),
+                "the actual raised retaining wall still casts shade at tick {tick}");
+        }
+    }
+
+    #[test]
+    fn retaining_wall_side_casts_onto_the_actual_east_stair_and_keeps_the_passage_open() {
+        let (zone, _) = crate::regions::build(crate::world::ZoneId::Bloomwild);
+        let terrain = SunTerrain::new(&zone);
+        assert_eq!(terrain.volumes.len(), 2, "the two real stair jambs retain masonry depth");
+        let receiver = |x, y| [f64::from(x) + 0.5, f64::from(y) + 0.5,
+            f64::from(zone.ground_surfaces[(y * zone.pw + x) as usize].height)];
+        for tick in (0..2160).step_by(135) {
+            let sun = direction(tick).map(f64::from);
+            assert!(terrain.blocked(receiver(1112, 331), true, sun),
+                "west cliff side must cast onto the adjacent ascending stair, tick {tick}");
+            assert!(!terrain.blocked(receiver(1144, 331), true, sun),
+                "the full open stair must not become a dark rectangle, tick {tick}");
+            assert!(terrain.blocked(receiver(1096, 356), true, sun),
+                "cliff-front ground shadow still joins the stair-side shadow, tick {tick}");
+            for (cam_x, cam_y) in [(1000, 260), (1007, 271)] {
+                let mut frame = Frame::new();
+                frame.cam_x = cam_x;
+                frame.cam_y = cam_y;
+                for (i, surface) in frame.surfaces.iter_mut().enumerate() {
+                    let x = (i % W) as i32 + cam_x;
+                    let y = (i / W) as i32 + cam_y;
+                    if x >= zone.pw || y >= zone.ph { continue; }
+                    let j = (y * zone.pw + x) as usize;
+                    if zone.ground[j].r < 0.0 { continue; }
+                    *surface = zone.ground_surfaces[j].surface();
+                }
+                let mut actual = vec![255; W * H];
+                terrain.occlude(&frame, sun.map(|v| v as f32), &mut actual);
+                let at = |x, y| (y - cam_y) as usize * W + (x - cam_x) as usize;
+                assert_eq!(actual[at(1112, 331)], 0, "the rendered stair receives side shade");
+                assert_eq!(actual[at(1144, 331)], 255, "the open stair still receives sun");
+                let mut expected = vec![255; W * H];
+                terrain.occlude_volumes(&frame, sun, &mut expected);
+                let mut oracle = vec![255; W * H];
+                terrain_volumes_reference(&terrain, &frame, sun, &mut oracle);
+                assert_eq!(expected, oracle, "bounded volume projection, camera {cam_x},{cam_y}, tick {tick}");
+                assert!(actual.iter().zip(&frame.surfaces).all(|(&v, s)| s.kind != 0 || v == 255),
+                    "terrain shadows cannot paint into sky");
+            }
+        }
     }
 
     #[test]

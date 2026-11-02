@@ -13,6 +13,7 @@
 mod grass;
 mod life;
 mod map;
+mod normals;
 mod paint;
 mod pal;
 mod ruins;
@@ -203,6 +204,7 @@ pub fn build() -> (Zone, Box<dyn Region>) {
 
     let mut mat = paint::paint(&mut z, &map);
     z.set_surface_tiles(paint::physical_surface(&z, &mat));
+    normals::apply(&mut z, &map, &mat);
     let canopies = ruins::build(&mut z, &map, &mat);
     let grass = grass::Grass::build(&map, &mat, &z);
     let life = life::Life::build(&map, &mut mat, &mut z);
@@ -281,6 +283,7 @@ pub fn title_garden() -> (Zone, Box<dyn Region>) {
     let mut mat = paint::paint(&mut z, &map);
     let canopies = ruins::title_garden(&mut z, &mat);
     z.set_surface_tiles(paint::physical_surface(&z, &mat));
+    normals::apply(&mut z, &map, &mat);
     let grass = grass::Grass::build(&map, &mat, &z);
     let life = life::Life::build(&map, &mut mat, &mut z);
     z.player_start = (222.0, 147.0);

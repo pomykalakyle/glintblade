@@ -14,6 +14,8 @@ const L_STAIR: u8 = 2;
 const L_TERRACE: u8 = 3;
 const L_BRIDGE: u8 = 4;
 const L_LANDING: u8 = 5;
+const ARENA_FLOOR_BOUNDS: &[f32] = &[53.0, 101.0, 148.0, 192.0, 214.0];
+const STAIR_TOP: i32 = 662;
 
 struct Canvas<'a> {
     z: &'a mut Zone,
@@ -45,6 +47,13 @@ fn in_rect(r: (i32, i32, i32, i32), x: i32, y: i32) -> bool {
 
 /// Paint all platform tops and undersides, then build the walkable collision grid.
 pub fn paint(z: &mut Zone) {
+    let mut c = paint_geometry(z);
+    walkable_surfaces(&mut c);
+    material_surfaces(&mut c);
+}
+
+/// Keep the authored color/collision pass independent of its final receiver metadata.
+fn paint_geometry(z: &mut Zone) -> Canvas<'_> {
     let (pw, ph) = (z.pw, z.ph);
     z.ground.fill(HOLE);
     let mut lab = vec![0u8; (pw * ph) as usize];
@@ -99,6 +108,7 @@ pub fn paint(z: &mut Zone) {
         .map(|&l| if l != 0 { Tile::Floor } else { Tile::Void })
         .collect();
     c.z.set_surface_tiles(surface);
+    c
 }
 
 // ------------------------------------------------------------------------------------------
@@ -578,7 +588,7 @@ fn arena_top(c: &mut Canvas) {
             // wedge stones share the platform's perspective instead of forming an
             // unrelated rectangular grid. Different stone bodies remain close in
             // value; the Warden's pale telegraphs still own the fighting floor.
-            let stone = ring_stone(&e, &[53.0, 101.0, 148.0, 192.0, 214.0],
+            let stone = ring_stone(&e, ARENA_FLOOR_BOUNDS,
                 74.0, 17, x as f32 + 0.5, y as f32 + 0.5);
             let col = if r > 0.958 {
                 let Some((joint, sid, _)) =
@@ -705,6 +715,17 @@ fn seal(c: &mut Canvas) {
     }
 }
 
+/// The broad center slabs share their displaced joints with their normal geometry.
+fn small_center_stone(e: &Ellipse, l: u8, x: i32, y: i32) -> (bool, u32) {
+    let cy = e.cy as i32;
+    let row = if y < cy - 18 { 0 } else if y < cy + 20 { 1 } else { 2 };
+    let seams = if l == L_LANDING { [222, 264, 194] } else { [701, 746, 683] };
+    let sx = seams[row] + if row == 1 && y >= cy + 3 { 2 } else { 0 };
+    let joint = y == cy - 18 || y == cy + 20 || x == sx
+        || (row == 1 && y == cy + 3 && (sx - 2..=sx).contains(&x));
+    (joint, l as u32 * 4096 + row as u32 * 2 + u32::from(x > sx))
+}
+
 /// Terrace and landing: a few rings and a curb.
 fn small_top(c: &mut Canvas, e: &Ellipse, l: u8, bounds: &[f32], _curb_w: f32, seed: u32) {
     let x0 = (e.cx - e.rx) as i32 - 1;
@@ -749,25 +770,7 @@ fn small_top(c: &mut Canvas, e: &Ellipse, l: u8, bounds: &[f32], _curb_w: f32, s
             };
             let col = if course == 0 {
                 // Broad displaced courses carry the approach; interiors stay unmarked.
-                let cy = e.cy as i32;
-                let row = if y < cy - 18 {
-                    0
-                } else if y < cy + 20 {
-                    1
-                } else {
-                    2
-                };
-                let seams = if l == L_LANDING {
-                    [222, 264, 194]
-                } else {
-                    [701, 746, 683]
-                };
-                let sx = seams[row] + if row == 1 && y >= cy + 3 { 2 } else { 0 };
-                if y == cy - 18
-                    || y == cy + 20
-                    || x == sx
-                    || (row == 1 && y == cy + 3 && (sx - 2..=sx).contains(&x))
-                {
+                if small_center_stone(e, l, x, y).0 {
                     S2
                 } else {
                     F2
@@ -802,30 +805,34 @@ fn small_top(c: &mut Canvas, e: &Ellipse, l: u8, bounds: &[f32], _curb_w: f32, s
     }
 }
 
+/// The deck painter and its receiver normals share the same staggered joints.
+fn bridge_stone(x: i32, y: i32) -> Option<(bool, i32)> {
+    if !in_rect(BRIDGE, x, y) {
+        return None;
+    }
+    let (x0, y0, _, _) = BRIDGE;
+    let row_h = 16;
+    let row = (y - y0) / row_h;
+    let r = (y - y0) % row_h;
+    let len = if row == 2 { 56 } else { 44 };
+    let off = (hash1(row, 41) * len as f32) as i32 + row * 11;
+    let xx = x - x0 + off;
+    let bi = xx.div_euclid(len);
+    let lx = xx.rem_euclid(len);
+    let joint = r == row_h - 1 || lx == 0;
+    Some((joint, row * 1000 + bi))
+}
+
 fn bridge_deck(c: &mut Canvas) {
     let (x0, y0, x1, y1) = BRIDGE;
     let row_h = 16;
-    let id = |x: i32, y: i32| -> Option<(bool, i32)> {
-        if !in_rect(BRIDGE, x, y) {
-            return None;
-        }
-        let row = (y - y0) / row_h;
-        let r = (y - y0) % row_h;
-        let len = if row == 2 { 56 } else { 44 };
-        let off = (hash1(row, 41) * len as f32) as i32 + row * 11;
-        let xx = x - x0 + off;
-        let bi = xx.div_euclid(len);
-        let lx = xx.rem_euclid(len);
-        let joint = r == row_h - 1 || lx == 0;
-        Some((joint, row * 1000 + bi))
-    };
     let mut buf = Vec::new();
     for y in y0..y1 {
         for x in x0..x1 {
             if c.lab(x, y) != L_BRIDGE {
                 continue;
             }
-            let Some((joint, sid)) = id(x, y) else {
+            let Some((joint, sid)) = bridge_stone(x, y) else {
                 continue;
             };
             let curb = (y - y0) / row_h == 2;
@@ -835,7 +842,7 @@ fn bridge_deck(c: &mut Canvas) {
             } else {
                 let k = tone_pick(sid as u32 + 77, t);
                 let edge = |o: Option<(bool, i32)>| o.map(|(j, s)| j || s != sid).unwrap_or(true);
-                if edge(id(x - 1, y)) || edge(id(x, y - 1)) {
+                if edge(bridge_stone(x - 1, y)) || edge(bridge_stone(x, y - 1)) {
                     t.hi[k]
                 } else {
                     t.base[k]
@@ -852,7 +859,7 @@ fn bridge_deck(c: &mut Canvas) {
 fn stair(c: &mut Canvas) {
     let (x0, _, x1, y1) = STAIR;
     // the top step starts at the arena lip line in the stair's middle
-    let top = 662;
+    let top = STAIR_TOP;
     for x in x0 - 8..x1 + 8 {
         for y in top - 10..y1 {
             let l = c.lab(x, y);
@@ -1288,6 +1295,266 @@ fn native_floor(c: &mut Canvas) {
                     }
                 }
             }
+        }
+    }
+}
+
+/// Reuse the masonry's authored boundaries, including its deliberately worn joints.
+/// A painted highlight or dark mineral is never interpreted as a height change.
+fn floor_stone(l: u8, x: i32, y: i32) -> Option<(bool, u32)> {
+    let (fx, fy) = (x as f32 + 0.5, y as f32 + 0.5);
+    match l {
+        L_ARENA => {
+            let r = ARENA.rho(fx, fy);
+            if (STAIR.0..STAIR.2).contains(&x) && (STAIR_TOP - 10..STAIR_TOP).contains(&y)
+                && r * ARENA.ry > 207.0
+            {
+                return Some(((x - STAIR.0) % 16 == 0 || y == STAIR_TOP - 1,
+                    29000 + (x - STAIR.0) as u32 / 16));
+            }
+            if r > 0.958 {
+                ring_stone(&ARENA, &[214.0], 76.0, 3, fx, fy)
+                    .map(|(joint, sid, _)| (joint, sid))
+            } else {
+                ring_stone(&ARENA, ARENA_FLOOR_BOUNDS, 74.0, 17, fx, fy)
+                    .map(|(joint, sid, course)| {
+                        let worn = ((x + y / 2 + course as i32 * 13).div_euclid(9)
+                            + sid as i32).rem_euclid(7) == 0;
+                        (joint && !worn, sid)
+                    })
+            }
+        }
+        L_TERRACE | L_LANDING => {
+            let (e, bound, seed) = if l == L_TERRACE { (TERRACE, 50.0, 11) }
+                else { (LANDING, 56.0, 23) };
+            let (_, _, course) = ring_stone(&e, &[bound], 30.0, seed, fx, fy)?;
+            if course == 0 {
+                Some(small_center_stone(&e, l, x, y))
+            } else {
+                ring_stone(&e, &[bound], 22.0, seed, fx, fy)
+                    .map(|(joint, sid, _)| (joint, sid))
+            }
+        }
+        L_BRIDGE => bridge_stone(x, y).map(|(joint, sid)| (joint, sid as u32)),
+        _ => None,
+    }
+}
+
+/// Finish only missing receivers after all native art and procedural overlays.
+/// Slabs get shallow joint bevels and a quiet, consistent tilt per authored stone;
+/// the grand stair's five tread rows face up and three riser rows face south.
+fn walkable_surfaces(c: &mut Canvas) {
+    let pw = c.z.pw;
+    let ph = c.z.ph;
+    let labels = &c.lab;
+    let label_at = |x: i32, y: i32| {
+        if x < 0 || y < 0 || x >= pw || y >= ph { 0 }
+        else { labels[(y * pw + x) as usize] }
+    };
+    c.z.fill_walkable_surfaces(|x, y| {
+        let l = label_at(x, y);
+        if l == L_STAIR && y >= STAIR_TOP {
+            let row = (y - STAIR_TOP) % 8;
+            return if row <= 4 { ([0.0, 0.0, 1.0], 0.0) }
+                else { ([0.0, 1.0, 0.0], (7 - row) as f32) };
+        }
+        let Some((joint, sid)) = floor_stone(l, x, y) else {
+            return ([0.0, 0.0, 1.0], 0.0);
+        };
+        let depth = |joint| if joint { -0.35 } else { 0.0 };
+        let relief = |sx, sy| {
+            if label_at(sx, sy) != l { return depth(joint); }
+            floor_stone(l, sx, sy).map_or(depth(joint), |(j, _)| depth(j))
+        };
+        let dx = (relief(x + 1, y) - relief(x - 1, y)) * 0.5;
+        let dy = (relief(x, y + 1) - relief(x, y - 1)) * 0.5;
+        let tilt_x = (hash1(sid as i32, 3112) - 0.5) * 0.04;
+        let tilt_y = (hash1(sid as i32, 3113) - 0.5) * 0.04;
+        ([-dx + tilt_x, -dy + tilt_y, 1.0], 0.0)
+    });
+}
+
+/// Stone remains a material across the whole platform, including native floor
+/// pixels whose authored map is perfectly flat. Compose world-space grain with
+/// the retained slab bevels instead of limiting relief to the sparse abrasions.
+/// Tall masonry, the dais faces and stair risers keep their exact native planes.
+fn material_surfaces(c: &mut Canvas) {
+    use crate::gfx::lighting::TerrainSurface;
+    use crate::gfx::terrain_detail::{self, Material};
+
+    for y in 0..c.z.ph {
+        for x in 0..c.z.pw {
+            let i = (y * c.z.pw + x) as usize;
+            let surface = c.z.ground_surfaces[i];
+            if c.lab[i] == 0 || c.z.ground[i].r < 0.0 || !surface.present()
+                || surface.normal[2] <= 82
+            {
+                continue;
+            }
+            let base = surface.normal.map(|v| v as f32 / 127.0);
+            let normal = terrain_detail::normal(Material::Stone, x, y, base);
+            c.z.ground_surfaces[i] = TerrainSurface::new(normal, surface.height as f32);
+        }
+    }
+    c.z.invalidate_lighting();
+}
+
+#[cfg(test)]
+mod walkable_normal_tests {
+    use super::*;
+    use crate::world::ZoneId;
+
+    #[test]
+    fn complete_walkable_normals_preserve_native_art_collision_and_architecture() {
+        let mut z = Zone::new(ZoneId::Summit, super::super::TW, super::super::TH);
+        let mut c = paint_geometry(&mut z);
+        let (albedo, emission) = (c.z.ground.clone(), c.z.ground_emit.clone());
+        let (tiles, physical) = (c.z.tiles.clone(), c.z.surface_tiles.clone());
+        let retained = c.z.ground_surfaces.clone();
+        walkable_surfaces(&mut c);
+
+        assert_eq!(c.z.ground, albedo, "normal completion cannot repaint stone or holes");
+        assert_eq!(c.z.ground_emit, emission);
+        assert_eq!(c.z.tiles, tiles);
+        assert_eq!(c.z.surface_tiles, physical, "native platform contact remains exact");
+        let mut native = 0;
+        let mut filled = [0usize; 6];
+        for (i, before) in retained.iter().enumerate() {
+            let after = c.z.ground_surfaces[i];
+            if before.present() {
+                native += 1;
+                assert_eq!(after, *before, "native UV normal and altitude at pixel {i}");
+            } else if c.z.ground[i].r >= 0.0 && !physical.as_ref().unwrap()[i].solid() {
+                assert!(after.present(), "missing normal at native floor pixel {i}");
+                filled[c.lab[i] as usize] += 1;
+            } else {
+                assert_eq!(after, *before, "outside the opaque walkable surface at pixel {i}");
+            }
+        }
+        assert!(native > 10000, "exercise actual floor, seal, dais and architecture normal art");
+        for (l, name) in [(L_ARENA, "arena"), (L_STAIR, "stairs"), (L_TERRACE, "terrace"),
+            (L_BRIDGE, "bridge"), (L_LANDING, "landing")]
+        {
+            assert!(filled[l as usize] > 100, "complete the real {name} surface");
+        }
+        let finished = c.z.ground_surfaces.clone();
+        walkable_surfaces(&mut c);
+        assert_eq!(c.z.ground_surfaces, finished, "revisiting finished materials is idempotent");
+    }
+
+    #[test]
+    fn grand_stair_treads_face_up_and_short_risers_face_south() {
+        let mut z = Zone::new(ZoneId::Summit, super::super::TW, super::super::TH);
+        paint(&mut z);
+        let mut tread_rows = 0;
+        let mut riser_rows = 0;
+        for y in STAIR_TOP + 2..STAIR.3 {
+            let s = z.ground_surfaces[(y * z.pw + 720) as usize];
+            let row = (y - STAIR_TOP) % 8;
+            if row <= 4 {
+                tread_rows += 1;
+                assert!(s.normal[2] > 112, "tread row {y} retains its upward macro plane");
+                assert_eq!(s.height, 0, "treads retain their walkable receiver plane");
+            } else {
+                riser_rows += 1;
+                assert_eq!(s.normal, [0, 127, 0], "riser row {y} faces the terrace");
+                assert_eq!(s.height, (7 - row) as u8, "short visible riser at {y}");
+            }
+        }
+        assert!(tread_rows > 30 && riser_rows > 20, "exercise the complete painted flight");
+    }
+
+    #[test]
+    fn deck_joint_bevels_follow_the_visible_staggered_masonry() {
+        let mut z = Zone::new(ZoneId::Summit, super::super::TW, super::super::TH);
+        let mut c = paint_geometry(&mut z);
+        let retained = c.z.ground_surfaces.clone();
+        walkable_surfaces(&mut c);
+        let mut joints = 0;
+        for y in BRIDGE.1 + 2..BRIDGE.3 - 2 {
+            for x in BRIDGE.0 + 2..BRIDGE.2 - 2 {
+                let index = |x| (y * c.z.pw + x) as usize;
+                if [x - 1, x, x + 1].iter().any(|&xx| c.lab(xx, y) != L_BRIDGE
+                    || retained[index(xx)].present()) { continue; }
+                if !bridge_stone(x, y).unwrap().0 || bridge_stone(x - 1, y).unwrap().0
+                    || bridge_stone(x + 1, y).unwrap().0 { continue; }
+                let left = c.z.ground_surfaces[index(x - 1)];
+                let right = c.z.ground_surfaces[index(x + 1)];
+                assert!(left.normal[0] > 12 && right.normal[0] < -12,
+                    "both stone lips must descend into the authored joint at {x},{y}");
+                assert!(left.normal[2] > 120 && right.normal[2] > 120,
+                    "shallow floor joints cannot become vertical walls");
+                joints += 1;
+            }
+        }
+        assert!(joints > 5, "exercise actual deck seams outside retained native abrasions");
+    }
+
+    #[test]
+    fn material_relief_preserves_opaque_shapes_heights_and_steep_authored_faces() {
+        let mut z = Zone::new(ZoneId::Summit, super::super::TW, super::super::TH);
+        let mut c = paint_geometry(&mut z);
+        walkable_surfaces(&mut c);
+        let (albedo, emission) = (c.z.ground.clone(), c.z.ground_emit.clone());
+        let (tiles, physical) = (c.z.tiles.clone(), c.z.surface_tiles.clone());
+        let before = c.z.ground_surfaces.clone();
+        material_surfaces(&mut c);
+
+        assert_eq!(c.z.ground, albedo);
+        assert_eq!(c.z.ground_emit, emission);
+        assert_eq!(c.z.tiles, tiles);
+        assert_eq!(c.z.surface_tiles, physical);
+        let (mut flat_native, mut enriched_native) = (0, 0);
+        for (i, &original) in before.iter().enumerate() {
+            let after = c.z.ground_surfaces[i];
+            assert_eq!(after.height, original.height, "no material grain becomes a caster at {i}");
+            assert_eq!(after.present(), original.present());
+            if c.lab[i] == 0 || albedo[i].r < 0.0 || original.normal[2] <= 82 {
+                assert_eq!(after, original, "keep authored architecture at {i}");
+            } else if original.normal == [0, 0, 127] {
+                flat_native += 1;
+                enriched_native += usize::from(after.normal != original.normal);
+            }
+        }
+        assert!(flat_native > 1000, "exercise flat native and tread material interiors");
+        assert!(enriched_native * 100 > flat_native * 95,
+            "flat source UVs also need material relief: {enriched_native}/{flat_native}");
+    }
+
+    #[test]
+    fn stone_material_has_visible_light_response_on_every_platform() {
+        let mut z = Zone::new(ZoneId::Summit, super::super::TW, super::super::TH);
+        let mut c = paint_geometry(&mut z);
+        walkable_surfaces(&mut c);
+        material_surfaces(&mut c);
+
+        // Matched grazing keys from opposite sides reveal a real material
+        // response; merely attaching [0,0,127] passes coverage but fails this.
+        let mut responses = [const { Vec::<f32>::new() }; 6];
+        let mut tilted = [0usize; 6];
+        for (i, &l) in c.lab.iter().enumerate() {
+            if l == 0 { continue; }
+            let s = c.z.ground_surfaces[i];
+            if s.height > 0 || s.normal[2] <= 82 { continue; }
+            let n = s.normal.map(|v| v as f32 / 127.0);
+            let lateral = n[0].hypot(n[1]);
+            tilted[l as usize] += usize::from(lateral > 0.05);
+            let left = (n[0] * -0.8 + n[1] * -0.35 + n[2] * 0.49).max(0.0);
+            let right = (n[0] * 0.8 + n[1] * 0.35 + n[2] * 0.49).max(0.0);
+            responses[l as usize].push((left - right).abs());
+        }
+        for (l, name) in [(L_ARENA, "arena"), (L_STAIR, "stairs"), (L_TERRACE, "terrace"),
+            (L_BRIDGE, "bridge"), (L_LANDING, "landing")]
+        {
+            let samples = &mut responses[l as usize];
+            assert!(samples.len() > 1000, "sample actual {name} pixels");
+            samples.sort_by(f32::total_cmp);
+            let median = samples[samples.len() / 2];
+            let p90 = samples[samples.len() * 9 / 10];
+            assert!(tilted[l as usize] * 100 > samples.len() * 75,
+                "{name} remains visibly flat over too much of its material");
+            assert!(median > 0.06 && p90 > 0.16,
+                "{name} needs visible lighting response, median={median}, p90={p90}");
         }
     }
 }

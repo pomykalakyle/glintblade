@@ -5,6 +5,7 @@ mod field;
 mod heat;
 mod lava;
 mod map;
+mod normals;
 mod paint;
 mod textures;
 

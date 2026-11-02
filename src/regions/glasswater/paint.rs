@@ -261,6 +261,8 @@ pub fn bridge(z: &mut Zone, m: &PixMap) {
                 }
             }
             z.gset(x, y, color);
+            let (normal, height) = bridge_deck_surface(x - X0, ly);
+            z.gset_plane_surface(x, y, normal, height);
         }
     }
     for x in X0..X1 {
@@ -283,6 +285,9 @@ pub fn bridge(z: &mut Zone, m: &PixMap) {
                 ROCK[1]
             };
             z.gset(x, y, color);
+            // This masonry hangs below the crossing; its visible face cannot
+            // inherit the raised natural-cliff metadata painted here earlier.
+            z.gset_plane_surface(x, y, if j == 0 { [0.0, 0.7, 0.7] } else { [0.0, 1.0, 0.0] }, 0.0);
         }
         // Clear the old 38px natural ledge below the new, shallower bridge arch.
         for j in depth..38 {
@@ -292,6 +297,30 @@ pub fn bridge(z: &mut Zone, m: &PixMap) {
             }
         }
     }
+}
+
+/// Native deck bonds and landing blocks use the same coordinates as their albedo.
+/// Mortar remains a quiet recess; only the stone's one-pixel bevel changes normal.
+fn bridge_deck_surface(x: i32, y: i32) -> ([f32; 3], f32) {
+    if x < 9 || x >= 12 * 16 - 9 {
+        let row = y.rem_euclid(11);
+        if row == 10 { return ([0.0, 0.0, 1.0], 0.0); }
+        let nx = if x == 0 || x == 12 * 16 - 9 { -0.45 } else { 0.0 };
+        let ny = if row == 0 { -0.35 } else if row == 9 { 0.35 } else { 0.0 };
+        return ([nx, ny, 1.0], 0.0);
+    }
+    match y {
+        0 | 29 => return ([0.0, 0.0, 1.0], 2.0),
+        1 => return ([0.0, 1.0, 0.0], 1.0),
+        30 | 31 => return ([0.0, 1.0, 0.0], (31 - y) as f32),
+        _ => {}
+    }
+    let row = y.rem_euclid(8);
+    let bond = (x + y / 8 * 11).rem_euclid(23);
+    if row == 7 || bond == 22 { return ([0.0, 0.0, 1.0], 0.0); }
+    let nx = if bond == 0 { -0.4 } else if bond == 21 { 0.4 } else { 0.0 };
+    let ny = if row == 0 { -0.35 } else if row == 6 { 0.35 } else { 0.0 };
+    ([nx, ny, 1.0], 0.0)
 }
 
 /// Two-pass chamfer distance (in px) to the nearest pixel where `src` is true, capped at 255.
@@ -450,6 +479,50 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
     }
 }
 
+/// Complete the procedural shore margins without replacing the exact native
+/// material normals in the room centers. Water is a horizontal receiving plane;
+/// its animated ripples remain owned by the existing water renderer.
+pub fn walkable_surfaces(z: &mut Zone, m: &PixMap, fl: &Fields) {
+    let generated = super::materials::available();
+    z.fill_walkable_surfaces(|x, y| {
+        if m.at(x, y) == SHALLOW { return ([0.0, 0.0, 1.0], 0.0); }
+        let relief = |xx, yy| {
+            if m.at(xx, yy) != FLOOR { return 0.0; }
+            let i = (yy * m.w + xx) as usize;
+            let (shelf, joint) = floor_bedding(fl, xx, yy, i);
+            let slab = if !generated && terrace(xx, yy) == 2 { 0.7 } else { 0.0 };
+            slab + if joint { -0.35 } else if shelf { 0.5 } else { 0.0 }
+        };
+        (relief_normal(x, y, relief), 0.0)
+    });
+}
+
+/// Slab relief is authored from the painter's masks, never its light or palette.
+fn relief_normal(x: i32, y: i32, relief: impl Fn(i32, i32) -> f32) -> [f32; 3] {
+    [
+        (relief(x - 1, y) - relief(x + 1, y)) * 0.65,
+        (relief(x, y - 1) - relief(x, y + 1)) * 0.65,
+        1.0,
+    ]
+}
+
+fn floor_bedding(fl: &Fields, x: i32, y: i32, i: usize) -> (bool, bool) {
+    let (joint, width, bed) = plane(x - y / 2, y);
+    let shelf = bed.rem_euclid(3) == 0 && joint > 3 && joint < width - 5;
+    let dry_bank = fl.d_water[i] >= 3 && fl.d_water[i] < (6 + joint.min(width - joint) / 3) as u8;
+    let run = (y + bed * 13).rem_euclid(59);
+    let seam = bed.rem_euclid(4) == 1
+        && joint <= i32::from((16..28).contains(&run))
+        && (12..34).contains(&run);
+    (shelf && dry_bank, seam)
+}
+
+fn lit_bank_depth(x: i32, y: i32) -> Option<i32> {
+    let (joint, width, bed) = plane(x - y / 2, y);
+    (bed.rem_euclid(4) == 1 && joint > 4 && joint < width - 5)
+        .then_some(4 + (joint.min(width - joint) / 4).min(7))
+}
+
 /// Wet mineral shelves beside permanent crystals. Their broken faces follow
 /// real receiving banks and the cave's bedding, rather than drawing a circular
 /// aura into the floor. Open room centers and every physical wet pixel stay intact.
@@ -467,12 +540,11 @@ pub fn lit_banks(z: &mut Zone, m: &PixMap, fl: &Fields, decor: &[super::Decor]) 
                 if !(2..=13).contains(&d) || fl.d_rock[i] < 3 {
                     continue;
                 }
-                let (joint, width, bed) = plane(x - y / 2, y);
+                let (joint, width, _) = plane(x - y / 2, y);
                 // Unequal low ledges follow selected natural bedding runs, with
                 // long untouched banks between them. A bevel is just one pixel.
-                let shelf = bed.rem_euclid(4) == 1 && joint > 4 && joint < width - 5;
-                let depth = 4 + (joint.min(width - joint) / 4).min(7);
-                if !shelf || d > depth {
+                let Some(depth) = lit_bank_depth(x, y) else { continue };
+                if d > depth {
                     continue;
                 }
                 let old = z.ground[i];
@@ -489,6 +561,16 @@ pub fn lit_banks(z: &mut Zone, m: &PixMap, fl: &Fields, decor: &[super::Decor]) 
                     ROCK[2].lerp(WATER[2], 0.22)
                 };
                 z.ground[i] = color;
+                // This wet shelf has replaced the original material pixel.
+                // Keep its bevel attached to the same broken bedding contour.
+                let relief = |xx, yy| {
+                    if m.at(xx, yy) != FLOOR { return 0.0; }
+                    let ii = (yy * m.w + xx) as usize;
+                    let dd = i32::from(fl.d_water[ii]);
+                    if (2..=13).contains(&dd) && fl.d_rock[ii] >= 3
+                        && lit_bank_depth(xx, yy).is_some_and(|depth| dd <= depth) { 0.5 } else { 0.0 }
+                };
+                z.gset_plane_surface(x, y, relief_normal(x, y, relief), 0.0);
             }
         }
     }
@@ -506,20 +588,14 @@ fn floor_px(
     let r = &ramps[area_at(x, y)];
     let raised = lv(x, y) == 2;
     let mut idx = 2;
-    let (joint, width, bed) = plane(x - y / 2, y);
     // Exposed bedrock is attached to the shore, with broad breaks between shelves.
     // These are material planes, not painted pools of light around unseen emitters.
-    let shelf = bed.rem_euclid(3) == 0 && joint > 3 && joint < width - 5;
-    let dry_bank = fl.d_water[i] >= 3 && fl.d_water[i] < (6 + joint.min(width - joint) / 3) as u8;
-    if shelf && dry_bank {
+    let (shelf, joint) = floor_bedding(fl, x, y, i);
+    if shelf {
         idx = 3;
     }
     // Short tapered bedding joints cross the dry gallery and lake approach in connected runs.
-    let run = (y + bed * 13).rem_euclid(59);
-    if bed.rem_euclid(4) == 1
-        && joint <= i32::from((16..28).contains(&run))
-        && (12..34).contains(&run)
-    {
+    if joint {
         idx = 1;
     }
     // Raised slabs share the floor's quiet body value; only their physical edges change plane.
@@ -734,8 +810,106 @@ pub fn details(z: &mut Zone, m: &PixMap, fl: &Fields) {
                         continue;
                     }
                     z.ground[i] = p.c;
+                    z.gset_surface(wx, wy, cell, x, y, false, 0.0);
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod normal_tests {
+    use super::*;
+    use crate::gfx::lighting::TerrainSurface;
+    use crate::world::ZoneId;
+
+    #[test]
+    fn procedural_margins_preserve_native_material_normals_and_painted_ground() {
+        let (mut z, _) = super::super::build();
+        let m = classify(&z);
+        let fl = fields(&m);
+        // Recreate the material stage so the unfilled banks and water are real
+        // authored margins, alongside actual atlas normals at exact source UVs.
+        z.ground_surfaces.fill(TerrainSurface::default());
+        super::super::materials::paint(&mut z, &m, &fl);
+        let source = z.ground_surfaces.clone();
+        let albedo = z.ground.clone();
+        let collision = z.surface_tiles.clone();
+        walkable_surfaces(&mut z, &m, &fl);
+        let (mut native, mut procedural, mut bevels, mut shallow) = (0, 0, 0, 0);
+        for i in 0..m.cls.len() {
+            if source[i].present() {
+                native += 1;
+                assert_eq!(z.ground_surfaces[i], source[i], "native source normal changed at {i}");
+            } else if matches!(m.cls[i], FLOOR | SHALLOW) {
+                procedural += 1;
+                let surface = z.ground_surfaces[i];
+                assert!(surface.present(), "walkable margin lacks a normal at {i}");
+                if m.cls[i] == SHALLOW {
+                    shallow += 1;
+                    assert_eq!(surface.normal, [0, 0, 127]);
+                } else if surface.normal[0] != 0 || surface.normal[1] != 0 {
+                    bevels += 1;
+                }
+            }
+        }
+        assert!(native > 100_000, "exercise the real native material maps");
+        assert!(procedural > 10_000 && shallow > 10_000 && bevels > 100,
+            "exercise dry bank bevels and the walkable water: {procedural}/{shallow}/{bevels}");
+        assert_eq!(z.ground, albedo, "normal completion must preserve painted albedo");
+        assert_eq!(z.surface_tiles, collision, "normal completion must preserve movement");
+    }
+
+    #[test]
+    fn bridge_replaces_old_floor_and_cliff_normals_at_its_native_bonds() {
+        let mut z = Zone::new(ZoneId::Glasswater, 60, 20);
+        let n = (z.pw * z.ph) as usize;
+        let mut m = PixMap { w: z.pw, h: z.ph, cls: vec![FLOOR; n], depth: vec![0; n],
+            span: vec![38; n], ledge: vec![0; n] };
+        for y in 272..m.h {
+            m.cls[(y * m.w) as usize..((y + 1) * m.w) as usize].fill(VOID);
+        }
+        let old = TerrainSurface::new([1.0, 0.0, 0.0], 55.0);
+        z.ground_surfaces.fill(old);
+        bridge(&mut z, &m);
+        let at = |x, y| z.ground_surfaces[(y * z.pw + x) as usize];
+        assert_eq!(at(800, 244).normal, [0, 0, 127], "stone body faces up");
+        assert!(at(775, 244).normal[0] < 0, "west bond bevel follows the painted bond");
+        assert!(at(796, 244).normal[0] > 0, "east bond bevel follows the painted bond");
+        assert_eq!(at(800, 247).normal, [0, 0, 127], "mortar is a recessed plane");
+        assert_eq!(at(800, 240), TerrainSurface::new([0.0, 0.0, 1.0], 2.0));
+        assert_eq!(at(800, 241), TerrainSurface::new([0.0, 1.0, 0.0], 1.0));
+        assert_eq!(at(756, 241), TerrainSurface::new([0.0, 0.0, 1.0], 0.0),
+            "landing blocks override the curbs in both art and normals");
+        assert_eq!(at(800, 273), TerrainSurface::new([0.0, 1.0, 0.0], 0.0),
+            "the arch hangs below the deck rather than rising above it");
+        assert!(!at(800, 290).present(), "cleared arch space retains no stale cliff normal");
+        assert_eq!(at(751, 244), old, "nearby original material remains untouched");
+    }
+
+    #[test]
+    fn bank_relief_ignores_albedo_and_lighting_values() {
+        let mut a = Zone::new(ZoneId::Glasswater, 12, 8);
+        let mut b = Zone::new(ZoneId::Glasswater, 12, 8);
+        for y in 5..8 {
+            for x in 0..12 {
+                a.set_tile(x, y, Tile::Shallow);
+                b.set_tile(x, y, Tile::Shallow);
+            }
+        }
+        a.ground.fill(ROCK[0]);
+        for (i, color) in b.ground.iter_mut().enumerate() {
+            *color = ROCK[i % ROCK.len()];
+        }
+        let m = classify(&a);
+        let fl = fields(&m);
+        let tiles: Vec<_> = m.cls.iter().map(|&c| if c == SHALLOW { Tile::Shallow } else { Tile::Floor }).collect();
+        a.set_surface_tiles(tiles.clone());
+        b.set_surface_tiles(tiles);
+        walkable_surfaces(&mut a, &m, &fl);
+        walkable_surfaces(&mut b, &m, &fl);
+        assert_eq!(a.ground_surfaces, b.ground_surfaces, "palette or painted light cannot become relief");
+        assert!(a.ground_surfaces.iter().any(|s| s.normal[0] != 0 || s.normal[1] != 0),
+            "the actual shore bedding has geometric bevels");
     }
 }

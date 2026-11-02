@@ -315,6 +315,9 @@ pub fn paint(z: &mut Zone) -> Painted {
 
     let mut px = Grid::new(pw, ph, p(HOLE_R, 0));
     let mut kind = Grid::new(pw, ph, K_VOID);
+    // Authored microrelief follows the same masks, joints and detail stamps as the
+    // albedo. Its normals do not depend on painted brightness or baked occlusion.
+    let mut relief = Grid::new(pw, ph, 0.0f32);
 
     // ------------------------------------------------------------ ground: ash with calm fields
     let lava_dist = edt(&lava_full);
@@ -351,6 +354,7 @@ pub fn paint(z: &mut Zone) -> Painted {
             }
             px.v[i] = p(RA, l);
             kind.v[i] = K_ASH;
+            relief.v[i] = c.wob.v[i] * 0.55 + c.wob2.v[i] * 0.3;
         }
     }
 
@@ -359,6 +363,7 @@ pub fn paint(z: &mut Zone) -> Painted {
         if island.v[i] && grass.v[i] && kind.v[i] == K_ASH && lava_dist.v[i] > 6.0 {
             px.v[i] = p(RG, 0);
             kind.v[i] = K_GRASS;
+            relief.v[i] *= 1.3;
         }
     }
 
@@ -373,11 +378,12 @@ pub fn paint(z: &mut Zone) -> Painted {
             let center = path_f.v[i] > 0.8 + c.wob.v[i] * 0.3;
             px.v[i] = p(RA, if center { 3 } else { 2 });
             kind.v[i] = K_PATH;
+            relief.v[i] *= 0.55;
         }
     }
 
     // ------------------------------------------------------------ obsidian paving (courtyard, terrace)
-    paint_paving(&c, &mut px, &mut kind, &island);
+    paint_paving(&c, &mut px, &mut kind, &mut relief, &island);
 
     // ------------------------------------------------------------ lava areas (placeholder colour; drawn live)
     for i in 0..px.v.len() {
@@ -437,6 +443,8 @@ pub fn paint(z: &mut Zone) -> Painted {
             }
             px.v[i] = p(RO, l);
             kind.v[i] = K_DECK;
+            relief.v[i] = if curb_w || curb_e { 0.4 }
+                else if ly == 7 || lx == 15 { -0.24 } else { 0.0 };
         }
     }
     // natural basalt arch: path surface already painted; give it rocky edges and a face over the lava
@@ -456,6 +464,8 @@ pub fn paint(z: &mut Zone) -> Painted {
                 px.v[i] = p(RA, 2);
             }
             kind.v[i] = K_DECK;
+            relief.v[i] = if curb { 0.38 } else if seam == 0
+                && y.rem_euclid(48) > 14 && y.rem_euclid(48) < 28 { -0.24 } else { 0.0 };
             if !arch.at(x, y - 1) {
                 px.v[i] = p(RB, 4);
             }
@@ -463,7 +473,7 @@ pub fn paint(z: &mut Zone) -> Painted {
     }
 
     // ------------------------------------------------------------ the dais (raised obsidian in the lake)
-    paint_dais(&c, &mut px, &mut kind, &dais);
+    paint_dais(&c, &mut px, &mut kind, &mut relief, &dais);
 
     // ------------------------------------------------------------ obsidian walls
     paint_walls(&c, &mut px, &mut kind, &wall);
@@ -582,6 +592,7 @@ pub fn paint(z: &mut Zone) -> Painted {
                         px.v[i] = p(RO, 0);
                     }
                     kind.v[i] = K_DAIS;
+                    relief.v[i] = 0.0; // Stair normals retain the exact tread/riser row below.
                     lava_draw.v[i] = false;
                 }
             }
@@ -677,7 +688,7 @@ pub fn paint(z: &mut Zone) -> Painted {
     }
 
     // ------------------------------------------------------------ small details: pebbles, stones, cracks
-    paint_details(&c, &mut px, &kind, &rock_dist, &lava_dist);
+    paint_details(&c, &mut px, &kind, &mut relief, &rock_dist, &lava_dist);
 
     // ------------------------------------------------------------ grass tufts
     let mut tufts = Vec::new();
@@ -728,7 +739,11 @@ pub fn paint(z: &mut Zone) -> Painted {
                     continue;
                 }
                 let xx = x - w / 2 + if flip { w - 1 - dx as i32 } else { dx as i32 };
-                px.set(xx, y - h + 1 + dy as i32, p(RG, (ch - b'0').min(3) as i8));
+                let yy = y - h + 1 + dy as i32;
+                px.set(xx, yy, p(RG, (ch - b'0').min(3) as i8));
+                // Blade silhouettes taper upward; their relief follows geometry,
+                // independent of which palette value happens to color a blade.
+                relief.set(xx, yy, 0.24 + (h - 1 - dy as i32) as f32 * 0.13);
             }
         }
     }
@@ -743,8 +758,6 @@ pub fn paint(z: &mut Zone) -> Painted {
         };
     }
 
-    super::textures::apply(z, &kind);
-
     // Share the final native silhouettes with movement. A bank/soffit is the vertical
     // face below a deck, never extra walkable ground; the molten channel stays blocked.
     z.set_surface_tiles(kind.v.iter().map(|&k| match k {
@@ -753,6 +766,12 @@ pub fn paint(z: &mut Zone) -> Painted {
         K_LAVA | K_FALL | K_BANK => Tile::Lava,
         _ => Tile::Void,
     }).collect());
+
+    // Native material art overwrites this procedural geometry at exactly its copied
+    // UVs. Flush workshop pigment preserves the substrate's native or authored normal.
+    super::normals::fill(z, &kind, &relief);
+    super::textures::apply(z, &kind);
+    super::normals::detail(z, &kind);
 
     Painted {
         kind,
@@ -763,7 +782,7 @@ pub fn paint(z: &mut Zone) -> Painted {
 }
 
 /// Lay weathered obsidian slabs in staggered courses.
-fn paint_paving(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, island: &Grid<bool>) {
+fn paint_paving(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, relief: &mut Grid<f32>, island: &Grid<bool>) {
     let (pw, ph) = (c.pw, c.ph);
     // Slabs 32x24, running bond. A slab exists where its center is on a paving tile; slabs on the
     // edge of the paved area are sometimes missing (rubble), so the border reads as worn.
@@ -827,8 +846,10 @@ fn paint_paving(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, island: &Grid<bo
             // A readable cool midtone stays calm beneath the lit stone; joints stay subordinate.
             let tone = 4;
             let mut l = tone;
+            let mut h = 0.0;
             if (ly == sh - 1 && lx > 5) || (lx == sw - 1 && ly > 7) {
                 l = 3; // shallow grout (lower right), rather than black slab outlines
+                h = -0.26;
             } else if ly == 0 && lx < 7 && edge {
                 l = tone + 1; // a chipped edge, not a bevel on every slab
             }
@@ -842,18 +863,21 @@ fn paint_paving(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, island: &Grid<bo
                 };
                 if d == 2 {
                     l = 2;
+                    h = -0.32;
                 } else if d == 3 {
                     l = tone + 1;
+                    h = 0.08;
                 }
             }
             px.v[i] = p(RO, l as i8);
             kind.v[i] = K_PAVE;
+            relief.v[i] = h;
         }
     }
 }
 
 /// Draw radial obsidian slabs and a copper shard setting.
-fn paint_dais(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, dais: &Grid<bool>) {
+fn paint_dais(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, relief: &mut Grid<f32>, dais: &Grid<bool>) {
     let (pw, ph) = (c.pw, c.ph);
     // dais center (from the map: the ellipse at tile 71, 11.4)
     let (cx, cy) = (71.0 * TILE as f32 + 8.0, 11.4 * TILE as f32);
@@ -874,13 +898,17 @@ fn paint_dais(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, dais: &Grid<bool>)
             let fr = r - ring as f32 * 13.0;
             let fa = ((a / std::f32::consts::TAU + 0.5) * segs as f32).fract();
             let mut l = if hash2(ring, seg, 81) > 0.8 { 3 } else { 2 };
+            let mut h = 0.0;
             if fr < 1.0 {
                 l = 1;
+                h = -0.28;
             } else if fr < 2.0 {
                 l += 1;
+                h = 0.08;
             }
             if fa < 0.04 * (1.0 + 4.0 / (r + 1.0)) && r > 4.0 {
                 l = 1;
+                h = -0.28;
             }
             let mut q = p(RO, l as i8);
             // copper inlay circle around the shard
@@ -897,6 +925,7 @@ fn paint_dais(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, dais: &Grid<bool>)
             }
             px.v[i] = q;
             kind.v[i] = K_DAIS;
+            relief.v[i] = h;
         }
     }
 }
@@ -1059,6 +1088,7 @@ fn paint_rocks(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, rock: &Grid<bool>
 fn stamp(
     px: &mut Grid<P>,
     kind: &Grid<u8>,
+    relief: &mut Grid<f32>,
     x: i32,
     y: i32,
     s: Stamp,
@@ -1074,7 +1104,6 @@ fn stamp(
             }
         }
     }
-    let _ = (w, h);
     for (dy, row) in s.iter().enumerate() {
         for (dx, ch) in row.bytes().enumerate() {
             let l = match ch {
@@ -1084,6 +1113,10 @@ fn stamp(
                 _ => continue,
             };
             px.set(x + dx as i32, y + dy as i32, P { r, l });
+            let sx = (dx as f32 + 0.5 - w as f32 * 0.5) / (w as f32 * 0.5);
+            let sy = (dy as f32 + 0.5 - h as f32 * 0.5) / (h as f32 * 0.5);
+            relief.set(x + dx as i32, y + dy as i32,
+                0.25 + (1.0 - sx * sx - sy * sy).max(0.0) * 0.65);
         }
     }
     true
@@ -1094,6 +1127,7 @@ fn paint_details(
     c: &Ctx,
     px: &mut Grid<P>,
     kind: &Grid<u8>,
+    relief: &mut Grid<f32>,
     rock_dist: &Grid<f32>,
     lava_dist: &Grid<f32>,
 ) {
@@ -1118,10 +1152,10 @@ fn paint_details(
                     let big = hash2(x, y, 124) < 0.25 + 0.3 * (-rd / 10.0).exp();
                     if big {
                         let s = STONES[(hash2(x, y, 125) * 4.0) as usize % 4];
-                        stamp(px, kind, x, y, s, RB, [3, 2, 1], ground);
+                        stamp(px, kind, relief, x, y, s, RB, [3, 2, 1], ground);
                     } else {
                         let s = PEBBLES[(hash2(x, y, 126) * 4.0) as usize % 4];
-                        stamp(px, kind, x, y, s, RB, [3, 2, 1], ground);
+                        stamp(px, kind, relief, x, y, s, RB, [3, 2, 1], ground);
                     }
                 }
             }
@@ -1148,6 +1182,7 @@ fn paint_details(
                     let q = px.v[i];
                     if q.r == RA {
                         px.v[i] = p(RA, (q.l - 1).max(0));
+                        relief.v[i] = -0.30;
                     }
                     x += dir;
                     if hash2(x, y + s, 136) < 0.45 {

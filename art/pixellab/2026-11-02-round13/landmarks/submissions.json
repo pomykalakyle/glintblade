@@ -1,0 +1,201 @@
+{
+  "date": "2026-11-02",
+  "workflow": "PixelLab Pro native architectural landmark studies",
+  "cap": 100,
+  "generations_submitted": 60,
+  "purchases": false,
+  "specs": [
+    {
+      "key": "garden",
+      "width": 160,
+      "height": 112,
+      "palette": [
+        "#4e586d",
+        "#747d8d",
+        "#a1a4a5",
+        "#c2c1b3",
+        "#dfdac1",
+        "#ece6cf",
+        "#647c77",
+        "#92a594"
+      ],
+      "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE wide broken chalk aqueduct landmark. Three purposeful narrow water conduit arches, left tall surviving distributor tower 85px high, broad elevated empty water trough traveling right, middle arch has generous empty opening, far-right span snapped off exposing its U-shaped conduit, two clearly separated masonry pier FEET both on same horizontal baseline. Large quiet ash-mauve shadow face, chalk left plane, sparse dusty sage growth only in two seam clusters. Ruin silhouette reads as a water-carrying machine, immense garden infrastructure rather than generic castle wall. Base width about140px, height95px."
+    },
+    {
+      "key": "distributor",
+      "width": 160,
+      "height": 128,
+      "palette": [
+        "#222d3d",
+        "#364657",
+        "#4c6070",
+        "#73858b",
+        "#a6b4ad",
+        "#424956",
+        "#626a74",
+        "#929797"
+      ],
+      "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE monumental broken cave water distributor. A broad weathered slate header cistern sits high above three strongly readable descending open channel mouths. One main central dark empty inspection arch, a tall narrow intact left buttress, shorter fractured right buttress. Open U-shaped trough entering from upper-left, an outlet chute angled toward lower-right, no actual water. Ancient functional engineering with two hefty separated masonry footings on common horizontal baseline, sparse bolt recesses and chipped planar edges. Width140px height112px. Clean structural mass with big calm faces, functional source/channel/outlet clearly recognizable."
+    },
+    {
+      "key": "press",
+      "width": 144,
+      "height": 160,
+      "palette": [
+        "#101017",
+        "#1a1923",
+        "#292c3c",
+        "#3f414f",
+        "#5b5966",
+        "#7c7780",
+        "#63515a",
+        "#93766f",
+        "#b69b85"
+      ],
+      "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE unmistakable immense BROKEN FOUNDRY PRESS, not an obelisk or statue. Broad soot-black forged overhead gantry supported by two vertical rectangular posts, giant central suspended square stamping ram and piston, clearly visible wide open workspace beneath ram with a low anvil workbed, heavy machine base. Right upper gantry snapped off with a squared fracture; ram tilted by broken attachment but still held; sparse dull copper collars indicate mechanical purpose. No roof, no chimney, no flames. Front face dark obsidian, left top planes muted ash-mauve. Strong giant square machine silhouette with empty internal space. About126px wide,142px high, complete two real masonry feet seated level. Mechanical, brutalist, ancient."
+    },
+    {
+      "key": "summit",
+      "width": 160,
+      "height": 128,
+      "palette": [
+        "#1f2838",
+        "#2b3548",
+        "#46526a",
+        "#64738a",
+        "#94a1ae",
+        "#c1c8c5",
+        "#655e60",
+        "#948574"
+      ],
+      "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE ancient summit aqueduct crown: monumental open rectangular STONE FRAME linking two slender slotted fin piers, broad flat overhead conduit lintel fractured at center leaving a dramatic asymmetrical gap, empty center with generous sky opening, no doors. Two thin stone uprights have vertical inspection slots, one left pier much taller; their top trough shares exact same architectural language as an abandoned garden aqueduct. Cold slate and pale chalk edge, muted mauve weather stain only. No symbols, no ornaments, no fire. Two separate complete feet level on same baseline. Width142px height112px. Sparse sacred structural silhouette."
+    }
+  ],
+  "receipts": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "key": "garden",
+        "args": {
+          "key": "garden",
+          "width": 160,
+          "height": 112,
+          "palette": [
+            "#4e586d",
+            "#747d8d",
+            "#a1a4a5",
+            "#c2c1b3",
+            "#dfdac1",
+            "#ece6cf",
+            "#647c77",
+            "#92a594"
+          ],
+          "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE wide broken chalk aqueduct landmark. Three purposeful narrow water conduit arches, left tall surviving distributor tower 85px high, broad elevated empty water trough traveling right, middle arch has generous empty opening, far-right span snapped off exposing its U-shaped conduit, two clearly separated masonry pier FEET both on same horizontal baseline. Large quiet ash-mauve shadow face, chalk left plane, sparse dusty sage growth only in two seam clusters. Ruin silhouette reads as a water-carrying machine, immense garden infrastructure rather than generic castle wall. Base width about140px, height95px."
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "id: 43647f9f-6751-4f12-bff2-7da58dc867e7\njob_id: 43647f9f-6751-4f12-bff2-7da58dc867e7\nmodel: pro\ndescription: GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE wide broken chalk aqueduct landmark. Three purposeful narrow water conduit arches, left tall surviving distributor tower 85px high, broad elevated empty water trough traveling right, middle arch has generous empty opening, far-right span snapped off exposing its U-shaped conduit, two clearly separated masonry pier FEET both on same horizontal baseline. Large quiet ash-mauve shadow face, chalk left plane, sparse dusty sage growth only in two seam clusters. Ruin silhouette reads as a water-carrying machine, immense garden infrastructure rather than generic castle wall. Base width about140px, height95px.\nsize: 160x112px\ntransparent: True\ncandidates: 4\npalette: 8 colours (The Long Quiet regional stone)\nmax colours: 9 per image\nseed: 1313\nasset_id: f7cb3f47-7a8e-557c-956a-0d224f9fa10b\nasset_status: pending (saved when generation completes)\ncost: 15 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"43647f9f-6751-4f12-bff2-7da58dc867e7\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/43647f9f-6751-4f12-bff2-7da58dc867e7/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+            }
+          ],
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "key": "distributor",
+        "args": {
+          "key": "distributor",
+          "width": 160,
+          "height": 128,
+          "palette": [
+            "#222d3d",
+            "#364657",
+            "#4c6070",
+            "#73858b",
+            "#a6b4ad",
+            "#424956",
+            "#626a74",
+            "#929797"
+          ],
+          "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE monumental broken cave water distributor. A broad weathered slate header cistern sits high above three strongly readable descending open channel mouths. One main central dark empty inspection arch, a tall narrow intact left buttress, shorter fractured right buttress. Open U-shaped trough entering from upper-left, an outlet chute angled toward lower-right, no actual water. Ancient functional engineering with two hefty separated masonry footings on common horizontal baseline, sparse bolt recesses and chipped planar edges. Width140px height112px. Clean structural mass with big calm faces, functional source/channel/outlet clearly recognizable."
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "id: d2aecc54-1682-4c93-a91e-7cbaef0f4817\njob_id: d2aecc54-1682-4c93-a91e-7cbaef0f4817\nmodel: pro\ndescription: GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE monumental broken cave water distributor. A broad weathered slate header cistern sits high above three strongly readable descending open channel mouths. One main central dark empty inspection arch, a tall narrow intact left buttress, shorter fractured right buttress. Open U-shaped trough entering from upper-left, an outlet chute angled toward lower-right, no actual water. Ancient functional engineering with two hefty separated masonry footings on common horizontal baseline, sparse bolt recesses and chipped planar edges. Width140px height112px. Clean structural mass with big calm faces, functional source/channel/outlet clearly recognizable.\nsize: 160x128px\ntransparent: True\ncandidates: 4\npalette: 8 colours (The Long Quiet regional stone)\nmax colours: 9 per image\nseed: 1313\nasset_id: 6a2380b9-4995-56bf-a740-e8c3227732ae\nasset_status: pending (saved when generation completes)\ncost: 15 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"d2aecc54-1682-4c93-a91e-7cbaef0f4817\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/d2aecc54-1682-4c93-a91e-7cbaef0f4817/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+            }
+          ],
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "key": "press",
+        "args": {
+          "key": "press",
+          "width": 144,
+          "height": 160,
+          "palette": [
+            "#101017",
+            "#1a1923",
+            "#292c3c",
+            "#3f414f",
+            "#5b5966",
+            "#7c7780",
+            "#63515a",
+            "#93766f",
+            "#b69b85"
+          ],
+          "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE unmistakable immense BROKEN FOUNDRY PRESS, not an obelisk or statue. Broad soot-black forged overhead gantry supported by two vertical rectangular posts, giant central suspended square stamping ram and piston, clearly visible wide open workspace beneath ram with a low anvil workbed, heavy machine base. Right upper gantry snapped off with a squared fracture; ram tilted by broken attachment but still held; sparse dull copper collars indicate mechanical purpose. No roof, no chimney, no flames. Front face dark obsidian, left top planes muted ash-mauve. Strong giant square machine silhouette with empty internal space. About126px wide,142px high, complete two real masonry feet seated level. Mechanical, brutalist, ancient."
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "id: 0738e7ba-d8fd-4777-8d93-365c674aab8f\njob_id: 0738e7ba-d8fd-4777-8d93-365c674aab8f\nmodel: pro\ndescription: GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE unmistakable immense BROKEN FOUNDRY PRESS, not an obelisk or statue. Broad soot-black forged overhead gantry supported by two vertical rectangular posts, giant central suspended square stamping ram and piston, clearly visible wide open workspace beneath ram with a low anvil workbed, heavy machine base. Right upper gantry snapped off with a squared fracture; ram tilted by broken attachment but still held; sparse dull copper collars indicate mechanical purpose. No roof, no chimney, no flames. Front face dark obsidian, left top planes muted ash-mauve. Strong giant square machine silhouette with empty internal space. About126px wide,142px high, complete two real masonry feet seated level. Mechanical, brutalist, ancient.\nsize: 144x160px\ntransparent: True\ncandidates: 4\npalette: 9 colours (The Long Quiet regional stone)\nmax colours: 9 per image\nseed: 1313\nasset_id: 35665263-9cec-513a-aa30-74fd64c07bd1\nasset_status: pending (saved when generation completes)\ncost: 15 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"0738e7ba-d8fd-4777-8d93-365c674aab8f\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/0738e7ba-d8fd-4777-8d93-365c674aab8f/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+            }
+          ],
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "key": "summit",
+        "args": {
+          "key": "summit",
+          "width": 160,
+          "height": 128,
+          "palette": [
+            "#1f2838",
+            "#2b3548",
+            "#46526a",
+            "#64738a",
+            "#94a1ae",
+            "#c1c8c5",
+            "#655e60",
+            "#948574"
+          ],
+          "description": "GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE ancient summit aqueduct crown: monumental open rectangular STONE FRAME linking two slender slotted fin piers, broad flat overhead conduit lintel fractured at center leaving a dramatic asymmetrical gap, empty center with generous sky opening, no doors. Two thin stone uprights have vertical inspection slots, one left pier much taller; their top trough shares exact same architectural language as an abandoned garden aqueduct. Cold slate and pale chalk edge, muted mauve weather stain only. No symbols, no ornaments, no fire. Two separate complete feet level on same baseline. Width142px height112px. Sparse sacred structural silhouette."
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "id: 9cfc6ce2-50d6-4f52-97c9-4d01754b2adc\njob_id: 9cfc6ce2-50d6-4f52-97c9-4d01754b2adc\nmodel: pro\ndescription: GLINTBLADE The Long Quiet. Authentic 1x native pixel art game environment prop, clean readable planar clusters, restrained melancholy monumental abandoned water infrastructure. Low top-down three-quarter RPG view, front facing south, vertical architecture rises straight upward. Light upper-left. Crisp opaque native pixels or transparency, no antialias, no backdrop, no ground plane, no cast shadow painted under sprite, no floating disconnected rubble, no decorative outlines, no cyan, no glow, no FX, no text. Complete solid feet with generous transparent margin on all sides. ONE ancient summit aqueduct crown: monumental open rectangular STONE FRAME linking two slender slotted fin piers, broad flat overhead conduit lintel fractured at center leaving a dramatic asymmetrical gap, empty center with generous sky opening, no doors. Two thin stone uprights have vertical inspection slots, one left pier much taller; their top trough shares exact same architectural language as an abandoned garden aqueduct. Cold slate and pale chalk edge, muted mauve weather stain only. No symbols, no ornaments, no fire. Two separate complete feet level on same baseline. Width142px height112px. Sparse sacred structural silhouette.\nsize: 160x128px\ntransparent: True\ncandidates: 4\npalette: 8 colours (The Long Quiet regional stone)\nmax colours: 9 per image\nseed: 1313\nasset_id: 03c8461a-2e44-5954-97ab-4ed762cf015a\nasset_status: pending (saved when generation completes)\ncost: 15 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"9cfc6ce2-50d6-4f52-97c9-4d01754b2adc\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9cfc6ce2-50d6-4f52-97c9-4d01754b2adc/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+            }
+          ],
+          "isError": false
+        }
+      }
+    }
+  ]
+}

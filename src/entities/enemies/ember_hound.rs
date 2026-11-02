@@ -23,6 +23,7 @@ use crate::entities::Body;
 use crate::fx::{Debris, Fx, Particle};
 use crate::gfx::{Anim, Cell, Dir, DrawOpts, Frame, Rgb, Sheet, rgb, sheet};
 use crate::util::{angle_diff, approach, hash2, norm};
+use std::collections::HashMap;
 use std::sync::OnceLock;
 
 const HP: i32 = 4;
@@ -698,7 +699,7 @@ fn current_cell(b: &Body, s: &State) -> (&'static Cell, (i32, i32), bool) {
         let (names, looping) = anim_names(b, s);
         if let Some((a, flip)) = pick(sh, names, dir).or_else(|| pick(sh, &["idle", "move"], dir)) {
             let f = a.frame_at(anim_ticks(s, a), looping);
-            return (super::variation::cell("ember_hound", sh.cell(a, f), s.appearance), sh.anchor_of(a), flip);
+            return (leg_contour(super::variation::cell("ember_hound", sh.cell(a, f), s.appearance)), sh.anchor_of(a), flip);
         }
     }
     let cells = fallback();
@@ -716,7 +717,41 @@ fn current_cell(b: &Body, s: &State) -> (&'static Cell, (i32, i32), bool) {
         Phase::Recover => ((s.pt / 14) % 2) as usize,
     };
     let c = &cells[i];
-    (c, (20, 20), s.left)
+    (leg_contour(c), (20, 20), s.left)
+}
+
+/// The base obsidian skin needs a little reflected ash on its lit shin edges.
+/// Keep it inside the ink and on the authored light side: no halo, emission or
+/// new coverage. Cached albedo retains the pose's original normal map, so lava
+/// still determines the actual illumination. The already readable skins pass through.
+fn leg_contour(cell: &'static Cell) -> &'static Cell {
+    static CELLS: OnceLock<HashMap<usize, Cell>> = OnceLock::new();
+    let cells = CELLS.get_or_init(|| {
+        let sources = sheet("ember_hound").into_iter().flat_map(|sh| sh.cells.iter().flatten())
+            .chain(fallback().iter());
+        sources.map(|source| {
+            let mut material = source.clone();
+            let occupied = |y| (0..source.w).any(|x| source.at(x, y).a);
+            if let (Some(top), Some(bottom)) = ((0..source.h).find(|&y| occupied(y)), (0..source.h).rfind(|&y| occupied(y))) {
+                let shins = top + (bottom - top + 1) * 2 / 3;
+                for y in shins..=bottom {
+                    for x in 1..source.w {
+                        let p = source.at(x, y);
+                        let edge = source.at(x - 1, y);
+                        if !p.a || p.emit || !edge.a || edge.c != SCORCH { continue; }
+                        let c = match p.c.key() {
+                            0x3f414f => ASH,
+                            0x5b5966 => rgb(0x7c7780),
+                            _ => continue,
+                        };
+                        material.px[(y * source.w + x) as usize].c = c;
+                    }
+                }
+            }
+            (source as *const Cell as usize, material)
+        }).collect()
+    });
+    cells.get(&(cell as *const Cell as usize)).unwrap_or(cell)
 }
 
 /// Where the eye is, relative to the anchor, for the glint. Uses an `eye` point from the sheet if

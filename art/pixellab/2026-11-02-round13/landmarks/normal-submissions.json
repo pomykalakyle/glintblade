@@ -1,0 +1,62 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "key": "garden",
+      "source": {
+        "key": "garden",
+        "job": "43647f9f-6751-4f12-bff2-7da58dc867e7",
+        "index": 1
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "1 validation error for call[create_normal_map]\ndetail_softness\n  Input should be greater than or equal to 0.6 [type=greater_than_equal, input_value=0, input_type=int]\n    For further information visit https://errors.pydantic.dev/2.13/v/greater_than_equal"
+          }
+        ],
+        "isError": true
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "key": "distributor",
+      "source": {
+        "key": "distributor",
+        "job": "d2aecc54-1682-4c93-a91e-7cbaef0f4817",
+        "index": 0
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "1 validation error for call[create_normal_map]\ndetail_softness\n  Input should be greater than or equal to 0.6 [type=greater_than_equal, input_value=0, input_type=int]\n    For further information visit https://errors.pydantic.dev/2.13/v/greater_than_equal"
+          }
+        ],
+        "isError": true
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "key": "press",
+      "source": {
+        "key": "press",
+        "job": "0738e7ba-d8fd-4777-8d93-365c674aab8f",
+        "index": 2
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "1 validation error for call[create_normal_map]\ndetail_softness\n  Input should be greater than or equal to 0.6 [type=greater_than_equal, input_value=0, input_type=int]\n    For further information visit https://errors.pydantic.dev/2.13/v/greater_than_equal"
+          }
+        ],
+        "isError": true
+      }
+    }
+  }
+]

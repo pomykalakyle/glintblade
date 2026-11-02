@@ -1,0 +1,62 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "key": "garden",
+      "source": {
+        "key": "garden",
+        "job": "43647f9f-6751-4f12-bff2-7da58dc867e7",
+        "index": 1
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: cb1fce15-66d7-4e26-91e5-0de42f77f848\njob_id: cb1fce15-66d7-4e26-91e5-0de42f77f848\nsource: 160x112px\nconvention: opengl (green up)\nkind: iso\nlook: strength 0.65, outline_rounding 0, part_shapes 0.3, surface_detail 0.12, detail_softness 0.6; the rest where the kind puts them\nasset_id: b3a5bcbb-af1a-5800-9976-8b07f7d58c31\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"cb1fce15-66d7-4e26-91e5-0de42f77f848\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/cb1fce15-66d7-4e26-91e5-0de42f77f848/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "key": "distributor",
+      "source": {
+        "key": "distributor",
+        "job": "d2aecc54-1682-4c93-a91e-7cbaef0f4817",
+        "index": 0
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: b8f7bc59-601c-42d7-8856-58376c58286a\njob_id: b8f7bc59-601c-42d7-8856-58376c58286a\nsource: 160x128px\nconvention: opengl (green up)\nkind: iso\nlook: strength 0.65, outline_rounding 0, part_shapes 0.3, surface_detail 0.12, detail_softness 0.6; the rest where the kind puts them\nasset_id: 6cc20cf1-229d-50a6-84e1-dc9b9b02e92f\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b8f7bc59-601c-42d7-8856-58376c58286a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b8f7bc59-601c-42d7-8856-58376c58286a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "key": "press",
+      "source": {
+        "key": "press",
+        "job": "0738e7ba-d8fd-4777-8d93-365c674aab8f",
+        "index": 2
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 32afc36d-c8ad-41bd-acaf-a476558d13eb\njob_id: 32afc36d-c8ad-41bd-acaf-a476558d13eb\nsource: 144x160px\nconvention: opengl (green up)\nkind: iso\nlook: strength 0.65, outline_rounding 0, part_shapes 0.3, surface_detail 0.12, detail_softness 0.6; the rest where the kind puts them\nasset_id: 39956a99-4f34-58c0-83fe-692dfa91375b\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"32afc36d-c8ad-41bd-acaf-a476558d13eb\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/32afc36d-c8ad-41bd-acaf-a476558d13eb/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+          }
+        ],
+        "isError": false
+      }
+    }
+  }
+]

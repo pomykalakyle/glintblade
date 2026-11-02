@@ -1,0 +1,28 @@
+{
+  "args": {
+    "key": "vista",
+    "width": 320,
+    "height": 96,
+    "palette": [
+      "#929da8",
+      "#9ea9ae",
+      "#aab4b7",
+      "#b6bfc0",
+      "#c7cfca"
+    ],
+    "no_background": true,
+    "max_colors": 5,
+    "palette_name": "Long Quiet distant cloud stone",
+    "seed": 1314,
+    "description": "A single wide very distant monumental aqueduct skyline, genuine crisp native 1x pixel art side view. Three calm low-value pale slate silhouettes against TRANSPARENT sky: a continuous tableland ledge carries immense long ancient elevated water conduits on uneven piers, tallest broken distributor tower toward right, asymmetrical snapped span at center. This is a background vista in a melancholy garden floating above a cloud sea. Restrained enormous flat planes, few broad shapes, almost no texture, no line outlines, no foliage, no light/glow/no cast shadow/no ground shadow/no mountains/no clouds. Keep all masonry inside canvas with 3px transparent margins. Structures 40..72px tall, broad 300px connected escarpment, masonry hangs downward to uneven mist-softened but hard stepped base. Readable purposeful water-carrying infrastructure, abandoned and immense. One subtle pale broken fall channel without actual water."
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: cf88e2e2-f338-47b0-8907-89b0be7ee525\njob_id: cf88e2e2-f338-47b0-8907-89b0be7ee525\nmodel: pro\ndescription: A single wide very distant monumental aqueduct skyline, genuine crisp native 1x pixel art side view. Three calm low-value pale slate silhouettes against TRANSPARENT sky: a continuous tableland ledge carries immense long ancient elevated water conduits on uneven piers, tallest broken distributor tower toward right, asymmetrical snapped span at center. This is a background vista in a melancholy garden floating above a cloud sea. Restrained enormous flat planes, few broad shapes, almost no texture, no line outlines, no foliage, no light/glow/no cast shadow/no ground shadow/no mountains/no clouds. Keep all masonry inside canvas with 3px transparent margins. Structures 40..72px tall, broad 300px connected escarpment, masonry hangs downward to uneven mist-softened but hard stepped base. Readable purposeful water-carrying infrastructure, abandoned and immense. One subtle pale broken fall channel without actual water.\nsize: 320x96px\ntransparent: True\ncandidates: 1\npalette: 5 colours (Long Quiet distant cloud stone)\nmax colours: 5 per image\nseed: 1314\nasset_id: 8200487e-4b08-59b0-b59e-7b9521a32889\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"cf88e2e2-f338-47b0-8907-89b0be7ee525\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/cf88e2e2-f338-47b0-8907-89b0be7ee525/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

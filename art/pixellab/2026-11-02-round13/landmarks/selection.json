@@ -1,0 +1,182 @@
+{
+  "generation_budget": 100,
+  "generations_used": 80.4,
+  "credit_purchases": false,
+  "selection_method": "Every candidate inspected with view_image at its native size. RGB pixels remain unchanged; the cave's mis-segmented opaque through-arch is removed by literal native alpha spans in both albedo and normals.",
+  "assets": {
+    "garden": {
+      "source": "originals/garden-1.png",
+      "normal": "normals/garden.png",
+      "cell": [
+        160,
+        112
+      ],
+      "anchor": [
+        80,
+        101
+      ],
+      "support_depth": 10,
+      "world": [
+        335,
+        710
+      ],
+      "selection_note": "One tall distributor tower and three open arches replace the opening's isolated fins. The lower ten occupied rows supply exact separated stone feet. Complete source margins remain intact."
+    },
+    "distributor": {
+      "source": "originals/distributor-0.png",
+      "normal": "normals/distributor.png",
+      "cell": [
+        160,
+        128
+      ],
+      "anchor": [
+        80,
+        115
+      ],
+      "support_depth": 10,
+      "world": [
+        1304,
+        252
+      ],
+      "alpha_cutouts": [
+        [
+          87,
+          69,
+          93,
+          70
+        ],
+        [
+          85,
+          70,
+          95,
+          71
+        ],
+        [
+          84,
+          71,
+          96,
+          72
+        ],
+        [
+          83,
+          72,
+          96,
+          73
+        ],
+        [
+          82,
+          73,
+          96,
+          74
+        ],
+        [
+          81,
+          74,
+          97,
+          76
+        ],
+        [
+          81,
+          76,
+          98,
+          77
+        ],
+        [
+          80,
+          77,
+          98,
+          79
+        ],
+        [
+          79,
+          79,
+          98,
+          81
+        ],
+        [
+          80,
+          81,
+          98,
+          99
+        ],
+        [
+          81,
+          99,
+          98,
+          100
+        ],
+        [
+          83,
+          100,
+          98,
+          102
+        ],
+        [
+          85,
+          102,
+          98,
+          103
+        ],
+        [
+          86,
+          103,
+          98,
+          104
+        ],
+        [
+          87,
+          104,
+          98,
+          105
+        ],
+        [
+          89,
+          105,
+          100,
+          106
+        ]
+      ],
+      "selection_note": "Readable header cistern, repeated actual outlets and broken chute establish a distribution machine. The original generator left the arched empty space opaque: exact source-row alpha spans remove that false background and its matching normal coverage. No RGB pixels move or change. Native feet and outlet lie on the right cave bank. The lowest ten occupied source rows define the same native support band used by the physical shadow caster."
+    },
+    "press": {
+      "source": "originals/press-2.png",
+      "normal": "normals/press.png",
+      "cell": [
+        144,
+        160
+      ],
+      "anchor": [
+        72,
+        147
+      ],
+      "support_depth": 10,
+      "world": [
+        600,
+        718
+      ],
+      "selection_note": "Suspended squared stamping ram, failed right gantry and open anvil bed identify an actual broken foundry press. Stands on the lower workshop beyond the canal; combat court and bridge mouths stay clear. The lowest ten occupied source rows define the same native support band used by the physical shadow caster."
+    },
+    "summit": {
+      "source": "originals/summit-0.png",
+      "normal": "normals/summit.png",
+      "cell": [
+        160,
+        128
+      ],
+      "anchor": [
+        80,
+        119
+      ],
+      "support_depth": 10,
+      "world": [
+        720,
+        294
+      ],
+      "selection_note": "Quiet open slotted-fin frame and snapped conduit lintel repeat the garden's engineering language around the empty prism socket. Its two independent feet rest on clear arena floor at284..294, entirely beyond the native raised dais's front edge276; the socket remains visible through the central opening."
+    }
+  },
+  "rejections": {
+    "vista-0": "Clipped tallest tower and broad staging-edge occupancy. Retained original and black/cloud review composites; never used in game.",
+    "vista2-0": "Rejected after actual title, scrolling entry and full-map audits exposed hard rectangular tableland ends. Original retained for provenance; no exported atlas or runtime use."
+  }
+}

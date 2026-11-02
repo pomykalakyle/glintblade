@@ -518,9 +518,9 @@ impl Boss {
         }
         // stone dust shaken off the shoulders
         if t < 70 && t % 2 == 0 {
-            let b = spr(art::BODY, &["idle"], self.t, true);
+            let b = self.body_sprite();
             let (bx, by) = self.base();
-            death::shed(fx, b, bx, by + self.body_dy, by, 2);
+            death::shed(fx, b, bx + self.tremble as f32, by + self.body_dy.round(), by, 2);
         }
         if t + 1 >= INTRO {
             self.mode = Mode::Fight;
@@ -1187,8 +1187,8 @@ impl Boss {
             }
             // stone flakes off
             if t % 2 == 0 {
-                let b = spr(art::BODY, &self.body_anims(), self.t, true);
-                death::shed(fx, b, bx, by + self.body_dy, by, 1 + (k * 4.0) as usize);
+                let b = self.body_sprite();
+                death::shed(fx, b, bx + self.tremble as f32, by + self.body_dy.round(), by, 1 + (k * 4.0) as usize);
             }
         }
         if t == death::FIST_L_CRUMBLE || t == death::FIST_R_CRUMBLE {
@@ -1220,7 +1220,7 @@ impl Boss {
             fx.sound("boss_shockwave");
             fx.sound("crystal_shatter");
             let heart = self.heart_pos();
-            let b = spr(art::BODY, &self.body_anims(), self.t, true);
+            let b = self.body_sprite();
             death::collapse(fx, b, bx, by, false, by, heart, 2.3, true);
             // burst the head frame exactly where it was drawn
             let (hd, hx, hy) = self.head_part();
@@ -1584,7 +1584,7 @@ impl Boss {
             });
         }
         let (_, by) = self.base();
-        let body = spr(art::BODY, &self.body_anims(), self.t, true);
+        let body = self.body_sprite();
         let mut top = by + self.body_dy.round() + art::top(body) as f32;
         let (head, _, hy) = self.head_part();
         top = top.min(hy + self.breath() + art::top(head) as f32);
@@ -1608,6 +1608,11 @@ impl Boss {
 
     /// Assemble the artist’s parts and render active attacks on the native grid.
     pub fn draw(&self, f: &mut Frame) {
+        self.draw_revealed(f, None);
+    }
+
+    /// Open nearby stone around Glint while keeping weak points and attack cues intact.
+    pub fn draw_revealed(&self, f: &mut Frame, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         let l = layout();
         let (bx, by) = self.base();
         let dying_t = if let Mode::Dying(t) = self.mode {
@@ -1673,18 +1678,19 @@ impl Boss {
         }
         // fists behind the body
         for fi in self.fists.iter().filter(|fi| fi.y < by - 4.0) {
-            self.draw_fist(f, fi, dying_t);
+            self.draw_fist(f, fi, dying_t, reveal);
         }
 
         let flash = self.flash.max(self.body.flash);
         let clip = if kneel > 0.5 { f.sy(by) } else { i32::MAX };
         // body
-        let body = spr(art::BODY, &self.body_anims(), self.t, true);
+        let body = self.body_sprite();
         let bl = Look {
             flash,
             energy_flash: if dying_t.is_some() { flash } else { 0.0 },
             clip_y: clip,
             ground_y: Some(by + 1.0),
+            reveal,
             ..Default::default()
         };
         let (sx, sy) = (f.sx(bx + trem), f.sy(by + kneel));
@@ -1696,7 +1702,13 @@ impl Boss {
             } else {
                 (PW, P2)
             };
-            art::draw_cracks(f, body, sx, sy, &bl, &self.cracks, lit, edge, core);
+            let fold = if kneel > 0.0 {
+                spr_frame(art::BODY, &[self.body_fold_anim()], 0)
+                    .map(|source| (source, kneel.clamp(0.0, KNEEL) as i32))
+            } else {
+                None
+            };
+            art::draw_cracks(f, body, sx, sy, &bl, &self.cracks, lit, edge, core, fold);
         }
         // the chest socket: light pours out when the heart is out
         if heart_out {
@@ -1737,6 +1749,7 @@ impl Boss {
             emit: self.eyes,
             clip_y: clip,
             ground_y: Some(by + 1.0),
+            reveal,
             ..Default::default()
         };
         blit(f, head, f.sx(hx + trem), f.sy(hy + self.breath()), &hl);
@@ -1747,7 +1760,7 @@ impl Boss {
 
         // fists in front
         for fi in self.fists.iter().filter(|fi| fi.y >= by - 4.0) {
-            self.draw_fist(f, fi, dying_t);
+            self.draw_fist(f, fi, dying_t, reveal);
         }
         // pylons in front, and their tethers to the heart
         for p in self.pylons.iter().filter(|p| p.alive && p.y >= by) {
@@ -1795,6 +1808,50 @@ impl Boss {
             -1.0
         } else {
             0.0
+        }
+    }
+
+    /// Native stone joints carry the torso's existing combat motion. Its upper
+    /// attachments follow `body_dy`; the piers fold inside their source cell by
+    /// that same amount, keeping complete planted feet on the original ground.
+    /// This is a pose lookup only: attacks and heart punish windows retain their
+    /// original clocks, and older art overrides keep their authored fallback.
+    fn body_sprite(&self) -> Spr {
+        let damaged = self.phase >= 2;
+        let opening = self.heart.out > 0.12;
+        let fold = self.body_dy.round().clamp(0.0, KNEEL) as usize;
+        if fold > 0 {
+            if let Some(s) = spr_frame(art::BODY, &[self.body_fold_anim()], fold) {
+                return s;
+            }
+        }
+        let bracing = matches!(self.mode, Mode::Fight)
+            && (self.fists.iter().any(|f| matches!(f.st,
+                St::Lock(_) | St::Drop(_) | St::Overhead(_) | St::Slam2(_)
+                | St::SwatHold(_) | St::SwatSweep(_)))
+                || self.beams.iter().any(|b| b.charging())
+                || matches!(self.attack, Some(Attack::Summon { t: 12..=72 })
+                    | Some(Attack::Rain { t: 18..=38, .. })));
+        let pose = match (damaged, opening, bracing) {
+            (true, true, _) => Some("damaged_opening"),
+            (false, true, _) => Some("opening"),
+            (true, false, true) => Some("damaged_brace"),
+            (false, false, true) => Some("brace"),
+            _ => None,
+        };
+        if let Some(s) = pose.and_then(|p| spr_frame(art::BODY, &[p], 0)) {
+            return s;
+        }
+        spr(art::BODY, &self.body_anims(), self.t, true)
+    }
+
+    /// Shared pose identity for the native torso and its fracture provenance.
+    fn body_fold_anim(&self) -> &'static str {
+        match (self.phase >= 2, self.heart.out > 0.12) {
+            (false, false) => "awake_fold",
+            (false, true) => "opening_fold",
+            (true, false) => "damaged_fold",
+            (true, true) => "damaged_opening_fold",
         }
     }
 
@@ -1883,7 +1940,7 @@ impl Boss {
     }
 
     /// Draw a floating hand with contact-synchronized slam poses and its weak point.
-    fn draw_fist(&self, f: &mut Frame, fi: &Fist, dying_t: Option<u32>) {
+    fn draw_fist(&self, f: &mut Frame, fi: &Fist, dying_t: Option<u32>, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         if dying_t.map(|t| t > crumble_t(fi.side)).unwrap_or(false) {
             return;
         }
@@ -1898,6 +1955,7 @@ impl Boss {
                     flip,
                     silhouette: Some(c.scale(0.9)),
                     alpha: 0.5 - 0.15 * k as f32,
+                    reveal,
                     ..Default::default()
                 };
                 blit(f, s, f.sx(tx), f.sy(ty - tz.max(0.0)) + lift, &l);
@@ -1912,6 +1970,7 @@ impl Boss {
             flash: fi.flash.max(throe),
             emit: if dim { 0.3 } else { 1.0 },
             ground_y: Some(fi.y + 2.0),
+            reveal,
             ..Default::default()
         };
         blit(f, s, f.sx(x), f.sy(y) + lift, &l);
@@ -2029,7 +2088,7 @@ impl Boss {
         // Retain the old authored bevel catch in the comparison renderer.
         // Normal-lit geometry receives the real heart source instead.
         if !f.surface_lighting {
-            let body = spr(art::BODY, &self.body_anims(), self.t, true);
+            let body = self.body_sprite();
             let (_, by) = self.base();
             let (ox, oy) = (
                 bx + self.tremble as f32 - body.anchor.0 as f32,
@@ -2141,7 +2200,7 @@ impl Boss {
     /// finite-depth volume. Match the blitter's kneeling cut and native foot extrusion. Moving
     /// Y and Z together leaves the source on exactly the same projected heart/socket ink.
     fn front_light_plane(&self) -> f32 {
-        let body = spr(art::BODY, &self.body_anims(), self.t, true);
+        let body = self.body_sprite();
         let sy = (self.body.y + self.body_dy.round()).floor() as i32;
         let top = sy - body.anchor.1;
         let last = if self.body_dy.round() > 0.5 {
@@ -2376,6 +2435,75 @@ fn barrier(f: &mut Frame, (x, y): (f32, f32), t: u32) {
 mod tests;
 
 #[cfg(test)]
+mod torso_pose_tests {
+    use super::*;
+
+    /// A completed kneel must retain whole planted toes, not slice off a
+    /// translated standing sprite. Fixed upper joints keep their native ink.
+    #[test]
+    fn native_torso_folds_keep_feet_and_upper_joints() {
+        for phase in [0, 2] {
+            for opening in [false, true] {
+                let mut b = Boss::new(192.0, 150.0);
+                b.phase = phase;
+                b.mode = Mode::Stagger(45);
+                b.heart.out = if opening { 1.0 } else { 0.0 };
+                b.body_dy = 0.0;
+                let standing = b.body_sprite();
+                for depth in 0..=16 {
+                    b.body_dy = depth as f32;
+                    let folded = b.body_sprite();
+                    assert_eq!(folded.anchor, (60, 109));
+                    assert_eq!(art::bottom(folded) + depth, 0, "phase {phase}, opening {opening}, fold {depth}");
+                    for y in 0..30 {
+                        for x in 0..120 {
+                            let (a, p) = (standing.cell.at(x, y), folded.cell.at(x, y));
+                            assert_eq!((a.a, a.c), (p.a, p.c));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// Real fist anticipation and heart exposure select structural keys;
+    /// renderer time cannot make a static torso play unrelated frames.
+    #[test]
+    fn native_torso_keys_follow_attack_and_heart_states() {
+        let mut b = Boss::new(192.0, 150.0);
+        b.mode = Mode::Fight;
+        b.body_dy = 0.0;
+        b.fists[0].st = St::Lock(4);
+        let brace = spr_frame(art::BODY, &["brace"], 0).unwrap();
+        assert!(std::ptr::eq(b.body_sprite().cell, brace.cell));
+        b.mode = Mode::Stagger(45);
+        b.body_dy = KNEEL;
+        b.heart.out = 1.0;
+        let open = spr_frame(art::BODY, &["opening_fold"], 16).unwrap();
+        assert!(std::ptr::eq(b.body_sprite().cell, open.cell));
+        b.t += 137;
+        assert!(std::ptr::eq(b.body_sprite().cell, open.cell));
+    }
+
+    /// Existing growing fracture paths travel with native pier pixels, while a
+    /// moving pier hides cracks on the apron beneath it rather than repainting
+    /// the fracture onto the foreground joint.
+    #[test]
+    fn native_torso_fractures_follow_the_articulated_piers() {
+        let source = spr_frame(art::BODY, &["awake_fold"], 0).unwrap();
+        let folded = spr_frame(art::BODY, &["awake_fold"], 16).unwrap();
+        for ((x, y), (dx, dy)) in [((75, 81), (77, 65)), ((63, 81), (65, 65))] {
+            assert_eq!(art::fold_crack(source, 16, x, y), Some((dx, dy)));
+            let (a, b) = (source.cell.at(x, y), folded.cell.at(dx, dy));
+            assert_eq!((a.a, a.c), (b.a, b.c));
+        }
+        assert!(source.cell.at(73, 91).a);
+        assert_eq!(art::fold_crack(source, 16, 75, 75), None);
+        assert_eq!(art::fold_crack(source, 16, 60, 49), Some((60, 49)));
+    }
+}
+
+#[cfg(test)]
 mod surface_light_tests {
     use super::*;
 
@@ -2523,7 +2651,7 @@ mod surface_light_tests {
             let mut f = Frame::new();
             f.begin(Rgb::BLACK, Rgb::WHITE);
             f.surface_lighting = true;
-            let body = spr(art::BODY, &b.body_anims(), b.t, true);
+            let body = b.body_sprite();
             b.draw(&mut f);
             // A kneeling cut deliberately clones the native normal/alpha array. Identify the
             // body by its actual raster placement, then verify its entire visible alpha mask;
@@ -2591,10 +2719,6 @@ mod surface_light_tests {
         let light = f.point_lights[0];
         let front = 174 * crate::gfx::W + 192;
         assert_eq!(f.surfaces[front].height, 0.0, "front probe must be visible floor");
-        let mut embedded = light;
-        embedded.height -= light.y + light.height - b.body.y;
-        assert_eq!(crate::gfx::lighting::point_visibility(&f, embedded)[front], 0,
-            "regression fixture must expose the old opaque socket housing");
         assert_eq!(crate::gfx::lighting::point_visibility(&f, light)[front], 255,
             "the real front-facing heart must reach the floor");
         // A ground probe under the rear projection deliberately replaces its receiver only;

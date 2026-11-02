@@ -39,8 +39,12 @@ a:hover { text-decoration: underline; }
 @media (max-width: 520px) { #hint { display: none; } footer { justify-content: center; } }
 @media (max-width: 360px) { .controls > span { display: none; } }
 @media (max-height: 330px) { #start { padding: 8px; } h1 { font-size: 24px; } .tagline, details { display: none; } p { margin: 5px 0; } #touch button { min-height: 36px; } .dpad { grid-template-rows: repeat(2, 36px); } }
-@media (max-height: 330px) and (pointer: coarse), (max-height: 330px) and (hover: none) {
-  #player { padding-bottom: 64px; }
+/* Give landscape phones the compact dock too; a second control row needlessly
+   takes height from the aspect-fitted game while its sidebars stay empty. */
+@media (max-height: 330px) and (pointer: coarse), (max-height: 330px) and (hover: none),
+       (orientation: landscape) and (max-height: 500px) and (pointer: coarse),
+       (orientation: landscape) and (max-height: 500px) and (hover: none) {
+  #player { padding-bottom: calc(56px + max(8px, env(safe-area-inset-bottom))); }
   #touch { gap: 8px; }
   .dpad, .actions { flex: 1; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: 44px; gap: 4px; }
   #touch button { min-width: 0; min-height: 44px; padding: 3px; }

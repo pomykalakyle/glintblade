@@ -22,6 +22,21 @@ in the four-region expansion and review fixes, and 10 in the follow-up lava stud
 This includes rejected terrain and concept
 studies. The selected sources can be repacked without spending more.
 
+The November 2 round13 pass adds native waterworks landmarks, a weathered
+Bloomwild altar, registered Warden torso poses and authored planting beds.
+Original PixelLab candidates, selected sources and deterministic registration
+recipes live in `art/pixellab/2026-11-02-round13/`. The three `round13_*.py`
+asset exporters are included in `build_assets.py`; isolated exports place their
+normal maps beside the chosen sprite directory, or at `--normals-out PATH`.
+`round13_vegetation.py` records the authored bed plan and can overlay the exact
+native root positions exported by the grass invariant test. It does not change
+the accepted terrain relief or generate new foliage.
+
+`audit_round13.py` validates exported asset contracts and attached runtime
+evidence. `round13_motion_audit.py` ranks temporal changes in actual native
+captures for human/agent inspection. Neither tool treats a small numerical
+difference or a successful asset check as a visual sign-off.
+
 Round5 used 40 more included generations. Round6 used 170: 100 for the six botanical/mineral
 skins (including rejected recolor/cropped-dome studies), 60 for fire/spirit skins, and 10 for
 four native garden floor studies. The account balance after round6 is 639 used / 1,361 remaining

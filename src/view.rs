@@ -70,15 +70,15 @@ pub fn render_world_focused(
     items.extend(ritems.into_iter().map(|(y, id)| (y, Item::Region(id))));
     items.extend(ext.iter().map(|&(y, id)| (y, Item::Ext(id))));
     items.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
-    for (sort_y, it) in items {
+    // The spatial opening recedes naturally as Glint moves past scenery. Gating it
+    // on sort depth would restore an entire cutout abruptly at the feet crossing.
+    for (_, it) in items {
         match it {
             Item::Prop(i) => {
                 let p = &zone.props[i];
-                let reveal = sprite_focus.filter(|focus| sort_y > focus.ground_y);
-                p.draw_revealed(f, t, 1.0, reveal);
+                p.draw_revealed(f, t, 1.0, sprite_focus);
             }
-            Item::Region(id) => region.draw_item_revealed(zone, f, id, t,
-                sprite_focus.filter(|focus| sort_y > focus.ground_y)),
+            Item::Region(id) => region.draw_item_revealed(zone, f, id, t, sprite_focus),
             Item::Ext(id) => draw_ext(f, id),
         }
     }

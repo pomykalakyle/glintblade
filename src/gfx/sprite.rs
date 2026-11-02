@@ -420,8 +420,8 @@ pub fn sheet_names() -> Vec<&'static str> {
     v
 }
 
-/// The real, current hero silhouette in world pixels, including facing and airborne height.
-/// Foreground scenery may reveal this small mask without fading its entire billboard.
+/// The current hero pose and ground position in world pixels. Foreground scenery opens
+/// a stable patch of space around the body and its footing, including airborne poses.
 #[derive(Clone, Copy, Debug)]
 pub struct SpriteFocus {
     pub cell: &'static Cell,
@@ -433,15 +433,53 @@ pub struct SpriteFocus {
 }
 
 impl SpriteFocus {
-    /// Include a one-pixel breathing rim so a dark silhouette remains readable through wood.
+    /// A clear center exposes the nearby floor; three short ordered-dither steps join
+    /// it to intact scenery. Position owns the contour, so idle/sword frames cannot
+    /// make it breathe. In the air a vertical capsule keeps the landing ground visible.
+    pub fn scenery_alpha(&self, wx: i32, wy: i32) -> f32 {
+        let dx = (wx - self.x.floor() as i32).abs();
+        let body_center = self.y.floor() as i32 - 19;
+        let ground_center = self.ground_y.floor() as i32 - 19;
+        let top = body_center.min(ground_center);
+        let bottom = body_center.max(ground_center);
+        let dy = if wy < top { top - wy } else { (wy - bottom).max(0) };
+        if dx >= 32 || dy >= 40 { return 1.0; }
+        // Rounded shoulders clear slender upper branches and crystal tips along
+        // with their stems. Integer fourth-power distances keep the contour on
+        // the native grid, with the same restrained horizontal reach.
+        let nx = dx * dx * 1024 / (32 * 32);
+        let ny = dy * dy * 1024 / (40 * 40);
+        let distance = nx * nx + ny * ny;
+        const EDGE: i32 = 1024 * 1024;
+        if distance < EDGE * 49 / 100 { 0.0 }
+        else if distance < EDGE * 67 / 100 { 0.25 }
+        else if distance < EDGE * 85 / 100 { 0.5 }
+        else if distance < EDGE { 0.75 }
+        else { 1.0 }
+    }
+
+    /// The whole context opening, including its stepped transition.
     pub fn covers(&self, wx: i32, wy: i32) -> bool {
-        let ox = self.x.floor() as i32 - if self.flip { self.cell.w - 1 - self.anchor.0 } else { self.anchor.0 };
-        let oy = self.y.floor() as i32 - self.anchor.1;
-        if wx < ox - 1 || wy < oy - 1 || wx > ox + self.cell.w || wy > oy + self.cell.h { return false; }
-        (-1..=1).any(|dy| (-1..=1).any(|dx| {
-            let x = wx + dx - ox;
-            self.cell.at(if self.flip { self.cell.w - 1 - x } else { x }, wy + dy - oy).a
-        }))
+        self.scenery_alpha(wx, wy) < 1.0
+    }
+
+    /// Procedural scenery shares exactly the native sprite's world-space dither.
+    pub fn allows_scenery(&self, wx: i32, wy: i32) -> bool {
+        self.scenery_alpha(wx, wy) > bayer4(wx, wy)
+    }
+
+    /// Restore a prop over twelve ground pixels after passing its foot, rather
+    /// than switching the entire opening at the sort boundary. Distant scenery
+    /// behind Glint stays solid; overhead canopies omit this depth fade.
+    pub fn scenery_alpha_at_depth(&self, wx: i32, wy: i32, sort_y: f32) -> f32 {
+        let passed = ((self.ground_y - sort_y) / 12.0).clamp(0.0, 1.0);
+        let restored = passed * passed * (3.0 - 2.0 * passed);
+        let alpha = self.scenery_alpha(wx, wy);
+        alpha + (1.0 - alpha) * restored
+    }
+
+    pub fn allows_scenery_at_depth(&self, wx: i32, wy: i32, sort_y: f32) -> bool {
+        self.scenery_alpha_at_depth(wx, wy, sort_y) > bayer4(wx, wy)
     }
 }
 
@@ -478,13 +516,15 @@ pub struct DrawOpts {
     pub silhouette: Option<Rgb>,
     /// If set with silhouette, the silhouette glows (emissive) instead of being lit.
     pub silhouette_glow: bool,
-    /// Locally reveal an otherwise opaque foreground sprite over this actual hero pose.
+    /// Reveal space around this hero pose and its footing through foreground scenery.
     pub reveal: Option<SpriteFocus>,
+    /// Sort depth of ordinary scenery; split overhead crowns/spans leave it unset.
+    pub reveal_depth: Option<f32>,
 }
 
 impl Default for DrawOpts {
     fn default() -> Self {
-        DrawOpts { flip: false, actor: false, elevation: 0.0, ground_y: None, floor_normals: false, foot_half_w: 6.0, foot_depth: 5, foot_full_width: false, flash: 0.0, tint: None, alpha: 1.0, shadow_alpha: None, unlit: false, emit_gain: 1.0, silhouette: None, silhouette_glow: false, reveal: None }
+        DrawOpts { flip: false, actor: false, elevation: 0.0, ground_y: None, floor_normals: false, foot_half_w: 6.0, foot_depth: 5, foot_full_width: false, flash: 0.0, tint: None, alpha: 1.0, shadow_alpha: None, unlit: false, emit_gain: 1.0, silhouette: None, silhouette_glow: false, reveal: None, reveal_depth: None }
     }
 }
 
@@ -532,7 +572,9 @@ impl Frame {
                 if !(0..super::frame::WI).contains(&px) {
                     continue;
                 }
-                let alpha = if o.reveal.is_some_and(|focus| focus.covers(px + self.cam_x, py + self.cam_y)) { o.alpha.min(0.25) } else { o.alpha };
+                let alpha = o.reveal.map_or(o.alpha, |focus| o.alpha.min(o.reveal_depth.map_or_else(
+                    || focus.scenery_alpha(px + self.cam_x, py + self.cam_y),
+                    |depth| focus.scenery_alpha_at_depth(px + self.cam_x, py + self.cam_y, depth))));
                 if alpha < 1.0 && alpha <= bayer4(px + self.cam_x, py + self.cam_y) {
                     continue;
                 }

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "description": "One ancient garden shrine floor altar for an action RPG, shown high top-down with south face visible. A very low broad octagonal limestone platform centered at pixel (36,28) on this 72 by 56 canvas; its footprint about 64 pixels wide and 48 pixels deep. Preserve the octagon reference silhouette and shallow platform proportions. Match the weathered ruined pillar reference's restrained dusty gray-green limestone, ash-mauve crevices and believable chipped slab edges. Quiet walkable top assembled from a few large stone blocks with clear structural joints, worn thin chamfer around outside, subtly darker vertical front face only 4 pixels high, feet touching ground with no floating underside or cast shadow. Center has one small dark diamond-shaped Prism receptacle, empty stone mortise with a pale worn lip, exactly at canvas (36,28), integrated flush into top. No pillar, no pedestal rising in center, no magical lights, no glowing trim, no rings or runic clutter, no grass carpet, no backdrop, no thick black outline. Upper-left daylight, crisp one-pixel edge chips and restrained large calm stone color clusters. A beautiful bespoke sacred relic matching abandoned garden waterworks, not a clean modern sci-fi badge.",
+    "width": 72,
+    "height": 56,
+    "no_background": true,
+    "max_colors": 12,
+    "reference_images": [
+      {
+        "path": "old-footprint-reference.png",
+        "usage": "Footprint and low platform proportions, shallow octagonal top-down perspective; center stays empty flush walkable stone."
+      },
+      {
+        "path": "style-native-pillar.png",
+        "usage": "Exact native pixel density, stone palette, restrained weathering, chipped joints and plane shading style."
+      }
+    ],
+    "seed": 133071
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 77e3f9ce-a67e-4416-83b2-0428216836fe\njob_id: 77e3f9ce-a67e-4416-83b2-0428216836fe\nmodel: pro\ndescription: One ancient garden shrine floor altar for an action RPG, shown high top-down with south face visible. A very low broad octagonal limestone platform centered at pixel (36,28) on this 72 by 56 canvas; its footprint about 64 pixels wide and 48 pixels deep. Preserve the octagon reference silhouette and shallow platform proportions. Match the weathered ruined pillar reference's restrained dusty gray-green limestone, ash-mauve crevices and believable chipped slab edges. Quiet walkable top assembled from a few large stone blocks with clear structural joints, worn thin chamfer around outside, subtly darker vertical front face only 4 pixels high, feet touching ground with no floating underside or cast shadow. Center has one small dark diamond-shaped Prism receptacle, empty stone mortise with a pale worn lip, exactly at canvas (36,28), integrated flush into top. No pillar, no pedestal rising in center, no magical lights, no glowing trim, no rings or runic clutter, no grass carpet, no backdrop, no thick black outline. Upper-left daylight, crisp one-pixel edge chips and restrained large calm stone color clusters. A beautiful bespoke sacred relic matching abandoned garden waterworks, not a clean modern sci-fi badge.\nsize: 72x56px\ntransparent: True\ncandidates: 16\nreferences: 2\nmax colours: 12 per image\nseed: 133071\nasset_id: b3ee98ed-2ea7-5ed8-9289-e81b746d3123\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"77e3f9ce-a67e-4416-83b2-0428216836fe\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/77e3f9ce-a67e-4416-83b2-0428216836fe/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

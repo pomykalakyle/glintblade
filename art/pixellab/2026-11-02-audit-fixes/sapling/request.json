@@ -1,0 +1,39 @@
+{
+  "description": "One single YOUNG rose-leaf garden tree, a slender sapling for a melancholic ruined sky-garden action RPG. Same beautifully hand-clustered native pixel art material language as the reference mature tree, but genuinely young anatomy: narrow tapering blue-slate bark trunk with a subtle pale bark lit edge, three upward-forking slender branches, a small irregular open crown of dusty rose and ash-mauve leaves. Scattered three-dimensional leaf clusters with intentional shading and visible daylight gaps between them, no broad flat horizontal strips, no umbrella canopy, no bonsai mature-tree silhouette. Rooted base connects naturally to a slim 14-pixel-wide exposed root foot. Three-quarter overhead orthographic view. Upper-left daylight, blue-grey shaded bark and restrained rose leaves. Entire young tree visible inside a 48x64 native canvas; occupied shape about 32 pixels wide and 46 pixels tall, crown between y12 and y36, slender trunk continues to y54, root foot reaches y59 and leaves 4 transparent rows below. Trunk meets the ground around x25. No ground mound, no pedestal, no backdrop, no cast shadow, no text. Exact native 1px density, hard opaque-or-transparent pixel edges, clean clusters, small restrained palette. Do not shrink a full mature tree, do not add a glow.",
+  "width": 48,
+  "height": 64,
+  "no_background": true,
+  "max_colors": 20,
+  "seed": 611028,
+  "style_copy": [
+    "outline",
+    "detail",
+    "shading",
+    "color_palette"
+  ],
+  "style_reference": "art/pixellab/2026-11-01/trees/trees-pro.result-1.png",
+  "style_reference_sha256": "8d5999856f986b8612e666f0ad8e695cc1002d77ae8fba03e36a4feec0eeda29",
+  "root_contract": {
+    "legacy_sheet": "bloomwild_trees",
+    "legacy_anim": "e_trunk",
+    "legacy_source_rect": [
+      16,
+      32,
+      64,
+      96
+    ],
+    "old_anchor": [
+      40,
+      90
+    ],
+    "new_anchor": [
+      24,
+      58
+    ],
+    "root_local_rows": [
+      52,
+      60
+    ],
+    "collision": "retain original lowest 8 occupied rows at exact 1:1 positions"
+  }
+}

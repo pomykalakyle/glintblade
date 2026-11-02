@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-02",
+  "status": "validated for aggregate release; all visual holds cleared",
+  "base_commit": "45cdaf90445458637499d8d7a73ad01457f978ae",
+  "artifacts_sha256": {
+    "glintblade": "883a7ba3c53d586196944dfaf3a4510a391b8fe537206e7d32f11e322dedf068",
+    "libglintblade.rlib": "4a770b0915b2c4a4f24806d9493411347a3eadcb1b48561fc291e2b22faff8c6",
+    "glintblade.wasm": "2a19682d932a9847f801bf86d2d608adf5c906d0a789f7f6dc00b05cf4edc9f3"
+  },
+  "frozen_runtime_inputs": 486,
+  "web_source_files": 5,
+  "native_normal_families": 84,
+  "embedded_assets": 387,
+  "functional_tests": {
+    "passed": 374,
+    "failed": 0,
+    "ignored": 7,
+    "performance_tests_executed_separately": 3,
+    "existing_performance_failures": 3
+  },
+  "offline_exports": {
+    "identical_files": 115,
+    "sheets": 99,
+    "logical_frame_references": 1720,
+    "normal_pairs": 84,
+    "contract_failures": 0
+  },
+  "python_regressions": {
+    "asset_audit": 19,
+    "freeze": 2,
+    "failures": 0
+  },
+  "final_campaign": {
+    "ticks": 14914,
+    "all_regions": true,
+    "all_shards": true,
+    "all_warden_phases": true,
+    "victory_and_return_prompt": true,
+    "god_mode": true,
+    "captured_native_pngs": 174
+  },
+  "meadow_combat": {
+    "ticks": 720,
+    "windup_frames_reviewed_every_tick": [
+      26,
+      57
+    ],
+    "first_damage_tick": 65,
+    "later_windows_reviewed_every_two_ticks": 7,
+    "sleep_crop_pixel_identical": true,
+    "audio_and_trace_identical": true,
+    "roots_before": 377,
+    "roots_after": 368,
+    "dense_bed_before": 39,
+    "dense_bed_after": 37
+  },
+  "review_limits": [
+    "Supplied stills and sampled gameplay scopes, not exhaustive pixel coverage of every possible state.",
+    "God-mode campaign does not establish player difficulty.",
+    "Headless Chromium is not cross-device performance.",
+    "Existing 6/8ms rendering budgets remain unmet."
+  ],
+  "local_evidence": {
+    "freeze": "out/beauty-pass-2026-11-02/publication-candidate/freeze-manifest.json",
+    "functional": "out/beauty-pass-2026-11-02/publication-candidate/functional-tests.log",
+    "performance": "out/beauty-pass-2026-11-02/audits/performance-final/",
+    "assets": "out/beauty-pass-2026-11-02/audits/export-release/audit.json",
+    "source_audit": "out/beauty-pass-2026-11-02/audits/aggregate-code-final/REPORT.md",
+    "meadow": "out/beauty-pass-2026-11-02/audits/meadow-combat/independent-review.json",
+    "reveal": "out/context-reveal/audit-report.json",
+    "gate": "out/context-reveal/audits/ready-gate.md",
+    "campaign": "/home/krp/.t3/scratch/2026-11-02-audit-the-glint-blade-project-23f3ae63/audit/fixes/final-approved/manifest.json",
+    "latest_web_smoke": "/home/krp/.t3/scratch/2026-11-02-audit-the-glint-blade-project-23f3ae63/audit/fixes/web-smoke/report.json",
+    "gallery": "out/beauty-pass-2026-11-02/review-final/index.html"
+  }
+}

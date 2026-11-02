@@ -16,7 +16,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 BIN = ROOT / "target/release/glintblade"
 SDK = "/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk"
-ASSET_DIRS = ("sprites", "music", "sfx", "fonts", "data")
+ASSET_DIRS = ("sprites", "normals", "music", "sfx", "fonts", "data")
 ASSET_SUFFIXES = (".png", ".json", ".ogg", ".wav", ".txt")
 GUARD = '''#!/bin/sh
 # Retained renderer: never enter the windowed frontend by accident.

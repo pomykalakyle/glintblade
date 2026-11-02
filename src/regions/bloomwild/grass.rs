@@ -1,25 +1,15 @@
 //! Tufts have rooted blades, a shared breeze, local bending and persistent cut stubble.
 
-use super::{K, Map, mat, pal};
+use super::{Map, composition, mat, pal};
 use crate::combat::Hit;
 use crate::fx::{Fx, Particle};
 use crate::gfx::{Frame, Rgb, sheet};
 use crate::gfx::sprite::SpriteFocus;
-use crate::util::{bayer4, hash2};
+use crate::util::hash2;
 use crate::world::{RegionCtx, Zone};
 use std::f32::consts::TAU;
 
 const ID: u32 = 1;
-
-/// Root three small grass beds at the landing tree, broken pier and distributor base.
-fn opening_bed(x: i32, y: i32) -> bool {
-    [(93, 694, 21, 13), (244, 704, 23, 15), (326, 730, 31, 8)]
-        .iter()
-        .any(|&(cx, cy, rx, ry)| {
-            let (dx, dy) = ((x - cx) as f32 / rx as f32, (y - cy) as f32 / ry as f32);
-            dx * dx + dy * dy < 1.0
-        })
-}
 
 struct Tuft {
     x: i32,
@@ -30,16 +20,6 @@ struct Tuft {
     bend: f32,
     cut: bool,
     quiet: bool,
-}
-
-/// Keep a connected, trampled clearing around the existing meadow encounter.
-fn quiet_clearing(x: i32, y: i32) -> bool {
-    [(400, 652, 38, 26), (410, 693, 42, 30), (461, 684, 36, 28)]
-        .iter()
-        .any(|&(cx, cy, rx, ry)| {
-            let (dx, dy) = ((x - cx) as f32 / rx as f32, (y - cy) as f32 / ry as f32);
-            dx * dx + dy * dy < 1.0
-        })
 }
 
 pub struct Grass {
@@ -98,9 +78,10 @@ impl NativeGrass {
 #[allow(clippy::too_many_arguments)]
 fn put_leaf(f: &mut Frame, x: i32, y: i32, color: Rgb, normal: [f32; 3], kind: u8, root_y: i32, reveal: Option<SpriteFocus>) {
     let (wx, wy) = (x + f.cam_x, y + f.cam_y);
-    if reveal.is_some_and(|focus| focus.covers(wx, wy)) && bayer4(wx, wy) >= 0.25 {
+    if reveal.is_some_and(|focus| !focus.allows_scenery_at_depth(wx, wy, root_y as f32)) {
         return;
     }
+    if let Some(i) = Frame::idx(x, y) { f.emissive[i] = Rgb::BLACK; }
     f.put(x, y, color);
     if f.surface_lighting && let Some(i) = Frame::idx(x, y) {
         f.surfaces[i] = crate::gfx::frame::Surface {
@@ -116,6 +97,27 @@ fn leaf_line(f: &mut Frame, from: (i32, i32), to: (i32, i32), color: Rgb, normal
     Frame::line_with(from.0, from.1, to.0, to.1, |x, y| put_leaf(f, x, y, color, normal, 2, root_y, reveal));
 }
 
+/// The native leaf fans extend sideways from their small rooted center. Reserve
+/// their full moving silhouette beside stone routes, rather than clearing only
+/// a tuft's center and letting its leaves draw back across the path.
+fn rooted_lawn(mask: &[u8], z: &Zone, x: i32, y: i32) -> bool {
+    let material = |px: i32, py: i32| {
+        if px < 0 || py < 0 || px >= z.pw || py >= z.ph { return mat::VOID; }
+        mask[(py * z.pw + px) as usize]
+    };
+    if [-4, 0, 4].iter().any(|&dx| {
+        material(x + dx, y) != mat::GRASS || z.gget(x + dx, y).r < 0.0
+    }) { return false; }
+    for dy in -13..=1 {
+        for dx in -17..=16 {
+            if matches!(material(x + dx, y + dy), mat::PATH | mat::SLAB | mat::BRIDGE | mat::STAIRS) {
+                return false;
+            }
+        }
+    }
+    true
+}
+
 impl Grass {
     /// Place irregular rooted clumps inside the authored meadow patches, clear of solid props.
     pub fn build(m: &Map, mask: &[u8], z: &Zone) -> Self {
@@ -124,32 +126,31 @@ impl Grass {
         let density = sheet("bloomwild_materials").and_then(|s| s.json.get("live_grass_density"))
             .and_then(|v| v.as_f64()).unwrap_or(0.36).clamp(0.0, 1.0) as f32;
         let native = if native_profile { NativeGrass::load() } else { None };
+        // Reveal the actual opaque roots, including their nonblocking gaps.
+        // Planting belongs at their shoulders, never over the spread itself.
+        let roots: Vec<_> = z.props.iter().filter(|p| p.sheet == "bloomwild_trees")
+            .filter_map(|p| p.collision_bounds()).collect();
         for gy in 1..z.ph / 7 - 1 {
             for gx in 1..z.pw / 8 - 1 {
                 let x = gx * 8 + (hash2(gx, gy, 31) * 5.0) as i32;
                 let y = gy * 7 + (hash2(gx, gy, 32) * 4.0) as i32;
-                let meadow = m.at(x / 16, y / 16) == K::Tall;
-                if (!meadow && !opening_bed(x, y)) || mask[(y * z.pw + x) as usize] != mat::GRASS {
+                // The title is a separately authored headland, not this garden's map.
+                let cover = if m.marks.is_empty() { 0.0 } else { composition::cover(x, y) };
+                if cover <= 0.0 || !rooted_lawn(mask, z, x, y) {
                     continue;
                 }
-                if hash2(gx, gy, 22) < 0.18 || z.blocked(x as f32, y as f32, 4.0) {
+                if z.blocked(x as f32, y as f32, 4.0) || roots.iter().any(|&[l, t, r, b]| {
+                    x as f32 > l - 18.0 && (x as f32) < r + 18.0
+                        && y as f32 > t - 3.0 && (y as f32) < b + 16.0
+                }) {
                     continue;
                 }
-                if native_profile && hash2(gx, gy, 531) > density { continue; }
-                // Open broad gaps between rooted groups instead of an even field of thin marks.
-                if meadow && hash2(gx / 4, gy / 3, 419) < 0.24 {
-                    continue;
-                }
-                let edge = [(-1, 0), (1, 0), (0, -1), (0, 1)].iter().any(|&(dx, dy)| {
-                    if meadow {
-                        m.at(x / 16 + dx, y / 16 + dy) != K::Tall
-                    } else {
-                        !opening_bed(x + dx * 8, y + dy * 7)
-                    }
-                });
-                if edge && hash2(gx, gy, 36) < 0.55 {
-                    continue;
-                }
+                // Concentrate the existing native leaves inside connected beds.
+                // Formerly independent density/tile hashes scattered isolated clumps
+                // across entire Tall tiles and emptied arbitrary rectangular blocks.
+                let probability = if native_profile { (density * 2.4).min(0.62) } else { 0.68 };
+                if hash2(gx, gy, 531) > probability * cover { continue; }
+                let edge = cover < 1.0;
                 let teal = hash2(gx / 9, gy / 7, 35) > 0.55;
                 tufts.push(Tuft {
                     x,
@@ -163,7 +164,7 @@ impl Grass {
                     phase: hash2(gx, gy, 34) * TAU,
                     bend: 0.0,
                     cut: false,
-                    quiet: quiet_clearing(x, y),
+                    quiet: edge,
                 });
             }
         }
@@ -269,7 +270,6 @@ impl Grass {
         let Some(tuft) = self.tufts.get((id & 0xff_ffff) as usize) else {
             return;
         };
-        let reveal = reveal.filter(|focus| tuft.y as f32 > focus.ground_y);
         let (x, y) = (tuft.x - f.cam_x, tuft.y - f.cam_y);
         if let Some(native) = &self.native {
             let variant = (hash2(tuft.x, tuft.y, 537) * native.frames.len() as f32) as usize % native.frames.len();
@@ -319,6 +319,89 @@ impl Grass {
 mod tests {
     use super::*;
 
+    #[test]
+    fn authored_beds_keep_live_leaf_fans_off_routes_and_expose_native_tree_roots() {
+        let map = super::super::Map::parse();
+        let mut zone = Zone::new(crate::world::ZoneId::Bloomwild, map.tw, map.th);
+        let mask = super::super::paint::paint(&mut zone, &map);
+        zone.set_surface_tiles(super::super::paint::physical_surface(&zone, &mask));
+        super::super::ruins::build(&mut zone, &map, &mask);
+        let grass = Grass::build(&map, &mask, &zone);
+        let native = grass.native.as_ref().expect("approved native grass remains active");
+        let mut meadow_roots = 0;
+        for tuft in &grass.tufts {
+            assert!(!zone.blocked(tuft.x as f32, tuft.y as f32, 4.0), "grass base in a solid native foot");
+            if (tuft.x - 511).abs() < 44 && (tuft.y - 641).abs() < 30 { meadow_roots += 1; }
+            for p in zone.props.iter().filter(|p| p.sheet == "bloomwild_trees") {
+                let Some([l, t, r, b]) = p.collision_bounds() else { continue; };
+                assert!(tuft.x as f32 <= l - 18.0 || tuft.x as f32 >= r + 18.0
+                    || tuft.y as f32 <= t - 3.0 || tuft.y as f32 >= b + 16.0,
+                    "foreground planting buried a native root spread");
+            }
+            for frame in &native.frames {
+                for leaf in frame {
+                    for sway in [-2, 0, 2] {
+                        let x = tuft.x + leaf.x - native.anchor.0
+                            + if leaf.y < native.anchor.1 - 4 { sway } else { 0 };
+                        let y = tuft.y + leaf.y - native.anchor.1;
+                        if x < 0 || y < 0 || x >= zone.pw || y >= zone.ph { continue; }
+                        assert!(!matches!(mask[(y * zone.pw + x) as usize],
+                            mat::PATH | mat::SLAB | mat::BRIDGE | mat::STAIRS),
+                            "swaying native leaf crossed a quiet stone route at {x},{y}");
+                    }
+                }
+            }
+        }
+        assert!(meadow_roots >= 20, "the encounter needs a visible, cuttable planting mass: {meadow_roots}");
+        // Optional exact source-to-runtime placement evidence for the review tool.
+        // Ordinary test runs leave the working tree untouched.
+        if let Ok(path) = std::env::var("GLINT_VEGETATION_EXPORT") {
+            let data = serde_json::json!({
+                "native_grid": [zone.pw, zone.ph],
+                "roots": grass.tufts.iter().map(|t| [t.x, t.y]).collect::<Vec<_>>(),
+                "tree_support": zone.props.iter().filter(|p| p.sheet == "bloomwild_trees")
+                    .filter_map(|p| p.collision_bounds()).collect::<Vec<_>>(),
+                "notes": "Exact runtime grass bases after terrain, stone-route, solid-prop and exposed-tree-root checks. Native source pixels, normals, sort keys and gameplay unchanged."
+            });
+            std::fs::write(path, serde_json::to_string_pretty(&data).unwrap() + "\n").unwrap();
+        }
+    }
+
+    #[test]
+    fn opening_combat_clearings_exclude_whole_moving_native_fans() {
+        let map = super::super::Map::parse();
+        let mut zone = Zone::new(crate::world::ZoneId::Bloomwild, map.tw, map.th);
+        let mask = super::super::paint::paint(&mut zone, &map);
+        zone.set_surface_tiles(super::super::paint::physical_surface(&zone, &mask));
+        super::super::ruins::build(&mut zone, &map, &mask);
+        let grass = Grass::build(&map, &mask, &zone);
+        let native = grass.native.as_ref().expect("approved native grass remains active");
+        let mut retained_bed_roots = 0;
+        for tuft in &grass.tufts {
+            if (tuft.x - 511).abs() < 44 && (tuft.y - 641).abs() < 30 {
+                retained_bed_roots += 1;
+            }
+            for frame in &native.frames {
+                for leaf in frame {
+                    for sway in [-2, 0, 2] {
+                        let x = tuft.x + leaf.x - native.anchor.0
+                            + if leaf.y < native.anchor.1 - 4 { sway } else { 0 };
+                        let y = tuft.y + leaf.y - native.anchor.1;
+                        for &(name, (cx, cy, rx, ry)) in &composition::CLEARINGS[..3] {
+                            let (dx, dy) = ((x - cx) as f32 / rx as f32,
+                                (y - cy) as f32 / ry as f32);
+                            assert!(dx * dx + dy * dy >= 1.0,
+                                "native fan rooted at {},{} covers {name} at {x},{y}",
+                                tuft.x, tuft.y);
+                        }
+                    }
+                }
+            }
+        }
+        assert!(retained_bed_roots >= 20,
+            "opening clearance must retain the nearby cuttable bed: {retained_bed_roots}");
+    }
+
     fn one_tuft(native: bool) -> Grass {
         Grass {
             tufts: vec![Tuft { x: 100, y: 80, h: 11, teal: false, phase: 0.3,
@@ -351,6 +434,7 @@ mod tests {
     fn check_reveal(base: &Frame, opaque: &Frame, revealed: &Frame, focus: SpriteFocus, minimum: usize) {
         let mut hidden = 0;
         let mut recovered = 0;
+        let mut context_recovered = 0;
         for i in 0..base.albedo.len() {
             if base.actor_pixels[i] && !opaque.actor_pixels[i] {
                 hidden += 1;
@@ -367,15 +451,48 @@ mod tests {
             let (wx, wy) = (i as i32 % crate::gfx::W as i32 + base.cam_x,
                 i as i32 / crate::gfx::W as i32 + base.cam_y);
             if !focus.covers(wx, wy) {
-                assert_eq!(revealed.albedo[i], opaque.albedo[i], "grass outside Glint must remain opaque");
+                assert_eq!(revealed.albedo[i], opaque.albedo[i], "grass outside the context opening must remain opaque");
                 assert_eq!(revealed.surfaces[i].normal, opaque.surfaces[i].normal);
                 assert_eq!(revealed.surfaces[i].height, opaque.surfaces[i].height);
                 assert_eq!(revealed.surfaces[i].owner, opaque.surfaces[i].owner);
                 assert_eq!(revealed.surfaces[i].kind, opaque.surfaces[i].kind);
             }
+            if !base.actor_pixels[i] && opaque.albedo[i] != base.albedo[i]
+                && revealed.albedo[i] == base.albedo[i] {
+                context_recovered += 1;
+            }
         }
         assert!(hidden >= minimum, "fixture must exercise actual foreground leaves: {hidden}");
         assert!(recovered * 3 >= hidden * 2, "grass must retain >=2/3 of the hidden hero: {recovered}/{hidden}");
+        assert!(context_recovered > 4, "grass must expose actual surroundings as well as the hero: {context_recovered}");
+    }
+
+    #[test]
+    fn opaque_leaves_hide_underlying_glow_and_context_holes_preserve_it() {
+        let hero = sheet("hero").unwrap();
+        let anim = hero.anim("idle_down").unwrap();
+        let focus = SpriteFocus { cell: hero.cell(anim, 0), anchor: hero.anchor_of(anim),
+            flip: false, x: 100.0, y: 76.0, ground_y: 76.0 };
+        let glow = crate::gfx::rgb(0x7edbda);
+        let (mut drawn, mut skipped) = (0, 0);
+        let mut frame = Frame::new();
+        frame.begin(Rgb::BLACK, Rgb::WHITE);
+        frame.surface_lighting = true;
+        for y in 45..90 { for x in 65..135 {
+            let i = y as usize * crate::gfx::W + x as usize;
+            frame.put_glow(x, y, glow);
+            put_leaf(&mut frame, x, y, Rgb::WHITE, [0.0, 0.0, 1.0], 2, 80, Some(focus));
+            if frame.albedo[i] == Rgb::WHITE {
+                drawn += 1;
+                assert_eq!(frame.emissive[i], Rgb::BLACK, "opaque leaf cannot retain the hidden glow");
+                assert_eq!(frame.surfaces[i].kind, 2);
+            } else {
+                skipped += 1;
+                assert_eq!(frame.emissive[i], glow, "a context hole keeps the underlying material");
+                assert_eq!(frame.surfaces[i].kind, 0);
+            }
+        } }
+        assert!(drawn > 100 && skipped > 100);
     }
 
     #[test]
@@ -393,10 +510,10 @@ mod tests {
             grass.draw_revealed(&mut revealed, ID << 24, 61, Some(focus));
             check_reveal(&base, &opaque, &revealed, focus, 12);
 
+            let distant = SpriteFocus { x: focus.x + 100.0, ..focus };
             let mut background = hero_frame(focus, physical, (7, 9));
-            grass.draw_revealed(&mut background, ID << 24, 61,
-                Some(SpriteFocus { ground_y: 81.0, ..focus }));
-            assert_eq!(background.albedo, opaque.albedo, "grass behind the hero must keep its ordinary rendering");
+            grass.draw_revealed(&mut background, ID << 24, 61, Some(distant));
+            assert_eq!(background.albedo, opaque.albedo, "leaves outside the context opening keep their native ink");
         }}
     }
 

@@ -481,8 +481,8 @@ pub trait Region {
     /// Y-sorted region items on screen: push (sort_y, id).
     fn sorted_items(&self, _zone: &Zone, _f: &Frame, _out: &mut Vec<(f32, u32)>) {}
     fn draw_item(&self, _zone: &Zone, _f: &mut Frame, _id: u32, _t: u64) {}
-    /// Foreground scenery uses the same local hero reveal as ordinary props.
-    /// The renderer only supplies a pose when this item sorts after the hero.
+    /// Scenery shares the local context opening with ordinary props. The opening
+    /// follows world position through depth crossings instead of snapping at a sort key.
     fn draw_item_revealed(&self, zone: &Zone, f: &mut Frame, id: u32, t: u64, _reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         self.draw_item(zone, f, id, t);
     }

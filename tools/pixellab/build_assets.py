@@ -84,8 +84,11 @@ def legacy_prop_collision(out):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--out', type=Path, default=ROOT / 'assets/sprites')
+    p.add_argument('--normals-out', type=Path,
+                   help='Round 13 normal exports; defaults to a normals directory beside --out')
     a = p.parse_args()
     out = a.out.resolve()
+    normals_out = a.normals_out.resolve() if a.normals_out else out.parent / 'normals'
     out.mkdir(parents=True, exist_ok=True)
     subprocess.run([sys.executable, str(TOOLS / 'pack_trees.py'), '--sources', str(SOURCES / 'trees'),
                     '--base', str(SOURCES / 'legacy'), '--out', str(out)], check=True)
@@ -122,6 +125,9 @@ def main():
     for script in ['build_bloomwild_structures.py', 'build_glasswater.py', 'build_cinder.py', 'build_summit.py',
                    'round6_bloom_floor.py', 'round6_botanical_variants.py', 'round6_fire_variants.py']:
         subprocess.run([sys.executable, str(TOOLS / script), '--out', str(out)], check=True)
+    for script in ['round13_landmarks.py', 'round13_altar.py', 'round13_warden.py', 'audit_sapling.py']:
+        subprocess.run([sys.executable, str(TOOLS / script), '--out', str(out),
+                        '--normals-out', str(normals_out)], check=True)
     print('Exported the selected native environment sheets for all four regions:', out)
 
 

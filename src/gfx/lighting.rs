@@ -833,8 +833,8 @@ impl Field {
 
     /// No cached point-source direction or rim enters the physical base light.
     /// Cinder's broad molten-bank reception remains a motivated area-emission fill.
-    fn cold_light(&self, id: ZoneId, i: usize, actor: bool) -> Rgb {
-        let form = if actor { 1.0 } else { self.cold_form[i] as f32 / 255.0 };
+    fn cold_light(&self, id: ZoneId, i: usize, unshaped: bool) -> Rgb {
+        let form = if unshaped { 1.0 } else { self.cold_form[i] as f32 / 255.0 };
         // Open daylight receives broad sky and ground bounce even when the sun
         // is hidden. Trade some direct-key energy for this diffuse contribution
         // so moving cast shadows stay in the same daytime exposure as the sky.
@@ -976,14 +976,21 @@ pub fn apply(zone: &Zone, region: &dyn Region, f: &mut Frame, t: u64) {
                 if !f.actor_pixels[i] { f.light[i] = region.backdrop_light(ambient); }
                 continue;
             };
-            if zone.ground[j].r < 0.0 && !field.raised[j] && !f.actor_pixels[i] {
+            let actor = f.actor_pixels[i];
+            // The cache retains physical scenery even when presentation reveal skips
+            // its ink. Lighting must follow the receiver that actually survived drawing.
+            let surface = f.surfaces[i];
+            let raised = actor || if physical {
+                surface.kind != 0 && (surface.kind != 1 || surface.height > 0.5)
+            } else {
+                field.raised[j]
+            };
+            if zone.ground[j].r < 0.0 && !raised {
                 f.light[i] = region.backdrop_light(ambient);
                 continue;
             }
-            let actor = f.actor_pixels[i];
             let raw = f.light[i] - ambient;
             let live = Rgb::new(raw.r.max(0.0), raw.g.max(0.0), raw.b.max(0.0));
-            let raised = field.raised[j] || actor || (f.surface_lighting && f.surfaces[i].height > 0.5);
             let cached_dark = if physical { field.contact[j] } else { field.dark[j] };
             let darkness = if !raised && field.receiving[j] {
                 (cached_dark.max(dynamic[i]) as f32 / 255.0).max(1.0 - f.shade[i])
@@ -992,7 +999,10 @@ pub fn apply(zone: &Zone, region: &dyn Region, f: &mut Frame, t: u64) {
             };
             // A single visibility loss, never AO multiplied over a cast shadow or C's form plane.
             let tint = Rgb::WHITE.lerp(field.settings.shadow_tint, darkness);
-            let cold = if physical { field.cold_light(zone.id, j, actor) } else { field.light[j] };
+            let cold = if physical {
+                // A newly exposed floor cannot inherit the hidden prop's mineral plane.
+                field.cold_light(zone.id, j, actor || field.raised[j] && !raised)
+            } else { field.light[j] };
             let mut base = cold * tint;
             if !physical && !raised && field.receiving[j]
                 && let Some((warm, mul)) = field.court.as_ref().and_then(|court| court.at(wx, wy)) {
@@ -1181,6 +1191,92 @@ mod retained_surface_tests {
         assert_eq!(f.surfaces[80 * W + 64].height, 0.0);
         assert_eq!(f.surfaces[127 * W + 127].kind, 1);
         assert_eq!(f.surfaces[128 * W + 128].kind, 0, "map-edge backdrop has no terrain normal");
+    }
+
+    #[test]
+    fn revealed_native_pillar_leaves_no_cached_light_silhouette_on_sky_or_ground() {
+        let mut zone = Zone::new(ZoneId::Bloomwild, 12, 12);
+        zone.bg = rgb(0x8099a0);
+        zone.ambient = rgb(0x9ba9bb);
+        zone.ground.fill(rgb(0x929b90));
+        for y in 0..72 {
+            let start = (y * zone.pw) as usize;
+            zone.ground[start..start + zone.pw as usize].fill(Rgb::new(-1.0, -1.0, -1.0));
+        }
+        zone.props.push(Prop::new("bloomwild_ruins", "pillar_b", 96.0, 96.0));
+        let hero = crate::gfx::sheet("hero").unwrap();
+        let idle = hero.anim("idle_down").unwrap();
+        let focus = crate::gfx::sprite::SpriteFocus {
+            cell: hero.cell(idle, 0), anchor: hero.anchor_of(idle), flip: false,
+            x: 96.0, y: 78.0, ground_y: 78.0,
+        };
+        let frame = |reveal| {
+            let mut f = Frame::new();
+            f.begin(zone.bg, zone.ambient);
+            f.surface_lighting = true;
+            zone.draw_ground(&mut f);
+            ground_surface(&zone, &NoRegion, &mut f);
+            // A live ground contact must remain applicable beneath the cached column.
+            f.shade.fill(0.6);
+            zone.props[0].draw_revealed(&mut f, 0, 1.0, reveal);
+            f
+        };
+        let opaque = frame(None);
+        let mut revealed = frame(Some(focus));
+        let art = revealed.albedo.clone();
+        let emission = revealed.emissive.clone();
+        assert!(!revealed.surface_casters.is_empty(), "reveal must retain its physical caster");
+        assert_eq!(revealed.surface_casters.len(), opaque.surface_casters.len());
+        for (a, b) in revealed.surface_casters.iter().zip(&opaque.surface_casters) {
+            assert_eq!((a.x, a.y, a.base, a.anchor, a.w, a.h, a.flip, a.opacity),
+                (b.x, b.y, b.base, b.anchor, b.w, b.h, b.flip, b.opacity));
+            assert_eq!(a.opacity, 1.0);
+            assert!(std::sync::Arc::ptr_eq(&a.pixels, &b.pixels));
+        }
+        let source = super::super::frame::PointLight {
+            x: 48.0, y: 100.0, height: 12.0, radius: 180.0,
+            color: Rgb::WHITE, intensity: 1.0,
+        };
+        let cast = point_visibility(&revealed, source);
+        let opaque_cast = point_visibility(&opaque, source);
+        let mut retained_shadow = 0;
+        for y in 72..zone.ph { for x in 0..zone.pw {
+            let i = y as usize * W + x as usize;
+            if revealed.surfaces[i].kind == 1 && opaque.surfaces[i].kind == 1
+                && !focus.covers(x, y) && opaque_cast[i] == 0 {
+                assert_eq!(cast[i], opaque_cast[i], "the visibility opening cannot remove physical cast shade");
+                retained_shadow += 1;
+            }
+        } }
+        assert!(retained_shadow > 16, "fixture must retain actual shade beyond the opening");
+
+        apply(&zone, &NoRegion, &mut revealed, 0);
+        let cache = zone.lighting.borrow();
+        let field = cache.as_ref().unwrap();
+        let floor_light = (zone.lighting_settings.fill + Rgb::new(0.26, 0.26, 0.24))
+            * Rgb::WHITE.lerp(zone.lighting_settings.shadow_tint, 1.0 - 0.6);
+        let (mut sky, mut ground, mut shaped_ground) = (0, 0, 0);
+        for y in 0..zone.ph { for x in 0..zone.pw {
+            let j = (y * zone.pw + x) as usize;
+            if !field.raised[j] || focus.scenery_alpha(x, y) != 0.0 { continue; }
+            let i = y as usize * W + x as usize;
+            if zone.ground[j].r < 0.0 {
+                assert_eq!(revealed.surfaces[i].kind, 0);
+                assert_eq!(revealed.albedo[i], zone.bg);
+                assert_eq!(revealed.light[i], zone.ambient, "hidden pillar must leave no light silhouette over sky at {x},{y}");
+                sky += 1;
+            } else {
+                assert_eq!(revealed.surfaces[i].kind, 1);
+                assert_eq!(revealed.albedo[i], zone.ground[j]);
+                assert_eq!(revealed.light[i], floor_light, "exposed ground must receive its own fill and contact at {x},{y}");
+                ground += 1;
+                shaped_ground += usize::from(field.cold_form[j] < 255);
+            }
+        } }
+        assert!(sky > 16 && ground > 16 && shaped_ground > 16,
+            "exercise hidden native ink over sky and form-shaded ground: {sky}/{ground}/{shaped_ground}");
+        assert_eq!(revealed.albedo, art, "lighting must preserve the visibility opening's materials");
+        assert_eq!(revealed.emissive, emission);
     }
 
     #[test]

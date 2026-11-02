@@ -684,9 +684,16 @@ pub fn title(f: &mut Frame, t: u64, intro: Option<u64>, hero: (i32, i32)) {
     if ca > 0.0 {
         let (km, ks, kd) = crate::input::key_labels();
         let other = if crate::input::layout() == crate::input::KeyLayout::Qwerty { "colemak" } else { "qwerty" };
-        for (items,y) in [([(km,"move"),(ks,"slash")],176), ([(kd,"dash"),("TAB",other)],193)] {
-            let width = key_row(f,0,y,&items,ca,TEXT,false);
-            key_row(f,100-width/2,y,&items,ca,TEXT,true);
+        // Keep each hint inside the quiet sky column; the headland starts at x152.
+        // Group combat together so neither layout's slash label crosses the cliff.
+        let rows: [(&[(&str, &str)], i32); 3] = [
+            (&[(km, "move")], 166),
+            (&[(ks, "slash"), (kd, "dash")], 183),
+            (&[("TAB", other)], 200),
+        ];
+        for (items, y) in rows {
+            let width = key_row(f, 0, y, items, ca, TEXT, false);
+            key_row(f, 84 - width / 2, y, items, ca, TEXT, true);
         }
     }
 

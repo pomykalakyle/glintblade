@@ -1,0 +1,51 @@
+{
+  "source": "raw-06.png",
+  "source_sha256": "ac8b4526ad041e9ec30592b491e87c9261e36eb75167c49ef1c7bd7537407473",
+  "normal_source": "normal-raw.png",
+  "normal_source_sha256": "7f8c982a7d7677f16533151b326e8a998ce153723f63e84e3f28100cde87c635",
+  "albedo_sha256": "e61c7a225c2766e02abc48d27740a6d7c4caafab3f53f1125a8a75137b17be67",
+  "normal_sha256": "63498b05d914aef1dcd3d6c19cc4e018505928a4b4043ece24095cbc98e48b60",
+  "native_size": [
+    48,
+    64
+  ],
+  "atlas_size": [
+    48,
+    128
+  ],
+  "anchor": [
+    24,
+    58
+  ],
+  "opaque_bounds": [
+    8,
+    9,
+    41,
+    60
+  ],
+  "alpha_values": [
+    0,
+    255
+  ],
+  "footprint": [
+    14,
+    8
+  ],
+  "collision_rects": 12,
+  "all_collision_pixels_opaque": true,
+  "source_upper_uv_identity": true,
+  "preserved_root_uv_identity": true,
+  "normal_alpha_matches_albedo": true,
+  "original_world_position": [
+    1224,
+    280
+  ],
+  "original_world_bounds": [
+    1220,
+    274,
+    1234,
+    282
+  ],
+  "world_collision_identical": true,
+  "mature_atlas_modified": false
+}

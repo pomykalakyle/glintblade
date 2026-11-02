@@ -1,0 +1,915 @@
+{
+  "source_sha256": {
+    "raw-brace.png": "d702d07f1ba72eb7bde1f596565be02fafcdaf62a6ffd8eb85725eb6a45b8992",
+    "raw-design-a.png": "cf792886a7354a63f3ca13960728d26c4d9041bc8ccb132c020715fe0e665661",
+    "raw-design-b.png": "223b5c5ae94ff63a35b4216f9c1d906d08734937d2fae7839a0f512f000e7278",
+    "raw-normal-awake.png": "f0ae0eed665125a85a8d7e97726ded45db4ba6ef0d9f7cd32818fd42bcd1be5f",
+    "raw-normal-brace.png": "467f2553f834d8b4d5cffa788e223fe7c2b3a0195ce1ee27738804fdd895589b",
+    "raw-normal-opening.png": "10660fbeae398ce55434e73d1fa40bfd3fe93b9f9af533ca4353b1d2a07f16d6",
+    "raw-opening.png": "2e874e43a9b2ada76748a212b9c7a0817069b8d856007f0927b29f89a1a741b9"
+  },
+  "atlas_sha256": "3aa738b3d94e77fd0e21c4b89d39fe38c86aed3b170fdb11eb4fb135c7387f77",
+  "normal_sha256": "8500ef3ec65d6b5c7c13c1541fa93d2f1720f6f6fa6d7a8b6006854d6b21804d",
+  "cell": [
+    120,
+    112
+  ],
+  "anchor": [
+    60,
+    109
+  ],
+  "opaque_palette_size": 13,
+  "physical_rows": [
+    "awake_fold",
+    "opening_fold",
+    "damaged_fold",
+    "damaged_opening_fold",
+    "brace",
+    "damaged_brace"
+  ],
+  "static_aliases": {
+    "idle": "awake_fold",
+    "awake": "awake_fold",
+    "damaged": "damaged_fold",
+    "opening": "opening_fold",
+    "damaged_opening": "damaged_opening_fold"
+  },
+  "physical_cells_before": 187,
+  "physical_cells_after": 102,
+  "normal_alpha_mismatches": 0,
+  "pose_frames": [
+    {
+      "anim": "idle",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "awake",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "damaged",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "brace",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "damaged_brace",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "opening",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "damaged_opening",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 1,
+      "bbox": [
+        1,
+        2,
+        119,
+        109
+      ],
+      "native_pier_fold": 1
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 2,
+      "bbox": [
+        1,
+        2,
+        119,
+        108
+      ],
+      "native_pier_fold": 2
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 3,
+      "bbox": [
+        1,
+        2,
+        119,
+        107
+      ],
+      "native_pier_fold": 3
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 4,
+      "bbox": [
+        1,
+        2,
+        119,
+        106
+      ],
+      "native_pier_fold": 4
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 5,
+      "bbox": [
+        1,
+        2,
+        119,
+        105
+      ],
+      "native_pier_fold": 5
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 6,
+      "bbox": [
+        1,
+        2,
+        119,
+        104
+      ],
+      "native_pier_fold": 6
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 7,
+      "bbox": [
+        1,
+        2,
+        119,
+        103
+      ],
+      "native_pier_fold": 7
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 8,
+      "bbox": [
+        1,
+        2,
+        119,
+        102
+      ],
+      "native_pier_fold": 8
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 9,
+      "bbox": [
+        1,
+        2,
+        119,
+        101
+      ],
+      "native_pier_fold": 9
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 10,
+      "bbox": [
+        1,
+        2,
+        119,
+        100
+      ],
+      "native_pier_fold": 10
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 11,
+      "bbox": [
+        1,
+        2,
+        119,
+        99
+      ],
+      "native_pier_fold": 11
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 12,
+      "bbox": [
+        1,
+        2,
+        119,
+        98
+      ],
+      "native_pier_fold": 12
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 13,
+      "bbox": [
+        1,
+        2,
+        119,
+        97
+      ],
+      "native_pier_fold": 13
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 14,
+      "bbox": [
+        1,
+        2,
+        119,
+        96
+      ],
+      "native_pier_fold": 14
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 15,
+      "bbox": [
+        1,
+        2,
+        119,
+        95
+      ],
+      "native_pier_fold": 15
+    },
+    {
+      "anim": "awake_fold",
+      "frame": 16,
+      "bbox": [
+        1,
+        2,
+        119,
+        94
+      ],
+      "native_pier_fold": 16
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 1,
+      "bbox": [
+        1,
+        2,
+        119,
+        109
+      ],
+      "native_pier_fold": 1
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 2,
+      "bbox": [
+        1,
+        2,
+        119,
+        108
+      ],
+      "native_pier_fold": 2
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 3,
+      "bbox": [
+        1,
+        2,
+        119,
+        107
+      ],
+      "native_pier_fold": 3
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 4,
+      "bbox": [
+        1,
+        2,
+        119,
+        106
+      ],
+      "native_pier_fold": 4
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 5,
+      "bbox": [
+        1,
+        2,
+        119,
+        105
+      ],
+      "native_pier_fold": 5
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 6,
+      "bbox": [
+        1,
+        2,
+        119,
+        104
+      ],
+      "native_pier_fold": 6
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 7,
+      "bbox": [
+        1,
+        2,
+        119,
+        103
+      ],
+      "native_pier_fold": 7
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 8,
+      "bbox": [
+        1,
+        2,
+        119,
+        102
+      ],
+      "native_pier_fold": 8
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 9,
+      "bbox": [
+        1,
+        2,
+        119,
+        101
+      ],
+      "native_pier_fold": 9
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 10,
+      "bbox": [
+        1,
+        2,
+        119,
+        100
+      ],
+      "native_pier_fold": 10
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 11,
+      "bbox": [
+        1,
+        2,
+        119,
+        99
+      ],
+      "native_pier_fold": 11
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 12,
+      "bbox": [
+        1,
+        2,
+        119,
+        98
+      ],
+      "native_pier_fold": 12
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 13,
+      "bbox": [
+        1,
+        2,
+        119,
+        97
+      ],
+      "native_pier_fold": 13
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 14,
+      "bbox": [
+        1,
+        2,
+        119,
+        96
+      ],
+      "native_pier_fold": 14
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 15,
+      "bbox": [
+        1,
+        2,
+        119,
+        95
+      ],
+      "native_pier_fold": 15
+    },
+    {
+      "anim": "opening_fold",
+      "frame": 16,
+      "bbox": [
+        1,
+        2,
+        119,
+        94
+      ],
+      "native_pier_fold": 16
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 1,
+      "bbox": [
+        1,
+        2,
+        119,
+        109
+      ],
+      "native_pier_fold": 1
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 2,
+      "bbox": [
+        1,
+        2,
+        119,
+        108
+      ],
+      "native_pier_fold": 2
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 3,
+      "bbox": [
+        1,
+        2,
+        119,
+        107
+      ],
+      "native_pier_fold": 3
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 4,
+      "bbox": [
+        1,
+        2,
+        119,
+        106
+      ],
+      "native_pier_fold": 4
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 5,
+      "bbox": [
+        1,
+        2,
+        119,
+        105
+      ],
+      "native_pier_fold": 5
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 6,
+      "bbox": [
+        1,
+        2,
+        119,
+        104
+      ],
+      "native_pier_fold": 6
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 7,
+      "bbox": [
+        1,
+        2,
+        119,
+        103
+      ],
+      "native_pier_fold": 7
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 8,
+      "bbox": [
+        1,
+        2,
+        119,
+        102
+      ],
+      "native_pier_fold": 8
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 9,
+      "bbox": [
+        1,
+        2,
+        119,
+        101
+      ],
+      "native_pier_fold": 9
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 10,
+      "bbox": [
+        1,
+        2,
+        119,
+        100
+      ],
+      "native_pier_fold": 10
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 11,
+      "bbox": [
+        1,
+        2,
+        119,
+        99
+      ],
+      "native_pier_fold": 11
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 12,
+      "bbox": [
+        1,
+        2,
+        119,
+        98
+      ],
+      "native_pier_fold": 12
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 13,
+      "bbox": [
+        1,
+        2,
+        119,
+        97
+      ],
+      "native_pier_fold": 13
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 14,
+      "bbox": [
+        1,
+        2,
+        119,
+        96
+      ],
+      "native_pier_fold": 14
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 15,
+      "bbox": [
+        1,
+        2,
+        119,
+        95
+      ],
+      "native_pier_fold": 15
+    },
+    {
+      "anim": "damaged_fold",
+      "frame": 16,
+      "bbox": [
+        1,
+        2,
+        119,
+        94
+      ],
+      "native_pier_fold": 16
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 0,
+      "bbox": [
+        1,
+        2,
+        119,
+        110
+      ],
+      "native_pier_fold": 0
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 1,
+      "bbox": [
+        1,
+        2,
+        119,
+        109
+      ],
+      "native_pier_fold": 1
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 2,
+      "bbox": [
+        1,
+        2,
+        119,
+        108
+      ],
+      "native_pier_fold": 2
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 3,
+      "bbox": [
+        1,
+        2,
+        119,
+        107
+      ],
+      "native_pier_fold": 3
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 4,
+      "bbox": [
+        1,
+        2,
+        119,
+        106
+      ],
+      "native_pier_fold": 4
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 5,
+      "bbox": [
+        1,
+        2,
+        119,
+        105
+      ],
+      "native_pier_fold": 5
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 6,
+      "bbox": [
+        1,
+        2,
+        119,
+        104
+      ],
+      "native_pier_fold": 6
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 7,
+      "bbox": [
+        1,
+        2,
+        119,
+        103
+      ],
+      "native_pier_fold": 7
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 8,
+      "bbox": [
+        1,
+        2,
+        119,
+        102
+      ],
+      "native_pier_fold": 8
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 9,
+      "bbox": [
+        1,
+        2,
+        119,
+        101
+      ],
+      "native_pier_fold": 9
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 10,
+      "bbox": [
+        1,
+        2,
+        119,
+        100
+      ],
+      "native_pier_fold": 10
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 11,
+      "bbox": [
+        1,
+        2,
+        119,
+        99
+      ],
+      "native_pier_fold": 11
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 12,
+      "bbox": [
+        1,
+        2,
+        119,
+        98
+      ],
+      "native_pier_fold": 12
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 13,
+      "bbox": [
+        1,
+        2,
+        119,
+        97
+      ],
+      "native_pier_fold": 13
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 14,
+      "bbox": [
+        1,
+        2,
+        119,
+        96
+      ],
+      "native_pier_fold": 14
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 15,
+      "bbox": [
+        1,
+        2,
+        119,
+        95
+      ],
+      "native_pier_fold": 15
+    },
+    {
+      "anim": "damaged_opening_fold",
+      "frame": 16,
+      "bbox": [
+        1,
+        2,
+        119,
+        94
+      ],
+      "native_pier_fold": 16
+    }
+  ],
+  "registration": {
+    "base": "raw-design-b.png",
+    "footer_source_rows": [
+      82,
+      111
+    ],
+    "footer_offset": [
+      0,
+      -1
+    ],
+    "fixed_upper_rows": [
+      0,
+      29
+    ],
+    "brace_native_regions": [
+      [
+        1,
+        31,
+        39,
+        81
+      ],
+      [
+        82,
+        31,
+        119,
+        81
+      ],
+      [
+        39,
+        63,
+        82,
+        81
+      ]
+    ],
+    "opening_native_regions": [
+      [
+        36,
+        34,
+        84,
+        81
+      ]
+    ],
+    "seam_columns_from_base": [
+      35,
+      84
+    ],
+    "fold": "folded() remaps art and normal identically"
+  }
+}

@@ -461,7 +461,7 @@ impl Prop {
         self.draw_revealed(f, t, alpha, None);
     }
 
-    /// Preserve the root and full silhouette; only foreground pixels over Glint turn porous.
+    /// Open nearby context while preserving the rest of the scenery and its physical cover.
     pub fn draw_revealed(&self, f: &mut Frame, t: u64, alpha: f32, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         if !self.alive {
             return;
@@ -477,7 +477,7 @@ impl Prop {
         let floor_normals = self.sheet == "bloomwild_growth_low"
             || self.sheet == "bloomwild_props" && matches!(self.anim.as_str(),
                 "bush_a" | "bush_b" | "bush_bloom" | "flowers_a" | "flowers_b");
-        let o = DrawOpts { floor_normals, ground_y: self.canopy.then_some(self.y.floor()), flip: self.flip, flash: self.flash, alpha, shadow_alpha: (self.canopy || reveal.is_some()).then_some(1.0), reveal, ..Default::default() };
+        let o = DrawOpts { floor_normals, ground_y: self.canopy.then_some(self.y.floor()), flip: self.flip, flash: self.flash, alpha, shadow_alpha: (self.canopy || reveal.is_some()).then_some(1.0), reveal, reveal_depth: (!self.canopy).then_some(self.sort_y()), ..Default::default() };
         f.sprite_w(cell, s.anchor_of(a), self.x + wob, self.y, &o);
     }
 

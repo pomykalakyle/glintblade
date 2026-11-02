@@ -19,6 +19,7 @@ use crate::entities::Body;
 use crate::fx::Particle;
 use crate::gfx::{Anim, Cell, Dir, DrawOpts, Frame, Rgb, rgb, sheet};
 use crate::util::{Rng, norm};
+use std::collections::HashMap;
 use std::sync::OnceLock;
 use std::sync::atomic::AtomicU64;
 
@@ -452,6 +453,7 @@ pub fn on_hit(b: &mut Body, s: &mut State, hit: &Hit, ctx: &mut EnemyCtx) {
 /// Break the body into settling pixels while preserving its signature piece.
 pub fn on_death(b: &Body, s: &State, ctx: &mut EnemyCtx) {
     let (cell, anchor, flip) = current_cell(b, s, 0);
+    let cell = if s.started || s.phase == Phase::Hurt { alerted_cell(cell) } else { cell };
     let dir = norm(b.kx, b.ky);
     let fx = &mut *ctx.fx;
     // The leaf sprig (and its outline) flies off as one piece and lands flat on the grass.
@@ -531,9 +533,53 @@ enum Frame_ {
     Shiver(u32),
 }
 
+/// Awake bodies open into the existing rose/ivory ramp. Leaves and dark ink stay
+/// quiet, so the creature gains a solid core without turning into a glowing plant.
+/// Cache complete native poses; masks, normal maps and animation remain authored.
+fn alerted_cell(source: &'static Cell) -> &'static Cell {
+    static CELLS: OnceLock<HashMap<usize, Cell>> = OnceLock::new();
+    let cells = CELLS.get_or_init(|| {
+        let mut cells = HashMap::new();
+        let mut add = |source: &'static Cell| {
+            let mut cell = source.clone();
+            for p in &mut cell.px {
+                if p.a && !p.emit {
+                    p.c = match p.c.key() {
+                        // Shared bulb/petal planes: keep a shaded underside and
+                        // lift the face into a clear dusty-rose value cluster.
+                        0x655f78 => rgb(0x927c91),
+                        0x927c91 => rgb(0xbf9da9),
+                        0xbf9da9 => rgb(0xdbb9bd),
+                        0xdbb9bd => rgb(0xdfdac1),
+                        // Oatcap's brown cap and shaded ivory use the same
+                        // restrained material family once it is alerted.
+                        0x9e716d => rgb(0xbf9da9),
+                        0xa39c89 => rgb(0xc2c1b3),
+                        _ => p.c,
+                    };
+                }
+            }
+            cells.insert(source as *const Cell as usize, cell);
+        };
+        for name in [SHEET, "sproutling_v1", "sproutling_v2"] {
+            if let Some(sh) = sheet(name) {
+                for row in &sh.cells {
+                    for source in row { add(source); }
+                }
+            }
+        }
+        add(fallback_cell());
+        cells
+    });
+    cells.get(&(source as *const Cell as usize)).unwrap_or(source)
+}
+
 /// Draw the directional pose and its restrained combat cues.
 pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let (cell, anchor, flip) = current_cell(b, s, f.t);
+    // An untouched sleeper keeps its camouflage. Being hit can wake it before
+    // its first update; all later movement and windup retain the same clear core.
+    let cell = if s.started || s.phase == Phase::Hurt { alerted_cell(cell) } else { cell };
     // Shadow shrinks as the bulb leaves the ground (the hop arc is drawn into the cells).
     let lift = kit::lift(cell, anchor) as f32 + b.z;
     let k = (lift / 9.0).min(1.0);
@@ -786,6 +832,34 @@ pub(super) mod kit {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The alert treatment may improve material value, never actor coverage,
+    /// authored surface response, leaf camouflage or a combat emission mask.
+    #[test]
+    fn alerted_native_poses_keep_masks_normals_and_quiet_foliage() {
+        let check = |source: &'static Cell| {
+            let awake = alerted_cell(source);
+            assert!(std::ptr::eq(awake, alerted_cell(source)), "poses are cached");
+            assert_eq!((source.w, source.h), (awake.w, awake.h));
+            assert!(std::sync::Arc::ptr_eq(&source.surface, &awake.surface), "keep authored normals");
+            let mut changed = 0;
+            for (p, q) in source.px.iter().zip(&awake.px) {
+                assert_eq!((p.a, p.emit), (q.a, q.emit), "alerting cannot change sprite coverage or emission");
+                if !p.a || p.emit || [0x263244, 0x303b4d, 0x3b535b, 0x587278, 0x829b8e, 0xa2af9a].contains(&p.c.key()) {
+                    assert_eq!(p.c, q.c, "leave ink, foliage and emission intact");
+                }
+                changed += usize::from(p.a && p.c != q.c);
+            }
+            assert!(changed > 0, "every visible pose needs a contrasting body core");
+        };
+        for name in [SHEET, "sproutling_v1", "sproutling_v2"] {
+            let sh = sheet(name).expect("native sproutling atlas");
+            for a in sh.anims.values() {
+                for i in 0..a.frames { check(sh.cell(a, i)); }
+            }
+        }
+        check(fallback_cell());
+    }
 
     /// Simultaneous attackers share one token, including tick zero and a restarted zone clock.
     #[test]

@@ -400,6 +400,7 @@ fn shrine(z: &mut Zone, kinds: &Grid<u8>, s: &Sheet) {
 /// Low cooled mineral shelves break the broad mesa caps with deliberate sparse clusters.
 /// They are embedded in the rock mask and cannot read as walkable stepping stones over lava.
 fn mineral(z: &mut Zone, kinds: &Grid<u8>, s: &Sheet) {
+    use super::art::{B1, B2, B3};
     let Some(frames) = s.cells.first() else {
         return;
     };
@@ -420,13 +421,64 @@ fn mineral(z: &mut Zone, kinds: &Grid<u8>, s: &Sheet) {
             if !fits {
                 continue;
             }
+            // The source silhouette owns the shelf. Its short front faces follow each
+            // column's actual foot, rather than the transparent bottom of the cell.
+            let feet: Vec<_> = (0..c.w)
+                .map(|x| (0..c.h).rev().find(|&y| c.at(x, y).a))
+                .collect();
+            let left = feet.iter().position(Option::is_some).unwrap_or(0) as i32;
+            let right = feet.iter().rposition(Option::is_some).unwrap_or(0) as i32;
+            let base = feet.iter().flatten().copied().max().unwrap_or(0);
+            let crest = (0..c.h).find_map(|y| {
+                (0..c.w).find(|&x| c.at(x, y).a).map(|x| (x, y))
+            }).unwrap_or((left, 0));
             for y in 0..c.h {
                 for x in 0..c.w {
                     let p = c.at(x, y);
-                    if p.a {
-                        z.gset(ox + x, oy + y, p.c);
-                        z.gset_surface(ox + x, oy + y, c, x, y, true, (c.h - y - 1).max(0) as f32);
+                    if !p.a {
+                        continue;
                     }
+                    let (wx, wy) = (ox + x, oy + y);
+                    if !kinds.inside(wx, wy) {
+                        continue;
+                    }
+                    let foot = feet[x as usize].unwrap();
+                    let front = foot - y < 4;
+                    let perimeter = [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)]
+                        .iter().any(|&(sx, sy)| !c.at(sx, sy).a);
+                    let height = z.ground_surfaces[(wy * z.pw + wx) as usize].height as f32;
+                    // A broad cleaved plane runs from the crest toward the near left
+                    // corner. Its color and normal share that geometry; no noise or
+                    // concentric outline bands are added to the native rock.
+                    let cleft = crest.0 - (y - crest.1) * (crest.0 - left) / (base - crest.1).max(1);
+                    let lit_facet = x <= cleft + 6;
+                    let mut ink = if front { B1 } else if lit_facet { B3 } else { p.c };
+                    if !front && p.c.luma() < B1.luma() {
+                        // Native black fissures remain shallow material seams. The
+                        // perimeter instead inherits the adjacent mineral plane.
+                        ink = if perimeter { if lit_facet { B3 } else { B2 } } else { B1 };
+                    }
+                    // Unequal, solid contact clusters bury some of the thin source
+                    // contour in the mesa. The exposed sections retain a small lip.
+                    let span = right - left + 1;
+                    let contact = (left + span / 4..left + span / 4 + 8).contains(&x)
+                        || (right - span / 4..right - span / 4 + 4).contains(&x);
+                    let buried = perimeter && (x < left + 4
+                        || x > right - 3 || contact && y > crest.1 + 6);
+                    if buried {
+                        continue;
+                    }
+                    if front && foot - y == 0 {
+                        if contact { continue; }
+                        ink = B2;
+                    }
+                    let normal = if front { [0.08, 0.86, 0.48] }
+                        else if lit_facet { [-0.28, -0.24, 0.93] }
+                        else { [0.18, -0.10, 0.98] };
+                    z.gset(wx, wy, ink);
+                    // This is attached material on an existing solid cap: retain its
+                    // altitude and caster, replacing only the receiving face normal.
+                    z.gset_plane_surface(wx, wy, normal, height);
                 }
             }
         }
@@ -440,6 +492,69 @@ mod tests {
     use crate::gfx::{Cell, Px, Rgb};
     use crate::world::ZoneId;
     use std::collections::HashMap;
+
+    #[test]
+    fn mineral_facets_share_the_cap_altitude_and_cannot_escape_native_rock_masks() {
+        use super::super::paint::K_ROCKTOP;
+        use crate::gfx::lighting::TerrainSurface;
+        let s = sheet("cinder_mineral").expect("embedded native mineral artwork");
+        // Deliberately not a multiple of either placement stride: clipped cells
+        // must also keep their native footprint inside the receiving buffer.
+        for material in [K_ROCKTOP, K_LAVA] {
+            let mut z = Zone::new(ZoneId::Cinder, 41, 17);
+            let base = crate::gfx::rgb(0x393746);
+            let cap = TerrainSurface::new([0.0, 0.0, 1.0], 12.0);
+            z.ground.fill(base);
+            z.ground_surfaces.fill(cap);
+            let tiles = z.tiles.clone();
+            let emit = z.ground_emit.clone();
+            let volumes = z.terrain_volumes.clone();
+            let kinds = Grid::new(z.pw, z.ph, material);
+            mineral(&mut z, &kinds, s);
+
+            assert_eq!(z.tiles, tiles, "decorative minerals changed collision");
+            assert_eq!(z.ground_emit, emit, "cold minerals became light sources");
+            assert_eq!(z.terrain_volumes, volumes, "mineral paint added shadow casters");
+            if material == K_LAVA {
+                assert!(z.ground.iter().all(|&c| c == base), "minerals covered lava");
+                assert!(z.ground_surfaces.iter().all(|&g| g == cap), "minerals replaced lava geometry");
+                continue;
+            }
+            let mut native = Grid::new(z.pw, z.ph, false);
+            for gy in (0..z.ph).step_by(64) {
+                for gx in (0..z.pw).step_by(80) {
+                    if hash2(gx, gy, 317) > 0.28 { continue; }
+                    let frames = &s.cells[0];
+                    let c = &frames[(hash2(gx, gy, 319) * frames.len() as f32) as usize % frames.len()];
+                    for y in 0..c.h {
+                        for x in 0..c.w {
+                            if c.at(x, y).a { native.set(gx + 4 + x, gy + 6 + y, true); }
+                        }
+                    }
+                }
+            }
+            let (mut roofs, mut fronts, mut lit, mut buried) = (0, 0, 0, 0);
+            for (i, &surface) in z.ground_surfaces.iter().enumerate() {
+                assert_eq!(surface.height, cap.height, "cell gutter changed cap altitude at {i}");
+                if !native.v[i] {
+                    assert_eq!(surface, cap, "mineral normal escaped native silhouette at {i}");
+                    assert_eq!(z.ground[i], base, "mineral ink escaped native silhouette at {i}");
+                } else if surface == cap {
+                    buried += 1;
+                } else if surface.upright {
+                    fronts += 1;
+                    assert!(surface.normal[1] > 90, "front does not face out of the shelf");
+                } else {
+                    roofs += 1;
+                    lit += usize::from(surface.normal[0] < 0);
+                    assert!(surface.normal[2] > 110, "roof was mapped as an upright wall");
+                }
+            }
+            assert!(roofs > 500 && fronts > 100 && lit > 100,
+                "native shelves need separate roof, cleaved and front receiving planes");
+            assert!(buried > 50, "continuous perimeter did not break into ground contacts");
+        }
+    }
 
     #[test]
     fn broken_shrine_masonry_is_solid_around_an_untouched_floor_causeway() {

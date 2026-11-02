@@ -1,0 +1,27 @@
+{
+  "spec": {
+    "width": 320,
+    "height": 80,
+    "no_background": true,
+    "seed": 1315,
+    "max_colors": 5,
+    "palette": [
+      "#747d8d",
+      "#929da8",
+      "#aab4b7",
+      "#b6bfc0",
+      "#c7cfca"
+    ],
+    "palette_name": "Quiet far stone",
+    "description": "Very distant broad aqueduct landscape silhouette for a pixel art RPG background. Full single panorama INSIDE canvas with at least 8px empty transparent border on ALL FOUR edges, especially ABOVE tallest tower. Two enormous connected stone tableland ledges hang over empty transparent sky, with one long continuous aqueduct of six arches running over their tops, fractured gap in its central span, one low distributor building on right. Entire structure only 54px high, silhouette is300px wide and fits inside64px high region; tallest building has a fully finished FLAT TOP with empty sky above it, no cropping. True native pixel art, hard edges, no soft alpha. Atmospheric low contrast pale slate stone with upper planes chalk, only four broad quiet color clusters. Simple majestic water infrastructure, ancient engineering, no perspective checkerboard, no brick noise, no foliage, no sun, no clouds, no stars, no lights, no glow, no actual water. Low topdown side panorama. One connected continuous geological shelf below piers, NO floating separate pillars. Important: exactly one isolated whole panorama and generous transparent margins."
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 1c4defc8-0512-49e0-abe9-e5fa62bdadd7\njob_id: 1c4defc8-0512-49e0-abe9-e5fa62bdadd7\nmodel: pro\ndescription: Very distant broad aqueduct landscape silhouette for a pixel art RPG background. Full single panorama INSIDE canvas with at least 8px empty transparent border on ALL FOUR edges, especially ABOVE tallest tower. Two enormous connected stone tableland ledges hang over empty transparent sky, with one long continuous aqueduct of six arches running over their tops, fractured gap in its central span, one low distributor building on right. Entire structure only 54px high, silhouette is300px wide and fits inside64px high region; tallest building has a fully finished FLAT TOP with empty sky above it, no cropping. True native pixel art, hard edges, no soft alpha. Atmospheric low contrast pale slate stone with upper planes chalk, only four broad quiet color clusters. Simple majestic water infrastructure, ancient engineering, no perspective checkerboard, no brick noise, no foliage, no sun, no clouds, no stars, no lights, no glow, no actual water. Low topdown side panorama. One connected continuous geological shelf below piers, NO floating separate pillars. Important: exactly one isolated whole panorama and generous transparent margins.\nsize: 320x80px\ntransparent: True\ncandidates: 1\npalette: 5 colours (Quiet far stone)\nmax colours: 5 per image\nseed: 1315\nasset_id: 9caf7606-77ef-569b-9777-cd59162cc767\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"1c4defc8-0512-49e0-abe9-e5fa62bdadd7\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/1c4defc8-0512-49e0-abe9-e5fa62bdadd7/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

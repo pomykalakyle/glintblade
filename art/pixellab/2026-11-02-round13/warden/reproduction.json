@@ -1,0 +1,6 @@
+{
+  "sprites/warden_body.png": "3aa738b3d94e77fd0e21c4b89d39fe38c86aed3b170fdb11eb4fb135c7387f77",
+  "sprites/warden_body.json": "3694d1c24c90f81b8ff8d2073dda56e684f23ee7026a009d863c12648f9e5410",
+  "normals/warden_body.png": "8500ef3ec65d6b5c7c13c1541fa93d2f1720f6f6fa6d7a8b6006854d6b21804d",
+  "native_11_to_6_row_compaction": "all75 albedo and normal frames unchanged"
+}

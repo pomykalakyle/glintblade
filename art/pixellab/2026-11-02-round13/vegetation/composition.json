@@ -1,0 +1,418 @@
+{
+  "date": "2026-11-02",
+  "native_grid": [
+    1344,
+    832
+  ],
+  "purpose": "Connected planted beds around quiet stone routes, the altar, exposed native tree roots and a clear aqueduct opening. Full moving leaf fans stay outside the opening encounter clearings so active Sproutlings remain readable.",
+  "asset_work": "Existing native PixelLab vegetation reused byte-for-byte; no new species, generated images, recoloring, scaling, palette changes or lighting changes.",
+  "included_generations_used": 0,
+  "purchases": 0,
+  "plan_source": {
+    "path": "src/regions/bloomwild/composition.rs",
+    "sha256": "1783c4adde865a1a0a96a09120179f45093fdb167f2148fcf4dded8c784ae808"
+  },
+  "provenance": [
+    {
+      "path": "art/pixellab/2026-11-01/grass/cuttable-selected-strip.png",
+      "sha256": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6"
+    },
+    {
+      "path": "assets/sprites/bloomwild_grass.png",
+      "sha256": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6"
+    },
+    {
+      "path": "assets/sprites/bloomwild_grass.json",
+      "sha256": "eccff529de47964daac29fb735d7642fba266a7f04e1131bd00bf1d9096d88ff"
+    },
+    {
+      "path": "art/pixellab/2026-11-01/grass/selection.json",
+      "sha256": "a649f53df75576e500ee6b07482913629bec39043de079980f15f6dfb5f08821"
+    },
+    {
+      "path": "art/pixellab/2026-11-01/manifest.json",
+      "sha256": "7692af31a5d2e3a7f696c3dc7d27b742107ee9894f322724dcf319d87af26b9d"
+    }
+  ],
+  "diagram_background": {
+    "path": "out/pixellab/world/beauty13-publication/bloomwild/landing/bloomwild_overview.png",
+    "sha256": "d311af5bcf121f7852dd04fb4e596081915edb1ef5576621c4cb604374345a22",
+    "notes": "Earlier actual native map used for spatial registration only. Tint and outlines are a plan overlay, not final render evidence."
+  },
+  "beds": [
+    {
+      "name": "landing tree",
+      "lobes": [
+        [
+          91,
+          703,
+          20,
+          13
+        ],
+        [
+          81,
+          686,
+          13,
+          16
+        ]
+      ]
+    },
+    {
+      "name": "aqueduct west toe",
+      "lobes": [
+        [
+          239,
+          716,
+          24,
+          13
+        ]
+      ]
+    },
+    {
+      "name": "aqueduct east toe",
+      "lobes": [
+        [
+          438,
+          715,
+          28,
+          14
+        ]
+      ]
+    },
+    {
+      "name": "west colonnade",
+      "lobes": [
+        [
+          128,
+          208,
+          33,
+          29
+        ],
+        [
+          137,
+          241,
+          37,
+          30
+        ],
+        [
+          169,
+          254,
+          27,
+          18
+        ]
+      ]
+    },
+    {
+      "name": "west meadow",
+      "lobes": [
+        [
+          167,
+          386,
+          33,
+          19
+        ],
+        [
+          201,
+          402,
+          47,
+          26
+        ],
+        [
+          241,
+          416,
+          37,
+          19
+        ]
+      ]
+    },
+    {
+      "name": "courtyard wall",
+      "lobes": [
+        [
+          379,
+          450,
+          43,
+          23
+        ],
+        [
+          426,
+          453,
+          43,
+          28
+        ],
+        [
+          479,
+          456,
+          47,
+          22
+        ],
+        [
+          520,
+          445,
+          33,
+          19
+        ]
+      ]
+    },
+    {
+      "name": "lower encounter",
+      "lobes": [
+        [
+          466,
+          626,
+          42,
+          23
+        ],
+        [
+          511,
+          641,
+          48,
+          31
+        ],
+        [
+          550,
+          659,
+          37,
+          30
+        ],
+        [
+          520,
+          684,
+          38,
+          19
+        ]
+      ]
+    },
+    {
+      "name": "east wall",
+      "lobes": [
+        [
+          963,
+          642,
+          34,
+          26
+        ],
+        [
+          996,
+          668,
+          42,
+          25
+        ],
+        [
+          1034,
+          654,
+          43,
+          25
+        ],
+        [
+          1013,
+          630,
+          33,
+          18
+        ]
+      ]
+    },
+    {
+      "name": "temple east",
+      "lobes": [
+        [
+          1203,
+          415,
+          26,
+          29
+        ],
+        [
+          1214,
+          445,
+          27,
+          27
+        ],
+        [
+          1195,
+          400,
+          20,
+          20
+        ]
+      ]
+    },
+    {
+      "name": "grove root shoulders",
+      "lobes": [
+        [
+          858,
+          182,
+          33,
+          26
+        ],
+        [
+          900,
+          173,
+          46,
+          29
+        ],
+        [
+          944,
+          195,
+          37,
+          28
+        ],
+        [
+          926,
+          224,
+          32,
+          20
+        ]
+      ]
+    },
+    {
+      "name": "northeast grove",
+      "lobes": [
+        [
+          1176,
+          112,
+          31,
+          26
+        ],
+        [
+          1202,
+          135,
+          33,
+          29
+        ],
+        [
+          1193,
+          159,
+          25,
+          21
+        ]
+      ]
+    }
+  ],
+  "clearings": [
+    {
+      "name": "meadow entry",
+      "oval": [
+        400,
+        652,
+        38,
+        26
+      ]
+    },
+    {
+      "name": "meadow turn",
+      "oval": [
+        410,
+        693,
+        42,
+        30
+      ]
+    },
+    {
+      "name": "meadow exit",
+      "oval": [
+        461,
+        684,
+        36,
+        28
+      ]
+    },
+    {
+      "name": "courtyard arena",
+      "oval": [
+        447,
+        485,
+        67,
+        23
+      ]
+    },
+    {
+      "name": "grove passage",
+      "oval": [
+        877,
+        220,
+        24,
+        21
+      ]
+    },
+    {
+      "name": "altar approach",
+      "oval": [
+        408,
+        268,
+        142,
+        28
+      ]
+    },
+    {
+      "name": "aqueduct opening",
+      "oval": [
+        335,
+        707,
+        57,
+        18
+      ]
+    }
+  ],
+  "runtime_roots": {
+    "path": "art/pixellab/2026-11-02-round13/vegetation/runtime-roots.json",
+    "sha256": "e7fa27b1a0d0bcbfefced0fb34513b111f32768adc743e18d211bea64a56e37e",
+    "count": 368
+  },
+  "review_probes": [
+    {
+      "at": [
+        500,
+        637
+      ],
+      "check": "Dense native leaf mass, sword cut, persistent stubble, bending and per-pixel foreground reveal."
+    },
+    {
+      "at": [
+        335,
+        710
+      ],
+      "check": "Aqueduct opening stays clear; planting attaches to external pier toes at239,716 and438,715."
+    },
+    {
+      "at": [
+        400,
+        652
+      ],
+      "check": "Connected meadow arena keeps approved terrain relief visible."
+    },
+    {
+      "at": [
+        465,
+        650
+      ],
+      "check": "Actual 720-tick combat replay: sleeping camouflage, windup26, aimlock48, lunge58, first hurt65, and later attackers."
+    },
+    {
+      "at": [
+        908,
+        224
+      ],
+      "check": "Visible grove root spread with planting at its shoulders; walk behind and in front."
+    },
+    {
+      "at": [
+        408,
+        176
+      ],
+      "check": "Altar retains its quiet center and approach; no incidental live leaves."
+    },
+    {
+      "at": [
+        1210,
+        430
+      ],
+      "check": "Temple-side bed silhouette, collision and sorting against native stone bases."
+    }
+  ],
+  "checks": {
+    "source_bytes_unchanged": true,
+    "all_rust_beds_parsed": true,
+    "runtime_roots_inside_authored_envelopes": true
+  },
+  "limits": "Inspect final real frames and motion separately. Diagram coverage is the authored envelope before terrain, prop and source-specific route clearance."
+}

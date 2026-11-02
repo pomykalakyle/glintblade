@@ -16,16 +16,16 @@
       "durations": [
         60
       ],
-      "loop": true
+      "loop": false
     },
     "awake": {
-      "row": 1,
+      "row": 0,
       "frames": 1,
       "fps": 1.0,
       "durations": [
         60
       ],
-      "loop": true
+      "loop": false
     },
     "damaged": {
       "row": 2,
@@ -34,8 +34,144 @@
       "durations": [
         60
       ],
-      "loop": true
+      "loop": false
+    },
+    "brace": {
+      "row": 4,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "damaged_brace": {
+      "row": 5,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "opening": {
+      "row": 1,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "damaged_opening": {
+      "row": 3,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "awake_fold": {
+      "row": 0,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "opening_fold": {
+      "row": 1,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "damaged_fold": {
+      "row": 2,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "damaged_opening_fold": {
+      "row": 3,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
     }
   },
-  "notes": "Weir Keeper: a section of an old garden weir that stood up. Unequal gate towers (the left tall with a spillway slot, the right snapped), outboard shoulders stepping down past them, a sluice gate of stone planks holding the heart's valve ring, a crest notch for the head, and a culvert arch between stub piers, darker below an old tide line, with stains, mineral streaks and moss. Anchor = ground under the middle of the feet. idle: dormant, channels dry. awake: the guide channels and drain carry dull iris water (not emissive). damaged: two gate planks fallen out, the left tower's crown corner and the right tower's outer slab broken away, the right shoulder's top block gone, a fracture from the valve ring. The heart socket, neck notch and both crystal seats stay in place in every state. Light from the upper left."
+  "notes": "Sculptural Weir Keeper. PixelLab B's thick planar towers, projecting buttresses, recessed valve and native culvert piers. Brace and opening are separately generated native structural keys. The top30 rows, collar and crystal seats never animate; the valve center stays (60,49). *_fold frame index is the existing body_dy rounded to 0..16, not elapsed time: two rigid culvert piers fold up and splay by 0..2 native pixels while the upper torso follows its original combat path. Every normal follows the same native part remapping. Anchor, collision, heart windows, and head/fist animation are unchanged. 13 native slate shades; no torso emission. Empty atlas cells are intentional."
 }

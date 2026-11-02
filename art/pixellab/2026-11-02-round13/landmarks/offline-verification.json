@@ -1,0 +1,84 @@
+{
+  "offline_byte_identical_files": [
+    {
+      "file": "assets/sprites/round13_landmarks_distributor.json",
+      "sha256": "3113954e020a27dfd1bd7237b151dcbaddb57d369e4fa0a67925d8e3392292af"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_distributor.png",
+      "sha256": "ee7770809d964cd43551c5b356c1e476454723944c83346e4616506bf1be9826"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_garden.json",
+      "sha256": "aeb302fc55daf5734bd55aa6344d01387fab2f13fcb2d9fb94b5d663f380e35d"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_garden.png",
+      "sha256": "ac54c6cf50cf784170ab1f93363c48ffd8e4072b03251baf05125452fc0c9e7b"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_press.json",
+      "sha256": "294e4aa89a76d71329dcf9ce20c3917dd8b48f8fbde887f828992f5075f7cc9c"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_press.png",
+      "sha256": "22468166b4cec935064ee026de307158013f82c3135e5f83733ccc9bf6fa2e27"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_summit.json",
+      "sha256": "a4a1d95d0b8d572fc3b8dee982095cf9fcca8285206737a83ab29c9840d4dd64"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_summit.png",
+      "sha256": "2863bb672eea1e51f9d3dcd3f8e177fafc912e5db9e120d99495e35859f19ecd"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_vista.json",
+      "sha256": "fb5c2b191b45741ae553d62bb2d49c192d55ade82e70c454e4801350e0508021"
+    },
+    {
+      "file": "assets/sprites/round13_landmarks_vista.png",
+      "sha256": "f314e273c473568f6dd49f6bc01288c34160ed7f1567bbf5eff8f65e0aa55a94"
+    },
+    {
+      "file": "assets/normals/round13_landmarks_distributor.png",
+      "sha256": "8877edd07b021e4558b62bcdffcb665839dbb382209f32230f66d6582a7027c4"
+    },
+    {
+      "file": "assets/normals/round13_landmarks_garden.png",
+      "sha256": "bac3716578345b24c20a85069a5dd02ea214660eb2ca1b13eab1058e91325c1b"
+    },
+    {
+      "file": "assets/normals/round13_landmarks_press.png",
+      "sha256": "b48e5f114351d2273fd82c9d8cb9d7275c668469f78c71fd784df26c24a3a837"
+    },
+    {
+      "file": "assets/normals/round13_landmarks_summit.png",
+      "sha256": "3cbb42721ad5849d366497e6e2f6830d754f309746602702513f3fa7c53231d1"
+    }
+  ],
+  "verified": "5 sprite PNGs +5 JSON +4 normal PNGs",
+  "compiled_python": true,
+  "runtime_review": "root owns live build and movement/capture audit",
+  "account_generations": 80.4,
+  "source_transform": "All RGB and normal vectors retained. Only literal cave aperture alpha spans removed identically in albedo+normals.",
+  "world_anchors": {
+    "garden": [
+      335,
+      710
+    ],
+    "distributor": [
+      1304,
+      252
+    ],
+    "press": [
+      600,
+      718
+    ],
+    "summit": [
+      720,
+      294
+    ]
+  },
+  "geometry_review": "Summit frame moved from242 to294 after independent reviewer identified179raised-dais overlap pixels; finalfeet284..294 sit beyond native dais max276."
+}

@@ -10,6 +10,7 @@
 //! - `sky`: the sea of clouds below the island (parallax backdrop).
 //! - `life`: water currents and waterfalls, without additional atmosphere.
 
+mod composition;
 mod grass;
 mod life;
 mod map;

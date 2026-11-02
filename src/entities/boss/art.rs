@@ -208,6 +208,8 @@ pub struct Look {
     /// True world ground plane under this part. Attached/airborne parts share
     /// their body's ground instead of pretending their visible bottom is a foot.
     pub ground_y: Option<f32>,
+    /// Local visibility aid for opaque stone; combat emitters keep their own drawing path.
+    pub reveal: Option<crate::gfx::sprite::SpriteFocus>,
 }
 
 impl Default for Look {
@@ -223,6 +225,7 @@ impl Default for Look {
             alpha: 1.0,
             silhouette: None,
             ground_y: None,
+            reveal: None,
         }
     }
 }
@@ -297,7 +300,13 @@ pub fn blit(f: &mut Frame, s: Spr, sx: i32, sy: i32, l: &Look) {
             if !(0..crate::gfx::WI).contains(&px) {
                 continue;
             }
-            if l.alpha < 1.0 && l.alpha <= bayer4(px + f.cam_x, py + f.cam_y) {
+            // Eyes and the fist weak points remain authored combat cues, even
+            // when the surrounding stone opens around Glint. Intrinsic alpha
+            // still controls dissolving parts and their motion trails.
+            let alpha = l.reveal.filter(|_| !p.emit).map_or(l.alpha, |focus| l.alpha.min(l.ground_y.map_or_else(
+                || focus.scenery_alpha(px + f.cam_x, py + f.cam_y),
+                |depth| focus.scenery_alpha_at_depth(px + f.cam_x, py + f.cam_y, depth))));
+            if alpha < 1.0 && alpha <= bayer4(px + f.cam_x, py + f.cam_y) {
                 continue;
             }
             let c = cell.flash_color(x, y, p.c, l.flash);
@@ -351,6 +360,29 @@ pub fn solid_at(cell: &Cell, x: i32, y: i32) -> bool {
     p.a && !p.emit && p.c.luma() > 0.06
 }
 
+/// Transport a fracture through the same rigid culvert joints as the native
+/// torso exporter. The moving piers cover stationary apron cracks beneath them.
+pub fn fold_crack(source: Spr, depth: i32, x: i32, y: i32) -> Option<(i32, i32)> {
+    let spread = depth / 8;
+    if y >= 81 {
+        return Some((x + if x < 60 { -spread } else { spread }, y - depth));
+    }
+    let source_y = y + depth;
+    if (81..110).contains(&source_y) {
+        let source_x = if x < 60 - spread {
+            Some(x + spread)
+        } else if x >= 60 + spread {
+            Some(x - spread)
+        } else {
+            None
+        };
+        if source_x.is_some_and(|sx| source.cell.at(sx, source_y).a) {
+            return None;
+        }
+    }
+    Some((x, y))
+}
+
 /// Glowing cracks over a part: `cracks` are cell pixels in growth order; the first `n` are lit.
 /// Only drawn where the part is solid stone, so the outline stays clean.
 pub fn draw_cracks(
@@ -363,15 +395,24 @@ pub fn draw_cracks(
     n: usize,
     color: Rgb,
     core: Rgb,
+    fold: Option<(Spr, i32)>,
 ) {
     let (ox, oy) = origin(s.cell, s.anchor, sx, sy, l.flip);
     for &(x, y, w) in cracks.iter().take(n) {
+        let Some((x, y)) = fold.map_or(Some((x, y)), |(source, depth)| fold_crack(source, depth, x, y)) else {
+            continue;
+        };
         if !solid_at(s.cell, x, y) {
             continue;
         }
         let px = ox + if l.flip { s.cell.w - 1 - x } else { x };
         let py = oy + y;
         if py > l.clip_y {
+            continue;
+        }
+        if l.reveal.is_some_and(|focus| l.ground_y.map_or_else(
+            || !focus.allows_scenery(px + f.cam_x, py + f.cam_y),
+            |depth| !focus.allows_scenery_at_depth(px + f.cam_x, py + f.cam_y, depth))) {
             continue;
         }
         f.put_glow(px, py, if w == 0 { core } else { color });
@@ -762,5 +803,100 @@ mod tests {
         blit(&mut frame, s, -20, 10, &Look::default());
         assert_eq!(frame.surface_casters.len(), 1);
         assert!(frame.surfaces.iter().all(|p| p.kind == 0));
+    }
+
+    fn assert_native_emitters_survive_reveal(sheet_name: &str) {
+        let native = sheet(sheet_name).expect("Warden cue regression requires the native sheet");
+        let mut baseline = Frame::new();
+        let mut revealed = Frame::new();
+        baseline.cam_x = 87;
+        baseline.cam_y = 133;
+        revealed.cam_x = baseline.cam_x;
+        revealed.cam_y = baseline.cam_y;
+        let background = rgb(0x071105);
+        let mut checked_emitters = 0;
+        let mut cleared_stone = 0;
+        for anim in native.anims.values() {
+            for frame in 0..anim.frames {
+                let s = Spr {
+                    cell: native.cell(anim, frame),
+                    anchor: native.anchor_of(anim),
+                };
+                let emitters: Vec<_> = (0..s.cell.h)
+                    .flat_map(|y| (0..s.cell.w).map(move |x| (x, y)))
+                    .filter(|&(x, y)| {
+                        let p = s.cell.at(x, y);
+                        p.a && p.emit
+                    })
+                    .collect();
+                if emitters.is_empty() {
+                    continue;
+                }
+                for flip in [false, true] {
+                    let (ox, oy) = origin(s.cell, s.anchor, 160, 120, flip);
+                    let screen = |x: i32, y: i32| {
+                        (ox + if flip { s.cell.w - 1 - x } else { x }, oy + y)
+                    };
+                    let min_x = emitters.iter().map(|&(x, y)| screen(x, y).0).min().unwrap();
+                    let max_x = emitters.iter().map(|&(x, y)| screen(x, y).0).max().unwrap();
+                    let min_y = emitters.iter().map(|&(x, y)| screen(x, y).1).min().unwrap();
+                    let max_y = emitters.iter().map(|&(x, y)| screen(x, y).1).max().unwrap();
+                    let focus = crate::gfx::sprite::SpriteFocus {
+                        cell: s.cell,
+                        anchor: s.anchor,
+                        flip,
+                        x: ((min_x + max_x) / 2 + baseline.cam_x) as f32,
+                        y: ((min_y + max_y) / 2 + baseline.cam_y + 15) as f32,
+                        ground_y: ((min_y + max_y) / 2 + baseline.cam_y + 15) as f32,
+                    };
+                    for &(x, y) in &emitters {
+                        let (px, py) = screen(x, y);
+                        assert_eq!(focus.scenery_alpha(px + baseline.cam_x, py + baseline.cam_y), 0.0,
+                            "native cue must exercise the fully cleared reveal center: {sheet_name}, row {}, frame {frame}", anim.row);
+                    }
+                    // Dormant irises retain their authored engraving, partial emission
+                    // retains its intensity, and real dissolve alpha still applies.
+                    for emit in [1.0, 0.3, 0.0] {
+                        for alpha in [1.0, 0.5] {
+                            baseline.begin(background, Rgb::WHITE);
+                            revealed.begin(background, Rgb::WHITE);
+                            let look = Look {
+                                flip,
+                                emit,
+                                alpha,
+                                ground_y: Some(focus.ground_y + 40.0),
+                                ..Default::default()
+                            };
+                            blit(&mut baseline, s, 160, 120, &look);
+                            blit(&mut revealed, s, 160, 120, &Look { reveal: Some(focus), ..look });
+                            for &(x, y) in &emitters {
+                                let (px, py) = screen(x, y);
+                                let idx = py as usize * crate::gfx::W + px as usize;
+                                assert_eq!(revealed.albedo[idx], baseline.albedo[idx],
+                                    "reveal changed native cue color: {sheet_name}, row {}, frame {frame}, emit {emit}, alpha {alpha}, flip {flip}, source ({x}, {y})", anim.row);
+                                assert_eq!(revealed.emissive[idx], baseline.emissive[idx],
+                                    "reveal changed native cue emission: {sheet_name}, row {}, frame {frame}, emit {emit}, alpha {alpha}, flip {flip}, source ({x}, {y})", anim.row);
+                                checked_emitters += usize::from(baseline.albedo[idx] != background);
+                            }
+                            cleared_stone += baseline.albedo.iter().zip(&revealed.albedo)
+                                .filter(|(before, after)| **before != background && **after == background)
+                                .count();
+                        }
+                    }
+                }
+            }
+        }
+        assert!(checked_emitters > 0, "native {sheet_name} contains no exercised emissive cue");
+        assert!(cleared_stone > 0, "native {sheet_name} never exercised stone removal");
+    }
+
+    #[test]
+    fn native_warden_eye_pixels_keep_their_color_and_emission_through_reveal() {
+        assert_native_emitters_survive_reveal(HEAD);
+    }
+
+    #[test]
+    fn native_warden_hand_cue_pixels_keep_their_color_and_emission_through_reveal() {
+        assert_native_emitters_survive_reveal(FIST);
     }
 }

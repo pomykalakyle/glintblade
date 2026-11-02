@@ -24,7 +24,7 @@ fn place(
 /// Bed a real native foot into its material. The narrow, broken contact follows
 /// opaque support columns; it cannot become an oval decal hanging over the sky.
 fn bake_base_contact(z: &mut Zone, mask: &[u8], p: &Prop) {
-    if !matches!(p.sheet, "bloomwild_trees" | "bloomwild_ruins" | "bloomwild_arch" | "bloomwild_aqueduct") {
+    if !matches!(p.sheet, "bloomwild_trees" | "bloomwild_sapling" | "bloomwild_ruins" | "bloomwild_arch" | "bloomwild_aqueduct" | "round13_landmarks_garden") {
         return;
     }
     let Some(s) = p.sheet() else { return };
@@ -150,17 +150,20 @@ pub fn build(z: &mut Zone, m: &Map, mask: &[u8]) -> Vec<Prop> {
                     (15, 39) => "b", (75, 41) => "a", (40, 42) => "d",
                     _ => ["a", "f", "c", "g", "b", "d"][tree_index % 6],
                 };
+                // The young tree has its own native crown; all mature trees
+                // retain their existing atlas, density and physical roots.
+                let sheet = if variant == "e" { "bloomwild_sapling" } else { "bloomwild_trees" };
                 place(
                     z,
                     mask,
-                    "bloomwild_trees",
+                    sheet,
                     &format!("{variant}_trunk"),
                     x,
                     y,
                     19,
                     45,
                 );
-                let mut canopy = Prop::new("bloomwild_trees", &format!("{variant}_canopy"), x, y);
+                let mut canopy = Prop::new(sheet, &format!("{variant}_canopy"), x, y);
                 canopy.canopy = true;
                 canopies.push(canopy);
                 tree_index += 1;
@@ -236,26 +239,26 @@ pub fn build(z: &mut Zone, m: &Map, mask: &[u8]) -> Vec<Prop> {
             p.heal_drop = 1;
         }
     }
-    // Small shrubs cluster at architecture and roots, instead of peppering every grass tile.
+    // Shrub masses finish the same eleven authored beds as the live grass. Keep
+    // long path and altar fields quiet, and expose the actual tree/stone roots.
     for (tx, ty, anim) in [
-        (13, 40, "bush_b"),
-        (16, 40, "flowers_a"),
-        (21, 39, "bush_a"),
-        (35, 39, "flowers_b"),
-        (19, 32, "bush_b"),
-        (39, 28, "bush_bloom"),
-        (38, 26, "bush_b"),
+        (28, 39, "bush_a"),
+        (34, 41, "flowers_b"),
+        (24, 28, "bush_b"),
+        (31, 28, "bush_bloom"),
+        (39, 27, "bush_b"),
         (61, 24, "bush_a"),
-        (74, 32, "bush_b"),
-        (78, 35, "flowers_b"),
+        (75, 27, "bush_b"),
+        (77, 28, "flowers_b"),
         (59, 6, "bush_bloom"),
         (61, 6, "flowers_a"),
-        (64, 14, "bush_b"),
-        (11, 16, "bush_a"),
-        (14, 18, "flowers_a"),
-        (18, 17, "bush_b"),
-        (32, 6, "flowers_b"),
-        (74, 13, "bush_a"),
+        (58, 11, "bush_b"),
+        (63, 13, "flowers_b"),
+        (73, 7, "bush_a"),
+        (74, 8, "flowers_a"),
+        (8, 13, "bush_b"),
+        (11, 15, "bush_a"),
+        (10, 24, "bush_b"),
     ] {
         let (x, y) = tc(tx, ty);
         place(z, mask, "bloomwild_props", anim, x, y, 8, 6);
@@ -285,7 +288,12 @@ fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
     // Leave daylight between the fins even with the artist's wider upper masses.
     // A shorter surviving pier and low channel make a single broken waterworks mass.
     let aqueduct = crate::gfx::sheet("bloomwild_aqueduct").is_some_and(|s| s.has("left_pier") && s.has("right_pier") && s.has("canopy"));
-    if aqueduct {
+    if crate::gfx::sheet("round13_landmarks_garden").is_some_and(|s| s.has("body")) {
+        // One native distributor and open conduits form a single landmark.
+        // Exact separated foot spans leave the main arch passable; native
+        // foreground reveal keeps Glint readable behind the elevated trough.
+        place(z, mask, "round13_landmarks_garden", "body", 335.0, 710.0, 0, 0);
+    } else if aqueduct {
         // Native source anchor is (64,83); pier anchors follow each actual foot rather than
         // blocking the arch's empty center with one broad rectangular collision footprint.
         let body = Prop::new("bloomwild_aqueduct", "body", 335.0, 710.0);
@@ -321,7 +329,7 @@ fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
         7,
         18,
     );
-    for (x, y, anim) in [(114.0, 681.0, "flowers_a"), (377.0, 715.0, "bush_b")] {
+    for (x, y, anim) in [(114.0, 681.0, "flowers_a"), (437.0, 710.0, "bush_b")] {
         place(z, mask, "bloomwild_props", anim, x, y, 8, 6);
     }
     if crate::gfx::sheet("bloomwild_growth").is_some_and(|s| s.has("body")) {

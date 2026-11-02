@@ -4,23 +4,36 @@
 use super::{ItemKind, pal::*};
 use crate::gfx::{Frame, Rgb};
 use crate::gfx::sprite::SpriteFocus;
-use crate::util::bayer4;
+
+/// A conduit frame around the socket recalls the garden's abandoned machinery.
+/// Native independent feet stand outside the fighting lane; one visible prop
+/// supplies normals and shadows without an invisible shadowing proxy.
+pub fn place_waterworks_frame(z: &mut crate::world::Zone) {
+    if crate::gfx::sheet("round13_landmarks_summit").is_some_and(|s| s.has("body")) {
+        z.props.push(crate::world::Prop::new(
+            "round13_landmarks_summit", "body", 720.0, 294.0));
+    }
+}
 
 /// The fallback follows the same local, world-anchored reveal as native props.
 /// Ground shadows remain physical; only solid scenery pixels become porous.
 struct Ink<'a> {
     frame: &'a mut Frame,
     reveal: Option<SpriteFocus>,
+    depth: f32,
 }
 
 impl Ink<'_> {
     fn visible(&self, x: i32, y: i32) -> bool {
         let (wx, wy) = (x + self.frame.cam_x, y + self.frame.cam_y);
-        self.reveal.is_none_or(|focus| !focus.covers(wx, wy) || 0.25 > bayer4(wx, wy))
+        self.reveal.is_none_or(|focus| focus.allows_scenery_at_depth(wx, wy, self.depth))
     }
 
     fn put(&mut self, x: i32, y: i32, c: Rgb) {
-        if self.visible(x, y) { self.frame.put(x, y, c); }
+        if self.visible(x, y) && let Some(i) = Frame::idx(x, y) {
+            self.frame.emissive[i] = Rgb::BLACK;
+            self.frame.put(x, y, c);
+        }
     }
 
     fn put_glow(&mut self, x: i32, y: i32, c: Rgb) {
@@ -28,10 +41,6 @@ impl Ink<'_> {
     }
 
     fn rect(&mut self, x: i32, y: i32, w: i32, h: i32, c: Rgb) {
-        if self.reveal.is_none() {
-            self.frame.rect(x, y, w, h, c);
-            return;
-        }
         for py in y.max(0)..(y + h).min(crate::gfx::H as i32) {
             for px in x.max(0)..(x + w).min(crate::gfx::W as i32) { self.put(px, py, c); }
         }
@@ -47,7 +56,8 @@ impl Ink<'_> {
 }
 
 pub fn draw_item(f: &mut Frame, sx: i32, sy: i32, kind: ItemKind, t: u64, seed: u32, reveal: Option<SpriteFocus>) {
-    let f = &mut Ink { frame: f, reveal };
+    let depth = (sy + f.cam_y) as f32;
+    let f = &mut Ink { frame: f, reveal, depth };
     match kind {
         ItemKind::Brazier => draw_brazier(f, sx, sy, t, seed),
         ItemKind::Banner(flip) => draw_banner(f, sx, sy, flip),
@@ -148,7 +158,41 @@ mod tests {
     use crate::gfx::{DrawOpts, W, sheet};
 
     #[test]
-    fn fallback_foreground_reveals_current_hero_without_fading_other_pixels() {
+    fn opaque_fallback_ink_hides_glow_while_reveal_holes_preserve_it() {
+        let hero = sheet("hero").unwrap();
+        let idle = hero.anim("idle_down").unwrap();
+        let focus = SpriteFocus { cell: hero.cell(idle, 0), anchor: hero.anchor_of(idle),
+            flip: false, x: 120.0, y: 169.0, ground_y: 169.0 };
+        let (underneath, glow, stone) = (Rgb::gray(0.1), Rgb::new(0.3, 0.7, 0.9), F3);
+        for reveal in [None, Some(focus)] {
+            let mut f = Frame::new();
+            f.begin(underneath, Rgb::WHITE);
+            for y in 140..176 { for x in 84..156 {
+                f.put_glow(x, y, glow);
+            } }
+            Ink { frame: &mut f, reveal, depth: 170.0 }.rect(84, 140, 72, 36, stone);
+            let (mut covered, mut open) = (0, 0);
+            for y in 140..176 { for x in 84..156 {
+                let i = Frame::idx(x, y).unwrap();
+                if reveal.is_none_or(|focus| focus.allows_scenery_at_depth(x, y, 170.0)) {
+                    assert_eq!(f.albedo[i], stone);
+                    assert_eq!(f.emissive[i], Rgb::BLACK, "opaque stone must hide underlying blade glow");
+                    covered += 1;
+                } else {
+                    assert_eq!(f.albedo[i], Rgb::BLACK);
+                    assert_eq!(f.emissive[i], glow, "a reveal hole must preserve the scene beneath");
+                    open += 1;
+                }
+            } }
+            assert!(covered > 0, "the fixture must exercise accepted scenery pixels");
+            if reveal.is_some() {
+                assert!(open > 0, "the fixture must exercise reveal holes");
+            }
+        }
+    }
+
+    #[test]
+    fn fallback_foreground_reveals_hero_context_and_preserves_distant_art() {
         let hero = sheet("hero").unwrap();
         let idle = hero.anim("idle_down").unwrap();
         let cell = hero.cell(idle, 0);
@@ -159,7 +203,7 @@ mod tests {
 
         for kind in kinds { for flip in [false, true] { for elevation in [0, 6] {
             // Changing the camera phase exercises a world-anchored dither, while
-            // the mask itself follows the rendered pose rather than the feet.
+            // the context area follows both the rendered pose and its ground position.
             for camera in [(0, 0), (13, 9)] {
                 let focus = SpriteFocus { cell, anchor, flip, x: 120.0,
                     y: (169 - elevation) as f32, ground_y: 169.0 };
@@ -180,12 +224,12 @@ mod tests {
                 draw_item(&mut opaque, sx, sy, kind, 24, 5, None);
                 draw_item(&mut revealed, sx, sy, kind, 24, 5, Some(focus));
 
-                let (mut hidden, mut restored, mut outside_art) = (0, 0, 0);
+                let (mut hidden, mut restored, mut outside_art, mut context_restored) = (0, 0, 0, 0);
                 for i in 0..before.albedo.len() {
                     let (wx, wy) = (i as i32 % W as i32 + camera.0,
                         i as i32 / W as i32 + camera.1);
                     if !focus.covers(wx, wy) {
-                        assert_eq!(revealed.albedo[i], opaque.albedo[i], "outside silhouette: {kind:?}");
+                        assert_eq!(revealed.albedo[i], opaque.albedo[i], "outside context area: {kind:?}");
                         assert_eq!(revealed.emissive[i], opaque.emissive[i]);
                         assert_eq!(revealed.actor_pixels[i], opaque.actor_pixels[i]);
                         outside_art += usize::from(opaque.albedo[i] != before.albedo[i]);
@@ -198,13 +242,19 @@ mod tests {
                             assert_eq!(revealed.emissive[i], before.emissive[i], "preserve the glowing blade");
                         }
                     }
-                    if focus.covers(wx, wy) && bayer4(wx, wy) >= 0.25 {
+                    if !focus.allows_scenery_at_depth(wx, wy, 170.0) {
                         assert_eq!(revealed.albedo[i], before.albedo[i], "world-anchored reveal: {kind:?}");
                         assert_eq!(revealed.emissive[i], before.emissive[i]);
                     }
+                    if !before.actor_pixels[i] && revealed.albedo[i] != opaque.albedo[i] {
+                        context_restored += 1;
+                    }
                 }
                 assert!(hidden > 0 && restored > 0, "actual hero must be revealed through {kind:?}, flip {flip}, elevation {elevation}");
-                assert!(outside_art > 0, "the rest of {kind:?} must remain opaque");
+                assert!(context_restored > 0, "surrounding space must be revealed through {kind:?}");
+                if matches!(kind, ItemKind::Pillar(_) | ItemKind::Monolith(_)) {
+                    assert!(outside_art > 0, "distant portions of {kind:?} must remain opaque");
+                }
                 assert_eq!(revealed.shade, opaque.shade, "reveal must preserve physical shadows");
             }
         } } }

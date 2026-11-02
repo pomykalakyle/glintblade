@@ -421,6 +421,264 @@ fn returning_beam_keeps_its_angle_during_fade() {
     assert!((b.a - b.a0).abs() < 0.001);
 }
 
+/// The reported legal route ends behind the Warden, without a teleport through its feet.
+/// Compare actual native hero colors: both combatants stamp `actor_pixels`.
+#[test]
+fn summit_rear_walk_reveals_native_glint_and_surrounding_floor_in_the_play_scene() {
+    for (start_x, ticks, movement) in [
+        (640.0, 50, (1.0, 0.0)), // ordinary R50 route from the audit
+        (720.0, 15, (0.0, 0.0)), // exact clean15 native screenshot fixture
+    ] {
+        let mut play = Play::new(ZoneId::Summit, &PlayOpts { god: true, peaceful: false });
+        play.player = crate::entities::Player::new(start_x, 320.0);
+        play.enemies.clear();
+        let mut input = Input::default();
+        let mut fx = Fx::new(15);
+        for _ in 0..ticks {
+            input.step(Raw { mv: movement, ..Raw::default() });
+            play.update(&input, &mut fx);
+            fx.tick();
+        }
+        assert!(play.player.alive() && play.deaths == 0);
+        if movement.0 > 0.0 {
+            assert!((705.0..=716.0).contains(&play.player.body.x),
+                "ordinary R50 must reach the reported rear floor: {}", play.player.body.x);
+        } else {
+            assert!((play.player.body.x - 720.0).abs() < 0.1);
+        }
+        assert!((play.player.body.y - 320.0).abs() < 0.1);
+        assert!(!play.zone.blocked(play.player.body.x, play.player.body.y, play.player.body.r));
+        let focus = play.player.foreground_focus().expect("living native hero pose");
+        let boss = play.boss.take().expect("actual Summit Warden");
+        assert!(boss.sort_y() > focus.ground_y);
+
+        let mut background = Frame::new();
+        play.render(&mut background, &fx);
+        play.boss = Some(boss);
+        let mut revealed = Frame::new();
+        play.render(&mut revealed, &fx);
+        assert_eq!((background.cam_x, background.cam_y), (revealed.cam_x, revealed.cam_y));
+        // Draw the old opaque boss over the identical underlying scene; lighting does not
+        // alter albedo, so this preserves the exact native player/floor comparison.
+        let mut opaque = Frame::new();
+        opaque.cam_x = revealed.cam_x;
+        opaque.cam_y = revealed.cam_y;
+        opaque.albedo.clone_from(&background.albedo);
+        opaque.surface_lighting = revealed.surface_lighting;
+        play.boss.as_ref().unwrap().draw(&mut opaque);
+        let (ox, oy) = art::origin(focus.cell, focus.anchor,
+            revealed.sx(focus.x), revealed.sy(focus.y), focus.flip);
+        let (mut hidden, mut recovered) = (0, 0);
+        for y in 0..focus.cell.h {
+            for x in 0..focus.cell.w {
+                let source = focus.cell.at(x, y);
+                if !source.a { continue; }
+                let px = ox + if focus.flip { focus.cell.w - 1 - x } else { x };
+                let Some(i) = Frame::idx(px, oy + y) else { continue };
+                // Scarves, blade glints and material flashes may cover some source pixels.
+                if background.albedo[i] != source.c || opaque.albedo[i] == source.c { continue; }
+                hidden += 1;
+                if revealed.albedo[i] == source.c { recovered += 1; }
+            }
+        }
+        assert!(hidden > 20, "the real route must exercise native hero occlusion: {hidden}");
+        assert!(recovered > 20, "native Glint pixels remain hidden by the Warden: {recovered}/{hidden}");
+        let mut surrounding_floor = 0;
+        for y in 0..crate::gfx::HI {
+            for x in 0..crate::gfx::WI {
+                let i = y as usize * crate::gfx::W + x as usize;
+                let wx = x + revealed.cam_x;
+                if (wx - focus.x.floor() as i32).abs() < 16 { continue; }
+                if background.surfaces[i].kind == 1 && opaque.albedo[i] != background.albedo[i]
+                    && revealed.albedo[i] == background.albedo[i]
+                {
+                    surrounding_floor += 1;
+                }
+            }
+        }
+        assert!(surrounding_floor > 30,
+            "the real scene needs nearby floor beyond Glint's body, got {surrounding_floor}");
+    }
+}
+
+/// Moving stone, its fractures and its physical shadow share one local opening.
+/// Crystals, the heart, charge/live beams and offscreen warnings retain their pixels.
+#[test]
+fn warden_stone_reveal_preserves_native_casters_and_combat_sources_across_poses() {
+    use crate::gfx::{rgb, sprite::SpriteFocus};
+    const BACKGROUND: Rgb = rgb(0xf400b9);
+    let hero = crate::gfx::sheet("hero").unwrap();
+    let anim = hero.anim("idle_down").unwrap();
+    let make_frame = || {
+        let mut f = Frame::new();
+        f.begin(BACKGROUND, Rgb::WHITE);
+        f.surface_lighting = true;
+        f
+    };
+    let mut protected_near = 0;
+    let mut crack_pixels_removed = 0;
+    for (phase, kneel, state, height) in [
+        (0, 0.0, St::Rest, 20.0),
+        (2, 0.0, St::Drop(2), 24.0),
+        (2, KNEEL, St::Stuck(10, 80), 0.0),
+    ] {
+        let mut b = Boss::new(192.0, 180.0);
+        b.mode = Mode::Fight;
+        b.phase = phase;
+        b.body_dy = kneel;
+        b.crack_lit = b.cracks.len() as f32;
+        b.eyes = 1.0;
+        for fi in &mut b.fists {
+            fi.st = state;
+            fi.z = height;
+            fi.trail = [(fi.x, fi.y, fi.z); 3];
+        }
+        let (head, hx, hy) = b.head_part();
+        let (fist, lift, _) = fist_pose(&b.fists[0]);
+        // Use the actual source bounds; this also works with an older art override.
+        let head_mid = (art::top(head) + art::bottom(head)) / 2;
+        let fist_mid = (art::top(fist) + art::bottom(fist)) / 2;
+        let targets = [
+            (b.body.x, b.body.y - 32.0),
+            (hx, hy + head_mid as f32 + 15.0),
+            (b.fists[0].x, b.fists[0].y - height + (lift + fist_mid) as f32 + 15.0),
+            (b.heart_pos().0, b.heart_pos().1 + 15.0),
+        ];
+        for (px, py) in targets {
+            let focus = SpriteFocus { cell: hero.cell(anim, 0), anchor: hero.anchor_of(anim),
+                flip: false, x: px, y: py, ground_y: py };
+            let mut opaque = make_frame();
+            let mut revealed = make_frame();
+            b.draw(&mut opaque);
+            b.draw_revealed(&mut revealed, Some(focus));
+            let changed = opaque.albedo.iter().zip(&revealed.albedo)
+                .filter(|(a, c)| a != c).count();
+            assert!(changed > 20, "phase {phase}, kneel {kneel}, target {px},{py}: no stone opening");
+            let mut opened_background = 0;
+            for (i, (before, after)) in opaque.albedo.iter().zip(&revealed.albedo).enumerate() {
+                if before == after { continue; }
+                let (x, y) = ((i % crate::gfx::W) as i32, (i / crate::gfx::W) as i32);
+                assert!(focus.covers(x, y), "a local stone reveal changed distant boss art");
+                // An opened foreground part can expose a different-depth stone part,
+                // or a native combat emitter whose dark source remains protected.
+                if *after == BACKGROUND { opened_background += 1; }
+            }
+            assert!(opened_background > 20, "stone opening exposed no useful surroundings");
+
+            // Check fracture masking on the actual native torso, independently of
+            // the protected emitters and restored parts in the assembled boss.
+            let body = b.body_sprite();
+            let body_look = Look { ground_y: Some(b.body.y + 1.0),
+                clip_y: if kneel > 0.5 { b.body.y as i32 } else { i32::MAX },
+                ..Default::default() };
+            let fold = if kneel > 0.0 {
+                spr_frame(art::BODY, &[b.body_fold_anim()], 0)
+                    .map(|s| (s, kneel as i32))
+            } else { None };
+            let mut bare_cracks = make_frame();
+            let mut revealed_cracks = make_frame();
+            for (f, look) in [(&mut bare_cracks, body_look),
+                (&mut revealed_cracks, Look { reveal: Some(focus), ..body_look })]
+            {
+                art::draw_cracks(f, body, b.body.x as i32, (b.body.y + kneel) as i32,
+                    &look, &b.cracks, b.cracks.len(), P2, PW, fold);
+            }
+            for (i, before) in bare_cracks.albedo.iter().enumerate() {
+                if *before == BACKGROUND { continue; }
+                let (x, y) = ((i % crate::gfx::W) as i32, (i / crate::gfx::W) as i32);
+                if !focus.allows_scenery_at_depth(x, y, b.body.y + 1.0) {
+                    assert_eq!(revealed_cracks.albedo[i], BACKGROUND,
+                        "native fracture painted back into opened torso at {x},{y}");
+                    crack_pixels_removed += 1;
+                } else {
+                    assert_eq!(revealed_cracks.albedo[i], *before,
+                        "native fracture outside the opening changed");
+                }
+            }
+            assert_eq!(opaque.surface_casters.len(), revealed.surface_casters.len());
+            for (before, after) in opaque.surface_casters.iter().zip(&revealed.surface_casters) {
+                assert_eq!((before.w, before.h, before.anchor, before.x, before.y, before.base,
+                    before.flip, before.opacity, before.min_height),
+                    (after.w, after.h, after.anchor, after.x, after.y, after.base,
+                    after.flip, after.opacity, after.min_height));
+                assert_eq!(before.opacity, 1.0, "presentation fade weakened physical stone");
+                assert_eq!(before.foot.as_ref(), after.foot.as_ref());
+                assert_eq!(before.pixels.len(), after.pixels.len());
+                for (a, c) in before.pixels.iter().zip(after.pixels.iter()) {
+                    assert_eq!((a.n, a.a, a.emit), (c.n, c.a, c.emit),
+                        "opening changed the native physical silhouette");
+                }
+            }
+            // Draw each protected crystal at its real attachment and compare source RGB,
+            // discarding only pixels legitimately covered by a later opaque part.
+            let cs = spr(art::CRYSTAL, &["intact", "idle"], b.t, true);
+            let mut crystal_anchors = vec![(b.shoulder_pos(0), false), (b.shoulder_pos(1), true)];
+            for fi in &b.fists {
+                let (_, _, back) = fist_pose(fi);
+                crystal_anchors.push(((fi.x + fi.jit as f32,
+                    fi.y - fi.z.max(0.0) - 22.0 + back as f32), fi.side == 0));
+            }
+            for ((cx, cy), flip) in crystal_anchors {
+                let (ox, oy) = art::origin(cs.cell, cs.anchor, cx.floor() as i32, cy.floor() as i32, flip);
+                for y in 0..cs.cell.h {
+                    for x in 0..cs.cell.w {
+                        let source = cs.cell.at(x, y);
+                        if !source.a { continue; }
+                        let wx = ox + if flip { cs.cell.w - 1 - x } else { x };
+                        let wy = oy + y;
+                        let Some(i) = Frame::idx(wx, wy) else { continue };
+                        if opaque.albedo[i] != source.c { continue; }
+                        assert_eq!(revealed.albedo[i], source.c, "reveal erased a combat crystal");
+                        if focus.covers(wx, wy) { protected_near += 1; }
+                    }
+                }
+            }
+            let mut heart_only = make_frame();
+            b.draw_heart(&mut heart_only);
+            for (i, source) in heart_only.albedo.iter().enumerate() {
+                if *source == BACKGROUND || opaque.albedo[i] != *source { continue; }
+                assert_eq!(revealed.albedo[i], *source, "reveal erased the heart weak point");
+                if focus.covers((i % crate::gfx::W) as i32, (i / crate::gfx::W) as i32) {
+                    protected_near += 1;
+                }
+            }
+        }
+
+        for beam_t in [20, 45] {
+            let source = b.beam_src(0);
+            b.beams = vec![Beam { ox: source.0, oy: source.1, a: 0.7, a0: 0.7, a1: 1.5,
+                t: beam_t, charge: 30, sweep: 80, back: false, id: 41, side: 0 }];
+            let focus = SpriteFocus { cell: hero.cell(anim, 0), anchor: hero.anchor_of(anim),
+                flip: false, x: source.0, y: source.1 + 15.0, ground_y: source.1 + 15.0 };
+            let mut opaque = make_frame();
+            let mut revealed = make_frame();
+            let mut beam_only = make_frame();
+            b.draw(&mut opaque);
+            b.draw_revealed(&mut revealed, Some(focus));
+            b.beams[0].draw_at_height(&mut beam_only, (b.body.y + 1.0 - source.1).max(0.0));
+            let mut beam_pixels = 0;
+            for (i, color) in beam_only.albedo.iter().enumerate() {
+                if *color == BACKGROUND { continue; }
+                assert_eq!(revealed.albedo[i], opaque.albedo[i], "charge/live beam pixel was faded");
+                beam_pixels += 1;
+            }
+            assert!(beam_pixels > 20, "charge/live source fixture drew no attack");
+            let lights = |f: &Frame| f.point_lights.iter().map(|p|
+                (p.x, p.y, p.height, p.radius, p.color, p.intensity)).collect::<Vec<_>>();
+            assert_eq!(lights(&revealed), lights(&opaque), "reveal altered attack/heart light output");
+            opaque.cam_y = 200;
+            revealed.cam_y = 200;
+            b.draw_attack_cues(&mut opaque);
+            b.draw_attack_cues(&mut revealed);
+            assert_eq!(revealed.out, opaque.out, "offscreen attack warning changed");
+            assert!(revealed.out.iter().filter(|p| **p != [0, 0, 0, 255]).count() > 20,
+                "the offscreen attack warning fixture must actually draw");
+        }
+    }
+    assert!(protected_near > 40, "the opening never overlapped protected weak points");
+    assert!(crack_pixels_removed > 10, "native fractures were never tested inside the opening");
+}
+
 /// Capture real player combat, or a selected phase, without exposing debug hooks to the game.
 #[test]
 #[ignore = "manual visual capture; GLINT_WARDEN_CAPTURE chooses output directory"]

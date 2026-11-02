@@ -1,6 +1,6 @@
 # GLINTBLADE
 
-Created 2026-10-30 · Updated 2026-11-01
+Created 2026-10-30 · Updated 2026-11-02
 
 **This is AI slop.** I wanted to see the coolest game AI agents could come up with in one night, October 30-31, 2026. Agents, mostly Anthropic's Claude Opus 5.5 and OpenAI's GPT-6.1 Sol, wrote the code and drew the pixel art. The music came from AI music models, and the sound effects are Python synthesis with some AI-generated layers. My part was direction and feedback. I didn't write any code or draw any art.
 
@@ -63,7 +63,7 @@ depth terraces and gentler crystal light; Cinder gains worn foundry beds; the Su
 radial observatory masonry. Sources, rejected studies and scoped independent reviews live in
 [`art/pixellab/2026-11-01-round6/`](art/pixellab/2026-11-01-round6/).
 
-The current lighting uses PixelLab normal maps for 78 native asset families. Bloomwild's
+The current lighting uses PixelLab normal maps for 84 native asset families. Bloomwild's
 sun moves over a 36-second arc, shading ground foliage and casting moving native shadows.
 Crystal sprigs lose their light when broken; Foundry banks respond to the actual hot lava
 currents. The Warden's heart, fists and moving prisms light its body and nearby stone through
@@ -86,6 +86,17 @@ with keyboard and touch, including fullscreen denial and loading failures; this 
 cross-device performance benchmark. Player Card metadata points at the existing GitHub
 Pages game; actual X rendering still depends on the client and its card handling. Evidence:
 [`art/pixellab/2026-11-01-round9/`](art/pixellab/2026-11-01-round9/).
+
+The November 2 beauty pass adds four monumental waterworks landmarks, a fully posed
+stone Warden, a native Bloomwild altar, and connected planting beds with quiet routes.
+Foreground scenery opens around Glint and the surrounding ground while keeping physical
+shadows and attack lights. Repeated native motion reviews also fixed detached reveal
+remnants, gate transitions and a meadow bed hiding an awake Sproutling's windup.
+The combined release passes 374 functional tests; three existing rendering-budget tests
+still fail, and seven tests remain ignored. The final input pilot completes all four
+regions and victory; the rebuilt browser module passes a fresh touch/keyboard smoke check.
+Sources, rejected studies, exact build hashes and review limits:
+[`art/pixellab/2026-11-02-round13/`](art/pixellab/2026-11-02-round13/).
 
 ## Screenshots
 

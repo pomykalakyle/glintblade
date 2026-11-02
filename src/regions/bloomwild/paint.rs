@@ -1563,11 +1563,49 @@ fn opening_steps(z: &mut Zone, mask: &mut [u8]) {
             if mask[i] != mat::GRASS {
                 continue;
             }
-            let c = if [702, 713, 724].contains(&y) {
+            let (top, bottom, joints): (i32, i32, &[i32]) = if y < 703 {
+                (694, 702, &[313, 341])
+            } else if y < 714 {
+                (703, 713, &[305, 335, 360])
+            } else {
+                (714, 724, &[315, 346])
+            };
+            let left = 283 + inset;
+            let right = 378 - inset;
+            let block = joints.iter().filter(|&&joint| x > joint).count();
+            let block_left = if block == 0 {
+                left
+            } else {
+                joints[block - 1] + 1
+            };
+            let block_right = joints.get(block).copied().unwrap_or(right);
+            let edge = (x - left).min(right - x - 1);
+            let joint = joints.contains(&x);
+            let c = if y > 724 {
+                // The plinth's low face stays seated on the meadow, without a bright rail.
+                if joint || y == 727 || (edge < 2 && y > 725) {
+                    pal::STONE[1]
+                } else if y == 725 && !matches!(x, 292..=296 | 355..=360) {
+                    pal::STONE[3]
+                } else {
+                    pal::STONE[2]
+                }
+            } else if joint {
+                // Offset joints belong to separate cut blocks, not a repeating tile grid.
                 pal::STONE[2]
-            } else if [703, 714, 725].contains(&y) {
+            } else if y == bottom {
+                if x - block_left < 3 || block_right - x <= 2 {
+                    pal::STONE[3]
+                } else {
+                    pal::STONE[2]
+                }
+            } else if y == top && edge > 1 && x - block_left >= 2 && block_right - x > 3 {
                 pal::STONE[4]
-            } else if y > 724 {
+            } else if (edge < 2 && y > bottom - 3)
+                || (block == 0 && x - block_left < 3 && y == bottom - 1)
+                || (block % 2 == 1 && block_right - x <= 4 && y >= bottom - 2)
+            {
+                // Small connected bevel chips keep the original solid support underneath.
                 pal::STONE[2]
             } else {
                 pal::STONE[3]
@@ -2052,9 +2090,30 @@ fn details(z: &mut Zone, mask: &[u8]) {
     }
 }
 
-/// Set the prism on a raised octagonal plinth with an inlaid compass, not an emissive floor.
+/// A low, weathered stone seat for the Prism. Native art and its authored stone
+/// planes replace the old compass, while the map still owns the walkable floor.
 fn altar(z: &mut Zone) {
     let (cx, cy) = (ALTAR.0 as i32, ALTAR.1 as i32);
+    if let Some(s) = sheet("bloomwild_altar") {
+        if let Some(a) = s.anim("body") {
+            let cell = s.cell(a, 0);
+            let anchor = s.anchor_of(a);
+            for py in 0..cell.h {
+                for px in 0..cell.w {
+                    let (dx, dy) = (px - anchor.0, py - anchor.1);
+                    let p = cell.at(px, py);
+                    if !p.a { continue; }
+                    // The complete native lower face sits on the existing slab;
+                    // it is painted below the shared walkable plane, with no
+                    // terrain volume, collider or raised actor support.
+                    z.gset(cx + dx, cy + dy, p.c);
+                    z.gset_surface(cx + dx, cy + dy, cell, px, py, false, 0.0);
+                }
+            }
+            return;
+        }
+    }
+    // Minimal fallback for builds that intentionally omit the optional sheet.
     for y in -24i32..=25 {
         for x in -32i32..=32 {
             let d = x
@@ -2125,14 +2184,46 @@ mod material_tests {
             assert_eq!(z.ground_surfaces[(12 * z.pw + 10 + x) as usize],
                 crate::gfx::lighting::TerrainSurface::new([normal[0], -normal[1], normal[2]], 0.0));
         }
+        z.ground.fill(pal::STONE[3]);
+        let mask = vec![mat::SLAB; z.ground.len()];
+        let movement_before = physical_surface(&z, &mask);
         altar(&mut z);
-        let surface = |dx, dy| z.ground_surfaces[((176 + dy) * z.pw + 408 + dx) as usize];
-        assert_eq!(surface(0, 0).normal, [0, 0, 127], "inlaid compass is flush on the top");
-        assert_eq!(surface(30, 0).normal, [90, 0, 90], "east bevel follows the octagonal edge");
-        assert_eq!(surface(-30, 0).normal, [-90, 0, 90], "west bevel faces the other way");
-        assert_eq!(surface(0, 21).normal, [0, 127, 0], "south face stays upright");
-        assert_eq!(surface(0, 0).height, 0, "walkable plinth cannot lift above its actors");
-        assert_eq!(surface(0, 21).height, 0, "painted front hangs below the walkable plane");
+        let s = sheet("bloomwild_altar").expect("native altar is embedded");
+        let a = s.anim("body").unwrap();
+        let cell = s.cell(a, 0);
+        let anchor = s.anchor_of(a);
+        let map = Map::parse();
+        let mut native_pixels = 0;
+        let mut top_pixels = 0;
+        let mut wall_pixels = 0;
+        for py in 0..cell.h {
+            for px in 0..cell.w {
+                let (dx, dy) = (px - anchor.0, py - anchor.1);
+                let i = ((176 + dy) * z.pw + 408 + dx) as usize;
+                let p = cell.at(px, py);
+                if !p.a {
+                    assert_eq!(z.ground[i], pal::STONE[3], "native transparent chips expose the receiving slab");
+                    continue;
+                }
+                native_pixels += 1;
+                assert_eq!(material(&map, 408 + dx, 176 + dy), mat::SLAB,
+                    "complete native footing must remain on the existing dry plaza");
+                assert_eq!(z.ground[i], p.c, "altar keeps exact native source colors");
+                let normal = cell.surface[(py * cell.w + px) as usize].n.map(|n| f32::from(n) / 127.0);
+                let mut expected = crate::gfx::lighting::TerrainSurface::new([normal[0], -normal[1], normal[2]], 0.0);
+                // These source facets describe a walkable floor's relief, not
+                // an extruded vertical terrain mass.
+                expected.upright = false;
+                assert_eq!(z.ground_surfaces[i], expected, "source stone planes own final altar lighting");
+                top_pixels += usize::from(expected.normal[2] > 120);
+                wall_pixels += usize::from(expected.normal[1] > 100 && expected.normal[2].abs() < 10);
+                assert_eq!(expected.height, 0, "walkable stone and actors share the zero-height plane");
+            }
+        }
+        assert!(native_pixels > 1200 && top_pixels > 800 && wall_pixels > 30,
+            "exercise the quiet top, chipped bevel and visible shallow front");
+        assert_eq!(physical_surface(&z, &mask), movement_before,
+            "native altar cannot add walls, lift actors or introduce invisible barriers");
     }
 
     #[test]

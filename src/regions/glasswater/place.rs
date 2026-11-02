@@ -150,6 +150,18 @@ impl P<'_> {
         self.d.push(d);
     }
 
+    /// A real header cistern and broken outlet replace one isolated fin. The
+    /// ordinary prop renderer owns normals, y-sort and local foreground reveal;
+    /// metadata blocks only the native feet on the grove's dry right bank.
+    fn distributor(&mut self) {
+        if sheet("round13_landmarks_distributor").is_some_and(|s| s.has("body")) {
+            self.z.props.push(crate::world::Prop::new(
+                "round13_landmarks_distributor", "body", 1304.0, 252.0));
+        } else {
+            self.spire(85.4, 10.2, 30, 173);
+        }
+    }
+
     fn enemy(&mut self, k: EnemyKind, tx: f32, ty: f32) {
         self.z.enemies.push((k, tx * T, ty * T));
     }
@@ -206,7 +218,7 @@ pub fn populate(z: &mut Zone, decor: &mut Vec<Decor>, _m: &PixMap) {
     p.crystal(65.8, 10.8, 38, false, 71, false);
     p.mushroom(64.6, 10.6, 6, 10, -2, 171);
     p.crystal(79.6, 19.6, 46, false, 72, false);
-    p.spire(85.4, 10.2, 30, 173);
+    p.distributor();
     p.patch(68.3, 12.4, 4, 75);
     p.patch(83.0, 21.0, 3, 76);
     p.crystal(88.3, 14.6, 30, true, 78, true);

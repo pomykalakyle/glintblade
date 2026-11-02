@@ -65,8 +65,15 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     }
     z.props
         .push(Prop::new("cinder_foundry", "press", 621.0, 450.0));
-    z.props
-        .push(Prop::new("cinder_foundry", "broken_press", 600.0, 718.0));
+    // Beyond the canal a failed gantry, suspended ram and anvil bed explain the
+    // workshop. Its native broad feet sit on the existing lower work apron;
+    // the bridge mouth and central combat court stay unobstructed.
+    let broken_press = if crate::gfx::sheet("round13_landmarks_press").is_some_and(|s| s.has("body")) {
+        Prop::new("round13_landmarks_press", "body", 600.0, 718.0)
+    } else {
+        Prop::new("cinder_foundry", "broken_press", 600.0, 718.0)
+    };
+    z.props.push(broken_press);
     // A visible keeper's brazier motivates the court's focal light, away from bridge mouths.
     let mut brazier = Prop::new("cinder_brazier", "brazier_lit", 646.0, 456.0);
     if let Some(s) = brazier.sheet() && let Some(a) = s.anim("brazier_lit") {

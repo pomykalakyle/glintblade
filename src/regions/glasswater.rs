@@ -356,14 +356,15 @@ impl Region for Glasswater {
         self.draw_item_revealed(zone, f, id, t, None);
     }
 
-    fn draw_item_revealed(&self, _zone: &Zone, f: &mut Frame, id: u32, t: u64,
+    fn draw_item_revealed(&self, zone: &Zone, f: &mut Frame, id: u32, t: u64,
         reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         let Some(d) = self.decor.get(id as usize) else {
             return;
         };
         let wob = d.wobble_x();
+        let depth = d.prop.and_then(|id| zone.props.get(id)).map_or(d.y, Prop::sort_y);
         let o = DrawOpts { flip: d.flip, elevation: d.elevation, flash: d.flash,
-            emit_gain: d.emit_gain(t), reveal, shadow_alpha: reveal.map(|_| 1.0), ..Default::default() };
+            emit_gain: d.emit_gain(t), reveal, reveal_depth: Some(depth), shadow_alpha: reveal.map(|_| 1.0), ..Default::default() };
         let reflecting = f.water_any;
         f.water_any = false; // Already reflected once on the actual receiving bank above.
         f.sprite_w(&d.cell, d.anchor, d.x + wob, d.y, &o);
@@ -438,6 +439,7 @@ mod tests {
         let decor_bottom = caster.y as i32 - caster.anchor.1 + caster.h;
         let mut hidden = 0;
         let mut restored = 0;
+        let mut context_restored = 0;
         for i in 0..hero.albedo.len() {
             let same_pixel = |a: &Frame, b: &Frame| a.albedo[i] == b.albedo[i] && a.emissive[i] == b.emissive[i];
             if hero.actor_pixels[i] && !same_pixel(&opaque, &hero) {
@@ -447,7 +449,10 @@ mod tests {
             let wx = (i % crate::gfx::W) as i32 + hero.cam_x;
             let wy = (i / crate::gfx::W) as i32 + hero.cam_y;
             if !focus.covers(wx, wy) {
-                assert!(same_pixel(&revealed, &opaque), "decor {id} faded outside the hero at {wx},{wy}");
+                assert!(same_pixel(&revealed, &opaque), "decor {id} faded outside the context opening at {wx},{wy}");
+            }
+            if !hero.actor_pixels[i] && !same_pixel(&opaque, &hero) && same_pixel(&revealed, &hero) {
+                context_restored += 1;
             }
             if wy >= decor_bottom {
                 assert!(same_pixel(&opaque, &hero), "decor {id} submitted a duplicate reflection at {wx},{wy}");
@@ -455,6 +460,7 @@ mod tests {
         }
         assert!(hidden > 10, "decor {id} did not meaningfully hide the hero: {hidden}");
         assert!(restored * 2 > hidden, "decor {id} restored only {restored}/{hidden} hidden hero pixels");
+        assert!(context_restored > 16, "decor {id} must also expose nearby ground: {context_restored}");
         assert!(revealed.water_any, "decor draw lost the receiving-water flag");
         assert_eq!(revealed.water, opaque.water, "reveal changed the receiving-water mask");
         assert_eq!(revealed.surface_casters.len(), opaque.surface_casters.len());
@@ -470,7 +476,12 @@ mod tests {
     #[test]
     fn reachable_waterworks_crystal_and_fungi_reveal_the_real_hero_locally() {
         let (zone, region) = build();
-        for (id, x, y) in [(27, 1364.0, 104.0), (26, 1280.0, 296.0), (3, 56.0, 456.0)] {
+        // The distributor moved from regional decor into a standalone native
+        // prop. Exercise the remaining sluice fin, crystal and fungi instead
+        // of relying on the removed distributor's former decor index. The sluice
+        // probe walks beside its solid fin on the actual curved receiving bank.
+        for (id, x, y) in [(12, 411.0, 228.0), (26, 1280.0, 296.0), (3, 56.0, 456.0)] {
+            assert!(!zone.blocked(x, y, 4.0), "decor {id} probe must be legal player floor");
             let player = crate::entities::Player::new(x, y);
             let (cell, anchor, flip) = player.current_cell().expect("real hero pose");
             let focus = SpriteFocus { cell, anchor, flip, x, y, ground_y: y };
@@ -481,6 +492,36 @@ mod tests {
                 "probe must be behind real foreground scenery");
             assert_local_item_reveal(&zone, region.as_ref(), id, focus);
         }
+    }
+
+    #[test]
+    fn native_crystal_tip_clears_with_its_stem_instead_of_floating_above_glint() {
+        let (zone, region) = build();
+        let player = crate::entities::Player::new(1280.0, 296.0);
+        let (cell, anchor, flip) = player.current_cell().unwrap();
+        let focus = SpriteFocus { cell, anchor, flip, x: 1280.0, y: 296.0, ground_y: 296.0 };
+        let background = rgb(0xf400b9);
+        let frame = || {
+            let mut f = Frame::new();
+            f.begin(background, Rgb::WHITE);
+            (f.cam_x, f.cam_y) = (1088, 188);
+            f
+        };
+        let mut opaque = frame();
+        let mut revealed = frame();
+        region.draw_item(&zone, &mut opaque, 26, 90);
+        region.draw_item_revealed(&zone, &mut revealed, 26, 90, Some(focus));
+        let mut native_tip = 0;
+        // Actual pale tip identified in the native beauty capture, with its
+        // stem inside the opening. Keeping sparse tip pixels looks detached.
+        for y in 70..89 { for x in 169..181 {
+            let i = y * crate::gfx::W + x;
+            if opaque.albedo[i] == background { continue; }
+            native_tip += 1;
+            assert_eq!(revealed.albedo[i], background, "crystal tip remained detached at {x},{y}");
+            assert_eq!(revealed.emissive[i], Rgb::BLACK);
+        } }
+        assert!(native_tip >= 8, "fixture must contain the actual narrow crystal tip");
     }
 
     #[test]

@@ -354,9 +354,7 @@ mod tests {
             let (z,region)=crate::regions::build(id);
             let casters=native_casters(&z,region.as_ref(),900);
             assert!(casters.len()>=28,"{id:?} actual authored native cells must be visible casters");
-            if id==ZoneId::Glasswater {
-                assert!(z.props.iter().all(|p|p.sheet().is_none()),"this checks region-owned cells, not a substitute prop");
-            } else {
+            if id==ZoneId::Summit {
                 assert!(z.props.iter().any(|p|p.alive && p.footprint.is_none() && p.sheet=="summit_pillars"));
             }
             let target=if id==ZoneId::Glasswater {
@@ -368,6 +366,14 @@ mod tests {
                 let p=z.props.iter().find(|p|p.alive && p.sheet=="summit_pillars").unwrap();
                 casters.iter().find(|c|c.source.x==p.x && c.source.y==p.y).unwrap()
             };
+            if id==ZoneId::Glasswater {
+                let mut authored = Vec::new();
+                region.light_occluders(900, &mut authored);
+                assert!(authored.iter().any(|source| std::ptr::eq(source.cell, target.source.cell)
+                    && source.x == target.source.x && source.y == target.source.y
+                    && source.anchor == target.source.anchor),
+                    "the measured caster must be an actual region-owned cell, not the new landmark prop");
+            }
             let cam=((target.center as i32-180).max(0),(target.base as i32-140).max(0));
             let point=PointLight { x:target.center-60.0,y:target.base-50.0,radius:145.0,color:rgb(0x81d1e0),intensity:0.8, height:18.0 };
             let cache=z.lighting.borrow(); let field=cache.as_ref().unwrap();

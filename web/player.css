@@ -12,16 +12,18 @@ p { margin: 9px 0; }
 .tagline { color: #a6b8ae; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; cursor: pointer; color: #e6f5e8; border: 1px solid #527b77; border-radius: 5px; background: #1a353c; padding: 9px 15px; touch-action: none; }
-button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #b7f5d5; outline-offset: 3px; }
+button:focus-visible, a:focus-visible, summary:focus-visible, select:focus-visible { outline: 2px solid #b7f5d5; outline-offset: 1px; }
 button:disabled { cursor: wait; opacity: .65; }
 button:active, button.pressed { background: #387e7d; }
 #play { margin-top: 9px; min-width: 160px; font-size: 15px; }
 #status { min-height: 1.45em; font-size: 11px; color: #b9c8b9; }
 progress { display: block; margin: 8px auto; width: min(240px, 90%); height: 7px; accent-color: #7fd6cf; }
-.instructions { color: #d6dfcb; }
+.instructions { color: #d6dfcb; white-space: pre-line; }
 details { color: #82998d; font-size: 10px; }
 summary { cursor: pointer; }
-footer { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px max(8px, env(safe-area-inset-right)) 5px max(8px, env(safe-area-inset-left)); color: #8a9b8e; font-size: 10px; line-height: 14px; background: #10151c; }
+footer { flex: none; height: 28px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 3px max(8px, env(safe-area-inset-right)) 3px max(8px, env(safe-area-inset-left)); color: #8a9b8e; font-size: 10px; line-height: 14px; background: #10151c; }
+.controls { flex: none; display: flex; align-items: center; gap: 6px; }
+.controls select { height: 22px; max-width: 160px; font: inherit; color: #d8dccf; background: #18232b; border: 1px solid #527b77; border-radius: 3px; padding: 1px 3px; }
 .links { display: flex; gap: 14px; white-space: nowrap; }
 #hint { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 a { color: #91bdba; text-decoration: none; }
@@ -35,6 +37,7 @@ a:hover { text-decoration: underline; }
 .no-script { position: absolute; inset: 70% 0 auto; text-align: center; background: #10131a; }
 @media (pointer: coarse), (hover: none) { #player { padding-bottom: 104px; } #touch:not([hidden]) { display: flex; } #hint { display: none; } footer { justify-content: center; } }
 @media (max-width: 520px) { #hint { display: none; } footer { justify-content: center; } }
+@media (max-width: 360px) { .controls > span { display: none; } }
 @media (max-height: 330px) { #start { padding: 8px; } h1 { font-size: 24px; } .tagline, details { display: none; } p { margin: 5px 0; } #touch button { min-height: 36px; } .dpad { grid-template-rows: repeat(2, 36px); } }
 @media (max-height: 330px) and (pointer: coarse), (max-height: 330px) and (hover: none) {
   #player { padding-bottom: 64px; }

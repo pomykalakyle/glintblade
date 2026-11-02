@@ -93,9 +93,37 @@ impl Music {
     }
 }
 
+/// Press edges survive rendered frames that do not advance the 60 Hz simulation.
+/// Held state stays separate so a short tap never becomes a charge during catch-up ticks.
+#[derive(Clone, Copy, Debug, Default)]
+struct ActionPresses {
+    attack: bool,
+    dash: bool,
+    confirm: bool,
+    pause: bool,
+}
+
+impl ActionPresses {
+    fn merge(&mut self, pressed: Self) {
+        self.attack |= pressed.attack;
+        self.dash |= pressed.dash;
+        self.confirm |= pressed.confirm;
+        self.pause |= pressed.pause;
+    }
+
+    fn for_tick(&mut self, mut held: Raw) -> Raw {
+        let pressed = std::mem::take(self);
+        held.attack |= pressed.attack;
+        held.dash |= pressed.dash;
+        held.confirm |= pressed.confirm;
+        held.pause |= pressed.pause;
+        held
+    }
+}
+
 // The gamepad block that updates these is compiled out of the browser build.
 #[cfg_attr(target_arch = "wasm32", allow(unused_mut))]
-fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> Raw {
+fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> (Raw, ActionPresses) {
     let mut mx = 0.0f32;
     let mut my = 0.0f32;
     // Default QWERTY: WASD move, J slash, K dash. Colemak-DH mode is for keyboards that
@@ -119,19 +147,26 @@ fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> Raw {
     if is_key_down(KeyCode::Down) || is_key_down(kd) {
         my += 1.0;
     }
-    // N/E remain usable after a fresh browser load, just like the X/C aliases.
-    // Layout selection changes movement and labels; it must not gate these actions.
-    let mut attack = is_key_down(ka) || is_key_down(KeyCode::N) || is_key_down(KeyCode::X) || is_key_down(KeyCode::Z) || is_mouse_button_down(MouseButton::Left);
-    let mut dash = is_key_down(kdash)
-        || is_key_down(KeyCode::E)
-        || is_key_down(KeyCode::Space)
-        || is_key_down(KeyCode::LeftShift)
-        || is_key_down(KeyCode::C)
-        || is_mouse_button_down(MouseButton::Right);
-    let mut confirm = is_key_down(KeyCode::Enter) || is_key_down(KeyCode::KpEnter) || is_key_down(KeyCode::Space);
+    // Only the selected layout supplies the primary action letters. X/Z and C
+    // remain aliases for both layouts and for the browser's touch buttons.
+    let attack_keys = [ka, KeyCode::X, KeyCode::Z];
+    let dash_keys = [kdash, KeyCode::Space, KeyCode::LeftShift, KeyCode::C];
+    let confirm_keys = [KeyCode::Enter, KeyCode::KpEnter, KeyCode::Space];
     // The physical P key sends ";" on Colemak-DH.
     let kpause = if colemak { KeyCode::Semicolon } else { KeyCode::P };
-    let mut pause = is_key_down(KeyCode::Escape) || is_key_down(kpause);
+    let pause_keys = [KeyCode::Escape, kpause];
+    let mut attack = attack_keys.into_iter().any(is_key_down) || is_mouse_button_down(MouseButton::Left);
+    let mut dash = dash_keys.into_iter().any(is_key_down) || is_mouse_button_down(MouseButton::Right);
+    let mut confirm = confirm_keys.into_iter().any(is_key_down);
+    let mut pause = pause_keys.into_iter().any(is_key_down);
+    // Macroquad retains a press even when keydown and keyup arrive between
+    // renders. is_key_down alone would silently drop these short taps.
+    let pressed = ActionPresses {
+        attack: attack_keys.into_iter().any(is_key_pressed) || is_mouse_button_pressed(MouseButton::Left),
+        dash: dash_keys.into_iter().any(is_key_pressed) || is_mouse_button_pressed(MouseButton::Right),
+        confirm: confirm_keys.into_iter().any(is_key_pressed),
+        pause: pause_keys.into_iter().any(is_key_pressed),
+    };
 
     #[cfg(target_arch = "wasm32")]
     let _ = gil;
@@ -169,7 +204,7 @@ fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> Raw {
         }
     }
     let _ = pad;
-    Raw { mv: (mx.clamp(-1.0, 1.0), my.clamp(-1.0, 1.0)), attack, dash, confirm, pause }
+    (Raw { mv: (mx.clamp(-1.0, 1.0), my.clamp(-1.0, 1.0)), attack, dash, confirm, pause }, pressed)
 }
 
 #[derive(Default)]
@@ -222,6 +257,8 @@ pub async fn run(opts: Options) {
     let mut gil = open_gamepads();
     let mut pad = PadState;
     let mut input = Input::default();
+    let mut pending_presses = ActionPresses::default();
+    let mut pending_layout = crate::input::layout();
     let mut acc = 0.0f64;
     let mut last = get_time();
     let mut fullscreen = false;
@@ -230,6 +267,12 @@ pub async fn run(opts: Options) {
         if is_key_pressed(KeyCode::Tab) && game.layout_switch_allowed() {
             use crate::input::{KeyLayout, layout, set_layout};
             set_layout(if layout() == KeyLayout::Qwerty { KeyLayout::ColemakDh } else { KeyLayout::Qwerty });
+        }
+        if crate::input::layout() != pending_layout {
+            // A browser selection can change the layout between frames too.
+            // Do not deliver an unconsumed press from the previous mapping.
+            pending_presses = ActionPresses::default();
+            pending_layout = crate::input::layout();
         }
         // The physical F key sends T on Colemak-DH.
         let kfull = if crate::input::layout() == crate::input::KeyLayout::ColemakDh { KeyCode::T } else { KeyCode::F };
@@ -243,10 +286,11 @@ pub async fn run(opts: Options) {
         let now = get_time();
         acc += (now - last).min(0.25);
         last = now;
-        let raw = sample_input(&mut gil, &mut pad);
+        let (raw, pressed) = sample_input(&mut gil, &mut pad);
+        pending_presses.merge(pressed);
         let mut n = 0;
         while acc >= 1.0 / 60.0 && n < 4 {
-            input.step(raw);
+            input.step(pending_presses.for_tick(raw));
             game.tick(&input);
             acc -= 1.0 / 60.0;
             n += 1;
@@ -311,5 +355,72 @@ pub async fn run(opts: Options) {
         }
 
         next_frame().await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::ActionPresses;
+    use crate::input::{Input, Raw};
+
+    #[test]
+    fn short_action_presses_survive_renders_without_simulation_ticks() {
+        let mut pending = ActionPresses::default();
+        // The key has already been released when the frontend samples it.
+        pending.merge(ActionPresses { attack: true, dash: true, confirm: true, pause: true });
+        // A second rendered frame clears Macroquad's press flags, but neither
+        // rendered frame has advanced the simulation yet.
+        pending.merge(ActionPresses::default());
+        let mut input = Input::default();
+        input.step(pending.for_tick(Raw::default()));
+        assert!(input.attack.pressed && input.dash.pressed && input.confirm.pressed && input.pause.pressed);
+        assert_eq!(input.attack.held, 1);
+    }
+
+    #[test]
+    fn a_tap_is_consumed_once_and_released_on_the_next_catch_up_tick() {
+        let mut pending = ActionPresses { attack: true, dash: true, ..Default::default() };
+        let mut input = Input::default();
+        input.step(pending.for_tick(Raw::default()));
+        assert!(input.attack.pressed && input.dash.pressed);
+        input.step(pending.for_tick(Raw::default()));
+        assert!(input.attack.released && input.dash.released);
+        assert!(!input.attack.down && !input.dash.down);
+        for _ in 0..2 {
+            input.step(pending.for_tick(Raw::default()));
+            assert!(!input.attack.pressed && !input.dash.pressed);
+            assert!(!input.attack.released && !input.dash.released);
+        }
+    }
+
+    #[test]
+    fn held_actions_keep_charge_and_release_semantics() {
+        let mut pending = ActionPresses { attack: true, ..Default::default() };
+        let mut input = Input::default();
+        let held = Raw { attack: true, ..Default::default() };
+        input.step(pending.for_tick(held));
+        assert!(input.attack.pressed);
+        for expected_held in 2..=40 {
+            input.step(pending.for_tick(held));
+            assert!(input.attack.down);
+            assert!(!input.attack.pressed);
+            assert_eq!(input.attack.held, expected_held);
+        }
+        input.step(pending.for_tick(Raw::default()));
+        assert!(input.attack.released);
+        assert_eq!(input.attack.held, 0);
+    }
+
+    #[test]
+    fn pending_actions_never_change_or_retain_movement() {
+        let mut pending = ActionPresses { attack: true, ..Default::default() };
+        let first = pending.for_tick(Raw { mv: (-0.4, 0.7), ..Default::default() });
+        assert_eq!(first.mv, (-0.4, 0.7));
+        assert!(first.attack);
+        let second = pending.for_tick(Raw { mv: (0.2, -0.8), dash: true, ..Default::default() });
+        assert_eq!(second.mv, (0.2, -0.8));
+        assert!(!second.attack);
+        assert!(second.dash);
+        assert_eq!(pending.for_tick(Raw::default()).mv, (0.0, 0.0));
     }
 }

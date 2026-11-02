@@ -3,3 +3,5 @@
 __pycache__/
 *.pyc
 /web/glintblade.wasm
+/web/glintblade.*.wasm
+/web/build-info.json

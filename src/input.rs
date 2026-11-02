@@ -85,6 +85,35 @@ pub fn set_layout(l: KeyLayout) {
     LAYOUT.store(if l == KeyLayout::ColemakDh { 1 } else { 0 }, std::sync::atomic::Ordering::Relaxed);
 }
 
+/// Expose the game's actual layout to the browser controls. Tab changes this same state.
+#[cfg(target_arch = "wasm32")]
+#[unsafe(no_mangle)]
+pub extern "C" fn glint_key_layout() -> u32 {
+    match layout() {
+        KeyLayout::Qwerty => 0,
+        KeyLayout::ColemakDh => 1,
+    }
+}
+
+/// Browser layout selection uses the same state as the native title/pause menu.
+/// Ignore unknown values so a malformed page message cannot select another mapping.
+#[cfg(target_arch = "wasm32")]
+#[unsafe(no_mangle)]
+pub extern "C" fn glint_set_key_layout(value: u32) {
+    match value {
+        0 => set_layout(KeyLayout::Qwerty),
+        1 => set_layout(KeyLayout::ColemakDh),
+        _ => {},
+    }
+}
+
+/// The browser rejects an older cached engine instead of silently using old controls.
+#[cfg(target_arch = "wasm32")]
+#[unsafe(no_mangle)]
+pub extern "C" fn glint_controls_revision() -> u32 {
+    13
+}
+
 /// Key labels for the current layout: (move, slash, dash).
 pub fn key_labels() -> (&'static str, &'static str, &'static str) {
     match layout() {

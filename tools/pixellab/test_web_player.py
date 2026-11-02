@@ -1,6 +1,6 @@
 """Exercise the local browser build inside an X-style cross-origin sandbox.
 
-Requires web/glintblade.wasm and a Playwright Chromium installation.
+Requires a web build assembled with prepare_web_build.py and Playwright Chromium.
 uv run --with playwright python tools/pixellab/test_web_player.py --out out/web-check-new
 The isolated test intercepts local files at the final HTTPS URLs; it publishes nothing.
 PNG readbacks need direct visual review in addition to the input/state assertions.
@@ -155,7 +155,7 @@ async def main():
                 if url.startswith(BASE):
                     name = url[len(BASE):].split('?')[0] or 'index.html'
                     path = WEB / name
-                    if failure and name == 'glintblade.wasm':
+                    if failure and name.endswith('.wasm'):
                         await req.fulfill(status=503, body='Test failure')
                     elif not path.is_file():
                         await req.fulfill(status=404)
@@ -183,6 +183,8 @@ async def main():
         report['startup_seconds'] = round(time.monotonic() - started, 3)
         game = page.frames[1]
         report['runtime'] = await game.evaluate('({version:wasm_exports.crate_version(),canvas:[canvas.width,canvas.height],body:[innerWidth,innerHeight],focus:document.activeElement.id})')
+        report['metadata'] = await game.evaluate("Object.fromEntries([...document.querySelectorAll('meta[name^=\"twitter:\"]')].map(element=>[element.name,element.content]))")
+        report['checks']['fresh_card_480x298'] = report['metadata'].get('twitter:player:width') == '480' and report['metadata'].get('twitter:player:height') == '298'
         await game.evaluate('''() => {
             const original=wasm_exports;window.inputLog=[];window.frameTimes=[];
             wasm_exports={...original,key_down:(...a)=>{inputLog.push(['down',...a]);return original.key_down(...a)},key_up:(...a)=>{inputLog.push(['up',...a]);return original.key_up(...a)},frame:(...a)=>{const t=performance.now();const r=original.frame(...a);frameTimes.push(performance.now()-t);return r}};
@@ -193,7 +195,7 @@ async def main():
         await page.wait_for_timeout(5000)
         await read_canvas(game, 'desktop-bloom-start.png')
         await check_geometry(page, game, 'desktop-cached-480x360')
-        for name, width, height in [('desktop-fresh-480x294', 480, 294), ('desktop-wide-1280x744', 1280, 744), ('desktop-tall-500x900', 500, 900)]:
+        for name, width, height in [('desktop-fresh-480x298', 480, 298), ('desktop-cached-480x294', 480, 294), ('desktop-wide-1280x744', 1280, 744), ('desktop-tall-500x900', 500, 900)]:
             await resize_fixture(page, game, width, height)
             await check_geometry(page, game, name)
         await resize_fixture(page, game, 480, 360)
@@ -229,7 +231,7 @@ async def main():
         await page.screenshot(path=str(OUT / 'mobile-title.png'))
         await frame.locator('[data-code="Enter"]').tap()
         await page.wait_for_timeout(5000)
-        for name, width, height in [('mobile-proportional-390x239', 390, 239), ('mobile-fresh-390x294', 390, 294), ('mobile-cached-390x360', 390, 360), ('mobile-portrait-390x700', 390, 700)]:
+        for name, width, height in [('mobile-cached-proportional-390x239', 390, 239), ('mobile-fresh-390x298', 390, 298), ('mobile-cached-390x294', 390, 294), ('mobile-cached-390x360', 390, 360), ('mobile-portrait-390x700', 390, 700)]:
             await resize_fixture(page, game, width, height)
             await check_geometry(page, game, name, touch_expected=True)
         await resize_fixture(page, game, 390, 360)
@@ -264,7 +266,7 @@ async def main():
         await page.wait_for_timeout(2200)
         await page.keyboard.press('Enter', delay=100)
         await page.wait_for_timeout(5000)
-        for name, width, height in [('hidpi-cached-480x360', 480, 360), ('hidpi-fresh-480x294', 480, 294)]:
+        for name, width, height in [('hidpi-cached-480x360', 480, 360), ('hidpi-fresh-480x298', 480, 298), ('hidpi-cached-480x294', 480, 294)]:
             await resize_fixture(page, game, width, height)
             await check_geometry(page, game, name)
         report['checks']['hidpi_buffer_matches_device_pixels'] = await game.evaluate('Math.abs(canvas.width-canvas.clientWidth*devicePixelRatio)<=1 && Math.abs(canvas.height-canvas.clientHeight*devicePixelRatio)<=1')

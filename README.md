@@ -107,17 +107,24 @@ To build it yourself, you need a recent stable Rust toolchain. The original desk
 cargo run --release
 ```
 
+To assemble the browser build, including its versioned WASM manifest:
+
+```sh
+cargo build --release --target wasm32-unknown-unknown
+python3 tools/pixellab/prepare_web_build.py --wasm target/wasm32-unknown-unknown/release/glintblade.wasm --out-dir web
+```
+
 | Action | Keys |
 | --- | --- |
 | Move | W A S D or arrow keys |
-| Slash (tap three times for a combo) | J / N, or left mouse |
+| Slash (tap three times for a combo) | J, or left mouse |
 | Spin slash | Hold J, then release |
-| Dash | K / E or Space, or right mouse |
+| Dash | K or Space, or right mouse |
 | Start | Enter or Space |
 | Pause | Esc or P |
 | Fullscreen | F |
 
-N slash and E dash also work immediately after a fresh load. For Colemak-DH movement, press Tab on the title or pause screen: W/A/R/S move. The browser follows typed letters with both software and firmware layouts. The desktop option is `cargo run --release -- --colemak`. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
+WASD is the default. Choose Colemak in the browser's Controls selector for W/A/R/S movement, N slash and E dash; N/E are only bound in Colemak mode. The browser remembers an explicitly chosen layout and follows typed letters with both software and firmware layouts. Tab switches layouts on the title or pause screen. The desktop option is `cargo run --release -- --colemak`. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
 
 ## How it was made
 

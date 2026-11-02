@@ -7,6 +7,16 @@
   const status = document.getElementById('status');
   const progress = document.getElementById('progress');
   const touch = document.getElementById('touch');
+  const layoutSelect = document.getElementById('layout');
+  const hint = document.getElementById('hint');
+  const instructions = document.getElementById('instructions');
+  const controlsRevision = 13;
+  const layoutPreference = 'glintblade.keyLayout';
+  let selectedLayout = 0;
+  try {
+    if (localStorage.getItem(layoutPreference) === '1') selectedLayout = 1;
+  } catch (_) { /* Storage may be unavailable in an embedded player. */ }
+  showLayout(selectedLayout);
   let state = 'idle';
   let started = false;
   let readyScheduled = false;
@@ -17,6 +27,25 @@
   const physicalKeys = new Map();
   const touchKeys = new Map();
   const keyNames = { Semicolon: ';', Space: ' ' };
+
+  function showLayout(value) {
+    layoutSelect.value = String(value);
+    const bindings = value === 1 ? 'WARS move · N slash · E dash' : 'WASD move · J slash · K dash';
+    hint.textContent = bindings;
+    instructions.textContent = value === 1
+      ? 'WARS / arrows to move · N to slash\nE / Space to dash · Enter to start'
+      : 'WASD / arrows to move · J to slash\nK / Space to dash · Enter to start';
+    gameCanvas.setAttribute('aria-label', `GLINTBLADE. ${bindings}. Arrows also move; Space dashes.`);
+  }
+  function rememberLayout(value) {
+    selectedLayout = value;
+    showLayout(value);
+    try { localStorage.setItem(layoutPreference, String(value)); } catch (_) { /* Optional preference. */ }
+  }
+  function syncLayout() {
+    const actual = wasm_exports.glint_key_layout();
+    if (actual !== selectedLayout) rememberLayout(actual);
+  }
 
   function armStartupWatchdog() {
     clearTimeout(timeout);
@@ -52,6 +81,9 @@
     overlay.hidden = true;
     touch.hidden = false;
     play.disabled = false;
+    // Apply only an explicit saved choice; a new visitor starts with WASD.
+    wasm_exports.glint_set_key_layout(selectedLayout);
+    showLayout(wasm_exports.glint_key_layout());
     setState('ready', 'Ready');
     // The canvas can change size without a window resize (touch dock, footer,
     // embedding layout). Keep Macroquad's backing buffer in sync with CSS.
@@ -65,7 +97,10 @@
   function watchFirstDraw() {
     const frame = animation;
     animation = function (...args) {
-      if (state !== 'error') frame(...args);
+      if (state !== 'error') {
+        frame(...args);
+        if (state === 'ready') syncLayout();
+      }
     };
     // Fullscreen can be refused by an embedding site's permissions policy.
     // A refused optional view change must not abort the game.
@@ -90,25 +125,42 @@
   }
   async function fetchGame() {
     download = new AbortController();
-    const response = await fetch('glintblade.wasm?v=controls-r12', { signal: download.signal });
+    const release = await fetch('build-info.json?v=controls-r13', { cache: 'no-store', signal: download.signal });
+    if (!release.ok) throw new Error(`Build manifest unavailable: ${release.status}`);
+    const build = await release.json();
+    if (build.schema !== 1 || build.controls_revision !== controlsRevision
+        || !/^[a-f0-9]{64}$/.test(build.sha256)
+        || build.wasm !== `glintblade.${build.sha256.slice(0, 16)}.wasm`) {
+      throw new Error('Game build manifest mismatch');
+    }
+    const response = await fetch(build.wasm, { signal: download.signal });
     if (!response.ok) throw new Error(`Download failed: ${response.status}`);
     const total = Number(response.headers.get('content-length')) || 0;
-    if (!response.body) return response.arrayBuffer();
-    const reader = response.body.getReader();
-    const chunks = [];
-    let received = 0;
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      chunks.push(value);
-      received += value.byteLength;
-      armStartupWatchdog();
-      if (total) { progress.max = total; progress.value = received; }
-      status.textContent = `Loading… ${(received / 1048576).toFixed(1)}${total ? ' / ' + (total / 1048576).toFixed(1) : ''} MB`;
+    let bytes;
+    if (!response.body) bytes = new Uint8Array(await response.arrayBuffer());
+    else {
+      const reader = response.body.getReader();
+      const chunks = [];
+      let received = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        received += value.byteLength;
+        armStartupWatchdog();
+        if (total) { progress.max = total; progress.value = received; }
+        status.textContent = `Loading… ${(received / 1048576).toFixed(1)}${total ? ' / ' + (total / 1048576).toFixed(1) : ''} MB`;
+      }
+      bytes = new Uint8Array(received);
+      let offset = 0;
+      for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
     }
-    const bytes = new Uint8Array(received);
-    let offset = 0;
-    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+    const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
+    if (Array.from(digest, byte => byte.toString(16).padStart(2, '0')).join('') !== build.sha256) {
+      throw new Error('Game download does not match this release');
+    }
+    document.body.dataset.build = build.build;
+    document.body.dataset.controlsRevision = String(build.controls_revision);
     return bytes;
   }
   async function start() {
@@ -138,6 +190,11 @@
       wasm_memory = instance.exports.memory;
       wasm_exports = instance.exports;
       if (wasm_exports.crate_version() !== version) throw new Error('Game runtime version mismatch');
+      if (typeof wasm_exports.glint_key_layout !== 'function'
+          || typeof wasm_exports.glint_set_key_layout !== 'function'
+          || wasm_exports.glint_controls_revision?.() !== controlsRevision) {
+        throw new Error('Game controls version mismatch');
+      }
       init_plugins(plugins);
       setState('starting', 'Preparing the world and sound…');
       instance.exports.main();
@@ -194,6 +251,15 @@
     physicalKeys.clear();
   }
   play.addEventListener('click', start);
+  layoutSelect.addEventListener('change', () => {
+    releaseAll();
+    rememberLayout(Number(layoutSelect.value));
+    if (state === 'ready') {
+      wasm_exports.glint_set_key_layout(selectedLayout);
+      syncLayout();
+      gameCanvas.focus({ preventScroll: true });
+    }
+  });
   for (const button of touch.querySelectorAll('button')) {
     button.tabIndex = -1;
     button.addEventListener('pointerdown', event => {

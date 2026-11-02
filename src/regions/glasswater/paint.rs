@@ -25,7 +25,7 @@ pub struct PixMap {
     pub cls: Vec<u8>,
     /// FACE: rows below the lip. VOID: rows below the ledge edge (255 = far below).
     pub depth: Vec<u8>,
-    /// FACE: the face's height in this column. VOID: the ledge face height.
+    /// WALL_TOP/FACE: the raised wall height in this column. VOID: the hanging ledge depth.
     pub span: Vec<u8>,
     /// VOID: 0 = floor ledge, 1 = wall cliff continuing down, 2 = under water (waterfall).
     pub ledge: Vec<u8>,
@@ -158,15 +158,21 @@ pub fn classify(z: &Zone) -> PixMap {
                 y += 1;
             }
             let ye = y;
-            if ye >= h {
-                continue;
-            }
             let run = ye - ys;
             let f = if run >= fh + 4 {
                 fh
             } else {
                 (run * 3 / 4).max(run.min(6))
             };
+            // The cap and its exposed face belong to one rock mass. Retain its
+            // altitude even in quiet cap interiors that have no native atlas
+            // sample, and for masses whose front is beyond the map boundary.
+            for yy in ys..ye {
+                span[(yy * w + x) as usize] = f as u8;
+            }
+            if ye >= h {
+                continue;
+            }
             for yy in (ye - f)..ye {
                 let i = (yy * w + x) as usize;
                 cls[i] = FACE;
@@ -475,6 +481,21 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
                 _ => ledge_px(m, x, y, i),
             };
             z.ground[i] = c;
+            // The painted geometry is authoritative before optional native
+            // art is applied. A missing atlas must not flatten raised caps or
+            // remove their upright face from local-light occlusion.
+            let surface = match m.cls[i] {
+                WALL_TOP => Some(([0.0, 0.0, 1.0], f32::from(m.span[i]))),
+                FACE => Some(([0.0, 1.0, 0.0], f32::from(m.span[i] - m.depth[i]))),
+                // These faces descend below the walkable floor; the compact
+                // unsigned terrain format represents them at its lower bound.
+                // They must never become above-floor shadow casters.
+                VOID if c.r >= 0.0 && m.ledge[i] != 2 => Some(([0.0, 1.0, 0.0], 0.0)),
+                _ => None,
+            };
+            if let Some((normal, height)) = surface {
+                z.gset_plane_surface(x, y, normal, height);
+            }
         }
     }
 }
@@ -822,6 +843,135 @@ mod normal_tests {
     use super::*;
     use crate::gfx::lighting::TerrainSurface;
     use crate::world::ZoneId;
+
+    #[test]
+    fn raised_wall_caps_and_faces_share_their_authored_altitude() {
+        let (mut z, _) = super::super::build();
+        let m = classify(&z);
+        let fl = fields(&m);
+        let built = z.ground_surfaces.clone();
+        let mut counts = [0usize; 3];
+        for i in 0..m.cls.len() {
+            let expected = match m.cls[i] {
+                WALL_TOP => {
+                    counts[0] += 1;
+                    assert!(m.span[i] > 0, "raised cap lacks its wall height at {i}");
+                    m.span[i]
+                }
+                FACE => {
+                    counts[1] += 1;
+                    m.span[i] - m.depth[i]
+                }
+                VOID if z.ground[i].r >= 0.0 && m.ledge[i] != 2 => {
+                    counts[2] += 1;
+                    0
+                }
+                _ => continue,
+            };
+            assert_eq!(built[i].height, expected, "wrong native terrain elevation at {i}");
+        }
+        assert!(counts.iter().all(|&n| n > 1_000), "exercise real caps, faces and hanging ledges: {counts:?}");
+
+        // Re-run the authored painter alone, without native material maps. Its
+        // structural heights must agree with the fully composed atlas result.
+        z.ground_surfaces.fill(TerrainSurface::default());
+        paint(&mut z, &m, &fl);
+        for i in 0..m.cls.len() {
+            if matches!(m.cls[i], WALL_TOP | FACE)
+                || m.cls[i] == VOID && z.ground[i].r >= 0.0 && m.ledge[i] != 2
+            {
+                assert!(z.ground_surfaces[i].present(), "procedural wall lacks geometry at {i}");
+                assert_eq!(z.ground_surfaces[i].height, built[i].height,
+                    "native artwork changed the authored wall geometry at {i}");
+            }
+            if m.cls[i] == FACE && m.depth[i] == 0 {
+                let above = i - m.w as usize;
+                if m.cls[above] == WALL_TOP {
+                    assert_eq!(z.ground_surfaces[above].height, z.ground_surfaces[i].height,
+                        "cap/front lip has a discontinuity at {i}");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn low_blade_light_does_not_light_the_entry_south_shelf_but_can_light_a_wall_front() {
+        use crate::gfx::{Frame, Rgb, W, lighting, surface};
+
+        let (z, region) = super::super::build();
+        let m = classify(&z);
+        let (cap_x, cap_y) = (42, 468);
+        let cap_i = (cap_y * z.pw + cap_x) as usize;
+        assert_eq!(m.cls[cap_i], WALL_TOP, "exercise the actual raised shelf south of the entry");
+        assert_eq!(z.tile_at(42.5, 460.5), Tile::Floor, "the blade source stands on the entry floor");
+        assert!(z.ground_surfaces[cap_i].height > 12);
+
+        let mut f = Frame::new();
+        f.begin(Rgb::BLACK, Rgb::BLACK);
+        f.surface_lighting = true;
+        f.cam_y = 400;
+        lighting::ground_surface(&z, region.as_ref(), &mut f);
+        f.add_light_3d_w(42.5, 460.5, 12.0, 80.0, Rgb::WHITE, 1.0);
+        surface::apply_world(&z, &mut f);
+        let cap_screen = (cap_y - f.cam_y) as usize * W + cap_x as usize;
+        let cap_light = f.light[cap_screen];
+
+        // A vertical face toward a source on its open floor remains eligible.
+        // Do not fix the shelf by suppressing light on all blocked terrain.
+        let (face_x, face_y) = (0..m.cls.len()).find_map(|i| {
+            if m.cls[i] != FACE || m.span[i] - m.depth[i] != 8 { return None; }
+            let (x, y) = (i as i32 % m.w, i as i32 / m.w);
+            if x < 16 || x >= 300 || y < 300 || y >= 500 { return None; }
+            (z.tile_at(x as f32 + 0.5, y as f32 + 16.5) == Tile::Floor).then_some((x, y))
+        }).expect("entry has a visible eight-pixel-high wall face beside open floor");
+        let face_i = (face_y * m.w + face_x) as usize;
+        assert_eq!(z.ground_surfaces[face_i].height, 8);
+        let mut side = Frame::new();
+        side.begin(Rgb::BLACK, Rgb::BLACK);
+        side.surface_lighting = true;
+        side.cam_y = face_y - 100;
+        lighting::ground_surface(&z, region.as_ref(), &mut side);
+        side.add_light_3d_w(face_x as f32 + 0.5, face_y as f32 + 16.5,
+            12.0, 80.0, Rgb::WHITE, 1.0);
+        surface::apply_world(&z, &mut side);
+        let face_screen = 100 * W + face_x as usize;
+        assert!(side.light[face_screen].r > 0.1,
+            "a facing vertical wall must still receive the nearby blade: ({face_x}, {face_y}), {:?}",
+            side.light[face_screen]);
+        assert_eq!(cap_light, Rgb::BLACK,
+            "a low blade on the north floor lights the top of the higher south shelf");
+    }
+
+    #[test]
+    fn upright_native_facets_keep_the_wall_front_macro_orientation() {
+        use crate::gfx::{Frame, Rgb, W, lighting, surface};
+
+        let (z, region) = super::super::build();
+        let m = classify(&z);
+        // Both native wall facets tilt upward enough that their micro normal
+        // alone looks like a cap. Their authored source basis is still upright.
+        for (x, y) in [(95, 303), (129, 302)] {
+            let i = (y * z.pw + x) as usize;
+            let native = z.ground_surfaces[i];
+            assert_eq!(m.cls[i], FACE);
+            assert!(native.upright);
+            assert!(native.normal[2] > 63, "exercise an upward-tilting front facet at ({x}, {y})");
+            let source_y = y as f32 + f32::from(native.height) + 8.5;
+            assert_eq!(z.tile_at(x as f32 + 0.5, source_y), Tile::Floor);
+
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, Rgb::BLACK);
+            f.surface_lighting = true;
+            f.cam_y = 200;
+            lighting::ground_surface(&z, region.as_ref(), &mut f);
+            let screen_i = (y - f.cam_y) as usize * W + x as usize;
+            assert_eq!(f.surfaces[screen_i].kind, 5, "retain the authored front instead of classifying its local normal");
+            f.add_light_3d_w(x as f32 + 0.5, source_y, 12.0, 80.0, Rgb::WHITE, 1.0);
+            surface::apply_world(&z, &mut f);
+            assert!(f.light[screen_i].r > 0.1,
+                "a lower light facing the front must reach its upward-tilting native facet at ({x}, {y}): {:?}", f.light[screen_i]);
+        }
+    }
 
     #[test]
     fn procedural_margins_preserve_native_material_normals_and_painted_ground() {

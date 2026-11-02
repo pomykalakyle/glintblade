@@ -45,7 +45,9 @@ pub(super) fn apply(z: &mut Zone, m: &Map, mask: &[u8]) {
                 UP
             };
             let detail = terrain_detail::normal(material, x, y, base);
-            z.ground_surfaces[i] = TerrainSurface::new(detail, source.height as f32);
+            let mut surface = TerrainSurface::new(detail, source.height as f32);
+            if source.present() { surface.upright = source.upright; }
+            z.ground_surfaces[i] = surface;
         }
     }
     z.invalidate_lighting();

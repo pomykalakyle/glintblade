@@ -27,10 +27,12 @@ pub(super) fn apply(zone: &mut Zone, map: &PixMap, fields: &Fields) {
             } else {
                 [0.0, 0.0, 1.0]
             };
-            zone.ground_surfaces[i] = TerrainSurface::new(
+            let mut surface = TerrainSurface::new(
                 terrain_detail::normal(material, x, y, base),
                 source.height as f32,
             );
+            if source.present() { surface.upright = source.upright; }
+            zone.ground_surfaces[i] = surface;
         }
     }
     zone.invalidate_lighting();

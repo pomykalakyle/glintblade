@@ -244,7 +244,9 @@ impl Zone {
         if !pixel.a { return; }
         let [nx, ny, nz] = pixel.n.map(|n| n as f32 / 127.0);
         let normal = if upright { [nx, nz, ny] } else { [nx, -ny, nz] };
-        self.ground_surfaces[(y * self.pw + x) as usize] = crate::gfx::lighting::TerrainSurface::new(normal, height);
+        let mut surface = crate::gfx::lighting::TerrainSurface::new(normal, height);
+        surface.upright = upright;
+        self.ground_surfaces[(y * self.pw + x) as usize] = surface;
         self.invalidate_lighting();
     }
     /// Rotate an upright material's front axis around a curved authored wall.
@@ -257,8 +259,10 @@ impl Zone {
         let [nx, ny, nz] = surface.normal.map(|n| n as f32 / 127.0);
         let length = front[0].hypot(front[1]).max(0.001);
         let [fx, fy] = front.map(|n| n / length);
-        self.ground_surfaces[i] = crate::gfx::lighting::TerrainSurface::new(
+        let mut rotated = crate::gfx::lighting::TerrainSurface::new(
             [nx * fy + ny * fx, ny * fy - nx * fx, nz], surface.height as f32);
+        rotated.upright = surface.upright;
+        self.ground_surfaces[i] = rotated;
         self.invalidate_lighting();
     }
     /// Retain an explicitly authored geometric face where there is no native normal atlas.

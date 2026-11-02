@@ -79,13 +79,14 @@ struct Plane {
     edge: f32,
 }
 
-/// Compact retained terrain geometry: three signed normal components and native altitude.
-/// Zero normal denotes absent metadata. Four bytes per world pixel avoids retaining
-/// the twenty-byte scratch Plane across the whole zone.
+/// Compact retained terrain geometry: signed normal, altitude and macro orientation.
+/// Zero normal denotes absent metadata. Five bytes per world pixel preserves an
+/// authored upright face independently of its small material-normal facets.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub(crate) struct TerrainSurface {
     pub normal: [i8; 3],
     pub height: u8,
+    pub upright: bool,
 }
 
 impl TerrainSurface {
@@ -95,6 +96,7 @@ impl TerrainSurface {
         Self {
             normal: normal.map(|n| (n / length * 127.0).round().clamp(-127.0, 127.0) as i8),
             height: height.round().clamp(0.0, 255.0) as u8,
+            upright: normal[2] / length <= 0.5,
         }
     }
 
@@ -105,7 +107,7 @@ impl TerrainSurface {
             normal: self.normal.map(|n| n as f32 / 127.0),
             height: self.height as f32,
             owner: 0,
-            kind: if self.height == 0 { 1 } else { 2 },
+            kind: if self.upright { 5 } else if self.height == 0 { 1 } else { 2 },
         }
     }
 }
@@ -1137,7 +1139,7 @@ mod retained_surface_tests {
 
     #[test]
     fn native_terrain_uv_retains_vectors_without_changing_art_or_physics() {
-        assert_eq!(std::mem::size_of::<TerrainSurface>(), 4);
+        assert_eq!(std::mem::size_of::<TerrainSurface>(), 5);
         let mut cell = Cell::from_ascii(&["ab"], &[( 'a', rgb(0x112233)), ('b', rgb(0xeeddcc))], &[]);
         cell.surface = std::sync::Arc::from([
             NormalPixel { n: [0, 0, 127], a: true, emit: false },

@@ -60,7 +60,7 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
                     if p.a {
                         let gain = (z.ground[i].luma() / ROCK[2].luma()).clamp(0.72, 1.20);
                         z.ground[i] = p.c.scale(gain);
-                        z.gset_surface(x, y, cell, x.rem_euclid(cell.w), y.rem_euclid(cell.h), false, 0.0);
+                        z.gset_surface(x, y, cell, x.rem_euclid(cell.w), y.rem_euclid(cell.h), false, f32::from(m.span[i]));
                     }
                 }
                 FACE => {
@@ -84,8 +84,9 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
                     if p.a {
                         let gain = if m.depth[i] >= m.span[i].saturating_sub(6) { 0.50 } else { 0.78 };
                         z.ground[i] = p.c.scale(gain);
-                        z.gset_surface(x, y, cell, x.rem_euclid(cell.w), 24 + i32::from(m.depth[i]).min(39), true,
-                            i32::from(m.span[i].saturating_sub(m.depth[i])) as f32);
+                        // The ledge hangs below floor level, unlike a raised
+                        // wall face. Its painted depth is not positive height.
+                        z.gset_surface(x, y, cell, x.rem_euclid(cell.w), 24 + i32::from(m.depth[i]).min(39), true, 0.0);
                     }
                 }
                 _ => {}

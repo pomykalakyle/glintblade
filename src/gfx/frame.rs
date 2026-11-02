@@ -188,7 +188,7 @@ pub struct Surface {
     pub normal: [f32; 3],
     pub height: f32,
     pub owner: u32,
-    /// 0 unlit/sky, 1 terrain, 2 scenery, 3 actor, 4 preserved ink.
+    /// 0 unlit/sky, 1 ground, 2 scenery/terrain cap, 3 actor, 4 ink, 5 upright terrain.
     pub kind: u8,
 }
 

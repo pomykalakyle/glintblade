@@ -5,7 +5,7 @@
 //!
 //! Guarantees region builders can rely on:
 //! - Under neutral light (ambient white, no point lights) and a default `Grade`, every pixel
-//!   comes out exactly as authored (bit-exact RGB), except where the vignette darkens the edges.
+//!   comes out exactly as authored (bit-exact RGB), including at the screen edges.
 //! - Flat ambient light is never dithered. Only the light ADDED or REMOVED on top of the
 //!   ambient (point lights, shafts, shadows) is stepped into `Grade::light_steps` bands, with
 //!   ordered dithering confined to the band edges (`Look::light_dither`). Steps keep the light's
@@ -17,9 +17,6 @@
 
 use super::frame::{BH, BW, Frame, H, Rgb, W};
 use crate::util::{bayer4, clamp01};
-use std::cell::RefCell;
-use std::collections::VecDeque;
-use std::sync::OnceLock;
 
 /// Per-zone look. Neutral defaults leave palette colors exactly as authored under white light.
 #[derive(Clone, Copy, Debug)]
@@ -34,7 +31,7 @@ pub struct Grade {
     pub lift: Rgb,
     /// Multiplier for highlights (e.g. warm gold).
     pub gain: Rgb,
-    /// Vignette strength 0..1.
+    /// Legacy look setting; screen-space vignette darkening is no longer applied.
     pub vignette: f32,
     /// Bloom strength (0 disables).
     pub bloom: f32,
@@ -48,30 +45,8 @@ pub struct Grade {
 impl Default for Grade {
     /// Choose neutral grading with restrained pixel lighting.
     fn default() -> Self {
-        Grade { exposure: 1.0, contrast: 1.0, saturation: 1.0, lift: Rgb::BLACK, gain: Rgb::WHITE, vignette: 0.25, bloom: 0.9, bloom_threshold: 0.85, light_steps: 10.0 }
+        Grade { exposure: 1.0, contrast: 1.0, saturation: 1.0, lift: Rgb::BLACK, gain: Rgb::WHITE, vignette: 0.0, bloom: 0.9, bloom_threshold: 0.85, light_steps: 10.0 }
     }
-}
-
-/// Vignette weight per pixel (0 in the middle, rising toward the corners), computed once.
-fn vignette_table() -> &'static [f32] {
-    static T: OnceLock<Vec<f32>> = OnceLock::new();
-    T.get_or_init(|| {
-        let cx = W as f32 * 0.5;
-        let cy = H as f32 * 0.5;
-        let inv = 1.0 / (cx * cx + cy * cy).sqrt();
-        let mut v = vec![0.0; W * H];
-        for y in 0..H {
-            for x in 0..W {
-                let dx = x as f32 + 0.5 - cx;
-                let dy = (y as f32 + 0.5 - cy) * 1.25;
-                let r = ((dx * dx + dy * dy).sqrt() * inv).min(1.0);
-                let k = ((r - 0.42) / 0.58).clamp(0.0, 1.0);
-                // smoothstep-shaped, so the edge of the clear middle has no visible ring
-                v[y * W + x] = k * k * (3.0 - 2.0 * k) * 0.8 + k * k * 0.2;
-            }
-        }
-        v
-    })
 }
 
 /// Fit an over-bright color into 0..1. Below 1 it's untouched (palette colors stay exact).
@@ -125,42 +100,6 @@ fn step_light(l: Rgb, base: Rgb, steps: f32, lo: f32, inv_w: f32, dither: f32) -
     base + d * k
 }
 
-#[derive(Clone, Copy)]
-struct VignettePixel { active: bool, multiplier: Rgb }
-
-struct Vignette {
-    key: [u32; 4],
-    pixels: Vec<VignettePixel>,
-}
-
-thread_local! {
-    /// These screen-space bands depend on strength and tint, never the camera,
-    /// clock, albedo or any emitter. Cache only their exact finished factors.
-    static VIGNETTES: RefCell<VecDeque<Vignette>> = RefCell::new(VecDeque::new());
-}
-
-fn with_vignette(strength: f32, tint: Rgb, draw: impl FnOnce(Option<&[VignettePixel]>)) {
-    if !(strength > 0.0) { draw(None); return; }
-    let key = [strength.to_bits(), tint.r.to_bits(), tint.g.to_bits(), tint.b.to_bits()];
-    VIGNETTES.with(|cache| {
-        let mut cache = cache.borrow_mut();
-        let vignette = if let Some(i) = cache.iter().position(|v| v.key == key) {
-            cache.remove(i).unwrap()
-        } else {
-            let vloss = Rgb::WHITE - tint;
-            let pixels = vignette_table().iter().enumerate().map(|(i, &amount)| {
-                let v = stepped(amount * strength, 16.0, 0.35, bayer4((i % W) as i32, (i / W) as i32));
-                VignettePixel { active: v > 0.0,
-                    multiplier: Rgb::new(1.0 - v * vloss.r, 1.0 - v * vloss.g, 1.0 - v * vloss.b) }
-            }).collect();
-            Vignette { key, pixels }
-        };
-        cache.push_back(vignette);
-        if cache.len() > 4 { cache.pop_front(); }
-        draw(Some(&cache.back().unwrap().pixels));
-    });
-}
-
 /// albedo * light + emissive, then grade into `frame.out`. Keeps the unclipped result in `frame.hdr`.
 pub fn compose(frame: &mut Frame, g: &Grade) {
     // Physical lighting has already combined contact/cast visibility. Its shade
@@ -168,13 +107,11 @@ pub fn compose(frame: &mut Frame, g: &Grade) {
     // every pixel. Unusual unclamped dither widths keep the original full path.
     let has_shade = !(0.0..=1.0).contains(&frame.look.light_dither)
         || frame.shade[..W * H].iter().any(|&v| v < 1.0);
-    with_vignette(g.vignette, frame.look.vignette_tint, |vignette| {
-        if has_shade { compose_pixels::<true>(frame, g, vignette); }
-        else { compose_pixels::<false>(frame, g, vignette); }
-    });
+    if has_shade { compose_pixels::<true>(frame, g); }
+    else { compose_pixels::<false>(frame, g); }
 }
 
-fn compose_pixels<const SHADED: bool>(frame: &mut Frame, g: &Grade, vignette: Option<&[VignettePixel]>) {
+fn compose_pixels<const SHADED: bool>(frame: &mut Frame, g: &Grade) {
     let look = frame.look;
     let steps = if frame.surface_lighting { g.light_steps.max(32.0) } else { g.light_steps.max(0.0) };
     let amb = frame.ambient;
@@ -235,17 +172,13 @@ fn compose_pixels<const SHADED: bool>(frame: &mut Frame, g: &Grade, vignette: Op
                     c = Rgb::gray(l2).lerp(c, g.saturation);
                 }
             }
-            if let Some(vignette) = vignette {
-                let v = vignette[i];
-                if v.active { c = c * v.multiplier; }
-            }
             let u = palette_u8(fit(c, look.hot_white));
             out[i] = [u[0], u[1], u[2], 255];
         }
     }
 }
 
-/// Original pixel loop retained as an exact RGBA/HDR oracle for the fast paths.
+/// Straightforward pixel loop retained as an exact RGBA/HDR oracle for the fast paths.
 #[cfg(test)]
 fn compose_reference(frame: &mut Frame, g: &Grade) {
     let look = frame.look;
@@ -259,8 +192,6 @@ fn compose_reference(frame: &mut Frame, g: &Grade) {
     let lo = 0.5 - 0.5 * w;
     let inv_w = if w > 0.0 { 1.0 / w } else { 0.0 };
     let scatter = look.light_scatter.max(0.0);
-    let vtab = vignette_table();
-    let vloss = Rgb::WHITE - look.vignette_tint;
     let grade_neutral = g.contrast == 1.0 && g.saturation == 1.0 && g.lift == Rgb::BLACK && g.gain == Rgb::WHITE;
     let (cam_x, cam_y) = (frame.cam_x, frame.cam_y);
     for y in 0..H {
@@ -306,12 +237,6 @@ fn compose_reference(frame: &mut Frame, g: &Grade) {
                     let l2 = c.luma();
                     c = Rgb::gray(l2).lerp(c, g.saturation);
                 }
-            }
-            // vignette, pulling toward a cool tint rather than gray
-            let raw_v = vtab[i] * g.vignette;
-            let v = stepped(raw_v, 16.0, 0.35, bayer4(x as i32, y as i32));
-            if v > 0.0 {
-                c = c * Rgb::new(1.0 - v * vloss.r, 1.0 - v * vloss.g, 1.0 - v * vloss.b);
             }
             let c = fit(c, look.hot_white);
             let u = palette_u8(c);
@@ -492,6 +417,36 @@ pub fn composite_scaled(frame: &Frame, scale: usize) -> Vec<u8> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn every_region_grades_identical_scene_pixels_equally_at_center_and_edges() {
+        use crate::world::ZoneId;
+        let mut grades = vec![Grade::default(), Grade { vignette: 1.0, ..Grade::default() }];
+        for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Cinder, ZoneId::Summit] {
+            grades.push(crate::regions::build(id).0.grade);
+        }
+        let mut frame = Frame::new();
+        for (case, mut grade) in grades.into_iter().enumerate() {
+            // Glow is spatially derived from emitters, so isolate the color composite.
+            // Legacy region vignette strengths/tints must never dim the camera edges.
+            grade.bloom = 0.0;
+            frame.begin(Rgb::new(0.38, 0.51, 0.27), Rgb::new(0.5, 0.55, 0.62));
+            frame.light.fill(Rgb::new(0.7, 0.9, 0.72));
+            frame.emissive.fill(Rgb::new(0.02, 0.03, 0.01));
+            frame.look.light_dither = 0.0;
+            frame.look.vignette_tint = Rgb::BLACK;
+            for shade in [1.0, 0.4] {
+                frame.shade.fill(shade);
+                compose(&mut frame, &grade);
+                finish(&mut frame, &grade);
+                let center = frame.out[(H / 2) * W + W / 2];
+                assert!(center[..3].iter().any(|&c| c > 0));
+                for (i, pixel) in frame.out.iter().enumerate() {
+                    assert_eq!(*pixel, center, "screen-position darkening in grade {case}, shade {shade}, pixel {i}");
+                }
+            }
+        }
+    }
 
     fn assert_original_compose(frame: &mut Frame, grade: &Grade, context: &str) {
         compose(frame, grade);

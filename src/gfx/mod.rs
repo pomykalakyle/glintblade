@@ -1,4 +1,5 @@
 pub mod font;
+pub(crate) mod ambient;
 pub mod frame;
 pub mod light;
 pub mod lighting_hook;

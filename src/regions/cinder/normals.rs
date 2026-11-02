@@ -39,10 +39,12 @@ pub(super) fn detail(z: &mut Zone, kind: &Grid<u8>) {
             } else {
                 fallback
             };
-            z.ground_surfaces[i] = TerrainSurface::new(
+            let mut detailed = TerrainSurface::new(
                 terrain_detail::normal(material, x, y, base),
                 surface.height as f32,
             );
+            if surface.present() { detailed.upright = surface.upright; }
+            z.ground_surfaces[i] = detailed;
         }
     }
     z.invalidate_lighting();

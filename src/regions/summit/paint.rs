@@ -1393,7 +1393,9 @@ fn material_surfaces(c: &mut Canvas) {
             }
             let base = surface.normal.map(|v| v as f32 / 127.0);
             let normal = terrain_detail::normal(Material::Stone, x, y, base);
-            c.z.ground_surfaces[i] = TerrainSurface::new(normal, surface.height as f32);
+            let mut detailed = TerrainSurface::new(normal, surface.height as f32);
+            detailed.upright = surface.upright;
+            c.z.ground_surfaces[i] = detailed;
         }
     }
     c.z.invalidate_lighting();

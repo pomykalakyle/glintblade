@@ -261,6 +261,7 @@ pub fn apply_world(zone: &crate::world::Zone, f: &mut Frame) {
 }
 
 fn apply_inner(zone: Option<&crate::world::Zone>, f: &mut Frame) {
+    super::ambient::apply(zone, f);
     // Split daylight into cool fill and a real moving directional key. The same
     // direction drives native alpha/terrain visibility and per-pixel incidence.
     // Emissive pixels and sky never acquire a sunlight proxy.
@@ -270,16 +271,6 @@ fn apply_inner(zone: Option<&crate::world::Zone>, f: &mut Frame) {
         for (i, (s, light)) in f.surfaces.iter().zip(&mut f.light).enumerate() {
             if s.kind == 0 {
                 continue;
-            }
-            if s.kind == 1 && s.normal[2] > 0.5 {
-                // Broad directional skylight still reaches shaded ground. A
-                // horizontal receiver keeps its current exposure; small turf
-                // facets retain restrained relief when the direct sun is hidden.
-                let sky_dot = (-0.45 * s.normal[0] - 0.35 * s.normal[1]
-                    + 0.82 * s.normal[2]).max(0.0);
-                let sky = ((0.45 + 0.55 * sky_dot) / (0.45 + 0.55 * 0.82))
-                    .clamp(0.82, 1.16);
-                *light = light.scale(sky);
             }
             let dot = (direction[0] * s.normal[0]
                 + direction[1] * s.normal[1]
@@ -439,6 +430,7 @@ fn apply_points(zone: Option<&crate::world::Zone>, f: &mut Frame) {
         return;
     }
     let runs = HeightRuns::new(f);
+    let soften = zone.is_some_and(|z| z.id != crate::world::ZoneId::Bloomwild);
     for li in 0..f.point_lights.len() {
         let light = f.point_lights[li];
         let visibility = if let Some(zone) = zone {
@@ -483,20 +475,34 @@ fn apply_points(zone: Option<&crate::world::Zone>, f: &mut Frame) {
                         continue;
                     }
                     let inv_d = 1.0 / d2.sqrt().max(1.0);
-                    let diffuse = ((s.normal[0] * dx + s.normal[1] * dy + s.normal[2] * dz)
-                        * inv_d)
-                        .clamp(0.0, 1.0);
-                    let response = if s.kind == 4 {
-                        0.16
-                    } else {
-                        0.12 + 1.25 * diffuse
-                    };
+                    let response = point_response(s, [dx, dy, dz], inv_d, soften);
                     let strength =
                         light.intensity * a * a * response * visibility[i] as f32 / 255.0;
                     f.light[i] += light.color.scale(strength);
                 }
             }
         }
+    }
+}
+
+/// Terrain receives direct light only on its exposed side. In the three dark
+/// regions, mix microfacet response with the top plane to keep sword/lava light
+/// calm while the independent ambient pass supplies continuous surface detail.
+fn point_response(surface: Surface, direction: [f32; 3], inverse_distance: f32, soften: bool) -> f32 {
+    let terrain = surface.owner == 0 && matches!(surface.kind, 1 | 2 | 5);
+    let top = terrain && surface.kind != 5;
+    if top && direction[2] < 0.0 { return 0.0; }
+    let mut dot = surface.normal.iter().zip(direction).map(|(n, d)| n * d).sum::<f32>();
+    if top && soften {
+        dot = direction[2] + 0.55 * (dot - direction[2]);
+    }
+    let diffuse = (dot * inverse_distance).clamp(0.0, 1.0);
+    if terrain {
+        1.25 * diffuse
+    } else if surface.kind == 4 {
+        0.16
+    } else {
+        0.12 + 1.25 * diffuse
     }
 }
 
@@ -509,6 +515,7 @@ thread_local! {
 /// exact-output oracle for grouping and sphere-edge interval searches in tests.
 fn apply_points_rectangle(zone: Option<&crate::world::Zone>, f: &mut Frame) {
     let lights = f.point_lights.clone();
+    let soften = zone.is_some_and(|z| z.id != crate::world::ZoneId::Bloomwild);
     for light in lights {
         let visibility = if let Some(zone) = zone {
             super::lighting::point_visibility_world(zone, f, light)
@@ -545,14 +552,7 @@ fn apply_points_rectangle(zone: Option<&crate::world::Zone>, f: &mut Frame) {
                     continue;
                 }
                 let inv_d = 1.0 / d2.sqrt().max(1.0);
-                let diffuse = ((s.normal[0] * dx + s.normal[1] * dy + s.normal[2] * dz) * inv_d)
-                    .clamp(0.0, 1.0);
-                // A little diffuse wrap keeps hand-drawn dark materials readable without gloss.
-                let response = if s.kind == 4 {
-                    0.16
-                } else {
-                    0.12 + 1.25 * diffuse
-                };
+                let response = point_response(s, [dx, dy, dz], inv_d, soften);
                 let strength = light.intensity * a * a * response * visibility[i] as f32 / 255.0;
                 f.light[i] += light.color.scale(strength);
             }
@@ -564,6 +564,55 @@ fn apply_points_rectangle(zone: Option<&crate::world::Zone>, f: &mut Frame) {
 mod tests {
     use super::*;
     use crate::gfx::Rgb;
+
+    #[test]
+    fn terrain_point_sources_cannot_light_high_caps_or_rear_faces() {
+        use crate::gfx::frame::PointLight;
+        let index = 100 * W + 80;
+        for count in [1, 7] {
+            for (normal, height, kind, source, lit) in [
+                ([0.0, 0.0, 1.0], 30.0, 2, [80.5, 100.5, 12.0], false),
+                ([0.0, -0.3, 0.9539392], 30.0, 2, [80.5, 100.5, 29.0], false),
+                ([0.0, 1.0, 0.0], 15.0, 5, [80.5, 140.5, 12.0], true),
+                ([0.0, 1.0, 0.0], 15.0, 5, [80.5, 80.5, 12.0], false),
+                ([-0.126, 0.740, 0.661], 17.0, 5, [80.5, 158.5, 12.0], true),
+            ] {
+                let mut frame = Frame::new();
+                frame.begin(Rgb::BLACK, Rgb::BLACK);
+                frame.surfaces[index] = Surface { normal, height, owner: 0, kind };
+                frame.point_lights.push(PointLight { x: source[0], y: source[1] - source[2],
+                    height: source[2], radius: 100.0, color: Rgb::WHITE, intensity: 1.0 });
+                for _ in 1..count {
+                    frame.point_lights.push(PointLight { x: -1000.0, y: -1000.0, height: 12.0,
+                        radius: 2.0, color: Rgb::WHITE, intensity: 1.0 });
+                }
+                apply_points(None, &mut frame);
+                if lit {
+                    assert!(frame.light[index].r > 0.1, "a facing vertical cliff still receives low light");
+                } else {
+                    assert_eq!(frame.light[index], Rgb::BLACK,
+                        "{count}-source pass leaked onto cap/rear face: {normal:?} from {source:?}");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn calmer_local_relief_preserves_flat_terrain_and_character_light() {
+        let direction = [12.0, 10.0, 8.0];
+        let inverse = 1.0 / 308.0_f32.sqrt();
+        let terrain = |x| Surface { normal: [x, 0.0, (1.0_f32 - x*x).sqrt()],
+            height: 0.0, owner: 0, kind: 1 };
+        let original = point_response(terrain(0.25), direction, inverse, false)
+            - point_response(terrain(-0.25), direction, inverse, false);
+        let softened = point_response(terrain(0.25), direction, inverse, true)
+            - point_response(terrain(-0.25), direction, inverse, true);
+        assert!((softened / original - 0.55).abs() < 0.00001);
+        assert_eq!(point_response(terrain(0.0), direction, inverse, false),
+            point_response(terrain(0.0), direction, inverse, true));
+        let actor = Surface { owner: 1, kind: 3, ..terrain(0.25) };
+        assert_eq!(point_response(actor, direction, inverse, false), point_response(actor, direction, inverse, true));
+    }
     /// The reference switch is thread-local so these complete scene renders can
     /// run alongside unrelated tests, and is reset even when an assertion panics.
     fn with_reference_points<T>(draw: impl FnOnce() -> T) -> T {

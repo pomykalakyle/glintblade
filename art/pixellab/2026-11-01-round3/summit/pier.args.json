@@ -1,0 +1,19 @@
+{
+  "description": "A single majestic broken stone pier of an ancient sky aqueduct, a restrained hand-crafted pixel art prop for a top-down 384x216 game. 64x112 native pixels; whole object on a completely transparent background. Entire pier fits canvas with empty padding. Base centered at pixel32,106. Height90 pixels, width35 at base. Lean vertically slotted monolithic blue-grey ashlar engineering; two massive unequal upright fins attached to one heavy block footing, fractured angular silhouette and one deep vertical channel, small purposeful chipped clusters at broken top. Not a statue or classical column. Upper left cool light. Large flat shadow planes with sparse cracks, no noisy texture. Palette cold #2b3548 #333b4c #46526a #64738a #94a1ae, light only tiny broken edge, broad calm shapes. Melancholy abandoned waterworks, immense old engineering. No glyphs, no moss, no glow, no vines, no cast shadow or ground. Three-quarter top-down game view with a shallow visible top plane.",
+  "width": 64,
+  "height": 112,
+  "no_background": true,
+  "palette": [
+    "#1f2838",
+    "#2b3548",
+    "#333b4c",
+    "#46526a",
+    "#555d70",
+    "#64738a",
+    "#7f8797",
+    "#94a1ae",
+    "#c1c8c5"
+  ],
+  "max_colors": 7,
+  "seed": 419
+}

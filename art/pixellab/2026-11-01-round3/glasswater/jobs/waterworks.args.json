@@ -1,0 +1,32 @@
+{
+  "no_background": true,
+  "palette": [
+    "#182331",
+    "#222d3d",
+    "#29313f",
+    "#364657",
+    "#424956",
+    "#4c6070",
+    "#626a74",
+    "#73858b",
+    "#929797",
+    "#a6b4ad",
+    "#bbc0b4",
+    "#4d4866",
+    "#796c91",
+    "#a195b8",
+    "#cdc3db"
+  ],
+  "palette_name": "Glasswater slate and pale iris",
+  "max_colors": 9,
+  "style_image_base64": "iVBORw0KGgoAAAANSUhEUgAAADAAAABACAYAAABcIPRGAAACwklEQVR4nO2asW8TMRTGvyBGxqrShQnUNEDbqYItK8qSBYH4DzJV6lAxVMyIASFRiSxMZEQgljKcWLOBbknSJse1MDWRUAcGpixmwaeLz/b5fLaJkH9TYt2dv+89+z2fEsDj8Xg8Ho/H4/F4PNWIBgnRue8KO9Bpd7UepEs0SIiueIBjAHBjot8LSb8XkvHwvNJzuAYAuyb6vXDp2ePhOXSNXGUHtje2MD470ZQmhxVuAmEGALNZsCEe4GSApdPukuPwTU13AlvCKdwMbG9sGXl4GfEfjj9qzVGYAaB8FlwIpygZANRMlBE+ncRGikVuCT1/vV8D+MtItqnLijeFcgZMYFI4RVpGVVGJPiueXT66lc56BmxEPYuRDIiYTmLcut20OYWdDNCo2xYPCDKgW4mmkziNugvxgMEMuFguPIztgX8hHrC8iV1Q2UBRD+CVUVM9APifM6BbiUSMz06svOlZ78RUtKl3DBZrBug535ZwinEDroRTjBlwLZxS2YBIOG1stk+jhfX3cO+IAPnaTREJB+z3AKBiBnjLxXbEWSo3MpcnTx6VDLgSLmucK3+UoHtQxEobONw7InTTi7JQaEB2JrJJVryMlcxA0bLJomRgESywCBbYbDXSsYedB+ln1dKp0gNEfUfULwr7wMGzFyROLtLvzb8mhr9GiJMLPLrbLlZuEa6BTrtLaLSz4nnf338NsXPthhExZaMPCAxstho5oTJGv38AgDEjVAMAfBsk0utyztglAwA/Z3Puzev1AKdRhDu7u+mYzIQssjT6NBiUZuM6AODl0yfcLOQG791/TNbrgVR4lsv5bMmATT69fZXTK9zEKuKz11LTVZHNS4ObNVJjL9CZ9HI+w1pQl17DM5hdfqoB+/L53ZJmZz9w8ASuBXWcRlGheRkr2YlFsNEHBG9kN3daTv/wocr30SCn9w9HnkKXt4XPzwAAAABJRU5ErkJggg==",
+  "style_copy": [
+    "outline",
+    "detail",
+    "shading"
+  ],
+  "width": 96,
+  "height": 96,
+  "seed": 229,
+  "description": "An ancient abandoned cave waterworks sluice distributor: a tall broken slate stone pillar with a narrow dark vertical channel, worn iris-grey stone fins, a fractured horizontal lintel, small attached lower stepped basin and two bent dark iron braces. Strong asymmetrical silhouette. Tiny 3/4 top-down action RPG asset, native 96x96 pixels, base at x48,y90, subject 65px tall. Restrained architecture, large quiet angular stone faces, few purposeful fractures, upper-left chisel edges, convincing weight and grounded broad foot. No active water, no blue lights, no crystals, no glowing runes, no backdrop, no scene, no plants, transparent background. Crisp one-pixel details only at important joints, no uniform noise, no soft alpha."
+}

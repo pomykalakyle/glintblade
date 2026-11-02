@@ -1,0 +1,17 @@
+{
+  "kind": "topdown planar liquid; outline_rounding0 and part_shapes0 prevent chunk-edge mounds",
+  "normal_z_mean": 0.9999407107688781,
+  "all_horizontal_delta_p95": 0.007843016640425445,
+  "chunk_seams": [
+    {
+      "x": 512,
+      "mean_vector_delta": 0.006778406033708017,
+      "max_vector_delta": 0.028275722924399303
+    },
+    {
+      "x": 1024,
+      "mean_vector_delta": 0.006611790510097797,
+      "max_vector_delta": 0.028275722924399303
+    }
+  ]
+}

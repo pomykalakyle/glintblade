@@ -10,7 +10,7 @@ use crate::fx::{Fx, Particle};
 use crate::gfx::{DrawOpts, Frame, Rgb, rgb, sheet};
 use crate::input::Input;
 use crate::regions;
-use crate::view::render_world;
+use crate::view::render_world_focused;
 use crate::world::{Region, RegionCtx, Zone, ZoneId};
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -358,6 +358,19 @@ impl Play {
         if self.boss_awake {
             // Bound the smoothed offset too, including look-ahead and the airborne respawn.
             self.cam.keep_visible(self.player.body.x, self.player.body.y - self.player.body.z);
+            if self.player.alive() {
+                self.cam.prepare_weapon_margin(self.player.body.y - self.player.body.z);
+            }
+            if self.player.alive() && let Some(b) = &self.boss && b.body.dist_to(self.player.body.x, self.player.body.y) < 300.0 {
+                let player_y = self.player.body.y - self.player.body.z;
+                // Establish the full fitting interval during the lead-in, not at beam onset.
+                if let Some(top) = boss_top
+                    && self.player.body.y - self.player.body.z - top <= crate::gfx::H as f32 - 48.0
+                {
+                    self.cam.keep_fitting_assembly(top, player_y);
+                }
+                self.cam.frame_attack_sources((self.player.body.x, player_y), b.attack_sources());
+            }
         }
     }
 
@@ -400,7 +413,7 @@ impl Play {
             ext.push((self.player.body.y, ID_PLAYER));
         }
         for (i, e) in self.enemies.iter().enumerate() {
-            if e.body.alive && f.visible(e.body.x - 24.0, e.body.y - 40.0, 48.0, 48.0, 0.0) {
+            if e.body.alive {
                 ext.push((e.body.y, ID_ENEMY + i as u32));
             }
         }
@@ -445,7 +458,16 @@ impl Play {
             i if i >= ID_ENEMY => me.enemies[(i - ID_ENEMY) as usize].draw(f),
             _ => {}
         };
-        render_world(&self.zone, self.region.as_ref(), fx, f, t, &ext, &mut draw, Some((self.player.body.x, self.player.body.y)));
+        let sprite_focus = if self.hide_player { None } else {
+            self.player.current_cell().map(|(cell, anchor, flip)| crate::gfx::sprite::SpriteFocus {
+                cell, anchor, flip, x: self.player.body.x, y: self.player.body.y - self.player.body.z,
+                ground_y: self.player.body.y,
+            })
+        };
+        render_world_focused(&self.zone, self.region.as_ref(), fx, f, t, &ext, &mut draw, Some((self.player.body.x, self.player.body.y)), sprite_focus);
+        if !self.hide_player && self.player.alive() && self.boss_awake && let Some(b) = &self.boss {
+            b.draw_attack_cues(f);
+        }
     }
 
     fn draw_shard(&self, f: &mut Frame, t: u64) {
@@ -519,6 +541,53 @@ mod tests {
     use crate::tools::parse_script;
     use std::cell::Cell;
     use std::rc::Rc;
+
+    /// Reach legal ground behind the foreground tree using ordinary movement. The old
+    /// direct rightward leg stopped at the entry pier once its native base became solid.
+    #[test]
+    fn bloomwild_foreground_wood_reveals_actual_hero_pixels_at_motion_probe() {
+        let mut game = Game::new(Options { start: Some(ZoneId::Bloomwild), ..Options::default() });
+        let mut input = Input::default();
+        let mut tick = 0;
+        'route: for (raw, ticks) in parse_script("W360 U82 R59 D20") {
+            for _ in 0..ticks {
+                input.step(raw); game.tick(&input); tick += 1;
+                if tick == 521 { break 'route; }
+            }
+        }
+        let Scene::Play(p) = &game.scene else { panic!("probe must remain in Bloomwild") };
+        assert!(!p.zone.blocked(p.player.body.x, p.player.body.y, p.player.body.r),
+            "foreground visibility must be checked from legal ground");
+        let (cell, anchor, flip) = p.player.current_cell().unwrap();
+        let focus = crate::gfx::sprite::SpriteFocus { cell, anchor, flip, x: p.player.body.x, y: p.player.body.y - p.player.body.z, ground_y: p.player.body.y };
+        let (cx, cy) = p.cam.view(p.zone.pw, p.zone.ph, 0.0, tick);
+        let mut opaque = Frame::new(); let mut revealed = Frame::new();
+        for f in [&mut opaque, &mut revealed] {
+            f.cam_x = cx; f.cam_y = cy; f.begin(Rgb::BLACK, Rgb::WHITE); p.player.draw(f);
+        }
+        for tree in p.zone.props.iter().filter(|tree| tree.alive && tree.sheet == "bloomwild_trees" && tree.sort_y() > p.player.body.y) {
+            tree.draw(&mut opaque, tick, 1.0);
+            tree.draw_revealed(&mut revealed, tick, 1.0, Some(focus));
+        }
+        let mut hidden = 0; let mut recovered = 0;
+        let ox = p.player.body.x.floor() as i32 - if flip { cell.w - 1 - anchor.0 } else { anchor.0 };
+        let oy = focus.y.floor() as i32 - anchor.1;
+        for y in 0..cell.h { for x in 0..cell.w {
+            if !cell.at(x, y).a { continue; }
+            let wx = ox + if flip { cell.w - 1 - x } else { x };
+            let (sx, sy) = (wx - cx, oy + y - cy);
+            if sx < 0 || sy < 0 || sx >= W as i32 || sy >= H as i32 { continue; }
+            let i = sy as usize * W + sx as usize;
+            if !opaque.actor_pixels[i] { hidden += 1; recovered += usize::from(revealed.actor_pixels[i]); }
+        }}
+        assert!(hidden >= 8, "the fixture must actually exercise foreground wood: {hidden} hidden pixels");
+        assert!(recovered * 3 >= hidden * 2, "Glint must retain >=2/3 of the previously hidden body pixels: {recovered}/{hidden}");
+        for y in 0..H { for x in 0..W {
+            if !focus.covers(x as i32 + cx, y as i32 + cy) {
+                assert_eq!(opaque.albedo[y * W + x], revealed.albedo[y * W + x], "roots/scenery outside the actual pose must not fade");
+            }
+        }}
+    }
 
     /// Observe the actual ambient RegionCtx and rendered origin through both camera modes.
     #[test]

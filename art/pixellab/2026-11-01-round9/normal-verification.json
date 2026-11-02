@@ -1,0 +1,1418 @@
+{
+  "checked_at_utc": "2026-11-02T06:01:03.272491+00:00",
+  "errors": [],
+  "extra_normals": [],
+  "failed_pairs": 0,
+  "frozen_checksum_list_sha256": "646c096e1fc3341119fa7a5a2da6d9ecf358e4a4a17ecccac5d1c921812f0953",
+  "frozen_manifest_sha256": "2486f71e5edba3fd6a56320044dea4b7b17d881e7161daee68c39235d25edfa6",
+  "missing_normals": [],
+  "normal_pairs_checked": 78,
+  "pairs": [
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_aqueduct.png",
+      "normal_sha256": "f1bb30bf3e8df0a7fa0f8bb70fe2b452ed57a3ffec5782b0ac1434b26b0bc58a",
+      "normal_size": [
+        128,
+        96
+      ],
+      "opaque_pixels": 5690,
+      "sheet": "bloomwild_aqueduct",
+      "source": "assets/sprites/bloomwild_aqueduct.png",
+      "source_sha256": "5704d65c8d7e5e174b926b4eec5afe8df7d0fc44bf613f562bd2d8edaee116f7",
+      "source_size": [
+        128,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_arch.png",
+      "normal_sha256": "b275625c418184d5b19700f923fff00da15eba6f65c741e9180f707a104e7927",
+      "normal_size": [
+        64,
+        216
+      ],
+      "opaque_pixels": 1857,
+      "sheet": "bloomwild_arch",
+      "source": "assets/sprites/bloomwild_arch.png",
+      "source_sha256": "c6240d344883f58b9e0b4bf6e5092e77513560aa8a14dee2e28da6416cd61cb0",
+      "source_size": [
+        64,
+        216
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_cliff.png",
+      "normal_sha256": "c0c491f4392f3cdbfeccb8239994993f99af7b4d47b4e0b741bf807994a98735",
+      "normal_size": [
+        512,
+        96
+      ],
+      "opaque_pixels": 24604,
+      "sheet": "bloomwild_cliff",
+      "source": "assets/sprites/bloomwild_cliff.png",
+      "source_sha256": "2fefec1e52c634171b21a44ae8365eba333918a4a26866aae4708b601a97f56d",
+      "source_size": [
+        512,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_floor_details.png",
+      "normal_sha256": "973f399fd41732cbf65ff61b4a1ea0cc66767541acb243ad77c3749e7541b7c2",
+      "normal_size": [
+        128,
+        256
+      ],
+      "opaque_pixels": 10173,
+      "sheet": "bloomwild_floor_details",
+      "source": "assets/sprites/bloomwild_floor_details.png",
+      "source_sha256": "251798ca01770fd5dd41ee881150e65ed41a4b6b499da93cf110a624cd87a4d6",
+      "source_size": [
+        128,
+        256
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_grass.png",
+      "normal_sha256": "afe0f9d75bf12c50fc6ae2242a78175a7bf7efba798297ea6fe033956e9d8b18",
+      "normal_size": [
+        256,
+        32
+      ],
+      "opaque_pixels": 2227,
+      "sheet": "bloomwild_grass",
+      "source": "assets/sprites/bloomwild_grass.png",
+      "source_sha256": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6",
+      "source_size": [
+        256,
+        32
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_growth.png",
+      "normal_sha256": "418729053ee67b7f114acda8d3a4cc7ab9ae4c061e7b770655d74be103e82707",
+      "normal_size": [
+        64,
+        80
+      ],
+      "opaque_pixels": 1927,
+      "sheet": "bloomwild_growth",
+      "source": "assets/sprites/bloomwild_growth.png",
+      "source_sha256": "98ed375ea3a6d3a07e045577a265051fd79c092a8d79b5ccc8b264179b46e2ff",
+      "source_size": [
+        64,
+        80
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_growth_low.png",
+      "normal_sha256": "414111f63be8e0947c354fd6e5449b9c6dad3919576cbcd6ca61f76af850286f",
+      "normal_size": [
+        48,
+        32
+      ],
+      "opaque_pixels": 382,
+      "sheet": "bloomwild_growth_low",
+      "source": "assets/sprites/bloomwild_growth_low.png",
+      "source_sha256": "bc5b738b5ea30d7b226678128f71bf49b123ed97903bd3a0245257889deb02ab",
+      "source_size": [
+        48,
+        32
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_lantern.png",
+      "normal_sha256": "0fd33806c5827963957b245e57c9924f1024f587fa605e57cc2c1cacf849d0de",
+      "normal_size": [
+        96,
+        80
+      ],
+      "opaque_pixels": 1750,
+      "sheet": "bloomwild_lantern",
+      "source": "assets/sprites/bloomwild_lantern.png",
+      "source_sha256": "86fef25866528974af965f51d9f4a05a16ef1d82687b20a20a4bfdedca609e90",
+      "source_size": [
+        96,
+        80
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_materials.png",
+      "normal_sha256": "b3863a1474ff4ff472030069536d2b132851d01a1efb0ff7c779ca6e31a79cb7",
+      "normal_size": [
+        512,
+        64
+      ],
+      "opaque_pixels": 27648,
+      "sheet": "bloomwild_materials",
+      "source": "assets/sprites/bloomwild_materials.png",
+      "source_sha256": "3e2b50c7294540dcd5eb8b9f29cad27c7cb897eac0813128fa271586a8b825db",
+      "source_size": [
+        512,
+        64
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_props.png",
+      "normal_sha256": "a5683e89414c6be5c248fc3cda08eae35013bba30b805e8a3c131f3c9a861220",
+      "normal_size": [
+        32,
+        288
+      ],
+      "opaque_pixels": 1735,
+      "sheet": "bloomwild_props",
+      "source": "assets/sprites/bloomwild_props.png",
+      "source_sha256": "1ba479ae5f0ad66d39acb1db9e5575f765b9ad6d4312cb177cf0f745bbcc2dbe",
+      "source_size": [
+        32,
+        288
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_ruins.png",
+      "normal_sha256": "76389849d795a9a83cb540d3dd8315a304cfd8639ed6b9c561837a97fa93869a",
+      "normal_size": [
+        48,
+        504
+      ],
+      "opaque_pixels": 8431,
+      "sheet": "bloomwild_ruins",
+      "source": "assets/sprites/bloomwild_ruins.png",
+      "source_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+      "source_size": [
+        48,
+        504
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_terrace.png",
+      "normal_sha256": "6591946ffa66a8bf3ae41c3ba7812780275b1c9ae1b7d9621f8cac1accbd429e",
+      "normal_size": [
+        128,
+        32
+      ],
+      "opaque_pixels": 4096,
+      "sheet": "bloomwild_terrace",
+      "source": "assets/sprites/bloomwild_terrace.png",
+      "source_sha256": "7025f66820aec87519e79b781cc8757a7a555b36e22da762c845147a74525633",
+      "source_size": [
+        128,
+        32
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_tiles.png",
+      "normal_sha256": "f77b3de32adbd624eaecaf6c2fd0b0a6756b4339f810b6d4cc1730eef1d05ee3",
+      "normal_size": [
+        256,
+        240
+      ],
+      "opaque_pixels": 47502,
+      "sheet": "bloomwild_tiles",
+      "source": "assets/sprites/bloomwild_tiles.png",
+      "source_sha256": "0da11cb7001f9add157f0ec57c881d8b85d1eb267a166fe490126dba77ffe0bf",
+      "source_size": [
+        256,
+        240
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_trees.png",
+      "normal_sha256": "893d67c155795f23bad7bc71b3cf4c79595468ee0ab2271c59e1ecc39225aae5",
+      "normal_size": [
+        160,
+        1344
+      ],
+      "opaque_pixels": 26162,
+      "sheet": "bloomwild_trees",
+      "source": "assets/sprites/bloomwild_trees.png",
+      "source_sha256": "96bbe341c7d4e1a3e828569c7f962deb347605605498ef5ec66aa59fcb187877",
+      "source_size": [
+        160,
+        1344
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/bloomwild_waterworks.png",
+      "normal_sha256": "43a6153566776bcf8ecd9475f1a4b6124f97dba14785cc1884f0b8e970413c26",
+      "normal_size": [
+        64,
+        128
+      ],
+      "opaque_pixels": 2701,
+      "sheet": "bloomwild_waterworks",
+      "source": "assets/sprites/bloomwild_waterworks.png",
+      "source_sha256": "5338bcf10abe6babb2e7411b56c29e3de29af6c9358b8642e64624e5336de05d",
+      "source_size": [
+        64,
+        128
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_brazier.png",
+      "normal_sha256": "d32399064ec488a4973d9e5f87fcb6967f9fc4355fab9513a08e1c33b41b9105",
+      "normal_size": [
+        96,
+        64
+      ],
+      "opaque_pixels": 1471,
+      "sheet": "cinder_brazier",
+      "source": "assets/sprites/cinder_brazier.png",
+      "source_sha256": "9daabcda8cb10f229e45e310cb111e6c6deb9092b9c5c6c4f1ba784bed6366b9",
+      "source_size": [
+        96,
+        64
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_cliff.png",
+      "normal_sha256": "14e4f984fa0227a55f514bc065fcf5f6837f57013254fc59438afd9b3f17e22a",
+      "normal_size": [
+        256,
+        96
+      ],
+      "opaque_pixels": 17731,
+      "sheet": "cinder_cliff",
+      "source": "assets/sprites/cinder_cliff.png",
+      "source_sha256": "ffd005bf5ffa431d580c7e0c8d7140007623c08bb773342d0e6bcbf9c5c21122",
+      "source_size": [
+        256,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_floor.png",
+      "normal_sha256": "8f953f4ce4e070f858b1209273f18c713ecde3a5bcc50b57073b81db1d0f37c5",
+      "normal_size": [
+        512,
+        24
+      ],
+      "opaque_pixels": 12288,
+      "sheet": "cinder_floor",
+      "source": "assets/sprites/cinder_floor.png",
+      "source_sha256": "6af3e9b057af5d3289d4b73bbc6a4e91e1ffc51b36a5019bea698e02c7a8c6d9",
+      "source_size": [
+        512,
+        24
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_foundry.png",
+      "normal_sha256": "7847404356b028a50e92266b975537689f8cb517a369cbd9d5a5946ab789819c",
+      "normal_size": [
+        64,
+        160
+      ],
+      "opaque_pixels": 3734,
+      "sheet": "cinder_foundry",
+      "source": "assets/sprites/cinder_foundry.png",
+      "source_sha256": "c5da64f8239111e83c6f1df0b40f33548f0abf503964d5ee016ecc77e8f26b97",
+      "source_size": [
+        64,
+        160
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_lava_surface.png",
+      "normal_sha256": "1c64b8089863c879d8155a781bb30950fc5dd278a2119f687b221148c91c610a",
+      "normal_size": [
+        1056,
+        264
+      ],
+      "opaque_pixels": 278784,
+      "sheet": "cinder_lava_surface",
+      "source": "assets/sprites/cinder_lava_surface.png",
+      "source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+      "source_size": [
+        1056,
+        264
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_markers.png",
+      "normal_sha256": "27573d4aabc822cd969ccb6d8dbff48a175d1919b70d2821b91cbc5125390db0",
+      "normal_size": [
+        64,
+        320
+      ],
+      "opaque_pixels": 4010,
+      "sheet": "cinder_markers",
+      "source": "assets/sprites/cinder_markers.png",
+      "source_sha256": "7d6b837912e3551f9fd0c6c669d69ddda237abfea7b440573a19bca2b12f1ef3",
+      "source_size": [
+        64,
+        320
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_mineral.png",
+      "normal_sha256": "75ab865d4d736335cef64d22451613fba9baefb6fd49ae1401a714f13b513035",
+      "normal_size": [
+        192,
+        48
+      ],
+      "opaque_pixels": 2950,
+      "sheet": "cinder_mineral",
+      "source": "assets/sprites/cinder_mineral.png",
+      "source_sha256": "0f61996b140b9b19de1a143e987a66762c7eeeeb476f84000dd581acdf1ee3ad",
+      "source_size": [
+        192,
+        48
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_pillars.png",
+      "normal_sha256": "a8a977cdb81d8d574c4e84cf6d7fc59d541c59cd6e38661abe4205a88df86c75",
+      "normal_size": [
+        32,
+        192
+      ],
+      "opaque_pixels": 1967,
+      "sheet": "cinder_pillars",
+      "source": "assets/sprites/cinder_pillars.png",
+      "source_sha256": "ae013216d39788277b10b2c9f0a9ccd1892a22c215b1291640720d13d37b9116",
+      "source_size": [
+        32,
+        192
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_props.png",
+      "normal_sha256": "55686aedadcfc878c4a1c3b652500cf6865b3d614b602f409ec14ea012ee1609",
+      "normal_size": [
+        64,
+        160
+      ],
+      "opaque_pixels": 980,
+      "sheet": "cinder_props",
+      "source": "assets/sprites/cinder_props.png",
+      "source_sha256": "5f125d995ed902929d49f69395287f7afc46aea8384f2014f0928ba524509a4d",
+      "source_size": [
+        64,
+        160
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_props_m.png",
+      "normal_sha256": "2d74ab0da9580725fb23245fa4359e3d1e450fe2470d973cb9d58f93b525ff40",
+      "normal_size": [
+        128,
+        160
+      ],
+      "opaque_pixels": 3136,
+      "sheet": "cinder_props_m",
+      "source": "assets/sprites/cinder_props_m.png",
+      "source_sha256": "a8ae09af37874dd8c1bdb4cd33d602a5e68e387319db6fc169b07de855fbf06f",
+      "source_size": [
+        128,
+        160
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_ruins.png",
+      "normal_sha256": "4331469e5d71f81a3a0761deb73e1bcbcbd652d0105c3a3505f6346a0ef7aac0",
+      "normal_size": [
+        64,
+        144
+      ],
+      "opaque_pixels": 2681,
+      "sheet": "cinder_ruins",
+      "source": "assets/sprites/cinder_ruins.png",
+      "source_sha256": "a4eeae8c860c19bae0e123940fb1bbb383d1146e124f9b24971d7b2fc22519ed",
+      "source_size": [
+        64,
+        144
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_shrine.png",
+      "normal_sha256": "9ef474339ee173230be0b759a8eca4df0fe3f16ecb89b4da9b41628857e0896c",
+      "normal_size": [
+        128,
+        96
+      ],
+      "opaque_pixels": 5920,
+      "sheet": "cinder_shrine",
+      "source": "assets/sprites/cinder_shrine.png",
+      "source_sha256": "e5b202d169e68ac3a5bbf0323e3b531e3eb8e25bf2744fdfb27ad18ccec98f52",
+      "source_size": [
+        128,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_statue.png",
+      "normal_sha256": "2bd6664f986f7c9f48dd48568f1e6ba020c6efb54d20e0945a7a1466df23d336",
+      "normal_size": [
+        64,
+        64
+      ],
+      "opaque_pixels": 1158,
+      "sheet": "cinder_statue",
+      "source": "assets/sprites/cinder_statue.png",
+      "source_sha256": "8f986ac73e2fa9d9e069e7d40ec36ca9b22312d9760d1603acdc860e2b8b6ff6",
+      "source_size": [
+        64,
+        64
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_tiles.png",
+      "normal_sha256": "e9025d11b1861f82051115e0bf4c7936882500986624a581621a8500fc7f520f",
+      "normal_size": [
+        48,
+        96
+      ],
+      "opaque_pixels": 994,
+      "sheet": "cinder_tiles",
+      "source": "assets/sprites/cinder_tiles.png",
+      "source_sha256": "05f61f6953095fc35b9dc8023d816992e7e528d713cc3961574db0082db973de",
+      "source_size": [
+        48,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_trees.png",
+      "normal_sha256": "45448dbf44a2f930ebcdaca4dba5f505a224a60642cab54fbb2b68754cf1edb8",
+      "normal_size": [
+        48,
+        256
+      ],
+      "opaque_pixels": 1621,
+      "sheet": "cinder_trees",
+      "source": "assets/sprites/cinder_trees.png",
+      "source_sha256": "6938e4838036e1bf6f06ec16b7fc69747684b67a8519f29b121f05cbda9f9ccc",
+      "source_size": [
+        48,
+        256
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/cinder_vent.png",
+      "normal_sha256": "bed2d07aaa80d907caab2969251c9c992d72a81ebc21c872e3afb77c09726abf",
+      "normal_size": [
+        384,
+        96
+      ],
+      "opaque_pixels": 5084,
+      "sheet": "cinder_vent",
+      "source": "assets/sprites/cinder_vent.png",
+      "source_sha256": "86d7b462123672eda8d4bed792178b719812e44b6e738ebb3b5c9244bf91d1f8",
+      "source_size": [
+        384,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/crystal_beetle.png",
+      "normal_sha256": "a0679d401e9363d867cdac803bb533246829ff0668cf1dc32fd3b1e75df3ac6f",
+      "normal_size": [
+        192,
+        468
+      ],
+      "opaque_pixels": 20908,
+      "sheet": "crystal_beetle",
+      "source": "assets/sprites/crystal_beetle.png",
+      "source_sha256": "fda1edfcc9c5953de671d91afa8ce49ce53fcb925dd18100c5c7bc9089740307",
+      "source_size": [
+        192,
+        468
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/crystal_beetle_v1.png",
+      "normal_sha256": "699f5e84462d075e3e0b923862fbebcf254d849ec86e278d5634c6b4dc7c58ee",
+      "normal_size": [
+        192,
+        468
+      ],
+      "opaque_pixels": 20968,
+      "sheet": "crystal_beetle_v1",
+      "source": "assets/sprites/crystal_beetle_v1.png",
+      "source_sha256": "cad5e7d42e39ca44ca7634432da093752b952fd7597e12c2ad5e7abb6e9de0eb",
+      "source_size": [
+        192,
+        468
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/crystal_beetle_v2.png",
+      "normal_sha256": "2dd79b6f2a01bb79928d5534c5fbd4965367c0a5d52e01b374e88da3ff578d8e",
+      "normal_size": [
+        192,
+        468
+      ],
+      "opaque_pixels": 22026,
+      "sheet": "crystal_beetle_v2",
+      "source": "assets/sprites/crystal_beetle_v2.png",
+      "source_sha256": "ced9503dcb37994819347b3feb2ceb20ca753f34f5fee57e271409f0177eee89",
+      "source_size": [
+        192,
+        468
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/ember_hound.png",
+      "normal_sha256": "673305519be0b90fa37024257bbdfcd51224a19097be7971e162a10b79fbbfbc",
+      "normal_size": [
+        240,
+        360
+      ],
+      "opaque_pixels": 11803,
+      "sheet": "ember_hound",
+      "source": "assets/sprites/ember_hound.png",
+      "source_sha256": "921907db8ed0a3aee50edc98a15b35999254bb7a77a1d79f7d67b2c61976ca89",
+      "source_size": [
+        240,
+        360
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/ember_hound_v1.png",
+      "normal_sha256": "639cbaf9fb8b8a2fb13e5f3b061208417026ff7fffd0b1093d7fb1831d6c61eb",
+      "normal_size": [
+        240,
+        360
+      ],
+      "opaque_pixels": 12550,
+      "sheet": "ember_hound_v1",
+      "source": "assets/sprites/ember_hound_v1.png",
+      "source_sha256": "23917b88b5e3b3c79d28500fafae9990e1bcb44a35061d6f08a57937c2c8be0c",
+      "source_size": [
+        240,
+        360
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/ember_hound_v2.png",
+      "normal_sha256": "7ce93358b25e145aadf1cb1a2d2cb6dabcaf7cf261bf02ed0357dcff4a1e4185",
+      "normal_size": [
+        240,
+        360
+      ],
+      "opaque_pixels": 13621,
+      "sheet": "ember_hound_v2",
+      "source": "assets/sprites/ember_hound_v2.png",
+      "source_sha256": "fd1ffe788e16da28ed462760710c3722a2e5478b1dccc4923111df7f74830f96",
+      "source_size": [
+        240,
+        360
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/gate.png",
+      "normal_sha256": "95016200fc5f615bb295f7bba3f49698b0208473f656326dfec092dde57d6f12",
+      "normal_size": [
+        384,
+        192
+      ],
+      "opaque_pixels": 37155,
+      "sheet": "gate",
+      "source": "assets/sprites/gate.png",
+      "source_sha256": "9664e8d53d2e89be3c94a725b796bdff27b58613651deacd79540bba94436b55",
+      "source_size": [
+        384,
+        192
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_crystals_big.png",
+      "normal_sha256": "223f16a42f5fd0790053b6030fcaf1997702dde4319c13b88370cc6d32396bb0",
+      "normal_size": [
+        48,
+        256
+      ],
+      "opaque_pixels": 4466,
+      "sheet": "glasswater_crystals_big",
+      "source": "assets/sprites/glasswater_crystals_big.png",
+      "source_sha256": "3f67139499f485151c873db804894b65a1d3064552e6547c52314310efa71b77",
+      "source_size": [
+        48,
+        256
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_crystals_native.png",
+      "normal_sha256": "7f08bae8b720bdddf56e20f984f652fa5704b217f170ab8b6d962924e93505c1",
+      "normal_size": [
+        384,
+        64
+      ],
+      "opaque_pixels": 9785,
+      "sheet": "glasswater_crystals_native",
+      "source": "assets/sprites/glasswater_crystals_native.png",
+      "source_sha256": "f12449e1d0131ed873f1ee8b5a00554df1c849d7d76a2d43b85040f82479f7df",
+      "source_size": [
+        384,
+        64
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_crystals_small.png",
+      "normal_sha256": "d5b05cf805a294b8df035e8c4f1f6b2d05b59e606f9f8573a83afd7f42cdd7a7",
+      "normal_size": [
+        256,
+        40
+      ],
+      "opaque_pixels": 2485,
+      "sheet": "glasswater_crystals_small",
+      "source": "assets/sprites/glasswater_crystals_small.png",
+      "source_sha256": "de4965e9d88022bf3c9194bb4458a0b056c7ba7d36835071f28197cd9ada0825",
+      "source_size": [
+        256,
+        40
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_floor_macro.png",
+      "normal_sha256": "54143c22c625dfade164bab07c33448338a5a00beb9ebe3518c35fb5b2353e9d",
+      "normal_size": [
+        128,
+        128
+      ],
+      "opaque_pixels": 16384,
+      "sheet": "glasswater_floor_macro",
+      "source": "assets/sprites/glasswater_floor_macro.png",
+      "source_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+      "source_size": [
+        128,
+        128
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_fungi.png",
+      "normal_sha256": "9c42256d923a979ac04b46d4075cde211704abbb42cbd1d54ad00f32c019d6b6",
+      "normal_size": [
+        192,
+        48
+      ],
+      "opaque_pixels": 4374,
+      "sheet": "glasswater_fungi",
+      "source": "assets/sprites/glasswater_fungi.png",
+      "source_sha256": "05bbb2871c9481762d10ef91b56b8d0574ab01993a5466feb6dfd2c92f590809",
+      "source_size": [
+        192,
+        48
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_materials.png",
+      "normal_sha256": "6c125b22039c7cc1d5dcc279b85a85738582d03d0208c7d494962bba17ae8d3f",
+      "normal_size": [
+        320,
+        32
+      ],
+      "opaque_pixels": 10240,
+      "sheet": "glasswater_materials",
+      "source": "assets/sprites/glasswater_materials.png",
+      "source_sha256": "13af62b20b11db672e6f28d206359590d13841a8810c970f26cb70a4f7ad5ae8",
+      "source_size": [
+        320,
+        32
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_tiles.png",
+      "normal_sha256": "977cc0b11bc27456cf74866b64be41b41044b279576e980769cc27127f90e8ff",
+      "normal_size": [
+        256,
+        208
+      ],
+      "opaque_pixels": 48697,
+      "sheet": "glasswater_tiles",
+      "source": "assets/sprites/glasswater_tiles.png",
+      "source_sha256": "923cb327ad7993b24bc5edf11bc0a930695748cfa03ac06f70e801d5e4060482",
+      "source_size": [
+        256,
+        208
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_walls.png",
+      "normal_sha256": "37aa093bd3206398b4dae4d354e3e220eacefb33d8748e2ca3d35b98e88cc6de",
+      "normal_size": [
+        128,
+        64
+      ],
+      "opaque_pixels": 8192,
+      "sheet": "glasswater_walls",
+      "source": "assets/sprites/glasswater_walls.png",
+      "source_sha256": "50892125c9c43e02ad9345c988b2577f432b10697e4a5041b77d893048ffc6ce",
+      "source_size": [
+        128,
+        64
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_walltop.png",
+      "normal_sha256": "54143c22c625dfade164bab07c33448338a5a00beb9ebe3518c35fb5b2353e9d",
+      "normal_size": [
+        128,
+        128
+      ],
+      "opaque_pixels": 16384,
+      "sheet": "glasswater_walltop",
+      "source": "assets/sprites/glasswater_walltop.png",
+      "source_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+      "source_size": [
+        128,
+        128
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/glasswater_waterworks.png",
+      "normal_sha256": "8a1b3115dfe2d7937305a4a273c24f94690c9d2e54461988198e0765b44faaa9",
+      "normal_size": [
+        288,
+        96
+      ],
+      "opaque_pixels": 8488,
+      "sheet": "glasswater_waterworks",
+      "source": "assets/sprites/glasswater_waterworks.png",
+      "source_sha256": "8f9528f5ddd0a4722b4108d8d8e947a6d716df8512b7eda50e49297074b6ae3d",
+      "source_size": [
+        288,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/hero.png",
+      "normal_sha256": "eb3ad3527e2da24babe6ae358c461c9e15efafcaedabd09fab17cfa87025f2ff",
+      "normal_size": [
+        384,
+        1872
+      ],
+      "opaque_pixels": 55041,
+      "sheet": "hero",
+      "source": "assets/sprites/hero.png",
+      "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+      "source_size": [
+        384,
+        1872
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/shard.png",
+      "normal_sha256": "ba33c90b0be1b46d5a4b6f3d9e38ed2118efe1af36533d46f60092a37e3321b9",
+      "normal_size": [
+        128,
+        48
+      ],
+      "opaque_pixels": 684,
+      "sheet": "shard",
+      "source": "assets/sprites/shard.png",
+      "source_sha256": "5ed11d8372dc9172e0846337a0bb08ba2689e864f0e961c39898d71e6905d30a",
+      "source_size": [
+        128,
+        48
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/spitting_totem.png",
+      "normal_sha256": "ec043244a8b7e1aeceec7d4b6335fa80e99851fbbc8227a1588a4179021364c4",
+      "normal_size": [
+        140,
+        288
+      ],
+      "opaque_pixels": 10722,
+      "sheet": "spitting_totem",
+      "source": "assets/sprites/spitting_totem.png",
+      "source_sha256": "9260d8401852ab3bed3034086bda640bd2203f4da3c7f77e3daa7e0d655cb656",
+      "source_size": [
+        140,
+        288
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/spitting_totem_v1.png",
+      "normal_sha256": "98472104b7e8949c896d0d42699a691068dfb541bf0444f30ef11b73fb7b4b81",
+      "normal_size": [
+        140,
+        288
+      ],
+      "opaque_pixels": 13904,
+      "sheet": "spitting_totem_v1",
+      "source": "assets/sprites/spitting_totem_v1.png",
+      "source_sha256": "62cdc041ab714d25255e6e61b48d47ba1b972eae303d506d4cd6b36c2b82983c",
+      "source_size": [
+        140,
+        288
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/spitting_totem_v2.png",
+      "normal_sha256": "1f4ffd3299d71d1a1624e6cda2fce7f55e9e73779565862b41943890b604cc48",
+      "normal_size": [
+        140,
+        288
+      ],
+      "opaque_pixels": 17008,
+      "sheet": "spitting_totem_v2",
+      "source": "assets/sprites/spitting_totem_v2.png",
+      "source_sha256": "43734738198a41136a1396bc086e99c30f44069e933e002fdb971a8d44e873b8",
+      "source_size": [
+        140,
+        288
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/sproutling.png",
+      "normal_sha256": "e911c46ff127c8d1e24ff17c7b4a7dd59767e6e3187ceaee562a025fbb8c8696",
+      "normal_size": [
+        144,
+        360
+      ],
+      "opaque_pixels": 10723,
+      "sheet": "sproutling",
+      "source": "assets/sprites/sproutling.png",
+      "source_sha256": "71a1337a24c2bf060c54b3570c1ed462de3499cc45c215ff943b5a42eecb289c",
+      "source_size": [
+        144,
+        360
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/sproutling_v1.png",
+      "normal_sha256": "f2dda7d3ad598ca686a54146d12117191adb59fd8f0ab596d7fa810e4b9e547f",
+      "normal_size": [
+        144,
+        360
+      ],
+      "opaque_pixels": 10387,
+      "sheet": "sproutling_v1",
+      "source": "assets/sprites/sproutling_v1.png",
+      "source_sha256": "fb9f90f6cfcc3018408a8e36283a46fddcd730f1f72e081fb0598c2162b35d01",
+      "source_size": [
+        144,
+        360
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/sproutling_v2.png",
+      "normal_sha256": "ce53fc2733ea12079a6371545aed574f935a4cfbe5eb42f809c3f1fb6f214188",
+      "normal_size": [
+        144,
+        360
+      ],
+      "opaque_pixels": 10854,
+      "sheet": "sproutling_v2",
+      "source": "assets/sprites/sproutling_v2.png",
+      "source_sha256": "062b91753925027c415876163f8c07a5590310c15789331065100867ac7b657a",
+      "source_size": [
+        144,
+        360
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_banners.png",
+      "normal_sha256": "97bf1c06f017e0451e4503f50764527589ab133d38cfcb734c57bbaa15132585",
+      "normal_size": [
+        32,
+        64
+      ],
+      "opaque_pixels": 420,
+      "sheet": "summit_banners",
+      "source": "assets/sprites/summit_banners.png",
+      "source_sha256": "868992049e052eff4d583d3705268daee99ef8ab6fd3ab443040ed7e722b62aa",
+      "source_size": [
+        32,
+        64
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_brazier.png",
+      "normal_sha256": "c54883d59133129d27dcf71fb029def0c4d9c61893178a300662c5c519ee0d2a",
+      "normal_size": [
+        144,
+        80
+      ],
+      "opaque_pixels": 1450,
+      "sheet": "summit_brazier",
+      "source": "assets/sprites/summit_brazier.png",
+      "source_sha256": "e9043e4c42a9cf8544b1eff44c3104f6fd0d5759cf45cd8bc4ad379e23274948",
+      "source_size": [
+        144,
+        80
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_dais.png",
+      "normal_sha256": "0b2cebf8f5ecda2213affb9dbb402aea7d598dd39bf2f31cc6c82357546a34d6",
+      "normal_size": [
+        128,
+        80
+      ],
+      "opaque_pixels": 3254,
+      "sheet": "summit_dais",
+      "source": "assets/sprites/summit_dais.png",
+      "source_sha256": "8f857cca6f1b88c9e20a00a3817f30f7803405e7121f4286ad541051d7e50852",
+      "source_size": [
+        128,
+        80
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_floor.png",
+      "normal_sha256": "527bd64fc38763cbfaa3a4d5b269d0b62b5b1ade5e3e2adca99b1abb2a8d6900",
+      "normal_size": [
+        192,
+        32
+      ],
+      "opaque_pixels": 4704,
+      "sheet": "summit_floor",
+      "source": "assets/sprites/summit_floor.png",
+      "source_sha256": "86b9d253b533258c0a5dcdd2b3feb7e45bd36e46d8e06072ad997f6849fdd20b",
+      "source_size": [
+        192,
+        32
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_foundation.png",
+      "normal_sha256": "68839b0a9a276479a4787e572528011fd765074d4000cdaebb04f0e4927d96f9",
+      "normal_size": [
+        128,
+        128
+      ],
+      "opaque_pixels": 16384,
+      "sheet": "summit_foundation",
+      "source": "assets/sprites/summit_foundation.png",
+      "source_sha256": "bfc1400e3b06cef26c726bcbe776d9c11756fd9ed4db81b5cd7d8909bf49ba0f",
+      "source_size": [
+        128,
+        128
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_masonry.png",
+      "normal_sha256": "4a8cf46e1073f8922b2a61983eca069bddb7dca8c1e258a7b12b6c63f7a8aca2",
+      "normal_size": [
+        128,
+        96
+      ],
+      "opaque_pixels": 12288,
+      "sheet": "summit_masonry",
+      "source": "assets/sprites/summit_masonry.png",
+      "source_sha256": "d7a1facb0829f0003fead1ea2cb07e28c95037bb6c4a8b9c971175b2de07d2b9",
+      "source_size": [
+        128,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_pillars.png",
+      "normal_sha256": "319a0de610d0bdd49bbe0e9664933897fabcd7c540f995497421ff09c5a271b7",
+      "normal_size": [
+        64,
+        336
+      ],
+      "opaque_pixels": 7576,
+      "sheet": "summit_pillars",
+      "source": "assets/sprites/summit_pillars.png",
+      "source_sha256": "c37311d153ac512842f53ae1eccb7eca0baad7d1daf4a9f9310ae9cea3b5b5f5",
+      "source_size": [
+        64,
+        336
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_props.png",
+      "normal_sha256": "7fd7706579e8dade0c16ad05bdc458e03cc3b6562ccf39d719e31501a90b37df",
+      "normal_size": [
+        64,
+        48
+      ],
+      "opaque_pixels": 500,
+      "sheet": "summit_props",
+      "source": "assets/sprites/summit_props.png",
+      "source_sha256": "32c28b45bb75bd87e8af763a2a736c7ff3f40f30258c30d5a3a1f6f146c3b0f9",
+      "source_size": [
+        64,
+        48
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_stones.png",
+      "normal_sha256": "625cf993d9f426d6bc974ce9b6957fefecff44f10d916aba78cc0f8a122de9b3",
+      "normal_size": [
+        64,
+        224
+      ],
+      "opaque_pixels": 5119,
+      "sheet": "summit_stones",
+      "source": "assets/sprites/summit_stones.png",
+      "source_sha256": "6ef26abda1834ff1e37d57854bdf82dcbb47b174dce7714a48de66eb5aee2d6e",
+      "source_size": [
+        64,
+        224
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_tiles.png",
+      "normal_sha256": "80a08db70ce40f1aac92f17e6d3d08796f5b280331b46ac81be64ddf4a634ce2",
+      "normal_size": [
+        192,
+        608
+      ],
+      "opaque_pixels": 80656,
+      "sheet": "summit_tiles",
+      "source": "assets/sprites/summit_tiles.png",
+      "source_sha256": "400e23f5b4ce17cd9aa30c323e19dd4652e27235cfe6979029b665804521bdbf",
+      "source_size": [
+        192,
+        608
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/summit_walls.png",
+      "normal_sha256": "c19f3149fa6439a985e9e8157b3e333b3bf3518ecb8fa7b498452816f420bc10",
+      "normal_size": [
+        16,
+        24
+      ],
+      "opaque_pixels": 93,
+      "sheet": "summit_walls",
+      "source": "assets/sprites/summit_walls.png",
+      "source_sha256": "eaa5932265f173df4587e71f68156182a9e20e22715c2c3a97187a7f62192df1",
+      "source_size": [
+        16,
+        24
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/thorn_imp.png",
+      "normal_sha256": "2c88619a3ec5612090bd9fdbd1a7ea372c8b5856a9afefeaf11a59597bcd0281",
+      "normal_size": [
+        160,
+        480
+      ],
+      "opaque_pixels": 11702,
+      "sheet": "thorn_imp",
+      "source": "assets/sprites/thorn_imp.png",
+      "source_sha256": "185969262dff1ddcd0230ed2f0d25400c8f89ac453dd0a1497439bd20b6b6245",
+      "source_size": [
+        160,
+        480
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/thorn_imp_v1.png",
+      "normal_sha256": "110e848e6cd580495bea4dd3c7f9ae2264acbabce9ff5fc3cf811451430fe812",
+      "normal_size": [
+        160,
+        480
+      ],
+      "opaque_pixels": 13724,
+      "sheet": "thorn_imp_v1",
+      "source": "assets/sprites/thorn_imp_v1.png",
+      "source_sha256": "0419a1fbc70b6a8df85f703bfe04ea8767f88c5f21a0d2baf1b21683f51b6fcc",
+      "source_size": [
+        160,
+        480
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/thorn_imp_v2.png",
+      "normal_sha256": "65f820690a8b49d194743b5402e868a873848b12ebf22cc8d1e959f4666cee53",
+      "normal_size": [
+        160,
+        480
+      ],
+      "opaque_pixels": 13066,
+      "sheet": "thorn_imp_v2",
+      "source": "assets/sprites/thorn_imp_v2.png",
+      "source_sha256": "3a0587c2a1b124f4da19e39d0920e30e06730b651851aa4aed7f38f3461c6360",
+      "source_size": [
+        160,
+        480
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/warden_body.png",
+      "normal_sha256": "d6f1e1cc0bf035fa331fb4e681919a059d46f420f24e985f3ca6b2f0226f0e5c",
+      "normal_size": [
+        120,
+        336
+      ],
+      "opaque_pixels": 26023,
+      "sheet": "warden_body",
+      "source": "assets/sprites/warden_body.png",
+      "source_sha256": "39732f6787d54111f5fab76d1f7ecb23fdaaf362973e99c0bf8b1d135f5a8991",
+      "source_size": [
+        120,
+        336
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/warden_crystal.png",
+      "normal_sha256": "7e2c11d875e0aedce727bc348ca17cdf4f9eb1e9dc5094017555644d9d9dbecb",
+      "normal_size": [
+        80,
+        72
+      ],
+      "opaque_pixels": 1578,
+      "sheet": "warden_crystal",
+      "source": "assets/sprites/warden_crystal.png",
+      "source_sha256": "825025989ec7fd779a2d0dfc5435d4299fc11cb81265dd5bf07d13671db49dc1",
+      "source_size": [
+        80,
+        72
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/warden_fist.png",
+      "normal_sha256": "39e79ea8e33257c9cbef9a7264980339983b9d13cf8e194e3808dadda54396b8",
+      "normal_size": [
+        200,
+        224
+      ],
+      "opaque_pixels": 12080,
+      "sheet": "warden_fist",
+      "source": "assets/sprites/warden_fist.png",
+      "source_sha256": "25c9f7299eddd133a1078e4ea6bed3be91b94b774e26513cbdc4445096da85c5",
+      "source_size": [
+        200,
+        224
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/warden_head.png",
+      "normal_sha256": "29686a253ddec920746d5aa78bdefa4ba92b831ac84c6224ec482b1135d802ed",
+      "normal_size": [
+        264,
+        132
+      ],
+      "opaque_pixels": 13169,
+      "sheet": "warden_head",
+      "source": "assets/sprites/warden_head.png",
+      "source_sha256": "fe67c789cedacff81a295c4ed6a62a23410bcc73535c12a229b7fc26f997a281",
+      "source_size": [
+        264,
+        132
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/warden_heart.png",
+      "normal_sha256": "e35e5a25e5c7f28d36b4badf41ee9e0dc8f487c1de7db908bb649c8cb410f9d3",
+      "normal_size": [
+        96,
+        128
+      ],
+      "opaque_pixels": 2984,
+      "sheet": "warden_heart",
+      "source": "assets/sprites/warden_heart.png",
+      "source_sha256": "dd26d82dc88a064b2438e9a65420d2b9bc382cdc012a85366c987682c2629642",
+      "source_size": [
+        96,
+        128
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/wisp.png",
+      "normal_sha256": "32415135cd04494a93f26ad5f4264ebd00da5f8fff61c17fe3b788cf7407fb6a",
+      "normal_size": [
+        96,
+        96
+      ],
+      "opaque_pixels": 1981,
+      "sheet": "wisp",
+      "source": "assets/sprites/wisp.png",
+      "source_sha256": "350f00713ba96954182df5f350156483ee95912788fef9d5c8fd0c27636b1243",
+      "source_size": [
+        96,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/wisp_v1.png",
+      "normal_sha256": "0fcbad90e86ee72c048d23c587d61f456724d8aeaffce94681ee3dcfeece38e2",
+      "normal_size": [
+        96,
+        96
+      ],
+      "opaque_pixels": 2440,
+      "sheet": "wisp_v1",
+      "source": "assets/sprites/wisp_v1.png",
+      "source_sha256": "fd0cb9837052ec15295f2046cfee8b6a529df014166f462c93319a364a52142d",
+      "source_size": [
+        96,
+        96
+      ]
+    },
+    {
+      "alpha_mismatches": 0,
+      "issues": [],
+      "normal": "assets/normals/wisp_v2.png",
+      "normal_sha256": "d469a1dc17cb363abd591c4bd995f0c8369e519ee1791578b4b97c2e4e99be87",
+      "normal_size": [
+        96,
+        96
+      ],
+      "opaque_pixels": 2135,
+      "sheet": "wisp_v2",
+      "source": "assets/sprites/wisp_v2.png",
+      "source_sha256": "41a095b9f84c686ddfa8a5ae09a466f16095ba53e1b786d162eb1e3af3461381",
+      "source_size": [
+        96,
+        96
+      ]
+    }
+  ],
+  "scope": "Frozen R7 SHA256, all 78 albedo/normal pairs, dimensions, exact alpha, complete normal PNG inventory. No generation or rendering.",
+  "status": "verified"
+}

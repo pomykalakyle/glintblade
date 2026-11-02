@@ -1,0 +1,1382 @@
+{
+  "coordinate_convention": "All x/y ranges are source-cell coordinates, half open. Volume depth is a world-ground hint, not a row count. This is read-only analysis.",
+  "cases": [
+    {
+      "sheet": "hero",
+      "animation": "idle_down",
+      "frame": 0,
+      "cell": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        33
+      ],
+      "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+      "contact_window_x_half_open": [
+        17,
+        32
+      ],
+      "contact_band_y_half_open": [
+        32,
+        35
+      ],
+      "native_contact_x_span_half_open": [
+        17,
+        31
+      ],
+      "finite_volume_depth_hint": 4,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 32,
+          "x_runs_half_open": [
+            [
+              18,
+              22
+            ],
+            [
+              26,
+              30
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 33,
+          "x_runs_half_open": [
+            [
+              17,
+              22
+            ],
+            [
+              26,
+              31
+            ]
+          ],
+          "opaque_pixels": 10
+        },
+        {
+          "y": 34,
+          "x_runs_half_open": [
+            [
+              18,
+              21
+            ],
+            [
+              27,
+              30
+            ]
+          ],
+          "opaque_pixels": 6
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "sproutling",
+      "animation": "idle_down",
+      "frame": 0,
+      "cell": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        21
+      ],
+      "source_sha256": "71a1337a24c2bf060c54b3570c1ed462de3499cc45c215ff943b5a42eecb289c",
+      "contact_window_x_half_open": [
+        6,
+        19
+      ],
+      "contact_band_y_half_open": [
+        19,
+        22
+      ],
+      "native_contact_x_span_half_open": [
+        6,
+        19
+      ],
+      "finite_volume_depth_hint": 3,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 19,
+          "x_runs_half_open": [
+            [
+              7,
+              18
+            ]
+          ],
+          "opaque_pixels": 11
+        },
+        {
+          "y": 20,
+          "x_runs_half_open": [
+            [
+              6,
+              10
+            ],
+            [
+              15,
+              19
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 21,
+          "x_runs_half_open": [
+            [
+              7,
+              9
+            ],
+            [
+              16,
+              18
+            ]
+          ],
+          "opaque_pixels": 4
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "thorn_imp",
+      "animation": "idle_down",
+      "frame": 0,
+      "cell": [
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        29
+      ],
+      "source_sha256": "185969262dff1ddcd0230ed2f0d25400c8f89ac453dd0a1497439bd20b6b6245",
+      "contact_window_x_half_open": [
+        10,
+        23
+      ],
+      "contact_band_y_half_open": [
+        27,
+        30
+      ],
+      "native_contact_x_span_half_open": [
+        11,
+        22
+      ],
+      "finite_volume_depth_hint": 3,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 27,
+          "x_runs_half_open": [
+            [
+              11,
+              14
+            ],
+            [
+              19,
+              22
+            ]
+          ],
+          "opaque_pixels": 6
+        },
+        {
+          "y": 28,
+          "x_runs_half_open": [
+            [
+              11,
+              14
+            ],
+            [
+              19,
+              22
+            ]
+          ],
+          "opaque_pixels": 6
+        },
+        {
+          "y": 29,
+          "x_runs_half_open": [
+            [
+              12,
+              13
+            ],
+            [
+              20,
+              21
+            ]
+          ],
+          "opaque_pixels": 2
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "crystal_beetle",
+      "animation": "idle_down",
+      "frame": 0,
+      "cell": [
+        32,
+        26
+      ],
+      "anchor": [
+        16,
+        20
+      ],
+      "source_sha256": "fda1edfcc9c5953de671d91afa8ce49ce53fcb925dd18100c5c7bc9089740307",
+      "contact_window_x_half_open": [
+        3,
+        29
+      ],
+      "contact_band_y_half_open": [
+        14,
+        22
+      ],
+      "native_contact_x_span_half_open": [
+        3,
+        29
+      ],
+      "finite_volume_depth_hint": 8,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 14,
+          "x_runs_half_open": [
+            [
+              3,
+              4
+            ],
+            [
+              6,
+              26
+            ],
+            [
+              28,
+              29
+            ]
+          ],
+          "opaque_pixels": 22
+        },
+        {
+          "y": 15,
+          "x_runs_half_open": [
+            [
+              3,
+              4
+            ],
+            [
+              7,
+              25
+            ],
+            [
+              28,
+              29
+            ]
+          ],
+          "opaque_pixels": 20
+        },
+        {
+          "y": 16,
+          "x_runs_half_open": [
+            [
+              8,
+              24
+            ]
+          ],
+          "opaque_pixels": 16
+        },
+        {
+          "y": 17,
+          "x_runs_half_open": [
+            [
+              10,
+              22
+            ]
+          ],
+          "opaque_pixels": 12
+        },
+        {
+          "y": 18,
+          "x_runs_half_open": [
+            [
+              9,
+              23
+            ]
+          ],
+          "opaque_pixels": 14
+        },
+        {
+          "y": 19,
+          "x_runs_half_open": [
+            [
+              8,
+              9
+            ],
+            [
+              10,
+              22
+            ],
+            [
+              23,
+              24
+            ]
+          ],
+          "opaque_pixels": 14
+        },
+        {
+          "y": 20,
+          "x_runs_half_open": [
+            [
+              7,
+              8
+            ],
+            [
+              10,
+              22
+            ],
+            [
+              24,
+              25
+            ]
+          ],
+          "opaque_pixels": 14
+        },
+        {
+          "y": 21,
+          "x_runs_half_open": [
+            [
+              7,
+              8
+            ],
+            [
+              11,
+              21
+            ],
+            [
+              24,
+              25
+            ]
+          ],
+          "opaque_pixels": 12
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "wisp",
+      "animation": "idle",
+      "frame": 0,
+      "cell": [
+        16,
+        24
+      ],
+      "anchor": [
+        8,
+        15
+      ],
+      "source_sha256": "350f00713ba96954182df5f350156483ee95912788fef9d5c8fd0c27636b1243",
+      "contact_window_x_half_open": [
+        0,
+        16
+      ],
+      "contact_band_y_half_open": [
+        17,
+        20
+      ],
+      "native_contact_x_span_half_open": [
+        7,
+        10
+      ],
+      "finite_volume_depth_hint": 2,
+      "ground_contact": false,
+      "rows": [
+        {
+          "y": 17,
+          "x_runs_half_open": [
+            [
+              7,
+              10
+            ]
+          ],
+          "opaque_pixels": 3
+        },
+        {
+          "y": 18,
+          "x_runs_half_open": [
+            [
+              8,
+              10
+            ]
+          ],
+          "opaque_pixels": 2
+        },
+        {
+          "y": 19,
+          "x_runs_half_open": [
+            [
+              9,
+              10
+            ]
+          ],
+          "opaque_pixels": 1
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "ember_hound",
+      "animation": "idle_down",
+      "frame": 0,
+      "cell": [
+        40,
+        24
+      ],
+      "anchor": [
+        20,
+        20
+      ],
+      "source_sha256": "921907db8ed0a3aee50edc98a15b35999254bb7a77a1d79f7d67b2c61976ca89",
+      "contact_window_x_half_open": [
+        0,
+        40
+      ],
+      "contact_band_y_half_open": [
+        19,
+        22
+      ],
+      "native_contact_x_span_half_open": [
+        15,
+        24
+      ],
+      "finite_volume_depth_hint": 4,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 19,
+          "x_runs_half_open": [
+            [
+              15,
+              19
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 20,
+          "x_runs_half_open": [
+            [
+              15,
+              19
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 21,
+          "x_runs_half_open": [
+            [
+              16,
+              18
+            ],
+            [
+              21,
+              23
+            ]
+          ],
+          "opaque_pixels": 4
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "spitting_totem",
+      "animation": "idle_down",
+      "frame": 0,
+      "cell": [
+        28,
+        36
+      ],
+      "anchor": [
+        14,
+        33
+      ],
+      "source_sha256": "9260d8401852ab3bed3034086bda640bd2203f4da3c7f77e3daa7e0d655cb656",
+      "contact_window_x_half_open": [
+        0,
+        28
+      ],
+      "contact_band_y_half_open": [
+        31,
+        35
+      ],
+      "native_contact_x_span_half_open": [
+        5,
+        20
+      ],
+      "finite_volume_depth_hint": 5,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 31,
+          "x_runs_half_open": [
+            [
+              6,
+              19
+            ]
+          ],
+          "opaque_pixels": 13
+        },
+        {
+          "y": 32,
+          "x_runs_half_open": [
+            [
+              5,
+              20
+            ]
+          ],
+          "opaque_pixels": 15
+        },
+        {
+          "y": 33,
+          "x_runs_half_open": [
+            [
+              5,
+              20
+            ]
+          ],
+          "opaque_pixels": 15
+        },
+        {
+          "y": 34,
+          "x_runs_half_open": [
+            [
+              6,
+              19
+            ]
+          ],
+          "opaque_pixels": 13
+        }
+      ],
+      "authored_collision_footprint": [
+        12,
+        5
+      ]
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "animation": "pillar",
+      "frame": 0,
+      "cell": [
+        48,
+        56
+      ],
+      "anchor": [
+        24,
+        53
+      ],
+      "source_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+      "contact_window_x_half_open": [
+        0,
+        48
+      ],
+      "contact_band_y_half_open": [
+        42,
+        52
+      ],
+      "native_contact_x_span_half_open": [
+        10,
+        39
+      ],
+      "finite_volume_depth_hint": 10,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 42,
+          "x_runs_half_open": [
+            [
+              11,
+              37
+            ]
+          ],
+          "opaque_pixels": 26
+        },
+        {
+          "y": 43,
+          "x_runs_half_open": [
+            [
+              11,
+              37
+            ]
+          ],
+          "opaque_pixels": 26
+        },
+        {
+          "y": 44,
+          "x_runs_half_open": [
+            [
+              11,
+              37
+            ]
+          ],
+          "opaque_pixels": 26
+        },
+        {
+          "y": 45,
+          "x_runs_half_open": [
+            [
+              11,
+              37
+            ]
+          ],
+          "opaque_pixels": 26
+        },
+        {
+          "y": 46,
+          "x_runs_half_open": [
+            [
+              10,
+              38
+            ]
+          ],
+          "opaque_pixels": 28
+        },
+        {
+          "y": 47,
+          "x_runs_half_open": [
+            [
+              12,
+              39
+            ]
+          ],
+          "opaque_pixels": 27
+        },
+        {
+          "y": 48,
+          "x_runs_half_open": [
+            [
+              11,
+              13
+            ],
+            [
+              14,
+              39
+            ]
+          ],
+          "opaque_pixels": 27
+        },
+        {
+          "y": 49,
+          "x_runs_half_open": [
+            [
+              16,
+              30
+            ],
+            [
+              33,
+              39
+            ]
+          ],
+          "opaque_pixels": 20
+        },
+        {
+          "y": 50,
+          "x_runs_half_open": [
+            [
+              19,
+              28
+            ],
+            [
+              30,
+              31
+            ],
+            [
+              34,
+              38
+            ]
+          ],
+          "opaque_pixels": 14
+        },
+        {
+          "y": 51,
+          "x_runs_half_open": [
+            [
+              21,
+              25
+            ],
+            [
+              30,
+              32
+            ]
+          ],
+          "opaque_pixels": 6
+        }
+      ],
+      "authored_collision_footprint": [
+        29,
+        10
+      ]
+    },
+    {
+      "sheet": "hero",
+      "animation": "idle_right",
+      "frame": 0,
+      "cell": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        33
+      ],
+      "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+      "contact_window_x_half_open": [
+        16,
+        29
+      ],
+      "contact_band_y_half_open": [
+        32,
+        35
+      ],
+      "native_contact_x_span_half_open": [
+        16,
+        28
+      ],
+      "finite_volume_depth_hint": 4,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 32,
+          "x_runs_half_open": [
+            [
+              16,
+              20
+            ],
+            [
+              23,
+              27
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 33,
+          "x_runs_half_open": [
+            [
+              16,
+              21
+            ],
+            [
+              23,
+              28
+            ]
+          ],
+          "opaque_pixels": 10
+        },
+        {
+          "y": 34,
+          "x_runs_half_open": [
+            [
+              17,
+              20
+            ],
+            [
+              24,
+              27
+            ]
+          ],
+          "opaque_pixels": 6
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "hero",
+      "animation": "idle_up",
+      "frame": 0,
+      "cell": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        33
+      ],
+      "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+      "contact_window_x_half_open": [
+        17,
+        32
+      ],
+      "contact_band_y_half_open": [
+        32,
+        35
+      ],
+      "native_contact_x_span_half_open": [
+        17,
+        31
+      ],
+      "finite_volume_depth_hint": 4,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 32,
+          "x_runs_half_open": [
+            [
+              18,
+              23
+            ],
+            [
+              26,
+              31
+            ]
+          ],
+          "opaque_pixels": 10
+        },
+        {
+          "y": 33,
+          "x_runs_half_open": [
+            [
+              17,
+              22
+            ],
+            [
+              26,
+              31
+            ]
+          ],
+          "opaque_pixels": 10
+        },
+        {
+          "y": 34,
+          "x_runs_half_open": [
+            [
+              18,
+              21
+            ],
+            [
+              27,
+              30
+            ]
+          ],
+          "opaque_pixels": 6
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "hero",
+      "animation": "idle_left",
+      "frame": 0,
+      "cell": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        33
+      ],
+      "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+      "contact_window_x_half_open": [
+        20,
+        33
+      ],
+      "contact_band_y_half_open": [
+        32,
+        35
+      ],
+      "native_contact_x_span_half_open": [
+        21,
+        33
+      ],
+      "finite_volume_depth_hint": 4,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 32,
+          "x_runs_half_open": [
+            [
+              22,
+              26
+            ],
+            [
+              29,
+              33
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 33,
+          "x_runs_half_open": [
+            [
+              21,
+              26
+            ],
+            [
+              28,
+              33
+            ]
+          ],
+          "opaque_pixels": 10
+        },
+        {
+          "y": 34,
+          "x_runs_half_open": [
+            [
+              22,
+              25
+            ],
+            [
+              29,
+              32
+            ]
+          ],
+          "opaque_pixels": 6
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "ember_hound",
+      "animation": "idle_right",
+      "frame": 0,
+      "cell": [
+        40,
+        24
+      ],
+      "anchor": [
+        20,
+        20
+      ],
+      "source_sha256": "921907db8ed0a3aee50edc98a15b35999254bb7a77a1d79f7d67b2c61976ca89",
+      "contact_window_x_half_open": [
+        0,
+        40
+      ],
+      "contact_band_y_half_open": [
+        19,
+        22
+      ],
+      "native_contact_x_span_half_open": [
+        9,
+        26
+      ],
+      "finite_volume_depth_hint": 4,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 19,
+          "x_runs_half_open": [
+            [
+              9,
+              13
+            ],
+            [
+              14,
+              15
+            ],
+            [
+              20,
+              21
+            ],
+            [
+              22,
+              26
+            ]
+          ],
+          "opaque_pixels": 10
+        },
+        {
+          "y": 20,
+          "x_runs_half_open": [
+            [
+              9,
+              13
+            ],
+            [
+              14,
+              16
+            ],
+            [
+              19,
+              21
+            ],
+            [
+              22,
+              26
+            ]
+          ],
+          "opaque_pixels": 12
+        },
+        {
+          "y": 21,
+          "x_runs_half_open": [
+            [
+              10,
+              12
+            ],
+            [
+              23,
+              25
+            ]
+          ],
+          "opaque_pixels": 4
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "ember_hound",
+      "animation": "idle_up",
+      "frame": 0,
+      "cell": [
+        40,
+        24
+      ],
+      "anchor": [
+        20,
+        20
+      ],
+      "source_sha256": "921907db8ed0a3aee50edc98a15b35999254bb7a77a1d79f7d67b2c61976ca89",
+      "contact_window_x_half_open": [
+        0,
+        40
+      ],
+      "contact_band_y_half_open": [
+        18,
+        21
+      ],
+      "native_contact_x_span_half_open": [
+        14,
+        28
+      ],
+      "finite_volume_depth_hint": 4,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 18,
+          "x_runs_half_open": [
+            [
+              14,
+              18
+            ],
+            [
+              24,
+              28
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 19,
+          "x_runs_half_open": [
+            [
+              14,
+              18
+            ],
+            [
+              24,
+              28
+            ]
+          ],
+          "opaque_pixels": 8
+        },
+        {
+          "y": 20,
+          "x_runs_half_open": [
+            [
+              15,
+              17
+            ],
+            [
+              25,
+              27
+            ]
+          ],
+          "opaque_pixels": 4
+        }
+      ],
+      "authored_collision_footprint": null
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "animation": "pillar_broken_tall",
+      "frame": 0,
+      "cell": [
+        48,
+        56
+      ],
+      "anchor": [
+        24,
+        53
+      ],
+      "source_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+      "contact_window_x_half_open": [
+        0,
+        48
+      ],
+      "contact_band_y_half_open": [
+        44,
+        54
+      ],
+      "native_contact_x_span_half_open": [
+        5,
+        42
+      ],
+      "finite_volume_depth_hint": 10,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 44,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 45,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 46,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 47,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 48,
+          "x_runs_half_open": [
+            [
+              6,
+              41
+            ]
+          ],
+          "opaque_pixels": 35
+        },
+        {
+          "y": 49,
+          "x_runs_half_open": [
+            [
+              7,
+              40
+            ]
+          ],
+          "opaque_pixels": 33
+        },
+        {
+          "y": 50,
+          "x_runs_half_open": [
+            [
+              9,
+              38
+            ]
+          ],
+          "opaque_pixels": 29
+        },
+        {
+          "y": 51,
+          "x_runs_half_open": [
+            [
+              11,
+              36
+            ]
+          ],
+          "opaque_pixels": 25
+        },
+        {
+          "y": 52,
+          "x_runs_half_open": [
+            [
+              13,
+              34
+            ]
+          ],
+          "opaque_pixels": 21
+        },
+        {
+          "y": 53,
+          "x_runs_half_open": [
+            [
+              16,
+              31
+            ]
+          ],
+          "opaque_pixels": 15
+        }
+      ],
+      "authored_collision_footprint": [
+        37,
+        10
+      ]
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "animation": "pillar_broken_short",
+      "frame": 0,
+      "cell": [
+        48,
+        56
+      ],
+      "anchor": [
+        24,
+        53
+      ],
+      "source_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+      "contact_window_x_half_open": [
+        0,
+        48
+      ],
+      "contact_band_y_half_open": [
+        44,
+        54
+      ],
+      "native_contact_x_span_half_open": [
+        5,
+        42
+      ],
+      "finite_volume_depth_hint": 10,
+      "ground_contact": true,
+      "rows": [
+        {
+          "y": 44,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 45,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 46,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 47,
+          "x_runs_half_open": [
+            [
+              5,
+              42
+            ]
+          ],
+          "opaque_pixels": 37
+        },
+        {
+          "y": 48,
+          "x_runs_half_open": [
+            [
+              5,
+              41
+            ]
+          ],
+          "opaque_pixels": 36
+        },
+        {
+          "y": 49,
+          "x_runs_half_open": [
+            [
+              7,
+              40
+            ]
+          ],
+          "opaque_pixels": 33
+        },
+        {
+          "y": 50,
+          "x_runs_half_open": [
+            [
+              8,
+              39
+            ]
+          ],
+          "opaque_pixels": 31
+        },
+        {
+          "y": 51,
+          "x_runs_half_open": [
+            [
+              10,
+              37
+            ]
+          ],
+          "opaque_pixels": 27
+        },
+        {
+          "y": 52,
+          "x_runs_half_open": [
+            [
+              12,
+              35
+            ]
+          ],
+          "opaque_pixels": 23
+        },
+        {
+          "y": 53,
+          "x_runs_half_open": [
+            [
+              15,
+              32
+            ]
+          ],
+          "opaque_pixels": 17
+        }
+      ],
+      "authored_collision_footprint": [
+        37,
+        10
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+native_conservation changes=483 max_removal=0.2025528
+actor_protection at=(157, 162) pass
+receiver_exclusion Wall pass
+receiver_exclusion Deep pass
+receiver_exclusion Lava pass
+receiver_exclusion Void pass
+dim_source changes=483 max_removal=0.00253189
+near_source distance=9.9 shadow_energy=38.8130836
+near_source distance=10.1 shadow_energy=39.0406570
+all9_emitters_composable max_error=0.00000042 reverse_order_max_delta=0.00000072
+native_camera_overlap differing=0 max_delta=0.00000000
+dead_prop_shadow_removed pass
+real Bloomwild focus=(369.0, 63.0) affected=0 max_removal=0.000000 camera_max_delta=0.00000000
+real Glasswater focus=(532.8, 64.0) affected=682 max_removal=0.272956 camera_max_delta=0.00000000
+real Cinder focus=(96.0, 744.0) affected=161 max_removal=0.218457 camera_max_delta=0.00000000
+real Summit focus=(476.0, 364.0) affected=1452 max_removal=0.219032 camera_max_delta=0.00000000
+sky_point_spill_excluded pass
+weather_all256_camera_remainders no_panic
+frame_emitter_reset pass

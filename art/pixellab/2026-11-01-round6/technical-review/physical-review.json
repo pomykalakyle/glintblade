@@ -1,0 +1,29 @@
+{
+  "baseline_library": "0996716ae2a494d9ec1b556a84d7cc8a2ff94909f07c84940632cc080635e515",
+  "selected_library": "43ea391d9dc852418ca09195996ec0e86811f91b9365addc9f599636d529fbd0",
+  "selected_binary": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+  "pinned_files": 267,
+  "source_pin_mismatches": [],
+  "baseline_lines": 390,
+  "selected_lines": 390,
+  "differences": [],
+  "zones": [
+    "ZONE Bloomwild native=1118208 surface=f8e4ebc207c35d87 wet=4d07909eb3d719b6 types=[712726, 23081, 37888, 37404, 0, 307109] props=103 enemies=13 start=(152.0, 696.0) shard=Some((408.0, 176.0)) gate=Some((408.0, 61.0)) boss=None",
+    "ZONE Glasswater native=1224704 surface=5689f88669f903c2 wet=112ee728978c210e types=[358418, 119359, 649101, 25318, 0, 72508] props=32 enemies=13 start=(32.0, 425.6) shard=Some((1161.6, 718.4)) gate=Some((1304.0, 607.2)) boss=None",
+    "ZONE Cinder native=1284096 surface=628807aff68dacb6 wet=6f6ded5a5d202383 types=[594456, 0, 194813, 0, 98876, 395951] props=13 enemies=12 start=(136.0, 752.0) shard=Some((1144.0, 184.0)) gate=Some((1144.0, 104.0)) boss=None",
+    "ZONE Summit native=1382400 surface=128b7e7d86ca2567 wet=3fee6c8e0eb22383 types=[302878, 0, 0, 0, 0, 1079522] props=196 enemies=0 start=(196.0, 782.0) shard=None gate=None boss=Some((720.0, 352.0))"
+  ],
+  "movement": [
+    "MOVEMENT probes=22446 hash=fd1eb6b1249b3c97",
+    "MOVEMENT probes=24534 hash=eceb968c07d18fc5",
+    "MOVEMENT probes=25110 hash=56d12abd6a7eda65",
+    "MOVEMENT probes=27324 hash=3c936544742b36e7"
+  ],
+  "prop_count": 344,
+  "enemy_count": 38,
+  "blocked_spawns": [],
+  "collision_geometry_float_bits_included": true,
+  "collision_rectangles": 1826,
+  "collision_pixels_tested": 69660,
+  "collision_opaque_pixels": 34348
+}

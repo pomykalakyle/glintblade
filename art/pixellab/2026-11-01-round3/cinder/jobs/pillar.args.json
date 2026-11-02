@@ -1,0 +1,22 @@
+{
+  "description": "One narrow ancient foundry waymarker pillar, top down three quarter RPG scenery, full isolated silhouette centered in transparent canvas. Tall slender slotted mineral stone fin, square broken foot, split flat chisel top, broad blue charcoal obsidian planes, thin weathered ash edge, tiny cold mauve fractures. A melancholic abandoned waterworks and volcanic foundry, industrial monolith, absolutely no runes, flames, orange, crystals, skulls, or ornaments. Strong lean silhouette, native 48x64 pixel art, flat deliberate connected clusters, upper left lighting, no cast shadow, no gradient, about42 pixels tall. Keep restrained and readable beside an18px hero.",
+  "width": 48,
+  "height": 64,
+  "no_background": true,
+  "palette": [
+    "#101017",
+    "#16151d",
+    "#1a1923",
+    "#24232d",
+    "#292c3c",
+    "#363340",
+    "#393746",
+    "#3f414f",
+    "#514854",
+    "#56505d",
+    "#5b5966",
+    "#79707a"
+  ],
+  "max_colors": 9,
+  "seed": 7224
+}

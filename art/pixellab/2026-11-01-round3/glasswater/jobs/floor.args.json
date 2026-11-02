@@ -1,0 +1,26 @@
+{
+  "no_background": false,
+  "palette": [
+    "#182331",
+    "#222d3d",
+    "#29313f",
+    "#364657",
+    "#424956",
+    "#4c6070",
+    "#626a74",
+    "#73858b",
+    "#929797",
+    "#a6b4ad",
+    "#bbc0b4",
+    "#4d4866",
+    "#796c91",
+    "#a195b8",
+    "#cdc3db"
+  ],
+  "palette_name": "Glasswater slate and pale iris",
+  "max_colors": 5,
+  "seed": 219,
+  "width": 32,
+  "height": 32,
+  "description": "A quiet seamless top-down cave floor texture tile. Muted slate grey bedrock, predominant flat #4c6070 with two broad connected angular shallow facets near center, very subtle value contrast. At least 75 percent calm flat background. No visible tile border, no outlines, no mortar grid, no bright spots, no sparkles, no plants, no crystal, no water. Sparse cracks only as one short connected joint. The exact outermost 3 pixel rows and columns must be flat #4c6070 to join other tiles. Tiny native pixel art 32x32, crisp one-pixel clusters with no noise."
+}

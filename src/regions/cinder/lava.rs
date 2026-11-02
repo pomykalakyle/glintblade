@@ -4,10 +4,17 @@ use super::art::*;
 use super::field::{Grid, edt};
 use super::paint::Painted;
 use crate::gfx::{Frame, H, Rgb, W};
+use crate::gfx::frame::PointLight;
 use crate::util::hash2;
 
 const PERIOD: i32 = 1024;
 const WIDTH: i32 = 256;
+/// World-fixed area-source quadrature: camera movement never reselects emitters.
+const LIGHT_CELL: i32 = 80;
+const LIGHT_RADIUS: f32 = 80.0;
+const LIGHT_HEIGHT: f32 = 4.0;
+const HEAT_POWER: [f32; 6] = [0.0, 0.12, 0.42, 0.78, 1.05, 1.30];
+const RADIANT_GAIN: f32 = 3.0;
 
 #[derive(Clone, Copy)]
 struct Flow {
@@ -19,11 +26,70 @@ struct Flow {
     foot: u8,
 }
 
+#[derive(Clone, Copy)]
+struct RadiantSample {
+    x: i32,
+    y: i32,
+    flow: Flow,
+    weight: f32,
+}
+
+struct RadiantPatch {
+    x: i32,
+    y: i32,
+    samples: Vec<RadiantSample>,
+}
+
 pub struct Lava {
     pixels: Grid<Option<Flow>>,
     bank: Grid<u8>,
-    texture: Vec<u8>,
+    texture: Texture,
     sources: Vec<(i32, i32, u32)>,
+    radiant_patches: Vec<RadiantPatch>,
+}
+
+/// Approximate the exposed molten area with one stable patch per world cell.
+/// Down-void falls cannot light the island from imaginary hovering sources;
+/// only their real upper twelve rows participate with the connected river lip.
+fn radiant_patches(pixels: &Grid<Option<Flow>>) -> Vec<RadiantPatch> {
+    let mut patches = Vec::new();
+    for y0 in (0..pixels.h).step_by(LIGHT_CELL as usize) {
+        for x0 in (0..pixels.w).step_by(LIGHT_CELL as usize) {
+            let (cx, cy) = (x0 + LIGHT_CELL / 2, y0 + LIGHT_CELL / 2);
+            let mut best = None;
+            let mut best_score = i32::MAX;
+            for y in y0..(y0 + LIGHT_CELL).min(pixels.h) {
+                for x in x0..(x0 + LIGHT_CELL).min(pixels.w) {
+                    let Some(q) = pixels.at(x, y) else { continue };
+                    if q.fall && q.u > 12 { continue; }
+                    let edge_penalty = (4 - q.edge.min(4) as i32) * 48;
+                    let score = (x - cx).pow(2) + (y - cy).pow(2) + edge_penalty;
+                    if score < best_score {
+                        best_score = score;
+                        best = Some((x, y));
+                    }
+                }
+            }
+            let Some((x, y)) = best else { continue };
+            let mut samples = Vec::new();
+            for oy in -3i32..=3 {
+                for ox in -3i32..=3 {
+                    let (sx, sy) = (x + ox * 2, y + oy * 2);
+                    // Adjacent world cells never claim the same emitting ink.
+                    if sx < x0 || sx >= (x0 + LIGHT_CELL).min(pixels.w)
+                        || sy < y0 || sy >= (y0 + LIGHT_CELL).min(pixels.h) {
+                        continue;
+                    }
+                    let Some(flow) = pixels.at(sx, sy) else { continue };
+                    if flow.fall && flow.u > 12 { continue; }
+                    samples.push(RadiantSample { x: sx, y: sy, flow,
+                        weight: ((4 - ox.abs()) * (4 - oy.abs())) as f32 });
+                }
+            }
+            patches.push(RadiantPatch { x, y, samples });
+        }
+    }
+    patches
 }
 
 /// Sample a gently bending centerline so plates turn downstream without per-segment texture resets.
@@ -88,6 +154,25 @@ fn river_coords(x: f32, y: f32, line: &[(f32, f32, f32)]) -> (i16, i16) {
     (along.round() as i16, across.round() as i16)
 }
 
+/// The foundry spill flows west into the southbound river. Its incoming basis
+/// turns continuously into that river at the actual mouth, instead of resetting
+/// both native texture axes at the old arbitrary x400 boundary.
+fn surface_coords(x: i32, y: i32, line: &[(f32, f32, f32)]) -> (i16, i16) {
+    let main = river_coords(x as f32, y as f32, line);
+    if x <= 368 || !(628..684).contains(&y) {
+        return main;
+    }
+    let mouth = river_coords(380.0, 656.0, line);
+    let turn = ((x - 368) as f32 / 72.0).clamp(0.0, 1.0);
+    let spread = ((28 - (y - 656).abs()) as f32 / 12.0).clamp(0.0, 1.0);
+    let k = turn * turn * (3.0 - 2.0 * turn) * spread;
+    let branch = (mouth.0 as i32 - (x - 380), mouth.1 as i32 - (y - 656));
+    (
+        (main.0 as f32 + (branch.0 as f32 - main.0 as f32) * k).round() as i16,
+        (main.1 as f32 + (branch.1 as f32 - main.1 as f32) * k).round() as i16,
+    )
+}
+
 /// Test a pixel against one hard-edged authored polygon, without antialiasing.
 fn in_polygon(x: f32, y: f32, polygon: &[(i32, i32)]) -> bool {
     let mut inside = false;
@@ -103,31 +188,57 @@ fn in_polygon(x: f32, y: f32, polygon: &[(i32, i32)]) -> bool {
     inside
 }
 
-/// Bake broad connected molten lanes and a deliberately uneven flotilla of flat crust plates.
-fn river_texture() -> Vec<u8> {
-    let mut texture = vec![3; (PERIOD * WIDTH) as usize];
-    for v in 0..WIDTH {
-        for u in 0..PERIOD {
-            // Long unequal tongues carry the current; no lattice or closed bright cell rims.
-            let phase = u as f32 * std::f32::consts::TAU / PERIOD as f32;
-            let bend = (phase.sin() * 13.0 + (phase * 3.0).sin() * 5.0).round() as i32;
-            let cross = (v - bend + WIDTH / 2).rem_euclid(WIDTH) - WIDTH / 2;
-            let mut level = 3;
-            for (offset, shift) in [(-79, 37), (0, 0), (91, 103)] {
-                let distance = (cross - offset).abs();
-                let tongue = (u + shift + cross / 2).rem_euclid(256);
-                // One broad warm tongue carries a fine pale filament, interrupted by cooled rafts.
-                let width = 9 + ((phase * 5.0 + shift as f32).sin() * 2.0).round() as i32;
-                if distance <= width && tongue < 229 {
-                    level = level.max(4);
-                    if distance <= 1 && (18..180).contains(&tongue) {
-                        level = 5;
-                    }
-                }
+/// Native flow texture repeats by complete source cells, including across both world-wrap axes.
+struct Texture {
+    pixels: Vec<u8>,
+    period: i32,
+    width: i32,
+}
+
+impl Texture {
+    fn native(cell: &crate::gfx::Cell) -> Self {
+        let period = (PERIOD / cell.w).max(1) * cell.w;
+        let width = (WIDTH / cell.h).max(1) * cell.h;
+        let mut pixels = vec![3; (period * width) as usize];
+        for v in 0..width {
+            for u in 0..period {
+                let p = cell.at(u.rem_euclid(cell.w), v.rem_euclid(cell.h));
+                // Exact native palette-to-heat mapping; no resizing or interpolated pixels.
+                let level = LAVA_R
+                    .iter()
+                    .enumerate()
+                    .min_by(|(_, x), (_, y)| {
+                        let distance = |c: &Rgb| {
+                            (c.r - p.c.r).powi(2) + (c.g - p.c.g).powi(2) + (c.b - p.c.b).powi(2)
+                        };
+                        distance(x).total_cmp(&distance(y))
+                    })
+                    .map_or(3, |(i, _)| i as u8);
+                pixels[(v * period + u) as usize] = level;
             }
-            texture[(v * PERIOD + u) as usize] = level;
+        }
+        Self {
+            pixels,
+            period,
+            width,
         }
     }
+
+    fn sample(&self, u: i32, v: i32) -> u8 {
+        self.pixels[(v.rem_euclid(self.width) * self.period + u.rem_euclid(self.period)) as usize]
+    }
+}
+
+/// Bake a native material on the continuous river sheet; authored masks own the fixed banks.
+fn river_texture() -> Texture {
+    if let Some(s) = crate::gfx::sheet("cinder_lava_surface")
+        && let Some(a) = s.anim("body")
+    {
+        return Texture::native(s.cell(a, 0));
+    }
+    // A quiet complete fallback remains useful when reviewing an incomplete asset pack.
+    // Native molten art is the default; no rejected diagnostic branches ship.
+    let mut texture = vec![3; (PERIOD * WIDTH) as usize];
     // Coordinates, length, width and shear are composed rather than chosen from repeating cells.
     // Gaps between the plates remain broad open liquid, especially along the narrow main river.
     const PLATES: [(i32, i32, i32, i32, i32); 39] = [
@@ -172,6 +283,10 @@ fn river_texture() -> Vec<u8> {
         (937, -35, 21, 18, -3),
     ];
     for (n, &(u, v, length, width, shear)) in PLATES.iter().enumerate() {
+        // Cooled rafts are narrow fragments floating in liquid, rather than huge flat
+        // polygon islands spanning the river. Two planes keep their thickness legible.
+        let length = length * 3 / 4;
+        let width = width * 2 / 3;
         let notch = if n % 3 == 0 {
             length / 2
         } else {
@@ -196,11 +311,12 @@ fn river_texture() -> Vec<u8> {
                 // Only selected downstream edges glow; each plate keeps a solid, unperforated body.
                 let hot_edge = x > length / 2
                     && (!in_polygon(x as f32 + 1.5, y as f32 + 0.5, &outline)
-                        || (y > shear && (!in_polygon(x as f32 + 0.5, y as f32 + 1.5, &outline)
-                            || !in_polygon(x as f32 + 1.5, y as f32 + 1.5, &outline))));
+                        || (y > shear
+                            && (!in_polygon(x as f32 + 0.5, y as f32 + 1.5, &outline)
+                                || !in_polygon(x as f32 + 1.5, y as f32 + 1.5, &outline))));
                 let level = if hot_edge {
-                    4
-                } else if y > width / 5 && x > length / 3 {
+                    3
+                } else if y < 0 && x < length * 2 / 3 {
                     1
                 } else {
                     0
@@ -210,7 +326,11 @@ fn river_texture() -> Vec<u8> {
             }
         }
     }
-    texture
+    Texture {
+        pixels: texture,
+        period: PERIOD,
+        width: WIDTH,
+    }
 }
 
 /// Stretch a single hot fall core downstream and fold its terminal impact into the existing mask.
@@ -318,10 +438,8 @@ impl Lava {
                     span = (right - left + 1).min(255) as u8;
                     foot = (bottom - y).min(255) as u8;
                     ((y - top) as i16, (2 * x - left - right) as i16)
-                } else if (636..676).contains(&y) && x > 400 && x < 735 {
-                    ((735 - x) as i16, y as i16)
                 } else {
-                    river_coords(x as f32, y as f32, &line)
+                    surface_coords(x, y, &line)
                 };
                 pixels.v[i] = Some(Flow {
                     u,
@@ -336,17 +454,72 @@ impl Lava {
                 }
             }
         }
+        let radiant_patches = radiant_patches(&pixels);
         Self {
             pixels,
             bank,
             texture: river_texture(),
             sources,
+            radiant_patches,
         }
+    }
+
+    /// The same palette/phase sample drives visible molten ink and its light.
+    /// Cold level-zero crust contributes no radiant energy.
+    fn heat(&self, q: &Flow, drift: i32, t: u64) -> usize {
+        if q.fall {
+            fall_heat(q, t)
+        } else {
+            let heat = self.texture.sample(q.u as i32 - drift, q.v as i32) as usize;
+            if q.edge < 2 { 1 } else if q.edge < 5 { heat.min(3) } else { heat }
+        }
+    }
+
+    /// Area-weighted current heat moves downstream with the actual crust. A
+    /// representative source remains on real emitting ink nearest the hot
+    /// centroid, so its direction changes with local flow instead of a global
+    /// pulse. Neighbouring cells keep independent native texture phases.
+    fn radiant_light(&self, patch: &RadiantPatch, t: u64) -> Option<PointLight> {
+        let drift = (t / 6 % self.texture.period as u64) as i32;
+        let (mut energy, mut source_energy, mut area, mut cx, mut cy) =
+            (0.0, 0.0, 0.0, 0.0, 0.0);
+        let mut color = Rgb::BLACK;
+        for p in &patch.samples {
+            let level = self.heat(&p.flow, drift, t);
+            let power = HEAT_POWER[level] * p.weight;
+            // Hot exposed channels radiate much more than their cooling crust.
+            // A convex heat response preserves orange L3, reduces L1/L2, and
+            // makes the actual L4/L5 tongues visibly light nearby stone as
+            // they pass. Keep the native color and source centroid unchanged.
+            energy += power * HEAT_POWER[level] / HEAT_POWER[3];
+            source_energy += power;
+            area += p.weight;
+            cx += (p.x as f32 + 0.5) * power;
+            cy += (p.y as f32 + 0.5) * power;
+            color += LAVA_R[level].scale(power);
+        }
+        if source_energy <= 0.0 || area <= 0.0 { return None; }
+        cx /= source_energy;
+        cy /= source_energy;
+        let mut position = None;
+        let mut nearest = f32::MAX;
+        for p in &patch.samples {
+            if self.heat(&p.flow, drift, t) == 0 { continue; }
+            let (x, y) = (p.x as f32 + 0.5, p.y as f32 + 0.5);
+            let d2 = (x - cx).powi(2) + (y - cy).powi(2);
+            if d2 < nearest {
+                nearest = d2;
+                position = Some((x, y));
+            }
+        }
+        let (x, y) = position?;
+        Some(PointLight { x, y, height: LIGHT_HEIGHT, radius: LIGHT_RADIUS,
+            color: color.scale(1.0 / source_energy), intensity: energy / area * RADIANT_GAIN })
     }
 
     /// Move cooled rafts downstream in integer pixel steps; shores remain dark and crusted.
     pub fn draw(&self, f: &mut Frame, t: u64) {
-        let drift = (t / 6 % PERIOD as u64) as i32;
+        let drift = (t / 6 % self.texture.period as u64) as i32;
         for sy in 0..H as i32 {
             let y = sy + f.cam_y;
             if y < 0 || y >= self.pixels.h {
@@ -360,34 +533,31 @@ impl Lava {
                 let Some(q) = &self.pixels.v[(y * self.pixels.w + x) as usize] else {
                     continue;
                 };
-                let l = if q.fall {
-                    fall_heat(q, t)
-                } else {
-                    let u = (q.u as i32 - drift).rem_euclid(PERIOD);
-                    let v = (q.v as i32).rem_euclid(WIDTH);
-                    let heat = self.texture[(v * PERIOD + u) as usize] as usize;
-                    // Four liquid steps: dark red bank, salmon, orange tongue and a fine pale core.
-                    if q.edge < 4 {
-                        1
-                    } else if q.edge < 8 {
-                        heat.min(3)
-                    } else {
-                        heat
-                    }
-                };
+                let l = self.heat(q, drift, t);
                 let c = LAVA_R[l];
                 let i = sy as usize * W + sx as usize;
                 // Cooled stone is opaque material, never a dark emitter with a checker halo of its own.
                 if l == 0 {
-                    f.albedo[i] = L0;
+                    let u = q.u as i32 - drift;
+                    let v = q.v as i32;
+                    let hot_top = self.texture.sample(u - 1, v - 1) >= 2;
+                    f.albedo[i] = if !q.fall && hot_top {
+                        L0.lerp(B2, 0.42)
+                    } else {
+                        L0
+                    };
                     f.emissive[i] = Rgb::BLACK;
+                } else if l == 1 {
+                    // This is cooler red liquid, distinct from the opaque level0
+                    // basalt. The old .22gain collapsed both into nearly black.
+                    f.albedo[i] = Rgb::BLACK;
+                    f.emissive[i] = c.scale(0.78);
                 } else {
                     f.albedo[i] = Rgb::BLACK;
                     f.emissive[i] = c.scale(match l {
                         5 => 1.0,
-                        4 => 0.92,
-                        3 => 0.87,
-                        _ => 0.72,
+                        4 => 0.98,
+                        _ => 0.94,
                     });
                 }
             }
@@ -424,6 +594,25 @@ impl Lava {
     /// Add a low, stepped warm bounce within 44 pixels of actual molten pixels.
     pub fn light(&self, f: &mut Frame, t: u64) {
         f.look.light_dither = 0.0; // Broad stepped banks stay calm; no all-over hatch texture.
+        if f.surface_lighting {
+            for patch in &self.radiant_patches {
+                // Include the complete patch and 3D sphere projection, before
+                // evaluating its samples. No camera-ranked source budget.
+                let rx = LIGHT_RADIUS + 7.0;
+                let ry = LIGHT_RADIUS * std::f32::consts::SQRT_2 + 7.0;
+                if !f.visible(patch.x as f32 - rx, patch.y as f32 - ry, rx * 2.0, ry * 2.0, 0.0) {
+                    continue;
+                }
+                if let Some(light) = self.radiant_light(patch, t) {
+                    // The low thermal volume is projected onto its actual
+                    // molten pixel; its finite height approximates an area
+                    // emitter without lifting light dots into empty space.
+                    f.add_light_3d_w(light.x, light.y + light.height, light.height,
+                        light.radius, light.color, light.intensity);
+                }
+            }
+            return;
+        }
         let pulse = 0.92 + (t as f32 * 0.035).sin() * 0.08;
         for sy in 0..H as i32 {
             let y = sy + f.cam_y;
@@ -451,6 +640,283 @@ mod tests {
     use super::*;
     use crate::regions::cinder::paint::{K_FALL, K_LAVA, map_size, paint, walkable_kind};
     use crate::world::{Zone, ZoneId};
+
+    fn production_lava() -> (Painted, Lava) {
+        let (tw, th) = map_size();
+        let mut zone = Zone::new(ZoneId::Cinder, tw, th);
+        let painted = paint(&mut zone);
+        let lava = Lava::new(&painted);
+        (painted, lava)
+    }
+
+    #[test]
+    fn physical_lava_sources_are_world_anchored_actual_molten_pixels() {
+        let (painted, lava) = production_lava();
+        assert!(!lava.radiant_patches.is_empty());
+        for t in [0, 90, 180, 360] {
+            for patch in &lava.radiant_patches {
+                let Some(light) = lava.radiant_light(patch, t) else { continue };
+                let (x, y) = (light.x.floor() as i32, light.y.floor() as i32);
+                assert!(painted.lava_draw.at(x, y));
+                let q = lava.pixels.at(x, y).unwrap();
+                let drift = (t / 6 % lava.texture.period as u64) as i32;
+                assert!(lava.heat(&q, drift, t) > 0, "source emitted from cold crust at {x},{y} tick{t}");
+                assert!(!q.fall || q.u <= 12, "source floated in a down-void fall");
+                assert_eq!((light.height, light.radius), (LIGHT_HEIGHT, LIGHT_RADIUS));
+            }
+        }
+        let mut original = Frame::new();
+        original.surface_lighting = true;
+        original.cam_x = 178;
+        original.cam_y = 347;
+        lava.light(&mut original, 90);
+        let mut shifted = Frame::new();
+        shifted.surface_lighting = true;
+        shifted.cam_x = original.cam_x + 7;
+        shifted.cam_y = original.cam_y + 3;
+        lava.light(&mut shifted, 90);
+        let mut common = 0;
+        for a in &original.point_lights {
+            if let Some(b) = shifted.point_lights.iter().find(|b| b.x == a.x && b.y == a.y) {
+                common += 1;
+                assert_eq!((a.height, a.radius, a.color, a.intensity), (b.height, b.radius, b.color, b.intensity));
+            }
+        }
+        assert!(common >= 2, "camera overlap lost world-space emitters");
+        assert!(original.light.iter().all(|&l| l == Rgb::WHITE), "normal mode retained the unnormaled bank overlay");
+    }
+
+    #[test]
+    fn local_lava_heat_changes_independently_with_native_crust() {
+        let (_, lava) = production_lava();
+        let (mut brighter, mut darker, mut moved) = (false, false, false);
+        let mut changes = std::collections::BTreeSet::new();
+        for patch in &lava.radiant_patches {
+            for (ta, tb) in [(0, 90), (90, 180), (180, 360)] {
+                let a = lava.radiant_light(patch, ta);
+                let b = lava.radiant_light(patch, tb);
+                let delta = b.map_or(0.0, |l| l.intensity) - a.map_or(0.0, |l| l.intensity);
+                brighter |= delta > 0.03;
+                darker |= delta < -0.03;
+                changes.insert((delta * 1000.0).round() as i32);
+                if let (Some(a), Some(b)) = (a, b) { moved |= a.x != b.x || a.y != b.y; }
+            }
+        }
+        assert!(brighter && darker && changes.len() >= 4, "all lava lights changed as a uniform pulse");
+        assert!(moved, "hot-centroid direction never followed the advecting ink");
+    }
+
+    /// The real current at the foundry spill must change received light, rather
+    /// than merely animating bright lava ink against an almost static bank.
+    #[test]
+    fn hot_native_currents_increase_real_bank_light_variation() {
+        let (tw, th) = map_size();
+        let mut zone = Zone::new(ZoneId::Cinder, tw, th);
+        let painted = paint(&mut zone);
+        let lava = Lava::new(&painted);
+        // The ash beside this spill has a real planar receiving surface, while
+        // the surviving paving also retains native UV normals. Read the actual
+        // production terrain pass; raw atlas metadata alone omits ash entirely.
+        let mut terrain = Frame::new();
+        terrain.surface_lighting = true;
+        terrain.cam_x = 224;
+        terrain.cam_y = 504;
+        crate::gfx::lighting::ground_surface(&zone, &crate::world::NoRegion, &mut terrain);
+        let receiver_at = |x: i32, y: i32| {
+            let (sx, sy) = (x - terrain.cam_x, y - terrain.cam_y);
+            Frame::idx(sx, sy).map(|i| terrain.surfaces[i])
+        };
+        let old_intensity = |patch: &RadiantPatch, t: u64| {
+            let drift = (t / 6 % lava.texture.period as u64) as i32;
+            let (mut energy, mut area) = (0.0, 0.0);
+            for p in &patch.samples {
+                energy += HEAT_POWER[lava.heat(&p.flow, drift, t)] * p.weight;
+                area += p.weight;
+            }
+            energy / area * 1.6
+        };
+        let receive = |light: PointLight, x: i32, y: i32| {
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, Rgb::BLACK);
+            f.surface_lighting = true;
+            f.cam_x = x - 192;
+            f.cam_y = y - 108;
+            let i = 108 * W + 192;
+            f.albedo[i] = zone.ground[(y * zone.pw + x) as usize];
+            f.surfaces[i] = receiver_at(x, y).unwrap();
+            f.add_light_3d_w(light.x, light.y + light.height, light.height,
+                light.radius, light.color, light.intensity);
+            crate::gfx::surface::apply(&mut f);
+            f.light[i].luma()
+        };
+        let (mut varied_patches, mut bank_change) = (0, None);
+        let mut diagnostics = Vec::new();
+        // This is the actual six-second gameplay sample, in world coordinates.
+        for patch in &lava.radiant_patches {
+            if !(240..=600).contains(&patch.x) || !(540..=720).contains(&patch.y) {
+                continue;
+            }
+            let samples: Vec<_> = (301..=660).step_by(6).filter_map(|t| {
+                lava.radiant_light(patch, t).map(|light| (t, light, old_intensity(patch, t)))
+            }).collect();
+            let Some(low) = samples.iter().min_by(|a, b| a.1.intensity.total_cmp(&b.1.intensity)) else { continue };
+            let high = samples.iter().max_by(|a, b| a.1.intensity.total_cmp(&b.1.intensity)).unwrap();
+            let old_range = samples.iter().map(|s| s.2).fold(f32::NEG_INFINITY, f32::max)
+                - samples.iter().map(|s| s.2).fold(f32::INFINITY, f32::min);
+            let new_range = high.1.intensity - low.1.intensity;
+            diagnostics.push(format!("patch {},{}: intensity range old{old_range:.4}/new{new_range:.4}; low{} high{}", patch.x, patch.y, low.0, high.0));
+            if old_range < 0.03 || new_range < old_range * 1.5 { continue; }
+            varied_patches += 1;
+            if bank_change.is_some() { continue; }
+            let (cx, cy) = (high.1.x.floor() as i32, high.1.y.floor() as i32);
+            let mut receivers = Vec::new();
+            for dy in (-32i32..=32).step_by(2) {
+                for dx in (-32i32..=32).step_by(2) {
+                    if !(144..=1024).contains(&(dx * dx + dy * dy)) { continue; }
+                    let (x, y) = (cx + dx, cy + dy);
+                    if !painted.kind.inside(x, y) || !walkable_kind(painted.kind.at(x, y)) {
+                        continue;
+                    }
+                    let Some(surface) = receiver_at(x, y) else { continue };
+                    if surface.kind != 1 || surface.height != 0.0 || surface.normal[2] < 0.63 { continue; }
+                    receivers.push((dx * dx + dy * dy, x, y));
+                }
+            }
+            receivers.sort_unstable();
+            diagnostics.push(format!("  real floor candidates {}", receivers.len()));
+            for (_, x, y) in receivers.into_iter().take(8) {
+                let old_low = PointLight { intensity: low.2, ..low.1 };
+                let old_high = PointLight { intensity: high.2, ..high.1 };
+                let old_delta = (receive(old_high, x, y) - receive(old_low, x, y)).abs();
+                let new_delta = (receive(high.1, x, y) - receive(low.1, x, y)).abs();
+                diagnostics.push(format!("  bank {x},{y}: received variation old{old_delta:.5}/new{new_delta:.5}; normal{:?}", receiver_at(x, y).unwrap().normal));
+                if new_delta > 0.025 && new_delta > old_delta * 1.5 {
+                    bank_change = Some((x, y, low.0, high.0, old_delta, new_delta));
+                    break;
+                }
+            }
+        }
+        assert!(varied_patches >= 2, "native current lost its stronger independent heat changes: {varied_patches}\n{}", diagnostics.join("\n"));
+        assert!(bank_change.is_some(), "hot native tongues failed to increase light variation on any actual spill-bank normal\n{}", diagnostics.join("\n"));
+        println!("Native molten patches with stronger variation: {varied_patches}; real bank {bank_change:?}");
+    }
+
+    #[test]
+    fn molten_sources_reach_real_bank_and_obey_receiving_normals() {
+        use crate::gfx::frame::Surface;
+        let (painted, lava) = production_lava();
+        let mut sample = None;
+        'source: for patch in &lava.radiant_patches {
+            let Some(light) = lava.radiant_light(patch, 90) else { continue };
+            if light.intensity < 0.5 { continue; }
+            for dy in -28i32..=28 {
+                for dx in -28i32..=28 {
+                    if !(144..=784).contains(&(dx * dx + dy * dy)) { continue; }
+                    let (x, y) = (light.x.floor() as i32 + dx, light.y.floor() as i32 + dy);
+                    if painted.kind.inside(x, y) && walkable_kind(painted.kind.at(x, y)) {
+                        sample = Some((light, x, y));
+                        break 'source;
+                    }
+                }
+            }
+        }
+        let (light, x, y) = sample.expect("a live molten source beside actual walkable bank");
+        let dx = light.x - (x as f32 + 0.5);
+        let dy = light.y + light.height - (y as f32 + 0.5);
+        let length = dx.hypot(dy);
+        let facing = [dx / length, dy / length, 0.0];
+        let shade = |normal: [f32; 3]| {
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, Rgb::BLACK);
+            f.surface_lighting = true;
+            f.cam_x = x - 192;
+            f.cam_y = y - 108;
+            let i = 108 * W + 192;
+            f.albedo[i] = Rgb::WHITE;
+            f.surfaces[i] = Surface { normal, height: 0.0, owner: 0, kind: 1 };
+            f.add_light_3d_w(light.x, light.y + light.height, light.height, light.radius, light.color, light.intensity);
+            crate::gfx::surface::apply(&mut f);
+            f.light[i].luma()
+        };
+        let lit_face = shade(facing);
+        let dark_face = shade([-facing[0], -facing[1], 0.0]);
+        assert!(shade([0.0, 0.0, 1.0]) > 0.02, "live molten light did not reach its real bank");
+        assert!(lit_face > dark_face * 3.0, "lava illumination ignored receiving normals");
+    }
+
+    #[test]
+    fn foundry_spill_turns_into_river_without_a_texture_reset() {
+        let line = river_line();
+        for y in 636..676 {
+            for x in 368..444 {
+                let a = surface_coords(x, y, &line);
+                let b = surface_coords(x + 1, y, &line);
+                assert!(
+                    (a.0 - b.0).abs() <= 4 && (a.1 - b.1).abs() <= 4,
+                    "flow coordinates jumped at {x},{y}: {a:?} to {b:?}"
+                );
+            }
+        }
+        let west = surface_coords(500, 656, &line);
+        let east = surface_coords(600, 656, &line);
+        assert_eq!(
+            west.0 - east.0,
+            100,
+            "incoming foundry liquid must move west"
+        );
+        assert_eq!(
+            west.1, east.1,
+            "straight lined canal must share one crosscurrent coordinate"
+        );
+    }
+
+    /// A cropped native127px material must stay in phase when flow crosses the baked
+    /// sheet's horizontal/vertical wrap. The old1024x256 bake reset by8px/2px there.
+    #[test]
+    fn native_material_repeats_without_wrap_phase_jumps() {
+        let mut cell = crate::gfx::Cell {
+            w: 127,
+            h: 127,
+            surface: Default::default(),
+            px: Vec::new(),
+        };
+        for y in 0..127 {
+            for x in 0..127 {
+                cell.px.push(crate::gfx::Px {
+                    c: LAVA_R[((x + y * 2) % 6) as usize],
+                    a: true,
+                    emit: false,
+                });
+            }
+        }
+        let texture = Texture::native(&cell);
+        assert_eq!((texture.period, texture.width), (1016, 254));
+        for v in -130..texture.width + 130 {
+            for u in [
+                -130,
+                -1,
+                0,
+                1,
+                126,
+                127,
+                texture.period - 128,
+                texture.period - 1,
+                texture.period,
+                texture.period + 1,
+            ] {
+                assert_eq!(
+                    texture.sample(u, v),
+                    texture.sample(u + 127, v),
+                    "downstream phase reset at {u},{v}"
+                );
+                assert_eq!(
+                    texture.sample(u, v),
+                    texture.sample(u, v + 127),
+                    "cross-current phase reset at {u},{v}"
+                );
+            }
+        }
+    }
 
     /// Time the default renderer and lava hooks at entry, bridge, caldera and the full fall.
     #[test]
@@ -555,12 +1021,14 @@ mod tests {
                     let molten = painted.lava_draw.v[world];
                     assert_eq!(first.albedo[i] != Rgb::WHITE, molten);
                     assert_eq!(
-                        first.emissive[i] != Rgb::BLACK || first.albedo[i] == L0,
+                        first.emissive[i] != Rgb::BLACK
+                            || [L0, L0.lerp(B2, 0.42)].contains(&first.albedo[i]),
                         molten
                     );
                     assert_eq!(next.albedo[i] != Rgb::WHITE, molten);
                     assert_eq!(
-                        next.emissive[i] != Rgb::BLACK || next.albedo[i] == L0,
+                        next.emissive[i] != Rgb::BLACK
+                            || [L0, L0.lerp(B2, 0.42)].contains(&next.albedo[i]),
                         molten
                     );
                     if !molten {

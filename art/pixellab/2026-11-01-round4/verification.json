@@ -1,0 +1,333 @@
+{
+  "created": "2026-11-01",
+  "scope": [
+    "bloomwild",
+    "glasswater",
+    "cinder",
+    "summit",
+    "title"
+  ],
+  "native_resolution": [
+    384,
+    216
+  ],
+  "desktop_binary_sha256": "49358f8309ee603b0c8a871e7368aeb89b7392824655148e18eff6fdeb7ce134",
+  "webassembly_sha256": "e2c9c1de9b3d6e5f4be3091482142337963f9f33f569979efc31fe21394a8037",
+  "immutable_build": "out/pixellab/round4/final",
+  "source_and_sprite_manifest": {
+    "file": "out/pixellab/round4/final/sources.json",
+    "sha256": "15b45e7babcef97a199bcad154083ed32857a2f99f24d03ce919fb87fe455d25",
+    "files": 240,
+    "unchanged_after_reviews_recording_media": true
+  },
+  "builds": {
+    "desktop_release": "pass",
+    "wasm32_unknown_unknown_release": "pass",
+    "local_web_wasm_updated": true
+  },
+  "release_tests": {
+    "passed": 137,
+    "failed": 0,
+    "ignored_manual": 3,
+    "ignored_documentation": 1,
+    "single_thread": true,
+    "duration_seconds": 22.62,
+    "log_sha256": "7a1206d3e63858cf14b292030577dbf63587f44ddae2a39461fa8ae3ab836582"
+  },
+  "explicit_cinder_render_benchmark": {
+    "passed": true,
+    "p95_budget_ms": 8,
+    "scenes": [
+      {
+        "scene": "entry",
+        "median_ms": 4.571,
+        "p95_ms": 4.665
+      },
+      {
+        "scene": "bridge",
+        "median_ms": 4.762,
+        "p95_ms": 4.802
+      },
+      {
+        "scene": "caldera",
+        "median_ms": 5.109,
+        "p95_ms": 5.39
+      },
+      {
+        "scene": "fall",
+        "median_ms": 4.361,
+        "p95_ms": 4.419
+      }
+    ],
+    "lava_hooks_ms": 0.259
+  },
+  "assets": {
+    "selected_pixellab_sheets": 31,
+    "export_pairs_including_legacy_collision_families": 34,
+    "export_files": 68,
+    "byte_identical_offline_rebuild": true,
+    "rebuild_network_or_generation_required": false
+  },
+  "pixellab_followup": {
+    "requests": 1,
+    "variants": 4,
+    "charged_subscription_generations": 10,
+    "cycle_used_after": 429,
+    "cycle_remaining_after": 1571,
+    "selected_candidate": 2,
+    "native_cell": [
+      127,
+      127
+    ],
+    "raw_source": "art/pixellab/2026-11-01-round4/cinder/lava-study/result-2.png",
+    "prompt": "art/pixellab/2026-11-01-round4/cinder/lava-study/request.json",
+    "selection": "art/pixellab/2026-11-01-round4/cinder/lava-study/selection.json"
+  },
+  "independent_physics": {
+    "final_executable_probes": 10,
+    "all_passed": true,
+    "all_actual_player_starts_and_enemy_spawn_radii_clear": true,
+    "eroded_sky_pixels": 4049,
+    "repainted_sky_pixels": 0,
+    "review": "physics-review.json"
+  },
+  "object_support_checks": {
+    "real_player_walk_dash_approaches": 576,
+    "exported_support_animations": 44,
+    "all_spans_in_bounds_opaque_nonoverlapping": true,
+    "authored_map_final_probes": 11,
+    "final_endpoints_match_reviewed_candidate": true
+  },
+  "independent_visual": {
+    "initial_whole_game_native_views": 40,
+    "whole_maps": 4,
+    "final_actual_campaign_frames": 79,
+    "final_normal_health_bridge_frames": 5,
+    "revised_water_motion_frames": 12,
+    "final_period_corrected_lava_rechecked": true,
+    "title_idle_and_intro_rechecked": true,
+    "review": "visual-review.json"
+  },
+  "scene_studies": {
+    "before_manifest": "out/pixellab/world/before-round4-review/manifest.json",
+    "after_manifest": "out/pixellab/world/round4-final-review/manifest.json",
+    "matched_views": 40,
+    "overviews_per_build": 4,
+    "title": true,
+    "scenery_only_camera_positions": 5,
+    "other_staged_hero_positions_physically_clear": 35,
+    "portable_gallery": "out/pixellab/review-round4/gallery.html"
+  },
+  "final_recording": {
+    "file": "out/pixellab/recordings/whole-game-round4/gameplay.mp4",
+    "sha256": "cfcc069ee72b03bcccca27ba5e36b5d6cb73aa120ae2a037a3bd2bc77883d341",
+    "frames": 14530,
+    "fps": 60,
+    "duration_seconds": 242.16666666666666,
+    "integer_scale": 2,
+    "encoded_pixels": [
+      768,
+      432
+    ],
+    "god": true,
+    "visited_zones": [
+      "Bloomwild",
+      "Glasswater",
+      "Cinder",
+      "Summit"
+    ],
+    "all_three_shards": true,
+    "real_victory": true,
+    "milestones": {
+      "bloomwild_shard": 2793,
+      "cinder_shard": 9619,
+      "glasswater_shard": 6558,
+      "phase_2_damage": 11808,
+      "phase_2_heart_open": 12156,
+      "phase_3_damage": 13322,
+      "victory": 14031,
+      "warden_awake": 10613,
+      "warden_dying": 13648
+    },
+    "audio_events": 1468,
+    "missing_audio": [],
+    "audio_mix": "Original assets, emitted 60 Hz events, frontend gains/debounce; offline mix",
+    "codec_samples": [
+      {
+        "tick": 2355,
+        "mean_rgb_error": 1.4408
+      },
+      {
+        "tick": 4440,
+        "mean_rgb_error": 1.414
+      },
+      {
+        "tick": 7890,
+        "mean_rgb_error": 1.2946
+      },
+      {
+        "tick": 10215,
+        "mean_rgb_error": 1.1911
+      },
+      {
+        "tick": 12156,
+        "mean_rgb_error": 1.4292
+      },
+      {
+        "tick": 14031,
+        "mean_rgb_error": 0.0
+      }
+    ]
+  },
+  "samples": {
+    "html": "out/pixellab/review-round4/motion/motion.html",
+    "mp4": "out/pixellab/review-round4/motion/samples.mp4",
+    "frames": 480,
+    "fps": 60,
+    "duration_seconds": 8,
+    "retimed": false,
+    "clips": [
+      {
+        "name": "Bloomwild",
+        "first_tick": 2355,
+        "subject_target": [
+          712,
+          274
+        ],
+        "nearest_tick": 2415,
+        "nearest_position": [
+          704.3477783203125,
+          259.9471740722656
+        ]
+      },
+      {
+        "name": "Glasswater",
+        "first_tick": 4440,
+        "subject_target": [
+          656,
+          160
+        ],
+        "nearest_tick": 4500,
+        "nearest_position": [
+          650.0137939453125,
+          156.43740844726562
+        ]
+      },
+      {
+        "name": "Cinder",
+        "first_tick": 7890,
+        "subject_target": [
+          414,
+          480
+        ],
+        "nearest_tick": 7950,
+        "nearest_position": [
+          418.6365661621094,
+          467.8562316894531
+        ]
+      },
+      {
+        "name": "Summit",
+        "first_tick": 10215,
+        "subject_target": [
+          480,
+          776
+        ],
+        "nearest_tick": 10275,
+        "nearest_position": [
+          469.8753967285156,
+          776.0001831054688
+        ]
+      }
+    ]
+  },
+  "documentation_media": {
+    "inventory": "out/pixellab/round4/media-final/inventory.json",
+    "installed_outputs": 15,
+    "original_dirty_files_backed_up": 14,
+    "outputs": [
+      {
+        "file": "02_bloomwild_entry.png",
+        "sha256": "5f79b8a475df293956c9cf1ce38986b3de3ee78eb8ae34f08a15883106f59a52",
+        "bytes": 63371
+      },
+      {
+        "file": "03_bloomwild_falls.png",
+        "sha256": "6adac6cb8ec0b4fb6de91e33a09d6bb6f44ef11e3b96d54e6334d54c5ea10e10",
+        "bytes": 48444
+      },
+      {
+        "file": "05_glasswater_gallery.png",
+        "sha256": "a41a213a385a2b56e149af5ccebe4efb94407824de0347d406b5c6bca4b147b4",
+        "bytes": 48897
+      },
+      {
+        "file": "06_cinder_arrival.png",
+        "sha256": "036b90f7af2d4fe35452d46d172bd68408d34374b5a26132a44f7bb227d6c393",
+        "bytes": 38488
+      },
+      {
+        "file": "07_cinder_ruins.png",
+        "sha256": "4eb1b28bcceabab160ac40da2d52c49421d48c6a9fc140ed521ad79d1e4c6efe",
+        "bytes": 32765
+      },
+      {
+        "file": "09_summit_arena.png",
+        "sha256": "0f0455c50b5695f2c2a9ee36e335652127b7d2b2c149072d8262145eef56aa31",
+        "bytes": 14369
+      },
+      {
+        "file": "01_title.png",
+        "sha256": "c893f69d5663767ed76f6b87765c6e041786535d041f31b4f2a24e59ab8406b2",
+        "bytes": 27382
+      },
+      {
+        "file": "10_combat.png",
+        "sha256": "a65bf3d7faa0d2f5491e235d0bcbd473e08b73f3423cc3f609b3d207fbd5aba7",
+        "bytes": 39575
+      },
+      {
+        "file": "12_warden_phase_2.png",
+        "sha256": "f2b133f67f92e27d0d82be984aa5e42fc2dac5411b5dc8cc16d2ce24c85d0ffd",
+        "bytes": 39572
+      },
+      {
+        "file": "highlights.png",
+        "sha256": "5b43397bb42d99912570d3f278c93f3f46b847fc0dcb029c0ccce486df6db47d",
+        "bytes": 198265
+      },
+      {
+        "file": "highlights.mp4",
+        "sha256": "a23c238c68bb59fd18fb2f5fdb89f7521f79e15f2f15d842c090b1da1a9e76b9",
+        "bytes": 882989
+      },
+      {
+        "file": "combat.mp4",
+        "sha256": "ef2f8d204176a73493eee1c98c6ae94e6440ea6387b82a98c72faf463599007e",
+        "bytes": 944771
+      },
+      {
+        "file": "warden_fight.mp4",
+        "sha256": "f195db37645e745771e5ac8371ca5836eddf50c78b1c34f4fc11b745ab1a6319",
+        "bytes": 6608603
+      },
+      {
+        "file": "04_glasswater_causeway.png",
+        "sha256": "f4da16812b3d1d8f9109fda930fa71cface06919618615481612919e494c8dae",
+        "bytes": 49917
+      },
+      {
+        "file": "08_cinder_lava.png",
+        "sha256": "5876f33861d04746652bbaea5f01e3913bedf3dfc4a2961e49fc0a8053a3232a",
+        "bytes": 67106
+      }
+    ]
+  },
+  "remaining_limits": [
+    "Automated campaign uses invulnerability; ordinary-player difficulty balance is not established.",
+    "Review samples are not every frame or every possible player input.",
+    "Wide Warden telegraphs may put its crown beyond the finite viewport; hero, sword and nearby attack sources remain readable in reviewed frames.",
+    "Verification is headless; interactive device/audio playtesting was not performed."
+  ],
+  "publication": "Local working tree and local web build updated; public GitHub Pages remains the earlier build."
+}

@@ -186,9 +186,12 @@ fn open_gamepads() -> Option<Gamepads> {
 }
 
 pub async fn run(opts: Options) {
-    if std::env::args().any(|a| a == "--colemak") || std::env::var("GLINT_KEYS").is_ok_and(|v| v.eq_ignore_ascii_case("colemak")) {
-        crate::input::set_layout(crate::input::KeyLayout::ColemakDh);
-    }
+    // A new run always starts with WASD unless Colemak was explicitly requested.
+    crate::input::set_layout(if std::env::args().any(|a| a == "--colemak") || std::env::var("GLINT_KEYS").is_ok_and(|v| v.eq_ignore_ascii_case("colemak")) {
+        crate::input::KeyLayout::ColemakDh
+    } else {
+        crate::input::KeyLayout::Qwerty
+    });
     // Sound is on by default; `--mute` (or GLINT_MUTE=1) silences all audio, e.g. for test runs.
     let mute = std::env::args().any(|a| a == "--mute") || std::env::var("GLINT_MUTE").is_ok_and(|v| !v.is_empty() && v != "0");
     let mut game = Game::new(opts);

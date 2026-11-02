@@ -1,0 +1,53 @@
+{
+  "candidate_binary": "out/pixellab/round5/rc2/glintblade",
+  "candidate_sha256": "d69f74a2dbe39a232337b10d3b956056401c639a8d49e623229323e0a7020a0e",
+  "scope": "Owned vegetation, stone foot contacts and four enemy art families; not an independent whole-game visual approval.",
+  "inspected_directly": {
+    "prior": [
+      "round4 final native entry/courtyard/grove/temple",
+      "round4 whole Bloomwild overview",
+      "actual whole-game-round4 frames30/70/110",
+      "matched stationary entry warm20/70",
+      "native tree/ruin atlases and all6enemy first directional cells"
+    ],
+    "current": [
+      "RC1title240",
+      "RC1native entry/grove/temple",
+      "RC2title240",
+      "RC2native temple",
+      "RC2actual meadow60/120",
+      "RC2actual temple30/150",
+      "matched4-species original+2morph first-frame native/3xcontactsheet"
+    ]
+  },
+  "findings_fixed": [
+    "Entire canopy leaf layer translated+1px as aboard; all7 crown geometries nowfixed.",
+    "Repeated windswept mature silhouettes; nativeupright ivory f/g and existing sapling nowauthored into grove mix.",
+    "Six identical full-height temple columns; two replacedby contrasting short/tall nativebroken survivors.",
+    "Hardpillar-footer seam; two coherent moss pads recolor onlysourceopaque bottom3rows; narrow materialground contact undernative feet.",
+    "Original enemy sheet families repeated; four behavior types noweach have two stable complementarynative-pixel silhouette/material morphs.",
+    "First enemy study had detached houndspines; exact-frame column anchoring plus8-neighbor connectivity regression nowprevents it.",
+    "Hash selection repeated neighborenemy morphs; four authored overrides ensure firstencounters showdifferent forms."
+  ],
+  "checks": {
+    "native_tree_source_composites": "7/7 exactalignednative composites",
+    "tree_canopies": "7/7 singleframeandidenticalatlascolumns",
+    "tree_supports": "all exported supportrectangles inbounds andfullyopaquesourcepixels",
+    "enemy_native_pose_emission_and_growth_attachment": "PASS standalone rustc testovereveryposeandbothderivedmorphs",
+    "enemy_spawn_clearance": "All4regions everyEnemy::spawn actualradius PASS againstRC2world",
+    "central_full_suite": "Runbyroot afterallownersfreeze",
+    "pillar_opacity_and_bottom3rows": "Meaningfulregression added; awaitingcentralfullsuite",
+    "tree_offline_rebuild": "BothPNG/JSON reproducebyteforbyte fromarchivedsources",
+    "Bloom_structural_support_metadata": "19exportedanimations plus2runtimeaqueductpiers allinbounds,fullyopaque,nonoverlapping"
+  },
+  "account": {
+    "job": "f3c0a77c-39e0-4585-87f6-ccdaf85a7b9a",
+    "charged_generations": 10,
+    "candidates": 4,
+    "selected": 2,
+    "balance_last_seen_used": 449,
+    "balance_last_seen_remaining": 1551,
+    "note": "Balance includes concurrentround5studies; onlythis jobcharges10."
+  },
+  "conclusion": "Approve owned RC2 tree/stone/enemy visual changes after direct game-resolution inspection. Fresh independent whole-game review and finalregression/build/traversal remainroot responsibilities."
+}

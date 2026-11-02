@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: ba265003-8d27-49e3-bd32-c86f27f08256\njob_id: ba265003-8d27-49e3-bd32-c86f27f08256\nmodel: pro\ndescription: One LOW BROKEN RETAINING WALL sprite for a melancholy low top-down pixel action game. Native48x56 transparent canvas. The whole visible wall must be LOW: only22px high, spanning x3..45, grounded bottom row y53; upper half is empty transparent margin. A thick broad battered horizontal wall made of4 to6 unequal large weathered limestone blocks with a recessed shallow water channel crossing its top. Broken staggered parapet silhouette, one shoulder collapsed and missing at left, sage moss rooted in one joint, dark cool broken inner cavity. Muted chalk upper-left planes and slate shadows match reference arch. Physically coherent interlocking stones, large quiet planes, selective cracks and edge chips. No black outlines, repeated vertical fence posts, central tower, full arch, tiny noisy bricks, runes, glow, decorative carving, ground platform, background or cast shadow.\nsize: 48x56px\ntransparent: True\ncandidates: 16\nstyle_image: yes (detail, shading)\npalette: 18 colours (Glintblade weathered chalk waterworks)\nmax colours: 10 per image\nseed: 6202\nasset_id: e8eae865-b222-5afe-b55a-6efb60513ad4\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"ba265003-8d27-49e3-bd32-c86f27f08256\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ba265003-8d27-49e3-bd32-c86f27f08256/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

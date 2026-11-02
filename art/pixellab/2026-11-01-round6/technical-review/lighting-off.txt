@@ -1,0 +1,18 @@
+OWN_EMITTER checks=261 exact_all_crystal_centroids=14
+COURT checked=1284096 actual_floor_receivers=30525 excluded_liquid=98876
+LIGHT Bloomwild scene=0 protected=13c7e19b88682637 all=7e57d705f5399c26 actor=497 native=7100 nonreceiver=7552 material_pixels=82944
+LIGHT Bloomwild scene=1 protected=fd125694bb4a8e36 all=ae6f0959e8da40ec actor=105 native=3166 nonreceiver=12111 material_pixels=82944
+LIGHT Bloomwild scene=2 protected=d073d42bcf8fb2ef all=d785f5a8d728c55c actor=773 native=11256 nonreceiver=958 material_pixels=82944
+LIGHT Bloomwild scene=3 protected=0854a61f0bb8b493 all=6fac1335653282dd actor=672 native=7968 nonreceiver=0 material_pixels=82944
+LIGHT Glasswater scene=0 protected=f01b3024644d02c6 all=2f797a02e7b0aca1 actor=752 native=3013 nonreceiver=609 material_pixels=82944
+LIGHT Glasswater scene=1 protected=d9bf0e7571942266 all=0311309cfe8a1f56 actor=659 native=1187 nonreceiver=7744 material_pixels=82944
+LIGHT Glasswater scene=2 protected=145d9147edc76ff3 all=ade44d65c321d923 actor=546 native=2916 nonreceiver=2 material_pixels=82944
+LIGHT Glasswater scene=3 protected=93f5d70cd16fa9ba all=30ada161f2f69909 actor=853 native=940 nonreceiver=0 material_pixels=82944
+LIGHT Cinder scene=0 protected=59ddbc6f09b2cac5 all=e417df30414fb3b2 actor=1044 native=881 nonreceiver=18417 material_pixels=82944
+LIGHT Cinder scene=1 protected=1b7f6812a83ba2bc all=e5b8f6de11f46727 actor=938 native=5199 nonreceiver=409 material_pixels=82944
+LIGHT Cinder scene=2 protected=7f8ba3ffa9e6430a all=1d777f2d3511b924 actor=789 native=0 nonreceiver=0 material_pixels=82944
+LIGHT Cinder scene=3 protected=77b1028aa9b4f3c8 all=a54c265ed693ec00 actor=105 native=1335 nonreceiver=36636 material_pixels=82944
+LIGHT Summit scene=0 protected=880df283a1d03ad3 all=81a70ccb198cffcc actor=105 native=5581 nonreceiver=63828 material_pixels=82944
+LIGHT Summit scene=1 protected=e0ec4543a2aef02c all=9153bb917357c4ed actor=105 native=2810 nonreceiver=36189 material_pixels=82944
+LIGHT Summit scene=2 protected=825642e9cfb79044 all=6b7abb1ef760457c actor=105 native=2569 nonreceiver=342 material_pixels=82944
+LIGHT Summit scene=3 protected=b6f373f7ea52bd8b all=c3a6582507d6565a actor=105 native=2353 nonreceiver=71496 material_pixels=82944

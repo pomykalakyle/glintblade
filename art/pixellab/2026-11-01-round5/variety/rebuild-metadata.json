@@ -1,0 +1,157 @@
+{
+  "tree_offline_rebuild": [
+    {
+      "file": "assets/sprites/bloomwild_trees.png",
+      "sha256": "96bbe341c7d4e1a3e828569c7f962deb347605605498ef5ec66aa59fcb187877",
+      "offline_rebuild_exact": true
+    },
+    {
+      "file": "assets/sprites/bloomwild_trees.json",
+      "sha256": "528905d67fbd5d0a6f7df59a59a0e01ecbe4bf250b010bde8a97e7bcdfe00798",
+      "offline_rebuild_exact": true
+    }
+  ],
+  "bloom_structural_metadata": [
+    {
+      "sheet": "bloomwild_trees",
+      "anim": "a_trunk",
+      "rectangles": 45,
+      "opaque_support_pixels": 141,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_trees",
+      "anim": "b_trunk",
+      "rectangles": 43,
+      "opaque_support_pixels": 123,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_trees",
+      "anim": "c_trunk",
+      "rectangles": 31,
+      "opaque_support_pixels": 123,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_trees",
+      "anim": "d_trunk",
+      "rectangles": 41,
+      "opaque_support_pixels": 127,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_trees",
+      "anim": "e_trunk",
+      "rectangles": 12,
+      "opaque_support_pixels": 55,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_trees",
+      "anim": "f_trunk",
+      "rectangles": 31,
+      "opaque_support_pixels": 296,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_trees",
+      "anim": "g_trunk",
+      "rectangles": 28,
+      "opaque_support_pixels": 255,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "pillar",
+      "rectangles": 12,
+      "opaque_support_pixels": 226,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "pillar_broken_tall",
+      "rectangles": 3,
+      "opaque_support_pixels": 288,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "pillar_broken_short",
+      "rectangles": 3,
+      "opaque_support_pixels": 288,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "drum",
+      "rectangles": 8,
+      "opaque_support_pixels": 213,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "wall_low",
+      "rectangles": 5,
+      "opaque_support_pixels": 261,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "wall_tall",
+      "rectangles": 6,
+      "opaque_support_pixels": 271,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "statue",
+      "rectangles": 2,
+      "opaque_support_pixels": 199,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "pillar_b",
+      "rectangles": 14,
+      "opaque_support_pixels": 231,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "anim": "pillar_c",
+      "rectangles": 10,
+      "opaque_support_pixels": 221,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_arch",
+      "anim": "arch_post_left",
+      "rectangles": 11,
+      "opaque_support_pixels": 103,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_arch",
+      "anim": "arch_post",
+      "rectangles": 11,
+      "opaque_support_pixels": 103,
+      "inbounds_opaque_nonoverlap": true
+    },
+    {
+      "sheet": "bloomwild_arch",
+      "anim": "arch_post_right",
+      "rectangles": 9,
+      "opaque_support_pixels": 107,
+      "inbounds_opaque_nonoverlap": true
+    }
+  ],
+  "notes": "19exportedBloomstructuralanimations verified; aqueduct two groundedpiers are split at runtime by gfx/sprite.rs and checkedfromtheactual loadedSheet.",
+  "runtime_aqueduct": {
+    "actual_loaded_sheet_checks": [
+      "left_pier: 14rectangles 313pixels fullyopaque,inbounds,nonoverlapping anchor(28, 83)",
+      "right_pier: 18rectangles 374pixels fullyopaque,inbounds,nonoverlapping anchor(99, 83)"
+    ],
+    "canopy_collision_disabled": true
+  }
+}

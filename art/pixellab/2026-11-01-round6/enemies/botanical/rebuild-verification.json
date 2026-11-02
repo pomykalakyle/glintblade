@@ -1,0 +1,66 @@
+{
+  "files": [
+    {
+      "name": "sproutling_v1.png",
+      "sha256": "fb9f90f6cfcc3018408a8e36283a46fddcd730f1f72e081fb0598c2162b35d01",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "sproutling_v1.json",
+      "sha256": "92d22bde2b99d8fea338b54e0ad8b493c051e7281781f82c05aed3e9610ad3b3",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "sproutling_v2.png",
+      "sha256": "062b91753925027c415876163f8c07a5590310c15789331065100867ac7b657a",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "sproutling_v2.json",
+      "sha256": "caeb6d16ac67b82e62c748a904c810ad900de2d330ff12fcf0b2a3e080849a1c",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "thorn_imp_v1.png",
+      "sha256": "0419a1fbc70b6a8df85f703bfe04ea8767f88c5f21a0d2baf1b21683f51b6fcc",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "thorn_imp_v1.json",
+      "sha256": "4c13b809883a746e7fda7f14c76e427639c5d268b8ba5e0f02a00d0f32d5d15b",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "thorn_imp_v2.png",
+      "sha256": "3a0587c2a1b124f4da19e39d0920e30e06730b651851aa4aed7f38f3461c6360",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "thorn_imp_v2.json",
+      "sha256": "1d1b1ac6dfd964f01d5e5a78ca8ba2c4850a54b394ec372d665da0865957f18a",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "crystal_beetle_v1.png",
+      "sha256": "cad5e7d42e39ca44ca7634432da093752b952fd7597e12c2ad5e7abb6e9de0eb",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "crystal_beetle_v1.json",
+      "sha256": "2d2a4b0986f4a91f3c7091473c01efe3e25ef4fba98ea4eea9f5257303008e9a",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "crystal_beetle_v2.png",
+      "sha256": "ced9503dcb37994819347b3feb2ceb20ca753f34f5fee57e271409f0177eee89",
+      "reproduced_exactly": true
+    },
+    {
+      "name": "crystal_beetle_v2.json",
+      "sha256": "b9ac2493734dd40b10259c0e4706dc34b94deb01ae325911b3b6bb02237ffe8f",
+      "reproduced_exactly": true
+    }
+  ],
+  "count": 12,
+  "independent_destination": "out/pixellab/round6/botanical/reproduced"
+}

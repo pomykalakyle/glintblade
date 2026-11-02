@@ -1,0 +1,181 @@
+{
+  "status": "verified",
+  "scene_count": 25,
+  "scenes": [
+    {
+      "zone": "glasswater",
+      "name": "lake",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/lake/glasswater_t00090.png",
+      "sha256": "ad78a2a9a4eb475d77afa0b8494ce552ce96c6ec68c38d227cba52b3280f734d",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "island",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/island/glasswater_t00090.png",
+      "sha256": "529c69e3bb436fc0f77af8800c942dcce30b716350085aa970ba4472f6eac1d4",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "gallery",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/gallery/glasswater_t00090.png",
+      "sha256": "2c2c5684966e893cba3a5041e729aa50bd0d265d4f81e2b8eb2fab43c7cd9d80",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "bridge",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/bridge/glasswater_t00090.png",
+      "sha256": "86a23b5dd99f9e9e8a7483b652d1dc94c9dabb23f48bae703486c3e12295b615",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "grove",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/grove/glasswater_t00090.png",
+      "sha256": "f3f9286ffa20a14eed521d939b523dd1edbede68559ea97343de4096bf7dc838",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "heart",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/heart/glasswater_t00090.png",
+      "sha256": "1557ccff49b1bff24430421e667ebb820b6967a332715ef8dcb64b6ec397dfe8",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "channel",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/channel/glasswater_t00090.png",
+      "sha256": "cde401347ac5b13d96101090f7eb0e96d7bc271d5de88b6d91f2dbd1475b7bf9",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "causeway",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/causeway/glasswater_t00090.png",
+      "sha256": "4a1797adca0f35ac1faf06f73c32359d5cbd08867f7136ff75147899f76a84bd",
+      "equals_round8": true
+    },
+    {
+      "zone": "glasswater",
+      "name": "shallow-grove",
+      "file": "out/pixellab/round9/selected/night-isolation/glasswater/shallow-grove/glasswater_t00090.png",
+      "sha256": "91baa6ba0b52b0dc96c0ca557dc5ec85b762f291ea45087d16ebe40b7164a9e6",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "approach",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/approach/cinder_t00090.png",
+      "sha256": "63a4e2421769a2f9ac2161b8e7a524b2b0c49464416c1547c287b77ce2829b86",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "crossing",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/crossing/cinder_t00090.png",
+      "sha256": "96ef52e29d9afebac43feca7e214742dbc4215f63f50a66634c32f66cbad32d1",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "foundry",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/foundry/cinder_t00090.png",
+      "sha256": "b5d15275f33f4a1b3a11ab0a7d717d63a3218a42d2f4e5f0d08d449bf4b0923c",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "press",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/press/cinder_t00090.png",
+      "sha256": "0d6f13dda5b2e944118cadb0be8d61624ed3791d520fcc2dc0bdf35c3ad46993",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "upper-bank",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/upper-bank/cinder_t00090.png",
+      "sha256": "42ae5ec1eea9272f2ea8b2068270cd028fd997b42c7a3293969307159e08bde8",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "shrine",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/shrine/cinder_t00090.png",
+      "sha256": "2fa785a66c92fbcb98bb9af28c4eb3266a604ec03753f597d5db30250ebddf30",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "canal-bridge",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/canal-bridge/cinder_t00090.png",
+      "sha256": "032303f176af5b11c293b9b27183473b72cb6d6083ffc25c7316609869345197",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "caldera-bridge",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/caldera-bridge/cinder_t00090.png",
+      "sha256": "23999c505386239f810ca8f5707ade7ba3d0a26478034993b9e3dc677328ffb0",
+      "equals_round8": true
+    },
+    {
+      "zone": "cinder",
+      "name": "river-join",
+      "file": "out/pixellab/round9/selected/night-isolation/cinder/river-join/cinder_t00090.png",
+      "sha256": "282388c369d4bea6e1e682e96e4b8486b77bc184931cbddd2791ba3a2c4e7706",
+      "equals_round8": true
+    },
+    {
+      "zone": "summit",
+      "name": "arrival",
+      "file": "out/pixellab/round9/selected/night-isolation/summit/arrival/summit_t00090.png",
+      "sha256": "49c85b4c55445c4de4cbf339b71911b046fc7db27076437bffb24dcce8b60329",
+      "equals_round8": true
+    },
+    {
+      "zone": "summit",
+      "name": "bridge",
+      "file": "out/pixellab/round9/selected/night-isolation/summit/bridge/summit_t00090.png",
+      "sha256": "dd3f2ea686a0b83781ce200b1a828beff5e1bca0ed1f2b8b349f07bb455a3529",
+      "equals_round8": true
+    },
+    {
+      "zone": "summit",
+      "name": "stair",
+      "file": "out/pixellab/round9/selected/night-isolation/summit/stair/summit_t00090.png",
+      "sha256": "9b0944554ce214bdcf7c8c8edbc347a3731df6a04026f72fb292b4db70ed9dcc",
+      "equals_round8": true
+    },
+    {
+      "zone": "summit",
+      "name": "arena",
+      "file": "out/pixellab/round9/selected/night-isolation/summit/arena/summit_t00090.png",
+      "sha256": "47feb9fcf267e6139f686518ae743f387d3d62ef8fbe228e0150c4f0b39fcf06",
+      "equals_round8": true
+    },
+    {
+      "zone": "summit",
+      "name": "dais",
+      "file": "out/pixellab/round9/selected/night-isolation/summit/dais/summit_t00090.png",
+      "sha256": "a66d118018881d31a0776b39d6d23e0d3410df21b487cd950e2d3ae353141bb1",
+      "equals_round8": true
+    },
+    {
+      "zone": "summit",
+      "name": "west",
+      "file": "out/pixellab/round9/selected/night-isolation/summit/west/summit_t00090.png",
+      "sha256": "7aa4a60ed0f1b7da63e038bfb461c15d240de1e7ec41c15614a7336bd80bfa1f",
+      "equals_round8": true
+    },
+    {
+      "zone": "summit",
+      "name": "curved-edge",
+      "file": "out/pixellab/round9/selected/night-isolation/summit/curved-edge/summit_t00090.png",
+      "sha256": "f8f724786e0a7d1350c7bca27eaa3ad68b46c88b1cf7b0d086367e573dbf2603",
+      "equals_round8": true
+    }
+  ]
+}

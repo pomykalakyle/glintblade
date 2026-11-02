@@ -1,0 +1,34 @@
+{
+  "width": 128,
+  "height": 32,
+  "no_background": false,
+  "style_image_base64": "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",
+  "style_copy": [
+    "shading",
+    "detail"
+  ],
+  "palette": [
+    "#202734",
+    "#303c48",
+    "#44535b",
+    "#52645c",
+    "#687b67",
+    "#879779",
+    "#a6b393",
+    "#d9d3b8",
+    "#bbb599",
+    "#96947f",
+    "#777c71",
+    "#645867",
+    "#806876",
+    "#a2808e",
+    "#c29aa6",
+    "#ddbac0",
+    "#c5aa96",
+    "#907c70"
+  ],
+  "palette_name": "Glintblade weathered chalk waterworks",
+  "max_colors": 9,
+  "description": "One seamless HORIZONTAL FRONT-FACING retaining-wall material strip, native128x32 pixels, for a melancholy low top-down pixel action game. It fills the ENTIRE rectangular canvas edge to edge, no margins, framing or outer border. A thick long ancient limestone terrace wall, two unequal staggered courses of LARGE broad quiet ashlar stones. Stone faces30 to60pixels wide,4 to6major stones across whole strip; gently weathered and chipped, narrow broken cool-slate cracks at actual joins, no thick outlines around every stone. Clear lit thin top coping across y0..4, cool subdued stone main faces y5..27, deep narrow sage moss seam at y28..31 rooting the wall into meadow. Shallow recessed broad relief in one face, no text. Upper-left daylight, weathered muted chalk, broad cool slate planes, exact scale and quiet material of reference arch. No perspective diamond, object diorama, columns, towers, spikes, small repetitive bricks, stripes, glow, sparks, golden light, drawn cast shadow or background beyond masonry. This is a crop through a much longer straight terrace wall, not a separate floating wall object.",
+  "seed": 6204
+}

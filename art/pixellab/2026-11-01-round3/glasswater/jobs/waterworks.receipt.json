@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: ae6f2b21-901f-4a08-a339-19e5385e9cd0\njob_id: ae6f2b21-901f-4a08-a339-19e5385e9cd0\nmodel: pro\ndescription: An ancient abandoned cave waterworks sluice distributor: a tall broken slate stone pillar with a narrow dark vertical channel, worn iris-grey stone fins, a fractured horizontal lintel, small attached lower stepped basin and two bent dark iron braces. Strong asymmetrical silhouette. Tiny 3/4 top-down action RPG asset, native 96x96 pixels, base at x48,y90, subject 65px tall. Restrained architecture, large quiet angular stone faces, few purposeful fractures, upper-left chisel edges, convincing weight and grounded broad foot. No active water, no blue lights, no crystals, no glowing runes, no backdrop, no scene, no plants, transparent background. Crisp one-pixel details only at important joints, no uniform noise, no soft alpha.\nsize: 96x96px\ntransparent: True\ncandidates: 4\nstyle_image: yes (outline, detail, shading)\npalette: 15 colours (Glasswater slate and pale iris)\nmax colours: 9 per image\nseed: 229\nasset_id: 1c509fce-e596-5eac-ba47-2ed52c134c12\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"ae6f2b21-901f-4a08-a339-19e5385e9cd0\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ae6f2b21-901f-4a08-a339-19e5385e9cd0/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

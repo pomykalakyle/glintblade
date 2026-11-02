@@ -1,0 +1,6 @@
+DEATH cluster=3 existing=0 samples=96 median_ms=0.090830 p95_ms=0.104826 max_ms=0.185046 max_particles=669 max_projectiles=1
+DEATH cluster=3 existing=11980 samples=96 median_ms=0.088365 p95_ms=0.095819 max_ms=0.108182 max_particles=12000 max_projectiles=1
+DEATH cluster=6 existing=0 samples=96 median_ms=0.161622 p95_ms=0.168345 max_ms=0.178654 max_particles=1732 max_projectiles=3
+DEATH cluster=6 existing=11980 samples=96 median_ms=0.155260 p95_ms=0.162183 max_ms=0.167874 max_particles=12000 max_projectiles=3
+DEATH cluster=18 existing=0 samples=96 median_ms=0.501417 p95_ms=0.511045 max_ms=0.604510 max_particles=5210 max_projectiles=8
+DEATH cluster=18 existing=11980 samples=96 median_ms=0.474426 p95_ms=0.492250 max_ms=0.516034 max_particles=12000 max_projectiles=8

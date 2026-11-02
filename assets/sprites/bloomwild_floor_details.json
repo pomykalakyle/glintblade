@@ -1,0 +1,34 @@
+{
+  "cell": [
+    128,
+    64
+  ],
+  "anchor": [
+    64,
+    32
+  ],
+  "emissive": [],
+  "anims": {
+    "fluted_chips": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1
+    },
+    "broken_mosaic": {
+      "row": 1,
+      "frames": 1,
+      "fps": 1
+    },
+    "damp_apron": {
+      "row": 2,
+      "frames": 1,
+      "fps": 1
+    },
+    "ivy": {
+      "row": 3,
+      "frames": 1,
+      "fps": 1
+    }
+  },
+  "notes": "Four native unscaled PixelLab ground studies. Flat walkable low-relief fragments; clipped to existing dry receiving ground. No collider, light, transform, resampling or palette alteration. Job 9bc76122-d753-493e-9d69-8f949ef4db89; exact source pixels and prompt archived in art/pixellab/2026-11-01-round6/bloom-floor."
+}

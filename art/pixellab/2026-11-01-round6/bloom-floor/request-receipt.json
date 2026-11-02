@@ -1,0 +1,38 @@
+{
+  "prompt": {
+    "description": "Native 1:1 pixel art ground decal atlas for an elegant abandoned limestone garden, 128x64 canvas split into FOUR separated 64x32 cells, transparent background. Top left: low scattered broken fluted column chips with moss, asymmetrical open crescent. Top right: half buried radial mosaic fragments and tiny pale stone flakes with dry rose petals. Bottom left: damp waterworn limestone apron with three flat stepping fragments and dark teal moss at one corner. Bottom right: sparse fallen ivy runners and shallow wet masonry chips. Top-down three-quarter game projection matching reference, maximum object relief 2 pixels, flat walkable surface decoration, low contrast matte sage/ivory stone, dark undersides, directional upper-left highlights. Each group centered in its cell with 5 pixel transparent margin, no objects crossing cells. Large clean pixel clusters, restrained quiet gaps. NO standing columns, pots, mushrooms, tall vegetation, walls, outlines around the group, fake shadows, glow, antialiasing, text or labels.",
+    "width": 128,
+    "height": 64,
+    "no_background": true,
+    "max_colors": 16,
+    "palette": [
+      "#3b535b",
+      "#465b61",
+      "#587278",
+      "#647c77",
+      "#829b8e",
+      "#92a594",
+      "#adbba8",
+      "#b2bfa6",
+      "#747678",
+      "#a3a38f",
+      "#a1a4a5",
+      "#c2c1b3",
+      "#dfdac1",
+      "#ece6cf",
+      "#927c91",
+      "#bf9da9"
+    ],
+    "style_image_base64": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA4ElEQVR4nGNgGAWjYBSMglEwCkbBKBgFAwwYSdWwaf+y/+hic2YeZ9i0YjLJZjEwMDCwkGr5pr0XMcRLMt0YGBgY/pPjCKI1bNq/7L+utDSK2OPnn1D4i3YfYXh15xtJoUGUQmIsh4H7jz8xrN1ygmhHEBUFAky8BC2GWc7AwMAQ7GPBwEBklBCdBvBZjGw5AwMDw+WbL4g1loGJGEU903dhWIZsIbmWMzAQGQLQoPwPDVqsFpNjOQMDieWAX0Qu3BH4LLt1+wHRiZDkfOsXkYtREKEDqmdDYh1Cbmk4sgEA5CxjbyHZZPcAAAAASUVORK5CYII=",
+    "seed": 6031
+  },
+  "receipt": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 9bc76122-d753-493e-9d69-8f949ef4db89\njob_id: 9bc76122-d753-493e-9d69-8f949ef4db89\nmodel: pro\ndescription: Native 1:1 pixel art ground decal atlas for an elegant abandoned limestone garden, 128x64 canvas split into FOUR separated 64x32 cells, transparent background. Top left: low scattered broken fluted column chips with moss, asymmetrical open crescent. Top right: half buried radial mosaic fragments and tiny pale stone flakes with dry rose petals. Bottom left: damp waterworn limestone apron with three flat stepping fragments and dark teal moss at one corner. Bottom right: sparse fallen ivy runners and shallow wet masonry chips. Top-down three-quarter game projection matching reference, maximum object relief 2 pixels, flat walkable surface decoration, low contrast matte sage/ivory stone, dark undersides, directional upper-left highlights. Each group centered in its cell with 5 pixel transparent margin, no objects crossing cells. Large clean pixel clusters, restrained quiet gaps. NO standing columns, pots, mushrooms, tall vegetation, walls, outlines around the group, fake shadows, glow, antialiasing, text or labels.\nsize: 128x64px\ntransparent: True\ncandidates: 4\nstyle_image: yes (outline, detail, shading)\npalette: 16 colours\nmax colours: 16 per image\nseed: 6031\nasset_id: ba7b77ac-d91e-50d4-8252-fa40c8095a2c\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"9bc76122-d753-493e-9d69-8f949ef4db89\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9bc76122-d753-493e-9d69-8f949ef4db89/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,9 @@
+pillar_broken_tall flip=false fractional=0.2 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=235 camera/death PASS
+pillar_broken_tall flip=false fractional=0.8 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=235 camera/death PASS
+pillar_broken_tall flip=true fractional=0.2 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=245 camera/death PASS
+pillar_broken_tall flip=true fractional=0.8 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=245 camera/death PASS
+pillar_broken_short flip=false fractional=0.2 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=52 camera/death PASS
+pillar_broken_short flip=false fractional=0.8 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=52 camera/death PASS
+pillar_broken_short flip=true fractional=0.2 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=52 camera/death PASS
+pillar_broken_short flip=true fractional=0.8 opaque_bottom=53 actual_first_empty_world_row=151 collision_bottom=151 projected_shadow_samples=52 camera/death PASS
+repaired_native_column_cases=8 PASS

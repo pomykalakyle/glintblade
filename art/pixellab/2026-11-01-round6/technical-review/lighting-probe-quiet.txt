@@ -1,0 +1,18 @@
+OWN_EMITTER checks=261 exact_all_crystal_centroids=14
+COURT checked=1284096 actual_floor_receivers=30525 excluded_liquid=98876
+LIGHT Bloomwild scene=0 protected=7e173989e0ced367 all=4756df55445bc4fc actor=497 native=7100 nonreceiver=7552 material_pixels=82944
+LIGHT Bloomwild scene=1 protected=146a5d2858287592 all=47978a1ead34c7e9 actor=105 native=3166 nonreceiver=12111 material_pixels=82944
+LIGHT Bloomwild scene=2 protected=431992950ccbd16a all=8cfe3fb89627aed7 actor=773 native=11256 nonreceiver=958 material_pixels=82944
+LIGHT Bloomwild scene=3 protected=9feb757934982820 all=cb8429e5102d945a actor=672 native=7968 nonreceiver=0 material_pixels=82944
+LIGHT Glasswater scene=0 protected=1989fbc0202de5b7 all=c22e408e4a8a0962 actor=752 native=3013 nonreceiver=609 material_pixels=82944
+LIGHT Glasswater scene=1 protected=9b42e45060a66a52 all=74929cbaa87218c4 actor=659 native=1187 nonreceiver=7744 material_pixels=82944
+LIGHT Glasswater scene=2 protected=8e3f44ed5266491f all=79369edac7b4be62 actor=546 native=2916 nonreceiver=2 material_pixels=82944
+LIGHT Glasswater scene=3 protected=b8ca7c274e5ccecc all=9bf944f5644c3310 actor=853 native=940 nonreceiver=0 material_pixels=82944
+LIGHT Cinder scene=0 protected=a5b97165072815ae all=1aafebd988e1b6d3 actor=1044 native=881 nonreceiver=18417 material_pixels=82944
+LIGHT Cinder scene=1 protected=dd510c1c04000bbb all=cbd0176c7bdbbe6b actor=938 native=5199 nonreceiver=409 material_pixels=82944
+LIGHT Cinder scene=2 protected=63c56401b6fa7ecf all=a6c6ddaed5133f8d actor=789 native=0 nonreceiver=0 material_pixels=82944
+LIGHT Cinder scene=3 protected=207a20373e50f501 all=266c1173431a557c actor=105 native=1335 nonreceiver=36636 material_pixels=82944
+LIGHT Summit scene=0 protected=3fff0044e6814485 all=f00d0ac03ccca183 actor=105 native=5581 nonreceiver=63828 material_pixels=82944
+LIGHT Summit scene=1 protected=fa1462e112c2b91a all=3831604ec9ac70dd actor=105 native=2810 nonreceiver=36189 material_pixels=82944
+LIGHT Summit scene=2 protected=015d23a9f7bbd635 all=9972a98819be1ffc actor=105 native=2569 nonreceiver=342 material_pixels=82944
+LIGHT Summit scene=3 protected=50f25bd8e3dc359b all=2c98378209ff4131 actor=105 native=2353 nonreceiver=71496 material_pixels=82944

@@ -1,0 +1,232 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "anchor": [
+    16,
+    28
+  ],
+  "sheet": "bloomwild_grass",
+  "anim": "body",
+  "frames": 8,
+  "source_job": "733f74db-5a0b-4a0e-865e-9306b5c85dc9",
+  "frames_data": [
+    {
+      "frame": 0,
+      "source_index": 17,
+      "source_file": "cuttable.raw/17.png",
+      "source_bbox": [
+        1,
+        18,
+        31,
+        31
+      ],
+      "normalized_file": "cuttable.frames/00.png",
+      "normalized_bbox": [
+        1,
+        16,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        0,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    },
+    {
+      "frame": 1,
+      "source_index": 28,
+      "source_file": "cuttable.raw/28.png",
+      "source_bbox": [
+        3,
+        17,
+        32,
+        31
+      ],
+      "normalized_file": "cuttable.frames/01.png",
+      "normalized_bbox": [
+        2,
+        15,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        -1,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    },
+    {
+      "frame": 2,
+      "source_index": 40,
+      "source_file": "cuttable.raw/40.png",
+      "source_bbox": [
+        3,
+        17,
+        32,
+        31
+      ],
+      "normalized_file": "cuttable.frames/02.png",
+      "normalized_bbox": [
+        2,
+        15,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        -1,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    },
+    {
+      "frame": 3,
+      "source_index": 52,
+      "source_file": "cuttable.raw/52.png",
+      "source_bbox": [
+        2,
+        17,
+        32,
+        31
+      ],
+      "normalized_file": "cuttable.frames/03.png",
+      "normalized_bbox": [
+        1,
+        15,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        -1,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    },
+    {
+      "frame": 4,
+      "source_index": 55,
+      "source_file": "cuttable.raw/55.png",
+      "source_bbox": [
+        2,
+        18,
+        32,
+        31
+      ],
+      "normalized_file": "cuttable.frames/04.png",
+      "normalized_bbox": [
+        1,
+        16,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        -1,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    },
+    {
+      "frame": 5,
+      "source_index": 59,
+      "source_file": "cuttable.raw/59.png",
+      "source_bbox": [
+        3,
+        18,
+        32,
+        31
+      ],
+      "normalized_file": "cuttable.frames/05.png",
+      "normalized_bbox": [
+        2,
+        16,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        -1,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    },
+    {
+      "frame": 6,
+      "source_index": 60,
+      "source_file": "cuttable.raw/60.png",
+      "source_bbox": [
+        2,
+        18,
+        32,
+        31
+      ],
+      "normalized_file": "cuttable.frames/06.png",
+      "normalized_bbox": [
+        1,
+        16,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        -1,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    },
+    {
+      "frame": 7,
+      "source_index": 63,
+      "source_file": "cuttable.raw/63.png",
+      "source_bbox": [
+        2,
+        18,
+        32,
+        31
+      ],
+      "normalized_file": "cuttable.frames/07.png",
+      "normalized_bbox": [
+        1,
+        16,
+        31,
+        29
+      ],
+      "anchor": [
+        16,
+        28
+      ],
+      "integer_translation": [
+        -1,
+        -2
+      ],
+      "shape_and_opaque_pixel_multiset_unchanged": true
+    }
+  ]
+}

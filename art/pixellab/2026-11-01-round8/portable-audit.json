@@ -1,0 +1,109 @@
+{
+  "status": "verified",
+  "checked_at_utc": "2026-11-02T05:34:15.895107+00:00",
+  "archive": {
+    "file": "out/share/glint-blade-round8-source-and-web.zip",
+    "sha256": "79ff3a1f8a98099bb344a2bb05b06b785519ff5d686f6f7625b88739afadb0ab",
+    "bytes": 43961885,
+    "entries": 552
+  },
+  "method": "First archive safely extracted into fresh /tmp outside project; bundled helper verified all 459 build inputs and 78 frozen normal pairs. Final archive compared member by member against that audited archive; exactly four documentation files changed. All build inputs, helper, frozen metadata and web artifacts are byte-identical, so the original successful source/normal checks apply to the final archive. No Cargo/render/browser execution.",
+  "python_version": "3.14.8",
+  "source_verification": {
+    "added": [],
+    "files_checked": 459,
+    "modified": [],
+    "removed": [],
+    "sources_file": "out/pixellab/round8/selected/sources.json",
+    "sources_sha256": "6f8f77e95403b6317760a629a90c7b4cb220dd4e5ede7d02bd1614eb16e0caa9",
+    "status": "verified"
+  },
+  "normal_verification": {
+    "checked_at_utc": "2026-11-02T05:31:57.067717+00:00",
+    "errors": [],
+    "extra_normals": [],
+    "failed_pairs": 0,
+    "frozen_checksum_list_sha256": "646c096e1fc3341119fa7a5a2da6d9ecf358e4a4a17ecccac5d1c921812f0953",
+    "frozen_manifest_sha256": "2486f71e5edba3fd6a56320044dea4b7b17d881e7161daee68c39235d25edfa6",
+    "missing_normals": [],
+    "normal_pairs_checked": 78,
+    "scope": "Frozen R7 SHA256, all 78 albedo/normal pairs, dimensions, exact alpha, complete normal PNG inventory. No generation or rendering.",
+    "status": "verified"
+  },
+  "web_artifacts": {
+    "web/glintblade.wasm": {
+      "sha256": "677983e008ebad00145e63bb440b1fdbcb3327e670cca5b87949b2d5fbe8f233",
+      "selected_sha256": "677983e008ebad00145e63bb440b1fdbcb3327e670cca5b87949b2d5fbe8f233",
+      "matches": true
+    },
+    "web/index.html": {
+      "sha256": "f322d04280b4a878869490587c1a50faa0301fc14161e43f74f89e685de52ea5",
+      "selected_sha256": "f322d04280b4a878869490587c1a50faa0301fc14161e43f74f89e685de52ea5",
+      "matches": true
+    },
+    "web/mq_js_bundle.js": {
+      "sha256": "4bf663a44a06c113bed92e0596c58139cd9db7f0d67ef2cc49ca06016e0b5ea0",
+      "selected_sha256": "4bf663a44a06c113bed92e0596c58139cd9db7f0d67ef2cc49ca06016e0b5ea0",
+      "matches": true
+    }
+  },
+  "required_build_files_present_and_pinned": {
+    "Cargo.toml": true,
+    "Cargo.lock": true,
+    "build.rs": true,
+    "src/main.rs": true,
+    "src/lib.rs": true,
+    "src/regions/glasswater/map.txt": true
+  },
+  "missing_essential_build_files": [],
+  "embedded_asset_inventory": {
+    "sprites": 187,
+    "normals": 78,
+    "music": 6,
+    "sfx": 98,
+    "fonts": 0,
+    "data": 0
+  },
+  "install_copies_equal": true,
+  "documentation_findings": [
+    {
+      "file": "README.md",
+      "issue": "The current selected-build paragraph still claims 199 passing release tests and links only R7; ROUND8-INSTALL and the final R8 README correctly report 254 passed, 3 timing failures and 7 ignored.",
+      "severity": "correction_requested",
+      "status": "resolved_in_final_archive"
+    },
+    {
+      "file": "ROUND8-INSTALL.txt",
+      "issue": "The helper requires Python 3.11 or newer because it calls hashlib.file_digest; the interpreter minimum is not stated.",
+      "severity": "prerequisite_clarification_requested",
+      "status": "resolved_in_final_archive"
+    }
+  ],
+  "limits": [
+    "Verified archive build tree and data on Beefy; no Mac build or runtime claim.",
+    "The Cargo/Rust toolchain and registry dependencies are not vendored.",
+    "Optional historical media and evidence files are not required to build.",
+    "Source hash matching does not prove a launched binary was rebuilt."
+  ],
+  "archive_modified": false,
+  "previous_archive": {
+    "file": "out/pixellab/round8/trial-8/portable-before-doc-fix.zip",
+    "sha256": "5c5646d59c66ab87f21a4b9c021fc84bb272eeec405896496dc95996f7f6ead7"
+  },
+  "documentation_followup": {
+    "member_names_identical": true,
+    "changed_members": [
+      "glint-blade-round8/README.md",
+      "glint-blade-round8/ROUND8-INSTALL.txt",
+      "glint-blade-round8/art/pixellab/2026-11-01-round8/README.md",
+      "glint-blade-round8/out/pixellab/round8/selected/ROUND8-INSTALL.txt"
+    ],
+    "unchanged_members": 548,
+    "only_four_allowed_documents_changed": true,
+    "all_build_and_normal_inputs_unchanged": true,
+    "source_manifest_sha256": "6f8f77e95403b6317760a629a90c7b4cb220dd4e5ede7d02bd1614eb16e0caa9",
+    "root_readme_current_test_status_correct": true,
+    "python_minimum_and_nonvendored_dependencies_documented": true,
+    "source_and_normal_results_reused_via_exact_member_comparison": true
+  }
+}

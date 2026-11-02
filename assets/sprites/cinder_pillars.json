@@ -1,38 +1,262 @@
 {
- "cell": [32, 48],
- "anchor": [16, 44],
- "emissive": ["#d48670", "#efb68a"],
- "anims": {
-  "pillar": {
-   "row": 0,
-   "frames": 1,
-   "footprint": [14, 7],
-   "fps": 1
+  "cell": [
+    32,
+    48
+  ],
+  "anchor": [
+    16,
+    44
+  ],
+  "emissive": [
+    "#d48670",
+    "#efb68a"
+  ],
+  "anims": {
+    "pillar": {
+      "row": 0,
+      "frames": 1,
+      "footprint": [
+        21,
+        8
+      ],
+      "fps": 1,
+      "collision_rects": [
+        [
+          7,
+          38,
+          23,
+          39
+        ],
+        [
+          7,
+          39,
+          24,
+          40
+        ],
+        [
+          6,
+          40,
+          25,
+          41
+        ],
+        [
+          5,
+          41,
+          26,
+          42
+        ],
+        [
+          5,
+          42,
+          25,
+          43
+        ],
+        [
+          5,
+          43,
+          24,
+          45
+        ],
+        [
+          6,
+          45,
+          24,
+          46
+        ]
+      ]
+    },
+    "pillar_rune": {
+      "row": 1,
+      "frames": 1,
+      "footprint": [
+        21,
+        8
+      ],
+      "light": {
+        "color": "#efb68a",
+        "radius": 26,
+        "intensity": 0.6,
+        "offset": [
+          0,
+          -18
+        ]
+      },
+      "fps": 1,
+      "collision_rects": [
+        [
+          7,
+          38,
+          23,
+          39
+        ],
+        [
+          7,
+          39,
+          24,
+          40
+        ],
+        [
+          6,
+          40,
+          25,
+          41
+        ],
+        [
+          5,
+          41,
+          26,
+          42
+        ],
+        [
+          5,
+          42,
+          25,
+          43
+        ],
+        [
+          5,
+          43,
+          24,
+          45
+        ],
+        [
+          6,
+          45,
+          24,
+          46
+        ]
+      ]
+    },
+    "pillar_broken_tall": {
+      "row": 2,
+      "frames": 1,
+      "footprint": [
+        25,
+        8
+      ],
+      "fps": 1,
+      "collision_rects": [
+        [
+          7,
+          38,
+          23,
+          39
+        ],
+        [
+          25,
+          38,
+          27,
+          39
+        ],
+        [
+          7,
+          39,
+          24,
+          40
+        ],
+        [
+          25,
+          39,
+          29,
+          40
+        ],
+        [
+          6,
+          40,
+          29,
+          41
+        ],
+        [
+          5,
+          41,
+          30,
+          42
+        ],
+        [
+          5,
+          42,
+          25,
+          43
+        ],
+        [
+          5,
+          43,
+          24,
+          45
+        ],
+        [
+          6,
+          45,
+          24,
+          46
+        ]
+      ]
+    },
+    "pillar_broken_short": {
+      "row": 3,
+      "frames": 1,
+      "footprint": [
+        25,
+        8
+      ],
+      "fps": 1,
+      "collision_rects": [
+        [
+          8,
+          38,
+          23,
+          39
+        ],
+        [
+          25,
+          38,
+          27,
+          39
+        ],
+        [
+          7,
+          39,
+          24,
+          40
+        ],
+        [
+          25,
+          39,
+          29,
+          40
+        ],
+        [
+          6,
+          40,
+          29,
+          41
+        ],
+        [
+          5,
+          41,
+          30,
+          42
+        ],
+        [
+          5,
+          42,
+          25,
+          43
+        ],
+        [
+          5,
+          43,
+          24,
+          45
+        ],
+        [
+          6,
+          45,
+          24,
+          46
+        ]
+      ]
+    }
   },
-  "pillar_rune": {
-   "row": 1,
-   "frames": 1,
-   "footprint": [14, 7],
-   "light": {
-    "color": "#efb68a",
-    "radius": 26,
-    "intensity": 0.6,
-    "offset": [0, -18]
-   },
-   "fps": 1
-  },
-  "pillar_broken_tall": {
-   "row": 2,
-   "frames": 1,
-   "footprint": [14, 7],
-   "fps": 1
-  },
-  "pillar_broken_short": {
-   "row": 3,
-   "frames": 1,
-   "footprint": [14, 7],
-   "fps": 1
-  }
- },
- "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. "
+  "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat.  Structural base collision follows the exact native opaque rows."
 }

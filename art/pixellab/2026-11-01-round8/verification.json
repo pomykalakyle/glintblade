@@ -1,0 +1,186 @@
+{
+  "status": "Visual update complete; existing performance budgets remain unmet",
+  "selection": {
+    "trial": "trial-8",
+    "native_binary_sha256": "6d0e45f42e4711bfb344e66b8e50b5a581f435ace23dfd098255a8361f1fb966",
+    "wasm_sha256": "677983e008ebad00145e63bb440b1fdbcb3327e670cca5b87949b2d5fbe8f233",
+    "sources_sha256": "6f8f77e95403b6317760a629a90c7b4cb220dd4e5ede7d02bd1614eb16e0caa9",
+    "source_files": 459,
+    "normal_families": 78,
+    "lava_radiance_gain": 3.0,
+    "tall_crystal_radiance_gain": 1.22,
+    "build_overrides": {
+      "GLINT_ASSETS": null,
+      "GLINT_SPRITES": null,
+      "GLINT_LIGHTING": null
+    },
+    "test_status": {
+      "passed": 254,
+      "failed": 3,
+      "ignored": 7,
+      "failures": "Existing performance gates; no executed functional failures"
+    },
+    "static_views": "out/pixellab/world/round8-selected/manifest.json",
+    "campaign": "out/pixellab/recordings/whole-game-round8-selected/manifest.json",
+    "campaign_frames": 14498,
+    "victory_reached": true,
+    "git_status": "Local uncommitted source and new files; no push"
+  },
+  "normal_audit": "art/pixellab/2026-11-01-round8/normal-audit.json",
+  "static_audit": {
+    "reviewed_scenes": 40,
+    "fresh_pngs_equal_to_approved": 45,
+    "all_equal": true
+  },
+  "motion_audit": {
+    "sun": {
+      "scenes": [
+        "Temple",
+        "Courtyard"
+      ],
+      "frames_per_scene": 480,
+      "courtyard_foliage_rois": 3,
+      "max_adjacent_mean_luma_step": 0.601,
+      "result": "Readable foliage highlights; coherent moving native shadows"
+    },
+    "lava": {
+      "frames": 360,
+      "matched_timestamps": 24,
+      "gain": 3.0,
+      "bridge_luma_range_original": 4.58,
+      "bridge_luma_range_selected": 10.92,
+      "north_bank_range_original": 2.17,
+      "north_bank_range_selected": 5.47,
+      "south_bank_range_original": 6.93,
+      "south_bank_range_selected": 13.42,
+      "bank_channel_255_clipping": false
+    },
+    "crystal_break": {
+      "frames": 270,
+      "shatter_tick": 264,
+      "final_binary_capture": true
+    },
+    "warden": {
+      "heart_early_drop_fixed_tick": 12020,
+      "finale_body_swap_tick": 13822,
+      "beam_handoff_corrected_ticks": [
+        13103,
+        13104,
+        13105
+      ],
+      "handoff_compared_frames": 301,
+      "all_other_handoff_frames_byte_identical": true
+    }
+  },
+  "campaign_comparison": {
+    "baseline": "whole-game-round7-r3",
+    "candidate": "whole-game-round8-selected",
+    "frames": 14498,
+    "duration_seconds": 241.63333333333333,
+    "visited_zones": [
+      "Bloomwild",
+      "Glasswater",
+      "Cinder",
+      "Summit"
+    ],
+    "victory_ready": true,
+    "god": true,
+    "audio_events": 1452,
+    "audio_events_equal": true,
+    "gameplay_trace_equal": true,
+    "trace_equal_including_camera": false,
+    "trace_differences": [
+      [
+        13830,
+        {
+          "cam": [
+            [
+              528,
+              207
+            ],
+            [
+              528,
+              204
+            ]
+          ]
+        }
+      ]
+    ],
+    "milestones_equal": true,
+    "milestones": {
+      "bloomwild_shard": 3094,
+      "cinder_shard": 9350,
+      "glasswater_shard": 6357,
+      "phase_2_damage": 11656,
+      "phase_2_heart_open": 12032,
+      "phase_3_damage": 13290,
+      "victory": 13999,
+      "warden_awake": 10344,
+      "warden_dying": 13616
+    },
+    "matches_trial7_full_trace_and_audio": true
+  },
+  "campaign_audio": {
+    "events": 1452,
+    "missing_sounds": [],
+    "unscaled_peak": 1.2297031879425049,
+    "gain_to_avoid_clipping": 0.7969402776288649,
+    "mix": "Original assets, emitted 60 Hz events, frontend gains/debounce; offline mix"
+  },
+  "campaign_video": {
+    "file": "out/pixellab/recordings/whole-game-round8-selected/gameplay.mp4",
+    "bytes": 30143930,
+    "sha256": "e878e4fb6fa7a42a789a60735123719fcc7a335e255791c6191de60d7975efd6"
+  },
+  "share_gif": {
+    "bytes": 9409415,
+    "frames": 120,
+    "duration_ms": 8000,
+    "size": [
+      768,
+      432
+    ],
+    "sha256": "a6c3129b206f73fcfe6309beb74bc4a5b36b578710cd8f36f71a76d079866e78"
+  },
+  "performance": {
+    "full_suite": "254 passed; 3 performance failures; 7 ignored",
+    "bloom_default": {
+      "mean_ms": 11.702,
+      "p95_ms": 12.07
+    },
+    "bloom_live_update_and_render": {
+      "mean_ms": 12.104,
+      "p95_ms": 12.556
+    },
+    "sword_break_frame_ms": 12.412,
+    "warden_render_only": [
+      {
+        "phase": 2,
+        "mean_ms": 11.6146913243,
+        "p95_ms": 12.060161,
+        "max_ms": 12.153085
+      },
+      {
+        "phase": 3,
+        "mean_ms": 14.0472911982,
+        "p95_ms": 14.57421,
+        "max_ms": 14.832673
+      }
+    ],
+    "unchanged_cinder_trial7_caldera_p95_ms": 8.918,
+    "browser_runtime_measured": false,
+    "end_to_end_60fps_verified": false
+  },
+  "parallelization": {
+    "native_slots_including_root": 8,
+    "simultaneous_native_children_verified": 7,
+    "limit_refusals": 0
+  },
+  "source_archive": "out/share/glint-blade-round8-source-and-web.zip",
+  "scope_limits": [
+    "God-mode input pilot proves progression/rendering; not normal difficulty balance",
+    "2.5D visible native geometry approximates hidden geometry",
+    "Static review40views; motion reviewed in sampled and measured scopes above",
+    "No Git push; portable archive includes required untracked files"
+  ]
+}

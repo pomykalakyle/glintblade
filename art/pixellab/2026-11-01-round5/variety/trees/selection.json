@@ -1,0 +1,59 @@
+{
+  "job": "f3c0a77c-39e0-4585-87f6-ccdaf85a7b9a",
+  "cost_generations": 10,
+  "selected": {
+    "f": "result-2.png",
+    "g": "result-3.png"
+  },
+  "rejected": {
+    "result-1.png": "Round flower masses heavier; less open branching than chosen tree.",
+    "result-4.png": "Thin straight trunk and tiered crown provide less contrast against existing family."
+  },
+  "processing": "Complete untouched native80x96 sources translated vertically to align rooted foot at92; no resizing, recoloring, mirroring or synthesis. Ivory/rose leaf clusters split only for existing canopy occlusion. Geometry stays static in all frames. Exact opaque root supports regenerated from final trunk pixels.",
+  "files": {
+    "result-1.png": {
+      "sha256": "4dfe2731170f23860bd48b29f59cfadd06279b868f3fa5d7611a2032b84058df",
+      "size": [
+        80,
+        96
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    "result-2.png": {
+      "sha256": "57cc25922b860b333288d61c67244ce85d976dd7cfdd5d9355a036b3ce7ddb42",
+      "size": [
+        80,
+        96
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    "result-3.png": {
+      "sha256": "a93d590a839fde3986393cab32b67af386d0107fabf3f279292e9f45fbbfee90",
+      "size": [
+        80,
+        96
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    "result-4.png": {
+      "sha256": "49c003b9306e2530bcbb9d2a79fc384514305c775070ff8f4558e55aeb2a8831",
+      "size": [
+        80,
+        96
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    }
+  }
+}

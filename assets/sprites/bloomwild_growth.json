@@ -1,0 +1,22 @@
+{
+  "cell": [
+    64,
+    80
+  ],
+  "anchor": [
+    32,
+    74
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        0,
+        0
+      ]
+    }
+  },
+  "notes": "Selected native PixelLab source; no resampling, recoloring or mirroring. See art/pixellab/2026-11-01/manifest.json for provenance."
+}

@@ -52,6 +52,9 @@ const DUST: Rgb = rgb(0x92a594);
 
 static TURN: AtomicU64 = AtomicU64::new(0);
 
+#[cfg(test)]
+pub(super) fn reset_turn() { TURN.store(0, std::sync::atomic::Ordering::Relaxed); }
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Phase {
     Notice,
@@ -87,6 +90,7 @@ pub struct State {
     moving: bool,
     started: bool,
     idle_off: u32,
+    appearance: u8,
 }
 
 /// An active lob and its ground warning, kept together until impact or cancellation.
@@ -130,6 +134,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         marks: Vec::new(),
         moving: false,
         started: false,
+        appearance: super::variation::appearance(x, y),
         idle_off: rng.irange(0, 40) as u32,
         rng,
     };
@@ -616,7 +621,7 @@ fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool
                 Sel::Once(k) => a.frame_at(k, false),
                 Sel::Fixed(i) => i.min(a.frames - 1),
             };
-            return (sh.cell(a, i), sh.anchor_of(a), flip);
+            return (super::variation::cell(SHEET, sh.cell(a, i), s.appearance), sh.anchor_of(a), flip);
         }
     }
     let c = if matches!(s.phase, Phase::Windup) { fallback_cell(true) } else { fallback_cell(false) };
@@ -639,7 +644,7 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     if s.phase == Phase::Hurt && s.pt < 8 {
         ox = if s.pt % 2 == 0 { 1.0 } else { -1.0 };
     }
-    let o = DrawOpts { actor: true, flip, flash: b.flash, ..Default::default() };
+    let o = DrawOpts { actor: true, foot_depth: 3, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flip, flash: b.flash, ..Default::default() };
     f.sprite_w(cell, anchor, b.x + ox, b.y - b.z, &o);
 
     if s.phase == Phase::Windup {

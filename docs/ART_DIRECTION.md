@@ -1,11 +1,82 @@
 # GLINTBLADE art direction (2026-10-30)
 
+Created 2026-10-30 · Updated 2026-11-01
+
+## PixelLab environment pass (2026-11-01)
+
+Kyle requested PixelLab MCP, stronger landscapes, autonomous art direction and parallel agents,
+with visible samples throughout. PixelLab-generated assets are now allowed; this supersedes
+the first night's code-only constraint below. Keep the native grid, clear silhouettes,
+purposeful color clusters and restrained atmosphere.
+
+The environment pass now covers all four regions. Bloomwild uses fractured island faces,
+weathered arches and pillars, a rooted tree family, quiet 32px floor modules, and low cuttable
+grass. Glasswater adds native cave material, crystal families, waterworks and fungi; Cinder
+adds broad fractured basalt, foundry markers/presses and restrained paving; the Summit adds
+native masonry, foundations, piers and an empty dais. Existing maps, water/lava simulation,
+character animation and most secondary props remain authored. Keep routes readable.
+Generated art must be reviewed in actual game frames and motion, including shadows,
+canopy fading and cutting. A palette or linter pass alone does not establish quality.
+
+Selected sources, palette, trials and receipts: `art/pixellab/2026-11-01/` and
+`art/pixellab/2026-11-01-round3/`. The seven packers in `tools/pixellab/` reproduce 31 native atlases
+and three legacy collision-metadata families; this packs and splits sources,
+with documented native mask and palette repairs for rejected staging borders/texture bands.
+It never resizes source pixels, and untouched generator outputs remain archived. The original young tree
+remains. Seven mature/young tree silhouettes now keep whole crowns fixed; ambient loose
+leaves and cuttable grass can move without translating the entire tree.
+
+Round5 favors a continuous title headland over an isolated pedestal. Actual top contours
+own cliff faces, side returns and beveled retaining-wall ends. Stone feet use actual opaque
+support, source-gutter-independent shadows and narrow material contact. The Summit bridge
+is a shallow seated arch. Bloom water stays blue-green with sparse reflections and unequal
+falling strands; Cinder's native lava quilt distinguishes crust, orange heat and bright cores.
+Broken-column sources must finish with a real lower stone face and transparent cell margin:
+contact moss and correct collision cannot repair a shaft cropped at its canvas edge. Selected
+PixelLab footers preserve each original upper40rows, use unchanged native source pixels, and
+receive fresh exact support metadata and placement checks. Small stable enemy variants preserve native poses and attack emission. See
+`art/pixellab/2026-11-01-round5/` for sources, trials and independently scoped reviews.
+
+Round6 makes beauty the primary selection criterion. Six archetypes each receive two complete
+PixelLab anatomical/material designs rather than tiny recolors or decorative growths. Review
+every direction and pose: armor must keep its volume when running, wings must visibly fold,
+and mineral domes must finish inside their native cell. Preserve feet, held-seed masks, firing
+outlets, timing and readable charge progression. Death debris follows the selected skin while
+the shared combat random stream follows the original pose.
+
+Review whole scenes, too. Bloomwild's native albedo stays crisp under softer, quieter meadow
+illumination. Singular mosaic/fluting/ivy details explain its architecture; repeated props do
+not need identical surroundings. Glasswater's crystal sources follow their crests, with fine
+light-value steps and submerged terraces that describe water depth. Cinder's flush copper
+work beds and wear belong to the standing presses. The Summit's quiet radial masonry gives
+its arena a sacred focal structure without competing with attacks. Native 1× and integer zoom
+views, all-region maps, complete pose coverage and actual combat are separate review gates.
+Sources, prompts, repairs and scoped reviews: `art/pixellab/2026-11-01-round6/`.
+
+Round7 uses PixelLab OpenGL normal maps for 78 native asset families, with moving local
+illumination and source-specific shadows from native sprite volumes and painted terrain height
+sheets. Bloomwild retains restrained fixed sunlight; drifting cloud-light bands are removed.
+Crystal sources follow actual glowing crests, and the keeper brazier lights nearby material.
+Native per-column foot depth avoids a flat shadow rail beneath columns and Glint; floating
+actors and split tree crowns keep their real ground attachment. Shadows preserve actor ink,
+emissive pixels, visible stone/crystal bodies and sky exposure; collision-only companions
+cannot cast. Native and browser build defaults match. Review evidence and model limits:
+`art/pixellab/2026-11-01-round7/`.
+
+Review at the full scene and map scales as well as the individual pixel scale. Complete
+walkthroughs cover live enemies, portals, every shard, later Warden phases and the ending;
+invulnerability is a recorded QA aid. Test real collision contacts against the visible
+bases. Physics-only proxies must not create rendering planes or shadows. When a giant
+and Glint cannot both fit 216 native rows, preserve active attack readability with explicit
+offscreen cues instead of silently cropping the warning. Keep video controls below the
+picture, use 60fps captures, and preserve integer pixel enlargement before video encoding.
+
 ## What Kyle said
 Kyle's top priority for this demo: "making it look extremely good."
 Kyle looked at the AI-generated concept art in `assets/concept/raw/` and said: "A lot of these images just scream AI slop to me... They're also clearly not pixel art when you zoom in and look at them. There are all these weird artifacts and edges... I don't want it to have the AI slop look. That's important to me."
 
 So:
-- No AI-generated image ever goes into the game, not even cleaned up or traced. Every in-game pixel is placed deliberately on the native grid, by code or by hand-authored grids.
+- First-night constraint, superseded by the PixelLab pass above: every in-game pixel was placed by code or hand-authored grids rather than using the rejected concept images.
 - Don't use the images in `assets/concept/raw/` as a style target. At most they hint at subject matter (what a region contains). Their busy, glossy, everything-sparkles look is exactly what Kyle rejected.
 
 ## The look we want

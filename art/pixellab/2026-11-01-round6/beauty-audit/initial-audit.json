@@ -1,0 +1,514 @@
+{
+  "baseline_binary": "/home/krp/Projects/glintblade/out/pixellab/round5/selected/glintblade",
+  "binary_sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c",
+  "scope": "Direct visual audit of40native scene studies,title,and56sampled campaign frames. No claim to watching every campaign frame or audio. Source review of regional painters and light setup.",
+  "studies": [
+    {
+      "zone": "bloomwild",
+      "name": "landing",
+      "at": [
+        258,
+        696
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/landing/bloomwild_t00090.png",
+      "sha256": "8623bb785efb9c55ed1e0dfe72492748229026f83b84336a091fba44ffbbd1b9"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "entry",
+      "at": [
+        258,
+        640
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/entry/bloomwild_t00090.png",
+      "sha256": "353f228b1909e0077b2eb68f1405180a11efd56fdae74594ed5cb323abfcb55f"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "courtyard",
+      "at": [
+        456,
+        536
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/courtyard/bloomwild_t00090.png",
+      "sha256": "ed871df4b6f0315b0862c230a1d137c030fda62886fb31f94b4c88c3261a114e"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "temple",
+      "at": [
+        1056,
+        464
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/temple/bloomwild_t00090.png",
+      "sha256": "8e9bf004a593e635fcd3d88abe40ccd1143ce60c63e029e6ad796257d2feec2f"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "terrace",
+      "at": [
+        664,
+        340
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/terrace/bloomwild_t00090.png",
+      "sha256": "4fc76f2176ed1ce34a269746105783949d0db916791bd048d58b00e0cd2be40e"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "altar",
+      "at": [
+        408,
+        176
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/altar/bloomwild_t00090.png",
+      "sha256": "e39e1caa9f5d7ea5cc3fcdecbf0f49a400b3f987b38e4745558ba5f9ee271367"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "falls",
+      "at": [
+        780,
+        700
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/falls/bloomwild_t00090.png",
+      "sha256": "479a6f467a5146f3fa8cc0a64378b7047201df3a9c59b89403ae28b335cdbdc2"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "grove",
+      "at": [
+        934,
+        188
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/grove/bloomwild_t00090.png",
+      "sha256": "010409636039aa1676405c4eba53dc3ac765b71fadcbc44bf94c96093e770142"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "upper-bridge",
+      "at": [
+        712,
+        274
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/upper-bridge/bloomwild_t00090.png",
+      "sha256": "43e1d93703d46d537a44d51c0b589215a95f8516092854b9e9242fc2877c5c63"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "lower-bridge",
+      "at": [
+        840,
+        590
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/lower-bridge/bloomwild_t00090.png",
+      "sha256": "9d86d0076a12e6c523b81ad9fcf39d579ad00a88a053d71703f15482bddcb91a"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "stair-contact",
+      "at": [
+        1128,
+        340
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/stair-contact/bloomwild_t00090.png",
+      "sha256": "5706f9b7c9f576bf122f4b4a77bb9fb07f9ce0eae197e7423126920310104373"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "west-terrace",
+      "at": [
+        290,
+        344
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/west-terrace/bloomwild_t00090.png",
+      "sha256": "135460e312546d464135ab4c00ac0a02fe0da4db2ddad29728b85d759cda43cf"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "cliff-contact",
+      "at": [
+        420,
+        718
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/cliff-contact/bloomwild_t00090.png",
+      "sha256": "305ebb47afa75ddb4dbd2d0e6313547da5a23af0fa924409f3117783917bba1b"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "falls-impact",
+      "at": [
+        712,
+        356
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/falls-impact/bloomwild_t00090.png",
+      "sha256": "6da15f6fdf07f83c60a4c881003ac51c233c152ea4ac67bef317fd55e3e73ae7"
+    },
+    {
+      "zone": "bloomwild",
+      "name": "outlet-bank",
+      "at": [
+        812,
+        698
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/bloomwild/outlet-bank/bloomwild_t00090.png",
+      "sha256": "fe098479209ffdea7762fe3fb619e3c5001941edf6b447e8dbec02e4bc2bb16a"
+    },
+    {
+      "zone": "glasswater",
+      "name": "lake",
+      "at": [
+        300,
+        416
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/lake/glasswater_t00090.png",
+      "sha256": "120a48d15361f346dd47b38f7570f297622a7c28c2f0485d053f02bc33308a94"
+    },
+    {
+      "zone": "glasswater",
+      "name": "island",
+      "at": [
+        500,
+        440
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/island/glasswater_t00090.png",
+      "sha256": "a818fda405d24463991017d8403568d8af312b9d80dad2c6329ade823c2a783f"
+    },
+    {
+      "zone": "glasswater",
+      "name": "gallery",
+      "at": [
+        550,
+        102
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/gallery/glasswater_t00090.png",
+      "sha256": "8e12b35cc3bb6ca3e6e68bae5f4156188bcf8c996dc4a3a699f8e2edb1ed7eec"
+    },
+    {
+      "zone": "glasswater",
+      "name": "bridge",
+      "at": [
+        850,
+        250
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/bridge/glasswater_t00090.png",
+      "sha256": "7f2cad1304111eb8046695173ee27742c65a33f73aff262cbe27ba7296ab7ca2"
+    },
+    {
+      "zone": "glasswater",
+      "name": "grove",
+      "at": [
+        1200,
+        230
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/grove/glasswater_t00090.png",
+      "sha256": "b5af463f15a408315ea4f5f23a34489075feca62984fc3039a24f358077e6dbf"
+    },
+    {
+      "zone": "glasswater",
+      "name": "heart",
+      "at": [
+        1170,
+        700
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/heart/glasswater_t00090.png",
+      "sha256": "a4f1bc79596c96ced1031e70f9a52116830e7d878417eb1eea9fe0da0a84dd6f"
+    },
+    {
+      "zone": "glasswater",
+      "name": "channel",
+      "at": [
+        656,
+        160
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/channel/glasswater_t00090.png",
+      "sha256": "dfd875af944692af73c0b82c23c40887bda92c60aa8d8c22285017fe61d6c1bb"
+    },
+    {
+      "zone": "glasswater",
+      "name": "causeway",
+      "at": [
+        848,
+        250
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/causeway/glasswater_t00090.png",
+      "sha256": "943ba36f145cf2d242f848abdf77900a7de14058969a4ed974295a213cebd421"
+    },
+    {
+      "zone": "glasswater",
+      "name": "shallow-grove",
+      "at": [
+        1120,
+        280
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/glasswater/shallow-grove/glasswater_t00090.png",
+      "sha256": "9d2c4295a6c91aadab113a872b2e226aeebf070896b04024f5cefb7e310398eb"
+    },
+    {
+      "zone": "cinder",
+      "name": "approach",
+      "at": [
+        136,
+        752
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/approach/cinder_t00090.png",
+      "sha256": "289bd15142e51513625b4bd85586e2cfdc838f1c1359a571b61a772f7feea654"
+    },
+    {
+      "zone": "cinder",
+      "name": "crossing",
+      "at": [
+        414,
+        480
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/crossing/cinder_t00090.png",
+      "sha256": "c8226e50a2d7d43cce5129fe4846c2867da0dcf55306a99660d4151457aef2ef"
+    },
+    {
+      "zone": "cinder",
+      "name": "foundry",
+      "at": [
+        621,
+        510
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/foundry/cinder_t00090.png",
+      "sha256": "64bfc0afb6f06d82f07a13f79ba50ad53e85eb47ed52104cff4ba1bdbc3b4fcc"
+    },
+    {
+      "zone": "cinder",
+      "name": "press",
+      "at": [
+        621,
+        460
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/press/cinder_t00090.png",
+      "sha256": "310f94f122638a6d0ec343a50821f9a7ad100674749d3baa8da3b7c4789af124"
+    },
+    {
+      "zone": "cinder",
+      "name": "upper-bank",
+      "at": [
+        880,
+        330
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/upper-bank/cinder_t00090.png",
+      "sha256": "c5b5ff19f5769245183cda5b1ef1bf4d7515cac40f7a0b3b0a0fe2c5ecea3e44"
+    },
+    {
+      "zone": "cinder",
+      "name": "shrine",
+      "at": [
+        1144,
+        200
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/shrine/cinder_t00090.png",
+      "sha256": "f43f8a13e463865f95ae4a7291b50f0bcd61f81c75ae408f1f6887dc016b9c70"
+    },
+    {
+      "zone": "cinder",
+      "name": "canal-bridge",
+      "at": [
+        880,
+        616
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/canal-bridge/cinder_t00090.png",
+      "sha256": "a497d7a301195f39a689ff579f2eade8d0a646f1c908490bdf71b6a2dfc43a89"
+    },
+    {
+      "zone": "cinder",
+      "name": "caldera-bridge",
+      "at": [
+        1144,
+        280
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/caldera-bridge/cinder_t00090.png",
+      "sha256": "5b154e318c1fdecbd1a933d18e02910a19909e957d2a1f7cb9948a00428d949f"
+    },
+    {
+      "zone": "cinder",
+      "name": "river-join",
+      "at": [
+        440,
+        616
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/cinder/river-join/cinder_t00090.png",
+      "sha256": "650bb5e8f886ee342c030f44437a8613ac04ea2df7620a4bbbcb9118b45c74d5"
+    },
+    {
+      "zone": "summit",
+      "name": "arrival",
+      "at": [
+        196,
+        782
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/summit/arrival/summit_t00090.png",
+      "sha256": "547fb6f38cee56f1fff341a2179141f56ea5181ef8b493e29c7773ce76cd07ef"
+    },
+    {
+      "zone": "summit",
+      "name": "bridge",
+      "at": [
+        480,
+        776
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/summit/bridge/summit_t00090.png",
+      "sha256": "821db200a693578de3f5b2bce71f05eddba95542e2d3877b605779bedf1bd2c4"
+    },
+    {
+      "zone": "summit",
+      "name": "stair",
+      "at": [
+        720,
+        696
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/summit/stair/summit_t00090.png",
+      "sha256": "14f2c5f6ef101786cb329f9b2326fda57da542eed6515588323e01ae12c61725"
+    },
+    {
+      "zone": "summit",
+      "name": "arena",
+      "at": [
+        720,
+        520
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/summit/arena/summit_t00090.png",
+      "sha256": "b82739de50b9ad984e852a27ddfe43f7e87726eb7194bb1de8b4105e456253c5"
+    },
+    {
+      "zone": "summit",
+      "name": "dais",
+      "at": [
+        720,
+        280
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/summit/dais/summit_t00090.png",
+      "sha256": "77d04445148d100533e1dd241cf1ed78cd52b185ad39e9c51603db45925f8238"
+    },
+    {
+      "zone": "summit",
+      "name": "west",
+      "at": [
+        490,
+        510
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/summit/west/summit_t00090.png",
+      "sha256": "d256540e1edc6b18a21562050b320981fbd9d26af38cbe92b298a7dde9b18c57"
+    },
+    {
+      "zone": "summit",
+      "name": "curved-edge",
+      "at": [
+        470,
+        320
+      ],
+      "file": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/summit/curved-edge/summit_t00090.png",
+      "sha256": "8d7324dd8c3f553ab8d0108e00a8464ce3196c5db0a84e1fe430e7f77e97fe2e"
+    }
+  ],
+  "title": "/home/krp/Projects/glintblade/out/pixellab/world/round5-selected/title/f00240.png",
+  "priorities": [
+    {
+      "rank": 1,
+      "area": "Bloomwild",
+      "evidence": [
+        "landing [258,696]",
+        "entry [258,640]",
+        "falls [780,700]"
+      ],
+      "issue": "Huge straight-edged sage shade fields cut across meadow as overlapping geometric polygons; pasted planes undermine otherwise detailed rooted trees and ruins.",
+      "fix": "Reshape field edges into authored irregular turf/dapple masses tied to roots and waterworks, reduce value jump, retain calm open paths.",
+      "source": "src/regions/bloomwild/paint.rs landing_fields/authored patches and preserve_fields path",
+      "owner": "root"
+    },
+    {
+      "rank": 2,
+      "area": "Summit",
+      "evidence": [
+        "arena [720,520]",
+        "dais [720,280]",
+        "campaign10651,11046,11852,12628"
+      ],
+      "issue": "Arena reads as one nearly uniform blue slab; enormous rectangular tile grid gives no meaningful approach or sacred focal structure.",
+      "fix": "Low-contrast nested radial/constellation masonry, fragmented outer inlay and grounded localized wear; keep combat center calm and emissive attack cues dominant.",
+      "source": "src/regions/summit/paint.rs native_floor/arena_top/seal",
+      "owner": "broad_beauty_audit_round6"
+    },
+    {
+      "rank": 3,
+      "area": "Glasswater",
+      "evidence": [
+        "island [500,440]",
+        "gallery [550,102]",
+        "grove [1200,230]",
+        "shallow-grove [1120,280]",
+        "campaign4014,4861,5425"
+      ],
+      "issue": "Every crystal has an identical blue circular halo, visibly exposing point-light primitives; open shore floors are almost empty and waterworks lack localized focal detail.",
+      "fix": "Motivate light footprint with source-aware floor facets/native receiving geometry and existing occlusion; add a few restrained wet ledge catches and crystal reflection accents.",
+      "source": "src/regions/glasswater.rs decor draw; src/regions/glasswater/paint.rs shore_and_reflections; place.rs light setup",
+      "owner": "broad_beauty_audit_round6"
+    },
+    {
+      "rank": 4,
+      "area": "Title",
+      "evidence": [
+        "title/f00240.png"
+      ],
+      "issue": "Headland now continues off screen but left sky is broadly flat and distant geographic scale weak.",
+      "fix": "Quiet distant shelves/landforms with varied depths and a coherent horizon, preserving text contrast and headland road.",
+      "source": "src/regions/bloomwild/sky.rs and title_garden in src/regions/bloomwild.rs",
+      "owner": "root"
+    },
+    {
+      "rank": 5,
+      "area": "Bloomwild architecture",
+      "evidence": [
+        "temple [1056,464]",
+        "altar [408,176]",
+        "campaign1258,1569,3124"
+      ],
+      "issue": "Pillar+drum pairing repeats in near-symmetric rings; good individual assets but shrine feels like a layout kit.",
+      "fix": "Use grounded asymmetric rubble/moss/wear accents around selected bases or remove redundant paired drums; preserve lanes and existing completed base art.",
+      "source": "src/regions/bloomwild/ruins.rs placements and paint slabs",
+      "owner": "root decision"
+    },
+    {
+      "rank": 6,
+      "area": "Cinder",
+      "evidence": [
+        "foundry [621,510]",
+        "press [621,460]",
+        "canal-bridge [880,616]",
+        "campaign7879,8140,8926"
+      ],
+      "issue": "Lava is now strongest environmental material, but foundry floor and ash stretches are sterile compared with molten detail; tiny repeated lone fins lack scene storytelling.",
+      "fix": "Authored cold slag bands/rubble/staining at walls and former work sites, one or two readable focal industrial remnants, cooler quiet route margins rather than extra sparks everywhere.",
+      "source": "src/regions/cinder/paint.rs ground/foundry/detail passes; field.rs placement",
+      "owner": "root decision"
+    },
+    {
+      "rank": 7,
+      "area": "Bloomwild waterworks",
+      "evidence": [
+        "falls [780,700]",
+        "upper-bridge [712,274]",
+        "lower-bridge [840,590]",
+        "falls-impact [712,356]"
+      ],
+      "issue": "Water plane is coherent but every bank uses a similar broad band and each pale bridge is an almost identical undecorated slab; outlet column still visually dominant and mechanical.",
+      "fix": "Localized damp stones/moss at bridge abutments, fewer bright continuous bank lines, varied broken water catches and thin anchored spray only where dropping.",
+      "source": "src/regions/bloomwild/paint.rs waterworks and dynamic waterfall draw",
+      "owner": "root decision"
+    },
+    {
+      "rank": 8,
+      "area": "Combat and UI integration",
+      "evidence": [
+        "campaign4296,5425,7879,11046,13024"
+      ],
+      "issue": "Combat cues are generally readable; larger particle bursts can briefly erase tiny actors, and all small enemy species currently have very similar values against terrain.",
+      "fix": "Enemy art family redesign (separately in progress), review hurt/death/windup silhouettes over actual regional backgrounds, maintain restrained scenery value contrast.",
+      "source": "src/entities/enemies and src/fx/particles.rs",
+      "owner": "enemy art owners/root"
+    }
+  ]
+}

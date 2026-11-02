@@ -3,7 +3,7 @@
 //! the water, and ledges dropping into the abyss. Quiet angular planes cross tile seams.
 
 use super::art::{CAP, DEEP_DARK, ROCK, WALL, WATER};
-use crate::gfx::{Rgb, sheet};
+use crate::gfx::{Rgb, rgb, sheet};
 use crate::util::{bayer4, fbm, hash2};
 use crate::world::{HOLE, Tile, Zone};
 
@@ -13,6 +13,10 @@ pub const FACE: u8 = 2;
 pub const SHALLOW: u8 = 3;
 pub const DEEP: u8 = 4;
 pub const VOID: u8 = 5;
+
+/// Quiet submerged terraces between the shallow slate and the lake's dark center.
+/// These four native value masses soften the depth break without moving its physical shore.
+pub const DEEP_WATER: [Rgb; 4] = [rgb(0x264e61), rgb(0x23495c), rgb(0x1f3f52), WATER[0]];
 
 /// Pixel-level classification of the zone.
 pub struct PixMap {
@@ -30,7 +34,11 @@ pub struct PixMap {
 impl PixMap {
     #[inline]
     pub fn at(&self, x: i32, y: i32) -> u8 {
-        if x < 0 || y < 0 || x >= self.w || y >= self.h { WALL_TOP } else { self.cls[(y * self.w + x) as usize] }
+        if x < 0 || y < 0 || x >= self.w || y >= self.h {
+            WALL_TOP
+        } else {
+            self.cls[(y * self.w + x) as usize]
+        }
     }
     #[inline]
     pub fn rock(&self, x: i32, y: i32) -> bool {
@@ -60,10 +68,16 @@ pub fn classify(z: &Zone) -> PixMap {
             let fx = (x as f32 + 0.5) / 16.0 - 0.5;
             let tx = fx.floor() as i32;
             let ax = fx - tx as f32;
-            let t = [tile_c(z, tx, ty), tile_c(z, tx + 1, ty), tile_c(z, tx, ty + 1), tile_c(z, tx + 1, ty + 1)];
+            let t = [
+                tile_c(z, tx, ty),
+                tile_c(z, tx + 1, ty),
+                tile_c(z, tx, ty + 1),
+                tile_c(z, tx + 1, ty + 1),
+            ];
             let bil = |p: &dyn Fn(Tile) -> bool| -> f32 {
                 let v = |t: Tile| if p(t) { 1.0 } else { 0.0 };
-                (v(t[0]) * (1.0 - ax) + v(t[1]) * ax) * (1.0 - ay) + (v(t[2]) * (1.0 - ax) + v(t[3]) * ax) * ay
+                (v(t[0]) * (1.0 - ax) + v(t[1]) * ax) * (1.0 - ay)
+                    + (v(t[2]) * (1.0 - ax) + v(t[3]) * ax) * ay
             };
             let nz = fbm(x as f32 * 0.07, y as f32 * 0.07, 2, 5) - 0.5;
             let c = if bil(&|t| t == Tile::Wall) + nz * 0.25 > 0.5 {
@@ -72,7 +86,15 @@ pub fn classify(z: &Zone) -> PixMap {
                 VOID
             } else {
                 let n2 = fbm(x as f32 * 0.09, y as f32 * 0.09, 2, 9) - 0.5;
-                if bil(&|t| matches!(t, Tile::Shallow | Tile::Deep)) + n2 * 0.45 > 0.5 { if bil(&|t| t == Tile::Deep) + n2 * 0.6 > 0.5 { DEEP } else { SHALLOW } } else { FLOOR }
+                if bil(&|t| matches!(t, Tile::Shallow | Tile::Deep)) + n2 * 0.45 > 0.5 {
+                    if bil(&|t| t == Tile::Deep) + n2 * 0.6 > 0.5 {
+                        DEEP
+                    } else {
+                        SHALLOW
+                    }
+                } else {
+                    FLOOR
+                }
             };
             cls[(y * w + x) as usize] = c;
         }
@@ -86,7 +108,16 @@ pub fn classify(z: &Zone) -> PixMap {
                 let me = src[i];
                 let mut same = 0;
                 let mut counts = [0u8; 6];
-                for (dx, dy) in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)] {
+                for (dx, dy) in [
+                    (-1, 0),
+                    (1, 0),
+                    (0, -1),
+                    (0, 1),
+                    (-1, -1),
+                    (1, -1),
+                    (-1, 1),
+                    (1, 1),
+                ] {
                     let c = src[((y + dy) * w + x + dx) as usize];
                     counts[c as usize] += 1;
                     if c == me {
@@ -98,6 +129,14 @@ pub fn classify(z: &Zone) -> PixMap {
                     cls[i] = best as u8;
                 }
             }
+        }
+    }
+
+    // The old causeway is built masonry, not a smoothed tongue of cave floor.
+    // Keep the authored two-tile crossing straight right up to its visible curb.
+    for y in 15 * 16..(17 * 16).min(h) {
+        for x in 47 * 16..(59 * 16).min(w) {
+            cls[(y * w + x) as usize] = FLOOR;
         }
     }
 
@@ -123,7 +162,11 @@ pub fn classify(z: &Zone) -> PixMap {
                 continue;
             }
             let run = ye - ys;
-            let f = if run >= fh + 4 { fh } else { (run * 3 / 4).max(run.min(6)) };
+            let f = if run >= fh + 4 {
+                fh
+            } else {
+                (run * 3 / 4).max(run.min(6))
+            };
             for yy in (ye - f)..ye {
                 let i = (yy * w + x) as usize;
                 cls[i] = FACE;
@@ -169,7 +212,86 @@ pub fn classify(z: &Zone) -> PixMap {
             }
         }
     }
-    PixMap { w, h, cls, depth, span, ledge }
+    PixMap {
+        w,
+        h,
+        cls,
+        depth,
+        span,
+        ledge,
+    }
+}
+
+/// Bonded slate over the rift, with real landings and an arch-shaped stone soffit.
+/// A distinct deck separates this crossing from natural shelves elsewhere in the cave.
+pub fn bridge(z: &mut Zone, m: &PixMap) {
+    const X0: i32 = 47 * 16;
+    const X1: i32 = 59 * 16;
+    const Y0: i32 = 15 * 16;
+    const Y1: i32 = 17 * 16;
+    for y in Y0..Y1 {
+        for x in X0..X1 {
+            if m.at(x, y) != FLOOR {
+                continue;
+            }
+            let ly = y - Y0;
+            let course = ly / 8;
+            let bond = (x - X0 + course * 11).rem_euclid(23);
+            let stone = hash2((x - X0 + course * 11).div_euclid(23), course, 870);
+            let mut color = if stone < 0.35 { ROCK[2] } else { WALL[2] };
+            if ly % 8 == 7 || bond == 22 {
+                color = ROCK[1];
+            }
+            // Two low stone curbs, rather than a railing that hides actors.
+            if ly < 2 {
+                color = if ly == 0 { WALL[3] } else { WALL[1] };
+            }
+            if ly >= 29 {
+                color = if ly == 29 { WALL[3] } else { WALL[1] };
+            }
+            // A pair of broad threshold blocks makes each landing visibly load-bearing.
+            if x < X0 + 9 || x >= X1 - 9 {
+                color = if (y - Y0).rem_euclid(11) == 10 {
+                    ROCK[1]
+                } else {
+                    WALL[2]
+                };
+                if x == X0 || x == X1 - 9 {
+                    color = WALL[3];
+                }
+            }
+            z.gset(x, y, color);
+        }
+    }
+    for x in X0..X1 {
+        let across = (x - (X0 + X1) / 2).abs();
+        // Taller haunches enter the receiving banks; the center is a shallow keystone.
+        let depth = 7 + across * across / 800;
+        for j in 0..depth {
+            let y = Y1 + j;
+            if m.at(x, y) != VOID {
+                continue;
+            }
+            let mortar = (x - X0 + (j / 5) * 12).rem_euclid(25) == 24;
+            let color = if j == 0 {
+                WALL[2]
+            } else if j == depth - 1 || mortar || j % 5 == 4 {
+                ROCK[0]
+            } else if j < 4 {
+                WALL[1]
+            } else {
+                ROCK[1]
+            };
+            z.gset(x, y, color);
+        }
+        // Clear the old 38px natural ledge below the new, shallower bridge arch.
+        for j in depth..38 {
+            let y = Y1 + j;
+            if m.at(x, y) == VOID && m.ledge[(y * m.w + x) as usize] == 0 {
+                z.gset(x, y, HOLE);
+            }
+        }
+    }
 }
 
 /// Two-pass chamfer distance (in px) to the nearest pixel where `src` is true, capped at 255.
@@ -265,7 +387,11 @@ fn terrace(x: i32, y: i32) -> i32 {
     let skew_y = y - x / 7;
     let (cx, cy) = (skew_x.div_euclid(112), skew_y.div_euclid(76));
     let r = hash2(cx, cy, 41);
-    if r > 0.84 && skew_x.rem_euclid(112) < 84 && skew_y.rem_euclid(76) < 48 { 2 } else { 1 }
+    if r > 0.84 && skew_x.rem_euclid(112) < 84 && skew_y.rem_euclid(76) < 48 {
+        2
+    } else {
+        1
+    }
 }
 
 pub struct Fields {
@@ -274,6 +400,7 @@ pub struct Fields {
     pub d_land: Vec<u8>,
     pub d_open: Vec<u8>,
     pub d_void: Vec<u8>,
+    pub d_shallow: Vec<u8>,
 }
 
 pub fn fields(m: &PixMap) -> Fields {
@@ -284,6 +411,7 @@ pub fn fields(m: &PixMap) -> Fields {
         d_land: distance(w, h, |i| !matches!(m.cls[i], SHALLOW | DEEP)),
         d_open: distance(w, h, |i| m.cls[i] != WALL_TOP),
         d_void: distance(w, h, |i| m.cls[i] == VOID),
+        d_shallow: distance(w, h, |i| m.cls[i] == SHALLOW),
     }
 }
 
@@ -293,12 +421,19 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
     let ramps: [[Rgb; 6]; 4] = [floor_ramp(0), floor_ramp(1), floor_ramp(2), floor_ramp(3)];
     // terrace map, smoothed so no level forms a sliver
     let mut lev = vec![0i8; (w * h) as usize];
+    let generated = super::materials::available();
     for y in 0..h {
         for x in 0..w {
-            lev[(y * w + x) as usize] = terrace(x, y) as i8;
+            lev[(y * w + x) as usize] = if generated { 1 } else { terrace(x, y) as i8 };
         }
     }
-    let lv = |x: i32, y: i32| -> i32 { if x < 0 || y < 0 || x >= w || y >= h { 1 } else { lev[(y * w + x) as usize] as i32 } };
+    let lv = |x: i32, y: i32| -> i32 {
+        if x < 0 || y < 0 || x >= w || y >= h {
+            1
+        } else {
+            lev[(y * w + x) as usize] as i32
+        }
+    };
 
     for y in 0..h {
         for x in 0..w {
@@ -315,29 +450,59 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
     }
 }
 
-
-/// Lift existing shore shelves beside permanent crystals without brightening the open room.
+/// Wet mineral shelves beside permanent crystals. Their broken faces follow
+/// real receiving banks and the cave's bedding, rather than drawing a circular
+/// aura into the floor. Open room centers and every physical wet pixel stay intact.
 pub fn lit_banks(z: &mut Zone, m: &PixMap, fl: &Fields, decor: &[super::Decor]) {
     for source in decor.iter().filter(|d| d.kind == super::Kind::Crystal) {
-        let (cx, cy) = (source.x as i32, source.y as i32);
-        for y in (cy - 64).max(0)..(cy + 64).min(m.h) {
-            for x in (cx - 64).max(0)..(cx + 64).min(m.w) {
+        let (cx, cy) = (source.x.floor() as i32, source.y.floor() as i32);
+        let reach = if source.cell.h >= 60 { 76 } else { 45 };
+        for y in (cy - reach).max(0)..(cy + reach).min(m.h) {
+            for x in (cx - reach).max(0)..(cx + reach).min(m.w) {
                 let i = (y * m.w + x) as usize;
-                if m.cls[i] != FLOOR || (x - cx).pow(2) + (y - cy).pow(2) > 64 * 64 {
+                if m.cls[i] != FLOOR || (x - cx).pow(2) + (y - cy).pow(2) > reach * reach {
+                    continue;
+                }
+                let d = fl.d_water[i] as i32;
+                if !(2..=13).contains(&d) || fl.d_rock[i] < 3 {
                     continue;
                 }
                 let (joint, width, bed) = plane(x - y / 2, y);
-                let shelf = bed.rem_euclid(3) == 0 && joint > 3 && joint < width - 5;
-                let bank = fl.d_water[i] >= 3 && fl.d_water[i] < (6 + joint.min(width - joint) / 3) as u8;
-                if shelf && bank && z.ground[i] == ROCK[3] {
-                    z.ground[i] = ROCK[4];
+                // Unequal low ledges follow selected natural bedding runs, with
+                // long untouched banks between them. A bevel is just one pixel.
+                let shelf = bed.rem_euclid(4) == 1 && joint > 4 && joint < width - 5;
+                let depth = 4 + (joint.min(width - joint) / 4).min(7);
+                if !shelf || d > depth {
+                    continue;
                 }
+                let old = z.ground[i];
+                // Preserve the existing physical rock contact shadows and
+                // authored cracks; the wet body uses close slate/teal values.
+                if old.luma() < ROCK[1].luma() + 0.012 {
+                    continue;
+                }
+                let color = if d == depth && joint > 9 && joint < width - 9 {
+                    ROCK[2].lerp(ROCK[3], 0.30)
+                } else if d <= 3 {
+                    ROCK[1].lerp(WATER[1], 0.20)
+                } else {
+                    ROCK[2].lerp(WATER[2], 0.22)
+                };
+                z.ground[i] = color;
             }
         }
     }
 }
 
-fn floor_px(m: &PixMap, fl: &Fields, ramps: &[[Rgb; 6]; 4], lv: &dyn Fn(i32, i32) -> i32, x: i32, y: i32, i: usize) -> Rgb {
+fn floor_px(
+    m: &PixMap,
+    fl: &Fields,
+    ramps: &[[Rgb; 6]; 4],
+    lv: &dyn Fn(i32, i32) -> i32,
+    x: i32,
+    y: i32,
+    i: usize,
+) -> Rgb {
     let r = &ramps[area_at(x, y)];
     let raised = lv(x, y) == 2;
     let mut idx = 2;
@@ -351,7 +516,10 @@ fn floor_px(m: &PixMap, fl: &Fields, ramps: &[[Rgb; 6]; 4], lv: &dyn Fn(i32, i32
     }
     // Short tapered bedding joints cross the dry gallery and lake approach in connected runs.
     let run = (y + bed * 13).rem_euclid(59);
-    if bed.rem_euclid(4) == 1 && joint <= i32::from((16..28).contains(&run)) && (12..34).contains(&run) {
+    if bed.rem_euclid(4) == 1
+        && joint <= i32::from((16..28).contains(&run))
+        && (12..34).contains(&run)
+    {
         idx = 1;
     }
     // Raised slabs share the floor's quiet body value; only their physical edges change plane.
@@ -369,7 +537,9 @@ fn floor_px(m: &PixMap, fl: &Fields, ramps: &[[Rgb; 6]; 4], lv: &dyn Fn(i32, i32
     if fl.d_rock[i] <= 2 {
         return r[0];
     }
-    let cast = (3..=10).any(|k| m.rock(x - k, y - k));
+    // A fixed down-right shadow contradicts the local crystals and moving
+    // emitters. The two-pixel attached contact above remains part of the stone.
+    let cast = crate::gfx::lighting::legacy_mode() && (3..=10).any(|k| m.rock(x - k, y - k));
     if cast {
         idx = 1;
     }
@@ -391,7 +561,11 @@ fn wall_top_px(m: &PixMap, fl: &Fields, x: i32, y: i32, i: usize) -> Rgb {
     if pos <= 1 && seed.rem_euclid(3) == 0 && d < 25 {
         return WALL[0];
     }
-    WALL[if seed.rem_euclid(4) == 1 && d < 42 { 2 } else { 1 }]
+    WALL[if seed.rem_euclid(4) == 1 && d < 42 {
+        2
+    } else {
+        1
+    }]
 }
 
 fn face_px(m: &PixMap, x: i32, _y: i32, i: usize) -> Rgb {
@@ -415,8 +589,13 @@ fn water_bed_px(m: &PixMap, fl: &Fields, x: i32, y: i32, i: usize) -> Rgb {
     let d = fl.d_land[i];
     if m.cls[i] == DEEP {
         // A submerged foot below an island's stone face gives the focal mineral a solid bank.
-        // The open lake remains a dark depth mass, distinct from traversable shallows.
-        return WATER[usize::from(d < 8 && m.rock(x, y - d as i32 - 2))];
+        // Underwater terrace fragments carry the eye into the depth instead of cutting one
+        // enormous ink disk out of the lake. The dark center and physical Deep mask remain.
+        return if d < 8 && m.rock(x, y - d as i32 - 2) {
+            WATER[1]
+        } else {
+            DEEP_WATER[deep_water_level(fl, x, y, i)]
+        };
     }
     if d <= 1 && m.at(x, y - 2) == FACE {
         return WATER[0];
@@ -433,6 +612,23 @@ fn water_bed_px(m: &PixMap, fl: &Fields, x: i32, y: i32, i: usize) -> Rgb {
         return WATER[2];
     }
     WATER[1]
+}
+
+/// Three unequal submerged contour intervals, offset by the lakebed's broad stone planes.
+/// This is baked once and shared by the still bed and the animated surface; no shimmer,
+/// ordered noise, smooth gradient or geometry change is involved.
+pub fn deep_water_level(fl: &Fields, x: i32, y: i32, i: usize) -> usize {
+    let (_, _, bed) = plane(x - y / 3, y / 2);
+    let d = fl.d_shallow[i] as i32 + bed.rem_euclid(7) - 3;
+    if d < 6 {
+        0
+    } else if d < 16 {
+        1
+    } else if d < 31 {
+        2
+    } else {
+        3
+    }
 }
 
 fn ledge_px(m: &PixMap, x: i32, _y: i32, i: usize) -> Rgb {
@@ -486,7 +682,11 @@ pub fn moss(z: &mut Zone, m: &PixMap, fl: &Fields) {
             };
             // keep shadows: moss in shadow uses the darkest rock
             let g = z.ground[i];
-            z.ground[i] = if g.luma() < ROCK[1].luma() + 0.005 { ROCK[0].lerp(CAP[0], 0.5) } else { c };
+            z.ground[i] = if g.luma() < ROCK[1].luma() + 0.005 {
+                ROCK[0].lerp(CAP[0], 0.5)
+            } else {
+                c
+            };
         }
     }
 }
@@ -498,16 +698,26 @@ pub fn details(z: &mut Zone, m: &PixMap, fl: &Fields) {
     };
     let tile = |name: &str| {
         let xy = s.json.get("tiles")?.get(name)?;
-        s.cells.get(xy.get(1)?.as_u64()? as usize)?.get(xy.get(0)?.as_u64()? as usize)
+        s.cells
+            .get(xy.get(1)?.as_u64()? as usize)?
+            .get(xy.get(0)?.as_u64()? as usize)
     };
-    let names = ["decal_pebbles_a", "decal_pebbles_b", "decal_stone", "decal_crack_a", "decal_crack_b"];
+    let names = [
+        "decal_pebbles_a",
+        "decal_pebbles_b",
+        "decal_stone",
+        "decal_crack_a",
+        "decal_crack_b",
+    ];
     for ty in 1..z.th - 1 {
         for tx in 1..z.tw - 1 {
             let r = hash2(tx, ty, 1967);
             if r < 0.92 {
                 continue;
             }
-            let Some(cell) = tile(names[(hash2(tx, ty, 1968) * names.len() as f32) as usize % names.len()]) else {
+            let Some(cell) =
+                tile(names[(hash2(tx, ty, 1968) * names.len() as f32) as usize % names.len()])
+            else {
                 continue;
             };
             for y in 0..16 {
@@ -515,7 +725,12 @@ pub fn details(z: &mut Zone, m: &PixMap, fl: &Fields) {
                     let (wx, wy) = (tx * 16 + x, ty * 16 + y);
                     let i = (wy * m.w + wx) as usize;
                     let p = cell.at(x, y);
-                    if !p.a || m.cls[i] != FLOOR || fl.d_rock[i] < 9 || fl.d_water[i] < 8 || fl.d_void[i] < 6 {
+                    if !p.a
+                        || m.cls[i] != FLOOR
+                        || fl.d_rock[i] < 9
+                        || fl.d_water[i] < 8
+                        || fl.d_void[i] < 6
+                    {
                         continue;
                     }
                     z.ground[i] = p.c;

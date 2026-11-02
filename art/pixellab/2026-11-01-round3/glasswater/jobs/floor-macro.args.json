@@ -1,0 +1,26 @@
+{
+  "description": "A continuous seamless quiet slate cave bedrock floor, native128x128 pixel art map material. ENTIRE canvas must be fully filled by horizontal slate rock with NO surrounding background or framed margin. Broad connected angular strata shaped like immense worn slabs 40-90 pixels across. Mostly calm muted #4c6070 with subtle #424956 planes and sparse short dark fractures. At least75 percent flat main slate. These are shallow bedrock planes, NOT individual little pebbles or round stones. No uniform repetition, no grid of square tiles, no paving blocks, no thick outline, no checker shading, no grass, no glowing mineral, no cracks at every border, no high contrast, no speckled noise. Overhead3/4 view of horizontal ground, upper-left restrained light, crisp single native pixel grid. Left and right and top and bottom should connect invisibly.",
+  "width": 128,
+  "height": 128,
+  "no_background": false,
+  "palette": [
+    "#29313f",
+    "#364657",
+    "#424956",
+    "#4c6070",
+    "#626a74",
+    "#73858b"
+  ],
+  "palette_name": "Quiet cave slate floor",
+  "max_colors": 5,
+  "seed": 249,
+  "style_image": {
+    "base64": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAANElEQVR4nO3OMQEAMAjEwKf6KqIS8L8UGSwXA7m6r38WO5tzAAAAAAAAAAAAAAAAAACAJBkDRAJbCicPxwAAAABJRU5ErkJggg=="
+  },
+  "style_options": {
+    "color_palette": false,
+    "outline": false,
+    "detail": false,
+    "shading": true
+  }
+}

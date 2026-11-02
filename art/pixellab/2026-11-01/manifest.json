@@ -1,0 +1,218 @@
+{
+  "created": "2026-11-01",
+  "updated": "2026-11-01",
+  "project": "Glintblade Bloomwild PixelLab environment pass",
+  "native_grid": "one source pixel = one game framebuffer pixel; no asset resizing or recoloring",
+  "sources": [
+    {
+      "asset": "trees",
+      "tool": "create_image_pro",
+      "job_id": "cf9df804-7455-4102-a346-af9ad6d189a0",
+      "used_indices": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "generations": 10
+    },
+    {
+      "asset": "entry arch",
+      "tool": "create_image_pro",
+      "job_id": "cd237dad-943d-461d-b738-09101d71ff89",
+      "used_indices": [
+        0
+      ],
+      "generations": 15
+    },
+    {
+      "asset": "grass-focus",
+      "receipt": "id: b228ec59-1b36-41e7-b5b3-01beba358134\ndescription: A coherent set of subtle seamless matte grass-floor texture variants for a 16-bit top-down fantasy RPG. Flat orthographic 32x32 squares, entire square fully opaque. ALL SIXTEEN tiles use exactly the SAME FLAT DUSTY SAGE #879779 background on at least 90 percent of pixels and over the ENTIRE outer 3-pixel perimeter. No shapes or shadows cross any edge. There is NO drawn border, box, frame, gradient, large lighting patch or dark cast shadow. This common base must join perfectly in ANY order. Put one SMALL tasteful pixel cluster in the middle only: each minor detail fits inside a 12x10 central area. Few clean connected 1px clusters with quiet color difference, no random pixel noise, no large dark outlining, not a bush and not tall grass. Retain background around the center detail so characters remain readable. Upper left light. Ground color base #879779, minor shade #687b67, very occasional pale #a6b393, no charcoal. 1). plain green with just two bent darker green blades near center. 2). tiny grouped clover leaves left of center. 3). one small flattened moss rosette lower center. 4). three very short thin upright grass blades right of center. 5). one tiny grey pebble and two short blades at center. 6). a faint tiny irregular moss island center. 7). a few bent grass blades upper center. 8). two tiny cream wildflower dots in a single little clover tuft. 9). subtle dark green moss cluster left of center. 10). one wispy pale green bent blade and two dark green blades center. 11). a little three-leaf clover cluster lower center. 12). a tiny sage leafy sprig right of center. 13). one tiny earth fleck and two little grass blades center. 14). a faint green hummock near center. 15). two bent blades and a small clover leaf center. 16). one little irregular close-value moss patch center.\ntype: square_topdown\nsize: 32\u00d732px\nview: top-down\nview_angle: 90.0\ndepth_ratio: 0.0\nseed: 421\ncost: 10-25 generations by canvas size (1K 10, 2K 15, 4K 25); the canvas is picked from tile size and count\nstatus: processing (~1-2 min)\n\nhint: get_tiles_pro(tile_id=\"b228ec59-1b36-41e7-b5b3-01beba358134\")"
+    },
+    {
+      "asset": "stone-focus",
+      "receipt": "id: 2098e04b-c010-4ffa-8d7f-4cc91538de70\ndescription: A coherent family of seamless weathered limestone PAVEMENT MATERIAL tiles for a 16-bit fantasy RPG. These are NOT isolated paver objects and NOT road squares. Flat overhead 32x32 tiles that crop an infinite broad flagstone pavement. ENTIRE square opaque and filled to every edge with pale #bbb599 stone, no borders, no raised lip, no grid-line along tile edges. Stone faces are LARGE, roughly 9-18 pixels wide, uneven rectangles with gently broken corners. Only 3 to 4 large slabs in each whole 32x32 tile. Soft narrow 1-pixel muted #96947f joints at most: joints are lighter and softer than a player's outline. Upper left light, tiny scattered #d9d3b8 top-left chips on ONE edge only, no raised blocks and no bevel around every stone. 85 percent of the tile is flat quiet #bbb599 limestone face. No grass, dirt, flowers, symbol, brick pattern or round cobbles. Crucially, no broad holes, dark thick outlines or contrasting rectangular tile rim. All individual tiles share identical soft material colors so randomized neighboring modules look consistent. 1). 3 broad irregular limestone flags. 2). 4 broad unequal limestone flags. 3). 3 long limestone slabs in an irregular ashlar arrangement. 4). 3 limestone flags, one with a delicate short hairline crack. 5). 4 flags with one restrained tiny chipped corner. 6). 3 irregular flags with broad softly worn faces. 7). 4 unequal flags, very slight scuff mark. 8). 3 large flags, two corners softly chipped. 9). 4 broad flat flags with one tiny moss seam detail. 10). 3 worn flags with a narrow diagonal join. 11). 4 broad flags with one missing tiny corner. 12). 3 long unequal flags, a faint warm patch on one. 13). 4 broad limestone flags, a slight cool face variation. 14). 3 large flags with one small forked hairline crack. 15). 4 unequal flags with a single subtle darker chip. 16). 3 rough flat slabs with a slightly curved narrow seam.\ntype: square_topdown\nsize: 32\u00d732px\nview: top-down\nview_angle: 90.0\ndepth_ratio: 0.0\nseed: 422\ncost: 10-25 generations by canvas size (1K 10, 2K 15, 4K 25); the canvas is picked from tile size and count\nstatus: processing (~1-2 min)\n\nhint: get_tiles_pro(tile_id=\"2098e04b-c010-4ffa-8d7f-4cc91538de70\")"
+    },
+    {
+      "asset": "cuttable",
+      "receipt": "id: 733f74db-5a0b-4a0e-865e-9306b5c85dc9\njob_id: 733f74db-5a0b-4a0e-865e-9306b5c85dc9\nmodel: pro\ndescription: ONE small LOW CUTTABLE GRASS / HERB TUFT sprite for a low top-down 16-bit action RPG, not an icon. Native32x32 transparent canvas. The whole visible tuft occupies only20-24px width and10-12px height, rooted at bottom center(16,28); upper half of canvas stays fully transparent. The transparent margin is intentional, preserve it. Ordinary muted dusty sage short meadow grass and low broad-leaf herbs. Create a naturally asymmetric ground-hugging canopy with2 or3 connected leaf fans: strong solid tapering leaf clusters2-3pixels thick, slightly curled short blades, compact darker root center, a few desaturated pale sage upper-left light edges. Darkest shade remains inside the mass; calm restrained surface, no black contour tracing every leaf. Low rooted mound, NOT a bush, not tall swordgrass, not a flower, not a tumbleweed and no ground platform. Different candidate variants may lean left or right or have a small clover fan, but keep the same native scale, matte material, cool sage colors and low rooted silhouette. Far fewer disconnected marks than ordinary grass texture. No needle hair meshes, no random dots, sparkles, glow, flowers, pebbles, soil disk, cast shadow, trunk or extraneous object. Match the reference's clean cohesive sage leaves and understated depth, but SMALLER and lower, with no pale flower or stony-looking mound. Crisp native1px grid, hard opaque colored pixels and fully transparent background.\nsize: 32x32px\ntransparent: True\ncandidates: 64\nstyle_image: yes (outline, detail, shading)\npalette: 18 colours (Glintblade muted sage grass and cool shadow)\nmax colours: 6 per image\nseed: 451\nasset_id: afd1cef3-5a26-5ea2-9285-56ce0bce7a18\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"733f74db-5a0b-4a0e-865e-9306b5c85dc9\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/733f74db-5a0b-4a0e-865e-9306b5c85dc9/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    },
+    {
+      "asset": "aqueduct",
+      "receipt": {
+        "background_job_id": "69c214d5-1bc7-4e0c-b441-6db4eb31ebb3",
+        "image_id": "b1032429-d940-5b38-862d-9cd41c81c155",
+        "status": "processing",
+        "source_image_id": "b1032429-d940-5b38-862d-9cd41c81c155",
+        "job_id": "69c214d5-1bc7-4e0c-b441-6db4eb31ebb3",
+        "description": "A single ruined ancient limestone aqueduct segment, a horizontal environment sprite for a melancholy low top-down action game. A shallow open water channel crosses left to right along the top, held above ground by two massive grounded weathered piers and a clear dark arch opening between them. Left pier broad and broken halfway down the outer shoulder; right pier shorter, rough and supported by embedded boulders. Heavy stone voussoirs visibly support the channel across the arch. One channel end broken at right with fallen capstone immediately beneath it. Exposed convincing wall thickness, useful abandoned engineering rather than fantasy ornament. Dusty sage moss in three damp joints, muted chalk upper-left faces and deep slate shadow planes. Asymmetric strong low wide silhouette. Clear view of the narrow channel bed from above; clean low top-down projection, verticals upright, no isometric diamond base. Large flat quiet color planes, selective edge chips only. No water glow, no turquoise, no runes, no flags, no tall gothic tower, no extra arches, no ground platform, no background or cast shadow. Clean 12-color native pixel clusters at scale of 18px hero. Entire structure and foundations within 128x96 transparent canvas.",
+        "seed": 3682,
+        "image_size": {
+          "width": 128,
+          "height": 96
+        },
+        "output_count": 1,
+        "estimated_generations": 6,
+        "pricing_provisional": true,
+        "poll_tool": "get_image",
+        "download_path": "/mcp/images/69c214d5-1bc7-4e0c-b441-6db4eb31ebb3/download"
+      }
+    },
+    {
+      "asset": "cliff-refined",
+      "receipt": {
+        "background_job_id": "0e755c19-d4c6-4d3a-920a-97f17c1e4abb",
+        "image_id": "d11ea891-6f2c-5f3e-890d-152597256a70",
+        "status": "processing",
+        "source_image_id": "d11ea891-6f2c-5f3e-890d-152597256a70",
+        "job_id": "0e755c19-d4c6-4d3a-920a-97f17c1e4abb",
+        "description": "Preserve the exact native pixel art style, organic rocky silhouette, deep cool fractured planes and transparency. Simplify the grass and moss on the entire top ledge into broad quiet sage planes with only two or three short broken pale edge highlights. Remove the pebbly cream stipple currently covering all the ledge surfaces. Make top ground mostly flat subdued dusty sage, with one darker sage patch on the left. Keep vertical cliff side colors and the large interlocking rock masses unchanged. Upper-left light. Restrained hard pixel clusters, no new objects, no noise, no extra thin roots, no outline. This cliff is a reusable foreground perimeter of a larger walkable island.",
+        "seed": 3685,
+        "image_size": {
+          "width": 128,
+          "height": 96
+        },
+        "output_count": 1,
+        "estimated_generations": 6,
+        "pricing_provisional": true,
+        "poll_tool": "get_image",
+        "download_path": "/mcp/images/0e755c19-d4c6-4d3a-920a-97f17c1e4abb/download"
+      }
+    },
+    {
+      "asset": "cliff-variants",
+      "receipt": "id: e799a727-86ec-4f11-a397-17aa996e4e3c\njob_id: e799a727-86ec-4f11-a397-17aa996e4e3c\nmodel: pro\ndescription: One native 128x96 organic escarpment side module for the south edge of a floating island in a melancholy low top-down action game. Match the referenced cliff PIXEL SCALE, cool slate and limestone material, upper-left lighting, broad clean shading clusters. Create a DIFFERENT geological arrangement: a long low battered slab slopes down to the right, a broad triangular wedge on the left interlocks with it, and a narrow deep recessed split exposes one smaller ledge far back on the right. Weathered fractured stone, two or three unequal broad planes, clear thin seams at physical breaks. Dominant silhouette horizontal and irregular. Do not repeat the reference central square projecting block; avoid cuboids, rows of narrow columns, buttresses and tabletop platforms. The top meadow lip is a thin quiet dusty-sage band around image y16 to26, slightly uneven, spanning left to right; exposed rock face is below y26, fractures taper down toward y88. Anchor at64,26 should attach this lip to an island floor. All edges must be on the exact native1px grid. Keep the large shadow faces QUIET dark blue-slate, with one restrained mauve reflected plane and sparse muted limestone upper-left edge highlights. No stippled speckled ledge, no hanging twig lace, no many little pebbles, no glow, no architecture, no separate miniature island ground platform, no isometric diamond base, no ground shadow or background. Native fully opaque pixel clusters on transparent background. Entire 128x96 fragment including broken bottom edge within canvas. Natural fracture shapes that can be placed beside other cliff modules without an obvious repeated hero rock.\nsize: 128x96px\ntransparent: True\ncandidates: 4\nstyle_image: yes (detail, shading)\npalette: 19 colours (Glintblade: muted sage, slate, chalk and dried rose)\nmax colours: 11 per image\nseed: 4821\nasset_id: 82bd7eca-609e-51f3-a6ca-b25cfe617424\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"e799a727-86ec-4f11-a397-17aa996e4e3c\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/e799a727-86ec-4f11-a397-17aa996e4e3c/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    },
+    {
+      "asset": "planting",
+      "receipt": {
+        "background_job_id": "3da2108a-c695-4e2c-815d-73b734533367",
+        "image_id": "2e5ca204-7cbe-58e7-aa50-5e3379b3e0a2",
+        "status": "processing",
+        "source_image_id": "2e5ca204-7cbe-58e7-aa50-5e3379b3e0a2",
+        "job_id": "3da2108a-c695-4e2c-815d-73b734533367",
+        "description": "One asymmetrical rooted planting cluster for a melancholy low top-down action game, transparent sprite. Low scrub growing around a weathered fallen branch: two connected masses of long broad dusty sage leaves, one curled dried-rose fern on the left, and a substantial dark bent piece of dead wood lying nearly horizontal through the base. A clear strong silhouette and large quiet foliage clusters. Dense leafy volumes, a few overlapping leaves are nameable, no lace of thin twigs and no field of individual grass strokes. Upper-left soft daylight lights the top-left planes, cool blue slate shadow beneath leaves. Roots meet one small grounded irregular base, no separate pedestal. The planting itself occupies the bottom 40 pixels of this 64x80 canvas, leave transparent space above. 18px hero scale, vegetation around knee to waist height, slightly top-down view. Restrained 9 color native crisp pixel art. No tree crown, no tall trunk, no flowers, no speckle, no particles, no background, no ground platform, no cast shadow, no black outline.",
+        "seed": 3683,
+        "image_size": {
+          "width": 64,
+          "height": 80
+        },
+        "output_count": 1,
+        "estimated_generations": 5,
+        "pricing_provisional": true,
+        "poll_tool": "get_image",
+        "download_path": "/mcp/images/3da2108a-c695-4e2c-815d-73b734533367/download"
+      }
+    },
+    {
+      "asset": "planting-low",
+      "receipt": {
+        "background_job_id": "002db316-fdc8-4635-b814-d766431c8ea7",
+        "image_id": "10d20a45-52d8-5e02-930b-80087c121348",
+        "status": "processing",
+        "source_image_id": "10d20a45-52d8-5e02-930b-80087c121348",
+        "job_id": "002db316-fdc8-4635-b814-d766431c8ea7",
+        "description": "A small LOW herb tuft sprite for a low top-down action game, 48x32 native canvas, shown at the scale of an 18 pixel tall hero. The whole plant is only 14 pixels high and 24 pixels wide, centered near canvas bottom: three connected clumps of broad dusty sage leaves, a few muted ivory dry tips and deep cool blue-grey shadow inside. It grows out of a flat rooted point, no trunk or fallen log. Leaves form a calm asymmetric low horizontal mound, with two darker gaps that reveal volume. Thick recognizable leaf clusters, no mesh of thin lines and no many individual grass strokes. Clear restrained 7 color pixel art, large clusters relative to canvas, upper-left daylight. Hard crisp fully opaque pixels, transparent background, no cast shadow, no platform, no flowers, no particles, no tree, no ornate curls. Sparse mid-ground groundcover rather than a large foreground plant. Keep the upper half of the canvas transparent.",
+        "seed": 3684,
+        "image_size": {
+          "width": 48,
+          "height": 32
+        },
+        "output_count": 1,
+        "estimated_generations": 5,
+        "pricing_provisional": true,
+        "poll_tool": "get_image",
+        "download_path": "/mcp/images/002db316-fdc8-4635-b814-d766431c8ea7/download"
+      }
+    }
+  ],
+  "files": {
+    "arch/entry-arch.png": "7ae757367edc8589252d8064acec136a547cca9fb5dce2c2ccf6b10db3125edd",
+    "grass/cuttable-selected-strip.png": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6",
+    "grass/selection.json": "a649f53df75576e500ee6b07482913629bec39043de079980f15f6dfb5f08821",
+    "legacy/bloomwild_trees.json": "05f7c0220e18adfe19b743b1f63d537ca26ee1d614f88069fa44524f73f629c6",
+    "legacy/bloomwild_trees.png": "6179aa882d7bff2190dfa2c523ddc01df7ed44569c4b89bc254d64b0934e3a59",
+    "palette.json": "ee5f5613863b7ca4200aa80aaaeedcbde1118014d2c64291f9e8945612d09e11",
+    "props/aqueduct.png": "5704d65c8d7e5e174b926b4eec5afe8df7d0fc44bf613f562bd2d8edaee116f7",
+    "props/cliff-refined.png": "759debc25f120183445347af0531e3daf179969023ffd9e153621029673bdbfb",
+    "props/cliff-variant-1.png": "20f383ad56e866154f0e73a15645423a5fdf8a29574b78a633a2227eed62b09f",
+    "props/cliff-variant-2.png": "41e602fcaf4ffdfdc48bf72eb0d6f0239cf2a64fdd763482d8c5e6ba32a55ad4",
+    "props/cliff-variant-3.png": "8fc38a51308985b6f4e75bfb181872d676f81abfd20e60e7feaf4c6ed52324c4",
+    "props/planting-low.png": "bc5b738b5ea30d7b226678128f71bf49b123ed97903bd3a0245257889deb02ab",
+    "props/planting.png": "98ed375ea3a6d3a07e045577a265051fd79c092a8d79b5ccc8b264179b46e2ff",
+    "terrain/grass-focus.tiles/00.png": "9de4e3b37e68f33961729c5ac8feda98e13e5ae16f79e6c5b26c9463bde2302c",
+    "terrain/grass-focus.tiles/01.png": "24a2fe95c04e2cb86892edfb270ffb9b7e42c0eb7e6b761417cad83dd9deb80e",
+    "terrain/grass-focus.tiles/02.png": "5eba90f37c763a790d63f446380e521ed66782cd758edf955dc00dcaf53b666b",
+    "terrain/grass-focus.tiles/03.png": "6c7bdd39c1bd21b1529dafc045ad406d6dfaddb05717fd37935997b4ce3b6144",
+    "terrain/grass-focus.tiles/04.png": "6d56437ca6209736ec11fc66bfdc4f289a3ae81f51fbcd9e8a498c40f25340ec",
+    "terrain/grass-focus.tiles/05.png": "275c7e7a7e102d0ea4faee8c9de3711a054d73f00d3b403d4a3727679abe18a5",
+    "terrain/grass-focus.tiles/06.png": "d7d205f171282d1fb9a4976a742b27351e0eb85b9b4edbf31356c8288d3398c8",
+    "terrain/grass-focus.tiles/07.png": "9a2717fcd9ea579ee40f56e46aaa2bdb764a3b5cb8b4c7a5c23acc7766328502",
+    "terrain/grass-focus.tiles/08.png": "9282a8bebfd67f9e15ef685c2b5f8c0c29da0e48c0b478f42e2ed00dc42b180e",
+    "terrain/grass-focus.tiles/09.png": "d1b349ab12c4d3982256e492fda3c62a326c5ef53f415bc3c7e9b07497372264",
+    "terrain/grass-focus.tiles/10.png": "6f87174e651a0dc3b41ce61d0068c52d883bb4c71748cc443c437c2a9f196554",
+    "terrain/grass-focus.tiles/11.png": "73f024337437fa98b3013e334b35a8750128bf7c87afeff1cc50f37ffb5964fe",
+    "terrain/grass-focus.tiles/12.png": "a1ecfec60a0f594bb922bee6b5d5db3a9057306da8fc9d9b2a0af74705ddd03d",
+    "terrain/grass-focus.tiles/13.png": "ac257a71938112beeb15cd41d475881f8695970c183b6cca05d0fb410ad4762d",
+    "terrain/grass-focus.tiles/14.png": "37575f1098d8508930cc22c4fa99e7ebffb550f52cd7d2d1d9baf2177535dc7e",
+    "terrain/grass-focus.tiles/15.png": "c8101d0486ce01ff3bc6b82a39b17c9c98344eb78256369f16b78d519694d5bf",
+    "terrain/stone-focus.tiles/00.png": "ffa2a0a09018d0c4037d2858ae6dc957678447c054abddccf9410d8dc43704f8",
+    "terrain/stone-focus.tiles/01.png": "a2b76abdb1c2da7d7f7cbbfc252c0c008d52affefbf09230b22888de963aab7b",
+    "terrain/stone-focus.tiles/02.png": "51e07173c31de2599f549747773d14003a25d52af404eacd0911d217fb977dd5",
+    "terrain/stone-focus.tiles/03.png": "362f214d6f27ea560488b469ca276b261c39acac8064ad520cf848715953ca56",
+    "terrain/stone-focus.tiles/04.png": "8e766a76d965a3de91ede2dec85da81a383ad8367936cf9a55155c7534df7b1b",
+    "terrain/stone-focus.tiles/06.png": "295f7b4ec809370f6d66dd7e190bf02d0b7b490c2f6f755afebbaf8b474ed830",
+    "terrain/stone-focus.tiles/07.png": "af95074220fbb9693354a8a91e5c77401f588b3895c92e6961ecb001899f5d40",
+    "terrain/stone-focus.tiles/10.png": "8164c8e107b2892e6c85570112f3a269442a3b4a6c68da03ec6698b7692549a4",
+    "terrain/stone-focus.tiles/12.png": "ce24302f1f84bf2a9a8a00fc10919307a784a7b6cd5dcc5bbcd8fea50e0a2477",
+    "terrain/stone-focus.tiles/14.png": "137b30bf2bb307b9327331815dbca825c1fede917e31acd2fb3e9cb274673fcf",
+    "terrain/stone-focus.tiles/15.png": "fec9a2f760a1eb98640c6793effbb0972c73e4324270aff1eeccf0eae761f8e5",
+    "trees/trees-pro.result-1.png": "8d5999856f986b8612e666f0ad8e695cc1002d77ae8fba03e36a4feec0eeda29",
+    "trees/trees-pro.result-2.png": "e066c883e92e428ff163c26e7ee2c7feb5344ae190b3f97cc404203e49342346",
+    "trees/trees-pro.result-3.png": "a0c54d5737de2dff14ccf70c23267d81c0181b1d5d79c47552d85069768455d9",
+    "trees/trees-pro.result-4.png": "f1c74ced11afcb98d692d4e3b96d601dc1fc77fcf202b4039d162c2f6ebd6e90"
+  },
+  "notes": [
+    "Raw selected sources retained; atlas packing and source cropping are mechanical.",
+    "Legacy young tree retained; new tree family split for canopy fade and 1px breeze.",
+    "Refined cliff retains one intentional extra highlight shade.",
+    "Grass cutting, roots, sway, depth sorting and routes verified in actual engine.",
+    "Full generation experiment spent194 subscription generations including rejected trials and studies."
+  ],
+  "validation": {
+    "date": "2026-11-01",
+    "native_release_build": "passed",
+    "wasm_release_build": "passed",
+    "tests": {
+      "passed": 103,
+      "failed": 0,
+      "ignored": 3,
+      "ignored_doctests": 1
+    },
+    "review_views": [
+      "landing",
+      "entry",
+      "falls",
+      "terrace",
+      "grove",
+      "playable entry"
+    ],
+    "default_embedded_matches_candidate": {
+      "fixed_views": 6,
+      "gameplay_frames": 226
+    },
+    "motion_review": [
+      "supported arch passage",
+      "rooted sway",
+      "grass cutting and persistent stubble",
+      "canopy fading",
+      "following camera"
+    ],
+    "perimeter_invariants": [
+      "all dry south columns covered",
+      "waterfall outlets and support protected",
+      "bridges and stairs protected",
+      "collision unchanged by cliff artwork"
+    ]
+  }
+}

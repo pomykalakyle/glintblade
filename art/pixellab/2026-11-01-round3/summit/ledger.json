@@ -1,0 +1,44 @@
+{
+  "budget": 180,
+  "initial_target": 120,
+  "actual_total": 38,
+  "pending_jobs": 0,
+  "purchase": false,
+  "calls": [
+    {
+      "name": "floor16",
+      "tool": "create_tiles_pro",
+      "job_id": "80680bba-1b6e-4408-88be-ae37e73fe606",
+      "generations": 10,
+      "status": "complete"
+    },
+    {
+      "name": "masonry",
+      "tool": "create_image_pro_flash",
+      "job_id": "75accc9e-0311-46fd-8286-454e0cf2b172",
+      "generations": 6,
+      "status": "complete"
+    },
+    {
+      "name": "pier family4",
+      "tool": "create_image_pro",
+      "job_id": "81e37108-1ba3-463f-b1ef-52e6c8fbe214",
+      "generations": 10,
+      "status": "complete"
+    },
+    {
+      "name": "foundation",
+      "tool": "create_image_pro_flash",
+      "job_id": "bdb6f09f-1e60-4f57-80fa-c0257cad2a4f",
+      "generations": 6,
+      "status": "complete"
+    },
+    {
+      "name": "dais",
+      "tool": "create_image_pro_flash",
+      "job_id": "d250ea20-4b40-45f1-896f-480ad17d02cd",
+      "generations": 6,
+      "status": "complete"
+    }
+  ]
+}

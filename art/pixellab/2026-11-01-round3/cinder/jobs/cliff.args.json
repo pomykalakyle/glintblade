@@ -1,0 +1,22 @@
+{
+  "description": "One contiguous broad ruined volcanic basalt ledge for a melancholy top down action game, high top down three quarter camera. A wide quiet flat top is the upper 24 pixels, deep broken cliff face from row24 to row80, transparent below. Wide irregular oblique fractures and stratified hewn blocks, offset vertical columns of different widths, few big planar clusters, rough chipped silhouette across the base. Cold ash mauve and soot charcoal, no orange, no glow, no vegetation, no loose isolated stones, no outline. Restrained upper left lighting. Real crisp native pixel art at 128x96. Most face plane mid dark, small narrow lighter facets, no busy speckle. Fill full canvas width with cliff body, open native crop for repeating landscape modules.",
+  "width": 128,
+  "height": 96,
+  "no_background": true,
+  "palette": [
+    "#101017",
+    "#16151d",
+    "#1a1923",
+    "#24232d",
+    "#292c3c",
+    "#363340",
+    "#393746",
+    "#3f414f",
+    "#514854",
+    "#56505d",
+    "#5b5966",
+    "#79707a"
+  ],
+  "max_colors": 10,
+  "seed": 7213
+}

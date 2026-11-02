@@ -1,0 +1,8 @@
+{
+  "scope": "Every actual population spawn, 2,400 update ticks, moving player target, nonlethal on_hit at tick700, live projectile motion/cancellation and FX RNG sampled every tick. Existing archetypes, seed positions, and model APIs preserved. Does not include death (separate skin/capacity test).",
+  "spawns": 38,
+  "ticks_each": 2400,
+  "total_spawn_ticks": 91200,
+  "differences": [],
+  "equal": true
+}

@@ -1,0 +1,24 @@
+{
+  "name": "sproutling",
+  "variant": "v1b",
+  "prompt": "Precise native sprite-sheet reskin. This is a packed animation atlas: 8 columns, 9 rows, EXACTLY 24x24 pixels per cell. Keep EVERY cell pose, facing, root-limb motion and ground contact. Redesign ALL 72 sproutling enemies as broad mushroom-cap rammers. REPLACE their pointed pink bulb/head with a strongly different wide umbrella fungus: a flattened 15-17 pixel-wide oatmeal and umber mushroom cap, irregular lobed overhang, dark horizontal gill plane underneath, short sage root torso and two hooked legs below. REMOVE the original two leaves on top entirely. In side-facing poses the broad cap stretches horizontally over the rear, the ivory hard ram snout projects just slightly forward beneath its brim. In front/back poses the mushroom cap is a wide squat umbrella with visible dark gills. One asymmetrical dried rose lichen patch on cap, sparse. Keep menace and sharp angular pixels, no cute face. This must visibly change the silhouette in every cell, not just turn the old bulb cream. Same centered position, same foot positions, preserve hopping height, windup crouches and extended lunge poses. No text, cell labels, grid lines, effects or extra subjects. Each sprite stays completely within its own 24x24 cell. Transparent background, crisp native pixels. Muted slate, oatmeal, sage, dusty rose palette, upper-left highlight.",
+  "args": {
+    "images_base64": [
+      "sproutling-packed-input.png"
+    ],
+    "description": "Precise native sprite-sheet reskin. This is a packed animation atlas: 8 columns, 9 rows, EXACTLY 24x24 pixels per cell. Keep EVERY cell pose, facing, root-limb motion and ground contact. Redesign ALL 72 sproutling enemies as broad mushroom-cap rammers. REPLACE their pointed pink bulb/head with a strongly different wide umbrella fungus: a flattened 15-17 pixel-wide oatmeal and umber mushroom cap, irregular lobed overhang, dark horizontal gill plane underneath, short sage root torso and two hooked legs below. REMOVE the original two leaves on top entirely. In side-facing poses the broad cap stretches horizontally over the rear, the ivory hard ram snout projects just slightly forward beneath its brim. In front/back poses the mushroom cap is a wide squat umbrella with visible dark gills. One asymmetrical dried rose lichen patch on cap, sparse. Keep menace and sharp angular pixels, no cute face. This must visibly change the silhouette in every cell, not just turn the old bulb cream. Same centered position, same foot positions, preserve hopping height, windup crouches and extended lunge poses. No text, cell labels, grid lines, effects or extra subjects. Each sprite stays completely within its own 24x24 cell. Transparent background, crisp native pixels. Muted slate, oatmeal, sage, dusty rose palette, upper-left highlight.",
+    "width": 192,
+    "height": 216,
+    "no_background": true,
+    "seed": 260617
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 5c7ace1a-dc5a-4324-8de2-5569b6cdb94b\njob_id: 5c7ace1a-dc5a-4324-8de2-5569b6cdb94b\nmode: text\nframes: 1\nsize: 192x216px\ntransparent: True\nedit: Precise native sprite-sheet reskin. This is a packed animation atlas: 8 columns, 9 rows, EXACTLY 24x24 pixels per cell. Keep EVERY cell pose, facing, root-limb motion and ground contact. Redesign ALL 72 sproutling enemies as broad mushroom-cap rammers. REPLACE their pointed pink bulb/head with a strongly different wide umbrella fungus: a flattened 15-17 pixel-wide oatmeal and umber mushroom cap, irregular lobed overhang, dark horizontal gill plane underneath, short sage root torso and two hooked legs below. REMOVE the original two leaves on top entirely. In side-facing poses the broad cap stretches horizontally over the rear, the ivory hard ram snout projects just slightly forward beneath its brim. In front/back poses the mushroom cap is a wide squat umbrella with visible dark gills. One asymmetrical dried rose lichen patch on cap, sparse. Keep menace and sharp angular pixels, no cute face. This must visibly change the silhouette in every cell, not just turn the old bulb cream. Same centered position, same foot positions, preserve hopping height, windup crouches and extended lunge poses. No text, cell labels, grid lines, effects or extra subjects. Each sprite stays completely within its own 24x24 cell. Transparent background, crisp native pixels. Muted slate, oatmeal, sage, dusty rose palette, upper-left highlight.\nseed: 260617\nasset_id: 75ae2cf2-9513-503b-b710-a4f41a735da7\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"5c7ace1a-dc5a-4324-8de2-5569b6cdb94b\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/5c7ace1a-dc5a-4324-8de2-5569b6cdb94b/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

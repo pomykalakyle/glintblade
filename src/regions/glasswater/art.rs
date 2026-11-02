@@ -1,5 +1,6 @@
-//! Code-drawn sprites for Glasswater Hollow: crystal clusters, quiet shelf fungi and rock
-//! spires. Every pixel lands on the native grid with a color from the region ramps
+//! Native PixelLab and code-drawn sprites for Glasswater Hollow: crystals, shelf fungi and rock
+//! spires. Generated families retain native geometry with grounded roots and small emissive caps.
+//! Every pixel lands on the native grid with a color from the region ramps
 //! (`assets/concept/palettes_v2.json`), light from the upper left. No blending, no soft alpha.
 //! Stone and water ramps are shifted to slate; violet sprigs and fungi are desaturated so
 //! the few artist-authored landmark crystals carry the region's color.
@@ -12,7 +13,7 @@ use crate::util::hash2;
 pub const ROCK: [Rgb; 6] = [rgb(0x222d3d), rgb(0x364657), rgb(0x4c6070), rgb(0x73858b), rgb(0xa6b4ad), rgb(0xa6b4ad)];
 pub const WALL: [Rgb; 6] = [rgb(0x29313f), rgb(0x424956), rgb(0x626a74), rgb(0x929797), rgb(0xbbc0b4), rgb(0xbbc0b4)];
 pub const VIOLET: [Rgb; 5] = [rgb(0x4d4866), rgb(0x4d4866), rgb(0x796c91), rgb(0xa195b8), rgb(0xcdc3db)];
-pub const WATER: [Rgb; 6] = [rgb(0x283b4a), rgb(0x3e5665), rgb(0x5b7a86), rgb(0x97b4b5), rgb(0xc2d7cf), rgb(0xc2d7cf)];
+pub const WATER: [Rgb; 6] = [rgb(0x1c3548), rgb(0x285365), rgb(0x467d8a), rgb(0x88adb2), rgb(0xc2d7cf), rgb(0xc2d7cf)];
 pub const CAP: [Rgb; 5] = [rgb(0x414858), rgb(0x66677b), rgb(0x9091a0), rgb(0xbcb9c0), rgb(0xbcb9c0)];
 pub const STEM: [Rgb; 4] = [rgb(0x454f60), rgb(0x454f60), rgb(0x7c8991), rgb(0xb9c4ba)];
 /// Unlit recesses use the region outline, rather than swallowing the wall's top plane.
@@ -53,7 +54,7 @@ impl Canvas {
             }
         }
         if x1 < 0 {
-            return (Cell { w: 1, h: 1, px: vec![Px::default()] }, (0, 0));
+            return (Cell::new(1, 1, vec![Px::default()]), (0, 0));
         }
         // keep the anchor inside the cell
         x0 = x0.min(anchor.0);
@@ -66,7 +67,7 @@ impl Canvas {
                 px[(y * w + x) as usize] = self.get(x + x0, y + y0);
             }
         }
-        (Cell { w, h, px }, (anchor.0 - x0, anchor.1 - y0))
+        (Cell::new(w, h, px), (anchor.0 - x0, anchor.1 - y0))
     }
 }
 
@@ -166,8 +167,74 @@ fn mound(cv: &mut Canvas, cx: i32, by: i32, rx: i32, seed: u32) {
     }
 }
 
+/// Native generated cells keep their source geometry and one-pixel density. Only the tiny
+/// highest crystal cap emits: broad light-facing planes remain actual receiving material.
+const CRYSTAL_CREST_ROWS: i32 = 8;
+const CRYSTAL_CREST_PIXELS: usize = 8;
+
+/// Select a real, connected highlight at the prism's highest cap. The generated
+/// families use several palettes: a missing literal violet must not create an
+/// invisible emitter at an invented size-based height. Brightness only chooses
+/// existing cap material; it never supplies surface height or changes its RGB.
+fn mark_crystal_crest(cell: &mut Cell) -> usize {
+    let Some(first) = cell.px.iter().position(|p| p.a) else { return 0 };
+    let top = first as i32 / cell.w;
+    let cap: Vec<_> = cell.px.iter().enumerate()
+        .filter(|(i, p)| p.a && (*i as i32 / cell.w) < top + CRYSTAL_CREST_ROWS)
+        .map(|(i, _)| i).collect();
+    let mut candidates = vec![false; cell.px.len()];
+    // Sheet JSON has already been decoded into Px.emit. Honor an authored
+    // native cap before considering the older palette-specific convention.
+    for &i in &cap { candidates[i] = cell.px[i].emit; }
+    if !candidates.iter().any(|&candidate| candidate) {
+        for &i in &cap { candidates[i] = cell.px[i].c.key() == rgb(0xcdc3db).key(); }
+    }
+    if !candidates.iter().any(|&candidate| candidate) {
+        let mut brightest = cap[0];
+        for &i in &cap[1..] {
+            if cell.px[i].c.luma() > cell.px[brightest].c.luma() { brightest = i; }
+        }
+        let color = cell.px[brightest].c.key();
+        for &i in &cap { candidates[i] = cell.px[i].c.key() == color; }
+    }
+    for p in &mut cell.px { p.emit = false; }
+    let Some(seed) = candidates.iter().position(|&candidate| candidate) else { return 0 };
+    let mut queue = std::collections::VecDeque::from([seed]);
+    candidates[seed] = false;
+    let mut count = 0;
+    while let Some(i) = queue.pop_front() {
+        cell.px[i].emit = true;
+        count += 1;
+        if count == CRYSTAL_CREST_PIXELS { break; }
+        let (x, y) = (i as i32 % cell.w, i as i32 / cell.w);
+        for dy in -1..=1 { for dx in -1..=1 {
+            let (nx, ny) = (x + dx, y + dy);
+            if nx < 0 || ny < 0 || nx >= cell.w || ny >= cell.h { continue; }
+            let next = (ny * cell.w + nx) as usize;
+            if candidates[next] {
+                candidates[next] = false;
+                queue.push_back(next);
+            }
+        }}
+    }
+    count
+}
+
+fn native(name: &str, seed: u32, crystal: bool) -> Option<(Cell, (i32, i32))> {
+    let s = sheet(name)?;
+    let a = s.anim("body")?;
+    let mut c = s.cell(a, seed as usize % a.frames.max(1)).clone();
+    if crystal {
+        mark_crystal_crest(&mut c);
+    }
+    c.refresh_surface_mask();
+    Some((c, s.anchor_of(a)))
+}
+
 /// A crystal cluster about `size` px tall. Returns (cell, anchor at the base center).
 pub fn crystal_cluster(seed: u32, ramp: &[Rgb; 5], size: i32) -> (Cell, (i32, i32)) {
+    let family = if size >= 38 { "glasswater_crystals_native" } else { "glasswater_crystals_small" };
+    if let Some(cell) = native(family, seed, true) { return cell; }
     // Landmark sprites stay at their authored native size. Small clusters use the same
     // faceted construction below until their own sheet is delivered.
     if size >= 40 {
@@ -299,6 +366,7 @@ pub fn boulder(seed: u32, rx: i32, ry: i32) -> (Cell, (i32, i32)) {
 
 /// A broken distributor fin with a recessed water channel and no new collision.
 pub fn sluice_fin(seed: u32, height: i32) -> (Cell, (i32, i32)) {
+    if let Some(cell) = native("glasswater_waterworks", seed, false) { return cell; }
     let mut cv = Canvas::new(40, height + 8);
     let base = height + 4;
     let broken = seed % 2 == 0;
@@ -418,6 +486,7 @@ pub fn mushroom(seed: u32, cap: i32, stem: i32, lean: i32) -> (Cell, (i32, i32))
 
 /// A few small mushrooms growing together.
 pub fn mushroom_patch(seed: u32, n: i32) -> (Cell, (i32, i32)) {
+    if let Some(cell) = native("glasswater_fungi", seed, false) { return cell; }
     let mut cv = Canvas::new(40, 24);
     let (bx, by) = (20, 22);
     let rnd = |i: i32| hash2(seed as i32, i, 1301);
@@ -446,4 +515,59 @@ pub fn mushroom_patch(seed: u32, n: i32) -> (Cell, (i32, i32)) {
         }
     }
     cv.trimmed((bx, by + 1))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn native_crystal_caps_cover_every_palette_without_repainting_geometry() {
+        for name in ["glasswater_crystals_native", "glasswater_crystals_small"] {
+            let source = sheet(name).expect("native crystal family");
+            let anim = source.anim("body").expect("native crystal variants");
+            for variant in 0..anim.frames {
+                let original = source.cell(anim, variant);
+                let (cell, anchor) = native(name, variant as u32, true).unwrap();
+                assert_eq!((cell.w, cell.h, anchor), (original.w, original.h, source.anchor_of(anim)));
+                let top = original.px.iter().position(|p| p.a).unwrap() as i32 / original.w;
+                let emitted: Vec<_> = cell.px.iter().enumerate()
+                    .filter(|(_, p)| p.emit).map(|(i, _)| i).collect();
+                assert!(!emitted.is_empty(), "{name} variant {variant} has no visible source housing");
+                assert!(emitted.len() <= CRYSTAL_CREST_PIXELS, "{name} variant {variant} bleaches a broad face");
+                for (i, (p, q)) in original.px.iter().zip(&cell.px).enumerate() {
+                    assert_eq!((p.c, p.a), (q.c, q.a), "{name} variant {variant} albedo/alpha {i}");
+                    assert_eq!(original.surface[i].n, cell.surface[i].n, "crest selection must preserve normals");
+                    assert_eq!((cell.surface[i].a, cell.surface[i].emit), (q.a, q.emit));
+                    if q.emit {
+                        let y = i as i32 / cell.w;
+                        assert!(q.a && y >= top && y < top + CRYSTAL_CREST_ROWS);
+                    }
+                }
+                // A centroid between disconnected high tips would not describe
+                // the actual housing of either tip. Require one native patch.
+                let mut reached = std::collections::HashSet::from([emitted[0]]);
+                let mut todo = vec![emitted[0]];
+                while let Some(i) = todo.pop() {
+                    let (x, y) = (i as i32 % cell.w, i as i32 / cell.w);
+                    for &next in &emitted {
+                        let (nx, ny) = (next as i32 % cell.w, next as i32 / cell.w);
+                        if (x - nx).abs() <= 1 && (y - ny).abs() <= 1 && reached.insert(next) {
+                            todo.push(next);
+                        }
+                    }
+                }
+                assert_eq!(reached.len(), emitted.len(), "{name} variant {variant} split source housing");
+            }
+        }
+    }
+
+    #[test]
+    fn authored_cap_emission_precedes_a_brighter_legacy_palette_color() {
+        let mut cell = Cell::from_ascii(&["ab", "bb"],
+            &[('a', rgb(0x73858b)), ('b', rgb(0xcdc3db))], &['a']);
+        assert_eq!(mark_crystal_crest(&mut cell), 1);
+        assert!(cell.at(0, 0).emit);
+        assert!(!cell.at(1, 0).emit && !cell.at(0, 1).emit && !cell.at(1, 1).emit);
+    }
 }

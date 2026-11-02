@@ -1,0 +1,4 @@
+trial=off
+glass_crystal_charge: ticks=420 attack_held_ticks=240 boss_awake=false render_mean=4.2725ms p95=4.4354ms p99=4.5278ms max=4.7108ms update_mean=0.0880ms update_max=0.1607ms visible_points_mean=10.01 peak=11 peak_tick=166 peak_particles=47 point_histogram={9: 111, 10: 192, 11: 117}
+cinder_pillar_charge: ticks=420 attack_held_ticks=240 boss_awake=false render_mean=4.8649ms p95=5.0073ms p99=5.2881ms max=5.6696ms update_mean=0.0039ms update_max=0.0153ms visible_points_mean=4.53 peak=6 peak_tick=44 peak_particles=88 point_histogram={4: 236, 5: 144, 6: 40}
+summit_boss_active: ticks=1080 attack_held_ticks=640 boss_awake=true render_mean=4.0182ms p95=4.2556ms p99=4.5218ms max=6.2219ms update_mean=0.0196ms update_max=0.1083ms visible_points_mean=4.18 peak=12 peak_tick=482 peak_particles=181 point_histogram={2: 159, 3: 506, 4: 211, 5: 6, 6: 1, 7: 38, 9: 122, 10: 1, 11: 11, 12: 25}

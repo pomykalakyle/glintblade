@@ -293,11 +293,18 @@ pub fn paint(z: &mut Zone) -> Painted {
     };
     let arch = {
         let t = tile_mask(pw, ph, |m| m == Mat::Arch);
-        Grid {
-            w: pw,
-            h: ph,
-            v: t.v.iter().map(|&v| v > 0.5).collect::<Vec<bool>>(),
+        let mut abutments = Grid::new(pw, ph, false);
+        for y in 0..ph {
+            if !t.v[(y * pw) as usize..((y + 1) * pw) as usize].iter().any(|&v| v > 0.5) { continue }
+            for x in 0..pw {
+                // The river's organic bank can extend past the coarse authored tile.
+                // Seat both visible arch ends into dry ground instead of leaving a
+                // few molten pixels between its road and the receiving path.
+                abutments.set(x, y, island.at(x, y)
+                    && (-12..=12).any(|dx| t.at(x + dx, y) > 0.5));
+            }
         }
+        abutments
     };
 
     let mut lava_full = Grid::new(pw, ph, false);
@@ -408,20 +415,25 @@ pub fn paint(z: &mut Zone) -> Painted {
             let curb_e = !deck.at(x + 1, y) || !deck.at(x + 2, y);
             let lx = x.rem_euclid(16);
             let ly = y.rem_euclid(8);
-            let mut l = 2;
+            let mut l = 3;
             if ly == 7 {
-                l = 1;
-            } else if ly == 0 {
-                l = 3;
+                l = 2;
+            } else if ly == 0 && lx < 7 {
+                l = 4;
             }
             if lx == 15 && !curb_e {
-                l = 1;
+                l = 2;
             }
             if curb_w {
                 l = if !deck.at(x - 1, y) { 4 } else { 3 };
             }
             if curb_e {
                 l = if !deck.at(x + 1, y) { 0 } else { 1 };
+            }
+            // A single broad sill bonds the bridge to each receiving bank. Side curbs
+            // continue along the span while the middle stays open for ordinary movement.
+            if !deck.at(x, y - 1) || !deck.at(x, y + 1) {
+                l = if curb_e { 1 } else { 4 };
             }
             px.v[i] = p(RO, l);
             kind.v[i] = K_DECK;
@@ -466,7 +478,7 @@ pub fn paint(z: &mut Zone) -> Painted {
         while y < ph {
             let i = (y * pw + x) as usize;
             let above = ((y - 1) * pw + x) as usize;
-            if lava_full.v[i] && !lava_full.v[above] && island.v[above] {
+            if lava_full.v[i] && !lava_full.v[above] && island.v[above] && kind.v[i] == K_LAVA {
                 let k = kind.v[above];
                 let (r, face_h) = match k {
                     K_DECK => (RB, 9 + (hash2(x / 3, 0, 43) * 3.0) as i32),
@@ -479,7 +491,7 @@ pub fn paint(z: &mut Zone) -> Painted {
                 };
                 for j in 0..face_h {
                     let yy = y + j;
-                    if yy >= ph || !lava_full.at(x, yy) {
+                    if yy >= ph || !lava_full.at(x, yy) || deck.at(x, yy) || arch.at(x, yy) {
                         break;
                     }
                     let ii = (yy * pw + x) as usize;
@@ -731,6 +743,17 @@ pub fn paint(z: &mut Zone) -> Painted {
         };
     }
 
+    super::textures::apply(z, &kind);
+
+    // Share the final native silhouettes with movement. A bank/soffit is the vertical
+    // face below a deck, never extra walkable ground; the molten channel stays blocked.
+    z.set_surface_tiles(kind.v.iter().map(|&k| match k {
+        K_ASH | K_GRASS | K_PATH | K_PAVE | K_DECK | K_DAIS => Tile::Floor,
+        K_ROCKTOP | K_ROCKFACE | K_WALLTOP | K_WALLFACE => Tile::Wall,
+        K_LAVA | K_FALL | K_BANK => Tile::Lava,
+        _ => Tile::Void,
+    }).collect());
+
     Painted {
         kind,
         lava_full,
@@ -776,12 +799,21 @@ fn paint_paving(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, island: &Grid<bo
                 let (nx, nc) = (cx + dx * sw, col + dx);
                 mat(nx.div_euclid(TILE), cy.div_euclid(TILE)) == Mat::Paving
                     && [(-1, 0), (1, 0), (0, -1), (0, 1)].iter().any(|&(ex, ey)| {
-                        mat((nx + ex * sw).div_euclid(TILE), (cy + ey * sh).div_euclid(TILE)) != Mat::Paving
+                        mat(
+                            (nx + ex * sw).div_euclid(TILE),
+                            (cy + ey * sh).div_euclid(TILE),
+                        ) != Mat::Paving
                     })
                     && hash2(nc, row, 71) < 0.4
             };
             if edge || gone(-1) || gone(1) {
-                let exposed = |dx: i32, dy: i32| (dy == 0 && gone(dx)) || mat((cx + dx * sw).div_euclid(TILE), (cy + dy * sh).div_euclid(TILE)) != Mat::Paving;
+                let exposed = |dx: i32, dy: i32| {
+                    (dy == 0 && gone(dx))
+                        || mat(
+                            (cx + dx * sw).div_euclid(TILE),
+                            (cy + dy * sh).div_euclid(TILE),
+                        ) != Mat::Paving
+                };
                 let bite_x = [3, 6, 4, 7][((ly / 5 + col).rem_euclid(4)) as usize];
                 let bite_y = [4, 2, 6, 3][((lx / 6 + row).rem_euclid(4)) as usize];
                 let vertical = (6..sh - 3).contains(&ly)
@@ -852,9 +884,9 @@ fn paint_dais(c: &Ctx, px: &mut Grid<P>, kind: &mut Grid<u8>, dais: &Grid<bool>)
             }
             let mut q = p(RO, l as i8);
             // copper inlay circle around the shard
-            if (r - 27.5).abs() < 0.8 {
+            if crate::gfx::sheet("cinder_shrine").is_none() && (r - 27.5).abs() < 0.8 {
                 q = p(RC, 2);
-            } else if (r - 26.5).abs() < 0.5 && dy < 0.0 {
+            } else if crate::gfx::sheet("cinder_shrine").is_none() && (r - 26.5).abs() < 0.5 && dy < 0.0 {
                 q = p(RC, 3);
             }
             // lit outer lip

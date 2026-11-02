@@ -187,6 +187,7 @@ impl Field {
                 let j = self.clip.index(x, y).unwrap();
                 self.art[i] = art[j];
                 self.dark[i] = contact[j];
+                self.contact[i] = contact[j];
                 self.raised[i] = false;
             }
         }
@@ -196,5 +197,45 @@ impl Field {
             self.patched_pixels += self.clip.len();
         }
         self.clip = Rect::zone(z);
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Crop-origin reconstruction must produce the same actual scenery/reflections as
+    /// the canonical complete-zone bake, including crops larger than one framebuffer.
+    #[test]
+    fn scenery_crops_match_canonical_full_zone_pixels_across_all_regions() {
+        for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Cinder, ZoneId::Summit] {
+            let (mut zone, region) = crate::regions::build(id);
+            // Include the post-break alive state that exercises incremental reconstruction.
+            for p in zone.props.iter_mut().filter(|p| incremental(p)) { p.alive = false; }
+            let canonical = scenery(&zone, region.as_ref(), Rect::zone(&zone));
+            let wet = match id {
+                ZoneId::Bloomwild => (650,670),
+                ZoneId::Glasswater => (720,205),
+                ZoneId::Cinder => (300,600),
+                ZoneId::Summit => (270,760),
+            };
+            for rect in [
+                Rect { x0: wet.0, y0: wet.1, x1: wet.0+139, y1: wet.1+91 },
+                Rect { x0: W as i32-34, y0: H as i32-23, x1: W as i32+107, y1: H as i32+68 },
+                Rect { x0: 269, y0: 143, x1: 799, y1: 433 },
+                Rect { x0: zone.pw-163, y0: zone.ph-103, x1: zone.pw, y1: zone.ph },
+            ] {
+                let rect = rect.clamp(&zone);
+                let crop = scenery(&zone, region.as_ref(), rect);
+                for wy in rect.y0..rect.y1 { for wx in rect.x0..rect.x1 {
+                    let i = (wy*zone.pw+wx) as usize;
+                    let j = rect.index(wx,wy).unwrap();
+                    assert_eq!((crop.0[j],crop.1[j],crop.2[j]),
+                        (canonical.0[i],canonical.1[i],canonical.2[i]),
+                        "{id:?} native crop changed scenery/reflection/contact at {wx},{wy}");
+                }}
+            }
+        }
     }
 }

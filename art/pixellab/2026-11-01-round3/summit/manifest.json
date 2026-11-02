@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-01",
+  "generator": "PixelLab MCP, Kyle subscription",
+  "selected_floor": [
+    0,
+    1,
+    4,
+    5,
+    14,
+    15
+  ],
+  "selected_pillars": [
+    4,
+    2,
+    1
+  ],
+  "selected_monoliths": [
+    1,
+    3
+  ],
+  "native_pixel_policy": "No resampling, mirroring or recoloring during packing. Region applies the existing lighting model.",
+  "source_sha256": {
+    "dais.result-1.png": "6113c2a011672d45ba3ba529e2af1a1315c5145171bd93799ca391848619c7f6",
+    "floor/00.png": "ff1066ce9853929c36b1b2c76fe514e7dc1170a1fb73c38bfde2ea0955e0f418",
+    "floor/01.png": "b1e8674ab407a8bf9394c901e8bc0210ceb1ded722f411d9fe88c3033440eba8",
+    "floor/02.png": "d059a5604d272d5261bc7d2e931eb7d162a759434cf9398e6c4b09c388e7dc36",
+    "floor/03.png": "165fa6ed10606c86afe37671b8b68ec7c92b9b76896d2de794d8bb916d33a505",
+    "floor/04.png": "e97f174fb49aa666e62b4102897f5dbeb142073fb38661e9c4486699598cbaa8",
+    "floor/05.png": "3847fcc7268db668208c2f0b2ca98df0aa2eb96a540693080515d65ec2478426",
+    "floor/06.png": "4b0e8b8787d0e6cc86aa734722be4f5650d86256fbad7110b871a6d63ffcf673",
+    "floor/07.png": "941d08ecaec450152f34d158668b0a0e528fad73ff7b6e63f8f5e6dd38b23c2d",
+    "floor/08.png": "7c943855aff2ed16d96b203067bdb7603aa594076dffa727e443baeab6404f86",
+    "floor/09.png": "9a7f13aff9e65404580cebdc8bf80da7b40ec888410911c5986675f0bae97a83",
+    "floor/10.png": "9aff6085dc25570f0e74b310a73e65b3508344c40198d30fb2c2690268caf4b2",
+    "floor/11.png": "c65b65abd4ed2a722f796789759fd39131da65ed87eaf661699b40a77ef40aea",
+    "floor/12.png": "fa47532b827ab0afbb8850fe51c0089d3db8b15bb305ae675f88e695cf247067",
+    "floor/13.png": "377596d128beeadf867283c0d62371e4be22e817fbb748ff284a1941bb3f5263",
+    "floor/14.png": "74965aa2f7c918761d8984a6f902cb7bdbec58899fd72d5d742f89c7beb48478",
+    "floor/15.png": "5e1646256d42939120fa9f5937e9b2b59d885a04e981b9dcd66addc955f7be55",
+    "floor-contact.png": "162fca18224dc80a3cf478d8e4327d2fb52f26c7d6b3ef9499348ce3c454bc3a",
+    "foundation.result-1.png": "794402aad9991793ca24541a6a4aaf640db09d6854a83e0f8b380a6b11965939",
+    "pier-contact.png": "92467d06ac4f3a2ccc465f45178c9ebe9cff6fc6289c23016a1b505caf146ffd",
+    "pier.result-1.png": "9f4ef3dd296b0da469c3c93486973861092cb19a514877ac1996a528754fb704",
+    "pier.result-2.png": "e23b20d9eb0ad7446071a98eb854d3f38d4b2cfc190ef4be7d3d556345d841f7",
+    "pier.result-3.png": "4cbce6fd627ab427a1810b972d4831bcc87807d90189191bacb86224de422a8a",
+    "pier.result-4.png": "e11ef7e6e62ab0db21a5df5ae42665e5522f8ce79befb583841c0161dfbc446d",
+    "wall.result-1.png": "ca19739624da03b4e9bf82b6407d00b20f38c0ae0c7b2773412bd629413631ac"
+  }
+}

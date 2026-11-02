@@ -189,6 +189,7 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     z.bg = pal::CLOUD[0];
     z.ambient = Rgb::WHITE;
     z.grade = Grade {
+        light_steps: 32.0,
         vignette: 0.07,
         bloom: 0.3,
         bloom_threshold: 1.1,
@@ -201,6 +202,7 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     }
 
     let mut mat = paint::paint(&mut z, &map);
+    z.set_surface_tiles(paint::physical_surface(&z, &mat));
     let canopies = ruins::build(&mut z, &map, &mat);
     let grass = grass::Grass::build(&map, &mat, &z);
     let life = life::Life::build(&map, &mut mat, &mut z);
@@ -215,7 +217,8 @@ pub fn build() -> (Zone, Box<dyn Region>) {
         // meadow courtyard: sproutlings hiding in the tall grass
         (EnemyKind::Sproutling, 24, 40),
         (EnemyKind::Sproutling, 30, 42),
-        (EnemyKind::Sproutling, 33, 38),
+        // The native broken pillar's plinth reaches farther west than the old box.
+        (EnemyKind::Sproutling, 32, 38),
         // inside the broken courtyard walls
         (EnemyKind::ThornImp, 28, 28),
         // east temple ruins
@@ -225,7 +228,8 @@ pub fn build() -> (Zone, Box<dyn Region>) {
         // blossom grove on the upper terrace
         (EnemyKind::ThornImp, 58, 10),
         (EnemyKind::Sproutling, 55, 12),
-        (EnemyKind::Sproutling, 61, 13),
+        // Leave the full visible root spread of the grove tree clear.
+        (EnemyKind::Sproutling, 60, 13),
         // plaza guard around the altar
         (EnemyKind::ThornImp, 20, 9),
         (EnemyKind::ThornImp, 30, 12),
@@ -249,12 +253,49 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     (z, Box::new(region))
 }
 
+/// The title looks across a broad headland toward the rest of the archipelago.
+/// Land continues beyond the right/bottom of the view instead of ending as a tiny pedestal.
+pub fn title_garden() -> (Zone, Box<dyn Region>) {
+    let mut map = Map::parse();
+    map.k.fill(K::Void);
+    map.level.fill(0);
+    map.marks.clear();
+    for y in 5..map.th {
+        let left = match y {
+            5 => 23, 6 => 20, 7 => 16, 8 => 13, 9 => 10,
+            10 => 11, 11 => 12, 12 => 13, _ => 14,
+        };
+        for x in left..map.tw {
+            map.k[(y * map.tw + x) as usize] = K::Grass;
+        }
+    }
+    // A weathered route leads into the headland, rather than terminating under the ruin.
+    for x in 14..map.tw { map.k[(9 * map.tw + x) as usize] = K::Path; }
+    let mut z = Zone::new(ZoneId::Bloomwild, map.tw, map.th);
+    z.bg = pal::CLOUD[0];
+    z.ambient = Rgb::WHITE;
+    z.grade = Grade { vignette: 0.05, bloom: 0.3, bloom_threshold: 1.1, light_steps: 32.0, ..Grade::default() };
+    for y in 0..map.th {
+        for x in 0..map.tw { z.set_tile(x, y, tile_of(map.at(x, y))); }
+    }
+    let mut mat = paint::paint(&mut z, &map);
+    let canopies = ruins::title_garden(&mut z, &mat);
+    z.set_surface_tiles(paint::physical_surface(&z, &mat));
+    let grass = grass::Grass::build(&map, &mat, &z);
+    let life = life::Life::build(&map, &mut mat, &mut z);
+    z.player_start = (222.0, 147.0);
+    let region = Bloom { map, mat, sky: sky::Sky::title(), grass, life, canopies,
+        player: z.player_start, t: 0 };
+    (z, Box::new(region))
+}
+
 impl Region for Bloom {
     fn update(&mut self, zone: &mut Zone, ctx: &RegionCtx, fx: &mut Fx) {
         self.t = ctx.t;
         self.player = ctx.player;
-        let _ = (zone, fx);
+        let _ = fx;
         self.grass.update(ctx);
+        self.life.update(zone, &self.mat, ctx);
     }
 
     fn slash(&mut self, _zone: &mut Zone, hit: &Hit, fx: &mut Fx) {
@@ -282,7 +323,8 @@ impl Region for Bloom {
     }
 
     /// Draw the separated tree crowns and arch span with accurate player occlusion.
-    fn draw_overlay(&self, _zone: &Zone, f: &mut Frame, t: u64) {
+    fn draw_overlay(&self, zone: &Zone, f: &mut Frame, t: u64) {
+        self.life.draw_foot_contact(zone, &self.mat, f, self.player, t);
         ruins::draw_canopies(&self.canopies, f, self.player, t);
     }
 
@@ -301,6 +343,51 @@ mod tests {
     use super::*;
     use crate::combat::Shape;
     use std::collections::VecDeque;
+
+    #[test]
+    fn title_headland_continues_into_the_world_and_keeps_glint_on_clear_ground() {
+        let (z, _) = title_garden();
+        assert_eq!(z.tile_at(1200.0, 300.0), Tile::Floor);
+        assert_eq!(z.tile_at(1200.0, 780.0), Tile::Floor);
+        assert_eq!(z.tile_at(380.0, 150.0), Tile::Floor);
+        assert_eq!(z.tile_at(260.0, 210.0), Tile::Floor);
+        assert!(!z.blocked(z.player_start.0, z.player_start.1, 4.0));
+        assert_eq!(z.tile_at(140.0, 145.0), Tile::Void);
+        for p in &z.props {
+            let Some([x0, y0, x1, y1]) = p.collision_bounds() else { continue; };
+            for y in y0.floor() as i32..y1.ceil() as i32 {
+                for x in x0.floor() as i32..x1.ceil() as i32 {
+                    if p.blocks(x as f32 + 0.5, y as f32 + 0.5, 0.01, 0.01) {
+                        assert_eq!(z.tile_at(x as f32, y as f32), Tile::Floor,
+                            "title scenery must place its entire native foot on the headland");
+                    }
+                }
+            }
+        }
+    }
+
+    /// Scenery's baked shadows cannot turn physical sky cuts back into visible meadow.
+    #[test]
+    fn completed_scene_preserves_eroded_sky_cuts() {
+        let map = Map::parse();
+        let mut terrain = Zone::new(ZoneId::Bloomwild,map.tw,map.th);
+        let mask = paint::paint(&mut terrain,&map);
+        let (z, _) = build();
+        let mut cuts = 0;
+        for y in 0..z.ph {
+            for x in 0..z.pw {
+                let i = (y*z.pw+x) as usize;
+                // A rounded top may expose attached vertical rock: EDGE is correctly
+                // visible but unwalkable. True sky, including designated eroded turf,
+                // must stay transparent after all scenery/contact shadow placement.
+                if mask[i] == mat::VOID || mask[i] == mat::GRASS && terrain.ground[i].r < 0.0 {
+                    cuts += 1;
+                    assert!(z.gget(x, y).r < 0.0, "scenery repainted solid-looking ground over sky at {x},{y}");
+                }
+            }
+        }
+        assert!(cuts > 3000, "exercise the actual rounded and eroded perimeter");
+    }
 
     /// Keep every deep-water hazard visibly water even at rounded basin corners.
     #[test]
@@ -355,9 +442,8 @@ mod tests {
         ] {
             assert!(seen[((y as i32 / step) * w + x as i32 / step) as usize], "unreachable {name} at {x},{y}");
         }
-        for &(kind, x, y) in &z.enemies {
-            assert!(!z.blocked(x, y, 5.0), "{kind:?} spawns in solid scenery at {x},{y}");
-        }
+        let blocked: Vec<_> = z.enemies.iter().filter(|&&(_, x, y)| z.blocked(x, y, 5.0)).collect();
+        assert!(blocked.is_empty(), "enemies spawn in solid scenery: {blocked:?}");
     }
 
     /// A sword cuts rooted grass once into lit, settling pixels while enemy hits leave it intact.

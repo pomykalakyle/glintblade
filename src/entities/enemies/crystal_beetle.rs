@@ -93,6 +93,7 @@ pub struct State {
     pub moving: bool,
     pub walk_t: u32,
     seed: u32,
+    appearance: u8,
 }
 
 impl State {
@@ -135,6 +136,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         moving: false,
         walk_t: 0,
         seed,
+        appearance: super::variation::appearance(x, y),
     };
     s.cooldown = 30 + (s.vary(1) * 50.0) as u32;
     let mut b = Body::new(x, y, R, HP);
@@ -640,7 +642,7 @@ fn current_cell(b: &Body, s: &State, t: u32) -> (&'static Cell, (i32, i32), bool
             // The windup is stretched over the whole plant so its last (crouched) frame lands
             // on the launch, whatever its authored length.
             let ticks = if s.mode == Mode::Plant { ticks * a.total_ticks() / (AIM + LOCK) } else { ticks };
-            return (sh.cell(a, a.frame_at(ticks, looping)), sh.anchor_of(a), flip);
+            return (super::variation::cell(SHEET, sh.cell(a, a.frame_at(ticks, looping)), s.appearance), sh.anchor_of(a), flip);
         }
     }
     let (cell, flip) = fallback(Dir::from_vec(b.face.0, b.face.1));
@@ -704,17 +706,50 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
         b.y - b.z + oy,
         &DrawOpts {
             actor: true,
+            foot_depth: 8,
+            foot_full_width: true,
+            foot_half_w: b.r,
+            ground_y: Some(b.y.floor()),
+            elevation: b.z - oy,
             flip,
             flash: b.flash,
             emit_gain: glow,
             ..Default::default()
         },
     );
-    f.add_light_w(b.x, b.y - 10.0, 14.0 + 6.0 * s.flare, CRYSTAL_LIGHT, light * 0.35);
+    if f.surface_lighting {
+        if let Some((lx, ly)) = crest_source(cell, anchor, flip) {
+            // The actual crystal cap now lights adjacent masonry as it stalks or
+            // charges. Dazed crystals still visibly gutter through `light`.
+            let radius = 40.0 + 10.0 * s.flare;
+            f.add_light_3d_w(b.x + ox + lx, b.y, b.z - oy - ly, radius, CRYSTAL_LIGHT, light * 1.8);
+        }
+    } else {
+        f.add_light_3d_w(b.x, b.y, 10.0, 14.0 + 6.0 * s.flare, CRYSTAL_LIGHT, light * 0.35);
+    }
 
     if s.mode == Mode::Dazed {
         draw_dizzy(b, s, f);
     }
+}
+
+/// The crest's highest emissive pixel belongs to the drawn crystal geometry.
+/// Choosing actual ink avoids hiding the source inside the armored shell.
+fn crest_source(cell: &Cell, anchor: (i32, i32), flip: bool) -> Option<(f32, f32)> {
+    for y in 0..cell.h {
+        let mut best = None;
+        let mut brightness = -1.0;
+        for x in 0..cell.w {
+            let p = cell.at(x, y);
+            if p.a && p.emit && p.c.luma() > brightness {
+                brightness = p.c.luma();
+                let lx = x as f32 - anchor.0 as f32;
+                best = Some((if flip { -lx + 0.5 } else { lx + 0.5 }, y as f32 + 0.5 - anchor.1 as f32));
+            }
+        }
+        if best.is_some() { return best; }
+    }
+    None
 }
 
 /// The telegraph: two rails on the floor along the exact lane, dashes marching outward while
@@ -901,6 +936,27 @@ mod tests {
     use super::*;
     use crate::entities::enemies::{Brain, Enemy, EnemyKind};
     use crate::world::{Tile, ZoneId};
+
+    #[test]
+    fn crest_light_matches_current_native_cap_under_mirroring() {
+        let sh = sheet(SHEET).unwrap();
+        for a in sh.anims.values() {
+            let anchor = sh.anchor_of(a);
+            for i in 0..a.frames {
+                for appearance in 0..3 {
+                    let cell = super::super::variation::cell(SHEET, sh.cell(a, i), appearance);
+                    for flip in [false, true] {
+                        if let Some((x, y)) = crest_source(cell, anchor, flip) {
+                            let sx = if flip { anchor.0 as f32 - x + 0.5 } else { anchor.0 as f32 + x - 0.5 };
+                            let sy = anchor.1 as f32 + y - 0.5;
+                            let p = cell.at(sx.round() as i32, sy.round() as i32);
+                            assert!(p.a && p.emit, "{} pose{i} appearance{appearance} mirror{flip}", a.name);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /// Exercise armor through the real dispatcher, including its lethal-hit bookkeeping.
     #[test]

@@ -6,6 +6,7 @@ mod heat;
 mod lava;
 mod map;
 mod paint;
+mod textures;
 
 use crate::entities::EnemyKind;
 use crate::gfx::{Frame, Grade, H, Rgb, W};
@@ -45,18 +46,34 @@ pub fn build() -> (Zone, Box<dyn Region>) {
         ("pillar", 714.0, 568.0),
         ("pillar_broken_tall", 1178.0, 361.0),
         ("pillar_broken_short", 1098.0, 232.0),
-        ("pillar", 1190.0, 232.0),
+        ("pillar", 1185.0, 232.0),
     ] {
-        z.props.push(Prop::new("cinder_pillars", anim, x, y));
+        let markers = if anim == "pillar_broken_short" {
+            "cinder_pillars"
+        } else {
+            "cinder_markers"
+        };
+        let variant = if x == 1178.0 {
+            "pillar_lean"
+        } else if x == 1185.0 {
+            "pillar_slotted"
+        } else {
+            anim
+        };
+        z.props.push(Prop::new(markers, variant, x, y));
     }
     z.props
-        .push(Prop::new("cinder_statue", "statue", 621.0, 450.0));
+        .push(Prop::new("cinder_foundry", "press", 621.0, 450.0));
     z.props
-        .push(Prop::new("cinder_statue", "statue", 600.0, 718.0).flipped(true));
+        .push(Prop::new("cinder_foundry", "broken_press", 600.0, 718.0));
     // A visible keeper's brazier motivates the court's focal light, away from bridge mouths.
-    // Scenery only: preserve the existing collision map and every combat lane.
     let mut brazier = Prop::new("cinder_brazier", "brazier_lit", 646.0, 456.0);
-    brazier.footprint = None;
+    if let Some(s) = brazier.sheet() && let Some(a) = s.anim("brazier_lit") {
+        brazier.set_native_support(s.cell(a, 0), s.anchor_of(a), 5);
+    }
+    // Retain the actual authored emitter separately from the legacy cached-light
+    // placeholder. Physical normal lighting must not inherit its zero intensity.
+    let brazier_source = brazier.light.map(|light| (z.props.len(),light));
     // The same flame drives cached stone reception, cast directions and actor rims.
     if let Some(light) = brazier.light.as_mut() {
         light.1 = 144.0;
@@ -85,12 +102,13 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     // The runtime lighting field owns cast shadows; do not bake another dark pass into albedo.
     let lava = lava::Lava::new(&painted);
     let heat = heat::Heat::build(&z, &painted);
-    (z, Box::new(Cinder { lava, heat }))
+    (z, Box::new(Cinder { lava, heat, brazier_source }))
 }
 
 struct Cinder {
     lava: lava::Lava,
     heat: heat::Heat,
+    brazier_source: Option<(usize,(Rgb,f32,f32,f32,f32))>,
 }
 
 impl Region for Cinder {
@@ -105,7 +123,11 @@ impl Region for Cinder {
     }
 
     /// Illuminate banks with the nearby lava, without unrelated ambient lights.
-    fn light(&self, _zone: &Zone, f: &mut Frame, t: u64) {
+    fn light(&self, zone: &Zone, f: &mut Frame, t: u64) {
+        if f.surface_lighting && let Some((id,(color,radius,intensity,ox,oy)))=self.brazier_source
+            && let Some(prop)=zone.props.get(id).filter(|p|p.alive) {
+            f.add_light_3d_w(prop.x+ox,prop.y,-oy,radius,color,intensity);
+        }
         self.lava.light(f, t);
         self.heat.light(f);
     }
@@ -142,6 +164,72 @@ impl Region for Cinder {
 mod tests {
     use super::*;
     use std::collections::VecDeque;
+
+    #[test]
+    fn live_brazier_keeps_its_authored_3d_emitter_in_normal_mode() {
+        let (mut zone,region)=build();
+        let id=zone.props.iter().position(|p|p.sheet=="cinder_brazier").unwrap();
+        let mut f=Frame::new();f.cam_x=454;f.cam_y=348;
+        f.begin(Rgb::BLACK,zone.ambient);f.surface_lighting=true;
+        region.light(&zone,&mut f,90);
+        let lamp=f.point_lights.iter().find(|l|(l.x-646.0).abs()<0.01).expect("visible flame needs a live normal-aware source");
+        assert_eq!((lamp.y,lamp.height,lamp.radius,lamp.intensity),(436.0,20.0,64.0,0.9));
+        zone.props[id].alive=false;
+        f.begin(Rgb::BLACK,zone.ambient);f.surface_lighting=true;
+        region.light(&zone,&mut f,90);
+        assert!(f.point_lights.iter().all(|l| (l.x-646.0).abs()>0.01 || (l.y-436.0).abs()>0.01),
+            "a removed brazier cannot keep lighting the scene");
+        assert!(!f.point_lights.is_empty(), "extinguishing a brazier must preserve the live lava sources");
+    }
+
+    /// The visible brazier is solid at its stone foot, and its foundry lane remains open.
+    #[test]
+    fn brazier_support_stops_player_without_sealing_court_lane() {
+        let mut play = crate::play::Play::new(ZoneId::Cinder, &crate::play::PlayOpts { god: true, peaceful: true });
+        let mut fx = crate::fx::Fx::new(7);
+        play.player.body.x = 646.0;
+        play.player.body.y = 488.0;
+        let mut input = crate::input::Input { mv: (0.0, -1.0), ..Default::default() };
+        for _ in 0..60 { play.update(&input, &mut fx); }
+        let brazier = play.zone.props.iter().find(|p| p.sheet == "cinder_brazier").unwrap();
+        assert_eq!(brazier.collision_bounds().unwrap()[3], 458.0, "native stone foot extends two rows below the old anchor");
+        assert!((460.4..462.0).contains(&play.player.body.y), "feet did not stop at the visible brazier foot: {}", play.player.body.y);
+        play.player.body.x = 622.0;
+        play.player.body.y = 480.0;
+        play.player.body.vx = 0.0;
+        play.player.body.vy = 0.0;
+        input.mv = (1.0, 0.0);
+        for _ in 0..60 { play.update(&input, &mut fx); }
+        assert!(play.player.body.x > 700.0, "brazier sealed court route at {}", play.player.body.x);
+        assert!((play.player.body.y - 480.0).abs() < 0.1);
+    }
+
+    /// All three crossing types use ordinary player input. The basalt arch and the
+    /// two masonry bridges must carry the player over blocked lava to real landings.
+    #[test]
+    fn bridge_input_crossings_preserve_both_landings() {
+        let mut play = crate::play::Play::new(ZoneId::Cinder, &crate::play::PlayOpts { god: true, peaceful: true });
+        let mut fx = crate::fx::Fx::new(7);
+        for (name, start, movement, ticks, axis, target) in [
+            ("basalt arch", (310.0, 488.0), (1.0, 0.0), 100, 0, 450.0),
+            ("canal bridge", (560.0, 632.0), (0.0, 1.0), 65, 1, 700.0),
+            ("caldera bridge", (1144.0, 332.0), (0.0, -1.0), 85, 2, 233.0),
+        ] {
+            play.player.body.x = start.0;
+            play.player.body.y = start.1;
+            play.player.body.vx = 0.0;
+            play.player.body.vy = 0.0;
+            let input = crate::input::Input { mv: movement, ..Default::default() };
+            for _ in 0..ticks {
+                play.update(&input, &mut fx);
+                fx.sounds.clear();
+                fx.lights.clear();
+            }
+            let pos = (play.player.body.x, play.player.body.y);
+            assert!(match axis { 0 => pos.0 > target, 1 => pos.1 > target, _ => pos.1 < target }, "{name} blocked at {pos:?}");
+            assert_eq!(play.zone.tile_at(pos.0, pos.1), crate::world::Tile::Floor, "{name} ended over lava");
+        }
+    }
 
     /// Traverse actual feet-box collision from entry to every encounter, shard, and gate.
     #[test]

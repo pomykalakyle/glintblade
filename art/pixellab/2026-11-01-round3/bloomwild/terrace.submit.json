@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 905be69a-0368-432b-9647-3a174578c996\njob_id: 905be69a-0368-432b-9647-3a174578c996\nmodel: pro\ndescription: One seamless HORIZONTAL FRONT-FACING retaining-wall material strip, native128x32 pixels, for a melancholy low top-down pixel action game. It fills the ENTIRE rectangular canvas edge to edge, no margins, framing or outer border. A thick long ancient limestone terrace wall, two unequal staggered courses of LARGE broad quiet ashlar stones. Stone faces30 to60pixels wide,4 to6major stones across whole strip; gently weathered and chipped, narrow broken cool-slate cracks at actual joins, no thick outlines around every stone. Clear lit thin top coping across y0..4, cool subdued stone main faces y5..27, deep narrow sage moss seam at y28..31 rooting the wall into meadow. Shallow recessed broad relief in one face, no text. Upper-left daylight, weathered muted chalk, broad cool slate planes, exact scale and quiet material of reference arch. No perspective diamond, object diorama, columns, towers, spikes, small repetitive bricks, stripes, glow, sparks, golden light, drawn cast shadow or background beyond masonry. This is a crop through a much longer straight terrace wall, not a separate floating wall object.\nsize: 128x32px\ntransparent: False\ncandidates: 4\nstyle_image: yes (detail, shading)\npalette: 18 colours (Glintblade weathered chalk waterworks)\nmax colours: 9 per image\nseed: 6204\nasset_id: e2636861-1265-58d6-9419-9b2e87e264ee\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"905be69a-0368-432b-9647-3a174578c996\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/905be69a-0368-432b-9647-3a174578c996/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

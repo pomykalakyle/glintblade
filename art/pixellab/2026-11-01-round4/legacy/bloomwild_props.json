@@ -1,0 +1,88 @@
+{
+ "cell": [
+  32,
+  32
+ ],
+ "anchor": [
+  16,
+  29
+ ],
+ "anims": {
+  "bush_a": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    16,
+    5
+   ]
+  },
+  "bush_b": {
+   "row": 1,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    20,
+    5
+   ]
+  },
+  "bush_bloom": {
+   "row": 2,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    16,
+    5
+   ]
+  },
+  "urn_large": {
+   "row": 3,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    12,
+    5
+   ],
+   "breakable": true
+  },
+  "urn_small": {
+   "row": 4,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    8,
+    4
+   ],
+   "breakable": true
+  },
+  "flowers_a": {
+   "row": 5,
+   "frames": 1,
+   "fps": 1
+  },
+  "flowers_b": {
+   "row": 6,
+   "frames": 1,
+   "fps": 1
+  },
+  "boulder_large": {
+   "row": 7,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    20,
+    6
+   ]
+  },
+  "boulder_small": {
+   "row": 8,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    10,
+    4
+   ]
+  }
+ },
+ "notes": "Sage leaf fans rooted in broken contact shade, with sparse dried-rose blossom clusters; weathered gray ceramic urns and mineral boulders. Original breakability and footprints retained."
+}

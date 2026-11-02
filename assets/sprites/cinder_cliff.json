@@ -1,0 +1,19 @@
+{
+  "cell": [
+    128,
+    96
+  ],
+  "anchor": [
+    64,
+    24
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 2,
+      "fps": 1
+    }
+  },
+  "notes": "Native PixelLab source pixels. No scaling, interpolation, palette substitution or mirroring. Generation receipts and selections: art/pixellab/2026-11-01-round3/cinder/.",
+  "face_top": 24
+}

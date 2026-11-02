@@ -101,6 +101,7 @@ pub struct State {
     pvel: (f32, f32),
     kill_dir: (f32, f32),
     seed: u32,
+    appearance: u8,
     noticed: bool,
 }
 
@@ -123,6 +124,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         pvel: (0.0, 0.0),
         kill_dir: (0.0, 1.0),
         seed,
+        appearance: super::variation::appearance(x, y),
         noticed: false,
     };
     (Body::new(x, y, RADIUS, HP), s)
@@ -710,7 +712,7 @@ fn current_cell(b: &Body, s: &State) -> (&'static Cell, (i32, i32)) {
             }
         };
         if let Some((a, tt, looping)) = found.or_else(|| pick(sh, &["idle"], dir).map(|(a, _)| (a, s.t, true))) {
-            return (sh.cell(a, a.frame_at(tt, looping)), sh.anchor_of(a));
+            return (super::variation::cell("spitting_totem", sh.cell(a, a.frame_at(tt, looping)), s.appearance), sh.anchor_of(a));
         }
     }
     let cells = fallback();
@@ -829,7 +831,7 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let heat = (s.heat + flick).max(0.0);
     let gain = 0.75 + heat * 0.85;
     let (x, y) = (b.x + jx as f32, b.y);
-    let o = DrawOpts { actor: true, flash: snappy(b.flash) * 0.7, emit_gain: gain, ..Default::default() };
+    let o = DrawOpts { actor: true, foot_depth: 5, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flash: snappy(b.flash) * 0.7, emit_gain: gain, ..Default::default() };
     f.sprite_w(cell, anchor, x, y, &o);
     let (sx, sy) = (f.sx(x), f.sy(y));
 
@@ -851,13 +853,40 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
         }
     }
 
-    // its light: a dull ember glow that swells through the charge
-    let r = 12.0 + heat.min(1.6) * 18.0;
-    let i = 0.12 + heat.min(1.6) * 0.26;
-    f.add_light_w(x + mx, y - mz * 0.5, r, ORA, i);
-    if heat > 0.6 {
-        f.add_light_w(x + mx, y - mz + 2.0, 9.0, YEL, (heat - 0.6) * 0.35);
+    // The furnace mouth becomes a readable light on nearby stone throughout
+    // its real charge/spit/cooldown. The source sits in this pose's glowing maw,
+    // rather than inside the opaque lower plinth.
+    if f.surface_lighting {
+        if let Some((lx, ly)) = maw_source(cell, anchor) {
+            let r = 40.0 + heat.min(1.6) * 18.0;
+            let i = 0.28 + heat.min(1.6) * 0.68;
+            let color = ORA.lerp(YEL, ((heat - 0.6) / 0.9).clamp(0.0, 1.0));
+            f.add_light_3d_w(x.floor() + lx, y.floor(), -ly, r, color, i);
+        }
+    } else {
+        let r = 12.0 + heat.min(1.6) * 18.0;
+        let i = 0.12 + heat.min(1.6) * 0.26;
+        f.add_light_3d_w(x + mx, y, mz * 0.5, r, ORA, i);
+        if heat > 0.6 {
+            f.add_light_3d_w(x + mx, y, mz - 2.0, 9.0, YEL, (heat - 0.6) * 0.35);
+        }
     }
+}
+
+/// Brightest actual mouth pixel, sampled from the current appearance and pose.
+fn maw_source(cell: &Cell, anchor: (i32, i32)) -> Option<(f32, f32)> {
+    let mut best = None;
+    let mut brightness = -1.0;
+    for y in 0..cell.h {
+        for x in 0..cell.w {
+            let p = cell.at(x, y);
+            if p.a && p.emit && p.c.luma() > brightness {
+                brightness = p.c.luma();
+                best = Some((x as f32 + 0.5 - anchor.0 as f32, y as f32 + 0.5 - anchor.1 as f32));
+            }
+        }
+    }
+    best
 }
 
 // ------------------------------------------------------------------ fallback art
@@ -975,6 +1004,44 @@ fn snappy(flash: f32) -> f32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The last idle pose deliberately closes its glowing outlet. A dark
+    /// authored frame must extinguish its source, then relight with real ink.
+    #[test]
+    fn native_dark_idle_does_not_invent_a_light_and_luminous_idle_relights() {
+        use crate::gfx::frame::Surface;
+        use crate::gfx::W;
+        let sh = sheet("spitting_totem").unwrap();
+        for appearance in 0..3 {
+            for direction in ["idle_down", "idle_up"] {
+                let (mut b, mut s) = spawn(192.73, 120.81);
+                b.face = (0.0, if direction == "idle_up" { -1.0 } else { 1.0 });
+                s.appearance = appearance;
+                s.phase = Phase::Cooldown;
+                let a = sh.anim(direction).unwrap();
+                s.t = a.durations[..3].iter().sum();
+                let (cell, anchor) = current_cell(&b, &s);
+                assert!(std::ptr::eq(cell, super::super::variation::cell("spitting_totem", sh.cell(a, 3), appearance)));
+                assert!(maw_source(cell, anchor).is_none(), "fixture must use the real dark pose");
+                let mut f = Frame::new();
+                f.begin(Rgb::gray(0.5), Rgb::BLACK);
+                f.surface_lighting = true;
+                draw(&b, &s, &mut f);
+                assert!(f.point_lights.is_empty(), "dark {direction} appearance{appearance} invented a source");
+                s.t = 0;
+                f.begin(Rgb::gray(0.5), Rgb::BLACK);
+                f.surface_lighting = true;
+                f.surfaces.fill(Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 });
+                draw(&b, &s, &mut f);
+                assert_eq!(f.point_lights.len(), 1);
+                let light = f.point_lights[0];
+                assert!(f.emissive[light.y.floor() as usize * W + light.x.floor() as usize].max_c() > 0.0,
+                    "relit source must remain on fractional {direction} appearance{appearance} raster ink");
+                assert!(crate::gfx::lighting::point_visibility(&f, light).iter().all(|&v| v == 255),
+                    "relit {direction} appearance{appearance} blocked its own source");
+            }
+        }
+    }
 
     /// Fallback outlet pixels retain the same launch cluster and charge pose as the real sheet.
     #[test]

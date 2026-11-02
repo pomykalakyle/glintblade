@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 373fe268-12d4-4522-ab8d-81a6a330c504\njob_id: 373fe268-12d4-4522-ab8d-81a6a330c504\nmodel: pro\ndescription: A single beautiful crystal landmark cluster for a melancholy 3/4 top-down 16-bit action RPG. Native 48x64 pixel canvas, compact 44px wide by 52px high. Two or three asymmetrical giant pale iris prisms growing through a broad grounded slate mineral root. Long chisel-cut faceted shapes, subtle fractures and small broken shards at foot. Large quiet dark faces, one strong pale light-facing plane, small very pale #cdc3db cap only on the highest broken tip; no glowing outline. Restrained desaturated iris purple on cool slate stone. Ground contact centered at x24,y60. Transparent background, upper-left light, clean connected pixel clusters. No backdrop, no water, no floating fragments, no smooth gradient, no checker shading, no sparkling particles.\nsize: 48x64px\ntransparent: True\ncandidates: 16\nstyle_image: yes (outline, detail, shading)\npalette: 15 colours (Glasswater slate and pale iris)\nmax colours: 9 per image\nseed: 224\nasset_id: dbc543a1-dd85-580b-b877-068bed4a2781\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"373fe268-12d4-4522-ab8d-81a6a330c504\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/373fe268-12d4-4522-ab8d-81a6a330c504/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

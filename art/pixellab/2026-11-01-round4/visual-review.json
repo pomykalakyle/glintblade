@@ -1,0 +1,60 @@
+{
+  "reviewer": "independent_visual_round4",
+  "final_binary_sha256": "49358f8309ee603b0c8a871e7368aeb89b7392824655148e18eff6fdeb7ce134",
+  "scope": {
+    "initial_native_scene_review": 40,
+    "initial_full_maps": 4,
+    "final_campaign_unique_native_frames": 79,
+    "final_normal_health_bridge_frames": 5,
+    "revised_water_motion_frames": 12,
+    "lava_candidates": 5,
+    "lava_candidate_native_views": 20,
+    "lava_top_candidate_motion_frames_each": 8,
+    "final_period_corrected_lava_views": [
+      "caldera-bridge",
+      "upper-bank",
+      "river-join"
+    ],
+    "final_other_static_rechecks": [
+      "title240",
+      "bloomwild/cliff-contact",
+      "glasswater/causeway",
+      "summit/stair",
+      "all five corrected scenery-only camera poses"
+    ]
+  },
+  "final_world_manifest": "out/pixellab/world/round4-final-review/manifest.json",
+  "campaign_manifest": "out/pixellab/recordings/whole-game-round4/manifest.json",
+  "campaign_frame_selection": "out/pixellab/round4/independent-visual/final-campaign-frame-selection.json",
+  "normal_health_bridge_manifest": "out/pixellab/recordings/round4-final-cinder-arch/manifest.json",
+  "normal_health_bridge_sample_ticks": [
+    361,
+    391,
+    421,
+    451,
+    480
+  ],
+  "resolved_findings": [
+    "Large camouflage-like lava patches replaced with PixelLab crop2 basalt crust/hot crack material.",
+    "Final native period wrap retains natural material without visible seam or repeated stamped glyph.",
+    "Title outcrop now includes full rooted tree/ruin/hero with stable idle/intro composition.",
+    "Organic grass/outer cliff lip softened while terrace reads engineered.",
+    "Oversized wading rings and full black reflected hero removed.",
+    "Staged hero removed at five blocked static camera positions, keeping review comparisons honest."
+  ],
+  "actual_gameplay_observations": [
+    "Hero stays readable around pillars, ruined walls and groves in sampled route frames.",
+    "Bloomwild bridge and stairs align with their banks/retaining wall.",
+    "Glasswater water contact and shoreline silhouettes remain stable; causeway is solid masonry.",
+    "Cinder decks retain abutments/front faces over the final molten surface.",
+    "Summit bridge, circular landings and stairs remain physically coherent.",
+    "Boss awakening, phase telegraphs, heart exposures, death and ending render without a new integration defect in sampled frames."
+  ],
+  "remaining_limits": [
+    "No claim of reviewing all 14530 campaign frames.",
+    "Campaign uses invulnerability for coverage and does not establish difficulty balance.",
+    "During an expansive phase2 telegraph the boss crown can extend above the finite viewport while the hero/sword/near emitters remain visible; observed at tick11808.",
+    "Visual sample review is not exhaustive collision or performance verification."
+  ],
+  "verdict": "No new visual blocker found in final reviewed scope; prior concrete visual findings resolved."
+}

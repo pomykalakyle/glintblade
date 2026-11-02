@@ -1,0 +1,1198 @@
+{
+  "reviewer": "Fresh independent visual reviewer; read-only game source; no implementer ownership",
+  "candidate_binary": "out/pixellab/round5/selected/glintblade",
+  "candidate_sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c",
+  "status": "APPROVE selected embedded-build still art and explicitly sampled actual campaign integration after native column repair. No unresolved visual blocker in inspected scopes; remaining style limits and review exclusions are stated below.",
+  "scope": {
+    "native_resolution": [
+      384,
+      216
+    ],
+    "staged_views": [
+      {
+        "zone": "bloomwild",
+        "name": "landing",
+        "file": "out/pixellab/world/round5-selected/bloomwild/landing/bloomwild_t00090.png",
+        "sha256": "8623bb785efb9c55ed1e0dfe72492748229026f83b84336a091fba44ffbbd1b9"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "entry",
+        "file": "out/pixellab/world/round5-selected/bloomwild/entry/bloomwild_t00090.png",
+        "sha256": "353f228b1909e0077b2eb68f1405180a11efd56fdae74594ed5cb323abfcb55f"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "courtyard",
+        "file": "out/pixellab/world/round5-selected/bloomwild/courtyard/bloomwild_t00090.png",
+        "sha256": "ed871df4b6f0315b0862c230a1d137c030fda62886fb31f94b4c88c3261a114e"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "temple",
+        "file": "out/pixellab/world/round5-selected/bloomwild/temple/bloomwild_t00090.png",
+        "sha256": "8e9bf004a593e635fcd3d88abe40ccd1143ce60c63e029e6ad796257d2feec2f"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "terrace",
+        "file": "out/pixellab/world/round5-selected/bloomwild/terrace/bloomwild_t00090.png",
+        "sha256": "4fc76f2176ed1ce34a269746105783949d0db916791bd048d58b00e0cd2be40e"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "altar",
+        "file": "out/pixellab/world/round5-selected/bloomwild/altar/bloomwild_t00090.png",
+        "sha256": "e39e1caa9f5d7ea5cc3fcdecbf0f49a400b3f987b38e4745558ba5f9ee271367"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "falls",
+        "file": "out/pixellab/world/round5-selected/bloomwild/falls/bloomwild_t00090.png",
+        "sha256": "479a6f467a5146f3fa8cc0a64378b7047201df3a9c59b89403ae28b335cdbdc2"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "grove",
+        "file": "out/pixellab/world/round5-selected/bloomwild/grove/bloomwild_t00090.png",
+        "sha256": "010409636039aa1676405c4eba53dc3ac765b71fadcbc44bf94c96093e770142"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "upper-bridge",
+        "file": "out/pixellab/world/round5-selected/bloomwild/upper-bridge/bloomwild_t00090.png",
+        "sha256": "43e1d93703d46d537a44d51c0b589215a95f8516092854b9e9242fc2877c5c63"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "lower-bridge",
+        "file": "out/pixellab/world/round5-selected/bloomwild/lower-bridge/bloomwild_t00090.png",
+        "sha256": "9d86d0076a12e6c523b81ad9fcf39d579ad00a88a053d71703f15482bddcb91a"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "stair-contact",
+        "file": "out/pixellab/world/round5-selected/bloomwild/stair-contact/bloomwild_t00090.png",
+        "sha256": "5706f9b7c9f576bf122f4b4a77bb9fb07f9ce0eae197e7423126920310104373"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "west-terrace",
+        "file": "out/pixellab/world/round5-selected/bloomwild/west-terrace/bloomwild_t00090.png",
+        "sha256": "135460e312546d464135ab4c00ac0a02fe0da4db2ddad29728b85d759cda43cf"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "cliff-contact",
+        "file": "out/pixellab/world/round5-selected/bloomwild/cliff-contact/bloomwild_t00090.png",
+        "sha256": "305ebb47afa75ddb4dbd2d0e6313547da5a23af0fa924409f3117783917bba1b"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "falls-impact",
+        "file": "out/pixellab/world/round5-selected/bloomwild/falls-impact/bloomwild_t00090.png",
+        "sha256": "6da15f6fdf07f83c60a4c881003ac51c233c152ea4ac67bef317fd55e3e73ae7"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "outlet-bank",
+        "file": "out/pixellab/world/round5-selected/bloomwild/outlet-bank/bloomwild_t00090.png",
+        "sha256": "fe098479209ffdea7762fe3fb619e3c5001941edf6b447e8dbec02e4bc2bb16a"
+      },
+      {
+        "zone": "glasswater",
+        "name": "lake",
+        "file": "out/pixellab/world/round5-selected/glasswater/lake/glasswater_t00090.png",
+        "sha256": "120a48d15361f346dd47b38f7570f297622a7c28c2f0485d053f02bc33308a94"
+      },
+      {
+        "zone": "glasswater",
+        "name": "island",
+        "file": "out/pixellab/world/round5-selected/glasswater/island/glasswater_t00090.png",
+        "sha256": "a818fda405d24463991017d8403568d8af312b9d80dad2c6329ade823c2a783f"
+      },
+      {
+        "zone": "glasswater",
+        "name": "gallery",
+        "file": "out/pixellab/world/round5-selected/glasswater/gallery/glasswater_t00090.png",
+        "sha256": "8e12b35cc3bb6ca3e6e68bae5f4156188bcf8c996dc4a3a699f8e2edb1ed7eec"
+      },
+      {
+        "zone": "glasswater",
+        "name": "bridge",
+        "file": "out/pixellab/world/round5-selected/glasswater/bridge/glasswater_t00090.png",
+        "sha256": "7f2cad1304111eb8046695173ee27742c65a33f73aff262cbe27ba7296ab7ca2"
+      },
+      {
+        "zone": "glasswater",
+        "name": "grove",
+        "file": "out/pixellab/world/round5-selected/glasswater/grove/glasswater_t00090.png",
+        "sha256": "b5af463f15a408315ea4f5f23a34489075feca62984fc3039a24f358077e6dbf"
+      },
+      {
+        "zone": "glasswater",
+        "name": "heart",
+        "file": "out/pixellab/world/round5-selected/glasswater/heart/glasswater_t00090.png",
+        "sha256": "a4f1bc79596c96ced1031e70f9a52116830e7d878417eb1eea9fe0da0a84dd6f"
+      },
+      {
+        "zone": "glasswater",
+        "name": "channel",
+        "file": "out/pixellab/world/round5-selected/glasswater/channel/glasswater_t00090.png",
+        "sha256": "dfd875af944692af73c0b82c23c40887bda92c60aa8d8c22285017fe61d6c1bb"
+      },
+      {
+        "zone": "glasswater",
+        "name": "causeway",
+        "file": "out/pixellab/world/round5-selected/glasswater/causeway/glasswater_t00090.png",
+        "sha256": "943ba36f145cf2d242f848abdf77900a7de14058969a4ed974295a213cebd421"
+      },
+      {
+        "zone": "glasswater",
+        "name": "shallow-grove",
+        "file": "out/pixellab/world/round5-selected/glasswater/shallow-grove/glasswater_t00090.png",
+        "sha256": "9d2c4295a6c91aadab113a872b2e226aeebf070896b04024f5cefb7e310398eb"
+      },
+      {
+        "zone": "cinder",
+        "name": "approach",
+        "file": "out/pixellab/world/round5-selected/cinder/approach/cinder_t00090.png",
+        "sha256": "289bd15142e51513625b4bd85586e2cfdc838f1c1359a571b61a772f7feea654"
+      },
+      {
+        "zone": "cinder",
+        "name": "crossing",
+        "file": "out/pixellab/world/round5-selected/cinder/crossing/cinder_t00090.png",
+        "sha256": "c8226e50a2d7d43cce5129fe4846c2867da0dcf55306a99660d4151457aef2ef"
+      },
+      {
+        "zone": "cinder",
+        "name": "foundry",
+        "file": "out/pixellab/world/round5-selected/cinder/foundry/cinder_t00090.png",
+        "sha256": "64bfc0afb6f06d82f07a13f79ba50ad53e85eb47ed52104cff4ba1bdbc3b4fcc"
+      },
+      {
+        "zone": "cinder",
+        "name": "press",
+        "file": "out/pixellab/world/round5-selected/cinder/press/cinder_t00090.png",
+        "sha256": "310f94f122638a6d0ec343a50821f9a7ad100674749d3baa8da3b7c4789af124"
+      },
+      {
+        "zone": "cinder",
+        "name": "upper-bank",
+        "file": "out/pixellab/world/round5-selected/cinder/upper-bank/cinder_t00090.png",
+        "sha256": "c5b5ff19f5769245183cda5b1ef1bf4d7515cac40f7a0b3b0a0fe2c5ecea3e44"
+      },
+      {
+        "zone": "cinder",
+        "name": "shrine",
+        "file": "out/pixellab/world/round5-selected/cinder/shrine/cinder_t00090.png",
+        "sha256": "f43f8a13e463865f95ae4a7291b50f0bcd61f81c75ae408f1f6887dc016b9c70"
+      },
+      {
+        "zone": "cinder",
+        "name": "canal-bridge",
+        "file": "out/pixellab/world/round5-selected/cinder/canal-bridge/cinder_t00090.png",
+        "sha256": "a497d7a301195f39a689ff579f2eade8d0a646f1c908490bdf71b6a2dfc43a89"
+      },
+      {
+        "zone": "cinder",
+        "name": "caldera-bridge",
+        "file": "out/pixellab/world/round5-selected/cinder/caldera-bridge/cinder_t00090.png",
+        "sha256": "5b154e318c1fdecbd1a933d18e02910a19909e957d2a1f7cb9948a00428d949f"
+      },
+      {
+        "zone": "cinder",
+        "name": "river-join",
+        "file": "out/pixellab/world/round5-selected/cinder/river-join/cinder_t00090.png",
+        "sha256": "650bb5e8f886ee342c030f44437a8613ac04ea2df7620a4bbbcb9118b45c74d5"
+      },
+      {
+        "zone": "summit",
+        "name": "arrival",
+        "file": "out/pixellab/world/round5-selected/summit/arrival/summit_t00090.png",
+        "sha256": "547fb6f38cee56f1fff341a2179141f56ea5181ef8b493e29c7773ce76cd07ef"
+      },
+      {
+        "zone": "summit",
+        "name": "bridge",
+        "file": "out/pixellab/world/round5-selected/summit/bridge/summit_t00090.png",
+        "sha256": "821db200a693578de3f5b2bce71f05eddba95542e2d3877b605779bedf1bd2c4"
+      },
+      {
+        "zone": "summit",
+        "name": "stair",
+        "file": "out/pixellab/world/round5-selected/summit/stair/summit_t00090.png",
+        "sha256": "14f2c5f6ef101786cb329f9b2326fda57da542eed6515588323e01ae12c61725"
+      },
+      {
+        "zone": "summit",
+        "name": "arena",
+        "file": "out/pixellab/world/round5-selected/summit/arena/summit_t00090.png",
+        "sha256": "b82739de50b9ad984e852a27ddfe43f7e87726eb7194bb1de8b4105e456253c5"
+      },
+      {
+        "zone": "summit",
+        "name": "dais",
+        "file": "out/pixellab/world/round5-selected/summit/dais/summit_t00090.png",
+        "sha256": "77d04445148d100533e1dd241cf1ed78cd52b185ad39e9c51603db45925f8238"
+      },
+      {
+        "zone": "summit",
+        "name": "west",
+        "file": "out/pixellab/world/round5-selected/summit/west/summit_t00090.png",
+        "sha256": "d256540e1edc6b18a21562050b320981fbd9d26af38cbe92b298a7dde9b18c57"
+      },
+      {
+        "zone": "summit",
+        "name": "curved-edge",
+        "file": "out/pixellab/world/round5-selected/summit/curved-edge/summit_t00090.png",
+        "sha256": "8d7324dd8c3f553ab8d0108e00a8464ce3196c5db0a84e1fe430e7f77e97fe2e"
+      }
+    ],
+    "whole_maps": [
+      "out/pixellab/world/round5-selected/bloomwild/landing/bloomwild_overview.png",
+      "out/pixellab/world/round5-selected/glasswater/lake/glasswater_overview.png",
+      "out/pixellab/world/round5-selected/cinder/approach/cinder_overview.png",
+      "out/pixellab/world/round5-selected/summit/arrival/summit_overview.png"
+    ],
+    "title": "out/pixellab/world/round5-selected/title/f00240.png",
+    "focused_cliff_views": [
+      {
+        "name": "west-steps",
+        "image": "out/pixellab/round5/cliffs/rc6/west-steps/bloomwild_t00090.png",
+        "sha256": "59ca94f91bbdf0c837a692f25eee62d9b02f0bfe919b63ea0ee18195524c6719"
+      },
+      {
+        "name": "landing-step",
+        "image": "out/pixellab/round5/cliffs/rc6/landing-step/bloomwild_t00090.png",
+        "sha256": "a76ba11755a98e0a2cd8fcdd6b20204e879018d3f718abb0e1d9e400f4475696"
+      },
+      {
+        "name": "east-steps",
+        "image": "out/pixellab/round5/cliffs/rc6/east-steps/bloomwild_t00090.png",
+        "sha256": "7f93e9543557159fb30f0c2fface08a08512ceaaf9227ca4bcb8cf00ac0f73aa"
+      },
+      {
+        "name": "northeast-cape",
+        "image": "out/pixellab/round5/cliffs/rc6/northeast-cape/bloomwild_t00090.png",
+        "sha256": "18612532443910e2f995e36645dcd63b9f599577bad492bf271798a80b09d371"
+      },
+      {
+        "name": "terrace-end",
+        "image": "out/pixellab/round5/cliffs/rc6/terrace-end/bloomwild_t00090.png",
+        "sha256": "7a6795b2dc4d473da219be32b0a813d6ad56568dde9f4c32e188e83dc5bd6499"
+      },
+      {
+        "name": "east-terrace-end",
+        "image": "out/pixellab/round5/cliffs/rc6/east-terrace-end/bloomwild_t00090.png",
+        "sha256": "01ae94dcdb1f54e31fdf73824481cdcfe38862431b1fe8c3190c4148be7a4721"
+      },
+      {
+        "name": "supported-bridge",
+        "image": "out/pixellab/round5/cliffs/rc6/supported-bridge/summit_t00090.png",
+        "sha256": "7e96ba9c1fdf20f147b0b142846f5d0c516be4f334b3047f13eabc160da3ec45"
+      }
+    ],
+    "baseline": "Direct paired inspection of all 40 round4-final-review native scene views, round4 title, and seven old dedicated cliff views where present.",
+    "prior_candidate": "Direct inspection of all40 RC5 scenes, four whole maps and title before requesting a lighting correction.",
+    "lighting_trials": {
+      "manifest": "out/pixellab/round5/lighting-rc4/manifest.json",
+      "inspected_native_images": 32,
+      "profiles": [
+        "off",
+        "quiet",
+        "balanced",
+        "dramatic"
+      ],
+      "areas": [
+        "bloomwild/temple",
+        "bloomwild/falls",
+        "bloomwild/grove",
+        "glasswater/gallery",
+        "glasswater/causeway",
+        "cinder/press",
+        "summit/stair",
+        "summit/arena"
+      ]
+    },
+    "water_motion": {
+      "source": "RC4 native scene studies, same bloomwild/life.rs source hash as selected embedded build",
+      "source_sha256": "a24eceb433d08c3f1367f1f2fcabab16bda9d19d006ec6b78cb83846b0719af2",
+      "locations": [
+        "terrace-impact",
+        "outlet"
+      ],
+      "ticks_inspected": [
+        90,
+        96,
+        102,
+        108,
+        120,
+        150,
+        210,
+        270
+      ],
+      "frames_inspected": 16,
+      "continuous_full_clip_playback_claimed": false
+    },
+    "trees": "Direct matched stationary tree-before/after captures at ticks20/70; final tree atlas byte-identical to inspected RC2 after asset.",
+    "enemy_study": "Direct native384x216 enemy-morphs.png, original plus two variants across four existing species families.",
+    "older_lava_trial": "Eight RC2 quilt-caldera frames were inspected as historical trials, not final evidence. Selected actual campaign frame sequences and world-aligned crops below replace these for the final temporal judgment.",
+    "not_covered": [
+      "Continuous full238.7second campaign playback or every individual animation frame",
+      "Audio audition, video/audio sync listening or encoder inspection; recording metadata is separate evidence",
+      "Gameplay balance, normal-HP completion or exhaustive collision traversal",
+      "Physical collision correctness, energy conservation and performance; separate technical reviewers own those scopes"
+    ],
+    "selected_direct_review": {
+      "directly_opened": "User attachment, selected-runtime-matched-5x.png, native selected title, all15 native Bloom scenes and selected full Bloom map. All25 non-Bloom selected native scenes independently verified byte-identical to previously directly reviewed RC6 images.",
+      "late_user_attachment": "/home/krp/.t3/userdata/attachments/07e66b3d-b2d4-4a53-a503-f50deb264a52-bb4a9d34-5ac6-44ff-ae6d-fe5a62768be1.png",
+      "column_evidence": "out/pixellab/round5/columns-audit/selected-runtime-matched-5x.png",
+      "independent_column_audit": "art/pixellab/2026-11-01-round5/columns/base-audit.json",
+      "own_scope": "Native still art integration only; upper40 exactness, support widths and physical grounding are separate source/physics audit evidence.",
+      "non_Bloom_whole_maps_byte_identical_to_directly_reviewed_RC6": {
+        "glasswater": true,
+        "cinder": true,
+        "summit": true
+      }
+    },
+    "final_actual_campaign": {
+      "recording": "out/pixellab/recordings/whole-game-round5",
+      "manifest_sha256": "2e4d4214719130e5272f94205aa9b9a87e78762c0d457ff863c9fac5a10de67b",
+      "report_sha256": "b60e1c50a476d627565680d4d5dfdfcc9df8219ec061eb416733588884eea694",
+      "source_video_sha256": "fbe5bbe4fc20d474252c426c53ba93be0aca8ae43e233bea523c4cbf953f7668",
+      "binary_sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c",
+      "asset_override": null,
+      "god": true,
+      "recorded_frames": 14322,
+      "recorded_duration_seconds": 238.7,
+      "fps": 60,
+      "native_pixels": [
+        384,
+        216
+      ],
+      "capture_kind": "Actual simulated campaign with visual coverage invulnerability; not staged scenery, gameplay balance certification or normal-HP completion.",
+      "motion_intervals": [
+        {
+          "name": "bloom-upper-bridge",
+          "interval": [
+            2640,
+            2759
+          ],
+          "sampled_native_ticks": [
+            2640,
+            2641,
+            2642,
+            2643,
+            2670,
+            2700,
+            2730,
+            2759
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-bloom-upper-bridge.png"
+        },
+        {
+          "name": "glass-channel",
+          "interval": [
+            4725,
+            4844
+          ],
+          "sampled_native_ticks": [
+            4725,
+            4726,
+            4727,
+            4728,
+            4755,
+            4785,
+            4815,
+            4844
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-glass-channel.png"
+        },
+        {
+          "name": "cinder-crossing",
+          "interval": [
+            7530,
+            7649
+          ],
+          "sampled_native_ticks": [
+            7530,
+            7531,
+            7532,
+            7533,
+            7560,
+            7590,
+            7620,
+            7649
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-cinder-crossing.png"
+        },
+        {
+          "name": "summit-bridge",
+          "interval": [
+            9930,
+            10049
+          ],
+          "sampled_native_ticks": [
+            9930,
+            9931,
+            9932,
+            9933,
+            9960,
+            9990,
+            10020,
+            10049
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-summit-bridge.png"
+        },
+        {
+          "name": "bloom-temple-feet",
+          "interval": [
+            1260,
+            1379
+          ],
+          "sampled_native_ticks": [
+            1260,
+            1261,
+            1262,
+            1263,
+            1290,
+            1320,
+            1350,
+            1379
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-bloom-temple-feet.png"
+        },
+        {
+          "name": "bloom-grove-trees",
+          "interval": [
+            2220,
+            2339
+          ],
+          "sampled_native_ticks": [
+            2220,
+            2221,
+            2222,
+            2223,
+            2250,
+            2280,
+            2310,
+            2339
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-bloom-grove-trees.png"
+        },
+        {
+          "name": "cinder-caldera-flow",
+          "interval": [
+            9210,
+            9329
+          ],
+          "sampled_native_ticks": [
+            9210,
+            9211,
+            9212,
+            9213,
+            9240,
+            9270,
+            9300,
+            9329
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-cinder-caldera-flow.png"
+        },
+        {
+          "name": "boss-phase2",
+          "interval": [
+            11820,
+            11939
+          ],
+          "sampled_native_ticks": [
+            11820,
+            11821,
+            11822,
+            11823,
+            11850,
+            11880,
+            11910,
+            11939
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-boss-phase2.png"
+        },
+        {
+          "name": "boss-phase3",
+          "interval": [
+            13080,
+            13199
+          ],
+          "sampled_native_ticks": [
+            13080,
+            13081,
+            13082,
+            13083,
+            13110,
+            13140,
+            13170,
+            13199
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-boss-phase3.png"
+        },
+        {
+          "name": "victory-transition",
+          "interval": [
+            13815,
+            13934
+          ],
+          "sampled_native_ticks": [
+            13815,
+            13816,
+            13817,
+            13818,
+            13845,
+            13875,
+            13905,
+            13934
+          ],
+          "derivative": "out/pixellab/round5/fresh-visual-review/campaign-victory-transition.png"
+        }
+      ],
+      "sampling_method": "Eight native frames across each120-frame interval: first four consecutive frames, then offsets30,60,90,119. Samples inspected as labeled native image sequences, not a continuously watched120-frame playback.",
+      "keyposes": [
+        {
+          "tick": 1,
+          "label": "opening landing"
+        },
+        {
+          "tick": 240,
+          "label": "region card"
+        },
+        {
+          "tick": 600,
+          "label": "Bloom combat"
+        },
+        {
+          "tick": 1065,
+          "label": "Bloom lower bridge"
+        },
+        {
+          "tick": 3094,
+          "label": "Bloom shard"
+        },
+        {
+          "tick": 3960,
+          "label": "Glass lake"
+        },
+        {
+          "tick": 5040,
+          "label": "Glass causeway"
+        },
+        {
+          "tick": 5280,
+          "label": "Glass grove"
+        },
+        {
+          "tick": 6357,
+          "label": "Glass shard"
+        },
+        {
+          "tick": 8085,
+          "label": "Cinder press"
+        },
+        {
+          "tick": 9324,
+          "label": "Cinder shard"
+        },
+        {
+          "tick": 10318,
+          "label": "Warden awake"
+        },
+        {
+          "tick": 11504,
+          "label": "phase2 damage"
+        },
+        {
+          "tick": 11852,
+          "label": "phase2 open"
+        },
+        {
+          "tick": 13114,
+          "label": "phase3 damage"
+        },
+        {
+          "tick": 13440,
+          "label": "Warden dying"
+        },
+        {
+          "tick": 13823,
+          "label": "victory start"
+        },
+        {
+          "tick": 14322,
+          "label": "ending ready"
+        }
+      ],
+      "distinct_full_native_frames_directly_inspected": 98,
+      "inspected_full_frame_hashes": [
+        {
+          "tick": 1,
+          "sha256": "4403f3189e3bad943cf77f3dbce22eb27e8ecd5611e4e34fc44d5e1cc1895350"
+        },
+        {
+          "tick": 240,
+          "sha256": "837db0d18b05f701d8e252f3634d7610a760760b1ae1e79f96a5712ff6933d57"
+        },
+        {
+          "tick": 600,
+          "sha256": "95d9d7d62829aaba0a8bbd2c7a4508c2c1e88275a472965ba3739f05f758b971"
+        },
+        {
+          "tick": 1065,
+          "sha256": "db16c74070173674b6fe2905f9622de0990e1dccc13eb56b159493ea7d69e056"
+        },
+        {
+          "tick": 1260,
+          "sha256": "4f019cfab6f393d855a34067dbb1a0727d92678307b31a888209b04bb47eacdb"
+        },
+        {
+          "tick": 1261,
+          "sha256": "89f22b5431e8ef587c2794620789804e8b31fb431549568cbb19e74511979a7d"
+        },
+        {
+          "tick": 1262,
+          "sha256": "00057096b1684968a57cb917df59001bea8c094e04535d99fe73e4340d474402"
+        },
+        {
+          "tick": 1263,
+          "sha256": "354c75e6337b747148d4cb560a0408c0dbc73e294bedeaf21cb7207e5878a0e6"
+        },
+        {
+          "tick": 1290,
+          "sha256": "326d084f4e286f39e132b915b4368131de5147ded9698c1fa60962b906b89893"
+        },
+        {
+          "tick": 1320,
+          "sha256": "418ddb0d8325f016003ecbb92e49a1654a74b7427ce7079d4f3c709dd0c30fdc"
+        },
+        {
+          "tick": 1350,
+          "sha256": "3765648f7a13a8764663669cf561512516128a1282caf9249fb4d451ceac6197"
+        },
+        {
+          "tick": 1379,
+          "sha256": "467eb5382888f5d2c92d06fc91bd38df458d2187732732232112ee6dcd9d76f6"
+        },
+        {
+          "tick": 2220,
+          "sha256": "bc9c65521aedc2079f24f03279c0bf9de7f5dfd0496738ca92e4cf9513ff8184"
+        },
+        {
+          "tick": 2221,
+          "sha256": "b34dfd6d2536c6364192c686ef7182a4bed168eb48ef14ff26f371993eace686"
+        },
+        {
+          "tick": 2222,
+          "sha256": "06dc8af53126948724881ad7de461109a3d177d72547eee8592f952479b22a92"
+        },
+        {
+          "tick": 2223,
+          "sha256": "e928824b73050e496c4c1323e85dcc48cebf93ebf1f2ea8124666ee23a2a7ab7"
+        },
+        {
+          "tick": 2250,
+          "sha256": "fb9a24f1e87ed2764db84b9934ea9570e9f171a227fe0483aabe9209cd2caede"
+        },
+        {
+          "tick": 2280,
+          "sha256": "a97f096f536dd3eb5b3de05f87ff05d58ad209cf3c8da0dac0b35444c3a309b3"
+        },
+        {
+          "tick": 2310,
+          "sha256": "88e537d54ffed41b6115fae642bb8e382c95193dd5209298e8106bfb5de6d947"
+        },
+        {
+          "tick": 2339,
+          "sha256": "744bad587528b8d4ece5be960e06c429d3541d79e3fc209b3bd01cc1fc59f043"
+        },
+        {
+          "tick": 2640,
+          "sha256": "2282d42a93efe402ffe401cf423fd6aee3f8085e8d6cae16d04eb515f5f3d57a"
+        },
+        {
+          "tick": 2641,
+          "sha256": "694bef70b178cd467ce6f44e38f37f67cad043d359b2ad4b13dbcc552b583423"
+        },
+        {
+          "tick": 2642,
+          "sha256": "dadd17f75adc1663abe220f7e5d034d7354c71775e4edea8c789104918aac76e"
+        },
+        {
+          "tick": 2643,
+          "sha256": "3a50aa952a5ebae4ab7f1995c5641d9e5bebcbae066be8fbf75896667f110d92"
+        },
+        {
+          "tick": 2670,
+          "sha256": "ca033ec40ef24eeda740c0abdb8197ee9a1b82c916b741650846594ae5dcfe61"
+        },
+        {
+          "tick": 2700,
+          "sha256": "7420b7a7848e8fc8d2f6da826b0b813c0939e5f9e124571151d1d2d0c89acf04"
+        },
+        {
+          "tick": 2730,
+          "sha256": "cd0e182d1a35b9c0512a39aaffafae55bacbd233669173f9007427aec5fdb262"
+        },
+        {
+          "tick": 2759,
+          "sha256": "572324c6df501cf963917932ac54e6ddac7fbe826bc6dcf99ba8193d4a633255"
+        },
+        {
+          "tick": 3094,
+          "sha256": "4d0e96fed2b8b1b6727245299e479efa46327c185dfdfc7244f1fe5e001ae2f3"
+        },
+        {
+          "tick": 3960,
+          "sha256": "b3ce3414d80114f67ecef7b29824018dbda8d5ea225c0c45af826bc6faa51939"
+        },
+        {
+          "tick": 4725,
+          "sha256": "e775d6599b7a4ae1ebdbc9bf51de91bfefe72669aa4bb4d6376d926643bd5eef"
+        },
+        {
+          "tick": 4726,
+          "sha256": "f312001a764008b231c9448c6ab0dc2f61f49fe98ec7805a7a99ce7dd636901d"
+        },
+        {
+          "tick": 4727,
+          "sha256": "6ea801b07d3e5f21a0bd058d6561194eb3b1a7110bd61bc6965ccff80cb0a650"
+        },
+        {
+          "tick": 4728,
+          "sha256": "c1ca158ff15123dfbf5649def7b29d88ebc278fa62d5235fd7c9110104792e8a"
+        },
+        {
+          "tick": 4755,
+          "sha256": "c445fe8c9eca81b03e128f0fe4b994ccaf880eb5cc835ce040a4896a2f2fd216"
+        },
+        {
+          "tick": 4785,
+          "sha256": "d6e7d1d790d53f172421205ed366eca6b318ce378033e0f86dbd9cea88fe4008"
+        },
+        {
+          "tick": 4815,
+          "sha256": "b3ee6dc94f4af258adb42d571cf4a20cf332ab8dea078ba634ceb3525b1d1ede"
+        },
+        {
+          "tick": 4844,
+          "sha256": "5c5875bd5c2a77f71555e96080aac05f18504a5f5ae9147bbe0d300185da22d7"
+        },
+        {
+          "tick": 5040,
+          "sha256": "697993421b8da74462182b6de2a18fd476d1f8240c0e4138ce826a489204a924"
+        },
+        {
+          "tick": 5280,
+          "sha256": "a3961a5df2c4776bbbcb783166a974e931a1a1efe37429be92311ebd410bb881"
+        },
+        {
+          "tick": 6357,
+          "sha256": "d99f4fd0ff8fb8013eed487d6a8fdd6b56d833d398124d35fbbf5b14ce82ce26"
+        },
+        {
+          "tick": 7530,
+          "sha256": "87b8d36c57967c6880df4383b2865f08cfb9901eff8cebc225207e5d34d1a305"
+        },
+        {
+          "tick": 7531,
+          "sha256": "77bc064ade05c774890d4f1d8b7728c615d66c3b6b0a70a8e360df65fc60245f"
+        },
+        {
+          "tick": 7532,
+          "sha256": "2069e0a59cb404953b0daca04845bbe20dbe29faf877fbc575862c5083bf36be"
+        },
+        {
+          "tick": 7533,
+          "sha256": "f55f462479173dc312feb4c48d5abe11e860a94e8fc604531d64a06f4e00dbd6"
+        },
+        {
+          "tick": 7560,
+          "sha256": "784dba5be2a4edfd77be9640a5a65e3e548e9dc30ccb8ab2da52d28e0779e80f"
+        },
+        {
+          "tick": 7590,
+          "sha256": "c4a964e4b636ed8ab954264fdfacdef1899fe13c799ce4d9e56fa8f6a9cbcc64"
+        },
+        {
+          "tick": 7620,
+          "sha256": "4f7235d2e40678dd0dfe2557849d5b644595274ed69f472a08d8d5834c2f9167"
+        },
+        {
+          "tick": 7649,
+          "sha256": "f5af3bd6823346e3902e04d685531a1999e4557558adf14777bca0f5e17918d5"
+        },
+        {
+          "tick": 8085,
+          "sha256": "f1aafca018674fb448e74a28aa1181b84a0907dacb60feb1d7f36b86969de044"
+        },
+        {
+          "tick": 9210,
+          "sha256": "9631b71de12175484cfa8a0b9b682568994244101f3cf0d930db9ea60d4c06b9"
+        },
+        {
+          "tick": 9211,
+          "sha256": "89ea081a02c61b20e54d229ff932e9aaa06961904a89ce3a910383fcb4a780f0"
+        },
+        {
+          "tick": 9212,
+          "sha256": "de4da316abb6ecd90e2bb2e9ff6faee7e4ae15ef57922d3c638b7ffd0c53512a"
+        },
+        {
+          "tick": 9213,
+          "sha256": "151b32e2b924ccba16cfcae141263b82b9799f3354853e54bd3a2c56f9a1a028"
+        },
+        {
+          "tick": 9240,
+          "sha256": "6b2996c5115d19d186a472334de03bc7f4360cffb51f70eda78dd1f6f86f035c"
+        },
+        {
+          "tick": 9270,
+          "sha256": "7db29f3b3cd6092accb96e16d7fc6dc17c65c2730a64216833aca5bdf230f172"
+        },
+        {
+          "tick": 9300,
+          "sha256": "f0e9feaae7cecf33e9c25cb53f79a331a34e2f7017c77d53e9d09b81eafc6f55"
+        },
+        {
+          "tick": 9324,
+          "sha256": "4dd9bb7bd6772e5d44378050ef8a65a5ae84f2f9dcca086c8a5f7b82eaa78429"
+        },
+        {
+          "tick": 9329,
+          "sha256": "8b11bdaf7d34fd7c4700d8bd2f9bde9ef765dd8afa107e80f414b4bd0e206f1b"
+        },
+        {
+          "tick": 9930,
+          "sha256": "4a351b6490046e0a651f5befbd938b013d759c86ff629e96cdb69e4b3f34cfba"
+        },
+        {
+          "tick": 9931,
+          "sha256": "23069007e6e3792bd9364f70fcfcf90733e02e955fdf15af08339fdf9b7e2cad"
+        },
+        {
+          "tick": 9932,
+          "sha256": "258867d0bf39fe9cb5386ea139b9f92f547b6b3c5dbf3584c4b5ddf7f01078f6"
+        },
+        {
+          "tick": 9933,
+          "sha256": "cd79f94d2351e421fc5de6caefb409c43f72e0364d4ce49ea4fa8a7c5efc1872"
+        },
+        {
+          "tick": 9960,
+          "sha256": "80e3b1ce2306688df48245cc6e791173133f9285c423fb0cba4e1572058cffb8"
+        },
+        {
+          "tick": 9990,
+          "sha256": "d290d7dd97d21deaf0b97c5f89bfd2d7ae6d9ff6e59064d18b31e10c0574422b"
+        },
+        {
+          "tick": 10020,
+          "sha256": "58f17f7b99da04946a9a482242ee33e9dfd0f05218abbe59eabeb622cd80bc4c"
+        },
+        {
+          "tick": 10049,
+          "sha256": "cb5ca05eb5defc6deac1f7c9ddb6e06093b5aaed121e8a3b0fd425cfd2d99bd0"
+        },
+        {
+          "tick": 10318,
+          "sha256": "14258633b103b9163ff49bd79bee952da6db83e9e4f695138e12f5e1156801d4"
+        },
+        {
+          "tick": 11504,
+          "sha256": "6284f7698f9560f1d097156de96780e58ab918f27b593da6fc496e143cb12b89"
+        },
+        {
+          "tick": 11820,
+          "sha256": "8577d35dd6304c75485d491fa25dac428d1457dac2e058e53e741f2f6124571c"
+        },
+        {
+          "tick": 11821,
+          "sha256": "061e80d2d3f7fab4e79c19712965c2b2fcab8424708f2c27ba3d18ded593784b"
+        },
+        {
+          "tick": 11822,
+          "sha256": "565bbccbedd55cce045ee4401eb7065495df5d6f5cf661cfb5142b8db775619b"
+        },
+        {
+          "tick": 11823,
+          "sha256": "8f234551eeeb31e95e4779cd4c7ead1889f8068a93071ae3058fde599217c9ad"
+        },
+        {
+          "tick": 11850,
+          "sha256": "84a6c985c4e07115fc028147c003d312d44e3049dc45ad032d6f8b025ee8f596"
+        },
+        {
+          "tick": 11852,
+          "sha256": "aad5853ae4b43ee099a3bd925e96efd28c37b7a615477f7c6848f432bf934f5c"
+        },
+        {
+          "tick": 11880,
+          "sha256": "9c7e208c9f9565e78b402559f4c71a40f4a868cf6b6ff4647f1e70b657ddebbb"
+        },
+        {
+          "tick": 11910,
+          "sha256": "9652d4f76a546d5fab8f79cdb291c578c7e71c318847890997b14303a0a79b93"
+        },
+        {
+          "tick": 11939,
+          "sha256": "271e1ab59f6d9ec9d7c6895995e9609f025618608a08d2f0df48c913f9715133"
+        },
+        {
+          "tick": 13080,
+          "sha256": "503aa6adc516a0be56caeff57e6be24f41b9ace239baeb1c95067ef9448dc9c9"
+        },
+        {
+          "tick": 13081,
+          "sha256": "a87453bc06485f151f9fa7da19d007bb4ca1dde132c64c8d1e51f63e9faaac2f"
+        },
+        {
+          "tick": 13082,
+          "sha256": "b5b6161e9ecfa5e7bfcf6193664f67d1aef129365f67c4f022602f78e2080cf0"
+        },
+        {
+          "tick": 13083,
+          "sha256": "a97f21342fa7799de97419cb3617e080c5b766c9b98f718d30487c03967ea15b"
+        },
+        {
+          "tick": 13110,
+          "sha256": "9b7e29be65a313aba8d4cff4aa045df85d192aa1a97f62b347e8656c7f38348a"
+        },
+        {
+          "tick": 13114,
+          "sha256": "fd69f185e4910f83f5a31aebbb1dceb82d4288c81916553cc48b5bb01e213edf"
+        },
+        {
+          "tick": 13140,
+          "sha256": "861b9cde276dd84231a0fda628f1bb4af2820d5fb677885ce219b3835c96f966"
+        },
+        {
+          "tick": 13170,
+          "sha256": "7fe1760996ee0e58f1777e057983e57f18d7b09ccc8f3a75af82f4c409a4a911"
+        },
+        {
+          "tick": 13199,
+          "sha256": "fb3348ac252379e4e1282433e8929861f84efe878e8f44a5f1b2043975ae450b"
+        },
+        {
+          "tick": 13440,
+          "sha256": "c40ce70fb924c2646cb08e6c86001ed8537819745b5d4c279f1b0005db3a75bb"
+        },
+        {
+          "tick": 13815,
+          "sha256": "5f23674c5c8dfbf1aef36fa32f543e77a18012e28d498e211e8ad28046fd095f"
+        },
+        {
+          "tick": 13816,
+          "sha256": "5f23674c5c8dfbf1aef36fa32f543e77a18012e28d498e211e8ad28046fd095f"
+        },
+        {
+          "tick": 13817,
+          "sha256": "5f23674c5c8dfbf1aef36fa32f543e77a18012e28d498e211e8ad28046fd095f"
+        },
+        {
+          "tick": 13818,
+          "sha256": "5f23674c5c8dfbf1aef36fa32f543e77a18012e28d498e211e8ad28046fd095f"
+        },
+        {
+          "tick": 13823,
+          "sha256": "c6d2f71a88e0b6cff87fc3d43edfe26b402ffcba98214968eb97fa3ccb3b7381"
+        },
+        {
+          "tick": 13845,
+          "sha256": "b29224ee391f55653bc1fbfa2a0478d915f0c636ecb1ee93d7235937d88daa55"
+        },
+        {
+          "tick": 13875,
+          "sha256": "609ee02a0349fa0812b23b4ddcb49fe6d570540354b71e479e78fd5125dba00a"
+        },
+        {
+          "tick": 13905,
+          "sha256": "f0c0a5922a6735dcf463f360842cacf93cf99b4eaade7ce11230217a62d5cc04"
+        },
+        {
+          "tick": 13934,
+          "sha256": "6469f53d4109871ee20f4016403c032ca6f72634157ee1eeee4386d3b1cbe1b4"
+        },
+        {
+          "tick": 14322,
+          "sha256": "dee5529649fcfb9b6f05896cfa8fd7e8ee8cfbdf3e5e5e567ba304a1d909b107"
+        }
+      ],
+      "world_aligned_lava": {
+        "native_world_rect": [
+          1040,
+          250,
+          1104,
+          266
+        ],
+        "ticks": [
+          9210,
+          9225,
+          9240,
+          9255,
+          9270,
+          9285,
+          9300,
+          9315
+        ],
+        "cam_from": "report.trace exact15tick samples",
+        "inspection_scale": "4x nearest neighbor; source remains native64x16",
+        "derivative": "out/pixellab/round5/fresh-visual-review/campaign-lava-world-aligned.png"
+      },
+      "world_aligned_lava_judgment": "Using exact report.trace camera origins, the same native world rectangle shows heat/crust shapes advecting over ticks9210..9315 while the spatial crop stays fixed. This is actual selected embedded lava temporal evidence, independent of older RC2 trials.",
+      "public_motion_selection": "out/pixellab/review-round5/motion/manifest.json",
+      "public_motion_selection_sha256": "35f3fdfb0b8c189eb86277b7812a22ead4df1f1feedcba2fc082fe8f44f7672f",
+      "milestone_metadata": {
+        "bloomwild_shard": 3094,
+        "cinder_shard": 9324,
+        "glasswater_shard": 6357,
+        "phase_2_damage": 11504,
+        "phase_2_heart_open": 11852,
+        "phase_3_damage": 13114,
+        "victory": 13823,
+        "warden_awake": 10318,
+        "warden_dying": 13440
+      },
+      "ending_frame": 14322,
+      "continuous_entire_campaign_playback_claimed": false,
+      "audio_audition_claimed": false
+    }
+  },
+  "findings": [
+    {
+      "id": "title-scale",
+      "status": "improved",
+      "evidence": "out/pixellab/world/round5-selected/title/f00240.png",
+      "judgment": "Headland continues off the right/bottom of the composition; distant shelves imply a broader world. Ivory tree and pillar are grounded, and clear horizontal path supports the player entrance."
+    },
+    {
+      "id": "cliff-joins",
+      "status": "improved",
+      "evidence_manifest": "out/pixellab/round5/cliffs/rc6/manifest.json",
+      "judgment": "Native continuous side returns give depth to west/east coastline. Rounded corners and terrace wall end caps attach to the same contour. No viewed corner or wall-to-air seam warrants rollback. Front rock motif repetition remains visible."
+    },
+    {
+      "id": "tree-and-pillar-repetition",
+      "status": "improved",
+      "evidence": [
+        "out/pixellab/world/round5-selected/bloomwild/grove/bloomwild_t00090.png",
+        "out/pixellab/world/round5-selected/bloomwild/temple/bloomwild_t00090.png"
+      ],
+      "judgment": "Ivory upright/open crowns and sapling break the repeated windswept silhouette. Temple has low/tall broken survivors and height-appropriate shadows while retaining architectural rhythm. Selected broken shafts now have actual closed native stone footings; the earlier moss-only treatment did not repair their source crop."
+    },
+    {
+      "id": "tree-motion",
+      "status": "improved",
+      "evidence": [
+        "out/pixellab/round5/fresh-visual-review/tree-motion.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-bloom-grove-trees.png"
+      ],
+      "judgment": "Matched after captures keep branches and crowns fixed rather than shifting the whole crown sideways. Ambient scene movement remains. Final actual grove sequence also keeps canopy attached to trunks as the camera and hero move; no independent whole-crown shift observed in these samples."
+    },
+    {
+      "id": "water-and-falls",
+      "status": "improved",
+      "evidence": [
+        "out/pixellab/round5/fresh-visual-review/fall-motion.png",
+        "out/pixellab/round5/fresh-visual-review/outlet-motion.png",
+        "out/pixellab/world/round5-selected/bloomwild/upper-bridge/bloomwild_t00090.png",
+        "out/pixellab/world/round5-selected/bloomwild/lower-bridge/bloomwild_t00090.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-bloom-upper-bridge.png"
+      ],
+      "judgment": "Narrow unequal descending catches replace broad pale panes. Crest stays connected; terminal outlet breaks into thin unequal strands. Sampled foam stays off bridge decks/dry banks. Pool reflections remain broad graphic shapes rather than rich optical water. Actual selected gameplay bridge sequence also preserves source/bridge continuity while the player crosses."
+    },
+    {
+      "id": "lava-depth",
+      "status": "improved-final-stills-and-sampled-actual-motion",
+      "evidence": [
+        "out/pixellab/world/round5-selected/cinder/shrine/cinder_t00090.png",
+        "out/pixellab/world/round5-selected/cinder/river-join/cinder_t00090.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-lava-world-aligned.png"
+      ],
+      "judgment": "Native selected stills show dark crust, broad orange heat and narrow bright cores, giving much stronger value structure than the flat prior quilt. Selected actual crossing/caldera frame sequences and camera-stabilized world crops confirm moving heat/crust rather than static source plus camera motion. Dominant diagonal streak orientation remains similar through curved/horizontal channels."
+    },
+    {
+      "id": "summit-bridge",
+      "status": "improved",
+      "evidence": "out/pixellab/round5/cliffs/rc6/supported-bridge/summit_t00090.png",
+      "judgment": "One shallow arch spans between visible rock abutments; isolated piers ending in sky have been removed. Structure reads coherent at native resolution."
+    },
+    {
+      "id": "enemy-art",
+      "status": "modest-improvement",
+      "evidence": "out/pixellab/round5/variety/enemy-morphs.png",
+      "judgment": "Stable flower/crest/back accents add readable visual variants. These are twelve appearances across four existing families, not twelve new creature designs or behavior types."
+    },
+    {
+      "id": "lighting-default",
+      "status": "reservation-fixed",
+      "priority_original": "high",
+      "evidence": [
+        "out/pixellab/world/round5-rc5/summit/arrival/summit_overview.png",
+        "out/pixellab/world/round5-selected/summit/arrival/summit_overview.png",
+        "out/pixellab/world/round5-selected/bloomwild/temple/bloomwild_t00090.png"
+      ],
+      "judgment": "Rejected RC5 broad blue cloud shapes across Summit arena as arbitrary floor decals. RC6 removes Summit weather and preserves actual local emitters/occlusion. Quiet Bloom is aesthetically preferable to balanced/dramatic: warmer limestone and grass remain legible. New RC6 night scene/map directly inspected and reservation cleared."
+    },
+    {
+      "id": "late-user-native-column-cutoff",
+      "priority_original": "must fix",
+      "status": "repaired-in-selected-embedded-build",
+      "missed_by_prior_global_review": true,
+      "evidence": [
+        "out/pixellab/round5/columns-audit/selected-runtime-matched-5x.png",
+        "out/pixellab/world/round5-selected/bloomwild/temple/bloomwild_t00090.png",
+        "out/pixellab/world/round5-selected/title/f00240.png"
+      ],
+      "original_defect": "Both broken Bloom shafts ended flat at the native56px cell boundary. A cast shadow/moss contact could not supply the missing stone volume. The user close-up demonstrated a real cropped silhouette that this reviewer missed in broad native scene images.",
+      "selected_judgment": "New native footings close into chipped/beveled front and shadow-side stone planes before the ground begins. Full native title/temple/altar/courtyard/landing and all other Bloom scene frames show supported bases. The temple drum now lies visibly separate below the front-right broken column rather than crossing its pedestal. No new bright seam or moss strip conceals a cutoff.",
+      "approval_scope": "Visible stills only; refer to columns/base-audit.json and root physics scans for source preservation, exact support and clearance checks."
+    },
+    {
+      "id": "selected-actual-campaign-integration",
+      "status": "approved-with-sampling-scope",
+      "evidence": [
+        "out/pixellab/round5/fresh-visual-review/campaign-bloom-temple-feet.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-bloom-grove-trees.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-cinder-caldera-flow.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-summit-bridge.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-boss-phase2.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-boss-phase3.png",
+        "out/pixellab/round5/fresh-visual-review/campaign-victory-transition.png",
+        "out/pixellab/recordings/whole-game-round5/frames/f14322.png"
+      ],
+      "judgment": "In actual selected campaign samples, new stone feet and cast shadows remain grounded while the camera moves, temple drum remains separate, trees stay attached, bridge/falls connect, embedded lava advects, and Summit bridge arch stays seated in abutments. Bright blade/attack cues remain legible against quiet night masonry through late Warden phases. Boss death keypose, dark victory fade and final readable ending card were directly inspected. No newly introduced integrated art blocker found in these sampled frames.",
+      "limits": "Not exhaustive animation review, continuous full campaign playback, audio listening, gameplay balance or collision certification."
+    }
+  ],
+  "remaining_style_limits": [
+    "Repeated native rock family remains recognizable along Bloomwild long front edge, especially in the whole map.",
+    "Water remains calm and graphic, with broad polygonal reflections; this is an improvement rather than a realistic reflective surface.",
+    "Enemy variants are restrained silhouette/material accents, so diversity increase is modest.",
+    "Glasswater and Cinder lighting trial images change subtly; do not imply a dramatic new global lighting treatment in those regions."
+  ],
+  "judgment": {
+    "staged_art_approval": true,
+    "sampled_selected_campaign_art_approval": true,
+    "blocking_findings_in_inspected_scope": [],
+    "pending": [],
+    "supersedes_earlier_RC6_approval": true,
+    "scope_limits": "Approval is restricted to directly inspected stills and exact sampled actual campaign intervals; it does not imply that every one of14322 frames was watched.",
+    "technical_claims": "No test results, physics correctness, energy conservation or performance numbers inferred from visual inspection."
+  },
+  "derivatives": "out/pixellab/round5/fresh-visual-review images assemble labeled native frames without repainting. The column comparison and world-aligned64x16 lava crops use integer nearest-neighbor enlargement only; no generated/shipped asset is resampled.",
+  "review_history": [
+    {
+      "binary": "out/pixellab/round5/rc6/glintblade",
+      "sha256": "b195b68117fc7d5ec1fa7f9f0fff0c918350e602814d71c9e13278c5be9d8a75",
+      "approval_limit": "Superseded. Earlier broad-scene approval missed the cropped native lower silhouettes in both Bloom broken-column families. It does not certify completed stone footings."
+    }
+  ]
+}

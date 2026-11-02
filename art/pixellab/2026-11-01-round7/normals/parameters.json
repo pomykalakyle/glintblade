@@ -1,0 +1,142 @@
+[
+  {
+    "name": "bloomwild_ruins",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "object",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "surface_detail": 0.15,
+      "detail_softness": 1,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7
+    }
+  },
+  {
+    "name": "glasswater_crystals_big",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "object",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "surface_detail": 0.15,
+      "detail_softness": 1,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7
+    }
+  },
+  {
+    "name": "hero",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "surface_detail": 0.15,
+      "detail_softness": 1,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7
+    }
+  },
+  {
+    "name": "ember_hound",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "surface_detail": 0.15,
+      "detail_softness": 1,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7
+    }
+  },
+  {
+    "name": "spitting_totem",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "object",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "surface_detail": 0.15,
+      "detail_softness": 1,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7
+    }
+  },
+  {
+    "name": "bloomwild_canopy",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "object",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "surface_detail": 0.1,
+      "detail_softness": 1,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7
+    }
+  },
+  {
+    "name": "bloomwild_composite",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "object",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "surface_detail": 0.1,
+      "detail_softness": 1,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7
+    }
+  },
+  {
+    "name": "bloomwild_ruins",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7,
+      "surface_detail": 0.15,
+      "detail_softness": 1
+    }
+  },
+  {
+    "name": "glasswater_crystals_big",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7,
+      "surface_detail": 0.15,
+      "detail_softness": 1
+    }
+  },
+  {
+    "name": "ember_hound",
+    "args": {
+      "image": "input image omitted; see source_path",
+      "kind": "character",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "part_shapes": 0.9,
+      "outline_rounding": 0.7,
+      "surface_detail": 0.1,
+      "detail_softness": 1
+    }
+  }
+]

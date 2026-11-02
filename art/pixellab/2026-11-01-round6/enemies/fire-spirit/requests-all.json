@@ -1,0 +1,132 @@
+{
+  "requests": [
+    [
+      "wisp_v1",
+      "wisp",
+      "Edit the complete native pixel-art sprite sheet. EXACT grid is six columns of 16x24 cells and four rows. KEEP all 18 occupied cells exactly where they are, preserving pose, scale, animation sequence, the bright core at the centre of each sprite and the tiny dark horizontal face slot. Replace the plain teardrop ghost anatomy with a beautiful small luminous moth spirit: broad paired angular translucent lavender wings and delicate swept antennae around the same glowing heart. Wings make a WIDE butterfly silhouette on idle, fold inward during charge, sweep back on attack, recoil on hurt. Coherent same moth individual across ALL frames. Hard native pixels, restrained lavender moonlight palette matching source, no antialiasing, no frames added or removed, no shifting cells, transparent background. Every sprite must fit its original 16x24 cell with clear transparent gutter. Change anatomy substantially, not just colors. Empty cells remain transparent.",
+      6041
+    ],
+    [
+      "wisp_v2",
+      "wisp",
+      "Edit complete native pixel-art sprite sheet. EXACT grid six columns of16x24 cells, four rows. KEEP all18 occupied cells and exact centres/pose timing. Replace ordinary teardrop ghost with beautiful hollow spectral lantern spirit: hanging faceted violet lantern cage surrounding SAME central white luminous heart and dark horizontal face slot, two long split streamers taper downward, small crescent horns flare sideways. Different outline from moth and ordinary flame. Coherent same lantern across all frames, original charging glow progression, attack stretch and hurt squash retained. Source lavender moonlight palette, hard pixels, transparent background, one sprite in each original cell, no rescaling, no text, no extra cells. Empty cells stay transparent.",
+      6042
+    ],
+    [
+      "spitting_totem_v1",
+      "spitting_totem",
+      "Edit complete native pixel-art sprite sheet. EXACT grid five columns of28x36 cells and eight rows. ALL occupied cells must remain in original positions, exact feet baseline, anchored x14 y33. Replace tall narrow pointed obelisk with a substantially different BROAD twin-flue volcanic furnace construct: asymmetrical stepped basalt shoulders, two short chimney prongs at upper left and right, hollow dark gap between, warm weathered ochre ceramic armor panels and black iron ribs, squat plinth with visible bevel. Preserve the exact orange glowing horizontal outlet at its original x/y in EVERY cell (the firing mouth), original charging brightness and projectile release flashes and small outside sparks. The outlet is centre of each body, not a face. Same twin-flue silhouette consistently across30frames. Low-color native hard pixel clusters, original restrained source contrast, no excessive details, transparent background, no text, no scaling or cell movement, no change empty cells.",
+      6043
+    ],
+    [
+      "ember_hound_v1",
+      "ember_hound",
+      "Edit this complete 240x360 native pixel-art sprite atlas. EXACT grid SIX columns of40x24 cells and FIFTEEN rows. KEEP all56 occupied cells in exact positions with unchanged poses, same feet and face positions, same gaps; empty cells remain empty. Make the lean black hound into a distinctly different beautiful IVORY BONE-ARMORED volcanic hound. Redesign the entire torso silhouette into powerful pale ribbed shoulder armor with chunky overlapping ivory ceramic plates, broad angular bone brow, two swept backward dark horns and segmented bone jaw. Keep long canine body, four legs, tapered snout, direction in each row, grounded feet, clean dark underbelly separating legs. Dark charcoal joints contrast warm chalk upper armor. Preserve tiny orange eye/mouth heat in exactly original locations and original windup/attack brightness. Rows0-4 face RIGHT; rows5-9 face DOWN in3/4; rows10-14 face UP. Within each5rowgroup: idle, move, windup crouch, attack leap, hurt. All frames must show SAME armored animal, no ornaments drifting. Native hard pixels, restrained cream/ash slate palette, NO antialiasing or rescaling. Transparent background, no grid/text, no new frames.",
+      6044
+    ],
+    [
+      "ember_hound_v2",
+      "ember_hound",
+      "Edit this complete native 240x360 pixel-art sprite atlas. EXACT grid SIX columns of40x24 cells,FIFTEEN rows; all56 original occupied cells stay fixed and empty cells remain transparent. Redesign every hound consistently as a broad-shouldered volcanic GLASSBACK BOAR-HOUND hybrid: low hooked tusked snout still canine length, massive single faceted red-brown jasper shoulder shell, dark slate neck and legs, long ridged obsidian tail, jagged swept glass plates integrated down the spine. A powerful low armored quadruped with distinct rounded shell/neck silhouette versus original thin wolf. Torso materially different with deep mahogany/copper ash planes edged pale slate; no bright saturation. Preserve exact stance, head and feet placements, leg gait and leap poses, original tiny hot orange eye and mouth charge/attack pixels unchanged. Rows0-4 rightward;5-9down3/4;10-14up. Each5rowgroup idle/move/windup/attack/hurt. Frame identity coherent, no drift, hard native pixels, original anatomy motion, transparent background, no scale change, no antialiasing, no newframes/text.",
+      6045
+    ],
+    [
+      "spitting_totem_v2",
+      "spitting_totem",
+      "Edit this whole native140x288 pixel-art sprite atlas. EXACT grid FIVE columns28x36 and EIGHTrows; all30 occupied cells fixed exactly, empty cells remain transparent. Replace thin pointed basalt pillar with a beautiful WIDE ROUNDED volcanic ceramic kiln construct: two broad curving ivory-ash outer ribs arch over a dark central hollow, short flat capped top, broken asymmetric side flange with black vent slits, broad layered round plinth at exact existing baseline. Material pale weathered ash ceramic with deep dark slate channels, minimal warm copper scars. Distinct squat barrel silhouette, no pointed single obelisk. In EVERY cell preserve the EXACT original orange glowing horizontal outlet x/y and footprint width; keep original progressive charging flare and all original projectile sparks unchanged. Vary only ceramic furnace chassis around that fixed mouth. Same kiln identity in every animation cell. Original low-color pixel art scale, hard clustered pixels no smoothing/no cell drift/no text/no resizing, transparent background.",
+      6046
+    ]
+  ],
+  "receipts": {
+    "wisp_v1": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"background_job_id\": \"4b63a74b-6c32-4dcf-8841-4006c3749a7c\",\n  \"image_id\": \"15b9f21d-a0e7-5a59-8621-284e1a8a5747\",\n  \"status\": \"processing\",\n  \"source_image_id\": \"15b9f21d-a0e7-5a59-8621-284e1a8a5747\",\n  \"job_id\": \"4b63a74b-6c32-4dcf-8841-4006c3749a7c\",\n  \"description\": \"Edit the complete native pixel-art sprite sheet. EXACT grid is six columns of 16x24 cells and four rows. KEEP all 18 occupied cells exactly where they are, preserving pose, scale, animation sequence, the bright core at the centre of each sprite and the tiny dark horizontal face slot. Replace the plain teardrop ghost anatomy with a beautiful small luminous moth spirit: broad paired angular translucent lavender wings and delicate swept antennae around the same glowing heart. Wings make a WIDE butterfly silhouette on idle, fold inward during charge, sweep back on attack, recoil on hurt. Coherent same moth individual across ALL frames. Hard native pixels, restrained lavender moonlight palette matching source, no antialiasing, no frames added or removed, no shifting cells, transparent background. Every sprite must fit its original 16x24 cell with clear transparent gutter. Change anatomy substantially, not just colors. Empty cells remain transparent.\",\n  \"seed\": 6041,\n  \"image_size\": {\n    \"width\": 96,\n    \"height\": 96\n  },\n  \"output_count\": 1,\n  \"estimated_generations\": 5,\n  \"pricing_provisional\": true,\n  \"poll_tool\": \"get_image\",\n  \"download_path\": \"/mcp/images/4b63a74b-6c32-4dcf-8841-4006c3749a7c/download\"\n}\nPoll get_image(job_id=\"4b63a74b-6c32-4dcf-8841-4006c3749a7c\"). The source_image_id is usable after completion; it is an image ID, not a character/object ID. Actual usage is reported on completion. cancel_job(job_id=...) cancels unfinished work."
+        }
+      ],
+      "structuredContent": {
+        "background_job_id": "4b63a74b-6c32-4dcf-8841-4006c3749a7c",
+        "image_id": "15b9f21d-a0e7-5a59-8621-284e1a8a5747",
+        "status": "processing",
+        "source_image_id": "15b9f21d-a0e7-5a59-8621-284e1a8a5747",
+        "job_id": "4b63a74b-6c32-4dcf-8841-4006c3749a7c",
+        "description": "Edit the complete native pixel-art sprite sheet. EXACT grid is six columns of 16x24 cells and four rows. KEEP all 18 occupied cells exactly where they are, preserving pose, scale, animation sequence, the bright core at the centre of each sprite and the tiny dark horizontal face slot. Replace the plain teardrop ghost anatomy with a beautiful small luminous moth spirit: broad paired angular translucent lavender wings and delicate swept antennae around the same glowing heart. Wings make a WIDE butterfly silhouette on idle, fold inward during charge, sweep back on attack, recoil on hurt. Coherent same moth individual across ALL frames. Hard native pixels, restrained lavender moonlight palette matching source, no antialiasing, no frames added or removed, no shifting cells, transparent background. Every sprite must fit its original 16x24 cell with clear transparent gutter. Change anatomy substantially, not just colors. Empty cells remain transparent.",
+        "seed": 6041,
+        "image_size": {
+          "width": 96,
+          "height": 96
+        },
+        "output_count": 1,
+        "estimated_generations": 5,
+        "pricing_provisional": true,
+        "poll_tool": "get_image",
+        "download_path": "/mcp/images/4b63a74b-6c32-4dcf-8841-4006c3749a7c/download"
+      },
+      "isError": false
+    },
+    "wisp_v2": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"background_job_id\": \"5706ad9c-b52d-4075-ac75-2d4920af2d55\",\n  \"image_id\": \"66673735-ed42-5f1a-8b1f-6a698a2093ef\",\n  \"status\": \"processing\",\n  \"source_image_id\": \"66673735-ed42-5f1a-8b1f-6a698a2093ef\",\n  \"job_id\": \"5706ad9c-b52d-4075-ac75-2d4920af2d55\",\n  \"description\": \"Edit complete native pixel-art sprite sheet. EXACT grid six columns of16x24 cells, four rows. KEEP all18 occupied cells and exact centres/pose timing. Replace ordinary teardrop ghost with beautiful hollow spectral lantern spirit: hanging faceted violet lantern cage surrounding SAME central white luminous heart and dark horizontal face slot, two long split streamers taper downward, small crescent horns flare sideways. Different outline from moth and ordinary flame. Coherent same lantern across all frames, original charging glow progression, attack stretch and hurt squash retained. Source lavender moonlight palette, hard pixels, transparent background, one sprite in each original cell, no rescaling, no text, no extra cells. Empty cells stay transparent.\",\n  \"seed\": 6042,\n  \"image_size\": {\n    \"width\": 96,\n    \"height\": 96\n  },\n  \"output_count\": 1,\n  \"estimated_generations\": 5,\n  \"pricing_provisional\": true,\n  \"poll_tool\": \"get_image\",\n  \"download_path\": \"/mcp/images/5706ad9c-b52d-4075-ac75-2d4920af2d55/download\"\n}\nPoll get_image(job_id=\"5706ad9c-b52d-4075-ac75-2d4920af2d55\"). The source_image_id is usable after completion; it is an image ID, not a character/object ID. Actual usage is reported on completion. cancel_job(job_id=...) cancels unfinished work."
+        }
+      ],
+      "structuredContent": {
+        "background_job_id": "5706ad9c-b52d-4075-ac75-2d4920af2d55",
+        "image_id": "66673735-ed42-5f1a-8b1f-6a698a2093ef",
+        "status": "processing",
+        "source_image_id": "66673735-ed42-5f1a-8b1f-6a698a2093ef",
+        "job_id": "5706ad9c-b52d-4075-ac75-2d4920af2d55",
+        "description": "Edit complete native pixel-art sprite sheet. EXACT grid six columns of16x24 cells, four rows. KEEP all18 occupied cells and exact centres/pose timing. Replace ordinary teardrop ghost with beautiful hollow spectral lantern spirit: hanging faceted violet lantern cage surrounding SAME central white luminous heart and dark horizontal face slot, two long split streamers taper downward, small crescent horns flare sideways. Different outline from moth and ordinary flame. Coherent same lantern across all frames, original charging glow progression, attack stretch and hurt squash retained. Source lavender moonlight palette, hard pixels, transparent background, one sprite in each original cell, no rescaling, no text, no extra cells. Empty cells stay transparent.",
+        "seed": 6042,
+        "image_size": {
+          "width": 96,
+          "height": 96
+        },
+        "output_count": 1,
+        "estimated_generations": 5,
+        "pricing_provisional": true,
+        "poll_tool": "get_image",
+        "download_path": "/mcp/images/5706ad9c-b52d-4075-ac75-2d4920af2d55/download"
+      },
+      "isError": false
+    },
+    "spitting_totem_v1": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 1ef8b52f-58f2-4f41-bbd7-1a86ad914cd7\njob_id: 1ef8b52f-58f2-4f41-bbd7-1a86ad914cd7\nmode: text\nframes: 1\nsize: 140x288px\ntransparent: True\nedit: Edit complete native pixel-art sprite sheet. EXACT grid five columns of28x36 cells and eight rows. ALL occupied cells must remain in original positions, exact feet baseline, anchored x14 y33. Replace tall narrow pointed obelisk with a substantially different BROAD twin-flue volcanic furnace construct: asymmetrical stepped basalt shoulders, two short chimney prongs at upper left and right, hollow dark gap between, warm weathered ochre ceramic armor panels and black iron ribs, squat plinth with visible bevel. Preserve the exact orange glowing horizontal outlet at its original x/y in EVERY cell (the firing mouth), original charging brightness and projectile release flashes and small outside sparks. The outlet is centre of each body, not a face. Same twin-flue silhouette consistently across30frames. Low-color native hard pixel clusters, original restrained source contrast, no excessive details, transparent background, no text, no scaling or cell movement, no change empty cells.\nseed: 6043\nasset_id: 8ea2140a-a5d3-5fe9-85e0-971149d6ba83\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"1ef8b52f-58f2-4f41-bbd7-1a86ad914cd7\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/1ef8b52f-58f2-4f41-bbd7-1a86ad914cd7/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "ember_hound_v1": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 7d2078bb-e910-4f22-8586-8ca6ad74aa90\njob_id: 7d2078bb-e910-4f22-8586-8ca6ad74aa90\nmode: text\nframes: 1\nsize: 240x360px\ntransparent: True\nedit: Edit this complete 240x360 native pixel-art sprite atlas. EXACT grid SIX columns of40x24 cells and FIFTEEN rows. KEEP all56 occupied cells in exact positions with unchanged poses, same feet and face positions, same gaps; empty cells remain empty. Make the lean black hound into a distinctly different beautiful IVORY BONE-ARMORED volcanic hound. Redesign the entire torso silhouette into powerful pale ribbed shoulder armor with chunky overlapping ivory ceramic plates, broad angular bone brow, two swept backward dark horns and segmented bone jaw. Keep long canine body, four legs, tapered snout, direction in each row, grounded feet, clean dark underbelly separating legs. Dark charcoal joints contrast warm chalk upper armor. Preserve tiny orange eye/mouth heat in exactly original locations and original windup/attack brightness. Rows0-4 face RIGHT; rows5-9 face DOWN in3/4; rows10-14 face UP. Within each5rowgroup: idle, move, windup crouch, attack leap, hurt. All frames must show SAME armored animal, no ornaments drifting. Native hard pixels, restrained cream/ash slate palette, NO antialiasing or rescaling. Transparent background, no grid/text, no new frames.\nseed: 6044\nasset_id: 5a39d98b-7105-5cf9-8000-14cfa353ea5b\nasset_status: pending (saved when generation completes)\ncost: ~15 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"7d2078bb-e910-4f22-8586-8ca6ad74aa90\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/7d2078bb-e910-4f22-8586-8ca6ad74aa90/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "ember_hound_v2": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 9f04f9c8-cb51-4a34-b3b9-a9b4fb3e0840\njob_id: 9f04f9c8-cb51-4a34-b3b9-a9b4fb3e0840\nmode: text\nframes: 1\nsize: 240x360px\ntransparent: True\nedit: Edit this complete native 240x360 pixel-art sprite atlas. EXACT grid SIX columns of40x24 cells,FIFTEEN rows; all56 original occupied cells stay fixed and empty cells remain transparent. Redesign every hound consistently as a broad-shouldered volcanic GLASSBACK BOAR-HOUND hybrid: low hooked tusked snout still canine length, massive single faceted red-brown jasper shoulder shell, dark slate neck and legs, long ridged obsidian tail, jagged swept glass plates integrated down the spine. A powerful low armored quadruped with distinct rounded shell/neck silhouette versus original thin wolf. Torso materially different with deep mahogany/copper ash planes edged pale slate; no bright saturation. Preserve exact stance, head and feet placements, leg gait and leap poses, original tiny hot orange eye and mouth charge/attack pixels unchanged. Rows0-4 rightward;5-9down3/4;10-14up. Each5rowgroup idle/move/windup/attack/hurt. Frame identity coherent, no drift, hard native pixels, original anatomy motion, transparent background, no scale change, no antialiasing, no newframes/text.\nseed: 6045\nasset_id: 745e937e-3bab-5733-8482-bd2a36cf4b36\nasset_status: pending (saved when generation completes)\ncost: ~15 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"9f04f9c8-cb51-4a34-b3b9-a9b4fb3e0840\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9f04f9c8-cb51-4a34-b3b9-a9b4fb3e0840/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "spitting_totem_v2": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 525a88b1-0b4d-4e94-bc9b-c2c859e3e37a\njob_id: 525a88b1-0b4d-4e94-bc9b-c2c859e3e37a\nmode: text\nframes: 1\nsize: 140x288px\ntransparent: True\nedit: Edit this whole native140x288 pixel-art sprite atlas. EXACT grid FIVE columns28x36 and EIGHTrows; all30 occupied cells fixed exactly, empty cells remain transparent. Replace thin pointed basalt pillar with a beautiful WIDE ROUNDED volcanic ceramic kiln construct: two broad curving ivory-ash outer ribs arch over a dark central hollow, short flat capped top, broken asymmetric side flange with black vent slits, broad layered round plinth at exact existing baseline. Material pale weathered ash ceramic with deep dark slate channels, minimal warm copper scars. Distinct squat barrel silhouette, no pointed single obelisk. In EVERY cell preserve the EXACT original orange glowing horizontal outlet x/y and footprint width; keep original progressive charging flare and all original projectile sparks unchanged. Vary only ceramic furnace chassis around that fixed mouth. Same kiln identity in every animation cell. Original low-color pixel art scale, hard clustered pixels no smoothing/no cell drift/no text/no resizing, transparent background.\nseed: 6046\nasset_id: a2b19501-24cc-5a93-8c56-b7cb9f27640a\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"525a88b1-0b4d-4e94-bc9b-c2c859e3e37a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/525a88b1-0b4d-4e94-bc9b-c2c859e3e37a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    }
+  }
+}

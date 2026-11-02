@@ -1,0 +1,32 @@
+{
+  "job_id": "a1132c12-3fec-4d55-9048-11459cf87318",
+  "asset_id": "b99676c9-5b09-513b-9e24-48b663e3405e",
+  "status": "completed",
+  "charged_generations": 10,
+  "candidates": [
+    {
+      "index": 0,
+      "file": "result-1.png",
+      "source_sha256": "7220dbf52a09ffe5cb87048dbbe03614d83410844766bd70332ab93a62153ca1",
+      "download_url": "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=0"
+    },
+    {
+      "index": 1,
+      "file": "result-2.png",
+      "source_sha256": "7eeac9ef4e2d008ae7d17a4201b2255280fdabfc12af370dda5e265c0664ba8c",
+      "download_url": "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=1"
+    },
+    {
+      "index": 2,
+      "file": "result-3.png",
+      "source_sha256": "b899a84bb0e3216395134697a64948a6adb8d1ee251885ca5fa545543a5a6400",
+      "download_url": "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=2"
+    },
+    {
+      "index": 3,
+      "file": "result-4.png",
+      "source_sha256": "147a69c38c8c72b3c686d08330bf60b2e499caf1da02c543051c8126bd6a5c3d",
+      "download_url": "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=3"
+    }
+  ]
+}

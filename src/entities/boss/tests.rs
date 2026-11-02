@@ -168,6 +168,79 @@ fn sword_playthrough_reaches_victory() {
     );
 }
 
+/// Every charge/sweep has a readable native source or an explicit edge cue, including twins.
+/// This deliberately includes the non-fitting source/hero geometry from the real 1200 replay.
+#[test]
+fn beam_warnings_remain_readable_across_prism_and_cracked_phases() {
+    let mut play = arena();
+    let mut fx = Fx::new(7);
+    let mut hits = Vec::new();
+    let mut b = play.boss.take().unwrap();
+    let mut ctx = EnemyCtx {
+        player: (480.0, 452.0),
+        player_alive: true,
+        zone: &play.zone,
+        fx: &mut fx,
+        hits: &mut hits,
+        projectiles: &mut play.projectiles,
+        t: 0,
+    };
+    let mut saw = [[false; 2]; 2];
+    for (pi, phase) in [1, 2].into_iter().enumerate() {
+        b.phase = phase;
+        b.mode = Mode::Fight;
+        b.beams.clear();
+        b.fire_beams(phase == 2, &mut ctx);
+        for py in [280.0, 355.0, 452.0] {
+            for t in 0..350 {
+                for beam in &mut b.beams {
+                    beam.t = t;
+                }
+                let mut cam = crate::camera::Camera::new(480.0, py - 8.0);
+                for _ in 0..90 {
+                    cam.frame_attack_sources((480.0, py), b.attack_sources());
+                }
+                let (cx, cy) = cam.view(960, 640, 0.8, t as u64);
+                let mut f = Frame::new();
+                f.cam_x = cx;
+                f.cam_y = cy;
+                b.draw_attack_cues(&mut f);
+                for beam in b
+                    .beams
+                    .iter()
+                    .filter(|beam| beam.charging() || beam.firing())
+                {
+                    saw[pi][usize::from(beam.firing())] = true;
+                    let source = (beam.ox - cx as f32, beam.oy - cy as f32);
+                    if let Some((sx, sy, dx, dy)) = attack_cue(source) {
+                        assert!((16..=368).contains(&sx) && (28..=178).contains(&sy));
+                        let i = sy as usize * crate::gfx::W + sx as usize;
+                        assert_ne!(
+                            f.out[i],
+                            [0, 0, 0, 255],
+                            "offscreen warning must actually draw"
+                        );
+                        let (ax, ay) = (sx + dx * 9, sy + dy * 9);
+                        assert!(
+                            ay >= 19 && ay < 196 && ax >= 7 && ax < 377,
+                            "cue must clear both HUD bands"
+                        );
+                    } else {
+                        assert!(
+                            (16.0..=368.0).contains(&source.0)
+                                && (28.0..=178.0).contains(&source.1)
+                        );
+                    }
+                }
+            }
+        }
+    }
+    assert!(
+        saw.into_iter().flatten().all(|s| s),
+        "exercise charge and live sweep in both beam phases"
+    );
+}
+
 /// Verify death during an attack clears hazards and restarts at the current phase checkpoint.
 #[test]
 fn retry_and_heart_opening_clear_hostile_hazards() {

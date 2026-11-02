@@ -1,0 +1,280 @@
+{
+  "files": 68,
+  "pairs": 34,
+  "byte_identical": true,
+  "network_or_generation_required": false,
+  "exports": [
+    {
+      "file": "bloomwild_aqueduct.json",
+      "sha256": "594dd167f98271b3f53f74036a30643b10006a028f472951fb9d05393b366c0f"
+    },
+    {
+      "file": "bloomwild_aqueduct.png",
+      "sha256": "5704d65c8d7e5e174b926b4eec5afe8df7d0fc44bf613f562bd2d8edaee116f7"
+    },
+    {
+      "file": "bloomwild_arch.json",
+      "sha256": "6f0d9dfb90d52ca7fa9d277817c98aa66e4cb8254e20c5fe82bca3a0fb3480b6"
+    },
+    {
+      "file": "bloomwild_arch.png",
+      "sha256": "c6240d344883f58b9e0b4bf6e5092e77513560aa8a14dee2e28da6416cd61cb0"
+    },
+    {
+      "file": "bloomwild_cliff.json",
+      "sha256": "60e3c75a8d82c8015bad5eb2bf3620a2847c0d9161457604330f465c54a64636"
+    },
+    {
+      "file": "bloomwild_cliff.png",
+      "sha256": "2fefec1e52c634171b21a44ae8365eba333918a4a26866aae4708b601a97f56d"
+    },
+    {
+      "file": "bloomwild_grass.json",
+      "sha256": "eccff529de47964daac29fb735d7642fba266a7f04e1131bd00bf1d9096d88ff"
+    },
+    {
+      "file": "bloomwild_grass.png",
+      "sha256": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6"
+    },
+    {
+      "file": "bloomwild_growth.json",
+      "sha256": "5dda643211af39fe04906b3f8ee705735c932316b66eeb856814fcba597f8f05"
+    },
+    {
+      "file": "bloomwild_growth.png",
+      "sha256": "98ed375ea3a6d3a07e045577a265051fd79c092a8d79b5ccc8b264179b46e2ff"
+    },
+    {
+      "file": "bloomwild_growth_low.json",
+      "sha256": "a2aa48229b27abe1f57e8904c0bb64e4de5b65ea07143417b4f3da38337a5164"
+    },
+    {
+      "file": "bloomwild_growth_low.png",
+      "sha256": "bc5b738b5ea30d7b226678128f71bf49b123ed97903bd3a0245257889deb02ab"
+    },
+    {
+      "file": "bloomwild_materials.json",
+      "sha256": "0e5e1ebfadc508b547f39ea5e7bbcd9f0946c646fe27f054996196ca06550910"
+    },
+    {
+      "file": "bloomwild_materials.png",
+      "sha256": "3e2b50c7294540dcd5eb8b9f29cad27c7cb897eac0813128fa271586a8b825db"
+    },
+    {
+      "file": "bloomwild_props.json",
+      "sha256": "18d796501489fdea1a890c209f614e144a44646635eb6a6cbe7e163cffde7d6d"
+    },
+    {
+      "file": "bloomwild_props.png",
+      "sha256": "1ba479ae5f0ad66d39acb1db9e5575f765b9ad6d4312cb177cf0f745bbcc2dbe"
+    },
+    {
+      "file": "bloomwild_ruins.json",
+      "sha256": "da68df3c8ed600f98707a8113dc438781e63e2c41d48b661f46e521310b4f252"
+    },
+    {
+      "file": "bloomwild_ruins.png",
+      "sha256": "074d9a8805d467f4e41396348fee63402d5225ca2dbd16323186ac05060ba98f"
+    },
+    {
+      "file": "bloomwild_terrace.json",
+      "sha256": "2ae41020c6544d8bd114152897aeb125b7a13be483e14ee90050b08748c9b014"
+    },
+    {
+      "file": "bloomwild_terrace.png",
+      "sha256": "7025f66820aec87519e79b781cc8757a7a555b36e22da762c845147a74525633"
+    },
+    {
+      "file": "bloomwild_trees.json",
+      "sha256": "957e969831a5b7bc155107bd3474958f32bec4482c74cb30da691ce05cb8ffc6"
+    },
+    {
+      "file": "bloomwild_trees.png",
+      "sha256": "a45b5859879a53f2439a56e3d701f44eb756f8278b61f4e8e56b7686c62d1fea"
+    },
+    {
+      "file": "cinder_cliff.json",
+      "sha256": "2d95b655b510773e5fffa2fc028c76cd14e8b8863588bb069ac81838cd7ba2a7"
+    },
+    {
+      "file": "cinder_cliff.png",
+      "sha256": "ffd005bf5ffa431d580c7e0c8d7140007623c08bb773342d0e6bcbf9c5c21122"
+    },
+    {
+      "file": "cinder_floor.json",
+      "sha256": "29b3875897ad44cbba48ccb2dcd33fed31a5ee61ff13a79936b301a17ccd14dd"
+    },
+    {
+      "file": "cinder_floor.png",
+      "sha256": "6af3e9b057af5d3289d4b73bbc6a4e91e1ffc51b36a5019bea698e02c7a8c6d9"
+    },
+    {
+      "file": "cinder_foundry.json",
+      "sha256": "089c0f4541f114774ec7795df0828d7d42e5a6ed389632e4771ed960e5506c33"
+    },
+    {
+      "file": "cinder_foundry.png",
+      "sha256": "c5da64f8239111e83c6f1df0b40f33548f0abf503964d5ee016ecc77e8f26b97"
+    },
+    {
+      "file": "cinder_lava_surface.json",
+      "sha256": "3b81116b0d5bca36983f08dcc2265aa96a7b8782c246ddc0d4b5ca0ea72a4405"
+    },
+    {
+      "file": "cinder_lava_surface.png",
+      "sha256": "5c5ae6582c83cfe84554f514e43c3ae8a20513b3862aaadb5d614ffb59ee79cc"
+    },
+    {
+      "file": "cinder_markers.json",
+      "sha256": "6a5f7bdce90ab09fb251cc998d0e24012d35b63fa0430a5aabc2d80c20e54f3d"
+    },
+    {
+      "file": "cinder_markers.png",
+      "sha256": "7d6b837912e3551f9fd0c6c669d69ddda237abfea7b440573a19bca2b12f1ef3"
+    },
+    {
+      "file": "cinder_mineral.json",
+      "sha256": "0b7104311c7f26f230e9ce1f2b3e3683fbd32e819b31f9639c5b21a602d55336"
+    },
+    {
+      "file": "cinder_mineral.png",
+      "sha256": "0f61996b140b9b19de1a143e987a66762c7eeeeb476f84000dd581acdf1ee3ad"
+    },
+    {
+      "file": "cinder_pillars.json",
+      "sha256": "f52c5221ed1a373ca188b9bd5d54d52370ccf8758a01f57b21bf9f9a451223f7"
+    },
+    {
+      "file": "cinder_pillars.png",
+      "sha256": "ae013216d39788277b10b2c9f0a9ccd1892a22c215b1291640720d13d37b9116"
+    },
+    {
+      "file": "cinder_props.json",
+      "sha256": "b5d3892ac5dcf9e812257b4b758665fdd2cb112eb4af2a1161d7170fd1a13031"
+    },
+    {
+      "file": "cinder_props.png",
+      "sha256": "5f125d995ed902929d49f69395287f7afc46aea8384f2014f0928ba524509a4d"
+    },
+    {
+      "file": "cinder_shrine.json",
+      "sha256": "d8c85032e13ce89730a3e0fbacd8d32037980de2a6ba05f266dd2c535c1839ff"
+    },
+    {
+      "file": "cinder_shrine.png",
+      "sha256": "e5b202d169e68ac3a5bbf0323e3b531e3eb8e25bf2744fdfb27ad18ccec98f52"
+    },
+    {
+      "file": "glasswater_crystals_native.json",
+      "sha256": "e3f0dc22ed7cd59983c08a35e8736b557c5fe1dbb0c1fc1131e47d802dac50a4"
+    },
+    {
+      "file": "glasswater_crystals_native.png",
+      "sha256": "f12449e1d0131ed873f1ee8b5a00554df1c849d7d76a2d43b85040f82479f7df"
+    },
+    {
+      "file": "glasswater_crystals_small.json",
+      "sha256": "4126ef08fe51a18bd71c4705522083886fa0def72dcb5947e98b3f17df241900"
+    },
+    {
+      "file": "glasswater_crystals_small.png",
+      "sha256": "de4965e9d88022bf3c9194bb4458a0b056c7ba7d36835071f28197cd9ada0825"
+    },
+    {
+      "file": "glasswater_floor_macro.json",
+      "sha256": "6d241d5431a7e14d350aa91c0e31b13cdb574fefdf350e36f7419a52b3e1aae9"
+    },
+    {
+      "file": "glasswater_floor_macro.png",
+      "sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333"
+    },
+    {
+      "file": "glasswater_fungi.json",
+      "sha256": "fed538d5e479f30d006789580886ef0d6c0175423087cb64bd409d50b4f0de87"
+    },
+    {
+      "file": "glasswater_fungi.png",
+      "sha256": "05bbb2871c9481762d10ef91b56b8d0574ab01993a5466feb6dfd2c92f590809"
+    },
+    {
+      "file": "glasswater_materials.json",
+      "sha256": "07b97e1616b66345c5f10fa05888423e38b2d16fe9a13028523d80f34e0136ac"
+    },
+    {
+      "file": "glasswater_materials.png",
+      "sha256": "13af62b20b11db672e6f28d206359590d13841a8810c970f26cb70a4f7ad5ae8"
+    },
+    {
+      "file": "glasswater_walls.json",
+      "sha256": "04370f85aca19f37a57999d2f475c03afe65c8540ffb9dde884dcfaba92c11f5"
+    },
+    {
+      "file": "glasswater_walls.png",
+      "sha256": "50892125c9c43e02ad9345c988b2577f432b10697e4a5041b77d893048ffc6ce"
+    },
+    {
+      "file": "glasswater_walltop.json",
+      "sha256": "6d241d5431a7e14d350aa91c0e31b13cdb574fefdf350e36f7419a52b3e1aae9"
+    },
+    {
+      "file": "glasswater_walltop.png",
+      "sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333"
+    },
+    {
+      "file": "glasswater_waterworks.json",
+      "sha256": "4b6c513445231056230be4418b161b860c3eb8aae3bba68d98864433af94a78f"
+    },
+    {
+      "file": "glasswater_waterworks.png",
+      "sha256": "8f9528f5ddd0a4722b4108d8d8e947a6d716df8512b7eda50e49297074b6ae3d"
+    },
+    {
+      "file": "summit_dais.json",
+      "sha256": "3a6814b08be6ce08a3449c22c333033042a43293e7356978bd012d54a46fb3b0"
+    },
+    {
+      "file": "summit_dais.png",
+      "sha256": "8f857cca6f1b88c9e20a00a3817f30f7803405e7121f4286ad541051d7e50852"
+    },
+    {
+      "file": "summit_floor.json",
+      "sha256": "0054ca52ba2d98848405d084dce6a327a673008df6bec803fb19164a0f7f4ade"
+    },
+    {
+      "file": "summit_floor.png",
+      "sha256": "86b9d253b533258c0a5dcdd2b3feb7e45bd36e46d8e06072ad997f6849fdd20b"
+    },
+    {
+      "file": "summit_foundation.json",
+      "sha256": "1576ee9fe1b78e594f31da95fac0a87a363825259304b7207d87c50e180c7e6b"
+    },
+    {
+      "file": "summit_foundation.png",
+      "sha256": "bfc1400e3b06cef26c726bcbe776d9c11756fd9ed4db81b5cd7d8909bf49ba0f"
+    },
+    {
+      "file": "summit_masonry.json",
+      "sha256": "0bda6c14f31bdde96fabbc9d4e85b069691f16f87defd4b0c5510d71b5c3423a"
+    },
+    {
+      "file": "summit_masonry.png",
+      "sha256": "d7a1facb0829f0003fead1ea2cb07e28c95037bb6c4a8b9c971175b2de07d2b9"
+    },
+    {
+      "file": "summit_pillars.json",
+      "sha256": "5ff1ffae7ff4cee14a783e82a732fcb231103219a526db90e6f5950c22ab0805"
+    },
+    {
+      "file": "summit_pillars.png",
+      "sha256": "c37311d153ac512842f53ae1eccb7eca0baad7d1daf4a9f9310ae9cea3b5b5f5"
+    },
+    {
+      "file": "summit_stones.json",
+      "sha256": "3d25b0999dd16382e3e53a3c5cbb4454a055c09b8f6a4152db5d342fabe2fb30"
+    },
+    {
+      "file": "summit_stones.png",
+      "sha256": "6ef26abda1834ff1e37d57854bdf82dcbb47b174dce7714a48de66eb5aee2d6e"
+    }
+  ]
+}

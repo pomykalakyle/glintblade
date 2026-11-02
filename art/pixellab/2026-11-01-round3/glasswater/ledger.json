@@ -1,0 +1,64 @@
+{
+  "created": "2026-11-01",
+  "budget": 180,
+  "jobs": [
+    {
+      "name": "crystal-large",
+      "job_id": "373fe268-12d4-4522-ab8d-81a6a330c504",
+      "generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/crystal-large.receipt.json"
+    },
+    {
+      "name": "crystal-small",
+      "job_id": "f82bad91-6be8-41ac-b0e8-8b80150e917f",
+      "generations": 15.0,
+      "status": "completed",
+      "receipt": "jobs/crystal-small.receipt.json"
+    },
+    {
+      "name": "floor-macro",
+      "job_id": "f4e1eb64-62fa-466d-a616-b2ccd37ace44",
+      "generations": 6.0,
+      "status": "completed",
+      "receipt": "jobs/floor-macro.receipt.json"
+    },
+    {
+      "name": "floor",
+      "job_id": "7a41faa4-f3fe-4277-a931-11707192551b",
+      "generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/floor.receipt.json"
+    },
+    {
+      "name": "fungi",
+      "job_id": "8f46f7fb-0204-4fe9-9042-4263b8260698",
+      "generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/fungi.receipt.json"
+    },
+    {
+      "name": "wall-top",
+      "job_id": "c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa",
+      "generations": 5.0,
+      "status": "completed",
+      "receipt": "jobs/wall-top.receipt.json"
+    },
+    {
+      "name": "wall",
+      "job_id": "41ccd322-33af-43ac-b8fb-2aa1a5e3eb07",
+      "generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/wall.receipt.json"
+    },
+    {
+      "name": "waterworks",
+      "job_id": "ae6f2b21-901f-4a08-a339-19e5385e9cd0",
+      "generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/waterworks.receipt.json"
+    }
+  ],
+  "used": 76.0,
+  "pending": []
+}

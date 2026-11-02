@@ -1,0 +1,193 @@
+{
+  "result": "pass",
+  "selected_binary_sha256": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+  "selected_library_sha256": "43ea391d9dc852418ca09195996ec0e86811f91b9365addc9f599636d529fbd0",
+  "selected_wasm_sha256": "ea8b6f76cf4eac4c8d04a3d12a037ecef3426126dd7767e61efab287842f4d1b",
+  "pinned_sources": 267,
+  "source_pin_mismatches": [],
+  "native_scene_studies": 40,
+  "overviews": 4,
+  "title": 1,
+  "scenes": {
+    "out/pixellab/world/round6-selected/bloomwild/landing/bloomwild_t00090.png": "547421e02d973499864def0d29c105c8249d2eef37bdf0de62ceb67e90347115",
+    "out/pixellab/world/round6-selected/bloomwild/entry/bloomwild_t00090.png": "add6c8cea0e06041a4156b102f46c4d58127fdf8b63c20337642ecec7f01b87e",
+    "out/pixellab/world/round6-selected/bloomwild/courtyard/bloomwild_t00090.png": "18b2ef9846e6bfba927cef7efc856497d57ed18660fd82468f39e98e1753319e",
+    "out/pixellab/world/round6-selected/bloomwild/temple/bloomwild_t00090.png": "13e525c3714c8944e1dfe91a854295ec0234bbda59610ec54d33e452e5a1b27c",
+    "out/pixellab/world/round6-selected/bloomwild/terrace/bloomwild_t00090.png": "19e3b9f21415d2008d109fbf1b75c9e78ba5a7044ca6edacfacf85aadd59a452",
+    "out/pixellab/world/round6-selected/bloomwild/altar/bloomwild_t00090.png": "b7089ddef80283a27eeedca88c405b4d0f91ec94f9570c91407c6bcc9b43f527",
+    "out/pixellab/world/round6-selected/bloomwild/falls/bloomwild_t00090.png": "628777ba1ef99ffc811c5ae77ba14306ac348e94d26f16d890373fee586b4d1c",
+    "out/pixellab/world/round6-selected/bloomwild/grove/bloomwild_t00090.png": "f58a1ef80339db6ee8837959893218f36446d65fa94e9f806fc2a162485c896c",
+    "out/pixellab/world/round6-selected/bloomwild/upper-bridge/bloomwild_t00090.png": "7a639405136bc08c09bc2306aea7ff09057e599efa278de1ee6c98b3499c34b1",
+    "out/pixellab/world/round6-selected/bloomwild/lower-bridge/bloomwild_t00090.png": "ec7ecf208c3a2bff47246fc2a3fd084238f63c850c329aec4295be2b21bd5636",
+    "out/pixellab/world/round6-selected/bloomwild/stair-contact/bloomwild_t00090.png": "8de75efd53c6857925ba4673b67acdce0c77cfae2b2c1e77315f803184a9ebb0",
+    "out/pixellab/world/round6-selected/bloomwild/west-terrace/bloomwild_t00090.png": "7957571bfd65b4e38615c3856fb30e37859f1858bc681b1075aa93b60f695aad",
+    "out/pixellab/world/round6-selected/bloomwild/cliff-contact/bloomwild_t00090.png": "f5e807719f4404906972dde5a8df5d764a8e2664f96b3f70a4b155abaf9675b3",
+    "out/pixellab/world/round6-selected/bloomwild/falls-impact/bloomwild_t00090.png": "df7ce70dce0439cc01340b62b64e107b20c42789ce81982be84a0090fbc4c007",
+    "out/pixellab/world/round6-selected/bloomwild/outlet-bank/bloomwild_t00090.png": "b29c1c0b9f8f35815e60ad18b6a767aa71734b4e3ca111e3401885b4ffc2e102",
+    "out/pixellab/world/round6-selected/glasswater/lake/glasswater_t00090.png": "db52302118be26faea60b532ff5409eb92ee7bda508788e62f0f621c0753a370",
+    "out/pixellab/world/round6-selected/glasswater/island/glasswater_t00090.png": "1bb913dad4e9506b481e898fc772278e148d124eeefb6b7d0353c7cb0daabcec",
+    "out/pixellab/world/round6-selected/glasswater/gallery/glasswater_t00090.png": "cfe3162b34f328bcc9ed7ff823f889abed2cea1f19cdf3991b73bc8afdd3fd3a",
+    "out/pixellab/world/round6-selected/glasswater/bridge/glasswater_t00090.png": "f15c3a719e8befcd4a1726bacdd66c793074341effb29350399946abf79fe29a",
+    "out/pixellab/world/round6-selected/glasswater/grove/glasswater_t00090.png": "bfdbaac05a879684102a0da7e391f30b6453f27c689369d661c544a68aec9661",
+    "out/pixellab/world/round6-selected/glasswater/heart/glasswater_t00090.png": "761a75c14ead52fda9f55dbba6d1b193fbcbf9e12a5fd8304fe89d9916793f77",
+    "out/pixellab/world/round6-selected/glasswater/channel/glasswater_t00090.png": "d7fadc38d84bc71fdea8993e8b0ad6081d936769063fcc27faf00fcddc8657b6",
+    "out/pixellab/world/round6-selected/glasswater/causeway/glasswater_t00090.png": "3fa7913c974e78dcf89b40e2d3fc9e82a6f844baf9613b5ed69c8c79ef224a37",
+    "out/pixellab/world/round6-selected/glasswater/shallow-grove/glasswater_t00090.png": "fc007745300eb182f7aa95b4014b71738c64a965081a1e2d68159d8cdae2bf81",
+    "out/pixellab/world/round6-selected/cinder/approach/cinder_t00090.png": "c81d283e42bbbb2812861f7d806d9a7554c2ab79b90e8832d387366de6ed9c7a",
+    "out/pixellab/world/round6-selected/cinder/crossing/cinder_t00090.png": "a88a6492c46e7376a5c34dfc1f7a8d3bbdb9cfd9ab0b569ef624ee11da09480a",
+    "out/pixellab/world/round6-selected/cinder/foundry/cinder_t00090.png": "cc83acf813608dee07b5fc6b08de5807351733460e8e804177a436d8f67178db",
+    "out/pixellab/world/round6-selected/cinder/press/cinder_t00090.png": "a7c16ee5d8c596188c221d517aa7426dee55ca68bbc27795ddbea16fd9c529dd",
+    "out/pixellab/world/round6-selected/cinder/upper-bank/cinder_t00090.png": "322d2f0860e785222bdcf78f0554fee0400be52166e94f62e0f3295927078e96",
+    "out/pixellab/world/round6-selected/cinder/shrine/cinder_t00090.png": "f43f8a13e463865f95ae4a7291b50f0bcd61f81c75ae408f1f6887dc016b9c70",
+    "out/pixellab/world/round6-selected/cinder/canal-bridge/cinder_t00090.png": "06908828ecc29568ce900e2d5303d4f380709c6712ffc3e8fc70af2e50669d40",
+    "out/pixellab/world/round6-selected/cinder/caldera-bridge/cinder_t00090.png": "5b154e318c1fdecbd1a933d18e02910a19909e957d2a1f7cb9948a00428d949f",
+    "out/pixellab/world/round6-selected/cinder/river-join/cinder_t00090.png": "a649cf77ff63a5103d4d8a6a701a2d9007558b0ff7e65964d9cc07e46a4b80dc",
+    "out/pixellab/world/round6-selected/summit/arrival/summit_t00090.png": "547fb6f38cee56f1fff341a2179141f56ea5181ef8b493e29c7773ce76cd07ef",
+    "out/pixellab/world/round6-selected/summit/bridge/summit_t00090.png": "821db200a693578de3f5b2bce71f05eddba95542e2d3877b605779bedf1bd2c4",
+    "out/pixellab/world/round6-selected/summit/stair/summit_t00090.png": "d72137f0e40cdd1cc273bd68498f79354c841b7ffb790fa7a854f242d44435ee",
+    "out/pixellab/world/round6-selected/summit/arena/summit_t00090.png": "97660cee5feb803f09777059f64b3e3c2ec04750260ca03910d6fe02e236c34a",
+    "out/pixellab/world/round6-selected/summit/dais/summit_t00090.png": "f60c7cc32826457207279d2970450659a04f3300e8c092a952f11f921dfe2e2e",
+    "out/pixellab/world/round6-selected/summit/west/summit_t00090.png": "30abd543626dd450b930c750815f700363aecfb17fadc28ba2fc9d5d31828a16",
+    "out/pixellab/world/round6-selected/summit/curved-edge/summit_t00090.png": "54438ed532dfd4988e241a3f7228c083212e5fcb4e0901608e36715c53a3947f",
+    "out/pixellab/world/round6-selected/title/f00240.png": "249fe3f8b501052a71e11eb1ac7ecbb79b49fa3b7d081c17b7475fce135e8852",
+    "out/pixellab/world/round6-selected/bloomwild/landing/bloomwild_overview.png": "68a3b9c72419f0c7306997a33c6a5b81733acb1019f41dcb1f7e0a949c0babef",
+    "out/pixellab/world/round6-selected/cinder/approach/cinder_overview.png": "f3cc18a2d05e8946d7250430cbb65e3543b546c9e49efb03264e0d84a63235af",
+    "out/pixellab/world/round6-selected/glasswater/lake/glasswater_overview.png": "1d3a02b1b39e914231ac43a5ddb9a41037a3098efe467fc52899933e7f2f19d4",
+    "out/pixellab/world/round6-selected/summit/arrival/summit_overview.png": "2c2d47a23734f7042791f96ef12da656bf76ca5d3496fa01a541aea1f89b4228"
+  },
+  "enemy_art": {
+    "base_poses": 305,
+    "alternate_poses": 610,
+    "alternate_skins": 12,
+    "total_looks": 18,
+    "selection": "stable across spawn/movement/damage/afterimage/death",
+    "all_18_in_authored_encounters": true
+  },
+  "checks": {
+    "unit_passed": 161,
+    "unit_manual_ignored": 3,
+    "doc_example_ignored": 1,
+    "explicit_cinder_timing_passed": true,
+    "rebuild_files_exact": 94,
+    "physical_parity_native_pixels": 5009408,
+    "physical_props": 344,
+    "collision_rectangles": 1826,
+    "actual_movement_probes": 99414,
+    "pre_death_combat_parity_spawn_ticks": 91200,
+    "post_death": "cross-skin/capacity RNG and projectile invariance; not claimed identical to round5 death stream"
+  },
+  "recording": {
+    "binary": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+    "frames": 14498,
+    "fps": 60,
+    "seconds": 241.63333333333333,
+    "video_sha256": "b3c57ec646146314ed15d43f7b165a7e02e01bd678416eab717b6be008f59c98",
+    "audio_sha256": "1d5017eabeae5b6c973c85a5a69572332b578102acd5abab7289810f33beb6a8",
+    "milestones": {
+      "bloomwild_shard": 3094,
+      "cinder_shard": 9350,
+      "glasswater_shard": 6357,
+      "phase_2_damage": 11656,
+      "phase_2_heart_open": 12032,
+      "phase_3_damage": 13290,
+      "victory": 13999,
+      "warden_awake": 10344,
+      "warden_dying": 13616
+    },
+    "god": true,
+    "audio_events": 1452,
+    "missing_audio": []
+  },
+  "motion": {
+    "fps": 60,
+    "frames": 480,
+    "retimed": false,
+    "clips": [
+      {
+        "name": "Bloomwild",
+        "first_tick": 2640,
+        "subject_target": [
+          712,
+          274
+        ],
+        "nearest_tick": 2700,
+        "nearest_position": [
+          712.5541381835938,
+          260.0000915527344
+        ]
+      },
+      {
+        "name": "Glasswater",
+        "first_tick": 4725,
+        "subject_target": [
+          656,
+          160
+        ],
+        "nearest_tick": 4785,
+        "nearest_position": [
+          662.0507202148438,
+          154.72149658203125
+        ]
+      },
+      {
+        "name": "Cinder",
+        "first_tick": 7575,
+        "subject_target": [
+          414,
+          480
+        ],
+        "nearest_tick": 7635,
+        "nearest_position": [
+          413.5479736328125,
+          468.977294921875
+        ]
+      },
+      {
+        "name": "Summit",
+        "first_tick": 9960,
+        "subject_target": [
+          480,
+          776
+        ],
+        "nearest_tick": 10020,
+        "nearest_position": [
+          490.8753967285156,
+          776.0001831054688
+        ]
+      }
+    ],
+    "preview_sha256": "fc4c34b8c87c7f729c38e5013ff85b7c1fc2b9e36f7ca85e48884e1bee59cc86",
+    "samples_sha256": "ebec7a846e88647ceb3267f63af8f4d60e3916f930aebcd7b0daaad0b2aab360"
+  },
+  "updated_docs_media": {
+    "02_bloomwild_entry.png": "8da37da1afe22a41b0741e805a06c8fceb62e45d56999c48f73e069c38b7ddd4",
+    "03_bloomwild_falls.png": "773b3da45084ec764d666739e3ee428c1e870288fb032b00e07a4bf7bcd9f453",
+    "04_glasswater_causeway.png": "c99fcb3cdae168f5205f8f169c5b538b6325a7d5c6b2182ee18df719e8bc158d",
+    "05_glasswater_gallery.png": "90e64ed0a97a1693365d7ff9aa9a3574d80543ca44730d26595c04734cc5df62",
+    "06_cinder_arrival.png": "fab24982c029fcaddd18713ea5b83251a95cbb0e70bacb8fe0fa793c85f1a116",
+    "07_cinder_ruins.png": "d68455ed39fb0a04cfcd96633e5fd1a2187dfc726c6a68a889f337c83fd0a3b7",
+    "08_cinder_lava.png": "5ca4050f84209c34c933170944616a39df669446919d8875b0b016c7c8cd2c52",
+    "09_summit_arena.png": "a82470608c1fd4f70fef3b6330f6c4d5562b742704b52c2b36db77ecbb7e0ade",
+    "01_title.png": "2577f636c2ab99ce58f342bcda4efc4fb1c537b94455cd309f5da4e566edb1ed",
+    "10_combat.png": "a0ec9944883e39dba44aa43d28a8ea0fe76003fadc88e0e26a60fda8a6b83791",
+    "12_warden_phase_2.png": "c96fabf9d2628a0dc5d41028bbb344a82d0406a59c65db5596a42ecb997539da",
+    "highlights.png": "6561c5bc89e8fce7ef4bc452c496ad52b524eaf71c9be8672c5c75b65c1346d1",
+    "highlights.mp4": "ebec7a846e88647ceb3267f63af8f4d60e3916f930aebcd7b0daaad0b2aab360",
+    "combat.mp4": "193b52e27d91edcddf6bda4a708c13af051ffbe35146c50c218a6295b166d17c",
+    "warden_fight.mp4": "63cd1f8bcef0ea50233dcf46b8fc42a97e0d990703e165815f84fef7b7ebc209"
+  },
+  "independent_reviews": {
+    "art/pixellab/2026-11-01-round6/enemies/independent-review.json": "0ee842893bef2d02ad67d028e9ddfe88fa02a321d6d278e8300b5941d3ed7366",
+    "art/pixellab/2026-11-01-round6/enemies/independent-code-review.json": "1681dbe26cac1ac549ad9872e215bf8174932b41eb9f83a4a93d2b7ac53ec6ad",
+    "art/pixellab/2026-11-01-round6/final-visual-review/review.json": "b2104b24b88e198b5a37d1b3fe097d27d58748fe8fbec3e865ef1a18f62f3054",
+    "art/pixellab/2026-11-01-round6/technical-review/review.json": "940ea84b279b65dacaac22672266af7f499796304eb60ed0837441a6f13c77fb"
+  },
+  "review_scope": "Complete source-art poses and stills/maps/title; sampled actual gameplay (83 distinct frames in final general review,78 in enemy review). No full continuous playback or human audio/difficulty audition claim.",
+  "pixellab": {
+    "round_generations": 170,
+    "used_in_cycle": 639,
+    "remaining_in_cycle": 1361,
+    "credit_purchases": 0
+  },
+  "publication": "local only; no push/public deployment"
+}

@@ -137,6 +137,8 @@ pub struct Look {
     pub water_tint: Rgb,
     pub water_alpha: f32,
     pub water_wave: f32,
+    /// Maximum native rows below the waterline; regions may shorten actor reflections.
+    pub water_depth_max: i32,
     /// Lit pixels brighter than white bleed toward white (hue kept) instead of clipping per
     /// channel: 1 = full bleed, 0 = plain per-channel clip.
     pub hot_white: f32,
@@ -153,6 +155,7 @@ impl Default for Look {
             water_tint: Rgb::new(0.62, 0.78, 0.92),
             water_alpha: 0.5,
             water_wave: 1.0,
+            water_depth_max: i32::MAX,
             hot_white: 1.0,
         }
     }
@@ -166,6 +169,38 @@ pub struct Caster {
     pub y: f32,
     pub half_w: f32,
     pub height: f32,
+}
+
+/// A real point emitter drawn this frame, retained for local ground-light occlusion.
+#[derive(Clone, Copy, Debug)]
+pub struct PointLight {
+    pub x: f32,
+    pub y: f32,
+    pub radius: f32,
+    pub color: Rgb,
+    pub intensity: f32,
+    /// Height above ground; x/y remain the projected world position.
+    pub height: f32,
+}
+
+#[derive(Clone, Copy, Debug, Default)]
+pub struct Surface {
+    pub normal: [f32; 3],
+    pub height: f32,
+    pub owner: u32,
+    /// 0 unlit/sky, 1 terrain, 2 scenery, 3 actor, 4 preserved ink.
+    pub kind: u8,
+}
+
+#[derive(Clone, Debug)]
+pub struct SurfaceCaster {
+    pub pixels: std::sync::Arc<[super::surface::NormalPixel]>,
+    pub w: i32, pub h: i32, pub anchor: (i32, i32),
+    pub x: f32, pub y: f32, pub base: f32,
+    pub flip: bool, pub owner: u32, pub opacity: f32,
+    /// Native foot-depth intervals, indexed by unmirrored source X.
+    pub foot: std::sync::Arc<[[f32; 2]]>,
+    pub min_height: f32,
 }
 
 pub struct Frame {
@@ -187,6 +222,12 @@ pub struct Frame {
     pub t: u64,
     /// Shadow casters for this frame (see `Caster`); the scene fills it before rendering.
     pub casters: Vec<Caster>,
+    pub point_lights: Vec<PointLight>,
+    pub surfaces: Vec<Surface>,
+    pub surface_casters: Vec<SurfaceCaster>,
+    pub surface_lighting: bool,
+    /// Only the garden has a directional daylight key.
+    pub normal_sun: bool,
     /// Visible actor coverage, stamped by body sprites and cleared by opaque foreground pixels.
     pub actor_pixels: Vec<bool>,
     /// Ambient visibility per pixel (1 = fully lit). See the module docs.
@@ -222,6 +263,11 @@ impl Frame {
             flash: 0.0,
             t: 0,
             casters: Vec::new(),
+            point_lights: Vec::new(),
+            surfaces: vec![Surface::default(); W * H],
+            surface_casters: Vec::new(),
+            surface_lighting: false,
+            normal_sun: false,
             actor_pixels: vec![false; W * H],
             shade: vec![1.0; W * H],
             water: vec![0; W * H],
@@ -236,6 +282,11 @@ impl Frame {
         self.albedo.fill(bg);
         self.light.fill(ambient);
         self.emissive.fill(Rgb::BLACK);
+        self.point_lights.clear();
+        self.surfaces.fill(Surface::default());
+        self.surface_casters.clear();
+        self.surface_lighting = false;
+        self.normal_sun = false;
         self.actor_pixels.fill(false);
         self.glow.fill(Rgb::BLACK);
         self.shade.fill(1.0);
@@ -277,6 +328,7 @@ impl Frame {
         if let Some(i) = Self::idx(x, y) {
             self.albedo[i] = c;
             self.actor_pixels[i] = false;
+            self.surfaces[i] = Surface::default();
         }
     }
     /// Mark an actual visible body pixel after its opaque color has been written.
@@ -293,7 +345,7 @@ impl Frame {
     pub fn blend(&mut self, x: i32, y: i32, c: Rgb, a: f32) {
         if let Some(i) = Self::idx(x, y) {
             self.albedo[i] = self.albedo[i].lerp(c, a);
-            if a >= 1.0 { self.actor_pixels[i] = false; }
+            if a >= 1.0 { self.actor_pixels[i] = false; self.surfaces[i] = Surface::default(); }
         }
     }
     /// Draw with ordered-dither transparency: the pixel is drawn where `a` beats the Bayer threshold.
@@ -319,6 +371,7 @@ impl Frame {
         if let Some(i) = Self::idx(x, y) {
             self.albedo[i] = Rgb::BLACK;
             self.actor_pixels[i] = false;
+            self.surfaces[i] = Surface::default();
             self.emissive[i] = c;
         }
     }
@@ -340,11 +393,15 @@ impl Frame {
         let c = color.scale(intensity);
         let x0 = ((x - radius).floor() as i32).max(0);
         let x1 = ((x + radius).ceil() as i32).min(WI - 1);
-        let y0 = ((y - radius).floor() as i32).max(0);
-        let y1 = ((y + radius).ceil() as i32).min(HI - 1);
+        let projected_radius = if self.surface_lighting { radius * std::f32::consts::SQRT_2 } else { radius };
+        let y0 = ((y - projected_radius).floor() as i32).max(0);
+        let y1 = ((y + projected_radius).ceil() as i32).min(HI - 1);
         if x0 > x1 || y0 > y1 {
             return;
         }
+        self.point_lights.push(PointLight { x: x+self.cam_x as f32, y: y+self.cam_y as f32,
+            radius, color, intensity, height: 18.0 });
+        if self.surface_lighting { return; }
         let inv_r2 = 1.0 / (radius * radius);
         for py in y0..=y1 {
             let dy = py as f32 + 0.5 - y;
@@ -368,10 +425,18 @@ impl Frame {
     pub fn add_light_w(&mut self, wx: f32, wy: f32, radius: f32, color: Rgb, intensity: f32) {
         let x = wx - self.cam_x as f32;
         let y = wy - self.cam_y as f32;
-        if x + radius < 0.0 || y + radius < 0.0 || x - radius > W as f32 || y - radius > H as f32 {
+        let ry = if self.surface_lighting { radius * std::f32::consts::SQRT_2 } else { radius };
+        if x + radius < 0.0 || y + ry < 0.0 || x - radius > W as f32 || y - ry > H as f32 {
             return;
         }
         self.add_light(x, y, radius, color, intensity);
+    }
+
+    /// A point source at (world X, ground Y, height); projection stays Y-height.
+    pub fn add_light_3d_w(&mut self, wx: f32, ground_y: f32, height: f32, radius: f32, color: Rgb, intensity: f32) {
+        let before = self.point_lights.len();
+        self.add_light_w(wx, ground_y - height, radius, color, intensity);
+        if self.point_lights.len() > before { self.point_lights.last_mut().unwrap().height = height; }
     }
 
     /// Multiply the light at a pixel (cloud shadows, darkness pockets).
@@ -389,6 +454,7 @@ impl Frame {
             for px in x.max(0)..(x + w).min(WI) {
                 self.albedo[py as usize * W + px as usize] = c;
                 self.actor_pixels[py as usize * W + px as usize] = false;
+                self.surfaces[py as usize * W + px as usize] = Surface::default();
             }
         }
     }

@@ -31,11 +31,11 @@ pub const B3: Rgb = rgb(0x56505d);
 pub const B4: Rgb = rgb(0x79707a);
 // lava (L3..L5 are emissive)
 pub const L0: Rgb = rgb(0x24232d);
-pub const L1: Rgb = rgb(0x6f454b);
-pub const L2: Rgb = rgb(0xa36059);
-pub const L3: Rgb = rgb(0xd48670);
-pub const L4: Rgb = rgb(0xefb68a);
-pub const L5: Rgb = rgb(0xf1d4a6);
+pub const L1: Rgb = rgb(0x613039);
+pub const L2: Rgb = rgb(0xa64c3b);
+pub const L3: Rgb = rgb(0xd8784d);
+pub const L4: Rgb = rgb(0xf2ae66);
+pub const L5: Rgb = rgb(0xffdda0);
 // dusk sky
 pub const S0: Rgb = rgb(0x16151d);
 pub const S1: Rgb = rgb(0x24232d);
@@ -86,8 +86,8 @@ pub fn rc(r: u8, level: i32) -> Rgb {
     rp[level.clamp(0, rp.len() as i32 - 1) as usize]
 }
 
-pub const LAVA_LIGHT: Rgb = rgb(0xefb68a);
-pub const EMBER: [Rgb; 2] = [rgb(0xd48670), rgb(0xefb68a)];
+pub const LAVA_LIGHT: Rgb = rgb(0xf2ae66);
+pub const EMBER: [Rgb; 2] = [rgb(0xd8784d), rgb(0xf2ae66)];
 
 /// A small stamp: rows of 'h' (light), 'm' (mid), 'd' (dark), '.' (none).
 pub type Stamp = &'static [&'static str];

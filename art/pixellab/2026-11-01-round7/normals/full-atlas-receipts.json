@@ -1,0 +1,32 @@
+[
+  {
+    "name": "bloomwild_ruins",
+    "job_id": "bca0f653-98bb-4052-abf8-2420729955b2",
+    "receipt": [
+      {
+        "type": "text",
+        "text": "id: bca0f653-98bb-4052-abf8-2420729955b2\njob_id: bca0f653-98bb-4052-abf8-2420729955b2\nsource: 48x504px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.15, detail_softness 1; the rest where the kind puts them\nasset_id: d1223020-a9a7-53dc-b812-c661884bafae\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"bca0f653-98bb-4052-abf8-2420729955b2\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/bca0f653-98bb-4052-abf8-2420729955b2/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ]
+  },
+  {
+    "name": "glasswater_crystals_big",
+    "job_id": "093e00c1-c99a-445d-aa92-65f63ffa07c4",
+    "receipt": [
+      {
+        "type": "text",
+        "text": "id: 093e00c1-c99a-445d-aa92-65f63ffa07c4\njob_id: 093e00c1-c99a-445d-aa92-65f63ffa07c4\nsource: 48x256px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.15, detail_softness 1; the rest where the kind puts them\nasset_id: 8c85c382-e0a0-5062-9a0d-4ab52af3aa9e\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"093e00c1-c99a-445d-aa92-65f63ffa07c4\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/093e00c1-c99a-445d-aa92-65f63ffa07c4/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ]
+  },
+  {
+    "name": "ember_hound",
+    "job_id": "9a5c87be-c3d1-4347-969e-b99236ee6379",
+    "receipt": [
+      {
+        "type": "text",
+        "text": "id: 9a5c87be-c3d1-4347-969e-b99236ee6379\njob_id: 9a5c87be-c3d1-4347-969e-b99236ee6379\nsource: 240x360px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 2014ef74-5417-5591-bf89-246d74aa7b1d\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"9a5c87be-c3d1-4347-969e-b99236ee6379\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9a5c87be-c3d1-4347-969e-b99236ee6379/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ]
+  }
+]

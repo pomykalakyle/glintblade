@@ -1,0 +1,22 @@
+{
+  "description": "Create 16 distinct compatible flat square floor texture modules for an immense abandoned stone arena in a top-down pixel game. EVERY tile has a solid unbroken 3 pixel border of #46526a on all four edges, so modules tile without seams. Interior is at least 85 percent flat #46526a. Restrained cold desaturated blue-grey weathered basalt slabs. NO tile outline, no bevel framing, no brick grid, no flowers or plants, no glowing runes, no dots or noise. Native clean pixel clusters. 1). quiet plain slate with a tiny 6-pixel shallow hairline crack near upper middle. 2). plain slate one small muted #555d70 abrasion near lower middle. 3). plain slate with a short angled crack ending before borders. 4). plain slate one quiet faceted stone chip. 5). plain slate no cracks just one muted wear patch. 6). plain slate two connected abrasion strokes. 7). plain slate short fracture bend. 8). plain slate small angular depression. 9). plain slate softly worn edge fragment only at center. 10). plain slate shallow rectangular abrasion. 11). plain slate isolated broken corner fragment. 12). plain slate nearly blank with a small muted lichen-grey scuff. 13). plain slate sparse short crack. 14). plain slate calm chipped patch. 15). plain slate short paired scratches. 16). plain slate almost blank.",
+  "tile_type": "square_topdown",
+  "tile_size": 32,
+  "tile_height": 32,
+  "tile_view": "top-down",
+  "tile_depth_ratio": 0,
+  "outline_mode": "segmentation",
+  "palette": [
+    "#1f2838",
+    "#2b3548",
+    "#333b4c",
+    "#46526a",
+    "#555d70",
+    "#64738a",
+    "#7f8797",
+    "#94a1ae",
+    "#c1c8c5"
+  ],
+  "max_colors": 5,
+  "seed": 417
+}

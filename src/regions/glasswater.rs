@@ -8,6 +8,7 @@
 
 mod art;
 mod life;
+mod materials;
 mod paint;
 mod place;
 mod water;
@@ -15,7 +16,8 @@ mod water;
 use crate::combat::{Hit, Team};
 use crate::fx::Fx;
 use crate::gfx::{Cell, DrawOpts, Frame, Rgb, rgb};
-use crate::world::{Prop, Region, RegionCtx, TILE, Tile, Zone, ZoneId};
+use crate::world::{LightOccluder, Prop, Region, RegionCtx, TILE, Tile, Zone, ZoneId};
+use crate::gfx::frame::PointLight;
 use std::f32::consts::TAU;
 
 const MAP: &str = include_str!("glasswater/map.txt");
@@ -40,6 +42,8 @@ pub struct Decor {
     pub kind: Kind,
     /// (color, radius, intensity, height of the light above the base)
     pub light: Option<(Rgb, f32, f32, f32)>,
+    /// Native crest offset: light belongs to the crystal tip, not an arbitrary base-height circle.
+    pub light_offset_x: f32,
     pub phase: f32,
     pub alive: bool,
     pub flash: f32,
@@ -54,11 +58,24 @@ pub struct Decor {
 
 impl Decor {
     pub fn new(cell: Cell, anchor: (i32, i32), x: f32, y: f32, kind: Kind) -> Decor {
-        Decor { cell, anchor, x, y, flip: false, kind, light: None, phase: (x * 0.37 + y * 0.11) % TAU, alive: true, flash: 0.0, wobble: 0.0, ring: 0.0, prop: None, mirror: None }
+        Decor { cell, anchor, x, y, flip: false, kind, light: None, light_offset_x: 0.0, phase: (x * 0.37 + y * 0.11) % TAU, alive: true, flash: 0.0, wobble: 0.0, ring: 0.0, prop: None, mirror: None }
     }
     pub fn bounds(&self) -> (f32, f32, f32, f32) {
         let ax = if self.flip { self.cell.w - 1 - self.anchor.0 } else { self.anchor.0 };
         (self.x - ax as f32, self.y - self.anchor.1 as f32, self.cell.w as f32, self.cell.h as f32)
+    }
+    fn wobble_x(&self) -> f32 {
+        if self.wobble > 0.0 { ((self.wobble * 1.7).sin() * self.wobble * 0.2).round() } else { 0.0 }
+    }
+    fn point_light(&self, t: u64) -> Option<PointLight> {
+        self.light.map(|(color, radius, intensity, height)| {
+            let breathe = match self.kind {
+                Kind::Mushroom => 0.0,
+                _ => 0.94 + 0.06 * (t as f32 * 0.013 + self.phase).sin(),
+            };
+            PointLight { x: self.x + self.wobble_x() + self.light_offset_x, y: self.y - height, height, radius: radius * (1.0 + self.ring * 0.25),
+                color, intensity: intensity * breathe + self.ring * 0.6 }
+        })
     }
     fn emit_gain(&self, t: u64) -> f32 {
         let tf = t as f32;
@@ -92,20 +109,33 @@ pub fn build() -> (Zone, Box<dyn Region>) {
         }
     }
     let m = paint::classify(&z);
+    // Movement follows the same native shore used by water/reflections, including the
+    // straight causeway. Tile corners must not create invisible walls on a curved bank.
+    z.set_surface_tiles(m.cls.iter().map(|&c| match c {
+        paint::FLOOR => Tile::Floor,
+        paint::SHALLOW => Tile::Shallow,
+        paint::DEEP => Tile::Deep,
+        paint::VOID => Tile::Void,
+        _ => Tile::Wall,
+    }).collect());
     let fl = paint::fields(&m);
     paint::paint(&mut z, &m, &fl);
     paint::moss(&mut z, &m, &fl);
     paint::details(&mut z, &m, &fl);
+    materials::paint(&mut z, &m, &fl);
+    paint::bridge(&mut z, &m);
 
     // Low, cool slate ambient leaves the crystals and blade to carve out the cave. The grade
     // stays near neutral; the palette carries the mood.
-    z.ambient = rgb(0x9caeb9).scale(0.72);
+    z.ambient = rgb(0x9caeb9).scale(0.84);
     // Slate bounce keeps the receiving banks legible; the iris sources still supply the key.
-    z.lighting_settings.fill = Rgb::new(0.47, 0.53, 0.63);
+    z.lighting_settings.fill = Rgb::new(0.51, 0.57, 0.67);
     z.lighting_settings.shadow_tint = Rgb::new(0.44, 0.51, 0.69);
     z.grade.vignette = 0.10;
     z.grade.bloom = 0.24;
-    z.grade.light_steps = 8.0;
+    // Fine value steps retain crisp native surfaces without turning the crystal
+    // falloff into a few enormous concentric disks on the quiet cave floor.
+    z.grade.light_steps = 32.0;
     if std::env::var("GW_FLAT").is_ok() {
         z.ambient = Rgb::WHITE;
         z.grade = Default::default();
@@ -127,9 +157,10 @@ pub fn build() -> (Zone, Box<dyn Region>) {
 }
 
 /// An invisible prop that only blocks movement (for code-drawn crystals and rocks).
-pub fn blocker(z: &mut Zone, x: f32, y: f32, w: f32, h: f32) -> usize {
-    let mut p = Prop::new("glasswater_blocker", "none", x, y);
-    p.footprint = Some((w, h));
+pub fn blocker(z: &mut Zone, decor: &Decor, depth: i32) -> usize {
+    let mut p = Prop::new("glasswater_blocker", "none", decor.x, decor.y);
+    p.set_native_support(&decor.cell, decor.anchor, depth);
+    p.flip = decor.flip;
     z.props.push(p);
     z.props.len() - 1
 }
@@ -149,8 +180,8 @@ impl Region for Glasswater {
         // wading: everything moving through water pushes rings out from its feet
         for &(x, y, speed) in ctx.movers {
             if zone.tile_at(x, y) == Tile::Shallow && speed > 0.15 && self.water.is_water(x as i32, y as i32) {
-                if ctx.t % 3 == 0 {
-                    self.water.poke(x, y, 3.0, 0.55 + speed.min(3.0) * 0.25);
+                if ctx.t % 6 == 0 {
+                    self.water.poke(x, y, 2.5, 0.16 + speed.min(3.0) * 0.025);
                 }
             }
         }
@@ -210,7 +241,11 @@ impl Region for Glasswater {
     }
 
     fn draw_ground(&self, _zone: &Zone, f: &mut Frame, t: u64) {
-        f.look.light_dither = 0.12;
+        f.look.light_dither = 0.25;
+        f.look.water_alpha = 1.0;
+        f.look.water_depth_max = 8;
+        f.look.water_tint = Rgb::new(0.48, 0.62, 0.72);
+        f.look.water_wave = 0.6;
         self.water.draw(f, t);
         for d in &self.decor {
             if !d.alive || d.kind == Kind::Rock && d.cell.h < 10 {
@@ -227,14 +262,15 @@ impl Region for Glasswater {
         }
     }
 
-    fn sorted_items(&self, _zone: &Zone, f: &Frame, out: &mut Vec<(f32, u32)>) {
+    fn sorted_items(&self, zone: &Zone, f: &Frame, out: &mut Vec<(f32, u32)>) {
         for (i, d) in self.decor.iter().enumerate() {
             if !d.alive {
                 continue;
             }
             let (x, y, w, h) = d.bounds();
-            if f.visible(x, y, w, h, 8.0) {
-                out.push((d.y, i as u32));
+            if f.surface_lighting || f.visible(x, y, w, h, 8.0) {
+                let sort_y = d.prop.and_then(|id| zone.props.get(id)).map_or(d.y, Prop::sort_y);
+                out.push((sort_y, i as u32));
             }
         }
     }
@@ -243,9 +279,19 @@ impl Region for Glasswater {
         let Some(d) = self.decor.get(id as usize) else {
             return;
         };
-        let wob = if d.wobble > 0.0 { ((d.wobble * 1.7).sin() * d.wobble * 0.2).round() } else { 0.0 };
+        let wob = d.wobble_x();
         let o = DrawOpts { flip: d.flip, flash: d.flash, emit_gain: d.emit_gain(t), ..Default::default() };
+        let reflecting = f.water_any;
+        f.water_any = false; // Already reflected once on the actual receiving bank above.
         f.sprite_w(&d.cell, d.anchor, d.x + wob, d.y, &o);
+        f.water_any = reflecting;
+    }
+
+    fn light_occluders<'a>(&'a self, t: u64, out: &mut Vec<LightOccluder<'a>>) {
+        for d in self.decor.iter().filter(|d| d.alive) {
+            out.push(LightOccluder { cell: &d.cell, anchor: d.anchor, x: d.x + d.wobble_x(),
+                y: d.y, flip: d.flip, own_light: d.point_light(t) });
+        }
     }
 
     fn draw_overlay(&self, _zone: &Zone, f: &mut Frame, _t: u64) {
@@ -253,17 +299,24 @@ impl Region for Glasswater {
     }
 
     fn light(&self, _zone: &Zone, f: &mut Frame, t: u64) {
-        let tf = t as f32;
-        for d in &self.decor {
-            if !d.alive {
-                continue;
-            }
-            if let Some((c, r, i, hgt)) = d.light {
-                let breathe = match d.kind {
-                    Kind::Mushroom => 0.0,
-                    _ => 0.94 + 0.06 * (tf * 0.013 + d.phase).sin(),
-                };
-                f.add_light_w(d.x, d.y - hgt, r * (1.0 + d.ring * 0.25), c, i * breathe + d.ring * 0.6);
+        for d in self.decor.iter().filter(|d| d.alive) {
+            if let Some(p) = d.point_light(t) {
+                let (radius, intensity) = if f.surface_lighting && d.kind == Kind::Crystal {
+                    // These are the cave's practical lights. A lit side and a
+                    // shadowed side remain visible as Glint walks around them.
+                    // Tall landmark crests need a little more power to keep
+                    // their floor reception readable across the real height.
+                    let landmark_gain = if p.height > 40.0 { 1.22 } else { 1.0 };
+                    (p.radius * 1.12, p.intensity * 2.15 * landmark_gain)
+                } else if f.surface_lighting && d.kind == Kind::Sprig {
+                    // Breaking a small crystal extinguishes a visible local
+                    // source, not merely a handful of glowing sprite pixels.
+                    (p.radius.max(30.0), p.intensity * 4.0)
+                } else { (p.radius, p.intensity) };
+                let (x, ground_y) = if f.surface_lighting {
+                    ((d.x + d.wobble_x()).floor() + d.light_offset_x, d.y.floor())
+                } else { (p.x, d.y) };
+                f.add_light_3d_w(x, ground_y, p.height, radius, p.color, intensity);
             }
         }
     }
@@ -277,6 +330,66 @@ impl Region for Glasswater {
 mod tests {
     use super::*;
     use std::collections::VecDeque;
+
+    /// A shattered native sprig disappears from the live light and shadow
+    /// submissions in the same frame, including its optional collision proxy.
+    #[test]
+    fn shattering_sprig_extinguishes_surrounding_light_and_occluder() {
+        use crate::combat::Shape;
+        let mut zone = Zone::new(ZoneId::Glasswater, 12, 12);
+        zone.tiles.fill(Tile::Floor);
+        let m = paint::classify(&zone);
+        let fields = paint::fields(&m);
+        let (cell, anchor) = art::crystal_sprig(12, &art::VIOLET, 9);
+        let mut d = Decor::new(cell, anchor, 80.0, 100.0, Kind::Sprig);
+        d.light = Some((rgb(0xcdc3db), 14.0, 0.10, 6.0));
+        let prop = blocker(&mut zone, &d, 4);
+        d.prop = Some(prop);
+        let water = water::Water::new(&m, &fields, &zone.ground, std::slice::from_ref(&d));
+        let mut region = Glasswater { decor: vec![d], water, life: life::Life::new(), player: (0.0, 0.0), t: 0 };
+        let mut f = Frame::new();
+        f.surface_lighting = true;
+        region.light(&zone, &mut f, 0);
+        assert_eq!(f.point_lights.len(), 1);
+        assert!(f.point_lights[0].radius >= 30.0 && f.point_lights[0].intensity > 0.3);
+        let mut fx = Fx::new(8);
+        region.slash(&mut zone, &Hit::new(Shape::Circle { x: 80.0, y: 98.0, r: 8.0 }, Team::Player, 1, 1), &mut fx);
+        assert!(!region.decor[0].alive && !zone.props[prop].alive);
+        f.begin(Rgb::BLACK, Rgb::WHITE);
+        f.surface_lighting = true;
+        region.light(&zone, &mut f, 0);
+        assert!(f.point_lights.is_empty(), "the sprig left its surrounding light behind");
+        let mut casters = Vec::new();
+        region.light_occluders(0, &mut casters);
+        assert!(casters.is_empty(), "the broken sprig left a shadow housing behind");
+    }
+
+    /// The rift crossing must read as masonry and play as the same straight deck. Use
+    /// real input across both landings, then walk into its visible north edge.
+    #[test]
+    fn causeway_input_crossing_and_visible_edge_match() {
+        let mut play = crate::play::Play::new(ZoneId::Glasswater, &crate::play::PlayOpts { god: true, peaceful: true });
+        let mut fx = Fx::new(7);
+        let mut input = crate::input::Input { mv: (1.0, 0.0), ..Default::default() };
+        play.player.body.x = 738.0;
+        play.player.body.y = 256.0;
+        for _ in 0..155 {
+            play.update(&input, &mut fx);
+            fx.sounds.clear();
+            fx.lights.clear();
+        }
+        assert!(play.player.body.x > 957.0, "causeway landing blocked at {}", play.player.body.x);
+        assert!((play.player.body.y - 256.0).abs() < 0.1);
+        play.player.body.x = 832.0;
+        play.player.body.y = 256.0;
+        play.player.body.vx = 0.0;
+        play.player.body.vy = 0.0;
+        input.mv = (0.0, -1.0);
+        for _ in 0..50 { play.update(&input, &mut fx); }
+        assert!((242.3..244.4).contains(&play.player.body.y), "feet did not stop at the visible deck edge: {}", play.player.body.y);
+        assert_eq!(play.zone.tile_at(832.0, 239.0), Tile::Void);
+        assert_eq!(play.zone.tile_at(832.0, 240.0), Tile::Floor);
+    }
 
     /// Verify the real player collision box can reach both objectives and every combat group.
     #[test]

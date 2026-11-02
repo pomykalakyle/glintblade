@@ -1,0 +1,193 @@
+{
+  "cell": [
+    32,
+    26
+  ],
+  "anchor": [
+    16,
+    20
+  ],
+  "emissive": [
+    "#796c91",
+    "#a195b8",
+    "#cdc3db",
+    "#e2d8e9"
+  ],
+  "anims": {
+    "idle_right": {
+      "row": 0,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_right": {
+      "row": 1,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_right": {
+      "row": 2,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_right": {
+      "row": 3,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_right": {
+      "row": 4,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_right": {
+      "row": 5,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_down": {
+      "row": 6,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_down": {
+      "row": 7,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_down": {
+      "row": 8,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_down": {
+      "row": 9,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_down": {
+      "row": 10,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_down": {
+      "row": 11,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_up": {
+      "row": 12,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_up": {
+      "row": 13,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_up": {
+      "row": 14,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_up": {
+      "row": 15,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_up": {
+      "row": 16,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_up": {
+      "row": 17,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    }
+  },
+  "light": {
+    "color": "#cdc3db",
+    "radius": 30,
+    "offset": [
+      -2,
+      -12
+    ]
+  },
+  "colors_used": 16,
+  "notes": "Round6 scallop: ribbed fossil valves and violet mineral cleft. Complete native PixelLab pose edit, no scaling. Original anchor, support rows, frame layout/timing and held-object mask retained. Style v2 Glasswater beetle: slate shell and legs, pale iris crystal crest and eyes. Approved silhouettes and all pose durations are preserved, including the braced rear windup. Matte shell uses Glasswater rock/wall ramps; crest uses crystal_violet, with #e2d8e9 from fx.prism only at charge tips and eye flares. Cyan is reserved for Glint. Crystal faces and eyes retain their emissive roles; the shell, roots and legs stay matte. Feet stay on the anchor row; _right is mirrored for left."
+}

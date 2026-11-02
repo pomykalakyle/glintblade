@@ -1,0 +1,11 @@
+sprig_at=68.8,347.2 cache_vs_fresh_changed_light_pixels=0
+sprig_at=195.2,467.2 cache_vs_fresh_changed_light_pixels=0
+sprig_at=246.4,411.2 cache_vs_fresh_changed_light_pixels=0
+sprig_at=419.2,569.6 cache_vs_fresh_changed_light_pixels=0
+sprig_at=313.6,443.2 cache_vs_fresh_changed_light_pixels=0
+sprig_at=665.6,57.6 cache_vs_fresh_changed_light_pixels=0
+sprig_at=710.4,68.8 cache_vs_fresh_changed_light_pixels=0
+sprig_at=1139.2,568 cache_vs_fresh_changed_light_pixels=0
+sprig_at=1145.6,716.8 cache_vs_fresh_changed_light_pixels=0
+sprig_at=1184,726.4 cache_vs_fresh_changed_light_pixels=0
+actual_region_sprigs_destroyed=10 cases=10 cached_light_equals_fresh pass

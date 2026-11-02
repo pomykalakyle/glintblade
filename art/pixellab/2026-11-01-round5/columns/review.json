@@ -1,0 +1,55 @@
+{
+  "status": "art and native source repair approved; combined placement/physics review remains root-owned",
+  "jobs": [
+    {
+      "id": "06f8452a-2f2f-4fc5-a8ee-4737518abbfb",
+      "cost_generations": 10,
+      "decision": "Tall feet still ended at staging boundary; not selected. Closed short-foot native registration reviewed as fallback."
+    },
+    {
+      "id": "1d4a7eae-46c9-43ae-b96b-d194279fbf0c",
+      "cost_generations": 10,
+      "decision": "Completed short-foot candidates selected as native lower-foot source for tall and short shafts."
+    }
+  ],
+  "balance_before": {
+    "used": 449,
+    "remaining": 1551
+  },
+  "balance_after": {
+    "used": 469,
+    "remaining": 1531
+  },
+  "native_contract": {
+    "cell": [
+      48,
+      56
+    ],
+    "anchor": [
+      24,
+      53
+    ],
+    "preserved_upper_rows": 40,
+    "transparent_bottom_rows": 2,
+    "new_footprint": [
+      37,
+      10
+    ],
+    "new_sort_y_offset": 1,
+    "no_resampling": true,
+    "no_palette_filtering": true
+  },
+  "checks": {
+    "original_upper40_exact": true,
+    "all_changed_pixel_origins": "pixel-origins.json",
+    "all7_other_atlas_cells_exact": true,
+    "all7_other_anim_metadata_exact": true,
+    "binary_alpha": true,
+    "offline_rebuild_byte_identical": true,
+    "independent_source_art_review": "/root/column_base_audit_round5 approved source, native48x56 and actual old7756binary override title/temple. Existing drum overlap sent to root for separate placement fix."
+  },
+  "exports": {
+    "assets/sprites/bloomwild_ruins.png": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+    "assets/sprites/bloomwild_ruins.json": "386810b1e2da52b1c3478e050073ec0e4179aedd7c53224e1531081c5eae7d79"
+  }
+}

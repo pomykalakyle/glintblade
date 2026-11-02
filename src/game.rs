@@ -66,8 +66,8 @@ pub struct Game {
 }
 
 const FADE: u32 = 40;
-/// Title camera: the wordmark and intro panel sit on open sky, the tree and ruin stand at the right edge.
-const TITLE_CENTER: (f32, f32) = (18.0, 48.0);
+/// Broad headland on the right; the wordmark sits in the open sky on the left.
+const TITLE_CENTER: (f32, f32) = (192.0, 108.0);
 
 /// Snap a 0..1 fade to even steps, like a palette fade, instead of a smooth blend.
 fn stepped(x: f32) -> f32 {
@@ -77,13 +77,14 @@ fn stepped(x: f32) -> f32 {
 /// Build a peaceful, living Bloomwild backdrop without a second controllable hero.
 fn title_scene() -> Scene {
     let mut view = Box::new(Play::new(ZoneId::Bloomwild, &PlayOpts { god: true, peaceful: true }));
+    let (zone, region) = crate::regions::bloomwild::title_garden();
+    view.zone = zone;
+    view.region = region;
+    view.player.respawn(view.zone.player_start.0, view.zone.player_start.1);
     view.arrive_t = 10_000;
     view.hide_player = true;
     view.free_camera = true;
     view.cam.snap(TITLE_CENTER.0, TITLE_CENTER.1);
-    // Keep the title's T/B gap quiet while retaining the urn in the playable meadow.
-    view.zone.props.retain(|p| !(p.anim == "urn_small" && (p.x - 184.0).abs() < 1.0 && (p.y - 648.0).abs() < 1.0));
-    view.zone.invalidate_lighting();
     Scene::Title { t: 0, view, intro: None }
 }
 
@@ -275,7 +276,10 @@ impl Game {
         f.flash = 0.0;
         post::finish(f, &grade);
         match &self.scene {
-            Scene::Title { t, intro, .. } => ui::title(f, *t, *intro),
+            Scene::Title { t, intro, view } => {
+                let hero = (view.player.body.x.round() as i32 - f.cam_x, view.player.body.y.round() as i32 - f.cam_y);
+                ui::title(f, *t, *intro, hero);
+            }
             Scene::Play(p) if self.paused => ui::paused(f, self.pause_t, p),
             Scene::Play(p) => ui::hud(f, p, &self.hud),
             Scene::Victory { t, .. } => ui::victory(f, *t, self.run_ticks, self.falls),
@@ -323,9 +327,11 @@ mod tests {
             let Scene::Title { view, .. } = &game.scene else { panic!("expected title") };
             let drift = (1.0 - (tick as f32 * 0.0007).cos()) * 0.5;
             assert!(view.free_camera);
+            assert!(!view.zone.blocked(view.player.body.x, view.player.body.y, view.player.body.r),
+                "title Glint must stand on actual clear meadow ground");
             assert_eq!((view.cam.x, view.cam.y), (TITLE_CENTER.0 + 8.0 * drift, TITLE_CENTER.1));
             let expected = view.cam.view_free();
-            assert_eq!(expected.1, -60);
+            assert_eq!(expected.1, TITLE_CENTER.1 as i32 - crate::gfx::H as i32 / 2);
             game.render();
             assert_eq!((game.frame.cam_x, game.frame.cam_y), expected);
         }

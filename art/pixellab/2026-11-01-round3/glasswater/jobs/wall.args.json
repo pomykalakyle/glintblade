@@ -1,0 +1,26 @@
+{
+  "no_background": false,
+  "palette": [
+    "#182331",
+    "#222d3d",
+    "#29313f",
+    "#364657",
+    "#424956",
+    "#4c6070",
+    "#626a74",
+    "#73858b",
+    "#929797",
+    "#a6b4ad",
+    "#bbc0b4",
+    "#4d4866",
+    "#796c91",
+    "#a195b8",
+    "#cdc3db"
+  ],
+  "palette_name": "Glasswater slate and pale iris",
+  "max_colors": 10,
+  "seed": 217,
+  "width": 128,
+  "height": 64,
+  "description": "Seamless horizontal side-view cave wall material strip for a tiny 3/4 top-down action RPG. Entire canvas filled with solid slate bedrock. Upper 24 pixel rows a flat dark slate top surface with broad angular slabs; lower 40 rows a vertical fractured rock face, upper-left chisel highlights, deep joints, uneven interlocking large layered chunks 25-50 pixels wide. Restrained cool grey slate, no violet mineral, no plants. The cliff starts exactly at y=24 and ends at bottom y=63. Left and right edge seamless. At most ten muted colours. Crisp one pixel grid, compact connected pixel clusters, no speckle, no smooth gradient, no outlines around every facet, no isolated object or floating island, no surrounding background."
+}

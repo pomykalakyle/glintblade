@@ -1,0 +1,24 @@
+{
+  "description": "A single low flat ceremonial obsidian platform for top down three quarter game. Very broad squashed elliptical ring built from a few immense chisel cut stone plates; an empty flat open center with a thin muted weathered copper ring. Native128x96 pixel art, ellipse width116 height62, viewed as horizontal floor from high top down, thin visible front rim only6pixels. Broken eccentric plates, readable quiet almost black central plane, broad cold ash mauve facets on outside. No upright objects, no towers, no glow, no writing, no fire, no crystals, no gold, no skulls. Transparent exterior, upper left light, sparse deliberate pixel clusters, restrained clear geometry.",
+  "width": 128,
+  "height": 96,
+  "no_background": true,
+  "palette": [
+    "#101017",
+    "#16151d",
+    "#1a1923",
+    "#24232d",
+    "#292c3c",
+    "#363340",
+    "#393746",
+    "#3f414f",
+    "#514854",
+    "#56505d",
+    "#5b5966",
+    "#79707a",
+    "#63515a",
+    "#93766f"
+  ],
+  "max_colors": 10,
+  "seed": 7284
+}

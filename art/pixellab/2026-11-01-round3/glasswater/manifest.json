@@ -1,0 +1,307 @@
+{
+  "created": "2026-11-01",
+  "generations": 76,
+  "sources": "PixelLab paid subscription via MCP, receipts and prompts in jobs/. No credentials are stored here.",
+  "native_art": "Native source geometry; no resampling, rotation or mirroring. Documented common-border repairs, integer root translations and3-swatch slate macro palette edit in selection.json.",
+  "selected": [
+    {
+      "path": "selected/floor-01.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "084ec6452efe860fdb7783a0c8138a63638980ecbcb45e5464da657e8b8b8018"
+    },
+    {
+      "path": "selected/floor-04.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "30e3717345b181974933d0a22095e8cf5621346f0cc4dfd0dca4021985d3b095"
+    },
+    {
+      "path": "selected/floor-09.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "0bffd31b91ad04bb48e4c6b9dc58c79607768ea5bffef3b5a6cce67282c0a300"
+    },
+    {
+      "path": "selected/floor-18.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "eee0c023699380736004359ac25ddb5c73245993c17200fa0c4a56f1bcc307f4"
+    },
+    {
+      "path": "selected/floor-21.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "9d8b3800a7ddc3657b3057ab74ae65961f10cfcc82659b4dc5e711e18a8b1a89"
+    },
+    {
+      "path": "selected/floor-29.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "163859ea4aa5f465ec8ce08d373a3d4de5fe87864616b04e7c90f4a7c4ca1b6b"
+    },
+    {
+      "path": "selected/floor-38.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "caea3901ee1f0c4cf0c946bb8b19b73675e3eadac4dba07c3b5664dbd4cdd42a"
+    },
+    {
+      "path": "selected/floor-43.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "6b94c1da90f0fb4cff6adecc01acb50cfb5cec914cbc69227cc15fe64fbb5e1f"
+    },
+    {
+      "path": "selected/floor-49.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "90b4438ba0811f58bbe64aa9f7665f2f5f4b0fe7df5d80d7c450db95cf80adf5"
+    },
+    {
+      "path": "selected/floor-62.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "7f273ee428c815db55229b80aecd4026a609bdf975f37d192027d4ab1a6d493e"
+    },
+    {
+      "path": "selected/wall-0.png",
+      "size": [
+        128,
+        64
+      ],
+      "sha256": "50892125c9c43e02ad9345c988b2577f432b10697e4a5041b77d893048ffc6ce"
+    },
+    {
+      "path": "selected/crystal-large-04.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "8233c01114a3fcd1c8fdeb7bfbfd26d37ba934add2bac69231b50dcaec108098"
+    },
+    {
+      "path": "selected/crystal-large-05.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "05efc731865ae144da64ef48019b9d1bc31c9595080afb0c977befd9e988064f"
+    },
+    {
+      "path": "selected/crystal-large-06.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "0deef827c519cb718ac27ee45f88d0329366b6744274b5bbbba9a1845acee1f2"
+    },
+    {
+      "path": "selected/crystal-large-09.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "a453dd21a3c20d4b82b9eacdd4db3105b7d02f7db2e98e12d4ddf33a4c37f934"
+    },
+    {
+      "path": "selected/crystal-large-10.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "4f06cb51c1bc9c7fa6c6be0e4e117bfb7f0d277a2dd384c8ad8c9f9188f6413c"
+    },
+    {
+      "path": "selected/crystal-large-12.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "cd0d35d82c386f876cbb17e3f202d0de282f5e72dc38e2bf0731b7d3f2b2b43d"
+    },
+    {
+      "path": "selected/crystal-large-13.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "7590fa192af09a8b57125a69f7126894a7f5f5fca54d0145c61fa0b33cbc9992"
+    },
+    {
+      "path": "selected/crystal-large-14.png",
+      "size": [
+        48,
+        64
+      ],
+      "sha256": "89c0ac5a123dacafadb2bf533f0440e959420f58897e649a9cb58e0bf70e0573"
+    },
+    {
+      "path": "selected/waterworks-00.png",
+      "size": [
+        96,
+        96
+      ],
+      "sha256": "a00f47c464ef127f1b937d86ffc2bf6c90dbc6df86397e53237b16617319c4fe"
+    },
+    {
+      "path": "selected/waterworks-01.png",
+      "size": [
+        96,
+        96
+      ],
+      "sha256": "e144be071a29a9a62435dcf172a72b2fd8f125c4b328481dba8770db8fccaed7"
+    },
+    {
+      "path": "selected/waterworks-02.png",
+      "size": [
+        96,
+        96
+      ],
+      "sha256": "59cd04eea8122ddc32a8ed438dc2731e5b23333e8a57c8201fa862447d59f561"
+    },
+    {
+      "path": "selected/floor-macro.png",
+      "size": [
+        128,
+        128
+      ],
+      "sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333"
+    },
+    {
+      "path": "selected/crystal-small-00.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "8db7c11e5e5a41a5ca65774821b537e7f2054a7dc8196e90a58daa8e7e1e9997"
+    },
+    {
+      "path": "selected/crystal-small-08.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "2a67d4444faa585bdd1f11967650fef585e93597e66aa2a85c22594208d6e4c0"
+    },
+    {
+      "path": "selected/crystal-small-17.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "b35c997b814eaf41e996a1f87af70515a20d877a5bee50947bdff44fb9b2b1ff"
+    },
+    {
+      "path": "selected/crystal-small-19.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "d2bb385f174f7010e7426fe2c5a8cf2ee23c0ed267925d4e6f43bb928ffbd2be"
+    },
+    {
+      "path": "selected/crystal-small-22.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "aee5d724f327c0f28d6baea0ced910e0fe096758f5194ff84c21d4b8d94b086a"
+    },
+    {
+      "path": "selected/crystal-small-30.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "6c3a6a6a8e1464fab1b3d780f0e197a81f2dd1bd4fd9f7ba293b6d31561d4440"
+    },
+    {
+      "path": "selected/crystal-small-34.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "facba80cdc931a74a028a722b4353956c4f78cc0be0b8d893413c54b865f45bb"
+    },
+    {
+      "path": "selected/crystal-small-39.png",
+      "size": [
+        32,
+        40
+      ],
+      "sha256": "6bd5ce73d065da73915156001dde4b81d2f4ab5ceff815ab9d175108ed970793"
+    },
+    {
+      "path": "selected/floor-macro.png",
+      "size": [
+        128,
+        128
+      ],
+      "sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333"
+    },
+    {
+      "path": "selected/fungi-00.png",
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "3c698d9b712dc29accd9922ce2aa2df4ffff182403d0f123e0e35d8c127a8a45"
+    },
+    {
+      "path": "selected/fungi-06.png",
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "e6aa2965e27e72ceeeca68d0d8a064fad6455dce60b5fa7a46403bc30508b63a"
+    },
+    {
+      "path": "selected/fungi-11.png",
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "81216cf08d5a825327f3fdc93c6499fc1f0ab63d921748b354825c68bff11cbd"
+    },
+    {
+      "path": "selected/fungi-16.png",
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "8cd8d835c2ad59bfc9eaf5078cff21abfeaba6bfe528deee90bf7b6577065989"
+    }
+  ],
+  "exported_sheets": [
+    "glasswater_materials",
+    "glasswater_walls",
+    "glasswater_crystals_native",
+    "glasswater_waterworks",
+    "glasswater_walltop",
+    "glasswater_crystals_small",
+    "glasswater_floor_macro",
+    "glasswater_fungi"
+  ],
+  "review": "Six actual native camera views plus whole-zone overview. Strata limited to attached wall/ledge beds and shallow wall caps; combat floors remain quiet."
+}

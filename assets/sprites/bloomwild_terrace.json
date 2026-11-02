@@ -1,0 +1,18 @@
+{
+  "cell": [
+    128,
+    32
+  ],
+  "anchor": [
+    0,
+    0
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1
+    }
+  },
+  "notes": "Native masonry strips clipped to the existing terrace face; stairs, niches, water and collision protected."
+}

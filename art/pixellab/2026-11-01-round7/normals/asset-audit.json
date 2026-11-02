@@ -1,0 +1,1178 @@
+{
+  "sheet_count": 78,
+  "opaque_pixels": 1142569,
+  "duplicate_pose_cells_checked": 1209,
+  "sheets": [
+    {
+      "sheet": "bloomwild_aqueduct",
+      "size": [
+        128,
+        96
+      ],
+      "opaque_pixels": 5690,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0057199001312256,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "f1bb30bf3e8df0a7fa0f8bb70fe2b452ed57a3ffec5782b0ac1434b26b0bc58a"
+    },
+    {
+      "sheet": "bloomwild_arch",
+      "size": [
+        64,
+        216
+      ],
+      "opaque_pixels": 1857,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9937831163406372,
+      "max_encoded_vector_length": 1.0051692724227905,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "b275625c418184d5b19700f923fff00da15eba6f65c741e9180f707a104e7927"
+    },
+    {
+      "sheet": "bloomwild_cliff",
+      "size": [
+        512,
+        96
+      ],
+      "opaque_pixels": 24604,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9934735298156738,
+      "max_encoded_vector_length": 1.0063313245773315,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "c0c491f4392f3cdbfeccb8239994993f99af7b4d47b4e0b741bf807994a98735"
+    },
+    {
+      "sheet": "bloomwild_floor_details",
+      "size": [
+        128,
+        256
+      ],
+      "opaque_pixels": 10173,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.0003843307495117,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "973f399fd41732cbf65ff61b4a1ea0cc66767541acb243ad77c3749e7541b7c2"
+    },
+    {
+      "sheet": "bloomwild_grass",
+      "size": [
+        256,
+        32
+      ],
+      "opaque_pixels": 2227,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9944018721580505,
+      "max_encoded_vector_length": 1.0057199001312256,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "afe0f9d75bf12c50fc6ae2242a78175a7bf7efba798297ea6fe033956e9d8b18"
+    },
+    {
+      "sheet": "bloomwild_growth",
+      "size": [
+        64,
+        80
+      ],
+      "opaque_pixels": 1927,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9947729706764221,
+      "max_encoded_vector_length": 1.0057199001312256,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "418729053ee67b7f114acda8d3a4cc7ab9ae4c061e7b770655d74be103e82707"
+    },
+    {
+      "sheet": "bloomwild_growth_low",
+      "size": [
+        48,
+        32
+      ],
+      "opaque_pixels": 382,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939068555831909,
+      "max_encoded_vector_length": 1.005108118057251,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "414111f63be8e0947c354fd6e5449b9c6dad3919576cbcd6ca61f76af850286f"
+    },
+    {
+      "sheet": "bloomwild_lantern",
+      "size": [
+        96,
+        80
+      ],
+      "opaque_pixels": 1750,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.99421626329422,
+      "max_encoded_vector_length": 1.0053528547286987,
+      "duplicate_pose_cells_checked": 2,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "0fd33806c5827963957b245e57c9924f1024f587fa605e57cc2c1cacf849d0de"
+    },
+    {
+      "sheet": "bloomwild_materials",
+      "size": [
+        512,
+        64
+      ],
+      "opaque_pixels": 27648,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.0000768899917603,
+      "duplicate_pose_cells_checked": 4,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "b3863a1474ff4ff472030069536d2b132851d01a1efb0ff7c779ca6e31a79cb7"
+    },
+    {
+      "sheet": "bloomwild_props",
+      "size": [
+        32,
+        288
+      ],
+      "opaque_pixels": 1735,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0055975914001465,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "a5683e89414c6be5c248fc3cda08eae35013bba30b805e8a3c131f3c9a861220"
+    },
+    {
+      "sheet": "bloomwild_ruins",
+      "size": [
+        48,
+        504
+      ],
+      "opaque_pixels": 8431,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939069151878357,
+      "max_encoded_vector_length": 1.0059645175933838,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "76389849d795a9a83cb540d3dd8315a304cfd8639ed6b9c561837a97fa93869a"
+    },
+    {
+      "sheet": "bloomwild_terrace",
+      "size": [
+        128,
+        32
+      ],
+      "opaque_pixels": 4096,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.0001999139785767,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "6591946ffa66a8bf3ae41c3ba7812780275b1c9ae1b7d9621f8cac1accbd429e"
+    },
+    {
+      "sheet": "bloomwild_tiles",
+      "size": [
+        256,
+        240
+      ],
+      "opaque_pixels": 47502,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.0000768899917603,
+      "duplicate_pose_cells_checked": 76,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "f77b3de32adbd624eaecaf6c2fd0b0a6756b4339f810b6d4cc1730eef1d05ee3"
+    },
+    {
+      "sheet": "bloomwild_trees",
+      "size": [
+        160,
+        1344
+      ],
+      "opaque_pixels": 26162,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9938449859619141,
+      "max_encoded_vector_length": 1.0059034824371338,
+      "duplicate_pose_cells_checked": 13,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "893d67c155795f23bad7bc71b3cf4c79595468ee0ab2271c59e1ecc39225aae5"
+    },
+    {
+      "sheet": "bloomwild_waterworks",
+      "size": [
+        64,
+        128
+      ],
+      "opaque_pixels": 2701,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9944637417793274,
+      "max_encoded_vector_length": 1.0054751634597778,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "43a6153566776bcf8ecd9475f1a4b6124f97dba14785cc1884f0b8e970413c26"
+    },
+    {
+      "sheet": "cinder_brazier",
+      "size": [
+        96,
+        64
+      ],
+      "opaque_pixels": 1471,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9946492910385132,
+      "max_encoded_vector_length": 1.0058422088623047,
+      "duplicate_pose_cells_checked": 4,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "d32399064ec488a4973d9e5f87fcb6967f9fc4355fab9513a08e1c33b41b9105"
+    },
+    {
+      "sheet": "cinder_cliff",
+      "size": [
+        256,
+        96
+      ],
+      "opaque_pixels": 17731,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9937211871147156,
+      "max_encoded_vector_length": 1.0063313245773315,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "14e4f984fa0227a55f514bc065fcf5f6837f57013254fc59438afd9b3f17e22a"
+    },
+    {
+      "sheet": "cinder_floor",
+      "size": [
+        512,
+        24
+      ],
+      "opaque_pixels": 12288,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.0000768899917603,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "8f953f4ce4e070f858b1209273f18c713ecde3a5bcc50b57073b81db1d0f37c5"
+    },
+    {
+      "sheet": "cinder_foundry",
+      "size": [
+        64,
+        160
+      ],
+      "opaque_pixels": 3734,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9944018721580505,
+      "max_encoded_vector_length": 1.0061479806900024,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "7847404356b028a50e92266b975537689f8cb517a369cbd9d5a5946ab789819c"
+    },
+    {
+      "sheet": "cinder_lava_surface",
+      "size": [
+        1056,
+        264
+      ],
+      "opaque_pixels": 278784,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.00044584274292,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "1c64b8089863c879d8155a781bb30950fc5dd278a2119f687b221148c91c610a"
+    },
+    {
+      "sheet": "cinder_markers",
+      "size": [
+        64,
+        320
+      ],
+      "opaque_pixels": 4010,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939069151878357,
+      "max_encoded_vector_length": 1.0058422088623047,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "27573d4aabc822cd969ccb6d8dbff48a175d1919b70d2821b91cbc5125390db0"
+    },
+    {
+      "sheet": "cinder_mineral",
+      "size": [
+        192,
+        48
+      ],
+      "opaque_pixels": 2950,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.99421626329422,
+      "max_encoded_vector_length": 1.005658745765686,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "75ab865d4d736335cef64d22451613fba9baefb6fd49ae1401a714f13b513035"
+    },
+    {
+      "sheet": "cinder_pillars",
+      "size": [
+        32,
+        192
+      ],
+      "opaque_pixels": 1967,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940306544303894,
+      "max_encoded_vector_length": 1.005536437034607,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "a8a977cdb81d8d574c4e84cf6d7fc59d541c59cd6e38661abe4205a88df86c75"
+    },
+    {
+      "sheet": "cinder_props",
+      "size": [
+        64,
+        160
+      ],
+      "opaque_pixels": 980,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9947729706764221,
+      "max_encoded_vector_length": 1.0058422088623047,
+      "duplicate_pose_cells_checked": 28,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "55686aedadcfc878c4a1c3b652500cf6865b3d614b602f409ec14ea012ee1609"
+    },
+    {
+      "sheet": "cinder_props_m",
+      "size": [
+        128,
+        160
+      ],
+      "opaque_pixels": 3136,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9943400025367737,
+      "max_encoded_vector_length": 1.0057199001312256,
+      "duplicate_pose_cells_checked": 13,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "2d74ab0da9580725fb23245fa4359e3d1e450fe2470d973cb9d58f93b525ff40"
+    },
+    {
+      "sheet": "cinder_ruins",
+      "size": [
+        64,
+        144
+      ],
+      "opaque_pixels": 2681,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9942781329154968,
+      "max_encoded_vector_length": 1.006025791168213,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "4331469e5d71f81a3a0761deb73e1bcbcbd652d0105c3a3505f6346a0ef7aac0"
+    },
+    {
+      "sheet": "cinder_shrine",
+      "size": [
+        128,
+        96
+      ],
+      "opaque_pixels": 5920,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0059033632278442,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "9ef474339ee173230be0b759a8eca4df0fe3f16ecb89b4da9b41628857e0896c"
+    },
+    {
+      "sheet": "cinder_statue",
+      "size": [
+        64,
+        64
+      ],
+      "opaque_pixels": 1158,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0051692724227905,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "2bd6664f986f7c9f48dd48568f1e6ba020c6efb54d20e0945a7a1466df23d336"
+    },
+    {
+      "sheet": "cinder_tiles",
+      "size": [
+        48,
+        96
+      ],
+      "opaque_pixels": 994,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.000015377998352,
+      "duplicate_pose_cells_checked": 6,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "e9025d11b1861f82051115e0bf4c7936882500986624a581621a8500fc7f520f"
+    },
+    {
+      "sheet": "cinder_trees",
+      "size": [
+        48,
+        256
+      ],
+      "opaque_pixels": 1621,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9945256114006042,
+      "max_encoded_vector_length": 1.0062702894210815,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "45448dbf44a2f930ebcdaca4dba5f505a224a60642cab54fbb2b68754cf1edb8"
+    },
+    {
+      "sheet": "cinder_vent",
+      "size": [
+        384,
+        96
+      ],
+      "opaque_pixels": 5084,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9944019317626953,
+      "max_encoded_vector_length": 1.006209135055542,
+      "duplicate_pose_cells_checked": 10,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "bed2d07aaa80d907caab2969251c9c992d72a81ebc21c872e3afb77c09726abf"
+    },
+    {
+      "sheet": "crystal_beetle",
+      "size": [
+        192,
+        468
+      ],
+      "opaque_pixels": 20908,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9937211871147156,
+      "max_encoded_vector_length": 1.0060256719589233,
+      "duplicate_pose_cells_checked": 36,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "a0679d401e9363d867cdac803bb533246829ff0668cf1dc32fd3b1e75df3ac6f"
+    },
+    {
+      "sheet": "crystal_beetle_v1",
+      "size": [
+        192,
+        468
+      ],
+      "opaque_pixels": 20968,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9938449859619141,
+      "max_encoded_vector_length": 1.0062702894210815,
+      "duplicate_pose_cells_checked": 35,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "699f5e84462d075e3e0b923862fbebcf254d849ec86e278d5634c6b4dc7c58ee"
+    },
+    {
+      "sheet": "crystal_beetle_v2",
+      "size": [
+        192,
+        468
+      ],
+      "opaque_pixels": 22026,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9935354590415955,
+      "max_encoded_vector_length": 1.0064536333084106,
+      "duplicate_pose_cells_checked": 35,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "2dd79b6f2a01bb79928d5534c5fbd4965367c0a5d52e01b374e88da3ff578d8e"
+    },
+    {
+      "sheet": "ember_hound",
+      "size": [
+        240,
+        360
+      ],
+      "opaque_pixels": 11803,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939068555831909,
+      "max_encoded_vector_length": 1.0057810544967651,
+      "duplicate_pose_cells_checked": 52,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "673305519be0b90fa37024257bbdfcd51224a19097be7971e162a10b79fbbfbc"
+    },
+    {
+      "sheet": "ember_hound_v1",
+      "size": [
+        240,
+        360
+      ],
+      "opaque_pixels": 12550,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9935973882675171,
+      "max_encoded_vector_length": 1.006209135055542,
+      "duplicate_pose_cells_checked": 33,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "639cbaf9fb8b8a2fb13e5f3b061208417026ff7fffd0b1093d7fb1831d6c61eb"
+    },
+    {
+      "sheet": "ember_hound_v2",
+      "size": [
+        240,
+        360
+      ],
+      "opaque_pixels": 13621,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939687848091125,
+      "max_encoded_vector_length": 1.006086826324463,
+      "duplicate_pose_cells_checked": 33,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "7ce93358b25e145aadf1cb1a2d2cb6dabcaf7cf261bf02ed0357dcff4a1e4185"
+    },
+    {
+      "sheet": "gate",
+      "size": [
+        384,
+        192
+      ],
+      "opaque_pixels": 37155,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.994092583656311,
+      "max_encoded_vector_length": 1.0054752826690674,
+      "duplicate_pose_cells_checked": 8,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "95016200fc5f615bb295f7bba3f49698b0208473f656326dfec092dde57d6f12"
+    },
+    {
+      "sheet": "glasswater_crystals_big",
+      "size": [
+        48,
+        256
+      ],
+      "opaque_pixels": 4466,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.99471116065979,
+      "max_encoded_vector_length": 1.0053528547286987,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "223f16a42f5fd0790053b6030fcaf1997702dde4319c13b88370cc6d32396bb0"
+    },
+    {
+      "sheet": "glasswater_crystals_native",
+      "size": [
+        384,
+        64
+      ],
+      "opaque_pixels": 9785,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9941543936729431,
+      "max_encoded_vector_length": 1.0059033632278442,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "7f08bae8b720bdddf56e20f984f652fa5704b217f170ab8b6d962924e93505c1"
+    },
+    {
+      "sheet": "glasswater_crystals_small",
+      "size": [
+        256,
+        40
+      ],
+      "opaque_pixels": 2485,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.994525671005249,
+      "max_encoded_vector_length": 1.005536437034607,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "d5b05cf805a294b8df035e8c4f1f6b2d05b59e606f9f8573a83afd7f42cdd7a7"
+    },
+    {
+      "sheet": "glasswater_floor_macro",
+      "size": [
+        128,
+        128
+      ],
+      "opaque_pixels": 16384,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.000015377998352,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "54143c22c625dfade164bab07c33448338a5a00beb9ebe3518c35fb5b2353e9d"
+    },
+    {
+      "sheet": "glasswater_fungi",
+      "size": [
+        192,
+        48
+      ],
+      "opaque_pixels": 4374,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9941543936729431,
+      "max_encoded_vector_length": 1.0062702894210815,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "9c42256d923a979ac04b46d4075cde211704abbb42cbd1d54ad00f32c019d6b6"
+    },
+    {
+      "sheet": "glasswater_materials",
+      "size": [
+        320,
+        32
+      ],
+      "opaque_pixels": 10240,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.000015377998352,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "6c125b22039c7cc1d5dcc279b85a85738582d03d0208c7d494962bba17ae8d3f"
+    },
+    {
+      "sheet": "glasswater_tiles",
+      "size": [
+        256,
+        208
+      ],
+      "opaque_pixels": 48697,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.0000768899917603,
+      "duplicate_pose_cells_checked": 112,
+      "mirrored_pose_cells_checked": 12,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "977cc0b11bc27456cf74866b64be41b41044b279576e980769cc27127f90e8ff"
+    },
+    {
+      "sheet": "glasswater_walls",
+      "size": [
+        128,
+        64
+      ],
+      "opaque_pixels": 8192,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9952675700187683,
+      "max_encoded_vector_length": 1.005108118057251,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "37aa093bd3206398b4dae4d354e3e220eacefb33d8748e2ca3d35b98e88cc6de"
+    },
+    {
+      "sheet": "glasswater_walltop",
+      "size": [
+        128,
+        128
+      ],
+      "opaque_pixels": 16384,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.000015377998352,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "54143c22c625dfade164bab07c33448338a5a00beb9ebe3518c35fb5b2353e9d"
+    },
+    {
+      "sheet": "glasswater_waterworks",
+      "size": [
+        288,
+        96
+      ],
+      "opaque_pixels": 8488,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939069151878357,
+      "max_encoded_vector_length": 1.006086826324463,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "8a1b3115dfe2d7937305a4a273c24f94690c9d2e54461988198e0765b44faaa9"
+    },
+    {
+      "sheet": "hero",
+      "size": [
+        384,
+        1872
+      ],
+      "opaque_pixels": 55041,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939068555831909,
+      "max_encoded_vector_length": 1.006209135055542,
+      "duplicate_pose_cells_checked": 102,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "eb3ad3527e2da24babe6ae358c461c9e15efafcaedabd09fab17cfa87025f2ff"
+    },
+    {
+      "sheet": "shard",
+      "size": [
+        128,
+        48
+      ],
+      "opaque_pixels": 684,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.994092583656311,
+      "max_encoded_vector_length": 1.0054752826690674,
+      "duplicate_pose_cells_checked": 3,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "ba33c90b0be1b46d5a4b6f3d9e38ed2118efe1af36533d46f60092a37e3321b9"
+    },
+    {
+      "sheet": "spitting_totem",
+      "size": [
+        140,
+        288
+      ],
+      "opaque_pixels": 10722,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0057810544967651,
+      "duplicate_pose_cells_checked": 29,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "ec043244a8b7e1aeceec7d4b6335fa80e99851fbbc8227a1588a4179021364c4"
+    },
+    {
+      "sheet": "spitting_totem_v1",
+      "size": [
+        140,
+        288
+      ],
+      "opaque_pixels": 13904,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0061479806900024,
+      "duplicate_pose_cells_checked": 9,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "98472104b7e8949c896d0d42699a691068dfb541bf0444f30ef11b73fb7b4b81"
+    },
+    {
+      "sheet": "spitting_totem_v2",
+      "size": [
+        140,
+        288
+      ],
+      "opaque_pixels": 17008,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940306544303894,
+      "max_encoded_vector_length": 1.0061479806900024,
+      "duplicate_pose_cells_checked": 9,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "1f4ffd3299d71d1a1624e6cda2fce7f55e9e73779565862b41943890b604cc48"
+    },
+    {
+      "sheet": "sproutling",
+      "size": [
+        144,
+        360
+      ],
+      "opaque_pixels": 10723,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9942781329154968,
+      "max_encoded_vector_length": 1.0063313245773315,
+      "duplicate_pose_cells_checked": 42,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "e911c46ff127c8d1e24ff17c7b4a7dd59767e6e3187ceaee562a025fbb8c8696"
+    },
+    {
+      "sheet": "sproutling_v1",
+      "size": [
+        144,
+        360
+      ],
+      "opaque_pixels": 10387,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940924644470215,
+      "max_encoded_vector_length": 1.006086826324463,
+      "duplicate_pose_cells_checked": 17,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "f2dda7d3ad598ca686a54146d12117191adb59fd8f0ab596d7fa810e4b9e547f"
+    },
+    {
+      "sheet": "sproutling_v2",
+      "size": [
+        144,
+        360
+      ],
+      "opaque_pixels": 10854,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939069151878357,
+      "max_encoded_vector_length": 1.006086826324463,
+      "duplicate_pose_cells_checked": 17,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "ce53fc2733ea12079a6371545aed574f935a4cfbe5eb42f809c3f1fb6f214188"
+    },
+    {
+      "sheet": "summit_banners",
+      "size": [
+        32,
+        64
+      ],
+      "opaque_pixels": 420,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9944637417793274,
+      "max_encoded_vector_length": 1.0049856901168823,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "97bf1c06f017e0451e4503f50764527589ab133d38cfcb734c57bbaa15132585"
+    },
+    {
+      "sheet": "summit_brazier",
+      "size": [
+        144,
+        80
+      ],
+      "opaque_pixels": 1450,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9947111010551453,
+      "max_encoded_vector_length": 1.0051692724227905,
+      "duplicate_pose_cells_checked": 5,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "c54883d59133129d27dcf71fb029def0c4d9c61893178a300662c5c519ee0d2a"
+    },
+    {
+      "sheet": "summit_dais",
+      "size": [
+        128,
+        80
+      ],
+      "opaque_pixels": 3254,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939687848091125,
+      "max_encoded_vector_length": 1.0057199001312256,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "0b2cebf8f5ecda2213affb9dbb402aea7d598dd39bf2f31cc6c82357546a34d6"
+    },
+    {
+      "sheet": "summit_floor",
+      "size": [
+        192,
+        32
+      ],
+      "opaque_pixels": 4704,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.000015377998352,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "527bd64fc38763cbfaa3a4d5b269d0b62b5b1ade5e3e2adca99b1abb2a8d6900"
+    },
+    {
+      "sheet": "summit_foundation",
+      "size": [
+        128,
+        128
+      ],
+      "opaque_pixels": 16384,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9935973882675171,
+      "max_encoded_vector_length": 1.00523042678833,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "68839b0a9a276479a4787e572528011fd765074d4000cdaebb04f0e4927d96f9"
+    },
+    {
+      "sheet": "summit_masonry",
+      "size": [
+        128,
+        96
+      ],
+      "opaque_pixels": 12288,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9957001209259033,
+      "max_encoded_vector_length": 1.005108118057251,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "4a8cf46e1073f8922b2a61983eca069bddb7dca8c1e258a7b12b6c63f7a8aca2"
+    },
+    {
+      "sheet": "summit_pillars",
+      "size": [
+        64,
+        336
+      ],
+      "opaque_pixels": 7576,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9943400025367737,
+      "max_encoded_vector_length": 1.0057810544967651,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "319a0de610d0bdd49bbe0e9664933897fabcd7c540f995497421ff09c5a271b7"
+    },
+    {
+      "sheet": "summit_props",
+      "size": [
+        64,
+        48
+      ],
+      "opaque_pixels": 500,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9944637417793274,
+      "max_encoded_vector_length": 1.0049856901168823,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "7fd7706579e8dade0c16ad05bdc458e03cc3b6562ccf39d719e31501a90b37df"
+    },
+    {
+      "sheet": "summit_stones",
+      "size": [
+        64,
+        224
+      ],
+      "opaque_pixels": 5119,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940306544303894,
+      "max_encoded_vector_length": 1.0058422088623047,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "625cf993d9f426d6bc974ce9b6957fefecff44f10d916aba78cc0f8a122de9b3"
+    },
+    {
+      "sheet": "summit_tiles",
+      "size": [
+        192,
+        608
+      ],
+      "opaque_pixels": 80656,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 1.000015377998352,
+      "max_encoded_vector_length": 1.000015377998352,
+      "duplicate_pose_cells_checked": 371,
+      "mirrored_pose_cells_checked": 6,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "80a08db70ce40f1aac92f17e6d3d08796f5b280331b46ac81be64ddf4a634ce2"
+    },
+    {
+      "sheet": "summit_walls",
+      "size": [
+        16,
+        24
+      ],
+      "opaque_pixels": 93,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9955147504806519,
+      "max_encoded_vector_length": 1.0048019886016846,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "c19f3149fa6439a985e9e8157b3e333b3bf3518ecb8fa7b498452816f420bc10"
+    },
+    {
+      "sheet": "thorn_imp",
+      "size": [
+        160,
+        480
+      ],
+      "opaque_pixels": 11702,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940306544303894,
+      "max_encoded_vector_length": 1.0059645175933838,
+      "duplicate_pose_cells_checked": 32,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "2c88619a3ec5612090bd9fdbd1a7ea372c8b5856a9afefeaf11a59597bcd0281"
+    },
+    {
+      "sheet": "thorn_imp_v1",
+      "size": [
+        160,
+        480
+      ],
+      "opaque_pixels": 13724,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939069151878357,
+      "max_encoded_vector_length": 1.006086826324463,
+      "duplicate_pose_cells_checked": 17,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "110e848e6cd580495bea4dd3c7f9ae2264acbabce9ff5fc3cf811451430fe812"
+    },
+    {
+      "sheet": "thorn_imp_v2",
+      "size": [
+        160,
+        480
+      ],
+      "opaque_pixels": 13066,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9937830567359924,
+      "max_encoded_vector_length": 1.0062090158462524,
+      "duplicate_pose_cells_checked": 17,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "65f820690a8b49d194743b5402e868a873848b12ebf22cc8d1e959f4666cee53"
+    },
+    {
+      "sheet": "warden_body",
+      "size": [
+        120,
+        336
+      ],
+      "opaque_pixels": 26023,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939069151878357,
+      "max_encoded_vector_length": 1.0060869455337524,
+      "duplicate_pose_cells_checked": 0,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "d6f1e1cc0bf035fa331fb4e681919a059d46f420f24e985f3ca6b2f0226f0e5c"
+    },
+    {
+      "sheet": "warden_crystal",
+      "size": [
+        80,
+        72
+      ],
+      "opaque_pixels": 1578,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.994834840297699,
+      "max_encoded_vector_length": 1.0052917003631592,
+      "duplicate_pose_cells_checked": 6,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "7e2c11d875e0aedce727bc348ca17cdf4f9eb1e9dc5094017555644d9d9dbecb"
+    },
+    {
+      "sheet": "warden_fist",
+      "size": [
+        200,
+        224
+      ],
+      "opaque_pixels": 12080,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0060256719589233,
+      "duplicate_pose_cells_checked": 9,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "39e79ea8e33257c9cbef9a7264980339983b9d13cf8e194e3808dadda54396b8"
+    },
+    {
+      "sheet": "warden_head",
+      "size": [
+        264,
+        132
+      ],
+      "opaque_pixels": 13169,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9937211275100708,
+      "max_encoded_vector_length": 1.0054140090942383,
+      "duplicate_pose_cells_checked": 3,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "29686a253ddec920746d5aa78bdefa4ba92b831ac84c6224ec482b1135d802ed"
+    },
+    {
+      "sheet": "warden_heart",
+      "size": [
+        96,
+        128
+      ],
+      "opaque_pixels": 2984,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940306544303894,
+      "max_encoded_vector_length": 1.0052917003631592,
+      "duplicate_pose_cells_checked": 5,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "e35e5a25e5c7f28d36b4badf41ee9e0dc8f487c1de7db908bb649c8cb410f9d3"
+    },
+    {
+      "sheet": "wisp",
+      "size": [
+        96,
+        96
+      ],
+      "opaque_pixels": 1981,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9944637417793274,
+      "max_encoded_vector_length": 1.005536437034607,
+      "duplicate_pose_cells_checked": 6,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "32415135cd04494a93f26ad5f4264ebd00da5f8fff61c17fe3b788cf7407fb6a"
+    },
+    {
+      "sheet": "wisp_v1",
+      "size": [
+        96,
+        96
+      ],
+      "opaque_pixels": 2440,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9939069151878357,
+      "max_encoded_vector_length": 1.0054141283035278,
+      "duplicate_pose_cells_checked": 5,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "0fcbad90e86ee72c048d23c587d61f456724d8aeaffce94681ee3dcfeece38e2"
+    },
+    {
+      "sheet": "wisp_v2",
+      "size": [
+        96,
+        96
+      ],
+      "opaque_pixels": 2135,
+      "alpha_mismatches": 0,
+      "min_encoded_vector_length": 0.9940925240516663,
+      "max_encoded_vector_length": 1.0059033632278442,
+      "duplicate_pose_cells_checked": 5,
+      "mirrored_pose_cells_checked": 0,
+      "mirror_light_equivariance_max_error": 0.0,
+      "normal_sha256": "d469a1dc17cb363abd591c4bd995f0c8369e519ee1791578b4b97c2e4e99be87"
+    }
+  ],
+  "mirrored_pose_cells_checked": 18
+}

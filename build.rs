@@ -29,7 +29,7 @@ fn main() {
         _ => Path::new(env!("CARGO_MANIFEST_DIR")).join("assets"),
     };
     let mut files = Vec::new();
-    for sub in ["sprites", "music", "sfx", "fonts", "data"] {
+    for sub in ["sprites", "normals", "music", "sfx", "fonts", "data"] {
         let d = root.join(sub);
         println!("cargo:rerun-if-changed={}", d.display());
         walk(&d, &root, &mut files);

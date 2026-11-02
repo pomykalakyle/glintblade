@@ -1,0 +1,22 @@
+{
+  "description": "Quiet decorative volcanic basalt top plane for a top down pixel art landscape, transparent canvas. One broad low angular mineral plate fragmented by two shallow natural diagonal fractures, overall low flat perspective, not a tall boulder. Cold ash mauve soot charcoal planes, no outline, no glow, no debris speckles, no vegetation, no lava. Flat broad shadow shapes with very subtle edge highlights, clusters at least3pixels wide, upper left soft daylight. About56pixels wide and28pixels tall. Native crisp pixel art, melancholy calm abandoned volcanic waterworks.",
+  "width": 64,
+  "height": 48,
+  "no_background": true,
+  "palette": [
+    "#101017",
+    "#16151d",
+    "#1a1923",
+    "#24232d",
+    "#292c3c",
+    "#363340",
+    "#393746",
+    "#3f414f",
+    "#514854",
+    "#56505d",
+    "#5b5966",
+    "#79707a"
+  ],
+  "max_colors": 7,
+  "seed": 7283
+}

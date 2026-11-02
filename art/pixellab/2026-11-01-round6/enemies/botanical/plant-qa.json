@@ -1,0 +1,999 @@
+{
+  "plants": [
+    {
+      "species": "sproutling",
+      "variant": 1,
+      "changed_frames": 72,
+      "held_seed_checks": [],
+      "unique_pose_counts": [
+        {
+          "anim": "idle_right",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "move_right",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "windup_right",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "attack_right",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_right",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_down",
+          "original_unique": 3,
+          "variant_unique": 6
+        },
+        {
+          "anim": "move_down",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "windup_down",
+          "original_unique": 5,
+          "variant_unique": 6
+        },
+        {
+          "anim": "attack_down",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_down",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_up",
+          "original_unique": 3,
+          "variant_unique": 6
+        },
+        {
+          "anim": "move_up",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "windup_up",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "attack_up",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_up",
+          "original_unique": 2,
+          "variant_unique": 2
+        }
+      ]
+    },
+    {
+      "species": "sproutling",
+      "variant": 2,
+      "changed_frames": 72,
+      "held_seed_checks": [],
+      "unique_pose_counts": [
+        {
+          "anim": "idle_right",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "move_right",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "windup_right",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "attack_right",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_right",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_down",
+          "original_unique": 3,
+          "variant_unique": 6
+        },
+        {
+          "anim": "move_down",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "windup_down",
+          "original_unique": 5,
+          "variant_unique": 6
+        },
+        {
+          "anim": "attack_down",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_down",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_up",
+          "original_unique": 3,
+          "variant_unique": 6
+        },
+        {
+          "anim": "move_up",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "windup_up",
+          "original_unique": 4,
+          "variant_unique": 6
+        },
+        {
+          "anim": "attack_up",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_up",
+          "original_unique": 2,
+          "variant_unique": 2
+        }
+      ]
+    },
+    {
+      "species": "thorn_imp",
+      "variant": 1,
+      "changed_frames": 57,
+      "held_seed_checks": [
+        {
+          "anim": "windup_right",
+          "frame": 1,
+          "source_and_variant_centroid": [
+            8.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "windup_right",
+          "frame": 2,
+          "source_and_variant_centroid": [
+            8.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "windup_right",
+          "frame": 3,
+          "source_and_variant_centroid": [
+            7.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              8,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "windup_right",
+          "frame": 4,
+          "source_and_variant_centroid": [
+            8.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "attack_right",
+          "frame": 0,
+          "source_and_variant_centroid": [
+            24.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              23,
+              7
+            ],
+            [
+              24,
+              6
+            ],
+            [
+              25,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 1,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 2,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 3,
+          "source_and_variant_centroid": [
+            9.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              10,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 4,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "attack_down",
+          "frame": 0,
+          "source_and_variant_centroid": [
+            22.0,
+            9.666666666666666
+          ],
+          "exact_seed_pixels": [
+            [
+              21,
+              10
+            ],
+            [
+              22,
+              9
+            ],
+            [
+              23,
+              10
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 1,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 2,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 3,
+          "source_and_variant_centroid": [
+            9.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              10,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 4,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "attack_up",
+          "frame": 0,
+          "source_and_variant_centroid": [
+            20.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              19,
+              7
+            ],
+            [
+              20,
+              6
+            ],
+            [
+              21,
+              7
+            ]
+          ]
+        }
+      ],
+      "unique_pose_counts": [
+        {
+          "anim": "idle_right",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "move_right",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "windup_right",
+          "original_unique": 4,
+          "variant_unique": 5
+        },
+        {
+          "anim": "attack_right",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_right",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_down",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "move_down",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "windup_down",
+          "original_unique": 4,
+          "variant_unique": 5
+        },
+        {
+          "anim": "attack_down",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_down",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_up",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "move_up",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "windup_up",
+          "original_unique": 4,
+          "variant_unique": 5
+        },
+        {
+          "anim": "attack_up",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_up",
+          "original_unique": 2,
+          "variant_unique": 2
+        }
+      ]
+    },
+    {
+      "species": "thorn_imp",
+      "variant": 2,
+      "changed_frames": 57,
+      "held_seed_checks": [
+        {
+          "anim": "windup_right",
+          "frame": 1,
+          "source_and_variant_centroid": [
+            8.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "windup_right",
+          "frame": 2,
+          "source_and_variant_centroid": [
+            8.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "windup_right",
+          "frame": 3,
+          "source_and_variant_centroid": [
+            7.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              8,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "windup_right",
+          "frame": 4,
+          "source_and_variant_centroid": [
+            8.0,
+            7.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              8
+            ]
+          ]
+        },
+        {
+          "anim": "attack_right",
+          "frame": 0,
+          "source_and_variant_centroid": [
+            24.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              23,
+              7
+            ],
+            [
+              24,
+              6
+            ],
+            [
+              25,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 1,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 2,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 3,
+          "source_and_variant_centroid": [
+            9.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              10,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_down",
+          "frame": 4,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "attack_down",
+          "frame": 0,
+          "source_and_variant_centroid": [
+            22.0,
+            9.666666666666666
+          ],
+          "exact_seed_pixels": [
+            [
+              21,
+              10
+            ],
+            [
+              22,
+              9
+            ],
+            [
+              23,
+              10
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 1,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 2,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 3,
+          "source_and_variant_centroid": [
+            9.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              10,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "windup_up",
+          "frame": 4,
+          "source_and_variant_centroid": [
+            10.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              9,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              7
+            ]
+          ]
+        },
+        {
+          "anim": "attack_up",
+          "frame": 0,
+          "source_and_variant_centroid": [
+            20.0,
+            6.666666666666667
+          ],
+          "exact_seed_pixels": [
+            [
+              19,
+              7
+            ],
+            [
+              20,
+              6
+            ],
+            [
+              21,
+              7
+            ]
+          ]
+        }
+      ],
+      "unique_pose_counts": [
+        {
+          "anim": "idle_right",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "move_right",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "windup_right",
+          "original_unique": 4,
+          "variant_unique": 5
+        },
+        {
+          "anim": "attack_right",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_right",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_down",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "move_down",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "windup_down",
+          "original_unique": 4,
+          "variant_unique": 5
+        },
+        {
+          "anim": "attack_down",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_down",
+          "original_unique": 2,
+          "variant_unique": 2
+        },
+        {
+          "anim": "idle_up",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "move_up",
+          "original_unique": 3,
+          "variant_unique": 4
+        },
+        {
+          "anim": "windup_up",
+          "original_unique": 4,
+          "variant_unique": 5
+        },
+        {
+          "anim": "attack_up",
+          "original_unique": 4,
+          "variant_unique": 4
+        },
+        {
+          "anim": "hurt_up",
+          "original_unique": 2,
+          "variant_unique": 2
+        }
+      ]
+    }
+  ],
+  "seed_mask_contract": "Only #a3a38f / #bdbba1 identify the simulation hand; exact pixel coordinates and colors retained."
+}

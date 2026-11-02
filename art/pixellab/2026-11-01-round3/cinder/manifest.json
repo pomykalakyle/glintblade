@@ -1,0 +1,162 @@
+{
+  "created": "2026-11-01",
+  "provider": "PixelLab MCP, paid user subscription",
+  "native_grid": "1source pixel =1game pixel at384x216",
+  "selected": [
+    {
+      "sheet": "cinder_cliff",
+      "source": "jobs/cliff.result-2.png",
+      "sha256": "7e7e81c8e19d2ce4125b163c976f5c4c919d16bba662b8f125aebaf7137afcdb"
+    },
+    {
+      "sheet": "cinder_cliff",
+      "source": "jobs/cliff.result-3.png",
+      "sha256": "fe317e6899d7cd36678d155d1d7bc8c91b396c016d7e73309f6189a2e63f6c98"
+    },
+    {
+      "sheet": "cinder_markers",
+      "source": "jobs/pillar.result-1.png",
+      "sha256": "50a5b4a5bde5c0a3d5f81619f9b46f1c604729e33d7f9204486a56b683ad911e"
+    },
+    {
+      "sheet": "cinder_markers",
+      "source": "jobs/pillar.result-13.png",
+      "sha256": "d2dd100c2a31a7a9a6f6571ca4c2bcd2f0c92fd94c5560baf7aac0d99900cd59"
+    },
+    {
+      "sheet": "cinder_markers",
+      "source": "jobs/pillar.result-6.png",
+      "sha256": "0a2288cf0b9250df5736471a6c87ce1b5acf33454869433f1945df12ec87d44c"
+    },
+    {
+      "sheet": "cinder_markers",
+      "source": "jobs/pillar.result-12.png",
+      "sha256": "7b1123550661639c5604c6796bd65a3bafad704258dc0a04b8fafc0eb5429322"
+    },
+    {
+      "sheet": "cinder_foundry",
+      "source": "jobs/foundry.result-1.png",
+      "sha256": "74aa8cc7e6ffcf97c215561b562d49aa337af186a26b5701ddc4e21c2c089c1e"
+    },
+    {
+      "sheet": "cinder_foundry",
+      "source": "jobs/foundry.result-7.png",
+      "sha256": "00a31aa723f50754c47ca792d34180ce8faac785b8d69f25cf09dcaef0e3b4ee"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-1.png",
+      "sha256": "f62705b85345929ce64ca27cfe30fae48677987cfac3237d46656004b5a89914"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-3.png",
+      "sha256": "47bb803611ebcc5dc1f9e64a4c32b8ad5de468b278139f268fbf168e531992af"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-4.png",
+      "sha256": "7e5e50993ec432ed07b56186bd0449b149c0a3955c4c7fda49745cbb4031c2b8"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-8.png",
+      "sha256": "c8c3b6da9301eebddae535d7f6d64d954c07f203a0e4c9394a90ac3bcc9bf9b0"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-9.png",
+      "sha256": "315ba8af6316caa48daa68d4d63d4eb6266ea220f8802d6e8218e68e639dfa6d"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-11.png",
+      "sha256": "ca7602331b7964edaf4517f007ab64af8fc571b80a682be8fd5fe900a8db5020"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-20.png",
+      "sha256": "8ee07102b9d94bcd30d12c5144ac4cde28967d01f323a2cbee14f0a8df4cc962"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-25.png",
+      "sha256": "d3ed6ff9749ca3cd8f344c65dbd775fb456e88e2d99a3be47c6c920390b94947"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-26.png",
+      "sha256": "7ee48ae017bbeea6c19641cab920cd659832296c11867fe0dcf9436905ba74ba"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-27.png",
+      "sha256": "dfaf32e2fafadcfe7f20cdde7cc4074802218d59105935af1f44f1691e9db3d1"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-28.png",
+      "sha256": "d1060b8380fa764b36f33efe5435b185248210eb9233f8216dd6e4af5b42936f"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-31.png",
+      "sha256": "382414dd68b2b8ec36ba6235be6f289e7092836bb288bd08330f67e75eca75fa"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-35.png",
+      "sha256": "d78e250720f9ccf9678c8e3e0461e2d6ae286e4dd43a9bba5429cddf32f27132"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-43.png",
+      "sha256": "6a8d22e451807e06e5402976c2c16818c50d4b44b24548b9610112029ce9f542"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-47.png",
+      "sha256": "f3e162ceadd16873ce929f06f2396489958ec97cebba67c30a0b88b475037648"
+    },
+    {
+      "sheet": "cinder_floor",
+      "source": "jobs/floor.result-60.png",
+      "sha256": "6f7cf3e1922c75e596d8c5016e2f2b59b10bca5f568c71567145aa73485b6271"
+    },
+    {
+      "sheet": "cinder_shrine",
+      "source": "jobs/shrine.result-4.png",
+      "sha256": "5a120c91fcadc533fff3f14a5516971c7e82339853cf292ccc69be3d316d0965"
+    },
+    {
+      "sheet": "cinder_mineral",
+      "source": "jobs/rocktop.result-2.png",
+      "sha256": "08af6e6be630661a45f6995c62350a5c61f387136acd3d8dd5b39cf4de6c5cdd"
+    },
+    {
+      "sheet": "cinder_mineral",
+      "source": "jobs/rocktop.result-7.png",
+      "sha256": "8d1292538a29a875081498294bba202cda07ef7a7319280c5c8824581b293eb1"
+    },
+    {
+      "sheet": "cinder_mineral",
+      "source": "jobs/rocktop.result-15.png",
+      "sha256": "194c9fc7b69040c2c4a8af126ba307d4274bee683d14c178311ce5c5427c000f"
+    }
+  ],
+  "generations": 65.0,
+  "palette": "palette.json, shrine adds existing copper #63515a #93766f",
+  "methods": [
+    "native RGBA copying",
+    "marker foot-anchor translation without cropping visible pixels",
+    "material-mask clipping",
+    "native source cropping at cliff joins",
+    "no resampling, mirroring or recoloring"
+  ],
+  "rejected_after_render": [
+    "cliff1:busy narrow ribs",
+    "cliff4:stair-like courses",
+    "100percent damaged paving:repetitive crack lattice"
+  ],
+  "pending_jobs": []
+}

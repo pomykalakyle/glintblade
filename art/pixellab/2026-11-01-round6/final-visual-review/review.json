@@ -1,0 +1,1262 @@
+{
+  "reviewer": "fresh_final_beauty_round6",
+  "selected_binary_sha256": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+  "direct_scope": "All 40 native scene studies, all four native overview maps, title, and 83 distinct native frames (86 panels, three repeats) from the actual selected-binary campaign. Every staged final scene/map/title compared visually with R5. Scene and actual campaign contacts use nearest-neighbor integer 2x; native maps/title also viewed. Nine actual one-second sequences sampled every 12 ticks (5 Hz, six samples each), plus 32 landmark/action keyframes. No GUI, Cargo, heavy encoder, or source/art mutation by reviewer.",
+  "stills": [
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "landing",
+      "file": "out/pixellab/world/round6-selected/bloomwild/landing/bloomwild_t00090.png",
+      "sha256": "547421e02d973499864def0d29c105c8249d2eef37bdf0de62ceb67e90347115",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "entry",
+      "file": "out/pixellab/world/round6-selected/bloomwild/entry/bloomwild_t00090.png",
+      "sha256": "add6c8cea0e06041a4156b102f46c4d58127fdf8b63c20337642ecec7f01b87e",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "courtyard",
+      "file": "out/pixellab/world/round6-selected/bloomwild/courtyard/bloomwild_t00090.png",
+      "sha256": "18b2ef9846e6bfba927cef7efc856497d57ed18660fd82468f39e98e1753319e",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "temple",
+      "file": "out/pixellab/world/round6-selected/bloomwild/temple/bloomwild_t00090.png",
+      "sha256": "13e525c3714c8944e1dfe91a854295ec0234bbda59610ec54d33e452e5a1b27c",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "terrace",
+      "file": "out/pixellab/world/round6-selected/bloomwild/terrace/bloomwild_t00090.png",
+      "sha256": "19e3b9f21415d2008d109fbf1b75c9e78ba5a7044ca6edacfacf85aadd59a452",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "altar",
+      "file": "out/pixellab/world/round6-selected/bloomwild/altar/bloomwild_t00090.png",
+      "sha256": "b7089ddef80283a27eeedca88c405b4d0f91ec94f9570c91407c6bcc9b43f527",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "falls",
+      "file": "out/pixellab/world/round6-selected/bloomwild/falls/bloomwild_t00090.png",
+      "sha256": "628777ba1ef99ffc811c5ae77ba14306ac348e94d26f16d890373fee586b4d1c",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "grove",
+      "file": "out/pixellab/world/round6-selected/bloomwild/grove/bloomwild_t00090.png",
+      "sha256": "f58a1ef80339db6ee8837959893218f36446d65fa94e9f806fc2a162485c896c",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "upper-bridge",
+      "file": "out/pixellab/world/round6-selected/bloomwild/upper-bridge/bloomwild_t00090.png",
+      "sha256": "7a639405136bc08c09bc2306aea7ff09057e599efa278de1ee6c98b3499c34b1",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "lower-bridge",
+      "file": "out/pixellab/world/round6-selected/bloomwild/lower-bridge/bloomwild_t00090.png",
+      "sha256": "ec7ecf208c3a2bff47246fc2a3fd084238f63c850c329aec4295be2b21bd5636",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "stair-contact",
+      "file": "out/pixellab/world/round6-selected/bloomwild/stair-contact/bloomwild_t00090.png",
+      "sha256": "8de75efd53c6857925ba4673b67acdce0c77cfae2b2c1e77315f803184a9ebb0",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "west-terrace",
+      "file": "out/pixellab/world/round6-selected/bloomwild/west-terrace/bloomwild_t00090.png",
+      "sha256": "7957571bfd65b4e38615c3856fb30e37859f1858bc681b1075aa93b60f695aad",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "cliff-contact",
+      "file": "out/pixellab/world/round6-selected/bloomwild/cliff-contact/bloomwild_t00090.png",
+      "sha256": "f5e807719f4404906972dde5a8df5d764a8e2664f96b3f70a4b155abaf9675b3",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "falls-impact",
+      "file": "out/pixellab/world/round6-selected/bloomwild/falls-impact/bloomwild_t00090.png",
+      "sha256": "df7ce70dce0439cc01340b62b64e107b20c42789ce81982be84a0090fbc4c007",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "outlet-bank",
+      "file": "out/pixellab/world/round6-selected/bloomwild/outlet-bank/bloomwild_t00090.png",
+      "sha256": "b29c1c0b9f8f35815e60ad18b6a767aa71734b4e3ca111e3401885b4ffc2e102",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "lake",
+      "file": "out/pixellab/world/round6-selected/glasswater/lake/glasswater_t00090.png",
+      "sha256": "db52302118be26faea60b532ff5409eb92ee7bda508788e62f0f621c0753a370",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "island",
+      "file": "out/pixellab/world/round6-selected/glasswater/island/glasswater_t00090.png",
+      "sha256": "1bb913dad4e9506b481e898fc772278e148d124eeefb6b7d0353c7cb0daabcec",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "gallery",
+      "file": "out/pixellab/world/round6-selected/glasswater/gallery/glasswater_t00090.png",
+      "sha256": "cfe3162b34f328bcc9ed7ff823f889abed2cea1f19cdf3991b73bc8afdd3fd3a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "bridge",
+      "file": "out/pixellab/world/round6-selected/glasswater/bridge/glasswater_t00090.png",
+      "sha256": "f15c3a719e8befcd4a1726bacdd66c793074341effb29350399946abf79fe29a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "grove",
+      "file": "out/pixellab/world/round6-selected/glasswater/grove/glasswater_t00090.png",
+      "sha256": "bfdbaac05a879684102a0da7e391f30b6453f27c689369d661c544a68aec9661",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "heart",
+      "file": "out/pixellab/world/round6-selected/glasswater/heart/glasswater_t00090.png",
+      "sha256": "761a75c14ead52fda9f55dbba6d1b193fbcbf9e12a5fd8304fe89d9916793f77",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "channel",
+      "file": "out/pixellab/world/round6-selected/glasswater/channel/glasswater_t00090.png",
+      "sha256": "d7fadc38d84bc71fdea8993e8b0ad6081d936769063fcc27faf00fcddc8657b6",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "causeway",
+      "file": "out/pixellab/world/round6-selected/glasswater/causeway/glasswater_t00090.png",
+      "sha256": "3fa7913c974e78dcf89b40e2d3fc9e82a6f844baf9613b5ed69c8c79ef224a37",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "shallow-grove",
+      "file": "out/pixellab/world/round6-selected/glasswater/shallow-grove/glasswater_t00090.png",
+      "sha256": "fc007745300eb182f7aa95b4014b71738c64a965081a1e2d68159d8cdae2bf81",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "approach",
+      "file": "out/pixellab/world/round6-selected/cinder/approach/cinder_t00090.png",
+      "sha256": "c81d283e42bbbb2812861f7d806d9a7554c2ab79b90e8832d387366de6ed9c7a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "crossing",
+      "file": "out/pixellab/world/round6-selected/cinder/crossing/cinder_t00090.png",
+      "sha256": "a88a6492c46e7376a5c34dfc1f7a8d3bbdb9cfd9ab0b569ef624ee11da09480a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "foundry",
+      "file": "out/pixellab/world/round6-selected/cinder/foundry/cinder_t00090.png",
+      "sha256": "cc83acf813608dee07b5fc6b08de5807351733460e8e804177a436d8f67178db",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "press",
+      "file": "out/pixellab/world/round6-selected/cinder/press/cinder_t00090.png",
+      "sha256": "a7c16ee5d8c596188c221d517aa7426dee55ca68bbc27795ddbea16fd9c529dd",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "upper-bank",
+      "file": "out/pixellab/world/round6-selected/cinder/upper-bank/cinder_t00090.png",
+      "sha256": "322d2f0860e785222bdcf78f0554fee0400be52166e94f62e0f3295927078e96",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "shrine",
+      "file": "out/pixellab/world/round6-selected/cinder/shrine/cinder_t00090.png",
+      "sha256": "f43f8a13e463865f95ae4a7291b50f0bcd61f81c75ae408f1f6887dc016b9c70",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "canal-bridge",
+      "file": "out/pixellab/world/round6-selected/cinder/canal-bridge/cinder_t00090.png",
+      "sha256": "06908828ecc29568ce900e2d5303d4f380709c6712ffc3e8fc70af2e50669d40",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "caldera-bridge",
+      "file": "out/pixellab/world/round6-selected/cinder/caldera-bridge/cinder_t00090.png",
+      "sha256": "5b154e318c1fdecbd1a933d18e02910a19909e957d2a1f7cb9948a00428d949f",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "river-join",
+      "file": "out/pixellab/world/round6-selected/cinder/river-join/cinder_t00090.png",
+      "sha256": "a649cf77ff63a5103d4d8a6a701a2d9007558b0ff7e65964d9cc07e46a4b80dc",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "arrival",
+      "file": "out/pixellab/world/round6-selected/summit/arrival/summit_t00090.png",
+      "sha256": "547fb6f38cee56f1fff341a2179141f56ea5181ef8b493e29c7773ce76cd07ef",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "bridge",
+      "file": "out/pixellab/world/round6-selected/summit/bridge/summit_t00090.png",
+      "sha256": "821db200a693578de3f5b2bce71f05eddba95542e2d3877b605779bedf1bd2c4",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "stair",
+      "file": "out/pixellab/world/round6-selected/summit/stair/summit_t00090.png",
+      "sha256": "d72137f0e40cdd1cc273bd68498f79354c841b7ffb790fa7a854f242d44435ee",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "arena",
+      "file": "out/pixellab/world/round6-selected/summit/arena/summit_t00090.png",
+      "sha256": "97660cee5feb803f09777059f64b3e3c2ec04750260ca03910d6fe02e236c34a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "dais",
+      "file": "out/pixellab/world/round6-selected/summit/dais/summit_t00090.png",
+      "sha256": "f60c7cc32826457207279d2970450659a04f3300e8c092a952f11f921dfe2e2e",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "west",
+      "file": "out/pixellab/world/round6-selected/summit/west/summit_t00090.png",
+      "sha256": "30abd543626dd450b930c750815f700363aecfb17fadc28ba2fc9d5d31828a16",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "curved-edge",
+      "file": "out/pixellab/world/round6-selected/summit/curved-edge/summit_t00090.png",
+      "sha256": "54438ed532dfd4988e241a3f7228c083212e5fcb4e0901608e36715c53a3947f",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "bloomwild",
+      "file": "out/pixellab/world/round6-selected/bloomwild/landing/bloomwild_overview.png",
+      "sha256": "68a3b9c72419f0c7306997a33c6a5b81733acb1019f41dcb1f7e0a949c0babef",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "glasswater",
+      "file": "out/pixellab/world/round6-selected/glasswater/lake/glasswater_overview.png",
+      "sha256": "1d3a02b1b39e914231ac43a5ddb9a41037a3098efe467fc52899933e7f2f19d4",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "cinder",
+      "file": "out/pixellab/world/round6-selected/cinder/approach/cinder_overview.png",
+      "sha256": "f3cc18a2d05e8946d7250430cbb65e3543b546c9e49efb03264e0d84a63235af",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "summit",
+      "file": "out/pixellab/world/round6-selected/summit/arrival/summit_overview.png",
+      "sha256": "2c2d47a23734f7042791f96ef12da656bf76ca5d3496fa01a541aea1f89b4228",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "title",
+      "file": "out/pixellab/world/round6-selected/title/f00240.png",
+      "sha256": "249fe3f8b501052a71e11eb1ac7ecbb79b49fa3b7d081c17b7475fce135e8852",
+      "viewed": true,
+      "compared_with_round5": true
+    }
+  ],
+  "blocking_findings": [],
+  "improvements": [
+    {
+      "area": "Bloomwild",
+      "finding": "Softened daylight removes the broad hard polygon shadows visible in R5; temple fragments, damp upper-bridge landing and ivy/altar fragments introduce distinct local landmarks without filling combat lanes."
+    },
+    {
+      "area": "Glasswater",
+      "finding": "Submerged concentric terraces give the lake crystal a readable depth transition; softened centroid light reduces circular spotlight-sticker appearance. Navy chasm facets preserve separation from walkable floor."
+    },
+    {
+      "area": "Cinder",
+      "finding": "Cooler press bed and subtle material scars/fans give some dark open ground extra structure while the lava remains the dominant warm landmark. Native lava texture retains multiple orange/red/yellow crust channels."
+    },
+    {
+      "area": "Summit",
+      "finding": "Radial masonry/astrolabe marks replace the visibly Cartesian floor grid, giving the boss arena a coherent circular identity and maintaining quiet value contrast."
+    },
+    {
+      "area": "Title",
+      "finding": "Far headland/ridge gives additional depth behind the broad right-extending ground; column base and tree root remain visibly seated."
+    },
+    {
+      "area": "Actual enemy encounters",
+      "finding": "Visible animated mushroom/branch/bulb plant forms, fan/crystal beetle shells, narrow/forked wisps, armored quadrupeds and lantern/arched furnace totems are meaningfully different silhouettes in live scenes. Pose progression, hit flashes, seeds/globs and beam danger cues remain legible in reviewed samples. This does not claim every one of the 18 appearance combinations occurred in these samples."
+    }
+  ],
+  "residual_opportunities": [
+    {
+      "severity": "low / existing art ceiling",
+      "area": "Bloomwild perimeter",
+      "finding": "Large oblique cliff highlight shapes still repeat rhythmically along the south edge in the overview. They read coherently in the reviewed game cameras, but a future hand-placed cliff-face atlas would add more geological variety. No new detached edge/corner was found in these captures."
+    },
+    {
+      "severity": "low / existing art ceiling",
+      "area": "Glasswater and Cinder quiet floor",
+      "finding": "Several open stretches still communicate geology through broad low-contrast procedural color masses. Larger distinct geological landmarks could raise the illustration quality further, but adding equal-density noise everywhere would hurt hero/enemy readability."
+    },
+    {
+      "severity": "low / native-scale art tradeoff",
+      "area": "Thorn imp variants",
+      "finding": "Some brown/green body details are subtle against ruin paving and grass in the actual temple fight (ticks 1388\u20131448). Antler silhouettes remain distinguishable, but those bodies are less conspicuous than the pale wisps and furnace totems. Stronger selective edge/value accents could increase separation in a later targeted pass."
+    }
+  ],
+  "limitations": [
+    "Reviewed 83 distinct frames of the reported 14,498 actual campaign frames; no claim of watching every frame or continuous real-time playback. Nine short sequences were reviewed as ordered sampled images.",
+    "Campaign runs in god mode and is evidence of scene/animation integration, not combat balance or normal survival.",
+    "Staged studies do not establish collision correctness. Independent source/physics/pose/performance audits and executable tests remain separate evidence.",
+    "No audio audition in this review.",
+    "Scene variation remains within the established restrained palette; this review does not claim a wholly new art direction.",
+    "Prior source-only and staged approvals missed a cropped column in an earlier round; this review does not assert all possible visual faults are ruled out."
+  ],
+  "actual_campaign": {
+    "report": "out/pixellab/recordings/whole-game-round6/report.json",
+    "report_sha256": "0040ef6fff4a4881b58dcf659eb1453d0251d67ab6f99c1e02f16e92c724c9fd",
+    "reported_frames": 14498,
+    "reported_simulation_hz": 60,
+    "reported_capture_fps": 60.0,
+    "reported_god_mode": true,
+    "reported_scene": "victory",
+    "reported_victory_ready": true,
+    "reported_visited_zones": [
+      "Bloomwild",
+      "Glasswater",
+      "Cinder",
+      "Summit"
+    ],
+    "distinct_viewed_frames": 83,
+    "viewed_panels": 86,
+    "sampled_intervals": [
+      {
+        "label": "sprout",
+        "start_tick": 515,
+        "end_tick": 575,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "thorn",
+        "start_tick": 1388,
+        "end_tick": 1448,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "beetle",
+        "start_tick": 4110,
+        "end_tick": 4170,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "wisp",
+        "start_tick": 4780,
+        "end_tick": 4840,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "hound",
+        "start_tick": 8810,
+        "end_tick": 8870,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "totem",
+        "start_tick": 7480,
+        "end_tick": 7540,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "bridge-water",
+        "start_tick": 2480,
+        "end_tick": 2540,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "lava-bridge",
+        "start_tick": 9160,
+        "end_tick": 9220,
+        "sample_period_ticks": 12,
+        "samples": 6
+      },
+      {
+        "label": "boss-beam",
+        "start_tick": 11685,
+        "end_tick": 11745,
+        "sample_period_ticks": 12,
+        "samples": 6
+      }
+    ],
+    "frames": [
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 500,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00500.png",
+        "sha256": "37ea5942314ec60b1f5832ef42b16823b2990cf977a77911606815da327d5b42",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 835,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00835.png",
+        "sha256": "858fb488dffeb03d54dfd1a5c2e2d97935f75c8ab2bb405c35a6e8e40a9d67f3",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 1150,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01150.png",
+        "sha256": "81f7ce225f1f168c512c2f9b8486230c12009784d9f1a84d5719f2463ce43194",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 1400,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01400.png",
+        "sha256": "e9067381907439d92066d4f23676c645644d36dbb3f3f149b329ccecbb0d9da1",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 1700,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01700.png",
+        "sha256": "478103b79b1d2de418dc57f2bdd7a2639cfa4758bacf7d10e3b282e4f06f3966",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 2140,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02140.png",
+        "sha256": "555bc72da7d6f3ce1c03ef10916c9e784e3cfa5fd8f99248b4ca0b57342d1595",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 2480,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02480.png",
+        "sha256": "b3439f05a11be949062d61d6e3b057676adf6f48a9d6b6dc055cf7aa940204df",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "bloomwild",
+        "tick": 3000,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f03000.png",
+        "sha256": "abe3ff2dec671c2266eecbad9dfc6a07c4cfcf001c7eb67fc1135343414c5c89",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 4000,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04000.png",
+        "sha256": "63b9fa94fa5b8baf80f8ad727d0bbff8c63a566b85da1325d34138ac5ba246a4",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 4130,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04130.png",
+        "sha256": "af9d5905bfe45af9feda5ae7f588f6838edd4d5ff2f52d40697d9a8400a53bf6",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 4400,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04400.png",
+        "sha256": "4c5f49747dc78f0dd4c57862a7e9c4fda9ff4211e290af854409c6681e4d6be4",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 4800,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04800.png",
+        "sha256": "0536daac2b32c531bb76f9b2f99679245a1209d24db354d7b8a0c2433c555a11",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 5200,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f05200.png",
+        "sha256": "83e110a9f9afed641b04a615335ead44935a793aacfde18a8da4c75daf669a35",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 5800,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f05800.png",
+        "sha256": "cdbfa756dcfc946d6020d84c112a2865000510e61f7e07748f8bd2b81de8ca48",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 5871,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f05871.png",
+        "sha256": "3884b73dfc8f478be610f8767f2b1e1852c30c9b395a923d01a70a65434d2e34",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "glasswater",
+        "tick": 6200,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f06200.png",
+        "sha256": "f8a06aa4c0f084663d2f6b3d05b248da38491b4fe8dbf0339ce8da409297b98e",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 6700,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f06700.png",
+        "sha256": "dc9e5e6c9d7203f7bf6ce585bb14ce8993609a2b697c8e91507dede0855df242",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 6737,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f06737.png",
+        "sha256": "66b66041db337d67f832a542281a80ef3b7818faebb93c0718a41c7566035248",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 6880,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f06880.png",
+        "sha256": "c0feab9b9dfdd2ba41e75627c9d679067cadab35f617aba0f417405298280dc7",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 7210,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07210.png",
+        "sha256": "20c6cca3c22db7c2c0729d074a928ff7fcf24ae82af4f18c93fc9e3a5b3dd954",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 7246,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07246.png",
+        "sha256": "777902847d8e04e488764ca0f68e8cfafe7355a46ae0229708ed91e2e41b5bb9",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 7500,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07500.png",
+        "sha256": "f6089201b9b76eb7a09a6e04275eddc69d04f452afbf44ba91bb0345802f3780",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 7900,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07900.png",
+        "sha256": "370f44aaeeedabffad8ef82c1bc45fb657a1f5b22dc67d456cb7d6b2a9bca8ca",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "cinder",
+        "tick": 8853,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f08853.png",
+        "sha256": "10d32ece23036fc5e4c1ca30e85f4e829d2263b855da8608ab5767e7009ab785",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 9600,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f09600.png",
+        "sha256": "f8c2b19ac41d43298d1cf40218e3ae69a37cb4ac6d266e86cdb66ad14f5849cb",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 10344,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f10344.png",
+        "sha256": "9722e7bb163f2668b1012b88c688206b2a433ac57d65154363b9289a46cd2a46",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 10610,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f10610.png",
+        "sha256": "655997f9228cf3b738657bb31f8978eb648e0e89f692db88216d1c4a0f1ad439",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 10740,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f10740.png",
+        "sha256": "07db1d9d5930438b9f56dc7a925650d647abee1956afad93cb8bb225c4c27d77",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 11709,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f11709.png",
+        "sha256": "a508f8ed053d72e14db4adc8c2dcffec583fe50e0d416e88cd68f89bf37cb30a",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 12032,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f12032.png",
+        "sha256": "b1ff736e3b49f5ff17f8b90d29230a8b8bc0d347ceb156fbb06d94100242163c",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 13290,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f13290.png",
+        "sha256": "e8a3af7a82cc931383477d43511c812957a701aebc693f850802cd6ccb06602d",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign keypose",
+        "zone": "summit",
+        "tick": 13999,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f13999.png",
+        "sha256": "c6d2f71a88e0b6cff87fc3d43edfe26b402ffcba98214968eb97fa3ccb3b7381",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "sprout",
+        "tick": 515,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00515.png",
+        "sha256": "94dd7d171bb64e2d9df993330c7ba38f077b6f3d92ee5ddb93c6b89bd9d8f19e",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "sprout",
+        "tick": 527,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00527.png",
+        "sha256": "1e9b41e9f385b9371291b0aa5518df7310986f3fddedbaaf9c85d6d53b676032",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "sprout",
+        "tick": 539,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00539.png",
+        "sha256": "988f14e2ff2c239c964af71cf92aaaa3f896b6deec8365a1582eeb195b757f93",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "sprout",
+        "tick": 551,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00551.png",
+        "sha256": "2f2f6afcfe5d501c047191ef6320f7e3417d42aee997832ad5028031f9d91ca0",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "sprout",
+        "tick": 563,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00563.png",
+        "sha256": "70bbd86eb318cf86eca4ccb5386bd78323a93b6b0e4ea3c03f40f19e2ce418a8",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "sprout",
+        "tick": 575,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f00575.png",
+        "sha256": "704e6e1688b06eff1692fe8ce7b4973bc9bb45c3ca5332201a5cb8030e7e5396",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "thorn",
+        "tick": 1388,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01388.png",
+        "sha256": "562defbd15756592b6173615e6c056fcca8ef37d6ed0efe76985595ed98fbe78",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "thorn",
+        "tick": 1400,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01400.png",
+        "sha256": "e9067381907439d92066d4f23676c645644d36dbb3f3f149b329ccecbb0d9da1",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "thorn",
+        "tick": 1412,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01412.png",
+        "sha256": "9448d059cad8889582d821841e0364501e05b03b193ecc54ca3c0e3776021f45",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "thorn",
+        "tick": 1424,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01424.png",
+        "sha256": "632477e7117fcb83d7b58fdc6baff9f25f662a7c043a1be6af11a9092d8f0dc6",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "thorn",
+        "tick": 1436,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01436.png",
+        "sha256": "cf45325a950892b6573b7ffdb0e11091f5306ff452608b5faa7785a6adf9314b",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "thorn",
+        "tick": 1448,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f01448.png",
+        "sha256": "5946c0507aac8dc7c66e2d54faed8282d6956e2cc67bcf4991efea8b3b70f98c",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "beetle",
+        "tick": 4110,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04110.png",
+        "sha256": "a6e73a6e9a5befb4b7741d640907ea7432f919c7bf0f7f0c1066e075cb429e37",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "beetle",
+        "tick": 4122,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04122.png",
+        "sha256": "ea5f7608b66aff7eed30eea1973f9403a4ca01b2a4f54850ec665772452e2a31",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "beetle",
+        "tick": 4134,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04134.png",
+        "sha256": "2eec1f6a9d1fc371ea8ba65829a673017292d828cc09ab7275ad3017304f033d",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "beetle",
+        "tick": 4146,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04146.png",
+        "sha256": "2902619bfb98eff158960206ce19856e2e4903a5bf293d611ce467a5a7f9e370",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "beetle",
+        "tick": 4158,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04158.png",
+        "sha256": "84f6ed00c113f4a24d5541bd4dc5c1d52381d9591b90b73d4ed9e2e9159cf17c",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "beetle",
+        "tick": 4170,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04170.png",
+        "sha256": "9b8e63858dbe7dfebf350703f461856b42ec09de2e39b2eb8a146a375bee2bdb",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "wisp",
+        "tick": 4780,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04780.png",
+        "sha256": "dfb6c2820ff6c10237a8b756704da6af118dbec4c0264e44ab7c010c03a346b7",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "wisp",
+        "tick": 4792,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04792.png",
+        "sha256": "49e07ae81bf2fd179d112788cdc5c749e5ea7d1f0b654ab6982e91812ac40d45",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "wisp",
+        "tick": 4804,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04804.png",
+        "sha256": "203c83748a5d56b0128829f0762c13cc0a697fa1017f060b51122a08b482f002",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "wisp",
+        "tick": 4816,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04816.png",
+        "sha256": "2537a68433a2ecca9f4e59ff4f94d80f663eab9443f6ab6b976f8d2f4a47120d",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "wisp",
+        "tick": 4828,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04828.png",
+        "sha256": "3e3487a0db1eaa6a7169865756ffdf110db5605f3467f014f9c2f5df1229cb36",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "wisp",
+        "tick": 4840,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f04840.png",
+        "sha256": "d8c339b6f45837502de8465eda91fa87b1861c4a6402b765be0c94e6cd8508a5",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "hound",
+        "tick": 8810,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f08810.png",
+        "sha256": "e68ebe6bb575260cb629348d50ca19a5bbd36cc3e47d034ba69a6345f6d6f5f2",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "hound",
+        "tick": 8822,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f08822.png",
+        "sha256": "3931e11303d6554a934558d077da49e409fae9a13d3c39d9f39f0219d48096db",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "hound",
+        "tick": 8834,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f08834.png",
+        "sha256": "156125b39678bb79714040eec711c66768bd2b4758c46b40829207565ed1cafa",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "hound",
+        "tick": 8846,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f08846.png",
+        "sha256": "44832cb3c3d72c814d15d205558bd44ddd8a6d46d056ce43887dcbc6d5d3455f",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "hound",
+        "tick": 8858,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f08858.png",
+        "sha256": "32058b34cf86026d15eb48f1bf9dd0b7024c7b50e78784e3331f4dbae2b8a237",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "hound",
+        "tick": 8870,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f08870.png",
+        "sha256": "e4021a81d080adc9d1100d528f3723122fa65374abf70169ea136d0abdb2c76f",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "totem",
+        "tick": 7480,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07480.png",
+        "sha256": "f58d318cb920051de8cd52184de12693d0ed6c3957a89df634cefd7f95b78a95",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "totem",
+        "tick": 7492,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07492.png",
+        "sha256": "6352075a27d504125cb2b50b3526d6966d7d4d38c53f5ce9a9f372530cebac84",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "totem",
+        "tick": 7504,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07504.png",
+        "sha256": "81ada1c1d4acade1862277fb0bffe8213577447167073102d85bf08ebcaabeec",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "totem",
+        "tick": 7516,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07516.png",
+        "sha256": "1639ccf68697af2e80bb1a56b76c6055b2e400143bb1a36f4513bf1af0d94bb0",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "totem",
+        "tick": 7528,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07528.png",
+        "sha256": "da0be08746725ff5a19695bda9669dbf68dcd0b5872fea18e1efd076c6230511",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "totem",
+        "tick": 7540,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f07540.png",
+        "sha256": "9aa0a8f8cecdb893246efb40d4344538dd76b684a20c648d34b9a0799e47a083",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "bridge-water",
+        "tick": 2480,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02480.png",
+        "sha256": "b3439f05a11be949062d61d6e3b057676adf6f48a9d6b6dc055cf7aa940204df",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "bridge-water",
+        "tick": 2492,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02492.png",
+        "sha256": "111fbb1fafe9d8cb800c24ac9a7f2be7a105f05d055e56f165d747ea3f634dca",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "bridge-water",
+        "tick": 2504,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02504.png",
+        "sha256": "ede82969a47d2ce5255e5e263a3d23b3a9493a775036bfeb2682f9300366c510",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "bridge-water",
+        "tick": 2516,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02516.png",
+        "sha256": "66f1d910c3b4000810a0f1d8d11182f67d38f7cd42bc2fc2e7fadd15bda9597b",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "bridge-water",
+        "tick": 2528,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02528.png",
+        "sha256": "99da5d5ec4e0f0783746037cfdbf3aad836265cb5814adb22542cea95518ab82",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "bridge-water",
+        "tick": 2540,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f02540.png",
+        "sha256": "0ea4ccdeb6dc37368704d04cad89e449080afee1b4cc44e84240c68e17b798cc",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "lava-bridge",
+        "tick": 9160,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f09160.png",
+        "sha256": "a18fb4648f5eb64e8306b96a7a606eeab71171bd8e74e34048e9ecb8ad0cdbdf",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "lava-bridge",
+        "tick": 9172,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f09172.png",
+        "sha256": "03c9492c166440fca9848f2e77903f5d74d045ed28e4d990b1365b191f2541bb",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "lava-bridge",
+        "tick": 9184,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f09184.png",
+        "sha256": "7ca8863f28f01d101914da47dacc8742e83c62918ef8d715ea3d8ce45821e969",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "lava-bridge",
+        "tick": 9196,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f09196.png",
+        "sha256": "9de18ae59c8a7ba345e8336bb07ebf2e7793a64a7b7bad66865911febfd33c00",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "lava-bridge",
+        "tick": 9208,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f09208.png",
+        "sha256": "b161712b0984509b104d700ec7380f1d63c25cee38fbea5bca371d2280beabe1",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "lava-bridge",
+        "tick": 9220,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f09220.png",
+        "sha256": "b6b3586e1a03698158ca0ddbd4fd6d5663d362f353bb7babd0dba7160b56d4dc",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "boss-beam",
+        "tick": 11685,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f11685.png",
+        "sha256": "20f1ecb6b80474fd17d84a1b0b3802244582a73b2a0fc9afbe7289892f171f13",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "boss-beam",
+        "tick": 11697,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f11697.png",
+        "sha256": "7086ca16722b186bc0764d70835c80f79e038423c7cfb0870168484be21d6429",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "boss-beam",
+        "tick": 11709,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f11709.png",
+        "sha256": "a508f8ed053d72e14db4adc8c2dcffec583fe50e0d416e88cd68f89bf37cb30a",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "boss-beam",
+        "tick": 11721,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f11721.png",
+        "sha256": "4b5721e8d9a0425140f46aa89534c364137c53456ed2033f4f5e7f881b7278af",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "boss-beam",
+        "tick": 11733,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f11733.png",
+        "sha256": "2a400de8d49b3076ea03b74cac93c6d02e70cdf007a9fecf1e4e79c05d7952a2",
+        "viewed": true
+      },
+      {
+        "kind": "actual campaign sequence sample",
+        "interval": "boss-beam",
+        "tick": 11745,
+        "file": "out/pixellab/recordings/whole-game-round6/frames/f11745.png",
+        "sha256": "22cacf353c9086bc0855b10f85fb111767c4d79f516cea9d760758b535190ee6",
+        "viewed": true
+      }
+    ]
+  },
+  "verdict": "No blocking new visual regression found in the explicitly reviewed final images and sampled actual sequence frames. Selected R6 is a stronger coherent art presentation than R5, especially enemy shape variety, Bloom daylight, Glass lake depth and Summit floor identity. Retain the listed residual opportunities honestly.",
+  "evidence_contacts": [
+    "out/pixellab/round6/final-visual-review/bloomwild-map-compare.png",
+    "out/pixellab/round6/final-visual-review/campaign-bloomwild-keyposes.png",
+    "out/pixellab/round6/final-visual-review/campaign-cinder-keyposes.png",
+    "out/pixellab/round6/final-visual-review/campaign-glasswater-keyposes.png",
+    "out/pixellab/round6/final-visual-review/campaign-summit-keyposes.png",
+    "out/pixellab/round6/final-visual-review/cinder-map-compare.png",
+    "out/pixellab/round6/final-visual-review/compare-00.png",
+    "out/pixellab/round6/final-visual-review/compare-01.png",
+    "out/pixellab/round6/final-visual-review/compare-02.png",
+    "out/pixellab/round6/final-visual-review/compare-03.png",
+    "out/pixellab/round6/final-visual-review/compare-04.png",
+    "out/pixellab/round6/final-visual-review/compare-05.png",
+    "out/pixellab/round6/final-visual-review/compare-06.png",
+    "out/pixellab/round6/final-visual-review/compare-07.png",
+    "out/pixellab/round6/final-visual-review/compare-08.png",
+    "out/pixellab/round6/final-visual-review/compare-09.png",
+    "out/pixellab/round6/final-visual-review/continuity-beetle.png",
+    "out/pixellab/round6/final-visual-review/continuity-boss-beam.png",
+    "out/pixellab/round6/final-visual-review/continuity-bridge-water.png",
+    "out/pixellab/round6/final-visual-review/continuity-hound.png",
+    "out/pixellab/round6/final-visual-review/continuity-lava-bridge.png",
+    "out/pixellab/round6/final-visual-review/continuity-sprout.png",
+    "out/pixellab/round6/final-visual-review/continuity-thorn.png",
+    "out/pixellab/round6/final-visual-review/continuity-totem.png",
+    "out/pixellab/round6/final-visual-review/continuity-wisp.png",
+    "out/pixellab/round6/final-visual-review/glasswater-map-compare.png",
+    "out/pixellab/round6/final-visual-review/summit-map-compare.png"
+  ],
+  "completed_at_utc": "2026-11-02T01:58:58.222278+00:00"
+}

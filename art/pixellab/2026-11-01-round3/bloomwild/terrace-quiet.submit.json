@@ -1,0 +1,31 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"background_job_id\": \"70465024-99e8-438b-83b2-ab58b2d96dff\",\n  \"image_id\": \"0ea7c574-5178-58c2-9474-f8cb8439edfc\",\n  \"status\": \"processing\",\n  \"source_image_id\": \"0ea7c574-5178-58c2-9474-f8cb8439edfc\",\n  \"job_id\": \"70465024-99e8-438b-83b2-ab58b2d96dff\",\n  \"description\": \"Keep the exact128x32 native canvas and quiet horizontal wall-material crop. Remove every framed plaque, niche, arch motif and decorative rectangle from this wall. Replace those ornaments with plain broad uneven limestone face planes. Make the entire front wall much DARKER and calmer: muted cool blue-slate shadowed stone, with only a thin broken warm grey top lip and subdued sage at bottom. Use at most6 low-contrast shades, broad quiet filled stone faces30 to60pixels wide, narrow broken joints. Do not outline every stone with black lines. No carved symbols, panels, central focal point, little pebbles, stripes, inset windows or light cream fill. Seamless left/right crop, no frame or staging border. This is structural shadowed terrace masonry below a sunlit meadow; it must sit behind the18px hero and not compete with the foreground architecture.\",\n  \"seed\": 6210,\n  \"image_size\": {\n    \"width\": 128,\n    \"height\": 32\n  },\n  \"output_count\": 1,\n  \"estimated_generations\": 6,\n  \"pricing_provisional\": true,\n  \"poll_tool\": \"get_image\",\n  \"download_path\": \"/mcp/images/70465024-99e8-438b-83b2-ab58b2d96dff/download\"\n}\nPoll get_image(job_id=\"70465024-99e8-438b-83b2-ab58b2d96dff\"). The source_image_id is usable after completion; it is an image ID, not a character/object ID. Actual usage is reported on completion. cancel_job(job_id=...) cancels unfinished work.",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": {
+    "background_job_id": "70465024-99e8-438b-83b2-ab58b2d96dff",
+    "image_id": "0ea7c574-5178-58c2-9474-f8cb8439edfc",
+    "status": "processing",
+    "source_image_id": "0ea7c574-5178-58c2-9474-f8cb8439edfc",
+    "job_id": "70465024-99e8-438b-83b2-ab58b2d96dff",
+    "description": "Keep the exact128x32 native canvas and quiet horizontal wall-material crop. Remove every framed plaque, niche, arch motif and decorative rectangle from this wall. Replace those ornaments with plain broad uneven limestone face planes. Make the entire front wall much DARKER and calmer: muted cool blue-slate shadowed stone, with only a thin broken warm grey top lip and subdued sage at bottom. Use at most6 low-contrast shades, broad quiet filled stone faces30 to60pixels wide, narrow broken joints. Do not outline every stone with black lines. No carved symbols, panels, central focal point, little pebbles, stripes, inset windows or light cream fill. Seamless left/right crop, no frame or staging border. This is structural shadowed terrace masonry below a sunlit meadow; it must sit behind the18px hero and not compete with the foreground architecture.",
+    "seed": 6210,
+    "image_size": {
+      "width": 128,
+      "height": 32
+    },
+    "output_count": 1,
+    "estimated_generations": 6,
+    "pricing_provisional": true,
+    "poll_tool": "get_image",
+    "download_path": "/mcp/images/70465024-99e8-438b-83b2-ab58b2d96dff/download"
+  },
+  "isError": false,
+  "resultType": "complete"
+}

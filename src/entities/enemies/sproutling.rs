@@ -56,6 +56,9 @@ const DUST: Rgb = rgb(0x92a594);
 /// One turn token shared by every sproutling (see `kit::claim`).
 static TURN: AtomicU64 = AtomicU64::new(0);
 
+#[cfg(test)]
+pub(super) fn reset_turn() { TURN.store(0, std::sync::atomic::Ordering::Relaxed); }
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Phase {
     /// Just woke up: a startled hop in place after a short random delay.
@@ -93,6 +96,7 @@ pub struct State {
     started: bool,
     /// Idle animation offset so a group doesn't breathe in sync.
     idle_off: u32,
+    appearance: u8,
 }
 
 impl State {
@@ -110,7 +114,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
     let orbit = if rng.chance(0.5) { 1.0 } else { -1.0 };
     let cool = rng.irange(20, 70) as u32;
     let idle_off = rng.irange(0, 40) as u32;
-    let s = State { phase: Phase::Notice, pt: 0, len: 0, hop: (0.0, 0.0), aim: (0.0, 1.0), hit_id: 0, rng, orbit, cool, commit: 0.0, trail: Vec::new(), butt_frame: None, started: false, idle_off };
+    let s = State { phase: Phase::Notice, pt: 0, len: 0, hop: (0.0, 0.0), aim: (0.0, 1.0), hit_id: 0, rng, orbit, cool, commit: 0.0, trail: Vec::new(), butt_frame: None, started: false, idle_off, appearance: super::variation::appearance(x, y) };
     (Body::new(x, y, 4.0, HP), s)
 }
 
@@ -512,7 +516,7 @@ fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool
                     if n < 3 || k < lead { a.frame_at(k, false) } else { n - 2 + ((k - lead) / 3) as usize % 2 }
                 }
             };
-            return (sh.cell(a, i), sh.anchor_of(a), flip);
+            return (super::variation::cell(SHEET, sh.cell(a, i), s.appearance), sh.anchor_of(a), flip);
         }
     }
     let c = fallback_cell();
@@ -543,7 +547,7 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
         && let Some(sh) = sheet(SHEET)
         && let Some((a, fl)) = kit::find(sh, &["attack"], Dir::from_vec(s.aim.0, s.aim.1))
     {
-        let c = sh.cell(a, 0);
+        let c = super::variation::cell(SHEET, sh.cell(a, 0), s.appearance);
         for &(tx, ty, life) in &s.trail {
             let o = DrawOpts { flip: fl, alpha: life, silhouette: Some(PALE), ..Default::default() };
             f.sprite_w(c, sh.anchor_of(a), tx, ty, &o);
@@ -551,7 +555,7 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     }
     // The aim lock pulses danger pink (white is reserved for taking a hit).
     let tint = (s.commit > 0.0).then_some((DANGER, s.commit * 0.6));
-    let o = DrawOpts { actor: true, flip, flash: b.flash, tint, ..Default::default() };
+    let o = DrawOpts { actor: true, foot_depth: 3, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flip, flash: b.flash, tint, ..Default::default() };
     f.sprite_w(cell, anchor, b.x + ox, b.y - b.z, &o);
 
     // Dizzy: two short, matte husk marks circling over its head.
@@ -760,7 +764,7 @@ pub(super) mod kit {
                 }
             }
         }
-        Cell { w, h, px }
+        Cell::new(w, h, px)
     }
 
     /// Same as `outlined`, with some characters marked emissive.
@@ -774,6 +778,7 @@ pub(super) mod kit {
                 }
             }
         }
+        c.refresh_surface_mask();
         c
     }
 }

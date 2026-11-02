@@ -1,0 +1,51 @@
+{
+  "created": "2026-11-01",
+  "updated": "2026-11-01",
+  "scope": [
+    "bloomwild",
+    "glasswater",
+    "cinder",
+    "summit"
+  ],
+  "selected_environment_sheets": 30,
+  "generation_usage": {
+    "initial_trials": 194,
+    "expanded_pass": 225,
+    "total_subscription_generations": 419,
+    "remaining_after_pass": 1581,
+    "expanded_by_region": {
+      "bloomwild": 46,
+      "glasswater": 76,
+      "cinder": 65,
+      "summit": 38
+    },
+    "pending": 0
+  },
+  "source_policy": "Untouched native outputs and receipts are retained alongside deterministic selections, masking and documented palette repairs; no source resampling.",
+  "rebuild": "uv run --with pillow python tools/pixellab/build_assets.py",
+  "native_review": "26 scene studies, 4 whole-zone overviews, title, actual full-route gameplay, independent visual review and code audit.",
+  "fixes_verified": [
+    "native stone-base collision masks",
+    "foreground wood hero visibility",
+    "physics-only proxy lighting exclusion",
+    "Cinder solid shrine center",
+    "quieter Bloomwild terrace material",
+    "active beam camera and offscreen charge cues",
+    "60fps synchronized recording with integer color resolution"
+  ],
+  "known_retained_surfaces": [
+    "Bloomwild bevel altar",
+    "Cinder quiet ash flats and bridge masonry",
+    "Glasswater broad procedural floor contours",
+    "Summit idealized arena ellipse and legacy secondary posts/banners"
+  ],
+  "coverage_caveat": "Automated tour uses recorded god mode for route/combat progression coverage; does not establish normal-player difficulty balance.",
+  "account_balance_verification": {
+    "via": "installed PixelLab MCP get_balance",
+    "generations_used": 419,
+    "generations_remaining": 1581,
+    "generations_total": 2000,
+    "subscription": "active Tier1 Pixel Apprentice",
+    "resets": "2026-12-01"
+  }
+}

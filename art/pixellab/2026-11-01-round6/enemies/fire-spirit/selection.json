@@ -1,0 +1,81 @@
+{
+  "status": "asset-frozen-awaiting-integrated-review",
+  "skins": 6,
+  "alternate_frames": 208,
+  "charged_included_generations": 60,
+  "credit_purchases": 0,
+  "pixel_operations": [
+    "integer pose registration",
+    "native original cue/backplate restoration",
+    "native rigid jasper plate cutout translation on side poses",
+    "canonical stationary chassis alpha clipping",
+    "one native gutter column trimmed from wisp wing edges",
+    "native ivory rib-armor cutout carried through side running and airborne poses",
+    "two native moon-moth wing fold intermediates and one-pixel upper wing inset",
+    "native airborne upper-cap inset and rigid shoulder registration clamped to one-pixel atlas gutter"
+  ],
+  "no_resampling": true,
+  "exact_offline_rebuild_files": [
+    {
+      "file": "assets/sprites/ember_hound_v1.png",
+      "sha256": "23917b88b5e3b3c79d28500fafae9990e1bcb44a35061d6f08a57937c2c8be0c"
+    },
+    {
+      "file": "assets/sprites/ember_hound_v1.json",
+      "sha256": "77590a489155225c3462822b27cb00fc7df5c39b4b019ac0687738d2fdb09eb1"
+    },
+    {
+      "file": "assets/sprites/ember_hound_v2.png",
+      "sha256": "fd1ffe788e16da28ed462760710c3722a2e5478b1dccc4923111df7f74830f96"
+    },
+    {
+      "file": "assets/sprites/ember_hound_v2.json",
+      "sha256": "3cfa4020ca52f73a255272301b1af0244026149f0c56348305e42f45309ed479"
+    },
+    {
+      "file": "assets/sprites/wisp_v1.png",
+      "sha256": "fd0cb9837052ec15295f2046cfee8b6a529df014166f462c93319a364a52142d"
+    },
+    {
+      "file": "assets/sprites/wisp_v1.json",
+      "sha256": "ce4d097f4d8a5d69725e8cd09481a2f904fb888bfa6f34f6b26bf253b881afc7"
+    },
+    {
+      "file": "assets/sprites/wisp_v2.png",
+      "sha256": "41a095b9f84c686ddfa8a5ae09a466f16095ba53e1b786d162eb1e3af3461381"
+    },
+    {
+      "file": "assets/sprites/wisp_v2.json",
+      "sha256": "48ed94498943f30d6f3f04030098e05c3fa46e18e2cbe15344e57feea780ba75"
+    },
+    {
+      "file": "assets/sprites/spitting_totem_v1.png",
+      "sha256": "62cdc041ab714d25255e6e61b48d47ba1b972eae303d506d4cd6b36c2b82983c"
+    },
+    {
+      "file": "assets/sprites/spitting_totem_v1.json",
+      "sha256": "22ce9476cc64346e2740a9bb850ab2e954d13360928f69c0fd5e3d21ba5f9289"
+    },
+    {
+      "file": "assets/sprites/spitting_totem_v2.png",
+      "sha256": "43734738198a41136a1396bc086e99c30f44069e933e002fdb971a8d44e873b8"
+    },
+    {
+      "file": "assets/sprites/spitting_totem_v2.json",
+      "sha256": "6b164146b3797f2c59111f23107e0d154136340ba4b08fe9a3bb0f66685508de"
+    }
+  ],
+  "recipe_sha256": "1a4ef94185f4f0664513fcc41c158219a4d48494755c4bd1228a9be68d5a17c5",
+  "scope": "Direct review of all authored poses on native/integer contact sheets; integrated motion, placement, lighting and combat review owned by root.",
+  "independent_repair": {
+    "scope": "All fire/spirit poses directly reviewed. Ivory armor continuity and abrupt moon-moth fold repaired without resampling, behavior edits or cue movement.",
+    "changed_frames": {
+      "ember_hound_v1": 11,
+      "ember_hound_v2": 2,
+      "wisp_v1": 6
+    },
+    "review_dir": "out/pixellab/round6/enemy-independent",
+    "exact_offline_rebuild_files": 12,
+    "native_border_scan": "All 610 alternate frames: no introduced opaque pixel on any cell border."
+  }
+}

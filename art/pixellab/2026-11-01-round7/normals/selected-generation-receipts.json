@@ -1,0 +1,2707 @@
+[
+  {
+    "id": "bloomwild_aqueduct",
+    "sheet": "bloomwild_aqueduct",
+    "job_id": "320ea883-884b-484d-96bf-569e6fecef97",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "5704d65c8d7e5e174b926b4eec5afe8df7d0fc44bf613f562bd2d8edaee116f7",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_aqueduct.png",
+    "input_sha256": "8c181a28f30de8c9d96b24f9632148a91c6bb8ab3fee46c2650aa17676a51f54",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_aqueduct.png",
+    "raw_sha256": "091991e9972f13fc9d078fd11dc6ac71b553faac4934545fbd1cc614fbf26ed2",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 320ea883-884b-484d-96bf-569e6fecef97\njob_id: 320ea883-884b-484d-96bf-569e6fecef97\nsource: 128x96px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 7faffaff-0096-5264-829b-ceb24a2f05b2\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"320ea883-884b-484d-96bf-569e6fecef97\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/320ea883-884b-484d-96bf-569e6fecef97/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 320ea883-884b-484d-96bf-569e6fecef97\njob_id: 320ea883-884b-484d-96bf-569e6fecef97\nframes: 1\ntransparent: yes\nasset_id: 7faffaff-0096-5264-829b-ceb24a2f05b2\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/320ea883-884b-484d-96bf-569e6fecef97/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_arch",
+    "sheet": "bloomwild_arch",
+    "job_id": "2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "c6240d344883f58b9e0b4bf6e5092e77513560aa8a14dee2e28da6416cd61cb0",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_arch.png",
+    "input_sha256": "c6240d344883f58b9e0b4bf6e5092e77513560aa8a14dee2e28da6416cd61cb0",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_arch.png",
+    "raw_sha256": "784d690e42bb0fba1014eed885ffa99c77815fccccadb47ee330c0d7f5e36bb9",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3\njob_id: 2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3\nsource: 64x216px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 72fc66ea-8851-5b3a-ab77-bfe3979d6cbb\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3\njob_id: 2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3\nframes: 1\ntransparent: yes\nasset_id: 72fc66ea-8851-5b3a-ab77-bfe3979d6cbb\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/2c6478ec-bc66-4ab3-ac29-dfe2d2e3acc3/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_cliff",
+    "sheet": "bloomwild_cliff",
+    "job_id": "8f251858-d00d-4c87-ae8b-2340b5978ecc",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "2fefec1e52c634171b21a44ae8365eba333918a4a26866aae4708b601a97f56d",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_cliff.png",
+    "input_sha256": "2fefec1e52c634171b21a44ae8365eba333918a4a26866aae4708b601a97f56d",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_cliff.png",
+    "raw_sha256": "7d530efeced6d3cad5dc8b7d510bfc9c1b5851d3927e5c737185ad455f58eef3",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 8f251858-d00d-4c87-ae8b-2340b5978ecc\njob_id: 8f251858-d00d-4c87-ae8b-2340b5978ecc\nsource: 512x96px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: e36bea67-748e-5c96-a9b9-536ac077525d\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"8f251858-d00d-4c87-ae8b-2340b5978ecc\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/8f251858-d00d-4c87-ae8b-2340b5978ecc/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 8f251858-d00d-4c87-ae8b-2340b5978ecc\njob_id: 8f251858-d00d-4c87-ae8b-2340b5978ecc\nframes: 1\ntransparent: yes\nasset_id: e36bea67-748e-5c96-a9b9-536ac077525d\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/8f251858-d00d-4c87-ae8b-2340b5978ecc/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_floor_details",
+    "sheet": "bloomwild_floor_details",
+    "job_id": "b753b9bb-13ba-45a6-96fb-5785cccde84d",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "251798ca01770fd5dd41ee881150e65ed41a4b6b499da93cf110a624cd87a4d6",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_floor_details.png",
+    "input_sha256": "251798ca01770fd5dd41ee881150e65ed41a4b6b499da93cf110a624cd87a4d6",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_floor_details.png",
+    "raw_sha256": "a4fbfddbd65f752922862d1f2adce967dd18532a6183b2d6e503b9cb7e316356",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b753b9bb-13ba-45a6-96fb-5785cccde84d\njob_id: b753b9bb-13ba-45a6-96fb-5785cccde84d\nsource: 128x256px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: be38dc4b-e1d1-5e38-bb33-2c13b32ff83f\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b753b9bb-13ba-45a6-96fb-5785cccde84d\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b753b9bb-13ba-45a6-96fb-5785cccde84d/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b753b9bb-13ba-45a6-96fb-5785cccde84d\njob_id: b753b9bb-13ba-45a6-96fb-5785cccde84d\nframes: 1\ntransparent: yes\nasset_id: be38dc4b-e1d1-5e38-bb33-2c13b32ff83f\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/b753b9bb-13ba-45a6-96fb-5785cccde84d/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_grass",
+    "sheet": "bloomwild_grass",
+    "job_id": "5ac7fee5-8d97-40eb-b244-b494c8b797bc",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_grass.png",
+    "input_sha256": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_grass.png",
+    "raw_sha256": "4532f070fdd7cd2979a13525e56d0e423e42f424f8597396b93a4f5d0c6c3d28",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 5ac7fee5-8d97-40eb-b244-b494c8b797bc\njob_id: 5ac7fee5-8d97-40eb-b244-b494c8b797bc\nsource: 256x32px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 6327a852-4c75-519b-849e-88faadd0c2e9\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"5ac7fee5-8d97-40eb-b244-b494c8b797bc\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/5ac7fee5-8d97-40eb-b244-b494c8b797bc/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 5ac7fee5-8d97-40eb-b244-b494c8b797bc\njob_id: 5ac7fee5-8d97-40eb-b244-b494c8b797bc\nframes: 1\ntransparent: yes\nasset_id: 6327a852-4c75-519b-849e-88faadd0c2e9\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/5ac7fee5-8d97-40eb-b244-b494c8b797bc/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_growth",
+    "sheet": "bloomwild_growth",
+    "job_id": "bc186443-5621-409b-b40c-ac7a7def2dc9",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "98ed375ea3a6d3a07e045577a265051fd79c092a8d79b5ccc8b264179b46e2ff",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_growth.png",
+    "input_sha256": "ef0c6d7b5f51c9e668807e49af196f2fff8a9619413d8008327378fb38b9cd73",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_growth.png",
+    "raw_sha256": "8b181b34b9bf8e34a7fd8a91b5a4feefe7b887e2b76158d09dd4fd30f2e941c2",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: bc186443-5621-409b-b40c-ac7a7def2dc9\njob_id: bc186443-5621-409b-b40c-ac7a7def2dc9\nsource: 64x80px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 51f86778-1e64-5be2-a23f-4c1808f73ce9\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"bc186443-5621-409b-b40c-ac7a7def2dc9\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/bc186443-5621-409b-b40c-ac7a7def2dc9/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: bc186443-5621-409b-b40c-ac7a7def2dc9\njob_id: bc186443-5621-409b-b40c-ac7a7def2dc9\nframes: 1\ntransparent: yes\nasset_id: 51f86778-1e64-5be2-a23f-4c1808f73ce9\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/bc186443-5621-409b-b40c-ac7a7def2dc9/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_growth_low",
+    "sheet": "bloomwild_growth_low",
+    "job_id": "a2cd18c5-3403-4763-8d4d-77792d209117",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "bc5b738b5ea30d7b226678128f71bf49b123ed97903bd3a0245257889deb02ab",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_growth_low.png",
+    "input_sha256": "05f52de32f4497a4209fe0deae5a23226b43852574765cb0fe074789adabbb66",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_growth_low.png",
+    "raw_sha256": "42ee2895ee474a26f980809ee020f0aab366719030ddb02e42af760d82cd7db3",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: a2cd18c5-3403-4763-8d4d-77792d209117\njob_id: a2cd18c5-3403-4763-8d4d-77792d209117\nsource: 48x32px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 706cd07a-82af-5591-8209-ece7ab7ce17c\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"a2cd18c5-3403-4763-8d4d-77792d209117\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/a2cd18c5-3403-4763-8d4d-77792d209117/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: a2cd18c5-3403-4763-8d4d-77792d209117\njob_id: a2cd18c5-3403-4763-8d4d-77792d209117\nframes: 1\ntransparent: yes\nasset_id: 706cd07a-82af-5591-8209-ece7ab7ce17c\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/a2cd18c5-3403-4763-8d4d-77792d209117/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_lantern",
+    "sheet": "bloomwild_lantern",
+    "job_id": "ea91ef0a-8c68-4e4d-9809-a785e40a3025",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "86fef25866528974af965f51d9f4a05a16ef1d82687b20a20a4bfdedca609e90",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_lantern.png",
+    "input_sha256": "a7d77d82da321e663d5a334b5e9badf7294151045a1c99b1b19f7ccf4e2847b7",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_lantern.png",
+    "raw_sha256": "6982a32759924f217cd2b9c3d08a7f41194b5f00ebb78331404e21cc20dcabb8",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: ea91ef0a-8c68-4e4d-9809-a785e40a3025\njob_id: ea91ef0a-8c68-4e4d-9809-a785e40a3025\nsource: 96x80px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 6ef5ebd0-4892-5f9b-bd08-910395edf3fd\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"ea91ef0a-8c68-4e4d-9809-a785e40a3025\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ea91ef0a-8c68-4e4d-9809-a785e40a3025/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: ea91ef0a-8c68-4e4d-9809-a785e40a3025\njob_id: ea91ef0a-8c68-4e4d-9809-a785e40a3025\nframes: 1\ntransparent: yes\nasset_id: 6ef5ebd0-4892-5f9b-bd08-910395edf3fd\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/ea91ef0a-8c68-4e4d-9809-a785e40a3025/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_materials",
+    "sheet": "bloomwild_materials",
+    "job_id": "72f879de-1a80-4e0e-832e-70b1a7531157",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "3e2b50c7294540dcd5eb8b9f29cad27c7cb897eac0813128fa271586a8b825db",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_materials.png",
+    "input_sha256": "3e2b50c7294540dcd5eb8b9f29cad27c7cb897eac0813128fa271586a8b825db",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_materials.png",
+    "raw_sha256": "c167b21586e73379cbec6922896696ec5689763d74e94793ec9a5332798cc281",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 72f879de-1a80-4e0e-832e-70b1a7531157\njob_id: 72f879de-1a80-4e0e-832e-70b1a7531157\nsource: 512x64px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: c8b63750-0241-5c86-853a-f795b51afb36\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"72f879de-1a80-4e0e-832e-70b1a7531157\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/72f879de-1a80-4e0e-832e-70b1a7531157/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 72f879de-1a80-4e0e-832e-70b1a7531157\njob_id: 72f879de-1a80-4e0e-832e-70b1a7531157\nframes: 1\ntransparent: yes\nasset_id: c8b63750-0241-5c86-853a-f795b51afb36\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/72f879de-1a80-4e0e-832e-70b1a7531157/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_props",
+    "sheet": "bloomwild_props",
+    "job_id": "f4d60ade-15e4-40e4-b873-b2d348d3bb64",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "1ba479ae5f0ad66d39acb1db9e5575f765b9ad6d4312cb177cf0f745bbcc2dbe",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_props.png",
+    "input_sha256": "c984eae2ab85e3cb246e229ff592607800089f7e6b205b238ed267df93fd125d",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_props.png",
+    "raw_sha256": "978e0fd40d35ba13671a37aaf20ef46e7c439e0d282938492c1e5339ddf5cd4f",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: f4d60ade-15e4-40e4-b873-b2d348d3bb64\njob_id: f4d60ade-15e4-40e4-b873-b2d348d3bb64\nsource: 32x288px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 61c4ced7-9d11-56b9-8891-7cb4325fd0f7\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"f4d60ade-15e4-40e4-b873-b2d348d3bb64\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/f4d60ade-15e4-40e4-b873-b2d348d3bb64/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: f4d60ade-15e4-40e4-b873-b2d348d3bb64\njob_id: f4d60ade-15e4-40e4-b873-b2d348d3bb64\nframes: 1\ntransparent: yes\nasset_id: 61c4ced7-9d11-56b9-8891-7cb4325fd0f7\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/f4d60ade-15e4-40e4-b873-b2d348d3bb64/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_ruins",
+    "sheet": "bloomwild_ruins",
+    "job_id": "bca0f653-98bb-4052-abf8-2420729955b2",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.15,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_ruins.png",
+    "input_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_ruins.png",
+    "raw_sha256": "4c608bbe7a875e710c514cb0a4b4442b4fdb4693fbdb701867ce774aa30257b2",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: bca0f653-98bb-4052-abf8-2420729955b2\njob_id: bca0f653-98bb-4052-abf8-2420729955b2\nsource: 48x504px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.15, detail_softness 1; the rest where the kind puts them\nasset_id: d1223020-a9a7-53dc-b812-c661884bafae\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"bca0f653-98bb-4052-abf8-2420729955b2\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/bca0f653-98bb-4052-abf8-2420729955b2/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": null
+  },
+  {
+    "id": "bloomwild_terrace",
+    "sheet": "bloomwild_terrace",
+    "job_id": "969efe4c-9c34-4e88-858d-3383df6dd0af",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "7025f66820aec87519e79b781cc8757a7a555b36e22da762c845147a74525633",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_terrace.png",
+    "input_sha256": "7025f66820aec87519e79b781cc8757a7a555b36e22da762c845147a74525633",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_terrace.png",
+    "raw_sha256": "bc5b1d9e34ba6ec15cc4558c3359f494a787cd9471c2340d91ccbc428ff9d88b",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 969efe4c-9c34-4e88-858d-3383df6dd0af\njob_id: 969efe4c-9c34-4e88-858d-3383df6dd0af\nsource: 128x32px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: c4338209-0153-56b5-909a-2611a9879c44\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"969efe4c-9c34-4e88-858d-3383df6dd0af\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/969efe4c-9c34-4e88-858d-3383df6dd0af/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 969efe4c-9c34-4e88-858d-3383df6dd0af\njob_id: 969efe4c-9c34-4e88-858d-3383df6dd0af\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: c4338209-0153-56b5-909a-2611a9879c44\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/969efe4c-9c34-4e88-858d-3383df6dd0af/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_tiles",
+    "sheet": "bloomwild_tiles",
+    "job_id": "61a1f506-7a59-49b2-85e9-862f223ddf32",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "0da11cb7001f9add157f0ec57c881d8b85d1eb267a166fe490126dba77ffe0bf",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_tiles.png",
+    "input_sha256": "944747c035ec50bc19259a62a05878c5c5958da6f491b057b502f7a7e885592c",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_tiles.png",
+    "raw_sha256": "2805d0733c4476882cecab53caeae42afe0cde4aa9e4345e99d37a6b56a003db",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 61a1f506-7a59-49b2-85e9-862f223ddf32\njob_id: 61a1f506-7a59-49b2-85e9-862f223ddf32\nsource: 256x240px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: cf7afe8a-4d4d-5f7b-ab4f-c117a4f99e9f\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"61a1f506-7a59-49b2-85e9-862f223ddf32\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/61a1f506-7a59-49b2-85e9-862f223ddf32/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 61a1f506-7a59-49b2-85e9-862f223ddf32\njob_id: 61a1f506-7a59-49b2-85e9-862f223ddf32\nframes: 1\ntransparent: yes\nasset_id: cf7afe8a-4d4d-5f7b-ab4f-c117a4f99e9f\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/61a1f506-7a59-49b2-85e9-862f223ddf32/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_trees-composite-part-0",
+    "sheet": "bloomwild_trees",
+    "job_id": "e07232ba-4a1f-4fd8-97af-debef8093365",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "96bbe341c7d4e1a3e828569c7f962deb347605605498ef5ec66aa59fcb187877",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_trees-composite-part-0.png",
+    "input_sha256": "0503acf1c241e92cc738e947e54088159443c638b228e5d5862b452169255c1c",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_trees-composite-part-0.png",
+    "raw_sha256": "b9d8aa32c3d13889570b01e065aa753f290313d41bf44f71b427a885507be3ec",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: e07232ba-4a1f-4fd8-97af-debef8093365\njob_id: e07232ba-4a1f-4fd8-97af-debef8093365\nsource: 480x192px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 090df7e7-225d-525c-b7b5-e2128ed33175\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"e07232ba-4a1f-4fd8-97af-debef8093365\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/e07232ba-4a1f-4fd8-97af-debef8093365/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: e07232ba-4a1f-4fd8-97af-debef8093365\njob_id: e07232ba-4a1f-4fd8-97af-debef8093365\nframes: 1\ntransparent: yes\nasset_id: 090df7e7-225d-525c-b7b5-e2128ed33175\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/e07232ba-4a1f-4fd8-97af-debef8093365/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_trees-composite-part-480",
+    "sheet": "bloomwild_trees",
+    "job_id": "6b94e90b-f0d3-40b6-8486-eecb65175dbc",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "96bbe341c7d4e1a3e828569c7f962deb347605605498ef5ec66aa59fcb187877",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_trees-composite-part-480.png",
+    "input_sha256": "20ea50d37b1c05f1d4a9b28b5762ecbf0290145badade9c70ca4cc2eb1e3dd67",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_trees-composite-part-480.png",
+    "raw_sha256": "36d1adfce5557486c30ca8d8515a3ae630ca881a0ad3f60a94be00224dcdc401",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 6b94e90b-f0d3-40b6-8486-eecb65175dbc\njob_id: 6b94e90b-f0d3-40b6-8486-eecb65175dbc\nsource: 80x192px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: e0467ea8-90da-567d-a73a-7376ea89dc53\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"6b94e90b-f0d3-40b6-8486-eecb65175dbc\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/6b94e90b-f0d3-40b6-8486-eecb65175dbc/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 6b94e90b-f0d3-40b6-8486-eecb65175dbc\njob_id: 6b94e90b-f0d3-40b6-8486-eecb65175dbc\nframes: 1\ntransparent: yes\nasset_id: e0467ea8-90da-567d-a73a-7376ea89dc53\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/6b94e90b-f0d3-40b6-8486-eecb65175dbc/download"
+      }
+    ]
+  },
+  {
+    "id": "bloomwild_waterworks",
+    "sheet": "bloomwild_waterworks",
+    "job_id": "aafd8bae-483f-4cff-ba17-5a1b7ddbf177",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "5338bcf10abe6babb2e7411b56c29e3de29af6c9358b8642e64624e5336de05d",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_waterworks.png",
+    "input_sha256": "5d7c7046a2ddd898db91b3d7cab4510796ed4bf478f9d263357d686d394465f8",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/bloomwild_waterworks.png",
+    "raw_sha256": "213d17296ba7c23afd46f65aefaa54703d18fe1270e86166e795cf2fd74b139e",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: aafd8bae-483f-4cff-ba17-5a1b7ddbf177\njob_id: aafd8bae-483f-4cff-ba17-5a1b7ddbf177\nsource: 64x128px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: bec80612-b587-5ffa-8c6a-cc2c56c3db60\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"aafd8bae-483f-4cff-ba17-5a1b7ddbf177\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/aafd8bae-483f-4cff-ba17-5a1b7ddbf177/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: aafd8bae-483f-4cff-ba17-5a1b7ddbf177\njob_id: aafd8bae-483f-4cff-ba17-5a1b7ddbf177\nframes: 1\ntransparent: yes\nasset_id: bec80612-b587-5ffa-8c6a-cc2c56c3db60\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/aafd8bae-483f-4cff-ba17-5a1b7ddbf177/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_brazier",
+    "sheet": "cinder_brazier",
+    "job_id": "5a35d53c-f4a7-40d5-9acc-bfe903a3b9af",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "9daabcda8cb10f229e45e310cb111e6c6deb9092b9c5c6c4f1ba784bed6366b9",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_brazier.png",
+    "input_sha256": "486acc6294a9c348adb25eb9ef18c4a7167ca94f6cd83bd3a2e2c1d73a13b891",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_brazier.png",
+    "raw_sha256": "e94537230cbd71cfe04a983a7f35cfca45cbf477dba20868b68d6b9b4329d2e8",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 5a35d53c-f4a7-40d5-9acc-bfe903a3b9af\njob_id: 5a35d53c-f4a7-40d5-9acc-bfe903a3b9af\nsource: 96x64px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 0562b23a-29a6-5710-82a9-27dc17e8a649\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"5a35d53c-f4a7-40d5-9acc-bfe903a3b9af\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/5a35d53c-f4a7-40d5-9acc-bfe903a3b9af/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 5a35d53c-f4a7-40d5-9acc-bfe903a3b9af\njob_id: 5a35d53c-f4a7-40d5-9acc-bfe903a3b9af\nframes: 1\ntransparent: yes\nasset_id: 0562b23a-29a6-5710-82a9-27dc17e8a649\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/5a35d53c-f4a7-40d5-9acc-bfe903a3b9af/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_cliff",
+    "sheet": "cinder_cliff",
+    "job_id": "26c25190-0e92-45f3-84ad-22a187cc4810",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "ffd005bf5ffa431d580c7e0c8d7140007623c08bb773342d0e6bcbf9c5c21122",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_cliff.png",
+    "input_sha256": "ffd005bf5ffa431d580c7e0c8d7140007623c08bb773342d0e6bcbf9c5c21122",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_cliff.png",
+    "raw_sha256": "b3445a9ac63fd671990ea950ec404a420222ea940d09dda0291b69a2360c3b6d",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 26c25190-0e92-45f3-84ad-22a187cc4810\njob_id: 26c25190-0e92-45f3-84ad-22a187cc4810\nsource: 256x96px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 1805e4c5-89d7-5017-b39f-e2e9f3d7ba7d\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"26c25190-0e92-45f3-84ad-22a187cc4810\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/26c25190-0e92-45f3-84ad-22a187cc4810/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 26c25190-0e92-45f3-84ad-22a187cc4810\njob_id: 26c25190-0e92-45f3-84ad-22a187cc4810\nframes: 1\ntransparent: yes\nasset_id: 1805e4c5-89d7-5017-b39f-e2e9f3d7ba7d\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/26c25190-0e92-45f3-84ad-22a187cc4810/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_floor",
+    "sheet": "cinder_floor",
+    "job_id": "c23a7eda-3c42-4080-9659-d93bdbbe9f1b",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "6af3e9b057af5d3289d4b73bbc6a4e91e1ffc51b36a5019bea698e02c7a8c6d9",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_floor.png",
+    "input_sha256": "6af3e9b057af5d3289d4b73bbc6a4e91e1ffc51b36a5019bea698e02c7a8c6d9",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_floor.png",
+    "raw_sha256": "7cd7027cde0e2101c4066ff5ac18df6ab3f0f97ed0a8f17b0d3e05a30f4e898c",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: c23a7eda-3c42-4080-9659-d93bdbbe9f1b\njob_id: c23a7eda-3c42-4080-9659-d93bdbbe9f1b\nsource: 512x24px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 168ade54-30f6-5cd5-8b5c-fdf8e4c44bb4\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"c23a7eda-3c42-4080-9659-d93bdbbe9f1b\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/c23a7eda-3c42-4080-9659-d93bdbbe9f1b/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: c23a7eda-3c42-4080-9659-d93bdbbe9f1b\njob_id: c23a7eda-3c42-4080-9659-d93bdbbe9f1b\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: 168ade54-30f6-5cd5-8b5c-fdf8e4c44bb4\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/c23a7eda-3c42-4080-9659-d93bdbbe9f1b/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_foundry",
+    "sheet": "cinder_foundry",
+    "job_id": "b546ef27-2109-4860-b59a-ae7020e92bdb",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "c5da64f8239111e83c6f1df0b40f33548f0abf503964d5ee016ecc77e8f26b97",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_foundry.png",
+    "input_sha256": "c5da64f8239111e83c6f1df0b40f33548f0abf503964d5ee016ecc77e8f26b97",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_foundry.png",
+    "raw_sha256": "2b6bd1f6142795c70293d3c93ac204f0589adada9382b00ee1bb7a4e710c2535",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b546ef27-2109-4860-b59a-ae7020e92bdb\njob_id: b546ef27-2109-4860-b59a-ae7020e92bdb\nsource: 64x160px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: cf2a1d55-7a7d-52d9-8bc4-307896f18e27\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b546ef27-2109-4860-b59a-ae7020e92bdb\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b546ef27-2109-4860-b59a-ae7020e92bdb/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b546ef27-2109-4860-b59a-ae7020e92bdb\njob_id: b546ef27-2109-4860-b59a-ae7020e92bdb\nframes: 1\ntransparent: yes\nasset_id: cf2a1d55-7a7d-52d9-8bc4-307896f18e27\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/b546ef27-2109-4860-b59a-ae7020e92bdb/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_lava_surface-part-0-0",
+    "sheet": "cinder_lava_surface",
+    "job_id": "e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_lava_surface-part-0-0.png",
+    "input_sha256": "829f879623aeac808e4ccc54c125ad4a573270cefc911feb24a2db84f0769d1c",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_lava_surface-part-0-0.png",
+    "raw_sha256": "55219a7ff12fd74224d1af4e41869cf04d6ddd75e978f8c52fff7e1f459080ef",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62\njob_id: e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62\nsource: 512x264px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 9286c342-8176-5de0-884c-9c22c16344d6\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62\njob_id: e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: 9286c342-8176-5de0-884c-9c22c16344d6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/e15c5d69-2f8b-4b4b-b7f3-88a0ecc02b62/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_lava_surface-part-512-0",
+    "sheet": "cinder_lava_surface",
+    "job_id": "707bf4b4-a8ea-4903-86ec-e9513bdc7be3",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_lava_surface-part-512-0.png",
+    "input_sha256": "2a21f770b48b60e4a64b5737f414a90818778efcdcb4ece236411635f390a528",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_lava_surface-part-512-0.png",
+    "raw_sha256": "31cd3183098384e60b645370bc49157b0b4625abc1591e59f3319fc7455e1a2c",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 707bf4b4-a8ea-4903-86ec-e9513bdc7be3\njob_id: 707bf4b4-a8ea-4903-86ec-e9513bdc7be3\nsource: 512x264px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: c92efb3f-04bf-5a20-87c7-bdab1fe7013d\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"707bf4b4-a8ea-4903-86ec-e9513bdc7be3\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/707bf4b4-a8ea-4903-86ec-e9513bdc7be3/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 707bf4b4-a8ea-4903-86ec-e9513bdc7be3\njob_id: 707bf4b4-a8ea-4903-86ec-e9513bdc7be3\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: c92efb3f-04bf-5a20-87c7-bdab1fe7013d\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/707bf4b4-a8ea-4903-86ec-e9513bdc7be3/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_lava_surface-part-1024-0",
+    "sheet": "cinder_lava_surface",
+    "job_id": "f4f3a053-1c49-4212-a904-3de4c494bd6b",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_lava_surface-part-1024-0.png",
+    "input_sha256": "9980828b5b93197a088408658aace0126b509c4966ed4db8f2c4687d05042245",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_lava_surface-part-1024-0.png",
+    "raw_sha256": "2a9b465b187e4ab885f4fa216fd393491a39d964927ea0f9198c3da62ff210c9",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: f4f3a053-1c49-4212-a904-3de4c494bd6b\njob_id: f4f3a053-1c49-4212-a904-3de4c494bd6b\nsource: 32x264px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 80b2780b-3c81-585e-a058-2f201a5434ed\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"f4f3a053-1c49-4212-a904-3de4c494bd6b\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/f4f3a053-1c49-4212-a904-3de4c494bd6b/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: f4f3a053-1c49-4212-a904-3de4c494bd6b\njob_id: f4f3a053-1c49-4212-a904-3de4c494bd6b\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: 80b2780b-3c81-585e-a058-2f201a5434ed\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/f4f3a053-1c49-4212-a904-3de4c494bd6b/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_markers",
+    "sheet": "cinder_markers",
+    "job_id": "b205790b-e925-4763-aedb-91bdd4983169",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "7d6b837912e3551f9fd0c6c669d69ddda237abfea7b440573a19bca2b12f1ef3",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_markers.png",
+    "input_sha256": "7d6b837912e3551f9fd0c6c669d69ddda237abfea7b440573a19bca2b12f1ef3",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_markers.png",
+    "raw_sha256": "74c38c5a54d89fadfdadca0e05c432e550cd884f165ca8c91609f780ecbee03c",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b205790b-e925-4763-aedb-91bdd4983169\njob_id: b205790b-e925-4763-aedb-91bdd4983169\nsource: 64x320px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 0a4864cd-8763-57f2-a564-ee01a6ae61c1\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b205790b-e925-4763-aedb-91bdd4983169\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b205790b-e925-4763-aedb-91bdd4983169/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b205790b-e925-4763-aedb-91bdd4983169\njob_id: b205790b-e925-4763-aedb-91bdd4983169\nframes: 1\ntransparent: yes\nasset_id: 0a4864cd-8763-57f2-a564-ee01a6ae61c1\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/b205790b-e925-4763-aedb-91bdd4983169/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_mineral",
+    "sheet": "cinder_mineral",
+    "job_id": "15fd03cb-bf0e-47dd-a88f-b1d7528f153e",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "0f61996b140b9b19de1a143e987a66762c7eeeeb476f84000dd581acdf1ee3ad",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_mineral.png",
+    "input_sha256": "0f61996b140b9b19de1a143e987a66762c7eeeeb476f84000dd581acdf1ee3ad",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_mineral.png",
+    "raw_sha256": "2c2e2fc54367a2ccb09f3dc29205e672124c6f6c72d0eaf2a0dc04c16ed8ea78",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 15fd03cb-bf0e-47dd-a88f-b1d7528f153e\njob_id: 15fd03cb-bf0e-47dd-a88f-b1d7528f153e\nsource: 192x48px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 058b1d77-5764-58a1-9be8-f90f47d66f58\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"15fd03cb-bf0e-47dd-a88f-b1d7528f153e\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/15fd03cb-bf0e-47dd-a88f-b1d7528f153e/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 15fd03cb-bf0e-47dd-a88f-b1d7528f153e\njob_id: 15fd03cb-bf0e-47dd-a88f-b1d7528f153e\nframes: 1\ntransparent: yes\nasset_id: 058b1d77-5764-58a1-9be8-f90f47d66f58\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/15fd03cb-bf0e-47dd-a88f-b1d7528f153e/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_pillars",
+    "sheet": "cinder_pillars",
+    "job_id": "ed15611b-9a5f-4399-b2e3-91adff2b237f",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "ae013216d39788277b10b2c9f0a9ccd1892a22c215b1291640720d13d37b9116",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_pillars.png",
+    "input_sha256": "7a2e3a09c8faddc02645bfd104ab10d4aadc0cc3e3326a0125ef379c33b6d0e1",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_pillars.png",
+    "raw_sha256": "c1178e1819f7b2ca7607174d76dc844f4cfc77b706ac029f61437dde84deedc3",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: ed15611b-9a5f-4399-b2e3-91adff2b237f\njob_id: ed15611b-9a5f-4399-b2e3-91adff2b237f\nsource: 32x192px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 0d240d65-e54d-5fae-a5f3-31bef589c79a\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"ed15611b-9a5f-4399-b2e3-91adff2b237f\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ed15611b-9a5f-4399-b2e3-91adff2b237f/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: ed15611b-9a5f-4399-b2e3-91adff2b237f\njob_id: ed15611b-9a5f-4399-b2e3-91adff2b237f\nframes: 1\ntransparent: yes\nasset_id: 0d240d65-e54d-5fae-a5f3-31bef589c79a\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/ed15611b-9a5f-4399-b2e3-91adff2b237f/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_props",
+    "sheet": "cinder_props",
+    "job_id": "bfbf21d9-2da1-4f61-913f-87a25c76a9f9",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "5f125d995ed902929d49f69395287f7afc46aea8384f2014f0928ba524509a4d",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_props.png",
+    "input_sha256": "4b4110c0552707265fce86d6db71a2034dc9bbe465331bc2d0a00d97076a1516",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_props.png",
+    "raw_sha256": "4cfbc1b3ec0064f30ceda5c5fe0b20f3bf33ea47bf77b76273010dd8c1102141",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: bfbf21d9-2da1-4f61-913f-87a25c76a9f9\njob_id: bfbf21d9-2da1-4f61-913f-87a25c76a9f9\nsource: 64x160px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 729d9efa-c866-53a4-9177-f4e8fa0bd73c\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"bfbf21d9-2da1-4f61-913f-87a25c76a9f9\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/bfbf21d9-2da1-4f61-913f-87a25c76a9f9/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: bfbf21d9-2da1-4f61-913f-87a25c76a9f9\njob_id: bfbf21d9-2da1-4f61-913f-87a25c76a9f9\nframes: 1\ntransparent: yes\nasset_id: 729d9efa-c866-53a4-9177-f4e8fa0bd73c\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/bfbf21d9-2da1-4f61-913f-87a25c76a9f9/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_props_m",
+    "sheet": "cinder_props_m",
+    "job_id": "1f6f6cad-bd33-4175-8c74-039f37e26a80",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "a8ae09af37874dd8c1bdb4cd33d602a5e68e387319db6fc169b07de855fbf06f",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_props_m.png",
+    "input_sha256": "3c1d85f127fd5d742562c9b38149d5cbc25223d35cb33ae8c42877660744a0b7",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_props_m.png",
+    "raw_sha256": "8caae2227e5bc8f24b796b7b87cec4dedb71fa696769c875b049e5b76fdf9b2d",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 1f6f6cad-bd33-4175-8c74-039f37e26a80\njob_id: 1f6f6cad-bd33-4175-8c74-039f37e26a80\nsource: 128x160px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: c625117c-96bf-58a5-8826-8eefcc4d36e6\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"1f6f6cad-bd33-4175-8c74-039f37e26a80\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/1f6f6cad-bd33-4175-8c74-039f37e26a80/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 1f6f6cad-bd33-4175-8c74-039f37e26a80\njob_id: 1f6f6cad-bd33-4175-8c74-039f37e26a80\nframes: 1\ntransparent: yes\nasset_id: c625117c-96bf-58a5-8826-8eefcc4d36e6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/1f6f6cad-bd33-4175-8c74-039f37e26a80/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_ruins",
+    "sheet": "cinder_ruins",
+    "job_id": "483da26b-2784-4a56-9883-4efebd82155b",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "a4eeae8c860c19bae0e123940fb1bbb383d1146e124f9b24971d7b2fc22519ed",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_ruins.png",
+    "input_sha256": "be76b08c0998ae8e0ed640d075c5221d9ecbfd12d3ede3fcc332cb3bc6761a85",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_ruins.png",
+    "raw_sha256": "ffa829e384393ff4508a69c8362c14a359d7c24ddb3bb1f0dac7ad5f4003ba4e",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 483da26b-2784-4a56-9883-4efebd82155b\njob_id: 483da26b-2784-4a56-9883-4efebd82155b\nsource: 64x144px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 2360b009-db59-5ac9-a1c2-23c5ace4acd6\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"483da26b-2784-4a56-9883-4efebd82155b\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/483da26b-2784-4a56-9883-4efebd82155b/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 483da26b-2784-4a56-9883-4efebd82155b\njob_id: 483da26b-2784-4a56-9883-4efebd82155b\nframes: 1\ntransparent: yes\nasset_id: 2360b009-db59-5ac9-a1c2-23c5ace4acd6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/483da26b-2784-4a56-9883-4efebd82155b/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_shrine",
+    "sheet": "cinder_shrine",
+    "job_id": "34bfdc34-f028-4f92-aa1f-71cbe354c3e2",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "e5b202d169e68ac3a5bbf0323e3b531e3eb8e25bf2744fdfb27ad18ccec98f52",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_shrine.png",
+    "input_sha256": "e5b202d169e68ac3a5bbf0323e3b531e3eb8e25bf2744fdfb27ad18ccec98f52",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_shrine.png",
+    "raw_sha256": "58b19737976ae12da73ce36fa5a6e48f48362ce710df7f72327651bb1e4c2200",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 34bfdc34-f028-4f92-aa1f-71cbe354c3e2\njob_id: 34bfdc34-f028-4f92-aa1f-71cbe354c3e2\nsource: 128x96px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 611856c9-6b6b-56e9-b744-841137a487b3\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"34bfdc34-f028-4f92-aa1f-71cbe354c3e2\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/34bfdc34-f028-4f92-aa1f-71cbe354c3e2/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 34bfdc34-f028-4f92-aa1f-71cbe354c3e2\njob_id: 34bfdc34-f028-4f92-aa1f-71cbe354c3e2\nframes: 1\ntransparent: yes\nasset_id: 611856c9-6b6b-56e9-b744-841137a487b3\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/34bfdc34-f028-4f92-aa1f-71cbe354c3e2/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_statue",
+    "sheet": "cinder_statue",
+    "job_id": "4b8ed698-8c40-4c9b-8151-62513cf897f2",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "8f986ac73e2fa9d9e069e7d40ec36ca9b22312d9760d1603acdc860e2b8b6ff6",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_statue.png",
+    "input_sha256": "91045ea5607ecf3ef03029bdf83a949df2fcdcb14f73eaef38a064566b888f61",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_statue.png",
+    "raw_sha256": "597da6619af497b95454b87024a97108961fa7000e3189687ab6ccb4ed77bc4d",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 4b8ed698-8c40-4c9b-8151-62513cf897f2\njob_id: 4b8ed698-8c40-4c9b-8151-62513cf897f2\nsource: 64x64px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 057363f8-0f5f-58f6-94ee-c9209e9b6bf6\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"4b8ed698-8c40-4c9b-8151-62513cf897f2\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/4b8ed698-8c40-4c9b-8151-62513cf897f2/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 4b8ed698-8c40-4c9b-8151-62513cf897f2\njob_id: 4b8ed698-8c40-4c9b-8151-62513cf897f2\nframes: 1\ntransparent: yes\nasset_id: 057363f8-0f5f-58f6-94ee-c9209e9b6bf6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/4b8ed698-8c40-4c9b-8151-62513cf897f2/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_tiles",
+    "sheet": "cinder_tiles",
+    "job_id": "81e5ca06-69bd-4fa5-b364-7f6259119ec8",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "05f61f6953095fc35b9dc8023d816992e7e528d713cc3961574db0082db973de",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_tiles.png",
+    "input_sha256": "98eb8785be1b828a889e66f8158c028b89447c63b105c400383c804fc30fe064",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_tiles.png",
+    "raw_sha256": "04b0bfe31e12370bb1207af4e090be7bbc6773afad68ef3c5d6d64256cd164c2",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 81e5ca06-69bd-4fa5-b364-7f6259119ec8\njob_id: 81e5ca06-69bd-4fa5-b364-7f6259119ec8\nsource: 48x96px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 5daf36ac-4f92-5148-b3c3-4a79effc5fc8\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"81e5ca06-69bd-4fa5-b364-7f6259119ec8\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/81e5ca06-69bd-4fa5-b364-7f6259119ec8/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 81e5ca06-69bd-4fa5-b364-7f6259119ec8\njob_id: 81e5ca06-69bd-4fa5-b364-7f6259119ec8\nframes: 1\ntransparent: yes\nasset_id: 5daf36ac-4f92-5148-b3c3-4a79effc5fc8\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/81e5ca06-69bd-4fa5-b364-7f6259119ec8/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_trees",
+    "sheet": "cinder_trees",
+    "job_id": "26a3cebb-869b-45a5-a230-e5c89f59cfdb",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "6938e4838036e1bf6f06ec16b7fc69747684b67a8519f29b121f05cbda9f9ccc",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_trees.png",
+    "input_sha256": "e3a1d4e6ff656bf331fe2d1214b5acd4954f64a0d71266645f412bd8f32eeb69",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_trees.png",
+    "raw_sha256": "13cfb914a8153edb747e64c9368f5cd5b240db9040ff68de9c9180d51d4485a3",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 26a3cebb-869b-45a5-a230-e5c89f59cfdb\njob_id: 26a3cebb-869b-45a5-a230-e5c89f59cfdb\nsource: 48x256px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 3fc571fe-50f6-5b99-b2b4-b79923e4d778\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"26a3cebb-869b-45a5-a230-e5c89f59cfdb\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/26a3cebb-869b-45a5-a230-e5c89f59cfdb/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 26a3cebb-869b-45a5-a230-e5c89f59cfdb\njob_id: 26a3cebb-869b-45a5-a230-e5c89f59cfdb\nframes: 1\ntransparent: yes\nasset_id: 3fc571fe-50f6-5b99-b2b4-b79923e4d778\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/26a3cebb-869b-45a5-a230-e5c89f59cfdb/download"
+      }
+    ]
+  },
+  {
+    "id": "cinder_vent",
+    "sheet": "cinder_vent",
+    "job_id": "9f5ac4f7-745c-42f6-a7ab-fce72c85e760",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "86d7b462123672eda8d4bed792178b719812e44b6e738ebb3b5c9244bf91d1f8",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_vent.png",
+    "input_sha256": "8ea5d6ceaa84d438f47c228fd56bc5d7181701e884fb1ffcdbec1f9cf0ca9bbe",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/cinder_vent.png",
+    "raw_sha256": "0912f3cbe2cb02955580c984caf90b969a6623a4a594db7bffd9d4e0d436ab6d",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 9f5ac4f7-745c-42f6-a7ab-fce72c85e760\njob_id: 9f5ac4f7-745c-42f6-a7ab-fce72c85e760\nsource: 384x96px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 058a8175-0240-575e-b249-abe4f3118cf7\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"9f5ac4f7-745c-42f6-a7ab-fce72c85e760\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9f5ac4f7-745c-42f6-a7ab-fce72c85e760/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 9f5ac4f7-745c-42f6-a7ab-fce72c85e760\njob_id: 9f5ac4f7-745c-42f6-a7ab-fce72c85e760\nframes: 1\ntransparent: yes\nasset_id: 058a8175-0240-575e-b249-abe4f3118cf7\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/9f5ac4f7-745c-42f6-a7ab-fce72c85e760/download"
+      }
+    ]
+  },
+  {
+    "id": "crystal_beetle",
+    "sheet": "crystal_beetle",
+    "job_id": "b517e9b4-3c42-4215-a31f-cbd6f0d46bef",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "fda1edfcc9c5953de671d91afa8ce49ce53fcb925dd18100c5c7bc9089740307",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/crystal_beetle.png",
+    "input_sha256": "9f52099ce67290832040b0caf7b43abbbaf1a7b876d4f31278a83623b9e4d0de",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/crystal_beetle.png",
+    "raw_sha256": "200f90ec4a8219f6eb5668fce31fd1c2e5ed1fb697a1e7c1d92255edbd87fd2f",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b517e9b4-3c42-4215-a31f-cbd6f0d46bef\njob_id: b517e9b4-3c42-4215-a31f-cbd6f0d46bef\nsource: 192x468px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 7e3c224e-432b-50ed-b516-3c5798e0cb17\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b517e9b4-3c42-4215-a31f-cbd6f0d46bef\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b517e9b4-3c42-4215-a31f-cbd6f0d46bef/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b517e9b4-3c42-4215-a31f-cbd6f0d46bef\njob_id: b517e9b4-3c42-4215-a31f-cbd6f0d46bef\nframes: 1\ntransparent: yes\nasset_id: 7e3c224e-432b-50ed-b516-3c5798e0cb17\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/b517e9b4-3c42-4215-a31f-cbd6f0d46bef/download"
+      }
+    ]
+  },
+  {
+    "id": "crystal_beetle_v1",
+    "sheet": "crystal_beetle_v1",
+    "job_id": "edddb2c3-1691-40b3-9529-b69d99eca6ae",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "cad5e7d42e39ca44ca7634432da093752b952fd7597e12c2ad5e7abb6e9de0eb",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/crystal_beetle_v1.png",
+    "input_sha256": "cad5e7d42e39ca44ca7634432da093752b952fd7597e12c2ad5e7abb6e9de0eb",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/crystal_beetle_v1.png",
+    "raw_sha256": "b274e579f190a70a839dcd720d0708d825e035f60f8331d7fc924b67a99ced11",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: edddb2c3-1691-40b3-9529-b69d99eca6ae\njob_id: edddb2c3-1691-40b3-9529-b69d99eca6ae\nsource: 192x468px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: bdf4b303-9e99-50be-af20-b7f8db2bb160\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"edddb2c3-1691-40b3-9529-b69d99eca6ae\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/edddb2c3-1691-40b3-9529-b69d99eca6ae/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: edddb2c3-1691-40b3-9529-b69d99eca6ae\njob_id: edddb2c3-1691-40b3-9529-b69d99eca6ae\nframes: 1\ntransparent: yes\nasset_id: bdf4b303-9e99-50be-af20-b7f8db2bb160\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/edddb2c3-1691-40b3-9529-b69d99eca6ae/download"
+      }
+    ]
+  },
+  {
+    "id": "crystal_beetle_v2",
+    "sheet": "crystal_beetle_v2",
+    "job_id": "4e31fbf0-47b6-48b1-b03e-d5474d0026d4",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "ced9503dcb37994819347b3feb2ceb20ca753f34f5fee57e271409f0177eee89",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/crystal_beetle_v2.png",
+    "input_sha256": "ced9503dcb37994819347b3feb2ceb20ca753f34f5fee57e271409f0177eee89",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/crystal_beetle_v2.png",
+    "raw_sha256": "272d2a79dfa6ae3b4d385308733da8f9344fbdd5cc97828c9cb81bb6dff71c86",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 4e31fbf0-47b6-48b1-b03e-d5474d0026d4\njob_id: 4e31fbf0-47b6-48b1-b03e-d5474d0026d4\nsource: 192x468px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: ed9e987c-e8ce-529c-a696-9e706c193bf7\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"4e31fbf0-47b6-48b1-b03e-d5474d0026d4\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/4e31fbf0-47b6-48b1-b03e-d5474d0026d4/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 4e31fbf0-47b6-48b1-b03e-d5474d0026d4\njob_id: 4e31fbf0-47b6-48b1-b03e-d5474d0026d4\nframes: 1\ntransparent: yes\nasset_id: ed9e987c-e8ce-529c-a696-9e706c193bf7\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/4e31fbf0-47b6-48b1-b03e-d5474d0026d4/download"
+      }
+    ]
+  },
+  {
+    "id": "ember_hound",
+    "sheet": "ember_hound",
+    "job_id": "9a5c87be-c3d1-4347-969e-b99236ee6379",
+    "parameters": {
+      "kind": "character",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "921907db8ed0a3aee50edc98a15b35999254bb7a77a1d79f7d67b2c61976ca89",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/ember_hound.png",
+    "input_sha256": "1fba9281ed93969d3ce668de3f386d0f2e0f9ebc66e1e5ebd63c60cb871c8a40",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/ember_hound.png",
+    "raw_sha256": "18ccff8fc8a31ce0fb556e9322c641a591bb4d0f0e7f2ac53953dd611fa61780",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 9a5c87be-c3d1-4347-969e-b99236ee6379\njob_id: 9a5c87be-c3d1-4347-969e-b99236ee6379\nsource: 240x360px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 2014ef74-5417-5591-bf89-246d74aa7b1d\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"9a5c87be-c3d1-4347-969e-b99236ee6379\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9a5c87be-c3d1-4347-969e-b99236ee6379/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": null
+  },
+  {
+    "id": "ember_hound_v1",
+    "sheet": "ember_hound_v1",
+    "job_id": "a5595c22-35a1-496e-a96c-e6c88fb502db",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "23917b88b5e3b3c79d28500fafae9990e1bcb44a35061d6f08a57937c2c8be0c",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/ember_hound_v1.png",
+    "input_sha256": "23917b88b5e3b3c79d28500fafae9990e1bcb44a35061d6f08a57937c2c8be0c",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/ember_hound_v1.png",
+    "raw_sha256": "17d863d235e112767549a3b854e11af105ca48851f32017078428264c93a9203",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: a5595c22-35a1-496e-a96c-e6c88fb502db\njob_id: a5595c22-35a1-496e-a96c-e6c88fb502db\nsource: 240x360px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 788e4e27-9679-5f3f-8712-6ba3e0cdb99c\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"a5595c22-35a1-496e-a96c-e6c88fb502db\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/a5595c22-35a1-496e-a96c-e6c88fb502db/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: a5595c22-35a1-496e-a96c-e6c88fb502db\njob_id: a5595c22-35a1-496e-a96c-e6c88fb502db\nframes: 1\ntransparent: yes\nasset_id: 788e4e27-9679-5f3f-8712-6ba3e0cdb99c\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/a5595c22-35a1-496e-a96c-e6c88fb502db/download"
+      }
+    ]
+  },
+  {
+    "id": "ember_hound_v2",
+    "sheet": "ember_hound_v2",
+    "job_id": "3ab760b5-3b35-48e9-8ca3-8848a579b487",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "fd1ffe788e16da28ed462760710c3722a2e5478b1dccc4923111df7f74830f96",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/ember_hound_v2.png",
+    "input_sha256": "fd1ffe788e16da28ed462760710c3722a2e5478b1dccc4923111df7f74830f96",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/ember_hound_v2.png",
+    "raw_sha256": "d3121e3ebd8fce80656bfeaf0a4c9edd9decd5164905ec06a81adae1c9bbc1d7",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 3ab760b5-3b35-48e9-8ca3-8848a579b487\njob_id: 3ab760b5-3b35-48e9-8ca3-8848a579b487\nsource: 240x360px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 89fd7f31-0234-5f75-833e-1ed08d989f0e\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"3ab760b5-3b35-48e9-8ca3-8848a579b487\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/3ab760b5-3b35-48e9-8ca3-8848a579b487/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 3ab760b5-3b35-48e9-8ca3-8848a579b487\njob_id: 3ab760b5-3b35-48e9-8ca3-8848a579b487\nframes: 1\ntransparent: yes\nasset_id: 89fd7f31-0234-5f75-833e-1ed08d989f0e\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/3ab760b5-3b35-48e9-8ca3-8848a579b487/download"
+      }
+    ]
+  },
+  {
+    "id": "gate",
+    "sheet": "gate",
+    "job_id": "9298b5e4-fed8-4b91-869d-0c719883d5d5",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "9664e8d53d2e89be3c94a725b796bdff27b58613651deacd79540bba94436b55",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/gate.png",
+    "input_sha256": "90f21df98e56b925fe53927d1a264775b3221d934f62fcad539f15ad904b750b",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/gate.png",
+    "raw_sha256": "a3a336e892892215b50b02c603c5828e7a6b6cd8d8bf01536d9821f9263d9eb3",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 9298b5e4-fed8-4b91-869d-0c719883d5d5\njob_id: 9298b5e4-fed8-4b91-869d-0c719883d5d5\nsource: 384x192px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: cb1095f0-dafc-55ab-be97-7c87dc6456dd\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"9298b5e4-fed8-4b91-869d-0c719883d5d5\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9298b5e4-fed8-4b91-869d-0c719883d5d5/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 9298b5e4-fed8-4b91-869d-0c719883d5d5\njob_id: 9298b5e4-fed8-4b91-869d-0c719883d5d5\nframes: 1\ntransparent: yes\nasset_id: cb1095f0-dafc-55ab-be97-7c87dc6456dd\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/9298b5e4-fed8-4b91-869d-0c719883d5d5/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_crystals_big",
+    "sheet": "glasswater_crystals_big",
+    "job_id": "093e00c1-c99a-445d-aa92-65f63ffa07c4",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.15,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "3f67139499f485151c873db804894b65a1d3064552e6547c52314310efa71b77",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_crystals_big.png",
+    "input_sha256": "9c338f8be270389e8fe6a794a3f0eb062f1c4b1c505a649fa86a7da2e02e3d90",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_crystals_big.png",
+    "raw_sha256": "da1e1c5ff7ffa99021fd79bb963a850f73c284cb114cc6c5e24a2a13d636d44c",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 093e00c1-c99a-445d-aa92-65f63ffa07c4\njob_id: 093e00c1-c99a-445d-aa92-65f63ffa07c4\nsource: 48x256px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.15, detail_softness 1; the rest where the kind puts them\nasset_id: 8c85c382-e0a0-5062-9a0d-4ab52af3aa9e\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"093e00c1-c99a-445d-aa92-65f63ffa07c4\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/093e00c1-c99a-445d-aa92-65f63ffa07c4/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": null
+  },
+  {
+    "id": "glasswater_crystals_native",
+    "sheet": "glasswater_crystals_native",
+    "job_id": "988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "f12449e1d0131ed873f1ee8b5a00554df1c849d7d76a2d43b85040f82479f7df",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_crystals_native.png",
+    "input_sha256": "f12449e1d0131ed873f1ee8b5a00554df1c849d7d76a2d43b85040f82479f7df",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_crystals_native.png",
+    "raw_sha256": "d88ac7f31a3ff413117553acaf346c89924e318a099b1d4bc20e233fdfc6b964",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1\njob_id: 988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1\nsource: 384x64px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 9a876868-b41c-517b-82f6-428e8158eb7e\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1\njob_id: 988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1\nframes: 1\ntransparent: yes\nasset_id: 9a876868-b41c-517b-82f6-428e8158eb7e\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/988eb74c-8e3f-4ac4-a2f4-6b4dce38b8d1/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_crystals_small",
+    "sheet": "glasswater_crystals_small",
+    "job_id": "7dcb3d60-97b1-4315-ae58-325439682ecb",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "de4965e9d88022bf3c9194bb4458a0b056c7ba7d36835071f28197cd9ada0825",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_crystals_small.png",
+    "input_sha256": "de4965e9d88022bf3c9194bb4458a0b056c7ba7d36835071f28197cd9ada0825",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_crystals_small.png",
+    "raw_sha256": "19c12acca6e9682fa1a6184bea4698a9bda3fc4b28253023f1d206e73697838b",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 7dcb3d60-97b1-4315-ae58-325439682ecb\njob_id: 7dcb3d60-97b1-4315-ae58-325439682ecb\nsource: 256x40px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: e17b076c-571c-5bf8-86ba-8307c419fcbc\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"7dcb3d60-97b1-4315-ae58-325439682ecb\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/7dcb3d60-97b1-4315-ae58-325439682ecb/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 7dcb3d60-97b1-4315-ae58-325439682ecb\njob_id: 7dcb3d60-97b1-4315-ae58-325439682ecb\nframes: 1\ntransparent: yes\nasset_id: e17b076c-571c-5bf8-86ba-8307c419fcbc\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/7dcb3d60-97b1-4315-ae58-325439682ecb/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_floor_macro",
+    "sheet": "glasswater_floor_macro",
+    "job_id": "9623b7f6-1b04-4fa7-b9b9-036208ab199d",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_floor_macro.png",
+    "input_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_floor_macro.png",
+    "raw_sha256": "293ce4286f647e4f0d19fa33fb8f197f4a8f9947c8608bd20930033c73df4713",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 9623b7f6-1b04-4fa7-b9b9-036208ab199d\njob_id: 9623b7f6-1b04-4fa7-b9b9-036208ab199d\nsource: 128x128px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 3dfb0447-7a19-5d3d-ac0d-1387af7a46c6\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"9623b7f6-1b04-4fa7-b9b9-036208ab199d\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9623b7f6-1b04-4fa7-b9b9-036208ab199d/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 9623b7f6-1b04-4fa7-b9b9-036208ab199d\njob_id: 9623b7f6-1b04-4fa7-b9b9-036208ab199d\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: 3dfb0447-7a19-5d3d-ac0d-1387af7a46c6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/9623b7f6-1b04-4fa7-b9b9-036208ab199d/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_fungi",
+    "sheet": "glasswater_fungi",
+    "job_id": "3641eaab-30a4-48f9-a3a1-b0cc6467b84a",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "05bbb2871c9481762d10ef91b56b8d0574ab01993a5466feb6dfd2c92f590809",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_fungi.png",
+    "input_sha256": "05bbb2871c9481762d10ef91b56b8d0574ab01993a5466feb6dfd2c92f590809",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_fungi.png",
+    "raw_sha256": "87e45c71eec4359911560a4660ccaaa1377a9fc3d1ec24043740a0ae47ec09e0",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 3641eaab-30a4-48f9-a3a1-b0cc6467b84a\njob_id: 3641eaab-30a4-48f9-a3a1-b0cc6467b84a\nsource: 192x48px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 5d4654b8-a915-5521-86f1-b82035a5e34e\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"3641eaab-30a4-48f9-a3a1-b0cc6467b84a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/3641eaab-30a4-48f9-a3a1-b0cc6467b84a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 3641eaab-30a4-48f9-a3a1-b0cc6467b84a\njob_id: 3641eaab-30a4-48f9-a3a1-b0cc6467b84a\nframes: 1\ntransparent: yes\nasset_id: 5d4654b8-a915-5521-86f1-b82035a5e34e\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/3641eaab-30a4-48f9-a3a1-b0cc6467b84a/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_materials",
+    "sheet": "glasswater_materials",
+    "job_id": "ff60db64-3baa-4d82-9184-b4a906d0904c",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "13af62b20b11db672e6f28d206359590d13841a8810c970f26cb70a4f7ad5ae8",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_materials.png",
+    "input_sha256": "13af62b20b11db672e6f28d206359590d13841a8810c970f26cb70a4f7ad5ae8",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_materials.png",
+    "raw_sha256": "28dbefc43993d7c88f3a08eb988b3ed91b4e27656282cb58aa00f9fa7864c1ee",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: ff60db64-3baa-4d82-9184-b4a906d0904c\njob_id: ff60db64-3baa-4d82-9184-b4a906d0904c\nsource: 320x32px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: d339481d-57aa-5c8a-bcbf-e8e72ac6789b\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"ff60db64-3baa-4d82-9184-b4a906d0904c\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ff60db64-3baa-4d82-9184-b4a906d0904c/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: ff60db64-3baa-4d82-9184-b4a906d0904c\njob_id: ff60db64-3baa-4d82-9184-b4a906d0904c\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: d339481d-57aa-5c8a-bcbf-e8e72ac6789b\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/ff60db64-3baa-4d82-9184-b4a906d0904c/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_tiles",
+    "sheet": "glasswater_tiles",
+    "job_id": "2efa37f7-fc5d-4623-933d-7d03a21900db",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "923cb327ad7993b24bc5edf11bc0a930695748cfa03ac06f70e801d5e4060482",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_tiles.png",
+    "input_sha256": "c6aba75f23d23861f568977d0b2b539dad079425510fb585bbe805e460ecb77d",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_tiles.png",
+    "raw_sha256": "a65a36a46ab8a4ce772e3eb1a81afb5dbfb196e6c8efe58e84b991cafdc599b1",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 2efa37f7-fc5d-4623-933d-7d03a21900db\njob_id: 2efa37f7-fc5d-4623-933d-7d03a21900db\nsource: 256x208px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 00f15acb-c2b8-5f50-a459-adc0983fc7c6\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"2efa37f7-fc5d-4623-933d-7d03a21900db\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/2efa37f7-fc5d-4623-933d-7d03a21900db/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 2efa37f7-fc5d-4623-933d-7d03a21900db\njob_id: 2efa37f7-fc5d-4623-933d-7d03a21900db\nframes: 1\ntransparent: yes\nasset_id: 00f15acb-c2b8-5f50-a459-adc0983fc7c6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/2efa37f7-fc5d-4623-933d-7d03a21900db/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_walls",
+    "sheet": "glasswater_walls",
+    "job_id": "ab05df31-e011-4d41-bc6c-7a73d5ef5ecf",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "50892125c9c43e02ad9345c988b2577f432b10697e4a5041b77d893048ffc6ce",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_walls.png",
+    "input_sha256": "50892125c9c43e02ad9345c988b2577f432b10697e4a5041b77d893048ffc6ce",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_walls.png",
+    "raw_sha256": "6ae6f2404c57676ec41041e497eca03630854f089d26f610f1409c15b04b76f6",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: ab05df31-e011-4d41-bc6c-7a73d5ef5ecf\njob_id: ab05df31-e011-4d41-bc6c-7a73d5ef5ecf\nsource: 128x64px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 69c6e281-9b4d-5659-b113-b99c3af929a6\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"ab05df31-e011-4d41-bc6c-7a73d5ef5ecf\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ab05df31-e011-4d41-bc6c-7a73d5ef5ecf/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: ab05df31-e011-4d41-bc6c-7a73d5ef5ecf\njob_id: ab05df31-e011-4d41-bc6c-7a73d5ef5ecf\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: 69c6e281-9b4d-5659-b113-b99c3af929a6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/ab05df31-e011-4d41-bc6c-7a73d5ef5ecf/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_walltop",
+    "sheet": "glasswater_walltop",
+    "job_id": "8ead6c21-a759-4c78-bc02-d4904d032ba6",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_walltop.png",
+    "input_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_walltop.png",
+    "raw_sha256": "293ce4286f647e4f0d19fa33fb8f197f4a8f9947c8608bd20930033c73df4713",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 8ead6c21-a759-4c78-bc02-d4904d032ba6\njob_id: 8ead6c21-a759-4c78-bc02-d4904d032ba6\nsource: 128x128px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 9c1a0d1a-c63e-5502-ab9c-b0e79e002ea7\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"8ead6c21-a759-4c78-bc02-d4904d032ba6\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/8ead6c21-a759-4c78-bc02-d4904d032ba6/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 8ead6c21-a759-4c78-bc02-d4904d032ba6\njob_id: 8ead6c21-a759-4c78-bc02-d4904d032ba6\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: 9c1a0d1a-c63e-5502-ab9c-b0e79e002ea7\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/8ead6c21-a759-4c78-bc02-d4904d032ba6/download"
+      }
+    ]
+  },
+  {
+    "id": "glasswater_waterworks",
+    "sheet": "glasswater_waterworks",
+    "job_id": "88aac92b-652f-4e8c-b77b-87d9be207da3",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "8f9528f5ddd0a4722b4108d8d8e947a6d716df8512b7eda50e49297074b6ae3d",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_waterworks.png",
+    "input_sha256": "8f9528f5ddd0a4722b4108d8d8e947a6d716df8512b7eda50e49297074b6ae3d",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/glasswater_waterworks.png",
+    "raw_sha256": "a10bba96b246c7c2212311c87aabf48364c46dd2d76db2f0256e92a4f5971c7e",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 88aac92b-652f-4e8c-b77b-87d9be207da3\njob_id: 88aac92b-652f-4e8c-b77b-87d9be207da3\nsource: 288x96px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: d80a7009-e77c-52ad-87c2-8113482b7d69\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"88aac92b-652f-4e8c-b77b-87d9be207da3\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/88aac92b-652f-4e8c-b77b-87d9be207da3/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 88aac92b-652f-4e8c-b77b-87d9be207da3\njob_id: 88aac92b-652f-4e8c-b77b-87d9be207da3\nframes: 1\ntransparent: yes\nasset_id: d80a7009-e77c-52ad-87c2-8113482b7d69\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/88aac92b-652f-4e8c-b77b-87d9be207da3/download"
+      }
+    ]
+  },
+  {
+    "id": "hero-part-0-0",
+    "sheet": "hero",
+    "job_id": "330a46bf-b719-4d66-aabd-5454c02e3805",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-0.png",
+    "input_sha256": "b3da5292a4d6e45472bdb360843da199e0c4ce0d9f895dfef801feae26b6dd72",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/hero-part-0-0.png",
+    "raw_sha256": "3fe7269116babe54fc28affd9fd03421989bafbe6c0c985418e38abd0696986d",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 330a46bf-b719-4d66-aabd-5454c02e3805\njob_id: 330a46bf-b719-4d66-aabd-5454c02e3805\nsource: 384x480px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 39f79da1-3bf9-5faa-9744-e86e7d36f321\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"330a46bf-b719-4d66-aabd-5454c02e3805\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/330a46bf-b719-4d66-aabd-5454c02e3805/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 330a46bf-b719-4d66-aabd-5454c02e3805\njob_id: 330a46bf-b719-4d66-aabd-5454c02e3805\nframes: 1\ntransparent: yes\nasset_id: 39f79da1-3bf9-5faa-9744-e86e7d36f321\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/330a46bf-b719-4d66-aabd-5454c02e3805/download"
+      }
+    ]
+  },
+  {
+    "id": "hero-part-0-480",
+    "sheet": "hero",
+    "job_id": "6d3c399d-4e64-4da4-b924-2a2348c7aa7f",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-480.png",
+    "input_sha256": "66c3f5a7db2ece2e3ceb21282e20cd7842e0f383039a26c2525dfe3da5017d37",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/hero-part-0-480.png",
+    "raw_sha256": "efe23f169451dadf608128e58c23116d6d43eceb4dd43cb7b36b71b2a8785ce7",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 6d3c399d-4e64-4da4-b924-2a2348c7aa7f\njob_id: 6d3c399d-4e64-4da4-b924-2a2348c7aa7f\nsource: 384x480px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 2f6c40fe-ddf6-592e-b2d8-53d2fb42741e\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"6d3c399d-4e64-4da4-b924-2a2348c7aa7f\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/6d3c399d-4e64-4da4-b924-2a2348c7aa7f/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 6d3c399d-4e64-4da4-b924-2a2348c7aa7f\njob_id: 6d3c399d-4e64-4da4-b924-2a2348c7aa7f\nframes: 1\ntransparent: yes\nasset_id: 2f6c40fe-ddf6-592e-b2d8-53d2fb42741e\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/6d3c399d-4e64-4da4-b924-2a2348c7aa7f/download"
+      }
+    ]
+  },
+  {
+    "id": "hero-part-0-960",
+    "sheet": "hero",
+    "job_id": "b421788e-bd6e-4514-bace-76891cb966a2",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-960.png",
+    "input_sha256": "dabc3429fa95e8e567d43a478517b8ac11c3ef402973950d52edfd3962f7916a",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/hero-part-0-960.png",
+    "raw_sha256": "dc1a72af25fec40420af683f06ce22cf97e8088980cd71f6fd222beff02a8e13",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b421788e-bd6e-4514-bace-76891cb966a2\njob_id: b421788e-bd6e-4514-bace-76891cb966a2\nsource: 384x480px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 527c3d8a-5ec9-559f-8510-91d30146b4f1\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b421788e-bd6e-4514-bace-76891cb966a2\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b421788e-bd6e-4514-bace-76891cb966a2/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b421788e-bd6e-4514-bace-76891cb966a2\njob_id: b421788e-bd6e-4514-bace-76891cb966a2\nframes: 1\ntransparent: yes\nasset_id: 527c3d8a-5ec9-559f-8510-91d30146b4f1\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/b421788e-bd6e-4514-bace-76891cb966a2/download"
+      }
+    ]
+  },
+  {
+    "id": "hero-part-0-1440",
+    "sheet": "hero",
+    "job_id": "9951e9d4-d50f-42d6-ba2c-63b9bbb4c435",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-1440.png",
+    "input_sha256": "509178effce1765bd84737098218e0c4a5a7703118c883c0675866e0583cd553",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/hero-part-0-1440.png",
+    "raw_sha256": "09dd80f9199004d0c75edb06c633f5c1d3fd9bd8a256a903a93c86605b06c6b0",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 9951e9d4-d50f-42d6-ba2c-63b9bbb4c435\njob_id: 9951e9d4-d50f-42d6-ba2c-63b9bbb4c435\nsource: 384x432px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: f18d1910-1bbc-5dd6-98ef-8d0b9f61e5c3\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"9951e9d4-d50f-42d6-ba2c-63b9bbb4c435\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/9951e9d4-d50f-42d6-ba2c-63b9bbb4c435/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 9951e9d4-d50f-42d6-ba2c-63b9bbb4c435\njob_id: 9951e9d4-d50f-42d6-ba2c-63b9bbb4c435\nframes: 1\ntransparent: yes\nasset_id: f18d1910-1bbc-5dd6-98ef-8d0b9f61e5c3\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/9951e9d4-d50f-42d6-ba2c-63b9bbb4c435/download"
+      }
+    ]
+  },
+  {
+    "id": "shard",
+    "sheet": "shard",
+    "job_id": "3f758563-6768-4323-90da-d5aad3546acd",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "5ed11d8372dc9172e0846337a0bb08ba2689e864f0e961c39898d71e6905d30a",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/shard.png",
+    "input_sha256": "dd0ec8751678be592b889d3362c72f4c5e414efe49bda6cd10605752ad639a18",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/shard.png",
+    "raw_sha256": "61b916fd7c3595f49b40bf6a7ff515c8e72fe8983d75296eb3c322193c437e9d",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 3f758563-6768-4323-90da-d5aad3546acd\njob_id: 3f758563-6768-4323-90da-d5aad3546acd\nsource: 128x48px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: ce7c76f8-533e-5ee1-b791-63712638a690\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"3f758563-6768-4323-90da-d5aad3546acd\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/3f758563-6768-4323-90da-d5aad3546acd/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 3f758563-6768-4323-90da-d5aad3546acd\njob_id: 3f758563-6768-4323-90da-d5aad3546acd\nframes: 1\ntransparent: yes\nasset_id: ce7c76f8-533e-5ee1-b791-63712638a690\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/3f758563-6768-4323-90da-d5aad3546acd/download"
+      }
+    ]
+  },
+  {
+    "id": "spitting_totem",
+    "sheet": "spitting_totem",
+    "job_id": "187f3082-e0e9-43b0-8995-1a35da43436a",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "9260d8401852ab3bed3034086bda640bd2203f4da3c7f77e3daa7e0d655cb656",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/spitting_totem.png",
+    "input_sha256": "5d0682c37ee074b2dfc77e3e704aba99b51af77fefdef696c2edf9d93c6410c8",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/spitting_totem.png",
+    "raw_sha256": "73d0e48e04f810ea35847d07a326d7f8a979aed931001b7c32789fa803c87fce",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 187f3082-e0e9-43b0-8995-1a35da43436a\njob_id: 187f3082-e0e9-43b0-8995-1a35da43436a\nsource: 140x288px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 90ede509-2c84-5d7f-99b0-e703c166f8a2\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"187f3082-e0e9-43b0-8995-1a35da43436a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/187f3082-e0e9-43b0-8995-1a35da43436a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 187f3082-e0e9-43b0-8995-1a35da43436a\njob_id: 187f3082-e0e9-43b0-8995-1a35da43436a\nframes: 1\ntransparent: yes\nasset_id: 90ede509-2c84-5d7f-99b0-e703c166f8a2\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/187f3082-e0e9-43b0-8995-1a35da43436a/download"
+      }
+    ]
+  },
+  {
+    "id": "spitting_totem_v1",
+    "sheet": "spitting_totem_v1",
+    "job_id": "c747ea6e-6acb-4c90-bd70-c3407dbf9f79",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "62cdc041ab714d25255e6e61b48d47ba1b972eae303d506d4cd6b36c2b82983c",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/spitting_totem_v1.png",
+    "input_sha256": "62cdc041ab714d25255e6e61b48d47ba1b972eae303d506d4cd6b36c2b82983c",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/spitting_totem_v1.png",
+    "raw_sha256": "c0ab7639981f68431a5ee086aa622cabf9fbfa1c8c80d03bdcdbd87e950ee708",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: c747ea6e-6acb-4c90-bd70-c3407dbf9f79\njob_id: c747ea6e-6acb-4c90-bd70-c3407dbf9f79\nsource: 140x288px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 35bf1670-b9f7-5151-a681-df186d3fb58d\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"c747ea6e-6acb-4c90-bd70-c3407dbf9f79\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/c747ea6e-6acb-4c90-bd70-c3407dbf9f79/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: c747ea6e-6acb-4c90-bd70-c3407dbf9f79\njob_id: c747ea6e-6acb-4c90-bd70-c3407dbf9f79\nframes: 1\ntransparent: yes\nasset_id: 35bf1670-b9f7-5151-a681-df186d3fb58d\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/c747ea6e-6acb-4c90-bd70-c3407dbf9f79/download"
+      }
+    ]
+  },
+  {
+    "id": "spitting_totem_v2",
+    "sheet": "spitting_totem_v2",
+    "job_id": "144ce3c6-490d-4f03-920c-ca7b4c580e61",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "43734738198a41136a1396bc086e99c30f44069e933e002fdb971a8d44e873b8",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/spitting_totem_v2.png",
+    "input_sha256": "43734738198a41136a1396bc086e99c30f44069e933e002fdb971a8d44e873b8",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/spitting_totem_v2.png",
+    "raw_sha256": "8cb0234b9df9f1347429bd5822d9102b419a642203ec8d9a2be752b9a4589fa3",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 144ce3c6-490d-4f03-920c-ca7b4c580e61\njob_id: 144ce3c6-490d-4f03-920c-ca7b4c580e61\nsource: 140x288px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 2a5ca7e6-9b67-5001-be67-55bbb45aa2d2\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"144ce3c6-490d-4f03-920c-ca7b4c580e61\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/144ce3c6-490d-4f03-920c-ca7b4c580e61/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 144ce3c6-490d-4f03-920c-ca7b4c580e61\njob_id: 144ce3c6-490d-4f03-920c-ca7b4c580e61\nframes: 1\ntransparent: yes\nasset_id: 2a5ca7e6-9b67-5001-be67-55bbb45aa2d2\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/144ce3c6-490d-4f03-920c-ca7b4c580e61/download"
+      }
+    ]
+  },
+  {
+    "id": "sproutling",
+    "sheet": "sproutling",
+    "job_id": "485381f1-579f-4895-b273-d5dcc849c6a4",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "71a1337a24c2bf060c54b3570c1ed462de3499cc45c215ff943b5a42eecb289c",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/sproutling.png",
+    "input_sha256": "01eb4937f764770cb2951650dd1bdd20a2ef0735358c22efb27dc6ee97227f7a",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/sproutling.png",
+    "raw_sha256": "be3fc5832cf72db26997cd02faf22426034e9aaa5144aefaa0645802be768433",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 485381f1-579f-4895-b273-d5dcc849c6a4\njob_id: 485381f1-579f-4895-b273-d5dcc849c6a4\nsource: 144x360px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 415fcf7d-e3c6-5100-a867-607c569a4a9d\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"485381f1-579f-4895-b273-d5dcc849c6a4\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/485381f1-579f-4895-b273-d5dcc849c6a4/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 485381f1-579f-4895-b273-d5dcc849c6a4\njob_id: 485381f1-579f-4895-b273-d5dcc849c6a4\nframes: 1\ntransparent: yes\nasset_id: 415fcf7d-e3c6-5100-a867-607c569a4a9d\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/485381f1-579f-4895-b273-d5dcc849c6a4/download"
+      }
+    ]
+  },
+  {
+    "id": "sproutling_v1",
+    "sheet": "sproutling_v1",
+    "job_id": "8311ed44-c3cf-4fbe-8892-88e49b84c8ea",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "fb9f90f6cfcc3018408a8e36283a46fddcd730f1f72e081fb0598c2162b35d01",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/sproutling_v1.png",
+    "input_sha256": "fb9f90f6cfcc3018408a8e36283a46fddcd730f1f72e081fb0598c2162b35d01",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/sproutling_v1.png",
+    "raw_sha256": "2ee2bed7d8967d9641b7b999020e1fa4ef199f1d13e77c0e622d6c8d5573bd51",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 8311ed44-c3cf-4fbe-8892-88e49b84c8ea\njob_id: 8311ed44-c3cf-4fbe-8892-88e49b84c8ea\nsource: 144x360px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 089e1df2-762f-5ea7-a36b-383c85cfd6c7\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"8311ed44-c3cf-4fbe-8892-88e49b84c8ea\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/8311ed44-c3cf-4fbe-8892-88e49b84c8ea/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 8311ed44-c3cf-4fbe-8892-88e49b84c8ea\njob_id: 8311ed44-c3cf-4fbe-8892-88e49b84c8ea\nframes: 1\ntransparent: yes\nasset_id: 089e1df2-762f-5ea7-a36b-383c85cfd6c7\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/8311ed44-c3cf-4fbe-8892-88e49b84c8ea/download"
+      }
+    ]
+  },
+  {
+    "id": "sproutling_v2",
+    "sheet": "sproutling_v2",
+    "job_id": "8aadd7d4-8fd2-4b54-8e71-9c3679b8db27",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "062b91753925027c415876163f8c07a5590310c15789331065100867ac7b657a",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/sproutling_v2.png",
+    "input_sha256": "062b91753925027c415876163f8c07a5590310c15789331065100867ac7b657a",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/sproutling_v2.png",
+    "raw_sha256": "43909176bf62d4d545829b3d5fcc290ceaf3ff58a8e7196cd63b88bea1dbbfa0",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 8aadd7d4-8fd2-4b54-8e71-9c3679b8db27\njob_id: 8aadd7d4-8fd2-4b54-8e71-9c3679b8db27\nsource: 144x360px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 9dd11ee1-33b5-5b7b-8787-ce0870b90244\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"8aadd7d4-8fd2-4b54-8e71-9c3679b8db27\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/8aadd7d4-8fd2-4b54-8e71-9c3679b8db27/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 8aadd7d4-8fd2-4b54-8e71-9c3679b8db27\njob_id: 8aadd7d4-8fd2-4b54-8e71-9c3679b8db27\nframes: 1\ntransparent: yes\nasset_id: 9dd11ee1-33b5-5b7b-8787-ce0870b90244\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/8aadd7d4-8fd2-4b54-8e71-9c3679b8db27/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_banners",
+    "sheet": "summit_banners",
+    "job_id": "ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "868992049e052eff4d583d3705268daee99ef8ab6fd3ab443040ed7e722b62aa",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_banners.png",
+    "input_sha256": "0b33528b5f55104c2ec0908797cf66bdd23a9d3db3130074fe95a69535eaa545",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_banners.png",
+    "raw_sha256": "9f72d968f772a32810ab35001e29161a0b6a8e04cfc6922efdebf1a92e894d2b",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a\njob_id: ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a\nsource: 32x64px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 23fce2d2-d3cf-5da6-aee0-fbb4e5773a62\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a\njob_id: ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a\nframes: 1\ntransparent: yes\nasset_id: 23fce2d2-d3cf-5da6-aee0-fbb4e5773a62\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/ad87d4f6-e6c5-4609-b461-e8bb3ae23a8a/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_brazier",
+    "sheet": "summit_brazier",
+    "job_id": "6421c732-1ff0-4bbd-b5d3-bbb36849dcdf",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "e9043e4c42a9cf8544b1eff44c3104f6fd0d5759cf45cd8bc4ad379e23274948",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_brazier.png",
+    "input_sha256": "da1aefff317f23cb4655938e05b4f0ab7d485539abd40092a529e45284005c88",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_brazier.png",
+    "raw_sha256": "491a80e29f3a430b24a4ba27a722d630ba68f32e7f4d1eb5dfe5d0c9ea7e17c7",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 6421c732-1ff0-4bbd-b5d3-bbb36849dcdf\njob_id: 6421c732-1ff0-4bbd-b5d3-bbb36849dcdf\nsource: 144x80px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: ef8e4745-ae4a-561b-8340-abee83b0ac85\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"6421c732-1ff0-4bbd-b5d3-bbb36849dcdf\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/6421c732-1ff0-4bbd-b5d3-bbb36849dcdf/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 6421c732-1ff0-4bbd-b5d3-bbb36849dcdf\njob_id: 6421c732-1ff0-4bbd-b5d3-bbb36849dcdf\nframes: 1\ntransparent: yes\nasset_id: ef8e4745-ae4a-561b-8340-abee83b0ac85\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/6421c732-1ff0-4bbd-b5d3-bbb36849dcdf/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_dais",
+    "sheet": "summit_dais",
+    "job_id": "5eee866b-bec1-4896-9a8a-111d41253cff",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "8f857cca6f1b88c9e20a00a3817f30f7803405e7121f4286ad541051d7e50852",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_dais.png",
+    "input_sha256": "8f857cca6f1b88c9e20a00a3817f30f7803405e7121f4286ad541051d7e50852",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_dais.png",
+    "raw_sha256": "74ae27ae02c2cd66c3e1cd9cfc99f280c89109f1a5757b9c980e008038bcea01",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 5eee866b-bec1-4896-9a8a-111d41253cff\njob_id: 5eee866b-bec1-4896-9a8a-111d41253cff\nsource: 128x80px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: bb6f7bef-3a13-5a2e-9f1e-d0b97d41b34c\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"5eee866b-bec1-4896-9a8a-111d41253cff\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/5eee866b-bec1-4896-9a8a-111d41253cff/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 5eee866b-bec1-4896-9a8a-111d41253cff\njob_id: 5eee866b-bec1-4896-9a8a-111d41253cff\nframes: 1\ntransparent: yes\nasset_id: bb6f7bef-3a13-5a2e-9f1e-d0b97d41b34c\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/5eee866b-bec1-4896-9a8a-111d41253cff/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_floor",
+    "sheet": "summit_floor",
+    "job_id": "b1330542-a78b-4a39-82ad-84125969e63e",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "86b9d253b533258c0a5dcdd2b3feb7e45bd36e46d8e06072ad997f6849fdd20b",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_floor.png",
+    "input_sha256": "86b9d253b533258c0a5dcdd2b3feb7e45bd36e46d8e06072ad997f6849fdd20b",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_floor.png",
+    "raw_sha256": "ee15237d3f28d1831be40fa83fa43f9694d043178b626fcb72ec640d973107da",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b1330542-a78b-4a39-82ad-84125969e63e\njob_id: b1330542-a78b-4a39-82ad-84125969e63e\nsource: 192x32px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 6998119d-9219-5487-a865-0bbef6313186\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b1330542-a78b-4a39-82ad-84125969e63e\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b1330542-a78b-4a39-82ad-84125969e63e/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b1330542-a78b-4a39-82ad-84125969e63e\njob_id: b1330542-a78b-4a39-82ad-84125969e63e\nframes: 1\ntransparent: yes\nasset_id: 6998119d-9219-5487-a865-0bbef6313186\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/b1330542-a78b-4a39-82ad-84125969e63e/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_foundation",
+    "sheet": "summit_foundation",
+    "job_id": "0e9df90c-b442-4b90-871a-11227e7edb8e",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "bfc1400e3b06cef26c726bcbe776d9c11756fd9ed4db81b5cd7d8909bf49ba0f",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_foundation.png",
+    "input_sha256": "bfc1400e3b06cef26c726bcbe776d9c11756fd9ed4db81b5cd7d8909bf49ba0f",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_foundation.png",
+    "raw_sha256": "45add1d728898421087c06589e18d580165d73cfbf62efaa7f3b30cb55f53ef4",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 0e9df90c-b442-4b90-871a-11227e7edb8e\njob_id: 0e9df90c-b442-4b90-871a-11227e7edb8e\nsource: 128x128px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 12e32823-c9f7-51e2-965d-7cdf03b28fa6\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"0e9df90c-b442-4b90-871a-11227e7edb8e\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/0e9df90c-b442-4b90-871a-11227e7edb8e/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 0e9df90c-b442-4b90-871a-11227e7edb8e\njob_id: 0e9df90c-b442-4b90-871a-11227e7edb8e\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: 12e32823-c9f7-51e2-965d-7cdf03b28fa6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/0e9df90c-b442-4b90-871a-11227e7edb8e/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_masonry",
+    "sheet": "summit_masonry",
+    "job_id": "577c674d-1739-4ad2-ac49-d7bd9b5728e6",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "d7a1facb0829f0003fead1ea2cb07e28c95037bb6c4a8b9c971175b2de07d2b9",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_masonry.png",
+    "input_sha256": "d7a1facb0829f0003fead1ea2cb07e28c95037bb6c4a8b9c971175b2de07d2b9",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_masonry.png",
+    "raw_sha256": "1a3dd8a9dbf778d7bded400ea2939150f302f95ca5725a96154cc86335a6e430",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 577c674d-1739-4ad2-ac49-d7bd9b5728e6\njob_id: 577c674d-1739-4ad2-ac49-d7bd9b5728e6\nsource: 128x96px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: d5383ffc-2fd3-5a58-b99f-c57caf6a55ab\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"577c674d-1739-4ad2-ac49-d7bd9b5728e6\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/577c674d-1739-4ad2-ac49-d7bd9b5728e6/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 577c674d-1739-4ad2-ac49-d7bd9b5728e6\njob_id: 577c674d-1739-4ad2-ac49-d7bd9b5728e6\nframes: 1\ntransparent: no \u2014 every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: d5383ffc-2fd3-5a58-b99f-c57caf6a55ab\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/577c674d-1739-4ad2-ac49-d7bd9b5728e6/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_pillars",
+    "sheet": "summit_pillars",
+    "job_id": "23c04665-c835-4b57-b1be-26d0f35ccb63",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "c37311d153ac512842f53ae1eccb7eca0baad7d1daf4a9f9310ae9cea3b5b5f5",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_pillars.png",
+    "input_sha256": "c37311d153ac512842f53ae1eccb7eca0baad7d1daf4a9f9310ae9cea3b5b5f5",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_pillars.png",
+    "raw_sha256": "53466b78c209cbbe3d60aa8ba2b60e94311608091ca3cd1f4eba9a155d2cc189",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 23c04665-c835-4b57-b1be-26d0f35ccb63\njob_id: 23c04665-c835-4b57-b1be-26d0f35ccb63\nsource: 64x336px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: f22eaac9-88e2-567c-b878-ca8452b1a30d\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"23c04665-c835-4b57-b1be-26d0f35ccb63\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/23c04665-c835-4b57-b1be-26d0f35ccb63/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 23c04665-c835-4b57-b1be-26d0f35ccb63\njob_id: 23c04665-c835-4b57-b1be-26d0f35ccb63\nframes: 1\ntransparent: yes\nasset_id: f22eaac9-88e2-567c-b878-ca8452b1a30d\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/23c04665-c835-4b57-b1be-26d0f35ccb63/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_props",
+    "sheet": "summit_props",
+    "job_id": "c77cac50-8cb8-48bf-985c-0b1dbcc34d00",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "32c28b45bb75bd87e8af763a2a736c7ff3f40f30258c30d5a3a1f6f146c3b0f9",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_props.png",
+    "input_sha256": "d99f05c90385f0eaa83f65d9713c916b0bcdfad8139a51bbc90ab9141e1765de",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_props.png",
+    "raw_sha256": "e4095909c9bf84ddbbf4b89f427f879663b59fb2d69125d63764d8117c5d4c0d",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: c77cac50-8cb8-48bf-985c-0b1dbcc34d00\njob_id: c77cac50-8cb8-48bf-985c-0b1dbcc34d00\nsource: 64x48px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: d564fbee-bb9f-51f8-bbbd-0fd24818c9d1\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"c77cac50-8cb8-48bf-985c-0b1dbcc34d00\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/c77cac50-8cb8-48bf-985c-0b1dbcc34d00/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: c77cac50-8cb8-48bf-985c-0b1dbcc34d00\njob_id: c77cac50-8cb8-48bf-985c-0b1dbcc34d00\nframes: 1\ntransparent: yes\nasset_id: d564fbee-bb9f-51f8-bbbd-0fd24818c9d1\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/c77cac50-8cb8-48bf-985c-0b1dbcc34d00/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_stones",
+    "sheet": "summit_stones",
+    "job_id": "1169c459-b392-45b3-9052-d8c51090bfa2",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "6ef26abda1834ff1e37d57854bdf82dcbb47b174dce7714a48de66eb5aee2d6e",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_stones.png",
+    "input_sha256": "6ef26abda1834ff1e37d57854bdf82dcbb47b174dce7714a48de66eb5aee2d6e",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_stones.png",
+    "raw_sha256": "d00110bdc6bab7414f6efdcad21ec16645af4bba5a9a66f0312ce101854d5a9f",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 1169c459-b392-45b3-9052-d8c51090bfa2\njob_id: 1169c459-b392-45b3-9052-d8c51090bfa2\nsource: 64x224px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 1c88d3d7-a1bc-512f-984a-7be9472485b6\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"1169c459-b392-45b3-9052-d8c51090bfa2\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/1169c459-b392-45b3-9052-d8c51090bfa2/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 1169c459-b392-45b3-9052-d8c51090bfa2\njob_id: 1169c459-b392-45b3-9052-d8c51090bfa2\nframes: 1\ntransparent: yes\nasset_id: 1c88d3d7-a1bc-512f-984a-7be9472485b6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/1169c459-b392-45b3-9052-d8c51090bfa2/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_tiles-part-0-0",
+    "sheet": "summit_tiles",
+    "job_id": "8b5f3e16-8983-4b00-9443-e31565bb630f",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "400e23f5b4ce17cd9aa30c323e19dd4652e27235cfe6979029b665804521bdbf",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_tiles-part-0-0.png",
+    "input_sha256": "a7c9c7412a998271efc56b5e4a5668e2596e56d2de8118c7b5ca2cb24d0b8cfc",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_tiles-part-0-0.png",
+    "raw_sha256": "a0afea8680240bebc2e2a5957a4bdde9b9d42b2b652cd17a62f29c72c27f44b4",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 8b5f3e16-8983-4b00-9443-e31565bb630f\njob_id: 8b5f3e16-8983-4b00-9443-e31565bb630f\nsource: 192x512px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: 5f67a92f-a4f1-50e8-9caf-1750167991b6\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"8b5f3e16-8983-4b00-9443-e31565bb630f\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/8b5f3e16-8983-4b00-9443-e31565bb630f/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 8b5f3e16-8983-4b00-9443-e31565bb630f\njob_id: 8b5f3e16-8983-4b00-9443-e31565bb630f\nframes: 1\ntransparent: yes\nasset_id: 5f67a92f-a4f1-50e8-9caf-1750167991b6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/8b5f3e16-8983-4b00-9443-e31565bb630f/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_tiles-part-0-512",
+    "sheet": "summit_tiles",
+    "job_id": "3b98cd27-c4c7-414b-8fc0-451eed686720",
+    "parameters": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "source_sha256": "400e23f5b4ce17cd9aa30c323e19dd4652e27235cfe6979029b665804521bdbf",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_tiles-part-0-512.png",
+    "input_sha256": "8751a3544bd2021d0d94621e9d647c20c69c105b5503c3afe5c5b08b52c3d718",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_tiles-part-0-512.png",
+    "raw_sha256": "334b4f19222b5fecdfe89104d038c8aaec6b834714bda9dc9a75cce48a586a7e",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 3b98cd27-c4c7-414b-8fc0-451eed686720\njob_id: 3b98cd27-c4c7-414b-8fc0-451eed686720\nsource: 192x96px\nconvention: opengl (green up)\nkind: topdown\nlook: strength 0.35, outline_rounding 0, part_shapes 0, surface_detail 0.08, detail_softness 1.5; the rest where the kind puts them\nasset_id: f477aaa4-11d4-5daa-8375-8cf2aa1c1633\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"3b98cd27-c4c7-414b-8fc0-451eed686720\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/3b98cd27-c4c7-414b-8fc0-451eed686720/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 3b98cd27-c4c7-414b-8fc0-451eed686720\njob_id: 3b98cd27-c4c7-414b-8fc0-451eed686720\nframes: 1\ntransparent: yes\nasset_id: f477aaa4-11d4-5daa-8375-8cf2aa1c1633\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/3b98cd27-c4c7-414b-8fc0-451eed686720/download"
+      }
+    ]
+  },
+  {
+    "id": "summit_walls",
+    "sheet": "summit_walls",
+    "job_id": "3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd",
+    "parameters": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "eaa5932265f173df4587e71f68156182a9e20e22715c2c3a97187a7f62192df1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_walls.png",
+    "input_sha256": "67ec251abcd5a67cb78aa6094dab56ef880872f2147b5692cfc2697e1663e18b",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/summit_walls.png",
+    "raw_sha256": "b5021be18b14ff2adc664b86f6ed2293c25e71d110ce4e89267c39e378c776d7",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd\njob_id: 3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd\nsource: 16x24px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: ba2b3c98-ffec-57d3-aafa-9f3b52cce2f7\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd\njob_id: 3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd\nframes: 1\ntransparent: yes\nasset_id: ba2b3c98-ffec-57d3-aafa-9f3b52cce2f7\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.5 generations\ndownload: https://api.pixellab.ai/mcp/images/3c1acfc7-c007-4292-a2e6-6a86eb3ab8fd/download"
+      }
+    ]
+  },
+  {
+    "id": "thorn_imp",
+    "sheet": "thorn_imp",
+    "job_id": "f290ccbe-ce88-49f9-91fc-94bfa1e965a4",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "185969262dff1ddcd0230ed2f0d25400c8f89ac453dd0a1497439bd20b6b6245",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/thorn_imp.png",
+    "input_sha256": "b9ab06d5ea913c036639b894d4910673ffd2a57fe3b0cfaff4d95cc297272ba1",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/thorn_imp.png",
+    "raw_sha256": "61dcf27748adba522fd17610cfe06809f58a0a61d3e687d409249a7d3cfdae79",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: f290ccbe-ce88-49f9-91fc-94bfa1e965a4\njob_id: f290ccbe-ce88-49f9-91fc-94bfa1e965a4\nsource: 160x480px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 7e802e02-fe8b-566c-bd76-43c6884366af\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"f290ccbe-ce88-49f9-91fc-94bfa1e965a4\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/f290ccbe-ce88-49f9-91fc-94bfa1e965a4/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: f290ccbe-ce88-49f9-91fc-94bfa1e965a4\njob_id: f290ccbe-ce88-49f9-91fc-94bfa1e965a4\nframes: 1\ntransparent: yes\nasset_id: 7e802e02-fe8b-566c-bd76-43c6884366af\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/f290ccbe-ce88-49f9-91fc-94bfa1e965a4/download"
+      }
+    ]
+  },
+  {
+    "id": "thorn_imp_v1",
+    "sheet": "thorn_imp_v1",
+    "job_id": "01c215ac-6e59-48b6-80e7-06c1ea26e1c9",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "0419a1fbc70b6a8df85f703bfe04ea8767f88c5f21a0d2baf1b21683f51b6fcc",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/thorn_imp_v1.png",
+    "input_sha256": "0419a1fbc70b6a8df85f703bfe04ea8767f88c5f21a0d2baf1b21683f51b6fcc",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/thorn_imp_v1.png",
+    "raw_sha256": "dd5892a2708bc14a0a49346aa31148ef6a156442bb540e83a084d37b0fc02658",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 01c215ac-6e59-48b6-80e7-06c1ea26e1c9\njob_id: 01c215ac-6e59-48b6-80e7-06c1ea26e1c9\nsource: 160x480px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: b03f56b1-8c82-5721-a97c-450a67d1597d\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"01c215ac-6e59-48b6-80e7-06c1ea26e1c9\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/01c215ac-6e59-48b6-80e7-06c1ea26e1c9/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 01c215ac-6e59-48b6-80e7-06c1ea26e1c9\njob_id: 01c215ac-6e59-48b6-80e7-06c1ea26e1c9\nframes: 1\ntransparent: yes\nasset_id: b03f56b1-8c82-5721-a97c-450a67d1597d\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/01c215ac-6e59-48b6-80e7-06c1ea26e1c9/download"
+      }
+    ]
+  },
+  {
+    "id": "thorn_imp_v2",
+    "sheet": "thorn_imp_v2",
+    "job_id": "b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "3a0587c2a1b124f4da19e39d0920e30e06730b651851aa4aed7f38f3461c6360",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/thorn_imp_v2.png",
+    "input_sha256": "3a0587c2a1b124f4da19e39d0920e30e06730b651851aa4aed7f38f3461c6360",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/thorn_imp_v2.png",
+    "raw_sha256": "b2e4506154cf6981202790eccc792e2030225a5d66c2f7abb7627345be05c69b",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9\njob_id: b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9\nsource: 160x480px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: d4e9293c-f4ef-56c4-adb5-0a8cac41be3b\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9\njob_id: b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9\nframes: 1\ntransparent: yes\nasset_id: d4e9293c-f4ef-56c4-adb5-0a8cac41be3b\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/b1b6bd5f-c8ca-41b9-9449-cd19c41e77f9/download"
+      }
+    ]
+  },
+  {
+    "id": "warden_body",
+    "sheet": "warden_body",
+    "job_id": "3470c249-c622-45df-8813-61ad4e6b1c42",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "39732f6787d54111f5fab76d1f7ecb23fdaaf362973e99c0bf8b1d135f5a8991",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_body.png",
+    "input_sha256": "f269117d4a7df930551cd4ac55f27c01b2ac0c889738f940beea78c6c97a72f6",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/warden_body.png",
+    "raw_sha256": "7aef13020a599ed33f4fd63b211730a86a5fd45e9d38d3e1b8d8ff41ca1656b7",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 3470c249-c622-45df-8813-61ad4e6b1c42\njob_id: 3470c249-c622-45df-8813-61ad4e6b1c42\nsource: 120x336px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: b15c1a5d-f505-5b8f-a412-279c675af157\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"3470c249-c622-45df-8813-61ad4e6b1c42\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/3470c249-c622-45df-8813-61ad4e6b1c42/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 3470c249-c622-45df-8813-61ad4e6b1c42\njob_id: 3470c249-c622-45df-8813-61ad4e6b1c42\nframes: 1\ntransparent: yes\nasset_id: b15c1a5d-f505-5b8f-a412-279c675af157\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/3470c249-c622-45df-8813-61ad4e6b1c42/download"
+      }
+    ]
+  },
+  {
+    "id": "warden_crystal",
+    "sheet": "warden_crystal",
+    "job_id": "bed2f7d3-19a1-4b3e-bda9-b50610351f11",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "825025989ec7fd779a2d0dfc5435d4299fc11cb81265dd5bf07d13671db49dc1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_crystal.png",
+    "input_sha256": "faf7bdc816a7da2dcf14ba6dc71420f8b326a59984a5fbc4b434430cd66dab53",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/warden_crystal.png",
+    "raw_sha256": "c73ad11af5d60b81fcd3d5b74738e4b4254cf6622766170efd3bf6b1103404d2",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: bed2f7d3-19a1-4b3e-bda9-b50610351f11\njob_id: bed2f7d3-19a1-4b3e-bda9-b50610351f11\nsource: 80x72px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 8475a7e6-6d57-50d0-8cdc-984e21ff5516\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"bed2f7d3-19a1-4b3e-bda9-b50610351f11\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/bed2f7d3-19a1-4b3e-bda9-b50610351f11/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: bed2f7d3-19a1-4b3e-bda9-b50610351f11\njob_id: bed2f7d3-19a1-4b3e-bda9-b50610351f11\nframes: 1\ntransparent: yes\nasset_id: 8475a7e6-6d57-50d0-8cdc-984e21ff5516\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/bed2f7d3-19a1-4b3e-bda9-b50610351f11/download"
+      }
+    ]
+  },
+  {
+    "id": "warden_fist",
+    "sheet": "warden_fist",
+    "job_id": "ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "25c9f7299eddd133a1078e4ea6bed3be91b94b774e26513cbdc4445096da85c5",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_fist.png",
+    "input_sha256": "6b19aef66bd99a8d7c845b9a96f6a04c5c524bbed104c1482ea024097e39269e",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/warden_fist.png",
+    "raw_sha256": "e94a5c53a36545ac3aeff262e746442cd47c66d52443f413fe8f489d2bb45ebd",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b\njob_id: ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b\nsource: 200x224px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: b2e30afa-3bc8-5aae-889c-6d015b835296\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b\njob_id: ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b\nframes: 1\ntransparent: yes\nasset_id: b2e30afa-3bc8-5aae-889c-6d015b835296\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/ee6c7d88-bba1-4d62-b89c-5cbe9f1c0a0b/download"
+      }
+    ]
+  },
+  {
+    "id": "warden_head",
+    "sheet": "warden_head",
+    "job_id": "7e130a98-0e9f-4e05-8aba-677238e548ad",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "fe67c789cedacff81a295c4ed6a62a23410bcc73535c12a229b7fc26f997a281",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_head.png",
+    "input_sha256": "0e3615703ae4170133727e0cd21de95122002b08ace8d3695537bd6763f319d6",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/warden_head.png",
+    "raw_sha256": "a869e01c4818d01ba217cc7a402a19f3aaaf2e53b7e32e63717d96364147cf2e",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 7e130a98-0e9f-4e05-8aba-677238e548ad\njob_id: 7e130a98-0e9f-4e05-8aba-677238e548ad\nsource: 264x132px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 85cb31c7-efa1-5d86-8cdd-4816e26c147c\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"7e130a98-0e9f-4e05-8aba-677238e548ad\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/7e130a98-0e9f-4e05-8aba-677238e548ad/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 7e130a98-0e9f-4e05-8aba-677238e548ad\njob_id: 7e130a98-0e9f-4e05-8aba-677238e548ad\nframes: 1\ntransparent: yes\nasset_id: 85cb31c7-efa1-5d86-8cdd-4816e26c147c\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/7e130a98-0e9f-4e05-8aba-677238e548ad/download"
+      }
+    ]
+  },
+  {
+    "id": "warden_heart",
+    "sheet": "warden_heart",
+    "job_id": "10d34f11-c73f-40c7-807a-1850cdf21b3b",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "dd26d82dc88a064b2438e9a65420d2b9bc382cdc012a85366c987682c2629642",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_heart.png",
+    "input_sha256": "8306c6f39bf4aceee5105b536378fd3ccd4e045953d5afa9b9689dc598818683",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/warden_heart.png",
+    "raw_sha256": "35235ca796388e29573df367ab19a781a74f922c123b8967cd327795ce894035",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 10d34f11-c73f-40c7-807a-1850cdf21b3b\njob_id: 10d34f11-c73f-40c7-807a-1850cdf21b3b\nsource: 96x128px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 40815d98-fae2-5d56-a082-fb712c85aab6\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"10d34f11-c73f-40c7-807a-1850cdf21b3b\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/10d34f11-c73f-40c7-807a-1850cdf21b3b/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 10d34f11-c73f-40c7-807a-1850cdf21b3b\njob_id: 10d34f11-c73f-40c7-807a-1850cdf21b3b\nframes: 1\ntransparent: yes\nasset_id: 40815d98-fae2-5d56-a082-fb712c85aab6\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/10d34f11-c73f-40c7-807a-1850cdf21b3b/download"
+      }
+    ]
+  },
+  {
+    "id": "wisp",
+    "sheet": "wisp",
+    "job_id": "821364ce-6684-4d56-ad5d-93ac8b7e08c5",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "350f00713ba96954182df5f350156483ee95912788fef9d5c8fd0c27636b1243",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/wisp.png",
+    "input_sha256": "4d0dad4bfb261d010638991385124e663a379f496054a0af4a9b039d6713f4d2",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/wisp.png",
+    "raw_sha256": "6e10cc7ad90afd5bc8191cb83eb3a2eeb6f3693b4f78b42e647d09bd676f7d0c",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: 821364ce-6684-4d56-ad5d-93ac8b7e08c5\njob_id: 821364ce-6684-4d56-ad5d-93ac8b7e08c5\nsource: 96x96px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 586b6f15-79fb-52cc-b10c-9d97964cf357\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"821364ce-6684-4d56-ad5d-93ac8b7e08c5\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/821364ce-6684-4d56-ad5d-93ac8b7e08c5/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: 821364ce-6684-4d56-ad5d-93ac8b7e08c5\njob_id: 821364ce-6684-4d56-ad5d-93ac8b7e08c5\nframes: 1\ntransparent: yes\nasset_id: 586b6f15-79fb-52cc-b10c-9d97964cf357\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/821364ce-6684-4d56-ad5d-93ac8b7e08c5/download"
+      }
+    ]
+  },
+  {
+    "id": "wisp_v1",
+    "sheet": "wisp_v1",
+    "job_id": "c69a5d25-2d1b-49dc-8447-33777d5676b2",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "fd0cb9837052ec15295f2046cfee8b6a529df014166f462c93319a364a52142d",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/wisp_v1.png",
+    "input_sha256": "fd0cb9837052ec15295f2046cfee8b6a529df014166f462c93319a364a52142d",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/wisp_v1.png",
+    "raw_sha256": "8f65f0a656ce8bb097aec38318e307f9e21b1f3bb3739674a1cce8a051db2882",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: c69a5d25-2d1b-49dc-8447-33777d5676b2\njob_id: c69a5d25-2d1b-49dc-8447-33777d5676b2\nsource: 96x96px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: d06b9721-dcd0-5e9b-81c4-3cff1f3d901e\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"c69a5d25-2d1b-49dc-8447-33777d5676b2\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/c69a5d25-2d1b-49dc-8447-33777d5676b2/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: c69a5d25-2d1b-49dc-8447-33777d5676b2\njob_id: c69a5d25-2d1b-49dc-8447-33777d5676b2\nframes: 1\ntransparent: yes\nasset_id: d06b9721-dcd0-5e9b-81c4-3cff1f3d901e\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/c69a5d25-2d1b-49dc-8447-33777d5676b2/download"
+      }
+    ]
+  },
+  {
+    "id": "wisp_v2",
+    "sheet": "wisp_v2",
+    "job_id": "b4de1ce2-a545-4097-9881-d171f30e6888",
+    "parameters": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "source_sha256": "41a095b9f84c686ddfa8a5ae09a466f16095ba53e1b786d162eb1e3af3461381",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/wisp_v2.png",
+    "input_sha256": "41a095b9f84c686ddfa8a5ae09a466f16095ba53e1b786d162eb1e3af3461381",
+    "raw": "art/pixellab/2026-11-01-round7/normals/raw/wisp_v2.png",
+    "raw_sha256": "1550ce536f5802b3dd45c70fb97c2374bd0a93cc6311348f1fdf41fbb9d33232",
+    "request_receipt": [
+      {
+        "type": "text",
+        "text": "id: b4de1ce2-a545-4097-9881-d171f30e6888\njob_id: b4de1ce2-a545-4097-9881-d171f30e6888\nsource: 96x96px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 43701fa4-9426-5367-acdd-784df5b93274\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b4de1ce2-a545-4097-9881-d171f30e6888\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b4de1ce2-a545-4097-9881-d171f30e6888/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "result_receipt": [
+      {
+        "type": "text",
+        "text": "status: completed\nid: b4de1ce2-a545-4097-9881-d171f30e6888\njob_id: b4de1ce2-a545-4097-9881-d171f30e6888\nframes: 1\ntransparent: yes\nasset_id: 43701fa4-9426-5367-acdd-784df5b93274\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 0.1 generations\ndownload: https://api.pixellab.ai/mcp/images/b4de1ce2-a545-4097-9881-d171f30e6888/download"
+      }
+    ]
+  }
+]

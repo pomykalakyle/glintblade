@@ -65,6 +65,7 @@ pub struct State {
     /// Past positions (x, y, hover) for the curling tail, newest first.
     pub trail: [(f32, f32, f32); TAIL],
     seed: u32,
+    appearance: u8,
 }
 
 impl State {
@@ -101,6 +102,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         aim: (0.0, 1.0),
         trail: [(x, y, HOVER); TAIL],
         seed,
+        appearance: super::variation::appearance(x, y),
     };
     s.spin = if s.vary(1) < 0.5 { -1.0 } else { 1.0 };
     s.radius = 60.0 + s.vary(2) * 20.0;
@@ -369,7 +371,7 @@ fn sheet_cell(b: &Body, s: &State, t: u64) -> Option<(&'static Cell, (i32, i32))
         .any(|base| a.name == *base || a.name.starts_with(&format!("{base}_")));
     let looping = a.json.get("loop").and_then(|v| v.as_bool()).unwrap_or(looping || idle);
     let ticks = if s.mode == Mode::Windup && !idle { ticks * a.total_ticks() / WINDUP } else { ticks };
-    Some((sh.cell(a, a.frame_at(ticks, looping)), sh.anchor_of(a)))
+    Some((super::variation::cell(SHEET, sh.cell(a, a.frame_at(ticks, looping)), s.appearance), sh.anchor_of(a)))
 }
 
 /// Choose the authored sprite or a native-grid fallback with the same anchor contract.
@@ -387,6 +389,8 @@ fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32)) {
 pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let h = hover(s, f.t);
     let (gx, gy) = (b.x, b.y);
+    let (cell, anchor) = current_cell(b, s, f.t);
+    let jx = if b.stun > 0 { ((b.stun % 2) as f32) * 2.0 - 1.0 } else { 0.0 };
     // Shadow: small and soft, it's floating.
     f.shadow(f.sx(gx), f.sy(gy), 3, 1, 0.3);
 
@@ -396,8 +400,10 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let ft = f.t as f32 + s.seed as f32;
     let flicker = 0.92 + 0.05 * (ft * 0.31).sin() + 0.03 * (ft * 0.77).sin();
     let gutter = (b.stun as f32 / 12.0).min(1.0);
-    let light_r = (16.0 + 12.0 * charge + 4.0 * recoil) * flicker * (1.0 - 0.35 * gutter);
-    f.add_light_w(gx, gy - h - 5.0, light_r, FLAME[2], 0.24 + 0.14 * charge);
+    if !f.surface_lighting {
+        let light_r = (16.0 + 12.0 * charge + 4.0 * recoil) * flicker * (1.0 - 0.35 * gutter);
+        f.add_light_3d_w(gx, gy, h + 5.0, light_r, FLAME[2], 0.24 + 0.14 * charge);
+    }
 
     // Authored sheets own their complete silhouette, including any flame tail.
     if sheet_cell(b, s, f.t).is_none() {
@@ -405,16 +411,30 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     }
 
     // Hurt jitter, and the core going chalk-bright through the last third of the windup.
-    let jx = if b.stun > 0 { ((b.stun % 2) as f32) * 2.0 - 1.0 } else { 0.0 };
     let hot = ((charge - 0.6) / 0.4).clamp(0.0, 1.0);
     let opts = DrawOpts {
         actor: true,
+        foot_depth: 2,
+        foot_half_w: b.r,
+        ground_y: Some(gy.floor()),
+        elevation: h,
         flash: b.flash.max(hot * 0.35),
         emit_gain: 1.0 + 0.25 * charge + 0.2 * recoil,
         ..Default::default()
     };
-    let (cell, anchor) = current_cell(b, s, f.t);
+    let caster_index = f.surface_casters.len();
     f.sprite_w(cell, anchor, gx + jx, gy - h, &opts);
+    if f.surface_lighting
+        && let Some(caster) = f.surface_casters.get(caster_index)
+        && let Some((x, ground_y, height)) = flame_light_position(cell, anchor, caster)
+    {
+        // The artist's tail extends below its nominal flame anchor. Use this
+        // actual pose's foot depth so the core belongs to its native housing,
+        // while retaining the exact glowing screen pixel through hover/jitter.
+        let light_r = (52.0 + 16.0 * charge + 4.0 * recoil) * flicker;
+        let intensity = (0.90 + 0.48 * charge + 0.12 * recoil) * (1.0 - 0.5 * gutter);
+        f.add_light_3d_w(x, ground_y, height, light_r, FLAME[3], intensity);
+    }
 
     if s.mode == Mode::Windup && s.mode_t >= WINDUP - AIM_LOCK {
         // A small luminous tongue points down the locked shot direction.
@@ -423,6 +443,35 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
         f.put_glow(x, y, FLAME[3]);
         f.put_glow(x - s.aim.0.round() as i32, y - s.aim.1.round() as i32, FLAME[2]);
     }
+}
+
+/// The brightest authored core pixel, relative to this pose's flame anchor.
+/// A deterministic tie keeps a held pose's source perfectly still.
+fn flame_core(cell: &Cell, anchor: (i32, i32)) -> Option<(f32, f32)> {
+    let mut best = None;
+    let mut brightness = -1.0;
+    for y in 0..cell.h {
+        for x in 0..cell.w {
+            let p = cell.at(x, y);
+            if p.a && p.emit && p.c.luma() > brightness {
+                brightness = p.c.luma();
+                best = Some((x as f32 + 0.5 - anchor.0 as f32, y as f32 + 0.5 - anchor.1 as f32));
+            }
+        }
+    }
+    best
+}
+
+/// Share the exact native source column and foot interval with the caster.
+/// Moving Y and Z together changes depth without moving the projected flame.
+fn flame_light_position(cell: &Cell, anchor: (i32, i32), caster: &crate::gfx::frame::SurfaceCaster) -> Option<(f32, f32, f32)> {
+    let (lx, ly) = flame_core(cell, anchor)?;
+    let source_x = (lx + anchor.0 as f32 - 0.5).round() as usize;
+    let span = caster.foot.get(source_x)?;
+    let ground_y = span[0] + (span[1] - span[0]) * 0.5;
+    let projected_y = caster.y.floor() + ly;
+    let x = caster.x.floor() + if caster.flip { 1.0 - lx } else { lx };
+    Some((x, ground_y, ground_y - projected_y))
 }
 
 /// The curling tail hangs from the flame's base: it lags sideways behind the motion (from the
@@ -509,6 +558,139 @@ mod tests {
     use super::*;
     use crate::fx::Fx;
     use crate::world::{Zone, ZoneId};
+
+    /// All luminous archetypes stop submitting both their source and caster on
+    /// a real lethal hit; death-particle flashes remain separate transient FX.
+    #[test]
+    fn luminous_enemy_death_extinguishes_live_source_and_housing() {
+        use crate::entities::enemies::{Brain, Enemy, EnemyKind};
+        use crate::combat::{Shape, Team};
+        let zone = Zone::new(ZoneId::Glasswater, 20, 20);
+        for kind in [EnemyKind::Wisp, EnemyKind::CrystalBeetle, EnemyKind::EmberHound, EnemyKind::SpittingTotem] {
+            for appearance in 0..3 {
+                super::super::variation::with_skin(appearance, || {
+                    let mut enemy = Enemy::spawn(kind, 100.0, 100.0);
+                    if let Brain::SpittingTotem(state) = &mut enemy.brain {
+                        // The authored final idle pose is dark. Test extinction from
+                        // the actual luminous first idle pose, rather than inventing
+                        // a source in whichever cooldown pose the spawn clock selects.
+                        state.t = 0;
+                    }
+                    let mut f = Frame::new();
+                    f.surface_lighting = true;
+                    enemy.draw(&mut f);
+                    assert!(!f.point_lights.is_empty(), "{kind:?} appearance{appearance} luminous pose needs a source");
+                    assert!(f.point_lights.iter().any(|l| l.radius >= 30.0));
+                    let mut fx = Fx::new(17);
+                    let mut hits = Vec::new();
+                    let mut projectiles = Vec::new();
+                    let mut ctx = EnemyCtx { player: (120.0, 100.0), player_alive: true, zone: &zone,
+                        fx: &mut fx, hits: &mut hits, projectiles: &mut projectiles, t: 0 };
+                    // Behind the beetle's initial leftward guard.
+                    let hit = Hit::new(Shape::Circle { x: 120.0, y: 100.0, r: 24.0 }, Team::Player, 99, 1);
+                    enemy.on_hit(&hit, &mut ctx);
+                    assert!(!enemy.body.alive, "{kind:?} lethal hit");
+                    f.begin(Rgb::BLACK, Rgb::WHITE);
+                    f.surface_lighting = true;
+                    enemy.draw(&mut f);
+                    assert!(f.point_lights.is_empty(), "{kind:?} left a persistent light after death");
+                    assert!(f.surface_casters.is_empty(), "{kind:?} left a persistent shadow housing");
+                });
+            }
+        }
+    }
+
+    /// Source-column depth is indexed before mirroring, while the visible
+    /// source follows the renderer's reflected anchor and fractional hover raster.
+    #[test]
+    fn native_flame_source_preserves_mirrored_and_hovering_attachment() {
+        use crate::gfx::frame::Surface;
+        use crate::gfx::W;
+        let sh = sheet(SHEET).unwrap();
+        let anim = sh.anim("idle").unwrap();
+        for appearance in 0..3 {
+            for flip in [false, true] {
+                let cell = super::super::variation::cell(SHEET, sh.cell(anim, 0), appearance);
+                let anchor = sh.anchor_of(anim);
+                let mut f = Frame::new();
+                f.begin(Rgb::BLACK, Rgb::BLACK);
+                f.surface_lighting = true;
+                f.surfaces.fill(Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 });
+                f.sprite_w(cell, anchor, 192.73, 120.81 - 7.3,
+                    &DrawOpts { actor: true, flip, elevation: 7.3, ground_y: Some(120.0), foot_depth: 2, foot_half_w: R, ..Default::default() });
+                let (x, ground, height) = flame_light_position(cell, anchor, &f.surface_casters[0]).unwrap();
+                f.add_light_3d_w(x, ground, height, 52.0, FLAME[3], 0.9);
+                let light = f.point_lights[0];
+                assert!(f.emissive[light.y.floor() as usize * W + light.x.floor() as usize].max_c() > 0.0);
+                assert!(crate::gfx::lighting::point_visibility(&f, light).iter().all(|&v| v == 255));
+            }
+        }
+    }
+
+    /// Every real flame pose keeps its source inside the native volume and on
+    /// emitting raster ink, including fractional motion, hovering and hurt jitter.
+    #[test]
+    fn native_flame_lights_its_nearby_floor_without_self_occluding() {
+        use crate::gfx::frame::Surface;
+        use crate::gfx::W;
+        let sh = sheet(SHEET).unwrap();
+        let mut checked = 0;
+        for name in ["idle", "windup", "attack", "hurt"] {
+            let a = sh.anim(name).unwrap();
+            let mut elapsed = 0;
+            for pose in 0..a.frames {
+                for appearance in 0..3 {
+                    let (mut b, mut s) = spawn(192.73, 120.81);
+                    s.appearance = appearance;
+                    s.mode = match name { "windup" => Mode::Windup, "attack" => Mode::Recoil, _ => Mode::Drift };
+                    s.mode_t = if name == "windup" { (elapsed * WINDUP).div_ceil(a.total_ticks()) } else { elapsed };
+                    s.t = elapsed;
+                    if name == "hurt" { b.stun = 12 - elapsed; }
+                    let mut f = Frame::new();
+                    f.begin(Rgb::gray(0.5), Rgb::BLACK);
+                    f.surface_lighting = true;
+                    f.t = if name == "idle" { u64::from(elapsed) } else { u64::from(71 + elapsed) };
+                    f.surfaces.fill(Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 });
+                    let (cell, _) = current_cell(&b, &s, f.t);
+                    assert!(std::ptr::eq(cell, super::super::variation::cell(SHEET, sh.cell(a, pose), appearance)),
+                        "fixture must draw {name} pose{pose} appearance{appearance}");
+                    draw(&b, &s, &mut f);
+                    assert_eq!(f.point_lights.len(), 1);
+                    let light = f.point_lights[0];
+                    let core = light.y.floor() as usize * W + light.x.floor() as usize;
+                    assert!(f.emissive[core].max_c() > 0.0,
+                        "source left emitting ink in {name} pose{pose} appearance{appearance}");
+                    assert!(crate::gfx::lighting::point_visibility(&f, light).iter().all(|&v| v == 255),
+                        "flame blocked itself in {name} pose{pose} appearance{appearance}");
+                    let floor = (b.y.floor() as usize + 12) * W + b.x.floor() as usize + 20;
+                    assert_eq!((f.surfaces[floor].owner, f.surfaces[floor].height), (0, 0.0));
+                    crate::gfx::surface::apply(&mut f);
+                    assert!(f.light[floor].luma() > 0.03,
+                        "flame failed to light nearby floor in {name} pose{pose} appearance{appearance}");
+                    checked += 1;
+                }
+                elapsed += a.durations[pose];
+            }
+        }
+        assert_eq!(checked, 54);
+    }
+
+    #[test]
+    fn flame_core_tracks_actual_native_emission_for_every_pose_and_appearance() {
+        let sh = sheet(SHEET).unwrap();
+        for a in sh.anims.values() {
+            for i in 0..a.frames {
+                for appearance in 0..3 {
+                    let cell = super::super::variation::cell(SHEET, sh.cell(a, i), appearance);
+                    if let Some((x, y)) = flame_core(cell, sh.anchor_of(a)) {
+                        let (ax, ay) = sh.anchor_of(a);
+                        let p = cell.at((x + ax as f32).floor() as i32, (y + ay as f32).floor() as i32);
+                        assert!(p.a && p.emit, "{} pose{i} appearance{appearance}", a.name);
+                    }
+                }
+            }
+        }
+    }
 
     /// A late sidestep avoids a committed, straight bolt instead of triggering new aim.
     #[test]

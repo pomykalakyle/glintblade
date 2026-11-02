@@ -1,0 +1,31 @@
+{
+  "job": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 1d4a7eae-46c9-43ae-b96b-d194279fbf0c\njob_id: 1d4a7eae-46c9-43ae-b96b-d194279fbf0c\nsize: 96x128px\nmask: custom mask\nfill: Finish the FOUR standing broken limestone column feet. This is a transparent 2x2 sprite sheet. Each independent cell is48pixels wide and64pixels high. Only the bottom24pixels of each cell are editable. Keep upper40pixels exactly. The current circular beveled feet end abruptly as though cropped across their bottom; reconstruct a complete slim worn-stone ring foot with a CLOSED lower silhouette, visible illuminated upper lip and narrow shadowed front/side plane. Keep feet restrained, not huge square pedestals. Do NOT extend the tall shaft. Give all four columns a proper complete rounded stone foot ending by LOCAL ROW57, with LOCAL ROWS58 THROUGH63 completely TRANSPARENT. There is deliberate empty staging margin below each column: leave it empty. Use the same native large pixel clusters, pale limestone upper-left face and slate blue-gray right face as the existing shafts. No floor, no platform, no cast shadow, no moss, no debris, no black background, no opaque staging blocks. Transparent everywhere beyond the actual stone silhouette. No object may touch any cell border. The shaft must naturally terminate in the small architectural base and the whole foot must be visible.\ntransparent: True\nseed: 150118\nasset_id: d0dfa9d8-713d-5fb2-bce6-ec044d3fe9c1\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"1d4a7eae-46c9-43ae-b96b-d194279fbf0c\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/1d4a7eae-46c9-43ae-b96b-d194279fbf0c/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  },
+  "description": "Finish the FOUR standing broken limestone column feet. This is a transparent 2x2 sprite sheet. Each independent cell is48pixels wide and64pixels high. Only the bottom24pixels of each cell are editable. Keep upper40pixels exactly. The current circular beveled feet end abruptly as though cropped across their bottom; reconstruct a complete slim worn-stone ring foot with a CLOSED lower silhouette, visible illuminated upper lip and narrow shadowed front/side plane. Keep feet restrained, not huge square pedestals. Do NOT extend the tall shaft. Give all four columns a proper complete rounded stone foot ending by LOCAL ROW57, with LOCAL ROWS58 THROUGH63 completely TRANSPARENT. There is deliberate empty staging margin below each column: leave it empty. Use the same native large pixel clusters, pale limestone upper-left face and slate blue-gray right face as the existing shafts. No floor, no platform, no cast shadow, no moss, no debris, no black background, no opaque staging blocks. Transparent everywhere beyond the actual stone silhouette. No object may touch any cell border. The shaft must naturally terminate in the small architectural base and the whole foot must be visible.",
+  "mask": {
+    "cell": [
+      48,
+      64
+    ],
+    "grid": [
+      2,
+      2
+    ],
+    "preserve_local_rows": [
+      0,
+      40
+    ],
+    "edit_local_rows": [
+      40,
+      64
+    ],
+    "seed": 150118
+  }
+}

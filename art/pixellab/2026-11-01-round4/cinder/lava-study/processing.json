@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "status: processing 100%\nid: acc99e25-f5e0-4617-bcfd-2834c58c2686\njob_id: acc99e25-f5e0-4617-bcfd-2834c58c2686\neta: ~60s",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

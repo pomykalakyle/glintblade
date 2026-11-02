@@ -1,0 +1,408 @@
+{
+  "study": "out/pixellab/round7/enemy-pose-study-r3",
+  "manifest_sha256": "4da9538c7c9ae13ec61a2c709737d98648a599dc3687e5433ffb16868d19bfb3",
+  "review_scope": {
+    "actual_frames_numerically_checked": 240,
+    "looks": 18,
+    "families": 6,
+    "fixed_light": true,
+    "held_or_exact_source_repeats": 4241,
+    "all_source_duration_clocks_match": true,
+    "native_crop_complete": true,
+    "not_full_gameplay_or_all_animation_directions": true,
+    "auditor_independently_rerun": true
+  },
+  "direct_visual_review": {
+    "family_panels": [
+      "review/crystal_beetle-fixed-5x.png",
+      "review/ember_hound-fixed-5x.png",
+      "review/spitting_totem-fixed-5x.png",
+      "review/sproutling-fixed-5x.png",
+      "review/thorn_imp-fixed-5x.png",
+      "review/wisp-fixed-5x.png"
+    ],
+    "additional_actual_frame_crops": {
+      "thorn_imp": [
+        11,
+        19,
+        20,
+        36
+      ],
+      "ember_hound": [
+        13,
+        14,
+        24,
+        38
+      ],
+      "wisp": [
+        0,
+        6,
+        12,
+        18,
+        24,
+        28
+      ]
+    },
+    "layout_only": "Integer nearest-neighbor crops of existing renderer output; no new rendering, no altered shaded pixels."
+  },
+  "findings": [
+    {
+      "family": "ember_hound",
+      "severity": "pass",
+      "ticks": [
+        13,
+        14,
+        23,
+        24
+      ],
+      "detail": "Old eye-pulse pair does not relight unchanged nonemissive body: base p95/mean/max RGB8 delta all zero. All four idle poses directly inspected for all three looks. Eyes change according to source animation; ivory and red-shell variants retain body palette. Variant1 worst p95 .4 RGB8; variant2 3.5 RGB8."
+    },
+    {
+      "family": "thorn_imp",
+      "severity": "minor_observation",
+      "ticks": [
+        19,
+        20,
+        35,
+        36
+      ],
+      "detail": "No whole-body palette pulse. Base frame1-to2 has localized shoulder/neck/torso shading change with crest and body pose change. R3 unchanged nonemissive interior mean RGB8 2.266667, p95 13.6, max25 on105 samples; six pixels exceed13/255. Source (13,14) darkens25/255; (13,13) darkens19/255; cap(18,10) brightens22/255. At native scale body remains readable; 4x keyposes do not show a blocking flash. Variant1 p95<=7; variant2<=3.15. Retain frozen maps; optional future pose-correspondence refinement may reduce local fold change."
+    },
+    {
+      "family": "sproutling",
+      "severity": "pass",
+      "ticks": [
+        0,
+        18
+      ],
+      "detail": "Pose compression and cap/leaf silhouette change are authored. Sage, rose and mushroom looks retain their palettes; unchanged interior p95<=6.9 RGB8. No full-body brightness pulse in reviewed keys."
+    },
+    {
+      "family": "crystal_beetle",
+      "severity": "pass",
+      "ticks": [
+        0,
+        30
+      ],
+      "detail": "Crystal and shell facets stay coherent through leg/shell pose change. Unchanged interior p95<=2.9 RGB8 across all R3 recorded transitions. No crawling specular highlight in reviewed keys."
+    },
+    {
+      "family": "spitting_totem",
+      "severity": "pass",
+      "ticks": [
+        0,
+        22
+      ],
+      "detail": "Stone/bronze/ivory bodies stay stable; small red outlet fleck is source-authored emission. Unchanged interior p95=0 RGB8 across all R3 recorded transitions; isolated max6 near changed outlet."
+    },
+    {
+      "family": "wisp",
+      "severity": "pass_with_metric_limit",
+      "ticks": [
+        0,
+        6,
+        12,
+        18,
+        24,
+        28
+      ],
+      "detail": "All six source poses directly inspected for all three looks. Flame tendril/crest animation changes contour; no independent whole-flame brightness pump visible. Wisps are predominantly emissive, so no eligible unchanged nonemissive interior samples exist: do not claim a numerical diffuse-stability pass for these."
+    }
+  ],
+  "recommendation": "Retain frozen normal assets for final R3. No blocking temporal artifact identified in reviewed actual keys. All240 frames checked numerically; direct visual inspection covered all six family panels and each unique imp/hound/wisp pose, not uninterrupted four-second playback.",
+  "mutations": "Only actual-frame diagnostic crop PNGs and auditor output under enemy-pose-study-r3/review plus this report. No frozen source assets, normal assets, Rust, builds or encodes changed.",
+  "revision": "selected-r3; explicit sun gating",
+  "motion_audit_sha256": "9b4d23287bde9c8bee7f42f053bc7554923542550d3c12800ba546e0c0613cc9",
+  "renderer_binary": "out/pixellab/round7/selected-r3/normal_enemy_trials",
+  "renderer_sha256": "9d20044b548d230a786df8f1c8ed0d3c4de6d93cacdd5389d049ed99625b3a4f",
+  "renderer_library_sha256": "f4617e9713931c5ea22b304bacd2e5af2b437a168e20594eed8e56d09491ebe6",
+  "renderer_example_source_sha256": "59536ba5863a3a8cb81c1da9f367a4e31375a66561befdb89dbc204dbf1f9e56",
+  "source_freeze_verification": {
+    "sources_manifest": "out/pixellab/round7/selected-r3/sources.json",
+    "sources_manifest_sha256": "8dba783670bd54e70ec532f251781ad5af86f32023ed087ce32e626c50e1e4df",
+    "recorded_source_entries_verified": 455,
+    "source_sha_mismatches": 0,
+    "normal_families_verified": 78,
+    "source_and_normal_png_sha_mismatches": 0,
+    "normal_selected_manifest_sha256": "2486f71e5edba3fd6a56320044dea4b7b17d881e7161daee68c39235d25edfa6",
+    "normal_selected_list_sha256": "646c096e1fc3341119fa7a5a2da6d9ecf358e4a4a17ecccac5d1c921812f0953",
+    "normal_asset_code_sha256": "2c70977b35edfc7bf699cf87cb608310b7cb1511f60bce2bcec1e2e46e12079e",
+    "all_normal_freeze_fields_match": true,
+    "source_code_frozen": true
+  },
+  "transition_metric_summary": [
+    {
+      "sheet": "sproutling",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 25,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 10,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 103,
+        "source_changed_fraction": 0.025000000000000022,
+        "mean_rgb8_change": 0.0,
+        "p95_rgb8_change": 0.0,
+        "max_rgb8_change": 0
+      }
+    },
+    {
+      "sheet": "sproutling_v1",
+      "held_or_exact_source_repeats": 234,
+      "transitions_checked": 25,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 42,
+        "poses": [
+          3,
+          4
+        ],
+        "unchanged_nonemissive_interior_pixels": 78,
+        "source_changed_fraction": 0.11392405063291144,
+        "mean_rgb8_change": 0.2692307692307692,
+        "p95_rgb8_change": 0.4499999999999744,
+        "max_rgb8_change": 7
+      }
+    },
+    {
+      "sheet": "sproutling_v2",
+      "held_or_exact_source_repeats": 234,
+      "transitions_checked": 25,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 10,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 63,
+        "source_changed_fraction": 0.11111111111111116,
+        "mean_rgb8_change": 0.9047619047619048,
+        "p95_rgb8_change": 6.899999999999999,
+        "max_rgb8_change": 11
+      }
+    },
+    {
+      "sheet": "thorn_imp",
+      "held_or_exact_source_repeats": 237,
+      "transitions_checked": 21,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 20,
+        "poses": [
+          1,
+          2
+        ],
+        "unchanged_nonemissive_interior_pixels": 105,
+        "source_changed_fraction": 0.17959183673469392,
+        "mean_rgb8_change": 2.2666666666666666,
+        "p95_rgb8_change": 13.59999999999998,
+        "max_rgb8_change": 25
+      }
+    },
+    {
+      "sheet": "thorn_imp_v1",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 21,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 20,
+        "poses": [
+          1,
+          2
+        ],
+        "unchanged_nonemissive_interior_pixels": 78,
+        "source_changed_fraction": 0.21250000000000002,
+        "mean_rgb8_change": 1.4230769230769231,
+        "p95_rgb8_change": 7.0,
+        "max_rgb8_change": 10
+      }
+    },
+    {
+      "sheet": "thorn_imp_v2",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 21,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 12,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 38,
+        "source_changed_fraction": 0.33599999999999997,
+        "mean_rgb8_change": 0.2894736842105263,
+        "p95_rgb8_change": 3.1499999999999986,
+        "max_rgb8_change": 4
+      }
+    },
+    {
+      "sheet": "crystal_beetle",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 15,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 45,
+        "poses": [
+          2,
+          3
+        ],
+        "unchanged_nonemissive_interior_pixels": 137,
+        "source_changed_fraction": 0.03448275862068961,
+        "mean_rgb8_change": 0.22627737226277372,
+        "p95_rgb8_change": 0.5999999999999659,
+        "max_rgb8_change": 6
+      }
+    },
+    {
+      "sheet": "crystal_beetle_v1",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 15,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 30,
+        "poses": [
+          1,
+          2
+        ],
+        "unchanged_nonemissive_interior_pixels": 123,
+        "source_changed_fraction": 0.13194444444444442,
+        "mean_rgb8_change": 0.2682926829268293,
+        "p95_rgb8_change": 2.8999999999999915,
+        "max_rgb8_change": 7
+      }
+    },
+    {
+      "sheet": "crystal_beetle_v2",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 15,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 15,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 71,
+        "source_changed_fraction": 0.32867132867132864,
+        "mean_rgb8_change": 0.1267605633802817,
+        "p95_rgb8_change": 0.0,
+        "max_rgb8_change": 5
+      }
+    },
+    {
+      "sheet": "wisp",
+      "held_or_exact_source_repeats": 234,
+      "transitions_checked": 42,
+      "worst_unchanged_nonemissive_interior_transition": null
+    },
+    {
+      "sheet": "wisp_v1",
+      "held_or_exact_source_repeats": 234,
+      "transitions_checked": 42,
+      "worst_unchanged_nonemissive_interior_transition": null
+    },
+    {
+      "sheet": "wisp_v2",
+      "held_or_exact_source_repeats": 234,
+      "transitions_checked": 42,
+      "worst_unchanged_nonemissive_interior_transition": null
+    },
+    {
+      "sheet": "ember_hound",
+      "held_or_exact_source_repeats": 238,
+      "transitions_checked": 19,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 14,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 154,
+        "source_changed_fraction": 0.008658008658008698,
+        "mean_rgb8_change": 0.0,
+        "p95_rgb8_change": 0.0,
+        "max_rgb8_change": 0
+      }
+    },
+    {
+      "sheet": "ember_hound_v1",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 19,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 48,
+        "poses": [
+          3,
+          0
+        ],
+        "unchanged_nonemissive_interior_pixels": 20,
+        "source_changed_fraction": 0.3775933609958506,
+        "mean_rgb8_change": 0.4,
+        "p95_rgb8_change": 0.4000000000000057,
+        "max_rgb8_change": 8
+      }
+    },
+    {
+      "sheet": "ember_hound_v2",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 19,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 24,
+        "poses": [
+          1,
+          2
+        ],
+        "unchanged_nonemissive_interior_pixels": 31,
+        "source_changed_fraction": 0.34728033472803344,
+        "mean_rgb8_change": 0.3870967741935484,
+        "p95_rgb8_change": 3.5,
+        "max_rgb8_change": 5
+      }
+    },
+    {
+      "sheet": "spitting_totem",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 21,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 12,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 246,
+        "source_changed_fraction": 0.005665722379603388,
+        "mean_rgb8_change": 0.024390243902439025,
+        "p95_rgb8_change": 0.0,
+        "max_rgb8_change": 6
+      }
+    },
+    {
+      "sheet": "spitting_totem_v1",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 21,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 12,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 288,
+        "source_changed_fraction": 0.036402569593147804,
+        "mean_rgb8_change": 0.024305555555555556,
+        "p95_rgb8_change": 0.0,
+        "max_rgb8_change": 6
+      }
+    },
+    {
+      "sheet": "spitting_totem_v2",
+      "held_or_exact_source_repeats": 236,
+      "transitions_checked": 21,
+      "worst_unchanged_nonemissive_interior_transition": {
+        "tick": 12,
+        "poses": [
+          0,
+          1
+        ],
+        "unchanged_nonemissive_interior_pixels": 254,
+        "source_changed_fraction": 0.11992945326278659,
+        "mean_rgb8_change": 0.051181102362204724,
+        "p95_rgb8_change": 0.0,
+        "max_rgb8_change": 6
+      }
+    }
+  ]
+}

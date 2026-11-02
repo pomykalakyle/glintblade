@@ -1,0 +1,181 @@
+{
+  "status": "Selected source/artifact verification complete; independent visual review scope is recorded separately.",
+  "selected": {
+    "native": {
+      "file": "out/pixellab/round5/selected/glintblade",
+      "sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c"
+    },
+    "library": {
+      "file": "out/pixellab/round5/selected/libglintblade.rlib",
+      "sha256": "0996716ae2a494d9ec1b556a84d7cc8a2ff94909f07c84940632cc080635e515"
+    },
+    "wasm": {
+      "file": "out/pixellab/round5/selected/glintblade.wasm",
+      "sha256": "2069f269de19957076c19e709fb40098e7f347bdbf25d124ba40d9bb5745f203"
+    },
+    "source_inventory": {
+      "file": "out/pixellab/round5/selected/sources.json",
+      "sha256": "5d3c4ad2662360029f904c0a7d19898492c68916404c9504d7bb30b93f3c6e1a"
+    },
+    "pinned_source_files": 241,
+    "native_browser_default_light_gain": 0.65,
+    "published": false
+  },
+  "baseline": {
+    "binary": "out/pixellab/round4/final/glintblade",
+    "sha256": "49358f8309ee603b0c8a871e7368aeb89b7392824655148e18eff6fdeb7ce134",
+    "world": "out/pixellab/world/round4-final-review"
+  },
+  "tests": {
+    "release_suite": {
+      "passed": 160,
+      "failed": 0,
+      "ignored": 3,
+      "doc_ignored": 1,
+      "log": {
+        "file": "out/pixellab/round5/selected/tests.log",
+        "sha256": "83513481288dc4d1f652cd709a0449fa735d79c60a5d85fe7bf9d9f12f2bd741"
+      },
+      "command": "cargo test --release -- --nocapture --test-threads=1"
+    },
+    "explicit_cinder_benchmark": {
+      "passed": 1,
+      "failed": 0,
+      "log": {
+        "file": "out/pixellab/round5/selected/cinder-timing.log",
+        "sha256": "7642b656922b46eec544db7cd9ffe161ba3718637e1f7c15211f5422301deea7"
+      },
+      "command": "cargo test --release cinder_signature_render_timing -- --ignored --nocapture --test-threads=1"
+    },
+    "remaining_manual_tests": [
+      "capture_warden_fight",
+      "renderer_performance"
+    ],
+    "native_and_wasm_release_builds": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "reviews": {
+    "physics-review.json": {
+      "file": "art/pixellab/2026-11-01-round5/physics-review.json",
+      "sha256": "3d579e4a7f9dd1f88218a7cebf43eeed1a1df16b815d529252984d8c03ebbb52"
+    },
+    "lighting-review.json": {
+      "file": "art/pixellab/2026-11-01-round5/lighting-review.json",
+      "sha256": "aa851309680840642e81c4d800d403df6c3e853336464cd5d7efd0050704a46e"
+    },
+    "visual-review.json": {
+      "file": "art/pixellab/2026-11-01-round5/visual-review.json",
+      "sha256": "72ab0fb4191cdc9b88d6889496772557dd03e5967de1a2a5707a383139ebdea5"
+    },
+    "asset-rebuild.json": {
+      "file": "art/pixellab/2026-11-01-round5/asset-rebuild.json",
+      "sha256": "1ce8d5c95b66f7176bb63e67f8983c68620d7648dded803114f12ac0063c0331"
+    },
+    "columns/base-audit.json": {
+      "file": "art/pixellab/2026-11-01-round5/columns/base-audit.json",
+      "sha256": "cebc196bcdd0ec91c343627cca53e104d413b4924e2ec973ff9ae8c449e95eb5"
+    },
+    "columns/review.json": {
+      "file": "art/pixellab/2026-11-01-round5/columns/review.json",
+      "sha256": "db15d40af74eca47ce0057b7330ea0455792b9ead740aeee0a410bfcab1b8a67"
+    }
+  },
+  "captures": {
+    "world_manifest": {
+      "file": "out/pixellab/world/round5-selected/manifest.json",
+      "sha256": "fbf0df01f37468da19f166c44e71bba01c6f9ede71596d79202a0d0f33a39789"
+    },
+    "native_scene_views": 40,
+    "whole_maps": 4,
+    "title": {
+      "file": "out/pixellab/world/round5-selected/title/f00240.png",
+      "sha256": "98fb3277adafe9f52d068974b3cc23fc094a11ef54445af4877174806e2a9131"
+    },
+    "legal_staged_hero_positions": 35,
+    "scenery_only_hero_omissions": 5,
+    "focused_cliff_manifest": {
+      "file": "out/pixellab/round5/cliffs/selected/manifest.json",
+      "sha256": "5c2ccd3677d37cb03d12cfc1af58c42d873d7f3e668dcb37ddcd18ab1e580367"
+    }
+  },
+  "campaign": {
+    "manifest": {
+      "file": "out/pixellab/recordings/whole-game-round5/manifest.json",
+      "sha256": "2e4d4214719130e5272f94205aa9b9a87e78762c0d457ff863c9fac5a10de67b"
+    },
+    "report": {
+      "file": "out/pixellab/recordings/whole-game-round5/report.json",
+      "sha256": "b60e1c50a476d627565680d4d5dfdfcc9df8219ec061eb416733588884eea694"
+    },
+    "frames": 14322,
+    "fps": 60,
+    "duration_seconds": 238.7,
+    "native_pixels": [
+      384,
+      216
+    ],
+    "encoded_pixels": [
+      768,
+      432
+    ],
+    "integer_scale": 2,
+    "god": true,
+    "audio_events": 1444,
+    "missing_sounds": 0,
+    "milestones": {
+      "bloomwild_shard": 3094,
+      "cinder_shard": 9324,
+      "glasswater_shard": 6357,
+      "phase_2_damage": 11504,
+      "phase_2_heart_open": 11852,
+      "phase_3_damage": 13114,
+      "victory": 13823,
+      "warden_awake": 10318,
+      "warden_dying": 13440
+    },
+    "video": {
+      "file": "out/pixellab/recordings/whole-game-round5/gameplay.mp4",
+      "sha256": "fbe5bbe4fc20d474252c426c53ba93be0aca8ae43e233bea523c4cbf953f7668"
+    },
+    "difficulty_balance_claimed": false
+  },
+  "review_media": {
+    "all_region_gallery": {
+      "file": "out/pixellab/review-round5/gallery.html",
+      "sha256": "3e0916a2c6b4c899bcc62abfe17e4cda7f6ab85e5fdc65e14e55e65b4ed8b480"
+    },
+    "column_runtime_comparison": {
+      "file": "out/pixellab/review-round5/columns.html",
+      "sha256": "19fff20e31ebae381d03f01ab14dae193daea0067b459d2d92bc30d56773fb4d"
+    },
+    "motion_manifest": {
+      "file": "out/pixellab/review-round5/motion/manifest.json",
+      "sha256": "35f3fdfb0b8c189eb86277b7812a22ead4df1f1feedcba2fc082fe8f44f7672f"
+    },
+    "motion_samples": {
+      "file": "out/pixellab/review-round5/motion/samples.mp4",
+      "sha256": "212408c4264aaacc0eeef70165fce131e70f76040d485b11c64fcb66b17fdf0c"
+    },
+    "motion_retimed": false,
+    "refreshed_docs_files": 15,
+    "media_inventory": {
+      "file": "out/pixellab/round5/media-selected/inventory.json",
+      "sha256": "e75e8907cfca8314655213bb69347278a5f38e0aad50392f175c650472eb2d2c"
+    },
+    "previous_dirty_media_backup": "out/pixellab/round5/media-selected/original-docs-media"
+  },
+  "generation_usage": {
+    "round5_subscription_generations": 40,
+    "trees": 10,
+    "lava": 10,
+    "column_studies": 20,
+    "credit_purchase": false,
+    "last_confirmed_used": 469,
+    "last_confirmed_remaining": 1531
+  },
+  "limits": [
+    "Ordinary-player difficulty and interactive frontend audio mix are not certified by the god-enabled campaign.",
+    "Water is intentionally graphic/calm; some native cliff motifs repeat; enemy additions are visual variants of four existing families.",
+    "Headless native and compiled WASM are verified; no interactive browser/desktop play or publication is claimed."
+  ]
+}

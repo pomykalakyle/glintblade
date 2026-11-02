@@ -1,0 +1,63 @@
+{
+  "anims": {
+    "pillar": {
+      "source": "pillar.result-2.png",
+      "footprint": [
+        22,
+        8
+      ]
+    },
+    "pillar_b": {
+      "source": "pillar.result-6.png",
+      "footprint": [
+        22,
+        8
+      ]
+    },
+    "pillar_c": {
+      "source": "pillar.result-10.png",
+      "footprint": [
+        22,
+        8
+      ]
+    },
+    "wall_low": {
+      "source": "wall.result-2.png",
+      "footprint": [
+        40,
+        8
+      ]
+    },
+    "wall_tall": {
+      "source": "wall.result-8.png",
+      "footprint": [
+        42,
+        8
+      ]
+    },
+    "pillar_broken_tall": {
+      "source": "broken.result-3.png",
+      "footprint": [
+        22,
+        8
+      ]
+    },
+    "pillar_broken_short": {
+      "source": "broken.result-1.png",
+      "footprint": [
+        22,
+        8
+      ]
+    }
+  },
+  "notes": [
+    "Selected native source pixels, no resampling or palette filtering.",
+    "New stone bases use visible-width colliders; routes verified in real-input tour.",
+    "Embossed high-contrast terrace candidates rejected after real native camera and whole-zone review; selected quiet shadowed facade edit."
+  ],
+  "terrace": {
+    "sources": [
+      "terrace-quiet.result-1.png"
+    ]
+  }
+}

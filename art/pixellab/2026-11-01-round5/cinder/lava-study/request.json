@@ -1,0 +1,17 @@
+{
+  "description": "Native pixel art molten lava surface texture for a beautiful 384x216 top-down fantasy game, fill entire 128x128 canvas edge-to-edge. View straight down onto moving viscous molten basalt. Broad slowly curving interwoven tongues of dark scarlet, copper-orange and glowing orange liquid. Each liquid tongue has two or three stepped colours giving internal thermal depth. Unequal large elongated angular cooled dark basalt rafts, 7-24 native pixels, ride above the liquid with a narrow dark underside and occasional hot rim. Only a few short pale yellow thin broken fissures, never a network everywhere. Quiet low-detail larger flowing colour clusters with beautifully grouped smaller accents. Current runs left to right across canvas. Crisp pixel clusters, subtle directional lighting, six-colour restrained palette. Seamless opposite edges. Opaque entire image. No shore, banks, horizon, landscape, fire, smoke, particles, framing, borders, objects, grid, tile seams, repeated symbols, identical spots, tiny pebbles, speckled noise, bright outline around every raft, flat single-colour background, stripes, checkers, large round blobs, letters, perspective or antialiasing. It is a close-up game material, not a painted scene.",
+  "width": 128,
+  "height": 128,
+  "no_background": false,
+  "palette": [
+    "#24232d",
+    "#613039",
+    "#a64c3b",
+    "#d8784d",
+    "#f2ae66",
+    "#ffdda0"
+  ],
+  "palette_name": "Glintblade Cinder layered molten basalt",
+  "max_colors": 6,
+  "seed": 3501
+}

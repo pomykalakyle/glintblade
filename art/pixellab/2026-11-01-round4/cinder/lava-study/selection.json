@@ -1,0 +1,22 @@
+{
+  "selected_candidate": 2,
+  "source_file": "result-2.png",
+  "source_sha256": "ae2709ee93f0fc21b443742dd09dcc2b763e2992817871c89c390acd25f6e94c",
+  "source_crop": [
+    1,
+    0,
+    128,
+    127
+  ],
+  "native_cell": [
+    127,
+    127
+  ],
+  "job_id": "acc99e25-f5e0-4617-bcfd-2834c58c2686",
+  "asset_id": "4ef00065-fbd5-5e17-9f45-ab45eb9af71e",
+  "charged_generations": 10,
+  "account_used_after": 429,
+  "account_remaining_after": 1571,
+  "derivation": "Crop exactly one uniform solid-dark left column and bottom row used as staging border. Retain all127\u00d7127 subject pixels unchanged; no scaling, interpolation, painting or recolouring. Runtime maps the original palette to heat states and repeats by complete native cells.",
+  "review": "Selected by root and independent blind whole-scene+motion review. Candidate1 second; rejected3 stripes,4 busy flecks,proceduralmicrofield pebbles."
+}

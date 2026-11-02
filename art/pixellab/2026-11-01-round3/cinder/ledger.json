@@ -1,0 +1,55 @@
+{
+  "budget": 180,
+  "booked_generations": 65,
+  "charged_generations": 65.0,
+  "jobs": [
+    {
+      "name": "cliff",
+      "job_id": "8c5a1931-0660-4dfe-96b0-fea331562205",
+      "booked_generations": 10,
+      "charged_generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/cliff.submit.json"
+    },
+    {
+      "name": "floor",
+      "job_id": "151dd8d7-720d-4fa3-aa48-cc0b4ca673f2",
+      "booked_generations": 10,
+      "charged_generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/floor.submit.json"
+    },
+    {
+      "name": "foundry",
+      "job_id": "4eef695f-0dd7-4dc7-9aad-1e232fecd7eb",
+      "booked_generations": 15,
+      "charged_generations": 15.0,
+      "status": "completed",
+      "receipt": "jobs/foundry.submit.json"
+    },
+    {
+      "name": "pillar",
+      "job_id": "50b2a05f-4c6a-431c-865f-c2366d35c5d1",
+      "booked_generations": 10,
+      "charged_generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/pillar.submit.json"
+    },
+    {
+      "name": "rocktop",
+      "job_id": "88f03875-afa1-4106-ad88-3fb3481a7f96",
+      "booked_generations": 10,
+      "charged_generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/rocktop.submit.json"
+    },
+    {
+      "name": "shrine",
+      "job_id": "716f397b-9954-40d1-823e-6f9fe5fbbd7d",
+      "booked_generations": 10,
+      "charged_generations": 10.0,
+      "status": "completed",
+      "receipt": "jobs/shrine.submit.json"
+    }
+  ]
+}

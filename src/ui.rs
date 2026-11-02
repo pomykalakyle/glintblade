@@ -471,7 +471,7 @@ fn rule(f: &mut Frame, x0: i32, x1: i32, y: i32, a: f32) {
 
 // ---------------------------------------------------------------- title
 
-/// The intro after pressing start: two typed lines, then Glint dashes off the ledge.
+/// The intro after pressing start: two typed lines, then Glint dashes into the meadow.
 const INTRO_1: &str = "The Prism cracked. Typical.";
 const INTRO_2: &str = "Go on, Glint. Mind the drop.";
 const TYPE_RATE: u64 = 1;
@@ -504,210 +504,6 @@ pub fn intro_blip(i: u64) -> bool {
 
 /// Ticks of crouch before the dash.
 const CROUCH: u64 = 12;
-
-/// The foreground: a rock promontory jutting in from the bottom-left corner, Glint standing near
-/// its tip. Hand-placed keypoints for its top edge and its underside, joined by straight steps.
-const LEDGE_TOP: [(i32, i32); 16] = [
-    (0, 151),
-    (5, 149),
-    (12, 149),
-    (18, 151),
-    (24, 155),
-    (30, 160),
-    (36, 164),
-    (43, 167),
-    (51, 169),
-    (60, 170),
-    (82, 170),
-    (89, 171),
-    (95, 172),
-    (100, 174),
-    (103, 176),
-    (104, 178),
-];
-/// The underside, from the tip back down to the bottom of the screen. Short flat steps between
-/// the slopes read as stone breaking off in blocks rather than one smooth curve.
-const LEDGE_UNDER: [(i32, i32); 17] = [
-    (104, 178),
-    (103, 180),
-    (99, 181),
-    (97, 183),
-    (92, 184),
-    (89, 186),
-    (85, 187),
-    (82, 190),
-    (78, 191),
-    (75, 194),
-    (72, 196),
-    (70, 199),
-    (67, 202),
-    (65, 206),
-    (63, 209),
-    (62, 213),
-    (61, 216),
-];
-const LEDGE_W: usize = 105;
-/// Glint's feet on the ledge.
-const GLINT_X: i32 = 88;
-/// From this column to the tip the grass has crumbled away and bare stone forms the lip.
-const BARE_TIP: i32 = 99;
-
-/// Rasterize a ledge boundary into one vertical extent per column.
-fn polyline(pts: &[(i32, i32)], fill: i32) -> [i32; LEDGE_W] {
-    let mut out = [fill; LEDGE_W];
-    for w in pts.windows(2) {
-        let ((x0, y0), (x1, y1)) = (w[0], w[1]);
-        let (xa, xb) = (x0.min(x1), x0.max(x1));
-        for x in xa..=xb {
-            let t = if x1 == x0 { 0.0 } else { (x - x0) as f32 / (x1 - x0) as f32 };
-            let y = (y0 as f32 + (y1 - y0) as f32 * t).round() as i32;
-            if (0..LEDGE_W as i32).contains(&x) {
-                out[x as usize] = if fill == HI { out[x as usize].min(y) } else { y };
-            }
-        }
-    }
-    out
-}
-
-/// Return the stepped grass-cap boundary of the title foreground.
-fn ledge_top() -> [i32; LEDGE_W] {
-    polyline(&LEDGE_TOP, HI)
-}
-
-/// Bottom of the rock in each column (HI where it runs off the screen).
-fn ledge_under() -> [i32; LEDGE_W] {
-    let mut u = [HI; LEDGE_W];
-    let under = polyline(&LEDGE_UNDER, HI);
-    for x in 0..LEDGE_W {
-        if x as i32 > 60 {
-            u[x] = under[x];
-        }
-    }
-    u
-}
-
-/// Grass tufts on the ledge: (x, height, lean). They lean left in the wind from the right.
-const TUFTS: [(i32, i32, i32); 11] =
-    [(2, 3, -1), (4, 2, -1), (9, 4, -1), (11, 2, 0), (38, 3, -1), (52, 2, -1), (63, 3, -1), (65, 5, -2), (68, 2, -1), (79, 3, -1), (96, 2, -1)];
-/// Roots hanging from the underside: (x, length, column where the root steps sideways).
-const ROOTS: [(i32, i32, i32); 3] = [(71, 6, 3), (80, 3, 9), (93, 5, 2)];
-
-/// Broken stone slabs under the lip, each lit on its sunward (upper-left) plane: (first column,
-/// last column, depth below the lip). A slab's lit plane ends in a fracture that leans down to
-/// the left, and its bottom breaks off unevenly into the shaded face.
-const SLABS: [(i32, i32, i32); 6] = [(1, 15, 13), (18, 29, 10), (32, 45, 8), (48, 59, 7), (62, 76, 4), (79, 93, 3)];
-
-// Bloomwild v2 ramps: dusty sage grass on a slate promontory, one dried-rose flower.
-const GRASS_D: Rgb = rgb(0x465b61);
-const GRASS_M: Rgb = rgb(0x647c77);
-const GRASS_RIM: Rgb = rgb(0xb2bfa6);
-const GRASS_RIM_DIM: Rgb = rgb(0x92a594);
-/// Dark soil seam between the turf and the stone (bloomwild outline).
-const SOIL: Rgb = rgb(0x303b4d);
-/// Stone where the sun catches the lip and the facet edges (bloomwild stone ramp).
-const STONE_LIT: Rgb = rgb(0x747d8d);
-const STONE_MID: Rgb = rgb(0x4e586d);
-const STONE_FACE: Rgb = rgb(0x46505b);
-/// Pale cloud light bouncing up onto the underside (bloomwild shadow tint).
-const BOUNCE: Rgb = rgb(0x515969);
-const BLOSSOM: Rgb = rgb(0xbf9da9);
-
-/// Shade of the rock face at (x, y), `dy` rows below the lip: a slab's lit plane or shade.
-fn face_shade(x: i32, dy: i32) -> Rgb {
-    for &(x0, x1, depth) in &SLABS {
-        let ragged = (hash1(x / 2, x0 as u32) * 2.0) as i32;
-        if x > x0 && x <= x1 - dy / 2 && dy < depth - (x - x0) / 4 - ragged {
-            return PANEL0;
-        }
-    }
-    INK
-}
-
-/// Draw the foreground rock and its wind-swept grass on the title.
-fn draw_ledge(f: &mut Frame, t: u64) {
-    let top = ledge_top();
-    let under = ledge_under();
-    let n = LEDGE_W as i32;
-    for x in 0..n {
-        let y0 = top[x as usize];
-        let y1 = under[x as usize];
-        let l = top[(x - 1).max(0) as usize];
-        let r = top[(x + 1).min(n - 1) as usize];
-        let slope = r - l; // > 0 descends to the right (faces away from the upper-left light)
-        let bare = x >= BARE_TIP;
-        // grass cap: thick on flats, thin on slopes, gone on the crumbled tip
-        let cap = if bare {
-            0
-        } else if slope <= 1 {
-            4 + (hash1(x / 3, 5) * 2.0) as i32
-        } else if slope <= 4 {
-            2
-        } else {
-            1
-        };
-        // turf hanging over the stone lip in a few short runs
-        let hang = !bare && hash1(x / 2, 11) > 0.6;
-        // the stone lip breaks into blocks; each block's first column is a dark joint
-        let block = x / 9 + (hash1(x / 9, 13) * 2.0) as i32;
-        let joint = x % 9 == (hash1(block, 17) * 3.0) as i32;
-        let lip_lit = slope <= 2 && !joint && hash1(x / 4, 29) > 0.3;
-        for y in y0..y1.min(HI) {
-            let d = y - y0;
-            let c = if d < cap {
-                if d == 0 {
-                    if slope <= 1 { GRASS_RIM } else { GRASS_RIM_DIM }
-                } else if d == 1 && slope <= 1 && hash1(x / 2, 3) > 0.4 {
-                    GRASS_M
-                } else {
-                    GRASS_D
-                }
-            } else if y1 < HI && y >= y1 - 1 {
-                // cool light bounced up from the cloud sea, broken where blocks have fallen
-                if hash1(x / 3, 19) > 0.25 { BOUNCE } else { SOIL }
-            } else if y1 < HI && y == y1 - 2 && hash1(x / 2, 23) > 0.5 {
-                SOIL
-            } else if d == cap && hang {
-                GRASS_D
-            } else if d == cap && !bare {
-                SOIL
-            } else if d == cap + if bare { 0 } else { 1 } {
-                if lip_lit { STONE_LIT } else { STONE_MID }
-            } else if d == cap + if bare { 1 } else { 2 } && !joint {
-                STONE_FACE
-            } else if y1 < HI && d <= cap + 4 {
-                // the undercut right below the lip sits in the deepest shade
-                INK
-            } else {
-                face_shade(x, d - cap - 3)
-            };
-            f.ui_put(x, y, c);
-        }
-    }
-    // wind gusts sway the tufts and roots by a pixel
-    let gust = ((t as f32 * 0.035).sin() * 0.5 + 0.5) * ((t as f32 * 0.011).sin() * 0.5 + 0.5);
-    for (i, &(x, h, lean)) in TUFTS.iter().enumerate() {
-        let base = top[x as usize];
-        let sway = if gust > 0.4 + hash1(i as i32, 2) * 0.3 { -1 } else { 0 };
-        for k in 1..=h {
-            let off = if k * 2 > h { lean + sway } else { 0 };
-            let c = if k == h { GRASS_RIM } else { GRASS_M };
-            f.ui_put(x + off * k / h.max(1), base - k, c);
-        }
-    }
-    for (i, &(x, len, kink)) in ROOTS.iter().enumerate() {
-        let base = under[x as usize];
-        let sway = if gust > 0.35 + hash1(i as i32, 7) * 0.4 { -1 } else { 0 };
-        for k in 0..len {
-            let off = if k >= kink { -1 } else { 0 } + if k * 2 >= len { sway } else { 0 };
-            f.ui_put(x + off, base + k, if k == len - 1 { BOUNCE } else { SOIL });
-        }
-    }
-    // one blossom in the grass behind Glint
-    let bx = 66;
-    let by = top[bx as usize] - 6;
-    f.ui_put(bx - 1, by, BLOSSOM);
-    f.ui_put(bx - 1, by - 1, rgb(0xdbb9bd));
-}
 
 /// Glint's sprite cell for a pose (sheet when it exists, the player's fallback otherwise).
 fn glint_cell(state: PState, ticks: u32, dir: Dir) -> Option<(&'static Cell, (i32, i32), bool, (i32, i32))> {
@@ -770,16 +566,14 @@ fn draw_scarf(f: &mut Frame, nx: i32, ny: i32, t: u64, stream: f32) {
     }
 }
 
-/// Glint standing on the ledge (or crouching, or dashing away during the intro).
-fn draw_glint(f: &mut Frame, t: u64, intro: Option<u64>) {
-    let top = ledge_top();
-    let feet = top[GLINT_X as usize];
+/// Glint at the real meadow anchor, then crouching and dashing during the intro.
+fn draw_glint(f: &mut Frame, t: u64, intro: Option<u64>, (gx, feet): (i32, i32)) {
     let dash_at = intro_dash();
     let i = intro.unwrap_or(0);
     if intro.is_some() && i >= dash_at {
-        // the dash: fast, up and to the right, with fading afterimages
+        // Follow the headland's clear road; the tree and ruin stand behind it.
         let k = (i - dash_at) as f32;
-        let pos = |k: f32| (GLINT_X as f32 + k * 9.0 + k * k * 0.05, feet as f32 - k * 1.6);
+        let pos = |k: f32| (gx as f32 + k * 9.0 + k * k * 0.05, feet as f32);
         for back in [9.0, 6.0, 3.0] {
             let kk = k - back;
             if kk < 0.0 {
@@ -807,7 +601,7 @@ fn draw_glint(f: &mut Frame, t: u64, intro: Option<u64>) {
                 let (dx, dy) = (a.cos() * sp * k, a.sin() * sp * k * 0.5 + 0.03 * k * k);
                 let c = if k < 8.0 { rgb(0xc7cfca) } else { BORDER1 };
                 if (k as i32 + d) % 5 != 0 {
-                    f.ui_put(GLINT_X + dx as i32, feet - 1 + dy as i32, c);
+                    f.ui_put(gx + dx as i32, feet - 1 + dy as i32, c);
                 }
             }
         }
@@ -817,8 +611,8 @@ fn draw_glint(f: &mut Frame, t: u64, intro: Option<u64>) {
     let (state, ticks) = if crouch { (PState::Charge { t: 0 }, (i + CROUCH - dash_at) as u32) } else { (PState::Normal, t as u32) };
     if let Some((cell, (ax, ay), flip, (nx, ny))) = glint_cell(state, ticks, Dir::Right) {
         let dy = if crouch && sheet("hero").and_then(|s| s.dir_anim("charge", Dir::Right)).is_none() { 1 } else { 0 };
-        draw_scarf(f, GLINT_X + nx, feet + ny + dy, t, if crouch { 0.6 } else { 0.0 });
-        ui_cell(f, cell, GLINT_X - ax, feet - ay + dy, flip, |_, _, p| Some(p.c));
+        draw_scarf(f, gx + nx, feet + ny + dy, t, if crouch { 0.6 } else { 0.0 });
+        ui_cell(f, cell, gx - ax, feet - ay + dy, flip, |_, _, p| Some(p.c));
     }
 }
 
@@ -836,17 +630,30 @@ fn draw_logo_sheet(f: &mut Frame, name: &str, cx: i32, base_y: i32, a: f32) -> b
 
 /// The title logo, letters' baseline at `base_y`. Until the sheet exists: the display font.
 fn draw_logo(f: &mut Frame, cx: i32, base_y: i32, a: f32) {
-    if draw_logo_sheet(f, "logo", cx, base_y, a) {
+    // Recompose the existing native wordmark into two intact words. No resampling:
+    // the quiet sky column belongs to the title, the actual island belongs to Glint.
+    if let Some(s) = sheet("logo") && let Some(anim) = s.anim("idle") {
+        let cell = s.cell(anim, 0);
+        let split = 96.min(cell.w);
+        let (_, ay) = s.anchor_of(anim);
+        ui_cell(f, cell, cx - split / 2, base_y - ay, false, |x, _, p| {
+            (x < split).then(|| step_in(p.c, a)).flatten()
+        });
+        ui_cell(f, cell, cx - (cell.w - split) / 2 + 16 - split, base_y + 36 - ay, false, |x, _, p| {
+            (x >= split).then(|| step_in(p.c, a)).flatten()
+        });
         return;
     }
     let d = &fonts().display;
     let ink = Ink::new(TEXT).outline(INK).spacing(3);
     let Some(col) = step_in(ink.color, a) else { return };
-    text_c(f, d, cx, base_y - d.baseline, "GLINTBLADE", &Ink { color: col, ..ink });
+    for (line, y) in [("GLINT", base_y), ("BLADE", base_y + 26)] {
+        text_c(f, d, cx, y - d.baseline, line, &Ink { color: col, ..ink });
+    }
 }
 
 /// The title overlay. `t` = ticks on the title, `intro` = ticks since start was pressed.
-pub fn title(f: &mut Frame, t: u64, intro: Option<u64>) {
+pub fn title(f: &mut Frame, t: u64, intro: Option<u64>, hero: (i32, i32)) {
     let tf = t as f32;
     let i = intro.unwrap_or(0);
     let leaving = intro.map(|i| 1.0 - ramp(i as f32, 0.0, 16.0)).unwrap_or(1.0);
@@ -854,40 +661,41 @@ pub fn title(f: &mut Frame, t: u64, intro: Option<u64>) {
 
     // logo: steps in once and then holds still
     let logo_a = ramp(tf, 40.0, 24.0) * leaving;
-    draw_logo(f, WI / 2, 72, logo_a);
+    draw_logo(f, 84, 56, logo_a);
 
     // A steady, quiet start action.
     let pa = ramp(tf, 88.0, 20.0) * leaving;
     if pa > 0.0 {
         let sm = &fonts().small;
         let w = sm.width("Press", 0) + 5 + key_width("ENTER") + 8 + 10;
-        let x = WI / 2 - w / 2;
+        let x = 100 - w / 2;
         if let Some(c) = step_in(TEXT, pa) {
-            text(f, sm, x, 145, "Press", &Ink::new(c));
+            text(f, sm, x, 132, "Press", &Ink::new(c).outline(INK));
         }
         let x = x + sm.width("Press", 0) + 5;
-        let kw = keycap(f, x, 143, "ENTER", pa);
-        prompt(f, "pad_south", x + kw + 8, 143, pa);
+        let kw = keycap(f, x, 130, "ENTER", pa);
+        prompt(f, "pad_south", x + kw + 8, 130, pa);
     }
 
-    draw_ledge(f, t);
-    draw_glint(f, t, intro);
+    draw_glint(f, t, intro, hero);
 
     // Existing bindings settle before the start prompt appears, including a prompt-time confirm.
     let ca = ramp(tf, 66.0, 20.0) * leaving;
     if ca > 0.0 {
         let (km, ks, kd) = crate::input::key_labels();
         let other = if crate::input::layout() == crate::input::KeyLayout::Qwerty { "colemak" } else { "qwerty" };
-        let items = [(km, "move"), (ks, "slash"), (kd, "dash"), ("TAB", other)];
-        key_row(f, 22, HI - 18, &items, ca, TEXT, true);
+        for (items,y) in [([(km,"move"),(ks,"slash")],176), ([(kd,"dash"),("TAB",other)],193)] {
+            let width = key_row(f,0,y,&items,ca,TEXT,false);
+            key_row(f,100-width/2,y,&items,ca,TEXT,true);
+        }
     }
 
     // the intro lines
     if intro.is_some() && i >= INTRO_L1 {
         let fade = 1.0 - ramp(i as f32, intro_end() as f32 - 10.0, 16.0);
-        panel(f, 72, 38, 240, 43, fade);
+        panel(f, 40, 153, 272, 43, fade);
         let sm = &fonts().small;
-        for (start, line, y) in [(INTRO_L1, INTRO_1, 48), (intro_l2(), INTRO_2, 63)] {
+        for (start, line, y) in [(INTRO_L1, INTRO_1, 163), (intro_l2(), INTRO_2, 178)] {
             if i < start {
                 continue;
             }

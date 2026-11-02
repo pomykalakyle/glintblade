@@ -1,0 +1,19 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "anchor": [
+    0,
+    0
+  ],
+  "emissive": [],
+  "anims": {
+    "stone": {
+      "row": 0,
+      "frames": 6,
+      "fps": 1
+    }
+  },
+  "notes": "Six quiet abrasion modules curated from sixteen, with the tool staging gutter masked transparent. Edge-reaching fractures, hole-like marks and conspicuous light lichen rejected. Sparse material clipped to original floor interiors, with combat-center coverage only 16%. Native source pixels only; no resampling, mirroring or recoloring. Rebuild: tools/pixellab/build_summit.py. Receipts: art/pixellab/2026-11-01-round3/summit/."
+}

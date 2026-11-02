@@ -1,0 +1,32 @@
+{
+  "no_background": true,
+  "palette": [
+    "#182331",
+    "#222d3d",
+    "#29313f",
+    "#364657",
+    "#424956",
+    "#4c6070",
+    "#626a74",
+    "#73858b",
+    "#929797",
+    "#a6b4ad",
+    "#bbc0b4",
+    "#4d4866",
+    "#796c91",
+    "#a195b8",
+    "#cdc3db"
+  ],
+  "palette_name": "Glasswater slate and pale iris",
+  "max_colors": 9,
+  "style_image_base64": "iVBORw0KGgoAAAANSUhEUgAAADAAAABACAYAAABcIPRGAAACwklEQVR4nO2asW8TMRTGvyBGxqrShQnUNEDbqYItK8qSBYH4DzJV6lAxVMyIASFRiSxMZEQgljKcWLOBbknSJse1MDWRUAcGpixmwaeLz/b5fLaJkH9TYt2dv+89+z2fEsDj8Xg8Ho/H4/F4PNWIBgnRue8KO9Bpd7UepEs0SIiueIBjAHBjot8LSb8XkvHwvNJzuAYAuyb6vXDp2ePhOXSNXGUHtje2MD470ZQmhxVuAmEGALNZsCEe4GSApdPukuPwTU13AlvCKdwMbG9sGXl4GfEfjj9qzVGYAaB8FlwIpygZANRMlBE+ncRGikVuCT1/vV8D+MtItqnLijeFcgZMYFI4RVpGVVGJPiueXT66lc56BmxEPYuRDIiYTmLcut20OYWdDNCo2xYPCDKgW4mmkziNugvxgMEMuFguPIztgX8hHrC8iV1Q2UBRD+CVUVM9APifM6BbiUSMz06svOlZ78RUtKl3DBZrBug535ZwinEDroRTjBlwLZxS2YBIOG1stk+jhfX3cO+IAPnaTREJB+z3AKBiBnjLxXbEWSo3MpcnTx6VDLgSLmucK3+UoHtQxEobONw7InTTi7JQaEB2JrJJVryMlcxA0bLJomRgESywCBbYbDXSsYedB+ln1dKp0gNEfUfULwr7wMGzFyROLtLvzb8mhr9GiJMLPLrbLlZuEa6BTrtLaLSz4nnf338NsXPthhExZaMPCAxstho5oTJGv38AgDEjVAMAfBsk0utyztglAwA/Z3Puzev1AKdRhDu7u+mYzIQssjT6NBiUZuM6AODl0yfcLOQG791/TNbrgVR4lsv5bMmATT69fZXTK9zEKuKz11LTVZHNS4ObNVJjL9CZ9HI+w1pQl17DM5hdfqoB+/L53ZJmZz9w8ASuBXWcRlGheRkr2YlFsNEHBG9kN3daTv/wocr30SCn9w9HnkKXt4XPzwAAAABJRU5ErkJggg==",
+  "style_copy": [
+    "outline",
+    "detail",
+    "shading"
+  ],
+  "width": 32,
+  "height": 40,
+  "seed": 227,
+  "description": "Small grounded iris crystal cluster on a slate root, native 32x40 transparent sprite for 3/4 top-down pixel art action RPG. Two or three leaning angular prisms, asymmetrical readable silhouette no taller than 30px, broad quiet muted purple faces and one pale chisel facet with a tiny #cdc3db tip. Root centered x16,y37. Upper-left light. Slate stone at the base makes real contact with ground. Crisp connected pixel clusters, restrained dark slate and pale iris palette, no sparkles, no surrounding glow, no floor, no particles, no water, no isolated pixels, no smooth shading."
+}

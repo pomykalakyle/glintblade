@@ -17,6 +17,8 @@
 
 use super::frame::{BH, BW, Frame, H, Rgb, W};
 use crate::util::{bayer4, clamp01};
+use std::cell::RefCell;
+use std::collections::VecDeque;
 use std::sync::OnceLock;
 
 /// Per-zone look. Neutral defaults leave palette colors exactly as authored under white light.
@@ -123,10 +125,133 @@ fn step_light(l: Rgb, base: Rgb, steps: f32, lo: f32, inv_w: f32, dither: f32) -
     base + d * k
 }
 
+#[derive(Clone, Copy)]
+struct VignettePixel { active: bool, multiplier: Rgb }
+
+struct Vignette {
+    key: [u32; 4],
+    pixels: Vec<VignettePixel>,
+}
+
+thread_local! {
+    /// These screen-space bands depend on strength and tint, never the camera,
+    /// clock, albedo or any emitter. Cache only their exact finished factors.
+    static VIGNETTES: RefCell<VecDeque<Vignette>> = RefCell::new(VecDeque::new());
+}
+
+fn with_vignette(strength: f32, tint: Rgb, draw: impl FnOnce(Option<&[VignettePixel]>)) {
+    if !(strength > 0.0) { draw(None); return; }
+    let key = [strength.to_bits(), tint.r.to_bits(), tint.g.to_bits(), tint.b.to_bits()];
+    VIGNETTES.with(|cache| {
+        let mut cache = cache.borrow_mut();
+        let vignette = if let Some(i) = cache.iter().position(|v| v.key == key) {
+            cache.remove(i).unwrap()
+        } else {
+            let vloss = Rgb::WHITE - tint;
+            let pixels = vignette_table().iter().enumerate().map(|(i, &amount)| {
+                let v = stepped(amount * strength, 16.0, 0.35, bayer4((i % W) as i32, (i / W) as i32));
+                VignettePixel { active: v > 0.0,
+                    multiplier: Rgb::new(1.0 - v * vloss.r, 1.0 - v * vloss.g, 1.0 - v * vloss.b) }
+            }).collect();
+            Vignette { key, pixels }
+        };
+        cache.push_back(vignette);
+        if cache.len() > 4 { cache.pop_front(); }
+        draw(Some(&cache.back().unwrap().pixels));
+    });
+}
+
 /// albedo * light + emissive, then grade into `frame.out`. Keeps the unclipped result in `frame.hdr`.
 pub fn compose(frame: &mut Frame, g: &Grade) {
+    // Physical lighting has already combined contact/cast visibility. Its shade
+    // buffer is normally all1, so avoid quantizing an identically zero loss at
+    // every pixel. Unusual unclamped dither widths keep the original full path.
+    let has_shade = !(0.0..=1.0).contains(&frame.look.light_dither)
+        || frame.shade[..W * H].iter().any(|&v| v < 1.0);
+    with_vignette(g.vignette, frame.look.vignette_tint, |vignette| {
+        if has_shade { compose_pixels::<true>(frame, g, vignette); }
+        else { compose_pixels::<false>(frame, g, vignette); }
+    });
+}
+
+fn compose_pixels<const SHADED: bool>(frame: &mut Frame, g: &Grade, vignette: Option<&[VignettePixel]>) {
     let look = frame.look;
-    let steps = g.light_steps.max(0.0);
+    let steps = if frame.surface_lighting { g.light_steps.max(32.0) } else { g.light_steps.max(0.0) };
+    let amb = frame.ambient;
+    let shade_loss = Rgb::new(amb.r * (1.0 - look.shade_tint.r), amb.g * (1.0 - look.shade_tint.g), amb.b * (1.0 - look.shade_tint.b));
+    let w = clamp01(look.light_dither);
+    let lo = 0.5 - 0.5 * w;
+    let inv_w = if w > 0.0 { 1.0 / w } else { 0.0 };
+    let scatter = look.light_scatter.max(0.0);
+    let grade_neutral = g.contrast == 1.0 && g.saturation == 1.0 && g.lift == Rgb::BLACK && g.gain == Rgb::WHITE;
+    let mut thresholds = [[0.0; 4]; 4];
+    for y in 0..4 { for x in 0..4 {
+        thresholds[y][x] = bayer4(x as i32 + frame.cam_x, y as i32 + frame.cam_y);
+    } }
+    // Prove fixed native lengths once, outside the loop; all later accesses
+    // index these exact-size slices rather than independently checked Vecs.
+    let albedo = &frame.albedo[..W * H];
+    let lights = &frame.light[..W * H];
+    let emissive = &frame.emissive[..W * H];
+    let shade = &frame.shade[..W * H];
+    let hdr = &mut frame.hdr[..W * H];
+    let out = &mut frame.out[..W * H];
+    for y in 0..H {
+        let row_thresholds = &thresholds[y & 3];
+        for x in 0..W {
+            let i = y * W + x;
+            let threshold = row_thresholds[x & 3];
+            let mut base = amb;
+            let mut l = lights[i];
+            if SHADED {
+                let raw_shade = 1.0 - shade[i].clamp(0.0, 1.0);
+                let s = if steps > 0.0 { 1.0 - stepped(raw_shade, steps, look.light_dither, threshold) } else { 1.0 - raw_shade };
+                if s < 1.0 {
+                    let k = 1.0 - s.max(0.0);
+                    base = base - shade_loss * k;
+                    l = l - shade_loss * k;
+                }
+            }
+            if steps > 0.0 { l = step_light(l, base, steps, lo, inv_w, threshold); }
+            l = Rgb::new(l.r.max(0.0), l.g.max(0.0), l.b.max(0.0));
+            let a = albedo[i];
+            let e = emissive[i];
+            let mut c = Rgb::new(a.r * l.r + e.r, a.g * l.g + e.g, a.b * l.b + e.b);
+            if scatter > 0.0 {
+                let add = l - base;
+                let k = scatter * (0.35 + 0.65 * a.luma());
+                c += Rgb::new(add.r.max(0.0), add.g.max(0.0), add.b.max(0.0)) * k;
+            }
+            if g.exposure != 1.0 { c = c.scale(g.exposure); }
+            hdr[i] = c;
+            if !grade_neutral {
+                if g.contrast != 1.0 {
+                    c = Rgb::new((c.r - 0.5) * g.contrast + 0.5, (c.g - 0.5) * g.contrast + 0.5, (c.b - 0.5) * g.contrast + 0.5);
+                }
+                let lum = clamp01(c.luma());
+                c = c * Rgb::WHITE.lerp(g.gain, lum) + g.lift.scale((1.0 - lum).powi(2));
+                if g.saturation != 1.0 {
+                    let l2 = c.luma();
+                    c = Rgb::gray(l2).lerp(c, g.saturation);
+                }
+            }
+            if let Some(vignette) = vignette {
+                let v = vignette[i];
+                if v.active { c = c * v.multiplier; }
+            }
+            let u = palette_u8(fit(c, look.hot_white));
+            out[i] = [u[0], u[1], u[2], 255];
+        }
+    }
+}
+
+/// Original pixel loop retained as an exact RGBA/HDR oracle for the fast paths.
+#[cfg(test)]
+fn compose_reference(frame: &mut Frame, g: &Grade) {
+    let look = frame.look;
+    // Ten broad light bands turned moving heart/torch light into visible disks.
+    // Keep the native grid and palette while giving physical falloff finer steps.
+    let steps = if frame.surface_lighting { g.light_steps.max(32.0) } else { g.light_steps.max(0.0) };
     let amb = frame.ambient;
     // ambient lost in full shade
     let shade_loss = Rgb::new(amb.r * (1.0 - look.shade_tint.r), amb.g * (1.0 - look.shade_tint.g), amb.b * (1.0 - look.shade_tint.b));
@@ -362,4 +487,80 @@ pub fn composite_scaled(frame: &Frame, scale: usize) -> Vec<u8> {
         }
     }
     img
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn assert_original_compose(frame: &mut Frame, grade: &Grade, context: &str) {
+        compose(frame, grade);
+        let actual = frame.out.clone();
+        let actual_hdr: Vec<_> = frame.hdr.iter().map(|c| [c.r.to_bits(), c.g.to_bits(), c.b.to_bits()]).collect();
+        compose_reference(frame, grade);
+        assert_eq!(actual, frame.out, "exact RGBA: {context}");
+        let expected_hdr: Vec<_> = frame.hdr.iter().map(|c| [c.r.to_bits(), c.g.to_bits(), c.b.to_bits()]).collect();
+        assert_eq!(actual_hdr, expected_hdr, "exact HDR float bits feeding bloom: {context}");
+    }
+
+    #[test]
+    fn compose_fast_paths_match_original_for_actual_native_regions() {
+        use crate::world::ZoneId;
+        for (id, cam) in [(ZoneId::Bloomwild, (864, 348)), (ZoneId::Glasswater, (480, 480)),
+            (ZoneId::Cinder, (434, 341)), (ZoneId::Summit, (500, 400))] {
+            let (zone, region) = crate::regions::build(id);
+            let fx = crate::fx::Fx::new(7);
+            let mut frame = Frame::new();
+            frame.cam_x = cam.0;
+            frame.cam_y = cam.1;
+            for tick in [90, 901] {
+                crate::view::render_world(&zone, region.as_ref(), &fx, &mut frame, tick,
+                    &[], &mut |_, _| {}, None);
+                assert_original_compose(&mut frame, &zone.grade, &format!("native {id:?} tick{tick}"));
+            }
+        }
+    }
+
+    #[test]
+    fn compose_fast_paths_match_original_highlights_shade_grades_and_dither() {
+        let mut frame = Frame::new();
+        frame.ambient = Rgb::new(0.42, 0.51, 0.63);
+        let samples = [-0.5, -0.0, 0.0, 0.000_01, 0.031_25, 0.099_999,
+            0.333_333, 0.5, 0.999_999, 1.0, 1.000_01, 2.75, 16.0];
+        for i in 0..W * H {
+            let s = |offset: usize| samples[(i / (offset + 1) + offset * 3) % samples.len()];
+            frame.albedo[i] = Rgb::new(s(0), s(1), s(2));
+            frame.light[i] = Rgb::new(s(3), s(4), s(5));
+            frame.emissive[i] = Rgb::new(s(6).max(0.0), s(7).max(0.0), s(8).max(0.0));
+        }
+        let grades = [Grade { vignette: 0.0, light_steps: 0.0, ..Grade::default() },
+            Grade::default(),
+            Grade { exposure: 1.21, contrast: 0.83, saturation: 1.27,
+                lift: Rgb::new(0.017, 0.025, 0.043), gain: Rgb::new(1.04, 0.97, 0.89),
+                vignette: 0.85, light_steps: 7.5, ..Grade::default() },
+            Grade { exposure: 0.77, contrast: 1.13, saturation: 0.0,
+                vignette: f32::from_bits(0.25_f32.to_bits() + 1), light_steps: 64.0, ..Grade::default() }];
+        for physical in [false, true] {
+            frame.surface_lighting = physical;
+            for (g, grade) in grades.iter().enumerate() {
+                for (case, dither) in [0.0, 0.5, 1.0, -0.5, 2.5].into_iter().enumerate() {
+                    frame.cam_x = [-7, 0, 3, 401, -411][case];
+                    frame.cam_y = [3, -5, 0, 19, -33][case];
+                    frame.look.light_dither = dither;
+                    frame.look.light_scatter = if case % 2 == 0 { 0.0 } else { 0.061 };
+                    frame.look.hot_white = [0.0, 0.35, 1.0, 0.7, 1.0][case];
+                    frame.look.vignette_tint = Rgb::new(0.22 + case as f32 * 0.03, 0.16, 0.42);
+                    for shaded in [false, true] {
+                        if shaded {
+                            for (i, s) in frame.shade.iter_mut().enumerate() {
+                                *s = [0.0, 0.13, 0.5, 0.999_99, 1.0, 1.4, -0.25][i % 7];
+                            }
+                        } else { frame.shade.fill(1.0); }
+                        assert_original_compose(&mut frame, grade,
+                            &format!("physical={physical}, grade={g}, dither={dither}, shaded={shaded}"));
+                    }
+                }
+            }
+        }
+    }
 }

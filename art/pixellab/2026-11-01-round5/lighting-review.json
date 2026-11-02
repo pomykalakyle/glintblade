@@ -1,0 +1,312 @@
+{
+  "reviewer": "Independent technical lighting reviewer; read-only game source, external Rust harnesses; no Cargo runs, no paid generation, no GUI.",
+  "status": "PASS: selected repaired-column artifact883ca526; technical lighting, native bases/casting, body protection, source/camera stability and cache equivalence independently rechecked.",
+  "candidate": "out/pixellab/round5/selected/glintblade",
+  "candidate_sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c",
+  "native_library": "out/pixellab/round5/selected/libglintblade.rlib",
+  "native_library_sha256": "0996716ae2a494d9ec1b556a84d7cc8a2ff94909f07c84940632cc080635e515",
+  "core_sources_equal_rc6_and_current": true,
+  "verified_source_sha256": {
+    "src/gfx/frame.rs": "c7f037f714a722899cd8d9867f41ddf4fb718d8ab21c31f21d6d8c870aec5f2b",
+    "src/gfx/lighting.rs": "2e1c042ba700b904b731f4d3e4d09c27a278f562ed7dde09adb7e50921be2ae1",
+    "src/gfx/lighting/dynamic.rs": "f09332717cf72c3f0ac1e473a0f3d4be7ec105446c90cb88f70de94b30f14c06",
+    "src/gfx/lighting/patch.rs": "7c92fc1f39d83225a9baeb1115bc8fd979c10825efccdcd94486c6d8e0a670b4",
+    "src/gfx/lighting/tests.rs": "da3dc90ce9930bc4e3588b0499bbc6ca02f9f20fdc89f91a659518729ba3b10d",
+    "src/gfx/lighting_hook.rs": "ad60dc0420863bba4901de377b4610d4f3e4ad143325d23f57c380a5c11d2320",
+    "src/gfx/sprite.rs": "068b537a440d90a86ce201abc18cf8bf81b03a9e4647011ddb37aca4ac18c595",
+    "src/world/mod.rs": "e7d83b15d10931dcf438ec1ccedc7ef4572fedac854e81d29555342544ec9065",
+    "src/regions/glasswater.rs": "d86d6abacd9affec444d257d2d9345523313981448bfcfe4a5a5cddedd11a58b",
+    "src/regions/summit.rs": "2f8bd554a96194cdeed9dcde030464bd25fb3cbef97d16f8b2f42add841537fb"
+  },
+  "selected_policy": {
+    "native_default_gain": 0.65,
+    "wasm_default_gain": 0.65,
+    "source_parity_checked": true,
+    "diagnostic_gains": {
+      "off": 0.0,
+      "quiet": 0.65,
+      "balanced": 1.0,
+      "dramatic": 1.35
+    },
+    "off_scope": "Disables the new weather/point-occlusion enhancement. Existing authored point lights, emission, cached form/contact lighting remain enabled.",
+    "weather_zones": [
+      "Bloomwild"
+    ],
+    "point_occlusion_zones": [
+      "Glasswater",
+      "Cinder",
+      "Summit"
+    ],
+    "summit_weather_removed": true,
+    "selection_reason": "Fresh visual review selected restrained quiet gain and rejected the Summit weather shapes; the Summit retains its real local light sources and source-specific native shadows.",
+    "wasm_artifact": "Root builds and pins WASM after final quiet fullsuite; this reviewer verified the identical cfg wasm32 default in the pinned source, not browser runtime performance."
+  },
+  "checks": {
+    "native_ground_shadow_fixture_pixels": 483,
+    "native_max_removed_component": 0.2025528,
+    "dim_source_intensity": 0.01,
+    "dim_source_shadow_pixels": 483,
+    "dim_source_max_removed_component": 0.00253189,
+    "all9_sources_compose_max_error": 4.2e-07,
+    "reverse_source_order_max_delta": 7.2e-07,
+    "near_source_shadow_energy": {
+      "9.9px": 38.8130836,
+      "10.1px": 39.040657
+    },
+    "real_scene_ground_shadow_pixels": {
+      "Glasswater": 682,
+      "Cinder": 161,
+      "Summit": 1452
+    },
+    "all_four_regions_world_camera_overlap_max_delta": 0.0,
+    "all256_weather_camera_remainders_render_without_panic": true,
+    "actual_native_decor_cells": 43,
+    "native_nonemissive_body_samples": 68118,
+    "native_body_point_shadow_leaks": 0,
+    "prior_rc3_body_leaks": 1118,
+    "actor_pixels_unchanged_by_ground_occlusion": true,
+    "material_albedo_and_emissive_buffers_unchanged": true,
+    "receivers_excluding_ground_shadow": [
+      "Wall",
+      "Deep",
+      "Lava",
+      "Void"
+    ],
+    "sky_local_point_spill_excluded": true,
+    "frame_begin_clears_live_emitters": true,
+    "dead_native_prop_shadow_removed": true,
+    "actual_region_sprigs_destroyed_with_Region_slash": 10,
+    "after_each_sprig_cached_vs_forced_fresh_changed_light_pixels": 0
+  },
+  "cache_review": {
+    "source_inspection": "Geometry fingerprint retains source/pose/support metadata and revision invalidation; native source-free breakables use bounded reconstruction, source/procedural changes retain full invalidation. Current native-alpha receiver exclusion is rebuilt from the alive current frame and does not depend on inferred cached planes.",
+    "crop_optimization": "Reconstruction now pages from exact clamped crop origin and copies only intersecting rows/columns; native placement, time, ordering, and world-space reflections unchanged. Source compared against RC6 and selected final manifests.",
+    "independent_runtime": "Ten real Glasswater sprigs destroyed through Region.slash; after settling transient wobble each cached light frame exactly equals a forced fresh bake.",
+    "other_validation_attribution": "Root/implementation agent separately ran 29 exact original-vs-optimized scenery comparisons and the in-repository all-region fresh-field/crop tests. They are not claimed as rerun by this reviewer."
+  },
+  "resolved_findings": [
+    {
+      "id": "DL1",
+      "severity": "P2",
+      "issue": "Main Glasswater native Decor silhouettes omitted from dynamic ground occlusion",
+      "evidence": "All32 live Glasswater props are collision-only glasswater_blocker companions; occlude_points requires p.sheet().anim() and skips all of them.",
+      "required_validation": "Actual built Glasswater crystal/rock casts source-specific shadow with a moving injected point light; no duplicate silhouette.",
+      "status": "Resolved and retained in selected repaired-column artifact",
+      "resolution_evidence": "Pinned candidate actual Glasswater region contributes43 native cells; injected gallery source changes682 physical ground pixels and camera overlap remains exact0delta."
+    },
+    {
+      "id": "DL2",
+      "severity": "P2",
+      "issue": "All28 visible Summit native props omitted because physical supports live separately",
+      "evidence": "place_items assigns footprint=None to every visible native sprite and creates __summit_blocker companions; occlude_points filters footprint.is_some.",
+      "required_validation": "Actual built Summit pillar/monolith shadow survives disabled sprite footprint and follows real source motion.",
+      "status": "Resolved and retained in selected repaired-column artifact",
+      "resolution_evidence": "Pinned candidate no-footprint summit_pillars participates; injected source changes1452 physical ground pixels at quiet gain, camera overlap remains exact0delta."
+    },
+    {
+      "id": "DL3",
+      "severity": "P2",
+      "issue": "Near-source10px hard cutoff creates full-caster temporal pop",
+      "evidence": "distance<10 skips full projected silhouette;9.99\u219210.01 enables full source attenuation.",
+      "required_validation": "9.9px/10.1px point movement has no hard full-shadow cutoff.",
+      "status": "Resolved and retained in selected repaired-column artifact",
+      "resolution_evidence": "Pinned candidate quiet gain:9.9\u219210.1px shadow energy38.8130836\u219239.0406570 (<0.6% change), no hard near-source cutoff."
+    },
+    {
+      "id": "DL4",
+      "severity": "P2",
+      "issue": "Authored Glasswater/Summit vertical faces are also classified as receiving ground",
+      "evidence": "Field.geometry authored_terrain branch admits painted Wall/Void surfaces with raised=false; only field.receiving&&!field.raised guards point subtraction.",
+      "required_validation": "Live ground shadows apply only Floor/Shallow/native walkable top or explicit valid surface plane.",
+      "status": "Resolved and retained in selected repaired-column artifact",
+      "resolution_evidence": "Actual native scene changes remain on Floor/Shallow; explicit Wall/Deep/Lava/Void receiver fixtures unchanged."
+    },
+    {
+      "id": "DL5",
+      "severity": "P3",
+      "issue": "Shadow height assumes anchor equals opaque foot",
+      "evidence": "arch_post_right anchorY69 lastopaqueY60 creates minimumaltitude9 despite physical foot atanchor\u22128. Legacy pillar variants differ\u00b13pixels. Bloomwild currently excludes point shadows so arch example is generalized integration risk.",
+      "required_validation": "Native opaque support bottom drives projected altitude with flipped/fractional anchors.",
+      "status": "Resolved and retained in selected repaired-column artifact",
+      "resolution_evidence": "Current source derives bottom opaque row and first empty ground row; static Field.native glyph-restaging metamorphic regressions added by implementer for fractional/bothflip nativecells."
+    },
+    {
+      "id": "DL6",
+      "severity": "P1",
+      "issue": "Weather interpolation row array out-of-bounds on ordinary camera positions",
+      "evidence": "RC3 external runtime audit panics at dynamic.rs52, len390 index390. H216//16+2 allocates15rows; cameraY mod16>=9 reaches gy14+neighborrow15.",
+      "required_validation": "Rebuilt candidate renders every camera remainder0..15 in both axes across whole384x216 output without panic.",
+      "status": "Resolved and retained in selected repaired-column artifact",
+      "resolution_evidence": "Pinned candidate full-buffer renderer covers all256 camera remainders0..15 without panic; all4 actual region odd-camera overlap light values remain exact0delta."
+    },
+    {
+      "id": "DL7",
+      "severity": "P2",
+      "issue": "Ground-only live point masks paint actual native Glasswater sprite body pixels",
+      "evidence": "RC3 actual43Decor,3point directions:1118 of68118 visible nonemissive sprite-body samples lose ground-light term; maximumcomponentloss~0.517. Gallery532.8,64 has32leaks withsourceSW. NWsourcealone missesbug.",
+      "required_validation": "All43actualnativecells sampled withNW/SW/SE externalpoint directions retain exactbody light; compare enabled vs identical live terms withpoint-shadow listcleared.",
+      "status": "Resolved and retained in selected repaired-column artifact",
+      "resolution_evidence": "Pinned candidate all43 Glass Decor\u00d73source directions:68118 visible nonemissive body samples,1118 prior RC3 leaks\u21920 with current-native-ink exclusion."
+    }
+  ],
+  "other_resolved_findings": [
+    {
+      "issue": "Prior aesthetic reviewer camera-ranked top6/brightness threshold pop",
+      "resolution": "No ranking/cap/intensity/radius cutoff;9emitters compose within4.2e\u22127 and reversingorder differsatmost7.2e\u22127."
+    },
+    {
+      "issue": "Pre-existing point spill onto nonactor sky/backdrop",
+      "resolution": "Region backdrop exposure callback resets true background; exact external HOLE fixture remainsambient regardlessnearby point; actual Summit callback returnsWHITE."
+    }
+  ],
+  "evidence": {
+    "final_runtime": "art/pixellab/2026-11-01-round5/lighting-audit/runtime-selected.txt",
+    "final_native_body": "art/pixellab/2026-11-01-round5/lighting-audit/native-body-selected.txt",
+    "final_region_cache": "art/pixellab/2026-11-01-round5/lighting-audit/region-cache-selected.txt",
+    "harnesses": [
+      "art/pixellab/2026-11-01-round5/lighting-audit/runtime_final_audit.rs",
+      "art/pixellab/2026-11-01-round5/lighting-audit/native_body_audit.rs",
+      "art/pixellab/2026-11-01-round5/lighting-audit/region_cache_audit.rs",
+      "art/pixellab/2026-11-01-round5/lighting-audit/column_light_audit.rs"
+    ],
+    "compile": "rustc --edition 2024 -O <harness.rs> -L dependency=target/release/deps --extern glintblade=out/pixellab/round5/selected/libglintblade.rlib -o <harness>"
+  },
+  "historical_gameplay_timing_rc4_only": {
+    "scope": "Historical isolated RC4 balanced/off actual gameplay with real held-charge/spin inputs, enemies and an awake phase1 boss; god=true for coverage. RC4 predates final quiet gain, Summit-weather removal and crop optimization. These numbers are not final-artifact timing claims.",
+    "candidate_sha256": "67401eeca05c7baf5aade4bd9d2171bc9701e3e553d312622d8f99f571a54f87",
+    "measurements": {
+      "off": {
+        "glass_crystal_charge": {
+          "render_mean": 4.2725,
+          "p95": 4.4354,
+          "p99": 4.5278,
+          "max": 4.7108,
+          "update_mean": 0.088,
+          "update_max": 0.1607,
+          "ticks": 420,
+          "visible_points_peak": 11,
+          "particles_peak": 47
+        },
+        "cinder_pillar_charge": {
+          "render_mean": 4.8649,
+          "p95": 5.0073,
+          "p99": 5.2881,
+          "max": 5.6696,
+          "update_mean": 0.0039,
+          "update_max": 0.0153,
+          "ticks": 420,
+          "visible_points_peak": 6,
+          "particles_peak": 88
+        },
+        "summit_boss_active": {
+          "render_mean": 4.0182,
+          "p95": 4.2556,
+          "p99": 4.5218,
+          "max": 6.2219,
+          "update_mean": 0.0196,
+          "update_max": 0.1083,
+          "ticks": 1080,
+          "visible_points_peak": 12,
+          "particles_peak": 181
+        }
+      },
+      "balanced": {
+        "glass_crystal_charge": {
+          "render_mean": 4.4101,
+          "p95": 4.5225,
+          "p99": 4.6376,
+          "max": 4.7865,
+          "update_mean": 0.0848,
+          "update_max": 0.1449,
+          "ticks": 420,
+          "visible_points_peak": 11,
+          "particles_peak": 47
+        },
+        "cinder_pillar_charge": {
+          "render_mean": 5.1284,
+          "p95": 5.3197,
+          "p99": 5.5196,
+          "max": 6.2428,
+          "update_mean": 0.0048,
+          "update_max": 0.0147,
+          "ticks": 420,
+          "visible_points_peak": 6,
+          "particles_peak": 88
+        },
+        "summit_boss_active": {
+          "render_mean": 4.1617,
+          "p95": 4.405,
+          "p99": 4.5068,
+          "max": 6.1292,
+          "update_mean": 0.0177,
+          "update_max": 0.1088,
+          "ticks": 1080,
+          "visible_points_peak": 12,
+          "particles_peak": 181
+        }
+      }
+    },
+    "historical_mean_added_cost_ms": {
+      "Glasswater": 0.1376,
+      "Cinder": 0.2635,
+      "Summit": 0.1435
+    },
+    "final_timing_repeated_by_this_reviewer": false,
+    "reason": "Other correctness captures ran concurrently; final quiet-budget timing is owned and recorded separately by root."
+  },
+  "limits": [
+    "Native Linux correctness probes; no independent browser performance benchmark.",
+    "The full campaign, final motion and aesthetic review are separate reviewer/root responsibilities.",
+    "RC4 gameplay timing covers observed active phase1 patterns, not the final particle burst.",
+    "Final fullsuite and WASM compilation occur after this independent correctness audit; root records those artifacts separately."
+  ],
+  "harness_and_log_sha256": {
+    "art/pixellab/2026-11-01-round5/lighting-audit/column-light-selected.txt": "178ae65d98ecfb694b5ff17731feac75be0b0145fbbeede15d38f75a32004de6",
+    "art/pixellab/2026-11-01-round5/lighting-audit/column_light_audit.rs": "fbca5d96dfe85e063b03b058802b803fda4a85e1e920daad0b37788069d5324f",
+    "art/pixellab/2026-11-01-round5/lighting-audit/gameplay-perf-rc4-balanced.txt": "cad461d8a804d1ef837141343c67826e75256f02d97f7124d3747e19e9eb6f95",
+    "art/pixellab/2026-11-01-round5/lighting-audit/gameplay-perf-rc4-off.txt": "3c1c1c3c5885ece1b439255bfe9e1785afd26b303469443233e58f373ee1f600",
+    "art/pixellab/2026-11-01-round5/lighting-audit/gameplay_perf.rs": "1dddec6c2a05510327dc71efde95ce6b57702de414d267a2a94e98582841d850",
+    "art/pixellab/2026-11-01-round5/lighting-audit/native-body-final.txt": "2679fdcb8b64981999275dde49e86cb5362f5857a0fa201eddc8eb8543c67068",
+    "art/pixellab/2026-11-01-round5/lighting-audit/native-body-selected.txt": "2679fdcb8b64981999275dde49e86cb5362f5857a0fa201eddc8eb8543c67068",
+    "art/pixellab/2026-11-01-round5/lighting-audit/native_body_audit.rs": "3316f4c68a91fd096289b70e56b1b51348ebe63d7fa1fa9cf6861f986d211668",
+    "art/pixellab/2026-11-01-round5/lighting-audit/region-cache-final.txt": "8e849f050acede9884c6a1a788050b1da1d284b36fbaa50e003b4b285e6148b9",
+    "art/pixellab/2026-11-01-round5/lighting-audit/region-cache-selected.txt": "8e849f050acede9884c6a1a788050b1da1d284b36fbaa50e003b4b285e6148b9",
+    "art/pixellab/2026-11-01-round5/lighting-audit/region_cache_audit.rs": "c896ce16f7d76d2a1f854521d3b520175c444b0c0863ca20308956f5ddf11ff9",
+    "art/pixellab/2026-11-01-round5/lighting-audit/runtime-final.txt": "63c8e73f47a786b096dc3f9d585feefdbdf83cc0ff586b4946d8c7f3953dff6c",
+    "art/pixellab/2026-11-01-round5/lighting-audit/runtime-selected.txt": "63c8e73f47a786b096dc3f9d585feefdbdf83cc0ff586b4946d8c7f3953dff6c",
+    "art/pixellab/2026-11-01-round5/lighting-audit/runtime_final_audit.rs": "e272129e4beb844b0b72f506415ae21dc8e901ed8b23d763bb346e3db6997a82"
+  },
+  "artifact_scope": "Replaces the earlier7756a3bd pre-column-art review. Allfour external correctness harnesses were relinked to0996716a selected library and run after the repaired broken-column sprites/native collider metadata were embedded. No performance timing was repeated during concurrent audits.",
+  "prior_pre_column_art_candidate_sha256": "7756a3bd85ef76acad6a697c0bb0848430d78bb52b8efeaccbc60409ce0c2ae7",
+  "column_art_recheck": {
+    "variants": [
+      "pillar_broken_tall",
+      "pillar_broken_short"
+    ],
+    "cases": 8,
+    "matrix": "2actualnativevariants\u00d7bothflips\u00d7fractionalworldanchors.2/.8",
+    "actual_opaque_source_bottom_row": 53,
+    "opaque_first_empty_world_row_in_fixture": 151,
+    "collision_and_sort_bottom_equal_actual_first_empty_row": true,
+    "actual_projected_native_daylight_shadow_samples_beyond_contact": {
+      "tall_unflipped": 235,
+      "tall_flipped": 245,
+      "short_both_flips": 52
+    },
+    "world_camera_overlap_max_delta": 0.0,
+    "after_death_cached_shadow_removed": true,
+    "harness": "art/pixellab/2026-11-01-round5/lighting-audit/column_light_audit.rs",
+    "log": "art/pixellab/2026-11-01-round5/lighting-audit/column-light-selected.txt"
+  },
+  "repaired_asset_sha256": {
+    "assets/sprites/bloomwild_ruins.png": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+    "assets/sprites/bloomwild_ruins.json": "386810b1e2da52b1c3478e050073ec0e4179aedd7c53224e1531081c5eae7d79"
+  },
+  "wasm_build": {
+    "status": "PASS central release wasm32-unknown-unknown build",
+    "path": "out/pixellab/round5/selected/glintblade.wasm",
+    "sha256": "2069f269de19957076c19e709fb40098e7f347bdbf25d124ba40d9bb5745f203",
+    "native_browser_default_gain": 0.65,
+    "scope": "Compilation and matching selected source/assets; interactive browser play not claimed"
+  }
+}

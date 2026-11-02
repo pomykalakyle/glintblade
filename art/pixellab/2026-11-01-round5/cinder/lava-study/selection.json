@@ -1,0 +1,31 @@
+{
+  "job_id": "a1132c12-3fec-4d55-9048-11459cf87318",
+  "asset_id": "b99676c9-5b09-513b-9e24-48b663e3405e",
+  "charged_generations": 10,
+  "native_sources": [
+    {
+      "candidate": 2,
+      "file": "result-2.png",
+      "sha256": "7eeac9ef4e2d008ae7d17a4201b2255280fdabfc12af370dda5e265c0664ba8c"
+    },
+    {
+      "candidate": 3,
+      "file": "result-3.png",
+      "sha256": "b899a84bb0e3216395134697a64948a6adb8d1ee251885ca5fa545543a5a6400"
+    }
+  ],
+  "preferred_source": 3,
+  "supporting_source": 2,
+  "native_cell": [
+    1056,
+    264
+  ],
+  "assembly": "tools/pixellab/lava_quilt.py builds a periodic native source quilt via connected minimum-error integer cut seams,112px source crops and24px overlaps. Every output pixel audited against unchanged source(candidate,x,y). No scaling, interpolation, recolouring or flips. Uniform1px stagingborder excluded onall4sides.",
+  "quilt_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+  "review_status": "Implementer recommends, root and fresh independent visual review pending",
+  "rejected_candidates": {
+    "1": "long regular bands, too laminated",
+    "4": "few huge flat bands, reads graphic stripes"
+  },
+  "render_trial_rejected": "Quiet/balanced/radiant warmth alone didnot fix original flatbody and repetitive cracktile; extra runtime thermalfield removed after better native material supplied real tonal variety."
+}

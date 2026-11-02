@@ -1,0 +1,22 @@
+{
+  "description": "A single flat weathered obsidian pavement slab, viewed overhead as a walkable floor tile in a subdued abandoned foundry. Full rectangular opaque canvas 32x24. Eighty five percent one flat ash mauve midtone #5b5966, one shallow dark irregular hairline fracture near a corner, two or three small chipped edge clusters, no noise, no pebbles, no raised rock, no bevel box or black outline. Keep all four edges flat #5b5966 so variants blend. Subtle broad plane and restrained side color. Real native pixel art, large quiet low contrast connected pixel clusters.",
+  "width": 32,
+  "height": 24,
+  "no_background": false,
+  "palette": [
+    "#101017",
+    "#16151d",
+    "#1a1923",
+    "#24232d",
+    "#292c3c",
+    "#363340",
+    "#393746",
+    "#3f414f",
+    "#514854",
+    "#56505d",
+    "#5b5966",
+    "#79707a"
+  ],
+  "max_colors": 5,
+  "seed": 7281
+}

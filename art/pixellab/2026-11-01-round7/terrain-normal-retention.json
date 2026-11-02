@@ -1,0 +1,144 @@
+{
+  "scope": "Terrain normal/height retention and exact source-UV metadata only; no albedo, emission, terrain masks, collision, animation or simulation changes.",
+  "entrypoint": "lighting::ground_surface(zone, region, frame), after Region::draw_ground and before sorted scenery/actors",
+  "metadata": "TerrainSurface {normal:[i8;3],height:u8}: 4 bytes/pixel in source map + 4 bytes/pixel in retained terrain cache.",
+  "normal_convention": {
+    "source": "OpenGL right/up/toward-viewer",
+    "floor": "(nx,-ny,nz)",
+    "upright": "(nx,nz,ny)",
+    "curved_summit": "Rotate horizontal normal by authored elliptical rim outward direction."
+  },
+  "source_uv_sites": {
+    "src/regions/bloomwild/paint.rs": [
+      {
+        "line": 199,
+        "code": "z.gset_surface(wx, wy, cell, px, py, false, 0.0);"
+      },
+      {
+        "line": 250,
+        "code": "z.gset_surface(x, y, cell, (x - 64).rem_euclid(118) + 4, py, true, (32 - py) as f32);"
+      },
+      {
+        "line": 475,
+        "code": "z.gset_surface(x, y, cell, x - origin, py, true, (lower_contour - y).max(0) as f32);"
+      },
+      {
+        "line": 967,
+        "code": "z.gset_surface(x, y, cell, px, py, false, 0.0);"
+      }
+    ],
+    "src/regions/glasswater/materials.rs": [
+      {
+        "line": 44,
+        "code": "z.gset_surface(x, y, floor_cell, x.rem_euclid(32), y.rem_euclid(32), false, 0.0);"
+      },
+      {
+        "line": 50,
+        "code": "z.gset_surface(x, y, cell, x.rem_euclid(cell.w), y.rem_euclid(cell.h), false, 0.0);"
+      },
+      {
+        "line": 63,
+        "code": "z.gset_surface(x, y, cell, x.rem_euclid(cell.w), y.rem_euclid(cell.h), false, 0.0);"
+      },
+      {
+        "line": 77,
+        "code": "z.gset_surface(x, y, cell, sx, sy, true, i32::from(m.span[i].saturating_sub(m.depth[i])) as f32);"
+      },
+      {
+        "line": 87,
+        "code": "z.gset_surface(x, y, cell, x.rem_euclid(cell.w), 24 + i32::from(m.depth[i]).min(39), true,"
+      }
+    ],
+    "src/regions/cinder/textures.rs": [
+      {
+        "line": 249,
+        "code": "z.gset_surface(x, y, &frames[frame], (x + off).rem_euclid(w), y.rem_euclid(h), false, 0.0);"
+      },
+      {
+        "line": 322,
+        "code": "z.gset_surface(x, yy, c, sx, sy, yy >= top, if yy < top { 0.0 } else { (draw_end - yy).max(0) as f32 });"
+      },
+      {
+        "line": 353,
+        "code": "z.gset_surface(wx, wy, c, x, y, false, 0.0);"
+      },
+      {
+        "line": 387,
+        "code": "z.gset_surface(ox + x, oy + y, c, x, y, true, (c.h - y - 1).max(0) as f32);"
+      }
+    ],
+    "src/regions/summit/paint.rs": [
+      {
+        "line": 223,
+        "code": "c.z.gset_plane_surface(x, yy, if v == 0 { [0.0, 0.0, 1.0] } else { [front[0], front[1], 0.0] }, height);"
+      },
+      {
+        "line": 230,
+        "code": "c.z.gset_surface(x, yy, cell, sx, sy, true, height);"
+      },
+      {
+        "line": 231,
+        "code": "c.z.gorient_surface(x, yy, front);"
+      },
+      {
+        "line": 240,
+        "code": "c.z.gset_surface(x, yy, cell, sx, sy, true, height);"
+      },
+      {
+        "line": 241,
+        "code": "c.z.gorient_surface(x, yy, front);"
+      },
+      {
+        "line": 700,
+        "code": "c.z.gset_surface(wx, wy, cell, x, y, false, 0.0);"
+      },
+      {
+        "line": 970,
+        "code": "c.z.gset_surface(wx, wy, cell, x, y, true, (cell.h - y - 1).min(12).max(0) as f32);"
+      },
+      {
+        "line": 1287,
+        "code": "c.z.gset_surface(wx, wy, cell, x, y, false, 0.0);"
+      }
+    ]
+  },
+  "cache_guards": [
+    "Retained terrain is copied before any prop Plane overwrites the scratch.",
+    "Visible native ground-hook sprite metadata wins over cached terrain.",
+    "HOLE and outside-map pixels receive no terrain surface.",
+    "Prop breakage refreshes the same bounded native cache region.",
+    "Geometry setters invalidate the zone-owned cache."
+  ],
+  "lighting_changes": [
+    "Old moving weather and radial occlusion skipped when surface_lighting=true.",
+    "Actor readability floor .58/.61/.72 in surface mode; legacy path unchanged.",
+    "Old Cinder actor edge-rim disabled only in surface mode.",
+    "surface_shadows module registered and point_visibility wrapper exported."
+  ],
+  "diagnostics": "lighting::terrain_normal_coverage(zone) -> (metadata_pixels, raised_metadata_pixels, distinct_world_normals)",
+  "tests_added": [
+    "native_terrain_uv_retains_vectors_without_changing_art_or_physics",
+    "revealed_ground_never_inherits_a_cached_prop_plane"
+  ],
+  "validation": "Root reported all 172 tests passing before the final diagnostic-only coverage helper. No Cargo builds run by this agent.",
+  "source_sha256": {
+    "src/gfx/lighting.rs": "740df0474533bec7e5e229bba170feae4a888589ea7ffbaeeeaedcfe912b7443",
+    "src/world/mod.rs": "16b75f95de96f4ca4deffd3e2c296cb3b724bcab88324552a7543cea9c03d1c0",
+    "src/regions/bloomwild/paint.rs": "d42e8904a837b62e869268d1a5c410409a04fe2370d7a11926adef3d6de95881",
+    "src/regions/glasswater/materials.rs": "a62559d581fa5b34440940d5b1339f2f4cc4027cbf95a262f5ea46998cc62432",
+    "src/regions/cinder/textures.rs": "df01103c7b0ea784d4c0d3a2e69f2f05631666de5f3d427612077b7c4fc12d27",
+    "src/regions/summit/paint.rs": "58586e1c3a198babd4759b926c54067a8d2d5aaca8d97937240b7dd97be78156",
+    "src/gfx/lighting/patch.rs": "8276083f075659094684b51adc6150bd7ab1e152eedf04dda25b97e894e6035a"
+  },
+  "lighting_source_separation": {
+    "contact_buffer": "One u8/pixel, retaining source-independent attached contact and AO. Legacy dark remains unchanged for diagnostic/reference rendering.",
+    "cold_form_buffer": "One u8/pixel, retaining matte geometric fill multiplier without cached nearest-source facing/rim.",
+    "physical_night": "Glasswater, Cinder, Summit use contact-only darkness and cold fill + real broad lava-bank reception. Cached point-facing/rims and old actor proxy cast shadows are excluded.",
+    "bloomwild": "Legitimate fixed-sun cast/contact lighting retained; directional normal term is owned by root.",
+    "incremental_refresh": "Prop-breakage crop restores contact from canonical scenery, rebuilds matte form and geometry in the same bounded region.",
+    "legacy": "Existing Field.light, Field.dark and proxy behavior preserved when surface_lighting=false.",
+    "extra_field_bytes_per_world_pixel": 2,
+    "new_test": "physical_night_fill_excludes_cached_point_facing_and_proxy_casts",
+    "validation": "Diff whitespace check passed. Root owns the next build/test run."
+  }
+}

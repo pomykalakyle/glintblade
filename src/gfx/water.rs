@@ -39,6 +39,7 @@ impl Frame {
         }
         for y in 0..cell.h.min(anchor.1 + 1) {
             let depth = anchor.1 - y;
+            if depth >= self.look.water_depth_max { continue; }
             let py = sy + 1 + depth;
             if !(0..HI).contains(&py) {
                 continue;

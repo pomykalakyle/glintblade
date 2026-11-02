@@ -1,0 +1,339 @@
+{
+  "scope": "Independent read-only code and actual-map physics review; no game source edited by this reviewer.",
+  "candidate": "out/pixellab/round4/rc2/glintblade",
+  "candidate_sha256": "0ac0b7181123dc6ab6725b7f326811454afd6379145e162e90405d6b5793aff4",
+  "findings": [
+    {
+      "issue": "Summit exact surface overwritten by later coarse set_tile calls",
+      "severity": "blocking integration bug",
+      "status": "fixed in rc2",
+      "evidence": "paint.rs now installs exact surface after coarse grid loop; root added actual curved-edge regression"
+    },
+    {
+      "issue": "Fractional native prop colliders offset from floored sprite raster",
+      "severity": "subpixel contact mismatch",
+      "status": "fixed in rc2",
+      "evidence": "world_support floors world anchors; owner added renderer-vs-collider fractional/flipped regression"
+    },
+    {
+      "issue": "Cinder visible brazier explicitly non-colliding",
+      "severity": "scope/physical consistency gap",
+      "status": "fixed and independently verified in rc2",
+      "evidence": "L60 from670,455 stops656.3816,455 at native base"
+    },
+    {
+      "issue": "Bloom static prop shadow repaints eroded sky pixels as visible ground while physics remains Void",
+      "severity": "visible/physical terrain mismatch",
+      "status": "fixed and independently verified in rebuilt RC3 native library",
+      "evidence": "completed built-world scan:4041 eroded coarse-Floor/fine-Void pixels,143 repainted as non-HOLE ground",
+      "final_evidence": "Completed built-world scan:4049 eroded coarse-Floor/fine-Void pixels,zero repainted non-HOLE; prior143 mismatch closed. Count4041\u21924049 reflects later terrain refinements."
+    }
+  ],
+  "checks": {
+    "native_collision_metadata": "44 exported collision animations checked: all rectangles in bounds and source-opaque at audit time; later exports covered by root rebuild checks",
+    "starts_and_enemy_spawns": "All4 player starts and every actual Enemy::spawn radius clear in rc2",
+    "source_audit": [
+      "Half-open full feet collision and reflected anchor transform match renderer",
+      "Footprint=None and alive=false disable refined collision",
+      "Cached native extent follows world transform and sort_y follows native support bottom",
+      "Native collider animation bases static; cell references owned by immutable OnceLock registry",
+      "Runtime geometry setter synchronizes surface and invalidates lighting; no production direct tile writes bypass it",
+      "Geometry key hashes native spans and transforms; incremental breakage behavior preserved",
+      "Crystal light identity now explicit metadata independent of collision dimensions"
+    ],
+    "contacts": [
+      {
+        "name": "arch-passage",
+        "start": [
+          152.0,
+          650.0
+        ],
+        "end": [
+          152.0,
+          532.9116821289062
+        ],
+        "ticks": 80,
+        "report": "out/pixellab/round4/independent-physics/contacts/arch-passage/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "cinder-arch-across",
+        "start": [
+          310.0,
+          488.0
+        ],
+        "end": [
+          457.0882568359375,
+          488.0
+        ],
+        "ticks": 100,
+        "report": "out/pixellab/round4/independent-physics/contacts/cinder-arch-across/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "cinder-bank-edge",
+        "start": [
+          470.0,
+          480.0
+        ],
+        "end": [
+          352.9117431640625,
+          480.0
+        ],
+        "ticks": 80,
+        "report": "out/pixellab/round4/independent-physics/contacts/cinder-bank-edge/report.json",
+        "counts_as_hazard_proof": false
+      },
+      {
+        "name": "cinder-brazier-from-east",
+        "start": [
+          670.0,
+          455.0
+        ],
+        "end": [
+          656.381591796875,
+          455.0
+        ],
+        "ticks": 60,
+        "report": "out/pixellab/round4/independent-physics/contacts/cinder-brazier-from-east/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "cinder-native-lava-edge",
+        "start": [
+          939.0,
+          168.0
+        ],
+        "end": [
+          969.0885620117188,
+          168.0
+        ],
+        "ticks": 70,
+        "report": "out/pixellab/round4/independent-physics/contacts/cinder-native-lava-edge/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "glass-bridge-across",
+        "start": [
+          738.0,
+          256.0
+        ],
+        "end": [
+          967.5883178710938,
+          256.0
+        ],
+        "ticks": 155,
+        "report": "out/pixellab/round4/independent-physics/contacts/glass-bridge-across/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "glass-bridge-edge",
+        "start": [
+          832.0,
+          256.0
+        ],
+        "end": [
+          832.0,
+          243.86610412597656
+        ],
+        "ticks": 50,
+        "report": "out/pixellab/round4/independent-physics/contacts/glass-bridge-edge/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "glass-native-deep-edge",
+        "start": [
+          377.0,
+          364.0
+        ],
+        "end": [
+          407.0353088378906,
+          364.0
+        ],
+        "ticks": 70,
+        "report": "out/pixellab/round4/independent-physics/contacts/glass-native-deep-edge/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "ruin-from-east",
+        "start": [
+          140.0,
+          720.0
+        ],
+        "end": [
+          120.40603637695312,
+          720.0
+        ],
+        "ticks": 60,
+        "report": "out/pixellab/round4/independent-physics/contacts/ruin-from-east/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "summit-bridge-across",
+        "start": [
+          320.0,
+          782.0
+        ],
+        "end": [
+          602.0882568359375,
+          782.0
+        ],
+        "ticks": 190,
+        "report": "out/pixellab/round4/independent-physics/contacts/summit-bridge-across/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "tree-from-east",
+        "start": [
+          140.0,
+          674.0
+        ],
+        "end": [
+          111.4112777709961,
+          674.0
+        ],
+        "ticks": 60,
+        "report": "out/pixellab/round4/independent-physics/contacts/tree-from-east/report.json",
+        "counts_as_hazard_proof": true
+      },
+      {
+        "name": "tree-from-north",
+        "start": [
+          100.0,
+          640.0
+        ],
+        "end": [
+          100.0,
+          664.0899047851562
+        ],
+        "ticks": 60,
+        "report": "out/pixellab/round4/independent-physics/contacts/tree-from-north/report.json",
+        "counts_as_hazard_proof": true
+      }
+    ]
+  },
+  "limits": [
+    "Ten original meaningful contact/bridge/hazard probes plus explicit brazier proof; not exhaustive player inputs at every pixel",
+    "One additional misnamed cinder-bank-edge probe stayed on safe arch and is excluded as hazard proof",
+    "Probes use initial test positioning, peaceful mode and invulnerability; subsequent movement uses ordinary game input",
+    "Not a difficulty, performance, sound-mix, overall art or all-attack-raycast review",
+    "Final executable received10 representative same-artifact contact probes. This is still sampled coverage, not every possible input/path or gameplay balance."
+  ],
+  "final_shadow_verification": {
+    "native_library": "target/release/libglintblade.rlib",
+    "native_library_sha256": "0afbc4df99a9d87c0eb5c0c9370877d944d567ab02faa761f2a3522bb9d99ef8",
+    "scan": "out/pixellab/round4/independent-physics/world-scan-rc3.txt",
+    "eroded_cut_pixels": 4049,
+    "repainted_cut_pixels": 0,
+    "player_starts_and_actual_enemy_spawn_radii": "all clear in all four rebuilt regions"
+  },
+  "root_followup_source_audit": {
+    "foreground_fixture": {
+      "verdict": "legitimate route update; no weakened regression found",
+      "route": "W360 U82 R59 D20 at tick521",
+      "reason": "Previous direct leg now correctly stops at the native entry pier. Detour uses ordinary Input/Game.tick and remains on legal ground; no teleport, god override, prop deletion or physics bypass.",
+      "assertions_retained": [
+        "at least8 actually hidden opaque hero pixels",
+        "at least2/3 of hidden hero pixels recovered",
+        "all albedo outside actual pose unchanged"
+      ],
+      "assertions_strengthened": [
+        "final full feet box must be legal ground"
+      ],
+      "ordering": "tree.sort_y()>hero.y agrees with production render_world_focused; old anchor comparison did not include refined base offset",
+      "limits": "Source review only in this followup; root owns focused/full test runs. Fixture still unit-exercises actual tree draw_revealed rather than proving every view integration callsite."
+    },
+    "title_garden": {
+      "verdict": "no concrete remaining integration blocker found",
+      "checks": [
+        "Full backing dimensions preserved for coordinate-dependent painter/life functions",
+        "Missing-land root columns skip safely",
+        "Fixed altar requires actual K::Altar; niches/ivy require matching map landmarks",
+        "Bounded-and-empty-garden regression checks every VOID-mask ground pixel stays HOLE",
+        "Title hero respawns onto authored clear garden ground; title uses ambient-only update and fresh Play instance on starting game"
+      ],
+      "withdrawn_concern": "Earlier unconditional-altar spill concern used pre-guard source; current source already guards it and independently reviewed title was clean."
+    },
+    "hole_guard": {
+      "verdict": "correct integration",
+      "reason": "Negative ground.r is the established HOLE sentinel; skipping such shadow writes preserves void before physical_surface installation in title and after installation in full game. Later first lighting bake sees final buffers; no stale lighting bake exists during construction.",
+      "prior_independent_result": "RC3 library:4049 eroded coarse-Floor/fine-Void pixels,zero painted ground; all4 starts/actual enemy spawn radii clear"
+    }
+  },
+  "final_executable_verification": {
+    "binary": "/home/krp/Projects/glintblade/out/pixellab/round4/final/glintblade",
+    "binary_sha256": "49358f8309ee603b0c8a871e7368aeb89b7392824655148e18eff6fdeb7ce134",
+    "manifest": "out/pixellab/round4/independent-physics/final-contacts/manifest.json",
+    "verification": "out/pixellab/round4/independent-physics/final-contacts/verification.txt",
+    "cases_passed": 10,
+    "all_final_full_feet_boxes": "legal; every covered native surface pixel nonsolid",
+    "solid_probes": "next2px intersects intended native tree, entry pier, brazier, Deep/Lava edge or Summit curve",
+    "open_probes": "arch/aqueduct empty centers and Glass/Cinder bridge crossings pass beyond exits",
+    "flags": "Explicit initial positioning; ordinary game inputs; --peaceful --god; W300 before movement avoids intro banner; native1x final images",
+    "hash_unchanged_before_after": true,
+    "final_library_sha256": "ffe99f3578df9d897a3dcdc93bed8f3ca446fbe7dad1387b36249e8a1377dfce",
+    "world_scan": "out/pixellab/round4/independent-physics/world-scan-final.txt",
+    "all_player_starts_and_enemy_spawn_radii": "clear in all4 regions",
+    "eroded_cut_pixels": 4049,
+    "repainted_cut_pixels": 0,
+    "internal_visual_checks": [
+      "final arch-pier solid contact",
+      "final aqueduct empty passage",
+      "final Summit curved edge contact"
+    ]
+  },
+  "study_coordinate_audit": {
+    "source": "tools/pixellab/capture_world.py SCENES+DETAIL_SCENES",
+    "positions_checked": 40,
+    "full_feet_valid": 35,
+    "invalid": [
+      {
+        "zone": "bloomwild",
+        "name": "terrace",
+        "position": [
+          664,
+          340
+        ],
+        "reason": "Wall"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "west-terrace",
+        "position": [
+          290,
+          344
+        ],
+        "reason": "Wall"
+      },
+      {
+        "zone": "bloomwild",
+        "name": "falls-impact",
+        "position": [
+          712,
+          356
+        ],
+        "reason": "Deep"
+      },
+      {
+        "zone": "glasswater",
+        "name": "island",
+        "position": [
+          500,
+          440
+        ],
+        "reason": "Deep"
+      },
+      {
+        "zone": "glasswater",
+        "name": "channel",
+        "position": [
+          656,
+          160
+        ],
+        "reason": "center Floor but full feet box intersects solid shore"
+      }
+    ],
+    "action": "Root recaptures both matched static-study sets with --no-hero at these5 coordinates, preserving camera centers. Gameplay clips remain movement proof.",
+    "evidence": "out/pixellab/round4/independent-physics/study-position-audit-final.txt"
+  }
+}

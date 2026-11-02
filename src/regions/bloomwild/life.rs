@@ -1,11 +1,30 @@
 //! Water stays within the hazard bed, breaks over stone lips and falls toward the cloud sea.
 
 use super::{Map, mat, pal};
-use crate::gfx::{Frame, H, W};
+use crate::gfx::{Frame, H, Rgb, W, rgb};
 use crate::util::hash2;
-use crate::world::Zone;
+use crate::world::{RegionCtx, Zone};
 
-pub struct Life;
+// Clear mineral water keeps a blue-green body beneath the warm chalk and moss.
+// These are surface colours, not emitters: terrace shadows still cross the river.
+const RIVER: [Rgb; 5] = [
+    rgb(0x3b6473),
+    rgb(0x568894),
+    rgb(0x85b6b7),
+    rgb(0xb9d6cb),
+    rgb(0xe4ecda),
+];
+
+pub struct Life {
+    wakes: Vec<Wake>,
+    outlet: bool,
+}
+
+struct Wake {
+    x: i32,
+    y: i32,
+    born: u64,
+}
 
 /// Shape a continuous spill into unequal hanging strands, then lose it in the cloud shelf.
 fn south_span(y: i32) -> (i32, i32) {
@@ -18,6 +37,13 @@ fn south_span(y: i32) -> (i32, i32) {
 impl Life {
     /// Continue the existing three-tile outlet over the island face without changing collision.
     pub fn build(m: &Map, mask: &mut [u8], z: &mut Zone) -> Self {
+        let outlet = z.pw > 866 && z.ph >= 823 && mat::water(mask[(735 * z.pw + 840) as usize]);
+        if !outlet {
+            return Self {
+                wakes: Vec::new(),
+                outlet,
+            };
+        }
         // The distant cloud shelf overlaps the lowest backing rock, between the hanging strands.
         for y in 782..z.ph {
             for x in 814..866 {
@@ -52,7 +78,67 @@ impl Life {
                 z.gset(x, y, crate::world::HOLE);
             }
         }
-        Self
+        Self {
+            wakes: Vec::new(),
+            outlet,
+        }
+    }
+
+    /// Feet disturb the same shallow surface that movement uses. This bounded pool
+    /// does not emit ambient particles or leave rings behind on bridges and dry banks.
+    pub fn update(&mut self, z: &Zone, mask: &[u8], ctx: &RegionCtx) {
+        self.wakes
+            .retain(|wake| ctx.t.saturating_sub(wake.born) < 30);
+        if !ctx.t.is_multiple_of(8) {
+            return;
+        }
+        for &(x, y, speed) in ctx.movers {
+            let (x, y) = (x.floor() as i32, y.floor() as i32);
+            if speed < 0.15 || x < 0 || y < 0 || x >= z.pw || y >= z.ph {
+                continue;
+            }
+            if mask[(y * z.pw + x) as usize] != mat::SHALLOW {
+                continue;
+            }
+            if self.wakes.len() == 48 {
+                self.wakes.remove(0);
+            }
+            self.wakes.push(Wake { x, y, born: ctx.t });
+        }
+    }
+
+    /// The near side of the surface sits in front of the hero's soles while wading.
+    /// This stays at the foot contact, so dry bridge decks and the full body silhouette
+    /// remain clear; the larger wake rings are drawn underneath the actor.
+    pub fn draw_foot_contact(
+        &self,
+        z: &Zone,
+        mask: &[u8],
+        f: &mut Frame,
+        player: (f32, f32),
+        t: u64,
+    ) {
+        let (x, y) = (player.0.floor() as i32, player.1.floor() as i32);
+        if x < 4
+            || y < 1
+            || x + 4 >= z.pw
+            || y + 1 >= z.ph
+            || mask[(y * z.pw + x) as usize] != mat::SHALLOW
+        {
+            return;
+        }
+        for dx in -4_i32..=4 {
+            let yy = y + i32::from(dx.abs() > 2);
+            if mask[(yy * z.pw + x + dx) as usize] != mat::SHALLOW {
+                continue;
+            }
+            let c = if (dx + (t / 9) as i32).rem_euclid(5) == 0 {
+                RIVER[2]
+            } else {
+                RIVER[1]
+            };
+            f.put(x + dx - f.cam_x, yy - f.cam_y, c);
+        }
     }
 
     /// Animate coherent currents, source-bound impact rings and downward ribbons.
@@ -83,7 +169,7 @@ impl Life {
         }
         // Only the fall's terminal spray occupies the air, merging into the same
         // cloud shelf, with no independent mist layer or persistent particles.
-        for y in 779..823 {
+        for y in 779..if self.outlet { 823 } else { 779 } {
             let depth = y - 779;
             let radius = 20 + depth / 4;
             for x in 840 - radius..=840 + radius {
@@ -100,7 +186,7 @@ impl Life {
                 let coverage = fade * (1.0 - (x - 840).abs() as f32 / radius as f32) * 0.55;
                 if strand < 4 && drift < 10 && crate::util::bayer4(x, y) < coverage {
                     let c = if y < super::sky::shelf_top(x) {
-                        pal::WATER[2]
+                        RIVER[2]
                     } else {
                         pal::CLOUD[1]
                     };
@@ -108,111 +194,150 @@ impl Life {
                 }
             }
         }
-        // Bridge fronts remain in front of the moving water, with their original deck bounds.
-        for (x, y, w) in [
-            (41 * 16, 18 * 16 - 3, 7 * 16),
-            (49 * 16, 38 * 16 - 3, 7 * 16),
-        ] {
-            f.rect(x - f.cam_x, y - f.cam_y, w, 3, pal::STONE[1]);
-            f.rect(x - f.cam_x, y - f.cam_y - 1, w, 1, pal::STONE[5]);
+        for wake in &self.wakes {
+            let age = t.saturating_sub(wake.born) as i32;
+            if age >= 30 {
+                continue;
+            }
+            let rx = 2 + age / 3;
+            let ry = 1 + age / 8;
+            for dy in -ry..=ry {
+                for dx in -rx..=rx {
+                    let (x, y) = (wake.x + dx, wake.y + dy);
+                    if x < 0 || y < 0 || x >= z.pw || y >= z.ph {
+                        continue;
+                    }
+                    if !matches!(mask[(y * z.pw + x) as usize], mat::SHALLOW | mat::DEEP) {
+                        continue;
+                    }
+                    let ellipse = dx * dx * ry * ry + dy * dy * rx * rx;
+                    let outer = rx * rx * ry * ry;
+                    let inner = (rx - 1) * (rx - 1) * ry * ry;
+                    if ellipse > outer || ellipse < inner || (dx > 0 && dy < 0) {
+                        continue;
+                    }
+                    if age > 16 && (dx + dy).rem_euclid(3) == 0 {
+                        continue;
+                    }
+                    let color = if dy <= 0 { RIVER[2] } else { RIVER[1] };
+                    f.put(x - f.cam_x, y - f.cam_y, color);
+                }
+            }
+        }
+        // A shallow arched underside hangs below each deck. Its feet stay on the
+        // dry banks; only the suspended ring overlaps water. The opening remains
+        // visibly water, including its bridge shadow and moving downstream current.
+        for (bx, by) in [(656, 256), (784, 576)] {
+            for x in bx..bx + 112 {
+                for dy in 0..6 {
+                    let y = by + 32 + dy;
+                    if !mat::water(mask[(y * z.pw + x) as usize]) {
+                        continue;
+                    }
+                    let from_mid = (x - (bx + 56)).abs();
+                    let depth = 2 + ((from_mid - 6).max(0) / 4).min(4);
+                    if dy >= depth {
+                        continue;
+                    }
+                    let c = if dy == 0 {
+                        pal::STONE[2]
+                    } else if dy == depth - 1 {
+                        pal::STONE[0]
+                    } else {
+                        pal::STONE[1]
+                    };
+                    f.put(x - f.cam_x, y - f.cam_y, c);
+                }
+            }
         }
     }
 }
 
-/// Turn the lip into unequal ribbons that accelerate, narrow and dissolve at cloud depth.
-fn falling(x: i32, y: i32, t: u64, south: bool) -> Option<crate::gfx::Rgb> {
+/// Cool connected water holds the volume; narrow unequal strands carry the light.
+fn falling(x: i32, y: i32, t: u64, south: bool) -> Option<Rgb> {
     let (origin, left) = if south { (736, 816) } else { (320, 688) };
     let dy = y - origin;
     let lx = x - left;
-    // The convex crest turns through a chalk highlight into a cool falling face.
-    let curl = 2 + (lx - 23).abs() / 9;
+    let curl = 2 + (lx - 23).abs() / 13;
     if dy < curl + 3 {
-        return Some(if dy < curl - 1 {
-            pal::WATER[3]
+        return Some(if dy < curl {
+            RIVER[2]
         } else if dy < curl + 1 {
-            pal::WATER[4]
+            RIVER[4]
         } else {
-            pal::WATER[2]
+            RIVER[2]
         });
     }
-    let length = if south { 83 } else { 34 };
-    let mut color = None;
-    for (i, (center, half, lean)) in [(6, 6, 1), (18, 7, -1), (31, 8, 1), (43, 5, -1)]
-        .into_iter()
-        .enumerate()
+    let depth = dy - curl - 3;
+    if south && depth > 34 {
+        // The long spill keeps unequal tapered volumes, with genuine sky between
+        // their ends. The short terrace fall remains one connected body.
+        let inside =
+            [(8, 10, 75), (25, 11, 82), (41, 7, 69)]
+                .into_iter()
+                .any(|(center, width, end)| {
+                    let width = (width - (depth - 27).max(0) / 7).max(2);
+                    (lx - center).abs() <= width
+                        && crate::util::bayer4(x, y) < ((end - dy) as f32 / 18.0).clamp(0.0, 1.0)
+                });
+        if !inside {
+            return None;
+        }
+    }
+    let edge = 2 + depth / if south { 25 } else { 18 };
+    let mut color = if lx < edge || lx > 47 - edge {
+        RIVER[1]
+    } else {
+        RIVER[1].lerp(RIVER[2], 0.66)
+    };
+    let travel = depth * 112 / (depth + 112);
+    // Unequal 1–3px runs descend at different phases. Their shallow bends are
+    // fixed in the fall, so movement reads downward rather than sideways sway.
+    for (i, (center, half, lean)) in [
+        (5, 0, 1),
+        (12, 1, -1),
+        (21, 0, 1),
+        (28, 1, -1),
+        (37, 1, 1),
+        (44, 0, -1),
+    ]
+    .into_iter()
+    .enumerate()
     {
-        let i = i as i32;
-        let bend = lean * (dy / (19 + i * 3));
-        let center = center + bend;
-        let width = (half - dy / (15 + i * 4)).max(1);
+        let center = center
+            + lean * depth / (22 + i as i32 * 4)
+            + ((depth + i as i32 * 5) / 11).rem_euclid(2);
         let dx = lx - center;
-        if dx.abs() > width {
+        let phase = (travel * 2 - t as i32 + [0, 19, 37, 8, 49, 27][i]).rem_euclid(67);
+        if dx >= -3 && dx < -half - 1 {
+            color = RIVER[1].lerp(RIVER[2], 0.30);
+        }
+        if dx.abs() > half {
             continue;
         }
-        // Mapping distance into a compressed phase makes each moving segment
-        // visibly stretch downwards, with different timing for each ribbon.
-        let travel = dy * 96 / (dy + 96);
-        let phase = (travel - (t as i32 * (2 + i % 2)) + i * 19 + dx * 2).rem_euclid(59 + i * 7);
-        let end = length - [3, 12, 0, 8][i as usize];
-        let fade = if south {
-            ((end - dy) as f32 / 23.0).clamp(0.0, 1.0)
+        color = if (8..12).contains(&phase) && dx == 0 && depth > 2 {
+            RIVER[4]
+        } else if phase < 34 {
+            RIVER[3]
         } else {
-            1.0
+            RIVER[2]
         };
-        if crate::util::bayer4(x, y) >= fade {
-            continue;
-        }
-        let bright_width = (width * 2 / 3 - phase / 12).max(1);
-        let c = if dx == -width {
-            pal::WATER[1]
-        } else if dx < 0 && dx >= -bright_width && phase < 32 {
-            pal::WATER[4]
-        } else if phase < 44 && dx < width - 1 {
-            pal::WATER[3]
-        } else {
-            pal::WATER[2]
-        };
-        // Each ribbon meets haze at a different depth; ordered coverage avoids
-        // a horizontal value cut where solid water becomes terminal spray.
-        let haze = ((dy - 42 - i * 4) as f32 / 25.0).clamp(0.0, 1.0);
-        color = Some(if south && crate::util::bayer4(x + 1, y) < haze {
-            if y < super::sky::shelf_top(x) {
-                pal::WATER[2]
-            } else {
-                pal::CLOUD[1]
-            }
-        } else {
-            c
-        });
     }
-    // The upper curtain stays connected; only its lower portion separates.
-    color.or_else(|| {
-        if dy < 21 || !south {
-            Some(pal::WATER[2])
-        } else {
-            None
-        }
-    })
+    Some(color)
 }
 
 /// Keep deep water dark, show bank undercuts and attach foam only to the terrace impact.
-fn surface(z: &Zone, mask: &[u8], x: i32, y: i32, t: u64, mut g: u8) -> crate::gfx::Rgb {
+fn surface(z: &Zone, mask: &[u8], x: i32, y: i32, t: u64, g: u8) -> crate::gfx::Rgb {
     let wet = |xx: i32, yy: i32| {
         xx >= 0 && yy >= 0 && xx < z.pw && yy < z.ph && mat::water(mask[(yy * z.pw + xx) as usize])
     };
-    // Keep the walkable shelves bright, but let their inner boundaries vary by up to four pixels.
-    // Only the rendered color changes; the shallow/deep hazard mask remains exact.
-    if g == mat::SHALLOW && (768..912).contains(&x) && (608..736).contains(&y) {
-        let west_run = match (y - 608).rem_euclid(89) { 0..=16 => 0, 17..=27 => 2, 28..=51 => 4, 52..=60 => 1, 61..=78 => 3, _ => 0 };
-        let east_run = match (y - 608).rem_euclid(101) { 0..=20 => 0, 21..=34 => 3, 35..=55 => 1, 56..=82 => 4, _ => 2 };
-        let deep = |xx: i32| mask[(y * z.pw + xx) as usize] == mat::DEEP;
-        if (1..=west_run).any(|d| deep(x + d)) || (1..=east_run).any(|d| deep(x - d)) { g = mat::DEEP; }
-    }
+    // Depth classification comes from the same native mask used by movement. Surface
+    // shading may vary within a shelf, but never depicts shallow ground as deep water.
     let bank = !wet(x - 2, y) || !wet(x + 2, y) || !wet(x, y - 2);
     let mut c = if bank || g == mat::DEEP {
-        pal::WATER[0]
+        RIVER[0]
     } else {
-        pal::WATER[1]
+        RIVER[1]
     };
     // Unequal submerged shelves break up the shallow bank strip.
     // These remain blue water throughout; no stone or grass enters the hazard footprint.
@@ -223,40 +348,77 @@ fn surface(z: &Zone, mask: &[u8], x: i32, y: i32, t: u64, mut g: u8) -> crate::g
         if shore && g == mat::SHALLOW {
             c = if (768..912).contains(&x) && (608..736).contains(&y) {
                 let west = (3..=reach).any(|d| !wet(x - d, y));
-                if !west && (y + x / 19 * 5).rem_euclid(47) < 29 { pal::WATER[2] }
-                else { pal::WATER[1] }
-            } else { pal::WATER[2] };
-        }
-    }
-    // A few long, staggered currents follow the river, leaving most of its surface unmarked.
-    let drift = y - (t / 8) as i32;
-    let row = drift.div_euclid(37);
-    let offset = (hash2(row, 0, 418) * 37.0) as i32;
-    let px = (x + offset).rem_euclid(67);
-    let py = drift.rem_euclid(37);
-    if !bank && ((py == 0 && (8..24).contains(&px)) || (py == 1 && (5..9).contains(&px))) {
-        c = if g == mat::DEEP {
-            pal::WATER[1]
-        } else {
-            pal::WATER[2]
-        };
-    }
-    // The terrace waterfall strikes at 712,355; broken elliptical crests spread downstream.
-    if (664..764).contains(&x) && (352..400).contains(&y) {
-        let dx = x - 712;
-        let dy = y - 355;
-        let radius = ((dx * dx + dy * dy * 9) as f32).sqrt() as i32;
-        let wave = (radius - (t / 4) as i32).rem_euclid(27);
-        if dy > 1 && wave < 2 && radius < 68 && !(-7..=10).contains(&dx) {
-            c = pal::WATER[2];
-        }
-        let crest = (dx + (t / 5) as i32).rem_euclid(19);
-        if dx.abs() < 24 && (0..8 - dx.abs() / 4).contains(&dy) {
-            c = if crest < 12 {
-                pal::WATER[4]
+                if !west && (y + x / 19 * 5).rem_euclid(47) < 29 {
+                    RIVER[1].lerp(RIVER[2], 0.45)
+                } else {
+                    RIVER[1]
+                }
             } else {
-                pal::WATER[2]
+                RIVER[1].lerp(RIVER[2], 0.45)
             };
+        }
+    }
+    // A few broad, low-contrast sky catches establish a horizontal water plane.
+    // Each pool has its own composition; the narrow river keeps only one small
+    // reflected interval. All remain dark blue water inside the physical deep bed.
+    if g == mat::DEEP && !bank {
+        for (top, bottom, left, right, slope) in [
+            (132, 145, 648, 761, 2),
+            (175, 181, 680, 786, -2),
+            (376, 385, 650, 762, 2),
+            (658, 667, 811, 859, -1),
+        ] {
+            if (top..bottom).contains(&y) {
+                let d = y - top;
+                let trim = if d < 2 {
+                    12 - d * 5
+                } else if y + 2 >= bottom {
+                    (y + 3 - bottom) * 5
+                } else {
+                    0
+                };
+                if x >= left + d * slope + trim
+                    && x < right + d * slope - trim
+                    && wet(x - 4, y)
+                    && wet(x + 4, y)
+                {
+                    c = c.lerp(RIVER[1], 0.18);
+                }
+            }
+        }
+    }
+    // Horizontal glints stretch across a southward current. Unequal runs share a
+    // slow downstream phase, with no per-frame noise or independent sparkling dots.
+    let drift = y - (t / 9) as i32;
+    let row = drift.div_euclid(53);
+    let offset = (hash2(row, 0, 418) * 53.0) as i32;
+    let px = (x + offset).rem_euclid(89);
+    let py = drift.rem_euclid(53);
+    let length = 12 + (hash2(row, 1, 418) * 15.0) as i32;
+    if !bank && ((py == 0 && (8..8 + length).contains(&px)) || (py == 2 && (5..12).contains(&px))) {
+        c = if g == mat::DEEP { RIVER[1] } else { RIVER[2] };
+    }
+    // The curtain actually strikes this basin. A low pale impact pad meets the
+    // falling face, then two incomplete elliptical crests spread into deeper water.
+    if (656..772).contains(&x) && (352..396).contains(&y) {
+        let dx = x - 712;
+        let dy = y - 352;
+        let radius = ((dx * dx + dy * dy * 12) as f32).sqrt() as i32;
+        let wave = (radius - (t / 6) as i32).rem_euclid(41);
+        if dy > 5 && wave < 2 && radius < 74 && (dx < -16 || dx > 9) {
+            c = RIVER[2];
+        }
+        let foot = 6 - dx.abs() / 5;
+        if dx.abs() < 28 && dy < foot {
+            let broken = (dx + (t / 7) as i32).rem_euclid(23);
+            c = if dy < 2 || broken < 15 {
+                RIVER[4]
+            } else {
+                RIVER[3]
+            };
+        } else if (3..9).contains(&dy) && (dx + (t / 11) as i32).rem_euclid(31) < 7 && dx.abs() < 34
+        {
+            c = RIVER[3];
         }
     }
     // At the island edge water rolls over a visible bright comb, without foam on dry banks.
@@ -264,14 +426,23 @@ fn surface(z: &Zone, mask: &[u8], x: i32, y: i32, t: u64, mut g: u8) -> crate::g
         let dy = y - 730;
         let turn = 2 + (x - 840).abs() / 10;
         c = if dy >= turn && dy < turn + 2 {
-            pal::WATER[4]
+            RIVER[4]
         } else if dy >= turn + 2 {
-            pal::WATER[2]
+            RIVER[2]
         } else if (x + dy / 2).rem_euclid(15) < 9 {
-            pal::WATER[3]
+            RIVER[3]
         } else {
-            pal::WATER[1]
+            RIVER[1]
         };
+    }
+    // Retain the narrow under-deck contact. Longer directional casts belong to
+    // the moving sun, rather than a second fixed stripe painted into the water.
+    let legacy = crate::gfx::lighting::legacy_mode();
+    for (bx, by) in [(656, 256), (784, 576)] {
+        let dy = y - (by + 32);
+        if (bx..bx + 112).contains(&x) && (0..if legacy { 15 } else { 3 }).contains(&dy) {
+            c = c.scale(if legacy { 0.70 + dy as f32 * 0.02 } else { 0.82 + dy as f32 * 0.06 });
+        }
     }
     c
 }
@@ -280,20 +451,134 @@ fn surface(z: &Zone, mask: &[u8], x: i32, y: i32, t: u64, mut g: u8) -> crate::g
 mod tests {
     use super::*;
 
-    /// Retain every pre-pass material byte while removing the arbitrary open-meadow value seam.
+    #[test]
+    fn upper_fall_remains_a_connected_curtain_and_only_long_outlet_separates() {
+        for t in [0, 30, 60, 90, 120] {
+            for y in 320..352 {
+                for x in 688..736 {
+                    assert!(
+                        falling(x, y, t, false).is_some(),
+                        "hole in upper curtain at {x},{y}, t={t}"
+                    );
+                }
+            }
+            assert!(
+                (816..864).any(|x| falling(x, 793, t, true).is_none()),
+                "long fall must expose air between its terminal ribbons"
+            );
+            assert!(
+                (816..864).any(|x| falling(x, 790, t, true).is_some()),
+                "outlet cannot disappear at one horizontal cutoff"
+            );
+        }
+    }
+
+    #[test]
+    fn clear_water_changes_never_paint_dry_banks_or_bridge_decks() {
+        let m = Map::parse();
+        let mut z = Zone::new(crate::world::ZoneId::Bloomwild, m.tw, m.th);
+        let mut mask = crate::regions::bloomwild::paint::paint(&mut z, &m);
+        let life = Life::build(&m, &mut mask, &mut z);
+        assert!(life.outlet, "real stream must feed the southern fall");
+        for (cx, cy) in [(520, 248), (624, 488), (620, 600)] {
+            let mut f = Frame::new();
+            f.begin(Rgb::WHITE, Rgb::WHITE);
+            f.cam_x = cx;
+            f.cam_y = cy;
+            life.draw_water(&z, &mask, &mut f, 90);
+            for sy in 0..H {
+                for sx in 0..W {
+                    let (x, y) = (cx + sx as i32, cy + sy as i32);
+                    if y >= 779 {
+                        continue;
+                    } // Authored terminal mist is deliberately airborne.
+                    let g = mask[(y * z.pw + x) as usize];
+                    if !mat::water(g) {
+                        assert_eq!(
+                            f.albedo[sy * W + sx],
+                            Rgb::WHITE,
+                            "water escaped its physical bed at {x},{y}"
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn wading_wakes_are_bounded_and_never_spawn_on_dry_bridge_or_deep_water() {
+        let mut z = Zone::new(crate::world::ZoneId::Bloomwild, 2, 2);
+        let m = Map {
+            tw: 2,
+            th: 2,
+            k: vec![super::super::K::Grass; 4],
+            level: vec![0; 4],
+            marks: vec![],
+        };
+        let mut mask = vec![mat::GRASS; (z.pw * z.ph) as usize];
+        mask[10 * z.pw as usize + 10] = mat::SHALLOW;
+        mask[10 * z.pw as usize + 12] = mat::DEEP;
+        mask[10 * z.pw as usize + 14] = mat::BRIDGE;
+        let mut life = Life::build(&m, &mut mask, &mut z);
+        let movers = [
+            (10.0, 10.0, 1.0),
+            (12.0, 10.0, 1.0),
+            (14.0, 10.0, 1.0),
+            (16.0, 10.0, 1.0),
+        ];
+        for t in 0..512 {
+            life.update(
+                &z,
+                &mask,
+                &RegionCtx {
+                    t,
+                    player: (10.0, 10.0),
+                    movers: &movers,
+                    cam: (0, 0),
+                },
+            );
+        }
+        assert!(!life.wakes.is_empty());
+        assert!(life.wakes.len() <= 4);
+        assert!(life.wakes.iter().all(|w| w.x == 10 && w.y == 10));
+        life.update(
+            &z,
+            &mask,
+            &RegionCtx {
+                t: 600,
+                player: (10.0, 10.0),
+                movers: &[],
+                cam: (0, 0),
+            },
+        );
+        assert!(
+            life.wakes.is_empty(),
+            "old foot contacts decay when the water is left alone"
+        );
+    }
+
+    /// Water keeps its exact native coordinates and depth while the dry coast
+    /// deliberately gains rounded corners. Retain the meadow continuity check too.
     #[test]
     fn signature_material_footprint_and_meadow_continuity() {
         let m = Map::parse();
         let mut z = Zone::new(crate::world::ZoneId::Bloomwild, m.tw, m.th);
         let mut mask = crate::regions::bloomwild::paint::paint(&mut z, &m);
         Life::build(&m, &mut mask, &mut z);
-        // Recorded from an exact byte-for-byte comparison with the frozen pre-pass painters.
-        let hash = mask.iter().fold(0xcbf29ce484222325u64, |h, &v| {
-            (h ^ v as u64).wrapping_mul(0x100000001b3)
-        });
+        let hash = mask
+            .iter()
+            .enumerate()
+            .filter(|(_, v)| mat::water(**v))
+            .fold(0xcbf29ce484222325u64, |h, (i, &v)| {
+                (i as u32)
+                    .to_le_bytes()
+                    .into_iter()
+                    .chain([v])
+                    .fold(h, |h, b| (h ^ b as u64).wrapping_mul(0x100000001b3))
+            });
         assert_eq!(
-            hash, 0x52f2b0b1e1085a34,
-            "preserve all 1,118,208 material bytes"
+            hash, 0xe0476554b34f36ed,
+            "preserve every wet pixel's exact coordinate and depth classification"
         );
         for y in [640, 680, 720] {
             assert_eq!(z.gget(431, y), z.gget(432, y), "unmotivated seam at y={y}");

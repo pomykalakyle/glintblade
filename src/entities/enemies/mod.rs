@@ -18,6 +18,7 @@ pub mod spitting_totem;
 pub mod sproutling;
 pub mod thorn_imp;
 pub mod wisp;
+mod variation;
 
 use super::{Body, Projectile};
 use crate::combat::Hit;
@@ -160,17 +161,40 @@ impl Enemy {
             self.body.alive = false;
             ctx.fx.sound("enemy_die");
             ctx.fx.freeze(5);
-            let b = &self.body;
-            match &self.brain {
-                Brain::Sproutling(s) => sproutling::on_death(b, s, ctx),
-                Brain::ThornImp(s) => thorn_imp::on_death(b, s, ctx),
-                Brain::CrystalBeetle(s) => crystal_beetle::on_death(b, s, ctx),
-                Brain::Wisp(s) => wisp::on_death(b, s, ctx),
-                Brain::EmberHound(s) => ember_hound::on_death(b, s, ctx),
-                Brain::SpittingTotem(s) => spitting_totem::on_death(b, s, ctx),
-            }
+            self.death(ctx);
         }
         true
+    }
+
+    fn death_effect(&self, ctx: &mut EnemyCtx) {
+        let b = &self.body;
+        match &self.brain {
+            Brain::Sproutling(s) => sproutling::on_death(b, s, ctx),
+            Brain::ThornImp(s) => thorn_imp::on_death(b, s, ctx),
+            Brain::CrystalBeetle(s) => crystal_beetle::on_death(b, s, ctx),
+            Brain::Wisp(s) => wisp::on_death(b, s, ctx),
+            Brain::EmberHound(s) => ember_hound::on_death(b, s, ctx),
+            Brain::SpittingTotem(s) => spitting_totem::on_death(b, s, ctx),
+        }
+    }
+
+    /// The actual skin owns the debris. Advance shared randomness using the
+    /// original pose, so a larger cap or shell cannot change a later cooldown.
+    /// Evaluate the reference against an empty visual buffer: particle culling
+    /// is also a rendering detail and must not alter the simulation stream.
+    fn death(&self, ctx: &mut EnemyCtx) {
+        let mut reference = Fx::new(0);
+        reference.rng = ctx.fx.rng.clone();
+        reference.t = ctx.fx.t;
+        let mut projectiles = ctx.projectiles.clone();
+        let mut hits = Vec::new();
+        let mut reference_ctx = EnemyCtx {
+            player: ctx.player, player_alive: ctx.player_alive, zone: ctx.zone,
+            fx: &mut reference, hits: &mut hits, projectiles: &mut projectiles, t: ctx.t,
+        };
+        variation::with_skin(0, || self.death_effect(&mut reference_ctx));
+        self.death_effect(ctx);
+        ctx.fx.rng = reference.rng;
     }
 
     pub fn draw(&self, f: &mut Frame) {
@@ -185,6 +209,57 @@ impl Enemy {
             Brain::Wisp(s) => wisp::draw(b, s, f),
             Brain::EmberHound(s) => ember_hound::draw(b, s, f),
             Brain::SpittingTotem(s) => spitting_totem::draw(b, s, f),
+        }
+    }
+}
+
+#[cfg(test)]
+mod skin_tests {
+    use super::*;
+    use crate::fx::Particle;
+    use crate::world::{Tile, ZoneId};
+
+    #[test]
+    fn skin_debris_preserves_following_combat_randomness_and_live_projectiles() {
+        let mut z = Zone::new(ZoneId::Bloomwild, 32, 32);
+        for y in 0..32 { for x in 0..32 { z.set_tile(x, y, Tile::Floor); } }
+        for kind in [EnemyKind::Sproutling, EnemyKind::ThornImp, EnemyKind::CrystalBeetle,
+            EnemyKind::Wisp, EnemyKind::EmberHound, EnemyKind::SpittingTotem] {
+            for until in [90, 300] {
+                let mut empty_outcomes = None;
+                for existing in [0, 11_980] {
+                    let mut outcomes = Vec::new();
+                    for skin in 0..3 {
+                        outcomes.push(variation::with_skin(skin, || {
+                            sproutling::reset_turn();
+                            thorn_imp::reset_turn();
+                            let mut e = Enemy::spawn(kind, 256.0, 256.0);
+                            e.awake = true;
+                            let mut fx = Fx::new(739);
+                            let mut projectiles = Vec::new();
+                            let mut hits = Vec::new();
+                            for tick in 0..until {
+                                e.update(&mut EnemyCtx { player: (290.0, 270.0), player_alive: true,
+                                    zone: &z, fx: &mut fx, hits: &mut hits, projectiles: &mut projectiles, t: tick });
+                            }
+                            fx.particles.list.resize(existing, Particle::new(0.0, 0.0));
+                            e.body.alive = false;
+                            e.body.hp = 0;
+                            e.death(&mut EnemyCtx { player: (290.0, 270.0), player_alive: true,
+                                zone: &z, fx: &mut fx, hits: &mut hits, projectiles: &mut projectiles, t: until });
+                            let following = (0..64).map(|_| fx.rng.next_u32()).collect::<Vec<_>>();
+                            let projectiles = projectiles.iter().map(|p|
+                                (p.id, p.alive, p.life, p.x.to_bits(), p.y.to_bits(), p.z.to_bits())).collect::<Vec<_>>();
+                            (following, projectiles)
+                        }));
+                    }
+                    assert_eq!(outcomes[0], outcomes[1], "{kind:?} tick {until} skin 1, particle count {existing}");
+                    assert_eq!(outcomes[0], outcomes[2], "{kind:?} tick {until} skin 2, particle count {existing}");
+                    if let Some(empty) = &empty_outcomes {
+                        assert_eq!(&outcomes, empty, "{kind:?} tick {until} visual capacity cannot change combat");
+                    } else { empty_outcomes = Some(outcomes); }
+                }
+            }
         }
     }
 }

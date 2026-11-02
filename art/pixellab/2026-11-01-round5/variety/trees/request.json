@@ -1,0 +1,14 @@
+{
+  "description": "A single upright ancient garden tree for a beautiful ruined sky-garden action RPG, 3/4 overhead orthographic game view, same hand-clustered pixel art and upper-left light as reference. A vertical white-grey twisting trunk branching UPWARD into an open rounded canopy, not a horizontal windswept bonsai. Pale warm ivory blossom clusters interspersed with dusty mauve and sage-grey small leaves, dark blue-slate bark shadows and exposed rooted foot. Elegant tall silhouette with daylight between branches, dense crown only in the upper half. Entire tree visible centered in 80x96, root reaches y84, generous transparent margins. Native 1px clusters, no antialiasing, no backdrop, no cast shadow, no soil platform or grass mound, no text. One whole tree with one rooted trunk, no duplicate tree.",
+  "width": 80,
+  "height": 96,
+  "no_background": true,
+  "max_colors": 24,
+  "seed": 610125,
+  "style_reference": "art/pixellab/2026-11-01/trees/trees-pro.result-1.png",
+  "style_copy": [
+    "outline",
+    "detail",
+    "shading"
+  ]
+}

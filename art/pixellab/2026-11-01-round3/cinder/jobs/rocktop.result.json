@@ -1,0 +1,77 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "status: completed\nid: 88f03875-afa1-4106-ad88-3fb3481a7f96\njob_id: 88f03875-afa1-4106-ad88-3fb3481a7f96\nframes: 16\ntransparent: yes\nasset_id: 0ab67801-fbca-5923-8b87-93dfda011773\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 10 generations\ndownload: https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=0 ... ?index=15",
+      "annotations": null,
+      "_meta": null
+    },
+    {
+      "type": "image",
+      "mimeType": "image/png",
+      "annotations": null,
+      "_meta": null,
+      "local_path": "art/pixellab/2026-11-01-round3/cinder/jobs/rocktop.result-1.png"
+    },
+    {
+      "type": "image",
+      "mimeType": "image/png",
+      "annotations": null,
+      "_meta": null,
+      "local_path": "art/pixellab/2026-11-01-round3/cinder/jobs/rocktop.result-2.png"
+    },
+    {
+      "type": "image",
+      "mimeType": "image/png",
+      "annotations": null,
+      "_meta": null,
+      "local_path": "art/pixellab/2026-11-01-round3/cinder/jobs/rocktop.result-3.png"
+    },
+    {
+      "type": "image",
+      "mimeType": "image/png",
+      "annotations": null,
+      "_meta": null,
+      "local_path": "art/pixellab/2026-11-01-round3/cinder/jobs/rocktop.result-4.png"
+    },
+    {
+      "type": "text",
+      "text": "(12 more frames not shown \u2014 fetch them from the download URLs above)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": {
+    "job_id": "88f03875-afa1-4106-ad88-3fb3481a7f96",
+    "status": "completed",
+    "frames": 16,
+    "download_url": "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=0",
+    "download_urls": [
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=0",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=1",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=2",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=3",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=4",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=5",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=6",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=7",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=8",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=9",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=10",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=11",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=12",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=13",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=14",
+      "https://api.pixellab.ai/mcp/images/88f03875-afa1-4106-ad88-3fb3481a7f96/download?index=15"
+    ],
+    "asset": {
+      "id": "0ab67801-fbca-5923-8b87-93dfda011773",
+      "type": "image",
+      "status": "saved"
+    },
+    "charged_generations": 10.0
+  },
+  "isError": false,
+  "resultType": "complete"
+}

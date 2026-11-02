@@ -27,11 +27,30 @@ pub fn render_world(
     draw_ext: &mut dyn FnMut(&mut Frame, u32),
     focus: Option<(f32, f32)>,
 ) {
+    render_world_focused(zone, region, fx, f, t, ext, draw_ext, focus, None);
+}
+
+/// The playing scene also supplies the exact current hero pose for local foreground reveal.
+#[allow(clippy::too_many_arguments)]
+pub fn render_world_focused(
+    zone: &Zone,
+    region: &dyn Region,
+    fx: &Fx,
+    f: &mut Frame,
+    t: u64,
+    ext: &[(f32, u32)],
+    draw_ext: &mut dyn FnMut(&mut Frame, u32),
+    focus: Option<(f32, f32)>,
+    sprite_focus: Option<crate::gfx::sprite::SpriteFocus>,
+) {
     f.t = t;
     f.begin(zone.bg, zone.ambient);
+    f.surface_lighting = !crate::gfx::lighting::legacy_mode();
+    f.normal_sun = zone.id == crate::world::ZoneId::Bloomwild;
     region.draw_backdrop(zone, f, t);
     zone.draw_ground(f);
     region.draw_ground(zone, f, t);
+    if f.surface_lighting { crate::gfx::lighting::ground_surface(zone, region, f); }
     fx.particles.draw_debris(f);
 
     let mut items: Vec<(f32, Item)> = Vec::with_capacity(256);
@@ -40,11 +59,11 @@ pub fn render_world(
             continue;
         }
         if let Some((x, y, w, h)) = p.bounds()
-            && !f.visible(x, y, w, h, 8.0)
+            && !f.surface_lighting && !f.visible(x, y, w, h, 8.0)
         {
             continue;
         }
-        items.push((p.y, Item::Prop(i)));
+        items.push((p.sort_y(), Item::Prop(i)));
     }
     let mut ritems = Vec::new();
     region.sorted_items(zone, f, &mut ritems);
@@ -53,7 +72,11 @@ pub fn render_world(
     items.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
     for (_, it) in items {
         match it {
-            Item::Prop(i) => zone.props[i].draw(f, t, 1.0),
+            Item::Prop(i) => {
+                let p = &zone.props[i];
+                let reveal = sprite_focus.filter(|focus| p.sheet == "bloomwild_trees" && p.sort_y() > focus.ground_y);
+                p.draw_revealed(f, t, 1.0, reveal);
+            }
             Item::Region(id) => region.draw_item(zone, f, id, t),
             Item::Ext(id) => draw_ext(f, id),
         }
@@ -62,7 +85,7 @@ pub fn render_world(
     // Canopies: see-through when the focus point is underneath.
     for p in zone.props.iter().filter(|p| p.canopy && p.alive) {
         let Some((x, y, w, h)) = p.bounds() else { continue };
-        if !f.visible(x, y, w, h, 8.0) {
+        if !f.surface_lighting && !f.visible(x, y, w, h, 8.0) {
             continue;
         }
         let behind = focus.map(|(fx_, fy)| fx_ > x + 2.0 && fx_ < x + w - 2.0 && fy - 8.0 > y && fy - 8.0 < y + h).unwrap_or(false);
@@ -77,7 +100,8 @@ pub fn render_world(
     }
     for p in zone.props.iter().filter(|p| p.alive) {
         if let Some((c, r, i, ox, oy)) = p.light {
-            f.add_light_w(p.x + ox, p.y + oy, r, c, i);
+            let (r, i) = if f.surface_lighting && p.sheet == "summit_brazier" { (58.0, 0.80) } else { (r, i) };
+            f.add_light_3d_w(p.x + ox, p.y, -oy, r, c, i);
         }
     }
     for l in &fx.lights {

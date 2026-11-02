@@ -1,0 +1,399 @@
+{
+  "reviewer": "lighting_architecture_round7; terrain implementation owner, independent of root normal shader / native finite-volume implementation",
+  "mode": "Final read-only source/artifact audit. Reviewer ran no Cargo builds, GUI, runtime renderer or performance workload. Root owns the recorded Rust tests and measurements.",
+  "candidate": {
+    "path": "/home/krp/Projects/glintblade/out/pixellab/round7/selected-r3/glintblade",
+    "sha256": "18a46a6da8fd9642b88b7a42b8d7bff6c504d93aa35563033023aa43609423a4",
+    "source_manifest": "out/pixellab/round7/selected-r3/sources.json",
+    "source_pin_files": 455,
+    "source_pin_mismatches": [],
+    "binary_manifest": "out/pixellab/round7/selected-r3/binaries.json",
+    "binary_files_verified": 4,
+    "binary_pin_mismatches": [],
+    "builds": "Native executable/library/example and WASM build logs are clean; all four artifacts match binaries.json.",
+    "source_freeze": "No production-source changes after the R3 build. Review output JSON files are not production-source changes."
+  },
+  "result": "All concrete findings from this technical review are resolved in R3. No remaining production blocker identified in the reviewed lighting path. Full R3 campaign completion remains separate runtime validation.",
+  "reviewed": [
+    "src/gfx/surface.rs",
+    "src/gfx/frame.rs",
+    "src/gfx/sprite.rs",
+    "src/gfx/lighting.rs",
+    "src/gfx/lighting/patch.rs",
+    "src/gfx/lighting/surface_shadows.rs",
+    "src/entities/boss/art.rs",
+    "src/entities/boss.rs",
+    "src/view.rs",
+    "src/play.rs",
+    "src/world/mod.rs",
+    "src/world/prop.rs",
+    "src/regions/glasswater.rs",
+    "src/regions/glasswater/art.rs",
+    "src/gfx/lighting/terrain_shadows.rs",
+    "src/regions/glasswater/place.rs",
+    "src/regions/cinder.rs"
+  ],
+  "confirmed_guards": [
+    "Frame.begin clears live PointLight registrations, visible Surface ownership, and SurfaceCaster lists each frame.",
+    "Opaque material writes clear previous visible surface ownership; sprite acceptance respects exact source frame, alpha, flip, reveal, hit flash and emissive mask.",
+    "Mirroring negates the tangent normal X component; OpenGL floor/upright bases are distinct.",
+    "All-alive native actors/props/decor/canopies register before sprite viewport rejection; geometric light bounds are sphere-derived with sqrt(2) vertical projection.",
+    "Native finite volumes retain actual alpha holes and per-column foot intervals; raised receiver ray tests use the same world height as diffuse shading.",
+    "Actors use explicit ground positions and sole-selection widths/depths; split canopies share their semantic root; boss attached parts carry explicit ground lines.",
+    "Boss kneeling clips source alpha and rebuilds the visible foot profile; growing energy silhouettes intentionally remain emissive/unlit.",
+    "Physical night fill excludes legacy nearest-source static casts/facing and character proxy shadows, retaining contact/AO and selected broad lava/court reception.",
+    "Native terrain texture loops retain exact UV normal metadata and curve orientation; retained terrain is captured before prop planes can leak into revealed ground.",
+    "Point illumination changes light only; self-emission/albedo buffers are not rewritten, and pure self-lit output pixels are excluded from the direct normal pass.",
+    "Native positive-height terrain sheets now block local point rays; neither collision Wall tiles nor inferred receiving planes become phantom blockers.",
+    "Terrain DDA owns negative-direction boundaries by event order; test builds require strictly increasing ray parameters. Exact source keys retain camera-independent visibility.",
+    "All actual placed Glasswater crystals have a connected <=8-pixel real native crest; source X/Y/altitude derive from its centroid, including mirrored anchors. RGB, alpha, normals and collision geometry remain unchanged.",
+    "The Cinder keeper brazier registers its authored real PointLight while alive and removes that source when the prop dies.",
+    "Explicit normal_sun is reset each frame and set only for Bloomwild; bright night ambient cannot accidentally create a directional sun."
+  ],
+  "findings": [
+    {
+      "id": "cinder_brazier_missing_live_emitter",
+      "severity_when_found": "high",
+      "status": "resolved_in_r3",
+      "fix": "Cinder saves authored brazier light data before legacy proxy override and registers it in physical Region::light only while the actual prop is alive.",
+      "evidence": {
+        "files": [
+          "src/regions/cinder.rs",
+          "src/view.rs"
+        ],
+        "passing_test": "regions::cinder::tests::live_brazier_keeps_its_authored_3d_emitter_in_normal_mode",
+        "asserted_source": {
+          "x": 646,
+          "projected_y": 436,
+          "height": 20,
+          "radius": 64,
+          "intensity": 0.9
+        },
+        "asserted_lifecycle": "After prop.alive=false and Frame.begin, no brazier PointLight remains."
+      }
+    },
+    {
+      "id": "night_sun_gate",
+      "severity_when_found": "medium",
+      "status": "resolved_in_r3",
+      "fix": "Frame.normal_sun is explicit, cleared by begin and enabled only for ZoneId::Bloomwild in view.",
+      "evidence": {
+        "files": [
+          "src/gfx/frame.rs",
+          "src/view.rs",
+          "src/gfx/surface.rs"
+        ],
+        "passing_test": "gfx::surface::tests::bright_night_ambient_cannot_create_a_directional_sun",
+        "assertion": "Ambient0.91 leaves direct light unchanged until normal_sun is explicitly enabled."
+      }
+    },
+    {
+      "id": "sun_direction_sign",
+      "severity_when_found": "low",
+      "status": "resolved_in_r3",
+      "fix": "Bounded Bloom normal key now uses world direction(-.56,-.32,+.76), consistent with retained shadows cast toward positive X/Y.",
+      "evidence": {
+        "file": "src/gfx/surface.rs",
+        "behavior": "Reference-centered directional gain remains bounded0.95..1.05 and applies only to non-emissive material/terrain."
+      }
+    },
+    {
+      "id": "terrain_receives_but_does_not_cast",
+      "severity_when_found": "medium",
+      "status": "resolved_in_r3",
+      "fix": "surface::apply_world combines native sprite-volume visibility with exact native terrain-height sheet intersections.",
+      "evidence": {
+        "files": [
+          "src/gfx/lighting.rs",
+          "src/gfx/lighting/terrain_shadows.rs",
+          "src/gfx/surface.rs"
+        ],
+        "passing_test": "gfx::lighting::terrain_shadows::tests::actual_glasswater_crystal_is_occluded_across_its_native_wall",
+        "actual_registered_source": {
+          "projected": [
+            619.1,
+            536.3
+          ],
+          "height": 20.5,
+          "world_ground_y": 556.8,
+          "radius": 58.225002
+        },
+        "actual_floor_receiver": [
+          618.5,
+          589.5,
+          0
+        ],
+        "independently_clipped_native_hits": [
+          {
+            "pixel": [
+              618,
+              567
+            ],
+            "height": 9
+          },
+          {
+            "pixel": [
+              618,
+              568
+            ],
+            "height": 8
+          }
+        ],
+        "proof": "Separate exact native-cell/slab intersection finds these positive-height non-HOLE sheets; the DDA independently returns blocked for the same real regional source/receiver.",
+        "focused_log": "out/pixellab/round7/terrain-final-integration.log",
+        "regression_scope": "Five terrain tests also cover transparent rows, altitude misses, collision-only walls, own-front-plane exemption, raised actors and camera-anchored source caching."
+      }
+    },
+    {
+      "id": "unmarked_crystal_source_housing",
+      "severity_when_found": "low",
+      "status": "resolved_in_r3",
+      "fix": "Runtime crest selection honors actual authored cap emission, then real cap highlight material across native palettes; a connected <=8-pixel crest owns the source centroid. The size-based invisible-source fallback is removed.",
+      "evidence": {
+        "files": [
+          "src/regions/glasswater/art.rs",
+          "src/regions/glasswater/place.rs"
+        ],
+        "passing_tests": [
+          "regions::glasswater::art::tests::native_crystal_caps_cover_every_palette_without_repainting_geometry",
+          "regions::glasswater::place::tests::every_populated_crystal_lights_from_actual_native_emissive_housing",
+          "regions::glasswater::place::tests::an_empty_crystal_mask_cannot_invent_a_size_based_source",
+          "regions::glasswater::place::tests::crest_centers_follow_the_renderers_mirrored_anchor_convention",
+          "gfx::lighting::tests::glasswater_native_crystal_keys_survive_collision_refinement"
+        ],
+        "assertions": "Actual placement seeds have real connected emission, synchronized normal alpha/emit masks, exact centroid positions and no own-housing occlusion. Changing support depth preserves the exact complete Field.sources set; sources follow p.light attachments rather than the old anchor."
+      }
+    },
+    {
+      "id": "fractional_one_pixel_foot_clamp",
+      "severity_when_found": "high",
+      "status": "resolved_in_r3",
+      "fix": "foot_center uses one shared midpoint plus nonnegative half-width, preventing f32 bounds inversion when a one-pixel interval is a ULP narrower than1.",
+      "evidence": {
+        "file": "src/gfx/surface.rs",
+        "passing_test": "gfx::surface::tests::one_pixel_feet_remain_valid_at_fractional_hover_heights",
+        "regression_inputs": [
+          127.21363,
+          960.793,
+          0.001,
+          2000.6666
+        ],
+        "history": "The earlier716b build failed during an actual campaign at tick4822; it is retained only as rejected-candidate provenance."
+      }
+    },
+    {
+      "id": "terrain_negative_boundary_nonprogress",
+      "severity_when_found": "high",
+      "status": "resolved_in_r3",
+      "fix": "Directed event-ordered cell selection assigns a left/up integer crossing to the lower cell; traversal uses f64 parameters and exact event ties instead of floor-only reconstruction and +EPS corner jumps.",
+      "evidence": {
+        "file": "src/gfx/lighting/terrain_shadows.rs",
+        "passing_test": "gfx::lighting::terrain_shadows::tests::negative_boundary_entry_and_mirrored_rays_always_advance",
+        "original_repro": {
+          "receiver": [
+            36.5,
+            2.5,
+            0
+          ],
+          "source_projected": [
+            10.5,
+            20.5
+          ],
+          "source_height": 16,
+          "repeated_parameter": 0.75,
+          "wrong_cell": [
+            17,
+            16
+          ],
+          "correct_entered_x": 16
+        },
+        "strict_progress": "Every interval asserts next>t in test builds; no arbitrary production ray-step cap.",
+        "independent_oracle": "Python analytic harness compared46,384 mirrored/fractional rays across351,924 strictly advancing intervals against independent native cell/slab intersections; all matched."
+      }
+    }
+  ],
+  "performance": {
+    "r3_selected_native_cinder": {
+      "log": "out/pixellab/round7/selected-r3/cinder-timing.log",
+      "result": "1 passed,0 failed",
+      "p95_ms": {
+        "entry": 5.104,
+        "bridge": 5.687,
+        "caldera": 5.736,
+        "fall": 5.02
+      },
+      "lava_draw_embers_light_ms_per_frame": 0.276
+    },
+    "post_terrain_integration_four_regions": {
+      "artifact": "out/pixellab/round7/terrain-integration-timing.json",
+      "measurements": [
+        {
+          "frames": 240,
+          "max_ms": 6.9422939999999995,
+          "mean_ms": 4.865963312500001,
+          "median_ms": 4.833143,
+          "p95_ms": 5.130999,
+          "region": "bloomwild"
+        },
+        {
+          "frames": 240,
+          "max_ms": 7.554098000000001,
+          "mean_ms": 5.915023595833333,
+          "median_ms": 5.922567999999999,
+          "p95_ms": 6.175431000000001,
+          "region": "glasswater"
+        },
+        {
+          "frames": 240,
+          "max_ms": 7.425968,
+          "mean_ms": 6.365410483333333,
+          "median_ms": 6.478898,
+          "p95_ms": 6.9763280000000005,
+          "region": "cinder"
+        },
+        {
+          "frames": 240,
+          "max_ms": 6.372008,
+          "mean_ms": 4.314157875,
+          "median_ms": 4.258228,
+          "p95_ms": 4.543761,
+          "region": "summit"
+        }
+      ],
+      "scope": "Root-owned quiet native240-frame actual-actor sample per region after the production terrain fix; later R3 changes were unused-helper removal and a cfg(test)-only crest assertion update. This is renderer-equivalent supporting evidence, not a claim that the timing artifact was emitted by the R3 pinned executable."
+    },
+    "interpretation": "All measured p95 values remain under8ms. Cinder actual-actor mean6.365ms exceeds the historical6ms mean target. These selected native scenes are not a worst-case campaign guarantee, and WASM was compiled but not browser-performance tested."
+  },
+  "validation_observed": {
+    "selected_r3_full_suite": {
+      "log": "out/pixellab/round7/selected-r3/tests.log",
+      "passed": 199,
+      "failed": 0,
+      "ignored": 3,
+      "doc_tests_ignored": 1,
+      "seconds": 29.85
+    },
+    "selected_r3_native_build_log": "out/pixellab/round7/selected-r3/build.log",
+    "selected_r3_wasm_build_log": "out/pixellab/round7/selected-r3/wasm-build.log",
+    "world_capture_manifest": "out/pixellab/world/round7-r3/manifest.json",
+    "world_capture_binary_sha256": "18a46a6da8fd9642b88b7a42b8d7bff6c504d93aa35563033023aa43609423a4",
+    "world_capture_count": 40,
+    "world_capture_hash_mismatches": [],
+    "world_capture_scope": "40 native scene studies plus title/overviews; manifest explicitly labels these as scene studies, not gameplay. This reviewer verified provenance/hashes, not a new exhaustive visual pixel review.",
+    "full_r3_campaign": {
+      "path": "out/pixellab/recordings/whole-game-round7-r3",
+      "status": "completed_and_manifest_report_provenance_verified",
+      "manifest_sha256": "c543d0fa304b73ec637313549f847dd908539322a3730d3ab42386610ad9bcbc",
+      "report_sha256": "0040ef6fff4a4881b58dcf659eb1453d0251d67ab6f99c1e02f16e92c724c9fd",
+      "binary_sha256": "18a46a6da8fd9642b88b7a42b8d7bff6c504d93aa35563033023aa43609423a4",
+      "simulation_hz": 60,
+      "capture_fps": 60.0,
+      "ticks": 14498,
+      "native_frames": 14498,
+      "duration_seconds": 241.63333333333333,
+      "frame_sequence_check": "All 14,498 native PNGs exist exactly once, consecutively f00001 through f14498; every=1. The campaign itself was fully captured at 60 Hz.",
+      "visited_zones": [
+        "Bloomwild",
+        "Glasswater",
+        "Cinder",
+        "Summit"
+      ],
+      "milestones": {
+        "bloomwild_shard": 3094,
+        "cinder_shard": 9350,
+        "glasswater_shard": 6357,
+        "phase_2_damage": 11656,
+        "phase_2_heart_open": 12032,
+        "phase_3_damage": 13290,
+        "victory": 13999,
+        "warden_awake": 10344,
+        "warden_dying": 13616
+      },
+      "final_scene": "victory",
+      "victory_ready": true,
+      "audio": {
+        "events": 1452,
+        "manifest_events": 1452,
+        "missing_sounds": [],
+        "mix": "Original assets, emitted 60 Hz events, frontend gains/debounce; offline mix"
+      },
+      "state_trace": {
+        "entries": 933,
+        "sampling": "State audit entries occur every 15 simulation ticks; 933 sampled entries are not per-frame state logs."
+      },
+      "scope": "A seeded scripted tour with god mode enabled; it reached all four regions, collected all three shards, exercised boss phases and reached victory. This is full campaign runtime/capture coverage, not a claim that this reviewer visually inspected all 14,498 frames or exhaustively tested ordinary enemy combat.",
+      "video_sha256_recorded_in_manifest": "042e93ce042401f88b81441912a32ec5f60d7027e94e9563e159fd0938976e47",
+      "sampled_preview": {
+        "file": "/home/krp/Projects/glintblade/out/share/glint-blade-gameplay.gif",
+        "sha256": "2d7cbc5aba43ad54f384c8e758506915a4fc351e78682e9fd9dbccf47746e83f",
+        "export_json_sha256": "12ce87754557150a71217536db097ed1b0bb6ca9b11dd2a9adbab1fe12b450c9",
+        "frames": 120,
+        "fps": 15,
+        "duration_ms": 8000,
+        "size": [
+          768,
+          432
+        ],
+        "source_frame_hashes_verified": 120,
+        "source_frame_hash_mismatches": [],
+        "sampling": "every fourth actual native frame, normal playback speed",
+        "scope": "The GIF is an 8-second preview: four 2-second excerpts, one per region, using every fourth actual native frame at normal speed. It is not the full 241.633-second campaign.",
+        "clips": [
+          {
+            "region": "Bloomwild",
+            "first_tick": 2640,
+            "source_frames": 120
+          },
+          {
+            "region": "Glasswater",
+            "first_tick": 4725,
+            "source_frames": 120
+          },
+          {
+            "region": "Cinder",
+            "first_tick": 7575,
+            "source_frames": 120
+          },
+          {
+            "region": "Summit",
+            "first_tick": 9960,
+            "source_frames": 120
+          }
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "This is real normal-aware source-local lighting in a2.5D representation, not a full3D mesh renderer. Sprite volumes follow native projected alpha and per-column ground-foot intervals; terrain uses one-pixel native sheets with retained quantized altitude.",
+    "Local point lights cast through native sprite/actor volumes and actual native positive-height terrain sheets. Hidden backsides/interiors and arbitrary unseen multi-layer terrain are not inferred from collision tiles.",
+    "Visible pixels skip their own caster owner to prevent acne; detailed within-one-sprite self-shadowing is not modeled. Nearby real emissive ink identifies a source housing, whose own volume is exempt for that source.",
+    "Point-source visibility is hard geometric visibility, modulated by caster opacity; there are no area-light penumbras. Native alpha tunnels and material boundaries remain exact to the chosen2.5D geometry.",
+    "Bloom retains a separate restrained fixed directional key and its existing sun-shadow path. Contact/AO, cold ambient fill and selected broad lava/court reception remain authored aesthetic terms rather than claiming every fill term is individually ray traced.",
+    "The reviewer implemented terrain retention/occlusion and audited the root shader/caster integration; this is independent review of that integration, not an independent second implementation of the terrain algorithm."
+  ],
+  "source_sha256": {
+    "src/gfx/surface.rs": "b2fe354784396984cf4325f4f0f44e126bffa75604c55d4e401cd04b28668a65",
+    "src/gfx/frame.rs": "00c7c22c9352b60bb696f36663a20fb7a91070d44a5900458f5a3801f7bf9e86",
+    "src/gfx/sprite.rs": "32b35ee9583e915662e81aa0b596aa8d31e9061570fa2e21bb3f045e2c385b1d",
+    "src/gfx/lighting.rs": "0b74410e844664ef3684f7962af30f37ebd23321b9161bed36dc9289775f8c83",
+    "src/gfx/lighting/patch.rs": "8276083f075659094684b51adc6150bd7ab1e152eedf04dda25b97e894e6035a",
+    "src/gfx/lighting/surface_shadows.rs": "aa19b6f82c10dc6767cb5736817c8dcc7e8793b85d94c02f5add1ef351403386",
+    "src/entities/boss/art.rs": "6d4d51da337b99d3ee228aa02a93e6966a675039ee1591e5680bd876b6309cdd",
+    "src/entities/boss.rs": "81df768874db44888729ff9f9c739f788adf9b084220e80e7f354239d40194d2",
+    "src/view.rs": "12314bbff53a15cf46c7eb788da07839c94bf079cf45c764f132c71d3a2a31a8",
+    "src/play.rs": "8f285e486ee0b131ba0ceba7350387df9c4e437b6c62d9aefb2ef2bf756c3d1d",
+    "src/world/mod.rs": "16b75f95de96f4ca4deffd3e2c296cb3b724bcab88324552a7543cea9c03d1c0",
+    "src/world/prop.rs": "9f5d480b9f2526b77d19b23c138a7ef0453aca730042fdc4bbd2cbfc0b8f287f",
+    "src/regions/glasswater.rs": "009d52eae69b431a1a40196609286033c3f205e3af672a5eb253e86e4bd31abd",
+    "src/regions/glasswater/art.rs": "5345870f3823bddcba0232bb2d6490195b45b3bb3a6d8b1108264620fc54f11d",
+    "src/gfx/lighting/terrain_shadows.rs": "085967cad1a79368206435ee21de13459feb40144de89b3bde49f785397d169b",
+    "src/regions/glasswater/place.rs": "9cb25d8c3f74d5435ffe374fa6603fa57fff0f546fffb39f4ff6bbe97faa39cf",
+    "src/regions/cinder.rs": "30795eb1ba787bce09313f9128821c5228daf7792f50f0f8edca699d3dda4d49"
+  },
+  "artifact_pins": {
+    "sources_json": "8dba783670bd54e70ec532f251781ad5af86f32023ed087ce32e626c50e1e4df",
+    "binaries_json": "83c47fa09aaaddd73872a1c0ab084a56c3c67f39a2310dd4c4193a94e5fb8bde",
+    "world_manifest": "b1d4953850fbeafc0ed7871e30de257b81ecb9370f828fb9142fcc5de5f526cd"
+  },
+  "archive_note": "Supersedes the previous258195 pre-follow-up audit candidate. Prior716b/258195 binaries and earlier partial timing/recordings are provenance only; final claims bind to R3 hash18a46a6d."
+}

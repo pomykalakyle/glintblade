@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 8c5a1931-0660-4dfe-96b0-fea331562205\njob_id: 8c5a1931-0660-4dfe-96b0-fea331562205\nmodel: pro\ndescription: One contiguous broad ruined volcanic basalt ledge for a melancholy top down action game, high top down three quarter camera. A wide quiet flat top is the upper 24 pixels, deep broken cliff face from row24 to row80, transparent below. Wide irregular oblique fractures and stratified hewn blocks, offset vertical columns of different widths, few big planar clusters, rough chipped silhouette across the base. Cold ash mauve and soot charcoal, no orange, no glow, no vegetation, no loose isolated stones, no outline. Restrained upper left lighting. Real crisp native pixel art at 128x96. Most face plane mid dark, small narrow lighter facets, no busy speckle. Fill full canvas width with cliff body, open native crop for repeating landscape modules.\nsize: 128x96px\ntransparent: True\ncandidates: 4\npalette: 12 colours\nmax colours: 10 per image\nseed: 7213\nasset_id: 7350f23f-1b9b-55fa-8dcc-af29592338b4\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"8c5a1931-0660-4dfe-96b0-fea331562205\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/8c5a1931-0660-4dfe-96b0-fea331562205/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

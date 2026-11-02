@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: af3c7d58-e422-4f41-afcf-635aef79f67f\njob_id: af3c7d58-e422-4f41-afcf-635aef79f67f\nmodel: pro\ndescription: One BROKEN limestone waterworks pier sprite for a melancholy low top-down action game. Native48x56 transparent canvas, grounded foot at(24,53). A narrow heavy column broken diagonally at half height, visible around20px wide and27px high; top24rows stay transparent. Thick shattered top reveals two uneven interlocking core stones, not a smooth saw cut. Three large quiet weathered blocks, one recessed vertical water channel, broad muted chalk upper-left planes and cool slate broken interior. Tiny sage moss at one foot joint only. Strong rooted asymmetric low silhouette matching the reference arch. Clean native1px clusters, no black outline, ornamental runes, bright glyph, glow, flowers, vine lace, floating chips, pedestal, ground disk, background or cast shadow.\nsize: 48x56px\ntransparent: True\ncandidates: 16\nstyle_image: yes (detail, shading)\npalette: 18 colours (Glintblade weathered chalk waterworks)\nmax colours: 10 per image\nseed: 6203\nasset_id: 7e347111-ca30-578a-995b-23e63a417ddf\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"af3c7d58-e422-4f41-afcf-635aef79f67f\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/af3c7d58-e422-4f41-afcf-635aef79f67f/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

@@ -1,0 +1,32 @@
+{
+  "subscription_generations_budget": 180,
+  "jobs": [
+    {
+      "name": "pillar",
+      "job_id": "8b3e1a95-264b-4f37-a0c4-84ffdd9df4c9",
+      "generations": 10
+    },
+    {
+      "name": "wall",
+      "job_id": "ba265003-8d27-49e3-bd32-c86f27f08256",
+      "generations": 10
+    },
+    {
+      "name": "broken",
+      "job_id": "af3c7d58-e422-4f41-afcf-635aef79f67f",
+      "generations": 10
+    },
+    {
+      "name": "terrace",
+      "job_id": "905be69a-0368-432b-9647-3a174578c996",
+      "generations": 10
+    },
+    {
+      "name": "terrace-quiet",
+      "job_id": "70465024-99e8-438b-83b2-ab58b2d96dff",
+      "generations": 6
+    }
+  ],
+  "generations_used": 46,
+  "pending": 0
+}

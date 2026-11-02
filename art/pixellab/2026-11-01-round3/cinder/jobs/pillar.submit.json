@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 50b2a05f-4c6a-431c-865f-c2366d35c5d1\njob_id: 50b2a05f-4c6a-431c-865f-c2366d35c5d1\nmodel: pro\ndescription: One narrow ancient foundry waymarker pillar, top down three quarter RPG scenery, full isolated silhouette centered in transparent canvas. Tall slender slotted mineral stone fin, square broken foot, split flat chisel top, broad blue charcoal obsidian planes, thin weathered ash edge, tiny cold mauve fractures. A melancholic abandoned waterworks and volcanic foundry, industrial monolith, absolutely no runes, flames, orange, crystals, skulls, or ornaments. Strong lean silhouette, native 48x64 pixel art, flat deliberate connected clusters, upper left lighting, no cast shadow, no gradient, about42 pixels tall. Keep restrained and readable beside an18px hero.\nsize: 48x64px\ntransparent: True\ncandidates: 16\npalette: 12 colours\nmax colours: 9 per image\nseed: 7224\nasset_id: c8565fa8-1e5d-561d-93f5-05735f1d66c0\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"50b2a05f-4c6a-431c-865f-c2366d35c5d1\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/50b2a05f-4c6a-431c-865f-c2366d35c5d1/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

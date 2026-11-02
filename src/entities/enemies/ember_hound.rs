@@ -103,6 +103,7 @@ pub struct State {
     ghosts: Vec<Ghost>,
     flip_cd: u32,
     seed: u32,
+    appearance: u8,
     /// Has it reacted to spotting the player yet?
     noticed: bool,
 }
@@ -130,6 +131,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         ghosts: Vec::new(),
         flip_cd: 0,
         seed,
+        appearance: super::variation::appearance(x, y),
         noticed: false,
     };
     (Body::new(x, y, RADIUS, HP), s)
@@ -696,7 +698,7 @@ fn current_cell(b: &Body, s: &State) -> (&'static Cell, (i32, i32), bool) {
         let (names, looping) = anim_names(b, s);
         if let Some((a, flip)) = pick(sh, names, dir).or_else(|| pick(sh, &["idle", "move"], dir)) {
             let f = a.frame_at(anim_ticks(s, a), looping);
-            return (sh.cell(a, f), sh.anchor_of(a), flip);
+            return (super::variation::cell("ember_hound", sh.cell(a, f), s.appearance), sh.anchor_of(a), flip);
         }
     }
     let cells = fallback();
@@ -757,7 +759,7 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let shiver = if s.phase == Phase::Crouch && s.pt >= LOCK_AT && (s.pt / 2) % 2 == 0 { if s.left { 1.0 } else { -1.0 } } else { 0.0 };
     let (x, y) = (b.x + shiver, b.y - air);
     let gain = (1.0 + s.heat * 0.9).max(0.35);
-    let o = DrawOpts { actor: true, flip, flash: snappy(b.flash), emit_gain: gain, ..Default::default() };
+    let o = DrawOpts { actor: true, foot_depth: 4, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flip, flash: snappy(b.flash), emit_gain: gain, ..Default::default() };
     f.sprite_w(cell, anchor, x, y, &o);
 
     // eye glint at aim lock: a four-point star that pops and shrinks
@@ -785,14 +787,41 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
                 f.put_glow(sx, sy - k, c);
             }
         }
-        f.add_light_w(x + ex as f32, y + ey as f32, 8.0, YEL, 0.25);
+        f.add_light_3d_w(x + ex as f32, b.y, air - ey as f32, 8.0, YEL, 0.25);
     }
 
-    // its own glow: dim normally, flaring with heat
+    // Its own glow: the eye and hot seams carry a travelling warm source.
     let h = s.heat.max(-0.6);
-    let r = 9.0 + h.max(0.0) * 6.0;
-    let i = (0.10 + h * 0.12).max(0.04);
-    f.add_light_w(b.x, y - 6.0, r, ORA, i);
+    if f.surface_lighting {
+        if let Some((lx, ly)) = ember_source(cell, anchor, flip) {
+            let r = 34.0 + h.max(0.0) * 14.0;
+            let i = (0.48 + h * 0.48).max(0.12);
+            f.add_light_3d_w(x + lx, b.y, air - ly, r, ORA, i);
+        }
+    } else {
+        let r = 9.0 + h.max(0.0) * 6.0;
+        let i = (0.10 + h * 0.12).max(0.04);
+        f.add_light_3d_w(b.x, b.y, air + 6.0, r, ORA, i);
+    }
+}
+
+/// Put the source inside the hottest visible ember, respecting the current pose
+/// and mirror. It rises with the real leap instead of staying behind on the floor.
+fn ember_source(cell: &Cell, anchor: (i32, i32), flip: bool) -> Option<(f32, f32)> {
+    let mut best = None;
+    let mut brightness = -1.0;
+    for y in 0..cell.h {
+        for x in 0..cell.w {
+            let p = cell.at(x, y);
+            if p.a && p.emit && p.c.luma() > brightness {
+                brightness = p.c.luma();
+                // Mirroring the source and anchor cancels the cell-width term.
+                let lx = x as f32 - anchor.0 as f32;
+                best = Some((if flip { -lx + 0.5 } else { lx + 0.5 }, y as f32 + 0.5 - anchor.1 as f32));
+            }
+        }
+    }
+    best
 }
 
 // ------------------------------------------------------------------ fallback art

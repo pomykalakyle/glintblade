@@ -1,0 +1,19 @@
+{
+  "kind": "authored native ground albedo, no generated bitmap edits",
+  "baseline_binary_sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c",
+  "files": {
+    "src/regions/cinder/textures.rs": "a2d2cfeb4c7ce9e2e3f9fb2440a6d637ec0e9ebdace94d8a50df9e8320ebf813"
+  },
+  "changed_visuals": [
+    "standing-press receiving apron: (621,501), radii (64,46), 12px chamfer",
+    "lower broken-press receiving apron: (600,709), radii (67,25), 10px chamfer",
+    "broken cold copper perimeter inlays with long open segments",
+    "four paired recessed hold-down sockets at (584,462),(653,462),(584,534),(653,534)",
+    "paired worn press-axis grooves at x607 and x634",
+    "three sparse ash cooling fans at (845,335),(267,659),(1038,441)"
+  ],
+  "physical_scope": "Only Zone.ground is touched. Paving changes require K_PAVE; cooling fans require K_ASH. No Tile, surface mask, ground_emit, prop, spawn or live lava modifications.",
+  "source_pixel_policy": "Existing PixelLab native source atlases are unchanged. Authored layout uses existing Cinder ramp colors and preserves original material cracks with restrained blending.",
+  "new_paid_generations": 0,
+  "validation": "Waiting for root candidate build and actual-render review. No cargo builds performed by child."
+}

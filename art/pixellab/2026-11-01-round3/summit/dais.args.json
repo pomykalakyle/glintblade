@@ -1,0 +1,19 @@
+{
+  "description": "A single broad low ancient stone dais with an EMPTY central diamond socket, for a melancholy top-down pixel art game. Native128x80 pixels, entire raised plinth on transparent background. The whole prop fits canvas with a small clear margin. Two low shallow elliptical tiers of worn blue-grey massive stone blocks, wider than tall, front elevation only12pixels deep. Visible broad flat upper surface at a three-quarter top-down view. Huge weathered geometric engineering, restrained sharply faceted quiet areas, small chips only at stress corners, an empty DARK square-diamond recess at back center where a prism once stood. No idol, no crystal, no glow, no glyphs, no decorative circles, no spikes or columns, no grass. Upper-left cool light, dark right faces; mostly #46526a #333b4c #2b3548 with sparse #64738a rim highlights, never white. No ground or cast shadow. Hard pixel clusters and clean silhouette; negative space socket is focal detail.",
+  "width": 128,
+  "height": 80,
+  "no_background": true,
+  "palette": [
+    "#1f2838",
+    "#2b3548",
+    "#333b4c",
+    "#46526a",
+    "#555d70",
+    "#64738a",
+    "#7f8797",
+    "#94a1ae",
+    "#c1c8c5"
+  ],
+  "max_colors": 7,
+  "seed": 421
+}

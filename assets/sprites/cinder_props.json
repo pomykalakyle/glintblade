@@ -1,70 +1,203 @@
 {
- "cell": [16, 16],
- "anchor": [8, 14],
- "emissive": ["#d48670", "#efb68a"],
- "anims": {
-  "urn_tall": {
-   "row": 0,
-   "frames": 1,
-   "footprint": [9, 4],
-   "breakable": true,
-   "fps": 1
+  "cell": [
+    16,
+    16
+  ],
+  "anchor": [
+    8,
+    14
+  ],
+  "emissive": [
+    "#d48670",
+    "#efb68a"
+  ],
+  "anims": {
+    "urn_tall": {
+      "row": 0,
+      "frames": 1,
+      "footprint": [
+        12,
+        4
+      ],
+      "breakable": true,
+      "fps": 1,
+      "collision_rects": [
+        [
+          2,
+          11,
+          14,
+          12
+        ],
+        [
+          3,
+          12,
+          13,
+          13
+        ],
+        [
+          4,
+          13,
+          12,
+          14
+        ],
+        [
+          5,
+          14,
+          11,
+          15
+        ]
+      ]
+    },
+    "urn_squat": {
+      "row": 1,
+      "frames": 1,
+      "footprint": [
+        14,
+        4
+      ],
+      "breakable": true,
+      "fps": 1,
+      "collision_rects": [
+        [
+          1,
+          12,
+          15,
+          13
+        ],
+        [
+          2,
+          13,
+          14,
+          14
+        ],
+        [
+          3,
+          14,
+          13,
+          15
+        ],
+        [
+          5,
+          15,
+          11,
+          16
+        ]
+      ]
+    },
+    "urn_broken": {
+      "row": 2,
+      "frames": 1,
+      "fps": 1
+    },
+    "lava_rock": {
+      "row": 3,
+      "frames": 4,
+      "durations": [
+        18,
+        12,
+        18,
+        12
+      ],
+      "footprint": [
+        12,
+        4
+      ],
+      "light": {
+        "color": "#efb68a",
+        "radius": 22,
+        "intensity": 0.6,
+        "offset": [
+          0,
+          -3
+        ]
+      },
+      "collision_rects": [
+        [
+          2,
+          12,
+          14,
+          13
+        ],
+        [
+          2,
+          13,
+          13,
+          14
+        ],
+        [
+          3,
+          14,
+          12,
+          15
+        ],
+        [
+          5,
+          15,
+          11,
+          16
+        ]
+      ]
+    },
+    "skull": {
+      "row": 4,
+      "frames": 1,
+      "fps": 1
+    },
+    "bones": {
+      "row": 5,
+      "frames": 1,
+      "fps": 1
+    },
+    "ribs": {
+      "row": 6,
+      "frames": 1,
+      "fps": 1
+    },
+    "shard_small": {
+      "row": 7,
+      "frames": 1,
+      "footprint": [
+        12,
+        3
+      ],
+      "fps": 1,
+      "collision_rects": [
+        [
+          3,
+          13,
+          14,
+          14
+        ],
+        [
+          2,
+          14,
+          14,
+          15
+        ],
+        [
+          3,
+          15,
+          6,
+          16
+        ],
+        [
+          11,
+          15,
+          13,
+          16
+        ]
+      ]
+    },
+    "pebbles": {
+      "row": 8,
+      "frames": 1,
+      "fps": 1
+    },
+    "ash_pile": {
+      "row": 9,
+      "frames": 1,
+      "fps": 1
+    }
   },
-  "urn_squat": {
-   "row": 1,
-   "frames": 1,
-   "footprint": [11, 4],
-   "breakable": true,
-   "fps": 1
-  },
-  "urn_broken": {
-   "row": 2,
-   "frames": 1,
-   "fps": 1
-  },
-  "lava_rock": {
-   "row": 3,
-   "frames": 4,
-   "durations": [18, 12, 18, 12],
-   "footprint": [10, 4],
-   "light": {
-    "color": "#efb68a",
-    "radius": 22,
-    "intensity": 0.6,
-    "offset": [0, -3]
-   }
-  },
-  "skull": {
-   "row": 4,
-   "frames": 1,
-   "fps": 1
-  },
-  "bones": {
-   "row": 5,
-   "frames": 1,
-   "fps": 1
-  },
-  "ribs": {
-   "row": 6,
-   "frames": 1,
-   "fps": 1
-  },
-  "shard_small": {
-   "row": 7,
-   "frames": 1,
-   "footprint": [8, 3],
-   "fps": 1
-  },
-  "pebbles": {
-   "row": 8,
-   "frames": 1,
-   "fps": 1
-  },
-  "ash_pile": {
-   "row": 9,
-   "frames": 1,
-   "fps": 1
-  }
- },
- "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. Small relics use cold mineral stone; the lava rock alone is hot."
+  "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. Small relics use cold mineral stone; the lava rock alone is hot. Structural base collision follows the exact native opaque rows."
 }

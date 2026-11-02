@@ -1,0 +1,19 @@
+{
+  "convention": "OpenGL RGB +X screen right, +Y screen up, +Z viewer",
+  "upright_world_transform": "(nx,+nz,+ny)",
+  "floor_world_transform": "(nx,-ny,+nz)",
+  "topcap_mean_normal_view": [
+    -0.005655045621097088,
+    0.7133004069328308,
+    0.5219107270240784
+  ],
+  "shaft_mean_normal_view": [
+    -0.012260559014976025,
+    0.009826012887060642,
+    0.7332892417907715
+  ],
+  "topcap_under_world_overhead": 0.7163627743721008,
+  "shaft_under_world_overhead": 0.02406463399529457,
+  "topcap_under_world_front": 0.5219107270240784,
+  "shaft_under_world_front": 0.733289361000061
+}

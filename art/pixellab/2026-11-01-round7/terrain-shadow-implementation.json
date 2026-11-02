@@ -1,0 +1,80 @@
+{
+  "scope": "Exact native-height terrain occlusion for local point sources; no collision tile promotion, no albedo/emission/gameplay edits.",
+  "api": {
+    "point_visibility_world": "(zone,frame,light) combines native sprite volumes and terrain sheets",
+    "point_visibility": "(frame,light) retains standalone sprite-only tests/trials"
+  },
+  "geometry": "Each native painted pixel is a one-pixel projected sheet with retained altitude. Receiver-to-source DDA intersects ray-Z intervals with native height \u00b10.5. Native height0 and HOLE never block.",
+  "receiving_plane": "Only terrain-owned receivers may skip their own contiguous constant-height cap or constant-ground-depth front sheet; actors/sprite surfaces never claim that exemption.",
+  "broadphase": "8x8 block occupancy from Zone.ground_surfaces (not inferred Field tile planes). Empty blocks skip analytically; viewport rejection occurs before source-cache construction. No production ray-step cap.",
+  "cache": "16-entry world-anchored terrain-receiver masks keyed by exact f32 source X/Y/height/radius; color/intensity do not affect visibility. Raised actor/sprite receivers get current-height rays every frame. Eviction changes performance only.",
+  "invalidation": "Cache belongs to actual Zone-owned Field; native terrain setters invalidate/rebuild it. Prop-only breakage retains unchanged native terrain geometry.",
+  "tests": [
+    "exact_native_height_blocks_without_promoting_collision_tiles",
+    "own_front_plane_is_exempt_but_actor_and_separate_sheet_are_not",
+    "negative_boundary_entry_and_mirrored_rays_always_advance",
+    "cached_terrain_visibility_is_world_anchored_but_raised_actors_are_live",
+    "actual_glasswater_crystal_is_occluded_across_its_native_wall"
+  ],
+  "actual_scene_probe": {
+    "zone": "Glasswater",
+    "source_projected": [
+      619.1,
+      536.3
+    ],
+    "source_world_ground": [
+      619.1,
+      556.8
+    ],
+    "source_height": 20.5,
+    "source_radius": 58.225002,
+    "receiver_projected_and_height": [
+      618.5,
+      589.5,
+      0
+    ],
+    "source": "PointLight registered by actual regional light hook after native emission-crest repair; physical tip offset is retained.",
+    "independent_exact_native_intersections": [
+      {
+        "pixel": [
+          618,
+          567
+        ],
+        "height": 9,
+        "ray_t": [
+          0.4146341463414634,
+          0.42293223378295125
+        ]
+      },
+      {
+        "pixel": [
+          618,
+          568
+        ],
+        "height": 8,
+        "ray_t": [
+          0.3853382574466889,
+          0.40413524561482006
+        ]
+      }
+    ],
+    "assertions": [
+      "source and receiver collision tiles are Floor",
+      "receiver lies inside actual source sphere",
+      "independent pixel/slab ray clipping crosses actual non-HOLE positive-height native sheets",
+      "native DDA blocks actual crystal ray"
+    ]
+  },
+  "validation": {
+    "focused_rust": "Root ran all five terrain_shadows tests in release; 5 passed, 0 failed, 0.28 seconds. out/pixellab/round7/terrain-final-integration.log",
+    "independent_analytic_harness": "46,384 mirrored/fractional rays and 351,924 strictly advancing intervals; all matched independent cell/slab oracle. Python only, no Cargo run by this agent.",
+    "quiet_render_benchmark": "Root-owned 240 actual-actor frames per region; p95 Bloom5.131ms, Glass6.175ms, Cinder6.976ms, Summit4.544ms. out/pixellab/round7/terrain-integration-timing.json",
+    "final_candidate": "Root owns full suite, campaign, visual selection and final artifact pins. Last source change after focused test/bench was a test-comment correction only.",
+    "unused_wrapper_removed": "Removed unused terrain_visibility wrapper only; point_visibility_world still composes the exact same sprite and terrain visibility. No production behavior change."
+  },
+  "source_sha256": {
+    "src/gfx/lighting.rs": "0b74410e844664ef3684f7962af30f37ebd23321b9161bed36dc9289775f8c83",
+    "src/gfx/lighting/terrain_shadows.rs": "085967cad1a79368206435ee21de13459feb40144de89b3bde49f785397d169b"
+  },
+  "boundary_correctness": "Traversal uses f64 event parameters, direction-aware cell ownership and exact event ties. The cell entered immediately after a negative-axis integer crossing is the lower cell; test builds assert strictly increasing t at every interval."
+}

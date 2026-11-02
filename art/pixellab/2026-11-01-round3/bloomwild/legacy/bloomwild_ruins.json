@@ -1,0 +1,76 @@
+{
+ "cell": [
+  48,
+  56
+ ],
+ "anchor": [
+  24,
+  53
+ ],
+ "anims": {
+  "pillar": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    14,
+    6
+   ]
+  },
+  "pillar_broken_tall": {
+   "row": 1,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    14,
+    6
+   ]
+  },
+  "pillar_broken_short": {
+   "row": 2,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    14,
+    6
+   ]
+  },
+  "drum": {
+   "row": 3,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    26,
+    8
+   ]
+  },
+  "wall_low": {
+   "row": 4,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    32,
+    8
+   ]
+  },
+  "wall_tall": {
+   "row": 5,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    46,
+    8
+   ]
+  },
+  "statue": {
+   "row": 6,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    20,
+    8
+   ]
+  }
+ },
+ "notes": "Old ivory slotted waterworks. Narrow recessed channels survive across standing fins and broken distributors; statue cradles a dull broken stone fragment. Original footprints and anchors retained."
+}

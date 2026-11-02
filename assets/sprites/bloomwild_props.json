@@ -1,88 +1,486 @@
 {
- "cell": [
-  32,
-  32
- ],
- "anchor": [
-  16,
-  29
- ],
- "anims": {
-  "bush_a": {
-   "row": 0,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
+  "cell": [
+    32,
+    32
+  ],
+  "anchor": [
     16,
-    5
-   ]
+    29
+  ],
+  "anims": {
+    "bush_a": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        27,
+        5
+      ],
+      "collision_rects": [
+        [
+          5,
+          26,
+          10,
+          27
+        ],
+        [
+          11,
+          26,
+          16,
+          27
+        ],
+        [
+          18,
+          26,
+          28,
+          27
+        ],
+        [
+          5,
+          27,
+          9,
+          28
+        ],
+        [
+          12,
+          27,
+          13,
+          28
+        ],
+        [
+          15,
+          27,
+          16,
+          28
+        ],
+        [
+          18,
+          27,
+          27,
+          28
+        ],
+        [
+          6,
+          28,
+          7,
+          29
+        ],
+        [
+          9,
+          28,
+          10,
+          29
+        ],
+        [
+          19,
+          28,
+          20,
+          29
+        ],
+        [
+          22,
+          28,
+          23,
+          29
+        ],
+        [
+          24,
+          28,
+          25,
+          29
+        ],
+        [
+          27,
+          28,
+          28,
+          29
+        ],
+        [
+          4,
+          29,
+          16,
+          30
+        ],
+        [
+          17,
+          29,
+          31,
+          30
+        ],
+        [
+          19,
+          30,
+          29,
+          31
+        ]
+      ]
+    },
+    "bush_b": {
+      "row": 1,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        30,
+        5
+      ],
+      "collision_rects": [
+        [
+          3,
+          26,
+          18,
+          27
+        ],
+        [
+          19,
+          26,
+          24,
+          27
+        ],
+        [
+          25,
+          26,
+          30,
+          27
+        ],
+        [
+          3,
+          27,
+          7,
+          28
+        ],
+        [
+          9,
+          27,
+          10,
+          28
+        ],
+        [
+          12,
+          27,
+          18,
+          28
+        ],
+        [
+          20,
+          27,
+          21,
+          28
+        ],
+        [
+          23,
+          27,
+          24,
+          28
+        ],
+        [
+          25,
+          27,
+          29,
+          28
+        ],
+        [
+          4,
+          28,
+          5,
+          29
+        ],
+        [
+          7,
+          28,
+          8,
+          29
+        ],
+        [
+          14,
+          28,
+          15,
+          29
+        ],
+        [
+          16,
+          28,
+          19,
+          29
+        ],
+        [
+          26,
+          28,
+          27,
+          29
+        ],
+        [
+          29,
+          28,
+          30,
+          29
+        ],
+        [
+          2,
+          29,
+          32,
+          30
+        ],
+        [
+          20,
+          30,
+          31,
+          31
+        ]
+      ]
+    },
+    "bush_bloom": {
+      "row": 2,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        26,
+        5
+      ],
+      "collision_rects": [
+        [
+          6,
+          26,
+          16,
+          27
+        ],
+        [
+          18,
+          26,
+          28,
+          27
+        ],
+        [
+          6,
+          27,
+          10,
+          28
+        ],
+        [
+          12,
+          27,
+          13,
+          28
+        ],
+        [
+          15,
+          27,
+          16,
+          28
+        ],
+        [
+          18,
+          27,
+          27,
+          28
+        ],
+        [
+          7,
+          28,
+          8,
+          29
+        ],
+        [
+          10,
+          28,
+          11,
+          29
+        ],
+        [
+          19,
+          28,
+          20,
+          29
+        ],
+        [
+          22,
+          28,
+          23,
+          29
+        ],
+        [
+          24,
+          28,
+          25,
+          29
+        ],
+        [
+          27,
+          28,
+          28,
+          29
+        ],
+        [
+          5,
+          29,
+          16,
+          30
+        ],
+        [
+          17,
+          29,
+          31,
+          30
+        ],
+        [
+          19,
+          30,
+          29,
+          31
+        ]
+      ]
+    },
+    "urn_large": {
+      "row": 3,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        12,
+        5
+      ],
+      "breakable": true,
+      "collision_rects": [
+        [
+          10,
+          26,
+          22,
+          27
+        ],
+        [
+          11,
+          27,
+          21,
+          28
+        ],
+        [
+          12,
+          28,
+          20,
+          30
+        ],
+        [
+          13,
+          30,
+          19,
+          31
+        ]
+      ]
+    },
+    "urn_small": {
+      "row": 4,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        8,
+        4
+      ],
+      "breakable": true,
+      "collision_rects": [
+        [
+          12,
+          27,
+          20,
+          28
+        ],
+        [
+          13,
+          28,
+          19,
+          30
+        ],
+        [
+          14,
+          30,
+          18,
+          31
+        ]
+      ]
+    },
+    "flowers_a": {
+      "row": 5,
+      "frames": 1,
+      "fps": 1
+    },
+    "flowers_b": {
+      "row": 6,
+      "frames": 1,
+      "fps": 1
+    },
+    "boulder_large": {
+      "row": 7,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        22,
+        6
+      ],
+      "collision_rects": [
+        [
+          5,
+          24,
+          27,
+          26
+        ],
+        [
+          6,
+          26,
+          26,
+          27
+        ],
+        [
+          7,
+          27,
+          25,
+          28
+        ],
+        [
+          11,
+          28,
+          21,
+          29
+        ],
+        [
+          13,
+          29,
+          19,
+          30
+        ]
+      ]
+    },
+    "boulder_small": {
+      "row": 8,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        13,
+        4
+      ],
+      "collision_rects": [
+        [
+          10,
+          26,
+          23,
+          27
+        ],
+        [
+          11,
+          27,
+          22,
+          28
+        ],
+        [
+          12,
+          28,
+          21,
+          29
+        ],
+        [
+          14,
+          29,
+          19,
+          30
+        ]
+      ]
+    }
   },
-  "bush_b": {
-   "row": 1,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    20,
-    5
-   ]
-  },
-  "bush_bloom": {
-   "row": 2,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    16,
-    5
-   ]
-  },
-  "urn_large": {
-   "row": 3,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    12,
-    5
-   ],
-   "breakable": true
-  },
-  "urn_small": {
-   "row": 4,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    8,
-    4
-   ],
-   "breakable": true
-  },
-  "flowers_a": {
-   "row": 5,
-   "frames": 1,
-   "fps": 1
-  },
-  "flowers_b": {
-   "row": 6,
-   "frames": 1,
-   "fps": 1
-  },
-  "boulder_large": {
-   "row": 7,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    20,
-    6
-   ]
-  },
-  "boulder_small": {
-   "row": 8,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    10,
-    4
-   ]
-  }
- },
- "notes": "Sage leaf fans rooted in broken contact shade, with sparse dried-rose blossom clusters; weathered gray ceramic urns and mineral boulders. Original breakability and footprints retained."
+  "notes": "Original authored foliage, ceramics and mineral boulders retained byte-for-byte. Opaque structural base rows supply collision and contact shading. Original urn breakability and walk-through flowers retained."
 }

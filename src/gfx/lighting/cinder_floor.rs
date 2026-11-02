@@ -1,6 +1,7 @@
 //! Baked, slab-shaped reception from Cinder's visible brazier, with quiet court margins.
 
 use super::{Rect, Rgb, Zone, ZoneId, rgb};
+use crate::world::Tile;
 
 const EDGES: &[&[(f32, f32)]] = &[
     &[(456.0, 396.0), (540.0, 396.0), (540.0, 432.0), (508.0, 448.0), (496.0, 472.0), (496.0, 520.0), (512.0, 552.0), (520.0, 632.0), (456.0, 632.0)],
@@ -41,8 +42,11 @@ impl Floor {
         for y in rect.y0..rect.y1 {
             for x in rect.x0..rect.x1 {
                 let material = z.gget(x, y);
-                // The painter's O3 grout, O4 paving and O5 chips are the only receivers.
-                if ![rgb(0x3f414f), rgb(0x5b5966), rgb(0x7c7780)].contains(&material) { continue; }
+                // Receive on the actual dry court, including its worn copper
+                // bed. An exact RGB whitelist dropped the light whenever the
+                // artist weathered a paving color. Upright/actor surfaces are
+                // excluded by the caller; water, lava and void stay unlit here.
+                if material.r < 0.0 || z.tile_at(x as f32 + 0.5, y as f32 + 0.5) != Tile::Floor { continue; }
                 let row = y.div_euclid(24);
                 let off = if row.rem_euclid(2) == 0 { 0 } else { 16 };
                 let cx = (x + off).div_euclid(32) * 32 - off + 16;

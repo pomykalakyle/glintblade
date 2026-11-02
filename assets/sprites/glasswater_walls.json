@@ -1,0 +1,18 @@
+{
+  "cell": [
+    128,
+    64
+  ],
+  "anchor": [
+    0,
+    24
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1
+    }
+  },
+  "notes": "Native crops from wall candidates1,3,4. Upper24 rows from candidate1; lower38 rows from3/4 rows14..52, bottom2 from original62..64. No resampling. Only vertical faces used; wall-top contour mapping was rejected after actual game inspection. Candidate4 face rejected after full-scene review: its shallow upper crop made distracting horizontal contour bands. Candidate3 vertical fracture face retained."
+}

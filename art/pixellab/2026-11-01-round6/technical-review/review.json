@@ -1,0 +1,227 @@
+{
+  "reviewed_at_utc": "2026-11-02T01:59:55.804593+00:00",
+  "role": "Independent read-only technical reviewer. No Rust/assets/Cargo edits and no Cargo commands. Native immutable rlibs used for all harnesses.",
+  "result": "pass",
+  "selected_binary_sha256": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+  "selected_library_sha256": "43ea391d9dc852418ca09195996ec0e86811f91b9365addc9f599636d529fbd0",
+  "baseline_library_sha256": "0996716ae2a494d9ec1b556a84d7cc8a2ff94909f07c84940632cc080635e515",
+  "pinned_source_files": 267,
+  "source_pin_mismatches": [],
+  "physical": {
+    "baseline_library": "0996716ae2a494d9ec1b556a84d7cc8a2ff94909f07c84940632cc080635e515",
+    "selected_library": "43ea391d9dc852418ca09195996ec0e86811f91b9365addc9f599636d529fbd0",
+    "selected_binary": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+    "pinned_files": 267,
+    "source_pin_mismatches": [],
+    "baseline_lines": 390,
+    "selected_lines": 390,
+    "differences": [],
+    "zones": [
+      "ZONE Bloomwild native=1118208 surface=f8e4ebc207c35d87 wet=4d07909eb3d719b6 types=[712726, 23081, 37888, 37404, 0, 307109] props=103 enemies=13 start=(152.0, 696.0) shard=Some((408.0, 176.0)) gate=Some((408.0, 61.0)) boss=None",
+      "ZONE Glasswater native=1224704 surface=5689f88669f903c2 wet=112ee728978c210e types=[358418, 119359, 649101, 25318, 0, 72508] props=32 enemies=13 start=(32.0, 425.6) shard=Some((1161.6, 718.4)) gate=Some((1304.0, 607.2)) boss=None",
+      "ZONE Cinder native=1284096 surface=628807aff68dacb6 wet=6f6ded5a5d202383 types=[594456, 0, 194813, 0, 98876, 395951] props=13 enemies=12 start=(136.0, 752.0) shard=Some((1144.0, 184.0)) gate=Some((1144.0, 104.0)) boss=None",
+      "ZONE Summit native=1382400 surface=128b7e7d86ca2567 wet=3fee6c8e0eb22383 types=[302878, 0, 0, 0, 0, 1079522] props=196 enemies=0 start=(196.0, 782.0) shard=None gate=None boss=Some((720.0, 352.0))"
+    ],
+    "movement": [
+      "MOVEMENT probes=22446 hash=fd1eb6b1249b3c97",
+      "MOVEMENT probes=24534 hash=eceb968c07d18fc5",
+      "MOVEMENT probes=25110 hash=56d12abd6a7eda65",
+      "MOVEMENT probes=27324 hash=3c936544742b36e7"
+    ],
+    "prop_count": 344,
+    "enemy_count": 38,
+    "blocked_spawns": [],
+    "collision_geometry_float_bits_included": true,
+    "collision_rectangles": 1826,
+    "collision_pixels_tested": 69660,
+    "collision_opaque_pixels": 34348
+  },
+  "combat": {
+    "scope": "Every actual population spawn, 2,400 update ticks, moving player target, nonlethal on_hit at tick700, live projectile motion/cancellation and FX RNG sampled every tick. Existing archetypes, seed positions, and model APIs preserved. Does not include death (separate skin/capacity test).",
+    "spawns": 38,
+    "ticks_each": 2400,
+    "total_spawn_ticks": 91200,
+    "differences": [],
+    "equal": true
+  },
+  "lighting": {
+    "scope": "16 scene light passes across all four zones. Exact current immutable library; material/emission/actor/water/point-list preservation asserted in each. Quiet-versus-off protected masks include native cells, actors, nonreceivers, sky. Bloomwild weather intentionally modulates lighting, so its protected hash may differ. Pure court receiver runs current pinned cinder_floor.rs in Rect adapter for all native points.",
+    "lines_off": 18,
+    "lines_quiet": 18,
+    "self_emitter": "OWN_EMITTER checks=261 exact_all_crystal_centroids=14",
+    "court": "COURT checked=1284096 actual_floor_receivers=30525 excluded_liquid=98876",
+    "protected_mask_differences": [],
+    "scenes_with_live_light_delta": [
+      "LIGHT Bloomwild scene=0",
+      "LIGHT Bloomwild scene=1",
+      "LIGHT Bloomwild scene=2",
+      "LIGHT Bloomwild scene=3",
+      "LIGHT Glasswater scene=2",
+      "LIGHT Summit scene=1"
+    ],
+    "all_assertions_passed": true,
+    "controlled_point_fixture": {
+      "scope": "Same 16 scenes with additional transient cyan point emitter (170px radius, intensity0.85), to exercise shadow receivers where the still scene has no remote emitter.",
+      "protected_mask_differences": [],
+      "scenes_with_light_delta": [
+        "LIGHT Bloomwild scene=0",
+        "LIGHT Bloomwild scene=1",
+        "LIGHT Bloomwild scene=2",
+        "LIGHT Bloomwild scene=3",
+        "LIGHT Glasswater scene=0",
+        "LIGHT Glasswater scene=1",
+        "LIGHT Glasswater scene=2",
+        "LIGHT Glasswater scene=3",
+        "LIGHT Cinder scene=0",
+        "LIGHT Cinder scene=1",
+        "LIGHT Cinder scene=3",
+        "LIGHT Summit scene=0",
+        "LIGHT Summit scene=1",
+        "LIGHT Summit scene=2"
+      ],
+      "all_assertions_passed": true
+    }
+  },
+  "live_projectile_death": {
+    "result": "pass",
+    "cases": 9,
+    "skin_count": 3,
+    "kinds": [
+      "ThornImp",
+      "SpittingTotem",
+      "Wisp"
+    ],
+    "artifact": "projectile-death.txt",
+    "checks": [
+      "Actual live lobbed imp seeds removed with warning lifetime.",
+      "Totem owned globs set dead/life0.",
+      "Wisp released bolts retain existing behavior.",
+      "Unrelated active projectile stays exactly unchanged."
+    ]
+  },
+  "death_rng_review": {
+    "result": "pass",
+    "source_sha256": "40abb625d6171c2692af14e4275a64a0102cd57b2fa58c8d172168db018bb444",
+    "inspection": [
+      "Reference uses original atlas pose under restored thread-local skin guard, no changes to enemy state.",
+      "Reference receives independent FX buffers and cloned projectiles; real death callback runs once against actual shared game context.",
+      "Reference preserves the current starting FX RNG and tick, then only resulting RNG is copied back.",
+      "Death callbacks create no shared hit IDs or gameplay hits; scratch hits, sounds, flash and trauma are discarded.",
+      "Reference uses empty visual capacity so culling cannot alter subsequent combat RNG."
+    ],
+    "root_executed_test": "skin_debris_preserves_following_combat_randomness_and_live_projectiles",
+    "root_test_scope": "6 kinds \u00d7 3 skins \u00d7 2 phases \u00d7 2 particle capacities, 64 following RNG values and projectile state per case.",
+    "root_test_log": "out/pixellab/round6/selected/tests.log",
+    "root_test_log_sha256": "65ea5bc628b9e57bc2483240e1c1cf89f026e5bd45efc221d5373346b963a0fe"
+  },
+  "clustered_death_timing": {
+    "scope": "Selected immutable library, CPU-quiet window granted by root after record/audio/encoding finished. Wall time for lethal on_hit batches only; updates/setup excluded; 96 samples per case. Species vary across 3/6/18-death clusters at deterministic skin coordinates. Includes scratch canonical death, actual skin debris, active projectile cloning/cancellation, and capacity stress.",
+    "measurements": [
+      {
+        "cluster": 3,
+        "existing": 0,
+        "samples": 96,
+        "median_ms": 0.09083,
+        "p95_ms": 0.104826,
+        "max_ms": 0.185046,
+        "max_particles": 669,
+        "max_projectiles": 1
+      },
+      {
+        "cluster": 3,
+        "existing": 11980,
+        "samples": 96,
+        "median_ms": 0.088365,
+        "p95_ms": 0.095819,
+        "max_ms": 0.108182,
+        "max_particles": 12000,
+        "max_projectiles": 1
+      },
+      {
+        "cluster": 6,
+        "existing": 0,
+        "samples": 96,
+        "median_ms": 0.161622,
+        "p95_ms": 0.168345,
+        "max_ms": 0.178654,
+        "max_particles": 1732,
+        "max_projectiles": 3
+      },
+      {
+        "cluster": 6,
+        "existing": 11980,
+        "samples": 96,
+        "median_ms": 0.15526,
+        "p95_ms": 0.162183,
+        "max_ms": 0.167874,
+        "max_particles": 12000,
+        "max_projectiles": 3
+      },
+      {
+        "cluster": 18,
+        "existing": 0,
+        "samples": 96,
+        "median_ms": 0.501417,
+        "p95_ms": 0.511045,
+        "max_ms": 0.60451,
+        "max_particles": 5210,
+        "max_projectiles": 8
+      },
+      {
+        "cluster": 18,
+        "existing": 11980,
+        "samples": 96,
+        "median_ms": 0.474426,
+        "p95_ms": 0.49225,
+        "max_ms": 0.516034,
+        "max_particles": 12000,
+        "max_projectiles": 8
+      }
+    ],
+    "limit": "Microbenchmark of death work, not whole-frame or browser timing. Root Cinder whole-render log separately passes its 8 ms budget.",
+    "root_cinder_log": "out/pixellab/round6/selected/cinder-timing.log",
+    "root_cinder_log_sha256": "d7c12c0c594a2d614b0db676b0609d6a2780d75664680a7bf8540edf64865192"
+  },
+  "confirmed_findings": [],
+  "limitations": [
+    "No artistic approval or completeness claim for all campaign frames; independent visual reviewers own that.",
+    "Exact round5 enemy parity covers updates/projectiles/nonlethal damage before death. Post-death RNG now deliberately uses canonical original-pose progression instead of the previous skin/capacity coupling.",
+    "The whole renderer and unit-suite results were run by root and inspected here, not rerun by this reviewer.",
+    "No Cua, GUI, subjective audio audition, browser runtime, or GPU testing."
+  ],
+  "reviewed_files": {
+    "src/entities/enemies/mod.rs": "40abb625d6171c2692af14e4275a64a0102cd57b2fa58c8d172168db018bb444",
+    "src/entities/enemies/variation.rs": "7e8f646fa26821efb33d0643ee1a70760a3feb0b69657205f0821d15278728fb",
+    "src/entities/enemies/thorn_imp.rs": "cde05634b32f9b68432fbd3899e2f31746962d74746706992b741a49ecb57417",
+    "src/entities/enemies/spitting_totem.rs": "fefb0b03dac77d432391e91460dbf9facdf5b93a47b18ea17783ba376aa6606e",
+    "src/entities/enemies/wisp.rs": "cfa0b2e9a3d0efc76b9550ccec970adc8cf1ac4c35dfbdf84bc2041c3be69150",
+    "src/gfx/lighting.rs": "2e1c042ba700b904b731f4d3e4d09c27a278f562ed7dde09adb7e50921be2ae1",
+    "src/gfx/lighting/dynamic.rs": "f09332717cf72c3f0ac1e473a0f3d4be7ec105446c90cb88f70de94b30f14c06",
+    "src/gfx/lighting/cinder_floor.rs": "ce6ee05bfe2a5a798ed9ac021e7e6259194d2410878f7360579f2551a404ba7a",
+    "src/regions/glasswater.rs": "746419eb820acc48d14a51b122aa548ce2072af3a65a42d3c64a1b07235dac2c",
+    "src/regions/glasswater/place.rs": "8d279e46d6a20297cfaeefe9da0ab51900b823bdb545aa3f1116085a1876ba6b",
+    "src/world/mod.rs": "e7d83b15d10931dcf438ec1ccedc7ef4572fedac854e81d29555342544ec9065",
+    "src/world/prop.rs": "21cabf423f6723c105ff51dc67556f39c6e0d9a1fe5c2f87af636f1c9457abbf"
+  },
+  "repro_artifacts": {
+    "combat-baseline.txt": "3c5d61f7ba30c3cf2ff02c0f8291baaadf3921c69e3452f10ce58feaf9607f71",
+    "combat-review.json": "ef76e2749d6c876a3f180616a8d1a090448c5a5d9fbaaa38fd99df316be1f4ec",
+    "combat-selected.txt": "3c5d61f7ba30c3cf2ff02c0f8291baaadf3921c69e3452f10ce58feaf9607f71",
+    "combat_parity.rs": "8e400d74b75a3d203eea72e05ecfbda224ef6442bf2e54039beeb2cef469edda",
+    "death-timing.txt": "d6371d751fc9487ea340e838f6523df3f77aa5c78709e773393ca91bbfb64807",
+    "death_timing.rs": "5b98acaa9b24e8873626821c87977aafc4020eb930a11d5304bcff982f9d0d76",
+    "lighting-off.txt": "1e0cdecc18baf217132d2c3d7b8a51754ac9beeea18180cd7b664470e09a5fb5",
+    "lighting-probe-off.txt": "696aba194bc5d9ca46d02ee73578a9217276315e5d00e532b83d640847801ccf",
+    "lighting-probe-quiet.txt": "4e61261f1bc20bd181f40c1fc4431d784b84d23d058eb5fc68caeb6b8956a683",
+    "lighting-quiet.txt": "ad0ad8712608688708edc657f61de922ad990f6db99e5e311be9e2973361e85f",
+    "lighting-review.json": "1ce4bc454d76212a922db36558140cc64dac625c35a44bf6c2885a0644667594",
+    "lighting_audit.rs": "e1e1eefa76a15c75f87944c4a31efa1032d0164e49211e4ebf814ee421e6e0c1",
+    "physical-baseline.txt": "976ff76a50efcd225df089af0d03b63b8a4b2b5c50023d2c2e84b04c935143c5",
+    "physical-review.json": "65f934a023d5e90e039973e21032627f3a858525e4339fb78fdc4208f129cb2b",
+    "physical-selected.txt": "976ff76a50efcd225df089af0d03b63b8a4b2b5c50023d2c2e84b04c935143c5",
+    "physical_parity.rs": "480d7f6a4d38f13dba9ac62e2e22627d9a689bf2adeb57d2404211879691aa4e",
+    "projectile-death.txt": "8b5fc5b74a266ccf162ea0991808884e093ae59eda5bae54dd5ca3a9064225cb",
+    "projectile_death.rs": "9a1f05963c700a0b97c4aa84448217f0d4de77892a68d556bb084ed30ee1d043"
+  },
+  "compiled_harnesses_dir": "out/pixellab/round6/technical-review"
+}

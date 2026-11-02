@@ -221,6 +221,27 @@ fn reflections_are_masked_and_sprite_occlusion_is_opaque() {
     assert!(f.water.iter().all(|p| *p == 0));
 }
 
+/// Regional shallows keep a short contact reflection while other receivers keep their reach.
+#[test]
+fn regional_water_depth_caps_preserve_contact_without_a_full_actor_duplicate() {
+    let cell = Cell::from_ascii(&["a"; 12], &[('a', rgb(0x83d8df))], &['a']);
+    for cap in [i32::MAX, 4] {
+        let mut f = Frame::new();
+        f.begin(rgb(0x26344e), Rgb::WHITE);
+        f.look.water_wave = 0.0;
+        f.look.water_alpha = 1.0;
+        f.look.water_depth_max = cap;
+        f.water_rect(100, 101, 1, 12, 1.0);
+        f.sprite(&cell, (0, 11), 100, 100, &DrawOpts::default());
+        assert!(f.emissive[101 * W + 100].max_c() > 0.0, "keep the waterline contact");
+        if cap == 4 {
+            assert!((105..=112).all(|y| f.emissive[y * W + 100] == Rgb::BLACK));
+        } else {
+            assert!(f.emissive[112 * W + 100].max_c() > 0.0, "default remains uncapped");
+        }
+    }
+}
+
 /// Measure real game renders without PNG encoding or scaling, with a high particle load too.
 #[test]
 #[ignore = "explicit release-mode render timing and visual output"]

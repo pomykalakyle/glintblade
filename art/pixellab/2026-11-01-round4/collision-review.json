@@ -1,0 +1,235 @@
+{
+  "candidate": "rc2",
+  "binary": "/home/krp/Projects/glintblade/out/pixellab/round4/rc2/glintblade",
+  "sha256": "0ac0b7181123dc6ab6725b7f326811454afd6379145e162e90405d6b5793aff4",
+  "flags": [
+    "peaceful",
+    "god"
+  ],
+  "contacts": [
+    {
+      "name": "tree-b-left",
+      "start": [
+        190,
+        627
+      ],
+      "input": "W300 R90",
+      "before_end": [
+        238.0882110595703,
+        627.0
+      ],
+      "rc2_end": [
+        220.08851623535156,
+        627.0
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/tree-b-left/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/tree-b-left/f00390.png"
+    },
+    {
+      "name": "tree-b-right",
+      "start": [
+        295,
+        627
+      ],
+      "input": "W300 L90",
+      "before_end": [
+        257.4117431640625,
+        627.0
+      ],
+      "rc2_end": [
+        260.41168212890625,
+        627.0
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/tree-b-right/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/tree-b-right/f00390.png"
+    },
+    {
+      "name": "tree-b-above",
+      "start": [
+        240,
+        590
+      ],
+      "input": "W300 D90",
+      "before_end": [
+        240.0,
+        624.5883178710938
+      ],
+      "rc2_end": [
+        240.0,
+        618.5887451171875
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/tree-b-above/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/tree-b-above/f00390.png"
+    },
+    {
+      "name": "tree-b-below",
+      "start": [
+        240,
+        663
+      ],
+      "input": "W300 U90",
+      "before_end": [
+        240.0,
+        634.4112548828125
+      ],
+      "rc2_end": [
+        240.0,
+        635.9110107421875
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/tree-b-below/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/tree-b-below/f00390.png"
+    },
+    {
+      "name": "broken-pillar-left",
+      "start": [
+        505,
+        614
+      ],
+      "input": "W300 R90",
+      "before_end": [
+        536.5884399414062,
+        614.0
+      ],
+      "rc2_end": [
+        532.0889892578125,
+        614.0
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/broken-pillar-left/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/broken-pillar-left/f00390.png"
+    },
+    {
+      "name": "broken-pillar-right",
+      "start": [
+        600,
+        614
+      ],
+      "input": "W300 L90",
+      "before_end": [
+        568.4115600585938,
+        614.0
+      ],
+      "rc2_end": [
+        571.4112548828125,
+        614.0
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/broken-pillar-right/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/broken-pillar-right/f00390.png"
+    },
+    {
+      "name": "broken-pillar-above",
+      "start": [
+        552,
+        575
+      ],
+      "input": "W300 D90",
+      "before_end": [
+        552.0,
+        605.0885620117188
+      ],
+      "rc2_end": [
+        552.0,
+        606.5884399414062
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/broken-pillar-above/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/broken-pillar-above/f00390.png"
+    },
+    {
+      "name": "broken-pillar-below",
+      "start": [
+        552,
+        650
+      ],
+      "input": "W300 U90",
+      "before_end": [
+        552.0,
+        618.4115600585938
+      ],
+      "rc2_end": [
+        552.0,
+        621.4112548828125
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/broken-pillar-below/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/broken-pillar-below/f00390.png"
+    },
+    {
+      "name": "entry-pier-right-cross",
+      "start": [
+        152,
+        598
+      ],
+      "input": "W300 R90",
+      "before_end": [
+        284.08819580078125,
+        598.0
+      ],
+      "rc2_end": [
+        156.952880859375,
+        598.0
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/entry-pier-right-cross/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/entry-pier-right-cross/f00390.png"
+    },
+    {
+      "name": "aqueduct-pier-right",
+      "start": [
+        425,
+        698
+      ],
+      "input": "W300 L90",
+      "before_end": [
+        387.4117431640625,
+        698.0
+      ],
+      "rc2_end": [
+        396.41131591796875,
+        698.0
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/aqueduct-pier-right/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/aqueduct-pier-right/f00390.png"
+    },
+    {
+      "name": "aqueduct-passage",
+      "start": [
+        334,
+        728
+      ],
+      "input": "W300 U90",
+      "before_end": [
+        334.0,
+        634.9116821289062
+      ],
+      "rc2_end": [
+        334.0,
+        636.4116821289062
+      ],
+      "before_frame": "out/pixellab/round4/collisions/before-valid-aqueduct/aqueduct-passage/f00390.png",
+      "rc2_frame": "out/pixellab/round4/collisions/after-rc2/aqueduct-passage/f00390.png"
+    }
+  ],
+  "tests": {
+    "world_tests_passed": 7,
+    "solid_variants": 36,
+    "real_player_walk_dash_approaches": 576,
+    "fractional_anchor_raster_test": "passed",
+    "glasswater_static_key_regression": "passed",
+    "metadata_animations": 44,
+    "metadata_all_opaque_in_bounds_nonoverlapping": true,
+    "offline_export_files": 66,
+    "offline_export_byte_exact": true
+  },
+  "ysort": {
+    "pose": [
+      170,
+      612
+    ],
+    "before": "out/pixellab/round4/collisions/ysort-pier-front-before/f00300.png",
+    "after": "out/pixellab/round4/collisions/ysort-pier-front-rc2/f00300.png",
+    "finding": "Hero now draws in front of the short pier once below its actual visible foot. Legacy anchor hid the head/body behind empty staging rows."
+  },
+  "limits": [
+    "QA probes isolate scenery using invulnerability and no enemies; they do not establish combat balance.",
+    "Four cardinal directions and dash/walk are covered for all 36 fixtures; authored-map captures cover 11 focused approaches.",
+    "Initial before/after-rc1 aqueduct starts were superseded by corrected before-valid-aqueduct and after-rc2 commands.",
+    "Root separately fixed a baked-shadow repaint of Bloomwild sky-cut pixels after this rc2 snapshot; final build needs root verification."
+  ]
+}

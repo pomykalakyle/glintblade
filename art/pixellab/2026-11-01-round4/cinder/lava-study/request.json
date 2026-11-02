@@ -1,0 +1,17 @@
+{
+  "description": "Use case: stylized-concept. Asset type: seamless native pixel-art molten lava surface material for a 384x216 top-down action adventure. Fill the entire 128x128 square with one flat liquid surface, no scenery. A restrained glowing red-orange body with many tiny torn angular fragments of cooled dark obsidian crust floating in it. Each crust fragment is only 2 to 9 native pixels across, uneven and asymmetrical, with connected narrow irregular orange cracks between some fragments. Very sparse 1 pixel pale hot catches. Coherent gentle current left to right. Crisp single-pixel clusters and a limited six-colour game palette. Quiet molten midtone remains dominant. Exact seamless opposite edges, edge-to-edge texture. No border, shore, bank, walls, bridge, island, object, perspective depth, 3D extrusion, big oval patches, repetitive circles, letters, symbols, Y glyphs or straight bright road stripes. Opaque background. Draw an actual close-up material texture, no illustration of a lava landscape.",
+  "width": 128,
+  "height": 128,
+  "no_background": false,
+  "palette": [
+    "#24232d",
+    "#613039",
+    "#a64c3b",
+    "#d8784d",
+    "#f2ae66",
+    "#ffdda0"
+  ],
+  "palette_name": "Glintblade Cinder molten basalt",
+  "max_colors": 6,
+  "seed": 3401
+}

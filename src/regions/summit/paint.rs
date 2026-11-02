@@ -23,7 +23,11 @@ struct Canvas<'a> {
 impl Canvas<'_> {
     #[inline]
     fn lab(&self, x: i32, y: i32) -> u8 {
-        if x < 0 || y < 0 || x >= self.z.pw || y >= self.z.ph { 0 } else { self.lab[(y * self.z.pw + x) as usize] }
+        if x < 0 || y < 0 || x >= self.z.pw || y >= self.z.ph {
+            0
+        } else {
+            self.lab[(y * self.z.pw + x) as usize]
+        }
     }
     #[inline]
     fn set(&mut self, x: i32, y: i32, c: Rgb) {
@@ -68,6 +72,7 @@ pub fn paint(z: &mut Zone) {
     faces(&mut c);
     bridge_parapet(&mut c);
     arena_top(&mut c);
+    observatory_inlay(&mut c);
     seal(&mut c);
     small_top(&mut c, &TERRACE, L_TERRACE, &[50.0], 7.0, 11);
     small_top(&mut c, &LANDING, L_LANDING, &[56.0], 7.0, 23);
@@ -76,6 +81,7 @@ pub fn paint(z: &mut Zone) {
     dais(&mut c);
     cracks(&mut c);
     floor_wear(&mut c);
+    native_floor(&mut c);
 
     // Collision: a tile is floor if its center is on a walkable top.
     let (tw, th) = (c.z.tw, c.z.th);
@@ -85,6 +91,14 @@ pub fn paint(z: &mut Zone) {
             c.z.set_tile(tx, ty, if l != 0 { Tile::Floor } else { Tile::Void });
         }
     }
+    // Install after coarse setters: set_tile deliberately updates any existing precise mask.
+    // Exact native top pixels own feet contact; masonry/undersides remain non-walkable.
+    let surface: Vec<Tile> = c
+        .lab
+        .iter()
+        .map(|&l| if l != 0 { Tile::Floor } else { Tile::Void })
+        .collect();
+    c.z.set_surface_tiles(surface);
 }
 
 // ------------------------------------------------------------------------------------------
@@ -124,7 +138,20 @@ fn under_depth(l: u8, x: i32) -> i32 {
     };
     let cone = base * (1.0 - u * u).max(0.0).powf(1.15);
     // Unequal joined buttresses, with broad ledges and only two deep broken ends.
-    let profile = [(-1.0, 0.12), (-0.82, 0.42), (-0.64, 0.35), (-0.44, 0.87), (-0.28, 0.95), (-0.16, 0.65), (0.12, 0.58), (0.26, 1.0), (0.40, 0.92), (0.53, 0.42), (0.76, 0.47), (1.0, 0.06)];
+    let profile = [
+        (-1.0, 0.12),
+        (-0.82, 0.42),
+        (-0.64, 0.35),
+        (-0.44, 0.87),
+        (-0.28, 0.95),
+        (-0.16, 0.65),
+        (0.12, 0.58),
+        (0.26, 1.0),
+        (0.40, 0.92),
+        (0.53, 0.42),
+        (0.76, 0.47),
+        (1.0, 0.06),
+    ];
     for pair in profile.windows(2) {
         let ((ax, ay), (bx, by)) = (pair[0], pair[1]);
         if u >= ax && u <= bx {
@@ -136,23 +163,27 @@ fn under_depth(l: u8, x: i32) -> i32 {
 }
 
 fn bridge_under_depth(x: i32) -> i32 {
-    // Piers every 64 px hang 40 px; between them a round arch rises to 5 px under the deck.
-    let rel = (x - BRIDGE.0 + 8).rem_euclid(64) as f32;
-    let pier_w = 14.0;
-    if rel < pier_w {
-        let k = (x - BRIDGE.0 + 8).div_euclid(64);
-        let jag = (hash1(x, 91) * 3.0) as i32;
-        return 34 + (hash1(k, 92) * 12.0) as i32 - jag;
-    }
-    let span = 64.0 - pier_w;
-    let m = (rel - pier_w - span * 0.5) / (span * 0.5);
-    let arch = (1.0 - m * m).max(0.0).sqrt();
-    (5.0 + 29.0 * (1.0 - arch)) as i32
+    // One shallow load-bearing arch springs from the two actual island foundations.
+    // The previous arcade had vertical piers terminating in empty sky between islands.
+    let (left, right) = bridge_springlines();
+    let u = ((x as f32 + 0.5 - (left + right) * 0.5) / ((right - left) * 0.5)).clamp(-1.0, 1.0);
+    // Its 18px spring stays inside the adjacent 26px rim and rock shoulder. A tall
+    // arch would simply move the unsupported tips to the ends of the span.
+    (7.0 + 11.0 * (1.0 - (1.0 - u * u).sqrt())) as i32
+}
+
+/// Intersections of the deck's visible south edge with its real supporting platforms.
+fn bridge_springlines() -> (f32, f32) {
+    let y = BRIDGE.3 as f32 - 0.5;
+    let half = |e: Ellipse| e.rx * (1.0 - ((y - e.cy) / e.ry).powi(2)).max(0.0).sqrt();
+    (LANDING.cx + half(LANDING), TERRACE.cx - half(TERRACE))
 }
 
 /// Broad west-facing facets separated by unequal structural clefts.
 fn tooth_side(l: u8, x: i32) -> (bool, f32) {
-    let Some(e) = platform_of(l) else { return (false, 1.0) };
+    let Some(e) = platform_of(l) else {
+        return (false, 1.0);
+    };
     let u = (x as f32 - e.cx) / e.rx;
     let bounds = [-1.0, -0.77, -0.42, -0.19, 0.18, 0.48, 0.80, 1.0];
     for pair in bounds.windows(2) {
@@ -180,8 +211,37 @@ fn faces(c: &mut Canvas) {
             let mut yy = y + 1;
             while yy < ph && yy <= lip + hf + ud && c.lab(x, yy) == 0 {
                 let v = yy - lip - 1;
-                let col = if v < hf { face_px(l, x, lip, v, hf) } else { under_px(l, x, v - hf, ud) };
+                let col = if v < hf {
+                    face_px(l, x, lip, v, hf)
+                } else {
+                    under_px(l, x, v - hf, ud)
+                };
                 c.set(x, yy, col);
+                let nx = platform_of(l).map_or(0.0, |e| ((x as f32 + 0.5 - e.cx) / e.rx).clamp(-0.98, 0.98));
+                let front = [nx, (1.0 - nx * nx).sqrt()];
+                let height = (hf + ud - v).max(0) as f32;
+                c.z.gset_plane_surface(x, yy, if v == 0 { [0.0, 0.0, 1.0] } else { [front[0], front[1], 0.0] }, height);
+                if v >= 2 && v < hf {
+                    if let Some(s) = sheet("summit_masonry") && let Some(a) = s.anim("wall") {
+                        let cell = s.cell(a, 0);
+                        let sx = (rim_u(l, x, lip).floor() as i32).rem_euclid(cell.w);
+                        let sy = (v + if l == L_ARENA { 0 } else { 32 }).rem_euclid(cell.h);
+                        if cell.at(sx, sy).a {
+                            c.z.gset_surface(x, yy, cell, sx, sy, true, height);
+                            c.z.gorient_surface(x, yy, front);
+                        }
+                    }
+                } else if v >= hf && l != L_BRIDGE {
+                    if let Some(s) = sheet("summit_foundation") && let Some(a) = s.anim("rock") {
+                        let cell = s.cell(a, 0);
+                        let sx = (x + l as i32 * 43).rem_euclid(cell.w);
+                        let sy = (v - hf).min(cell.h - 1);
+                        if cell.at(sx, sy).a {
+                            c.z.gset_surface(x, yy, cell, sx, sy, true, height);
+                            c.z.gorient_surface(x, yy, front);
+                        }
+                    }
+                }
                 yy += 1;
             }
             y = yy;
@@ -215,6 +275,31 @@ fn face_px(l: u8, x: i32, lip: i32, v: i32, hf: i32) -> Rgb {
     }
     if v == 1 {
         return F0;
+    }
+    // The generated stone is a native material, not a stretched picture. Its courses
+    // follow the curved wall in rim-space while the original cornice and geometry stay.
+    if let Some(s) = sheet("summit_masonry")
+        && let Some(a) = s.anim("wall")
+    {
+        let cell = s.cell(a, 0);
+        let u = rim_u(l, x, lip).floor() as i32;
+        let p = cell.at(
+            u.rem_euclid(cell.w),
+            (v + if l == L_ARENA { 0 } else { 32 }).rem_euclid(cell.h),
+        );
+        if p.a {
+            let facing = if nx < -0.45 {
+                1.0
+            } else if nx < 0.2 {
+                0.88
+            } else if nx < 0.7 {
+                0.73
+            } else {
+                0.62
+            };
+            let depth = if v > hf - 7 { 0.72 } else { 1.0 };
+            return p.c * (facing * depth);
+        }
     }
     let course_h = if l == L_ARENA { 24 } else { 15 };
     let vv = v - 2;
@@ -271,6 +356,23 @@ fn under_px(l: u8, x: i32, v: i32, ud: i32) -> Rgb {
     }
     let (lit, d) = tooth_side(l, x);
     let k = v as f32 / ud.max(1) as f32;
+    if let Some(s) = sheet("summit_foundation")
+        && let Some(a) = s.anim("rock")
+    {
+        let cell = s.cell(a, 0);
+        let p = cell.at((x + l as i32 * 43).rem_euclid(cell.w), v.min(cell.h - 1));
+        if p.a {
+            let plane = if lit { 0.88 } else { 0.65 };
+            let depth = if k > 0.88 {
+                0.56
+            } else if k > 0.68 {
+                0.76
+            } else {
+                1.0
+            };
+            return p.c * (plane * depth);
+        }
+    }
     if v < 3 || d > 0.94 || k > 0.88 {
         return F0;
     }
@@ -284,32 +386,29 @@ fn under_px(l: u8, x: i32, v: i32, ud: i32) -> Rgb {
 }
 
 fn bridge_under_px(x: i32, v: i32, ud: i32) -> Rgb {
-    let rel = (x - BRIDGE.0 + 8).rem_euclid(64);
-    let pier = rel < 14;
-    if v == ud {
-        return F0;
-    }
-    if pier {
-        // pier: blocks, lit left edge
-        if rel < 2 {
-            return F2B;
-        }
-        if rel == 13 {
+    let (left, right) = bridge_springlines();
+    let u = (x as f32 + 0.5 - (left + right) * 0.5) / ((right - left) * 0.5);
+    // Wedge joints follow the arch, rather than the upright courses of nonexistent piers.
+    let angle = ((v as f32 - 18.0) / 11.0).atan2(u);
+    let wedge = ((angle + PI) * 17.0 / PI).rem_euclid(1.0);
+    if v >= ud - 7 {
+        if wedge < 0.04 || v == ud - 1 {
             return F0;
         }
-        if v % 9 == 8 {
-            return F0;
-        }
-        if v > ud - 6 {
-            return S1;
-        }
-        return F1;
+        return if v == ud - 7 {
+            F2B
+        } else if v >= ud - 3 {
+            F1
+        } else {
+            F2
+        };
     }
-    // spandrel over the arch: dark blocks, the arch ring itself one shade lighter
-    if v >= ud - 3 {
-        return if v == ud - 1 { F2 } else { F1 };
+    // The spandrel bonds into the same dark masonry as the adjacent island walls.
+    if v % 11 == 10 || (x + v / 11 * 19).rem_euclid(35) == 0 {
+        F0
+    } else {
+        F1
     }
-    if v % 9 == 8 || (x + v / 9 * 7).rem_euclid(15) == 0 { F0 } else { F1 }
 }
 
 fn bridge_parapet(c: &mut Canvas) {
@@ -367,7 +466,14 @@ fn bridge_parapet(c: &mut Canvas) {
 
 /// Ring-course stones on an ellipse. Returns (joint, stone id, course index) or None outside.
 /// `bounds` are course boundaries in "ry pixels" (r = rho * ry); the last course runs to ry.
-fn ring_stone(e: &Ellipse, bounds: &[f32], stone_len: f32, seed: u32, x: f32, y: f32) -> Option<(bool, u32, usize)> {
+fn ring_stone(
+    e: &Ellipse,
+    bounds: &[f32],
+    stone_len: f32,
+    seed: u32,
+    x: f32,
+    y: f32,
+) -> Option<(bool, u32, usize)> {
     let u = (x - e.cx) / e.rx;
     let v = (y - e.cy) / e.ry;
     let rho2 = u * u + v * v;
@@ -379,7 +485,11 @@ fn ring_stone(e: &Ellipse, bounds: &[f32], stone_len: f32, seed: u32, x: f32, y:
     // gradient magnitude of r (px of r per screen px)
     let gx = (x - e.cx) / (e.rx * e.rx);
     let gy = (y - e.cy) / (e.ry * e.ry);
-    let gr = if rho > 1e-4 { e.ry * (gx * gx + gy * gy).sqrt() / rho } else { 1.0 };
+    let gr = if rho > 1e-4 {
+        e.ry * (gx * gx + gy * gy).sqrt() / rho
+    } else {
+        1.0
+    };
     let mut course = bounds.len();
     for (i, b) in bounds.iter().enumerate() {
         if r < *b {
@@ -396,10 +506,19 @@ fn ring_stone(e: &Ellipse, bounds: &[f32], stone_len: f32, seed: u32, x: f32, y:
         }
     }
     // radial joints
-    let (lo, hi) = (if course == 0 { 0.0 } else { bounds[course - 1] }, if course < bounds.len() { bounds[course] } else { e.ry });
+    let (lo, hi) = (
+        if course == 0 { 0.0 } else { bounds[course - 1] },
+        if course < bounds.len() {
+            bounds[course]
+        } else {
+            e.ry
+        },
+    );
     let mid = (lo + hi) * 0.5;
     let circ = TAU * (mid / e.ry) * ((e.rx + e.ry) * 0.5);
-    let n = (circ / stone_len).round().max(if course == 0 { 1.0 } else { 3.0 });
+    let n = (circ / stone_len)
+        .round()
+        .max(if course == 0 { 1.0 } else { 3.0 });
     let th = v.atan2(u); // -PI..PI
     let off = hash1(course as i32, seed) + if course % 2 == 1 { 0.5 } else { 0.0 };
     let g = (th + PI) / TAU * n + off;
@@ -424,8 +543,16 @@ struct Tones {
 }
 
 // Combat ground stays quiet; the brighter ramp is confined to the worn perimeter.
-const FLOOR_TONES: Tones = Tones { joint: S1, base: [F2, F2, F2], hi: [F2, F2, F2] };
-const CURB_TONES: Tones = Tones { joint: F2, base: [F3, F3, F2], hi: [F4, F3, F3] };
+const FLOOR_TONES: Tones = Tones {
+    joint: S1,
+    base: [F2, F2, F2],
+    hi: [F2, F2, F2],
+};
+const CURB_TONES: Tones = Tones {
+    joint: F2,
+    base: [F3, F3, F2],
+    hi: [F4, F3, F3],
+};
 
 fn tone_pick(sid: u32, _t: &Tones) -> usize {
     let h = hash1(sid as i32, 999);
@@ -447,52 +574,130 @@ fn arena_top(c: &mut Canvas) {
                 continue;
             }
             let r = e.rho(x as f32 + 0.5, y as f32 + 0.5);
-            let courses = [216, 267, 336, 391, 467, 529, 603, 665];
-            let row = courses.windows(2).position(|p| y >= p[0] && y < p[1]).unwrap_or(6);
-            let off = [0, 43, 17, 78, 31, 93, 58][row];
-            let length = [137, 108, 151, 126, 163, 119, 144][row];
-            let xx = (x + off).rem_euclid(length);
-            let yy = y - courses[row];
+            // The floor was laid around the old prism instrument, so its broad
+            // wedge stones share the platform's perspective instead of forming an
+            // unrelated rectangular grid. Different stone bodies remain close in
+            // value; the Warden's pale telegraphs still own the fighting floor.
+            let stone = ring_stone(&e, &[53.0, 101.0, 148.0, 192.0, 214.0],
+                74.0, 17, x as f32 + 0.5, y as f32 + 0.5);
             let col = if r > 0.958 {
-                let Some((joint, sid, _)) = ring_stone(&e, &[214.0], 76.0, 3, x as f32 + 0.5, y as f32 + 0.5) else { continue };
+                let Some((joint, sid, _)) =
+                    ring_stone(&e, &[214.0], 76.0, 3, x as f32 + 0.5, y as f32 + 0.5)
+                else {
+                    continue;
+                };
                 if joint {
                     F2
                 } else if y < 286 {
                     // Recess the far course behind the head; only the west end catches cold fill.
-                    if r > 0.992 && (506..538).contains(&x) { F3 } else { F2 }
+                    if r > 0.992 && (506..538).contains(&x) {
+                        F3
+                    } else {
+                        F2
+                    }
                 } else if r > 0.992 && y < e.cy as i32 && (x < 454 || (988..1012).contains(&x)) {
                     F3
                 } else {
                     CURB_TONES.base[tone_pick(sid, &CURB_TONES)]
                 }
-            } else if (yy == 0 && !(22..38).contains(&xx)) || (xx == 0 && yy > 0 && !(19..28).contains(&yy)) {
-                // Shallow worn joints share the floor's value instead of making a lattice.
-                S2
             } else {
-                F2
+                let Some((joint, sid, course)) = stone else { continue };
+                let gain = match tone_pick(sid, &FLOOR_TONES) {
+                    0 => 1.0,
+                    1 => 0.965,
+                    _ => 1.035,
+                };
+                // Worn joints disappear for short connected lengths, never
+                // break into freestanding grit or high-contrast radial spokes.
+                let worn = ((x + y / 2 + course as i32 * 13).div_euclid(9)
+                    + sid as i32).rem_euclid(7) == 0;
+                if joint && !worn {
+                    F2.lerp(F1, if course == 0 { 0.15 } else { 0.27 })
+                } else {
+                    F2.scale(gain)
+                }
             };
             c.set(x, y, col);
         }
     }
 }
 
+/// The ruined instrument's stone and tarnished-metal scale. It is static,
+/// non-emissive masonry: two interrupted arcs and a few rooted index marks,
+/// with no free particles or complete target-like circle beneath the player.
+fn observatory_inlay(c: &mut Canvas) {
+    let e = ARENA;
+    let groove = F2.lerp(F1, 0.34);
+    let metal = F2.lerp(S3, 0.23).lerp(G1, 0.10);
+    let worn_metal = F2.lerp(S2, 0.45);
+    for y in 278..610 {
+        for x in 452..989 {
+            if c.lab(x, y) != L_ARENA { continue }
+            let u = (x as f32 + 0.5 - e.cx) / 1.5;
+            let v = y as f32 + 0.5 - e.cy;
+            let r = (u * u + v * v).sqrt();
+            let angle = v.atan2(u);
+            let sector = ((angle + PI) / (TAU / 12.0)).floor() as i32;
+            let local = (angle + PI).rem_euclid(TAU / 12.0);
+            // Three large missing sections expose the ordinary wedge masonry.
+            let retained = !matches!(sector, 1 | 5 | 8)
+                && !(sector == 10 && local > 0.24);
+            if !retained { continue }
+            let ring = if (137.0..140.0).contains(&r) {
+                Some((137.0, 140.0))
+            } else if (158.0..160.0).contains(&r) && sector.rem_euclid(3) != 0 {
+                Some((158.0, 160.0))
+            } else { None };
+            if let Some((inner, outer)) = ring {
+                c.set(x, y, if r < inner + 0.8 { groove }
+                    else if r > outer - 0.8 { metal } else { worn_metal });
+            }
+            // Indexes belong to the surviving arc and share its weathered metal.
+            let ray_distance = r * local.min(TAU / 12.0 - local);
+            if (140.0..147.0).contains(&r) && ray_distance < 0.8 {
+                c.set(x, y, worn_metal);
+            }
+        }
+    }
+}
+
 /// Stamp the artist's cold, cracked seal at native resolution into the fighting floor.
 fn seal(c: &mut Canvas) {
-    let Some(s) = sheet("summit_tiles") else { return };
-    let Some(block) = s.json.get("blocks").and_then(|b| b.get("seal_dim")) else { return };
-    let (Some(at), Some(size)) = (block.get("at"), block.get("size")) else { return };
-    let (Some(tx), Some(ty), Some(tw), Some(th)) = (at[0].as_i64(), at[1].as_i64(), size[0].as_i64(), size[1].as_i64()) else { return };
+    let Some(s) = sheet("summit_tiles") else {
+        return;
+    };
+    let Some(block) = s.json.get("blocks").and_then(|b| b.get("seal_dim")) else {
+        return;
+    };
+    let (Some(at), Some(size)) = (block.get("at"), block.get("size")) else {
+        return;
+    };
+    let (Some(tx), Some(ty), Some(tw), Some(th)) = (
+        at[0].as_i64(),
+        at[1].as_i64(),
+        size[0].as_i64(),
+        size[1].as_i64(),
+    ) else {
+        return;
+    };
     let (w, h) = (tw as i32 * s.cell_w, th as i32 * s.cell_h);
     let (x0, y0) = (ARENA.cx as i32 - w / 2, ARENA.cy as i32 - h / 2);
     for by in 0..th as usize {
         for bx in 0..tw as usize {
-            let Some(cell) = s.cells.get(ty as usize + by).and_then(|row| row.get(tx as usize + bx)) else { continue };
+            let Some(cell) = s
+                .cells
+                .get(ty as usize + by)
+                .and_then(|row| row.get(tx as usize + bx))
+            else {
+                continue;
+            };
             for y in 0..cell.h {
                 for x in 0..cell.w {
                     let px = cell.at(x, y);
                     let (wx, wy) = (x0 + bx as i32 * s.cell_w + x, y0 + by as i32 * s.cell_h + y);
                     if px.a && c.lab(wx, wy) == L_ARENA {
                         c.set(wx, wy, px.c);
+                        c.z.gset_surface(wx, wy, cell, x, y, false, 0.0);
                     }
                 }
             }
@@ -521,7 +726,9 @@ fn small_top(c: &mut Canvas, e: &Ellipse, l: u8, bounds: &[f32], _curb_w: f32, s
     let mut centers: HashMap<u32, (f32, f32, f32)> = HashMap::new();
     for y in y0..=y1 {
         for x in x0..=x1 {
-            if let Some((_, sid, course)) = get(x, y) && course > 0 {
+            if let Some((_, sid, course)) = get(x, y)
+                && course > 0
+            {
                 let c = centers.entry(sid).or_insert((0.0, 0.0, 0.0));
                 c.0 += x as f32 + 0.5;
                 c.1 += y as f32 + 0.5;
@@ -535,14 +742,32 @@ fn small_top(c: &mut Canvas, e: &Ellipse, l: u8, bounds: &[f32], _curb_w: f32, s
             let Some((joint, sid, course)) = get(x, y) else {
                 continue;
             };
-            let t = if course == curb { &CURB_TONES } else { &FLOOR_TONES };
+            let t = if course == curb {
+                &CURB_TONES
+            } else {
+                &FLOOR_TONES
+            };
             let col = if course == 0 {
                 // Broad displaced courses carry the approach; interiors stay unmarked.
                 let cy = e.cy as i32;
-                let row = if y < cy - 18 { 0 } else if y < cy + 20 { 1 } else { 2 };
-                let seams = if l == L_LANDING { [222, 264, 194] } else { [701, 746, 683] };
+                let row = if y < cy - 18 {
+                    0
+                } else if y < cy + 20 {
+                    1
+                } else {
+                    2
+                };
+                let seams = if l == L_LANDING {
+                    [222, 264, 194]
+                } else {
+                    [701, 746, 683]
+                };
                 let sx = seams[row] + if row == 1 && y >= cy + 3 { 2 } else { 0 };
-                if y == cy - 18 || y == cy + 20 || x == sx || (row == 1 && y == cy + 3 && (sx - 2..=sx).contains(&x)) {
+                if y == cy - 18
+                    || y == cy + 20
+                    || x == sx
+                    || (row == 1 && y == cy + 3 && (sx - 2..=sx).contains(&x))
+                {
                     S2
                 } else {
                     F2
@@ -551,7 +776,9 @@ fn small_top(c: &mut Canvas, e: &Ellipse, l: u8, bounds: &[f32], _curb_w: f32, s
                 t.joint
             } else {
                 let k = tone_pick(sid, t);
-                let edge = |o: Option<(bool, u32, usize)>| o.map(|(j, s, _)| j || s != sid).unwrap_or(true);
+                let edge = |o: Option<(bool, u32, usize)>| {
+                    o.map(|(j, s, _)| j || s != sid).unwrap_or(true)
+                };
                 // Cold fill catches a few upper-left stone lips, not a luminous circular rail.
                 let u = (x as f32 - e.cx) / e.rx;
                 let v = (y as f32 - e.cy) / e.ry;
@@ -608,7 +835,11 @@ fn bridge_deck(c: &mut Canvas) {
             } else {
                 let k = tone_pick(sid as u32 + 77, t);
                 let edge = |o: Option<(bool, i32)>| o.map(|(j, s)| j || s != sid).unwrap_or(true);
-                if edge(id(x - 1, y)) || edge(id(x, y - 1)) { t.hi[k] } else { t.base[k] }
+                if edge(id(x - 1, y)) || edge(id(x, y - 1)) {
+                    t.hi[k]
+                } else {
+                    t.base[k]
+                }
             };
             buf.push((x, y, col));
         }
@@ -667,7 +898,8 @@ fn stair(c: &mut Canvas) {
                     _ => F2,
                 };
                 // chipped nosings here and there
-                let chipped = [(1, 711, 719), (4, 726, 736), (6, 707, 713)].iter()
+                let chipped = [(1, 711, 719), (4, 726, 736), (6, 707, 713)]
+                    .iter()
                     .any(|&(step, left, right)| yr / 8 == step && (left..right).contains(&x));
                 let col = if r == 4 && chipped { F2 } else { col };
                 c.set(x, y, col);
@@ -724,9 +956,42 @@ fn stair(c: &mut Canvas) {
 
 /// Two-tier round plinth under the Prism. Tops are shifted up by their height (3/4 view).
 fn dais(c: &mut Canvas) {
-    let tiers = [(DAIS, 6.0f32, F2), (Ellipse { cx: DAIS.cx, cy: DAIS.cy - 6.0, rx: DAIS.rx * 0.68, ry: DAIS.ry * 0.68 }, 6.0, F2)];
+    if let Some(s) = sheet("summit_dais")
+        && let Some(a) = s.anim("dais")
+    {
+        let cell = s.cell(a, 0);
+        let (ax, ay) = s.anchor_of(a);
+        for y in 0..cell.h {
+            for x in 0..cell.w {
+                let (wx, wy) = (DAIS.cx as i32 - ax + x, DAIS.cy as i32 + 14 - ay + y);
+                let p = cell.at(x, y);
+                if p.a && c.lab(wx, wy) == L_ARENA {
+                    c.set(wx, wy, p.c);
+                    c.z.gset_surface(wx, wy, cell, x, y, true, (cell.h - y - 1).min(12).max(0) as f32);
+                }
+            }
+        }
+        return;
+    }
+    let tiers = [
+        (DAIS, 6.0f32, F2),
+        (
+            Ellipse {
+                cx: DAIS.cx,
+                cy: DAIS.cy - 6.0,
+                rx: DAIS.rx * 0.68,
+                ry: DAIS.ry * 0.68,
+            },
+            6.0,
+            F2,
+        ),
+    ];
     for (e, hgt, top) in tiers {
-        let te = Ellipse { cx: e.cx, cy: e.cy - hgt, ..e };
+        let te = Ellipse {
+            cx: e.cx,
+            cy: e.cy - hgt,
+            ..e
+        };
         let x0 = (e.cx - e.rx) as i32 - 1;
         let x1 = (e.cx + e.rx) as i32 + 1;
         let y0 = (te.cy - e.ry) as i32 - 1;
@@ -746,7 +1011,8 @@ fn dais(c: &mut Canvas) {
                 let bs = e.cy + half; // base outline (south)
                 if in_top {
                     let rho = te.rho(fx, fy);
-                    let col = if rho > 0.93 && fy < te.cy && u < -0.55 && !(232..=239).contains(&y) {
+                    let col = if rho > 0.93 && fy < te.cy && u < -0.55 && !(232..=239).contains(&y)
+                    {
                         F3
                     } else {
                         top
@@ -762,12 +1028,18 @@ fn dais(c: &mut Canvas) {
         }
     }
     // A shallow socket keeps its rim without becoming a dark cap behind the Keeper.
-    let e = Ellipse { cx: DAIS.cx, cy: DAIS.cy - 12.0, rx: DAIS.rx * 0.40, ry: DAIS.ry * 0.40 };
+    let e = Ellipse {
+        cx: DAIS.cx,
+        cy: DAIS.cy - 12.0,
+        rx: DAIS.rx * 0.40,
+        ry: DAIS.ry * 0.40,
+    };
     for y in (e.cy - e.ry) as i32 - 2..=(e.cy + e.ry) as i32 + 2 {
         for x in (e.cx - e.rx) as i32 - 2..=(e.cx + e.rx) as i32 + 2 {
             let rho = e.rho(x as f32 + 0.5, y as f32 + 0.5);
             if (rho - 1.0).abs() < 0.07 {
-                let far_cut = (y as f32) < e.cy && (x as f32) < e.cx && x.div_euclid(5).rem_euclid(3) != 0;
+                let far_cut =
+                    (y as f32) < e.cy && (x as f32) < e.cx && x.div_euclid(5).rem_euclid(3) != 0;
                 c.set(x, y, if far_cut { F1 } else { F2 });
             } else if rho < 0.93 {
                 c.set(x, y, F2);
@@ -778,7 +1050,11 @@ fn dais(c: &mut Canvas) {
 
 /// Three structural cracks collect at the loaded perimeter, leaving the fighting floor calm.
 fn cracks(c: &mut Canvas) {
-    let starts: [(f32, f32, f32, i32, u32); 3] = [(470.0, 520.0, 2.6, 34, 5), (968.0, 330.0, 0.6, 29, 6), (560.0, 300.0, -2.3, 23, 7)];
+    let starts: [(f32, f32, f32, i32, u32); 3] = [
+        (470.0, 520.0, 2.6, 34, 5),
+        (968.0, 330.0, 0.6, 29, 6),
+        (560.0, 300.0, -2.3, 23, 7),
+    ];
     for (sx, sy, a0, len, seed) in starts {
         crack(c, sx, sy, a0, len, seed, true);
     }
@@ -801,14 +1077,25 @@ fn crack(c: &mut Canvas, sx: f32, sy: f32, a0: f32, len: i32, seed: u32, branch:
         }
         c.set(xi, yi, F0);
         // the far lip of the crack catches the light
-        if hash1(i, seed + 9) < 0.5 && c.lab(xi + 1, yi + 1) == L_ARENA && c.get(xi + 1, yi + 1) != F0 {
+        if hash1(i, seed + 9) < 0.5
+            && c.lab(xi + 1, yi + 1) == L_ARENA
+            && c.get(xi + 1, yi + 1) != F0
+        {
             let b = c.get(xi + 1, yi + 1);
             if b == F2 || b == F2B {
                 c.set(xi + 1, yi + 1, F1);
             }
         }
         if branch && i > 12 && i % 23 == 0 {
-            crack(c, x, y, a + if hash1(i, seed + 3) < 0.5 { 0.8 } else { -0.8 }, len / 3, seed + 100 + i as u32, false);
+            crack(
+                c,
+                x,
+                y,
+                a + if hash1(i, seed + 3) < 0.5 { 0.8 } else { -0.8 },
+                len / 3,
+                seed + 100 + i as u32,
+                false,
+            );
         }
     }
 }
@@ -847,40 +1134,209 @@ fn floor_fragment(c: &mut Canvas, points: &[(i32, i32)], col: Rgb) {
 fn floor_wear(c: &mut Canvas) {
     // Shallow curb cuts open onto a joint or the edge, rather than floating over a slab.
     for (cut, facet) in [
-        ([(122, 778), (139, 778), (146, 781), (138, 783), (122, 781)],
-         [(123, 781), (138, 782), (146, 781), (139, 784), (123, 782)]),
-        ([(216, 832), (221, 831), (224, 834), (222, 837), (217, 836)],
-         [(217, 835), (221, 835), (224, 834), (223, 838), (218, 837)]),
-        ([(396, 510), (406, 510), (412, 514), (407, 516), (398, 514)],
-         [(399, 514), (407, 515), (412, 514), (408, 517), (399, 516)]),
-        ([(623, 657), (629, 652), (635, 649), (639, 651), (634, 656)],
-         [(627, 656), (634, 652), (639, 651), (635, 657), (630, 659)]),
-        ([(1003, 550), (997, 546), (995, 543), (999, 544), (1007, 549)],
-         [(998, 548), (997, 545), (1000, 546), (1008, 550), (1005, 551)]),
-        ([(943, 274), (950, 277), (949, 280), (943, 279), (940, 277)],
-         [(942, 278), (946, 278), (950, 280), (948, 282), (944, 281)]),
-        ([(807, 829), (803, 825), (802, 822), (806, 823), (811, 828)],
-         [(804, 826), (804, 824), (807, 825), (812, 829), (809, 831)]),
+        (
+            [(122, 778), (139, 778), (146, 781), (138, 783), (122, 781)],
+            [(123, 781), (138, 782), (146, 781), (139, 784), (123, 782)],
+        ),
+        (
+            [(216, 832), (221, 831), (224, 834), (222, 837), (217, 836)],
+            [(217, 835), (221, 835), (224, 834), (223, 838), (218, 837)],
+        ),
+        (
+            [(396, 510), (406, 510), (412, 514), (407, 516), (398, 514)],
+            [(399, 514), (407, 515), (412, 514), (408, 517), (399, 516)],
+        ),
+        (
+            [(623, 657), (629, 652), (635, 649), (639, 651), (634, 656)],
+            [(627, 656), (634, 652), (639, 651), (635, 657), (630, 659)],
+        ),
+        (
+            [(1003, 550), (997, 546), (995, 543), (999, 544), (1007, 549)],
+            [
+                (998, 548),
+                (997, 545),
+                (1000, 546),
+                (1008, 550),
+                (1005, 551),
+            ],
+        ),
+        (
+            [(943, 274), (950, 277), (949, 280), (943, 279), (940, 277)],
+            [(942, 278), (946, 278), (950, 280), (948, 282), (944, 281)],
+        ),
+        (
+            [(807, 829), (803, 825), (802, 822), (806, 823), (811, 828)],
+            [(804, 826), (804, 824), (807, 825), (812, 829), (809, 831)],
+        ),
     ] {
         floor_fragment(c, &cut, S1);
         floor_fragment(c, &facet, F2);
     }
 
     // Two loaded landing joints retain a short lit lip at their clipped corners.
-    floor_fragment(c, &[(258, 758), (267, 755), (269, 758), (264, 762), (258, 761)], S1);
-    floor_fragment(c, &[(258, 761), (264, 761), (269, 758), (267, 762), (258, 763)], F3);
-    floor_fragment(c, &[(194, 796), (194, 792), (200, 796), (198, 799), (195, 799)], S1);
-    floor_fragment(c, &[(194, 798), (198, 798), (200, 796), (199, 800), (194, 799)], F2);
+    floor_fragment(
+        c,
+        &[(258, 758), (267, 755), (269, 758), (264, 762), (258, 761)],
+        S1,
+    );
+    floor_fragment(
+        c,
+        &[(258, 761), (264, 761), (269, 758), (267, 762), (258, 763)],
+        F3,
+    );
+    floor_fragment(
+        c,
+        &[(194, 796), (194, 792), (200, 796), (198, 799), (195, 799)],
+        S1,
+    );
+    floor_fragment(
+        c,
+        &[(194, 798), (198, 798), (200, 796), (199, 800), (194, 799)],
+        F2,
+    );
 
     // Shallow abrasion stays on the footpath's actual bridge and stair thresholds.
-    for (x, y, width) in [(326, 773, 13), (622, 776, 11), (714, 804, 14), (709, 651, 15)] {
-        floor_fragment(c, &[(x, y), (x + width, y), (x + width - 4, y + 2), (x + 2, y + 2)], S2);
-        floor_fragment(c, &[(x + 2, y), (x + width - 3, y), (x + width - 5, y + 1), (x + 2, y + 1)], F3);
+    for (x, y, width) in [
+        (326, 773, 13),
+        (622, 776, 11),
+        (714, 804, 14),
+        (709, 651, 15),
+    ] {
+        floor_fragment(
+            c,
+            &[
+                (x, y),
+                (x + width, y),
+                (x + width - 4, y + 2),
+                (x + 2, y + 2),
+            ],
+            S2,
+        );
+        floor_fragment(
+            c,
+            &[
+                (x + 2, y),
+                (x + width - 3, y),
+                (x + width - 5, y + 1),
+                (x + 2, y + 1),
+            ],
+            F3,
+        );
     }
 
     // Only two loaded arena joints lose corners; the central fighting floor stays broad.
     for (x, y) in [(503, 529), (876, 336)] {
         floor_fragment(c, &[(x, y), (x + 10, y), (x + 5, y + 4), (x, y + 3)], S1);
-        floor_fragment(c, &[(x + 1, y + 3), (x + 5, y + 3), (x + 10, y), (x + 8, y + 3), (x + 2, y + 4)], F2);
+        floor_fragment(
+            c,
+            &[
+                (x + 1, y + 3),
+                (x + 5, y + 3),
+                (x + 10, y),
+                (x + 8, y + 3),
+                (x + 2, y + 4),
+            ],
+            F2,
+        );
+    }
+}
+
+/// The fighting floor remains large calm slabs. A sparse set of native 32px
+/// abrasions adds material to the approach and loaded rim, never a checkerboard.
+/// Authored seams, curb highlights, steps, seal, dais and fractures are protected.
+fn native_floor(c: &mut Canvas) {
+    let Some(s) = sheet("summit_floor") else {
+        return;
+    };
+    let Some(a) = s.anim("stone") else { return };
+    if s.cell_w != 32 || s.cell_h != 32 || a.frames == 0 {
+        return;
+    }
+    for ty in 0..(c.z.ph + 31) / 32 {
+        for tx in 0..(c.z.pw + 31) / 32 {
+            let (x0, y0) = (tx * 32, ty * 32);
+            let l = c.lab(x0 + 16, y0 + 16);
+            if !matches!(l, L_ARENA | L_LANDING | L_TERRACE | L_BRIDGE) {
+                continue;
+            }
+            let rho = ARENA.rho((x0 + 16) as f32, (y0 + 16) as f32);
+            let coverage = if l == L_ARENA {
+                if rho < 0.64 { 0.16 } else { 0.44 }
+            } else {
+                0.7
+            };
+            if hash2(tx, ty, 940) > coverage {
+                continue;
+            }
+            let variant = ((tx.rem_euclid(a.frames as i32) + ty * (a.frames as i32 / 2 + 1))
+                .rem_euclid(a.frames as i32)) as usize;
+            let cell = s.cell(a, variant);
+            for y in 0..32 {
+                for x in 0..32 {
+                    let (wx, wy) = (x0 + x, y0 + y);
+                    if c.lab(wx, wy) != l || c.get(wx, wy) != F2 {
+                        continue;
+                    }
+                    // Keep the dais and its precise empty socket free of incidental wear.
+                    if DAIS.rho(wx as f32, wy as f32) < 1.15 {
+                        continue;
+                    }
+                    let p = cell.at(x, y);
+                    if p.a {
+                        c.set(wx, wy, p.c);
+                        c.z.gset_surface(wx, wy, cell, x, y, false, 0.0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod bridge_support_tests {
+    use super::*;
+
+    #[test]
+    fn one_shallow_arch_seats_in_the_actual_island_foundations() {
+        let (left, right) = bridge_springlines();
+        assert!((329.0..332.0).contains(&left));
+        assert!((594.0..598.0).contains(&right));
+        let center = ((left + right) * 0.5) as i32;
+        let middle = bridge_under_depth(center);
+        assert_eq!(middle, 7);
+        // One uninterrupted opening: no periodic vertical piers into empty sky.
+        let mut previous = bridge_under_depth(left.ceil() as i32);
+        for x in left.ceil() as i32 + 1..=center {
+            let depth = bridge_under_depth(x);
+            assert!(
+                depth <= previous,
+                "the arch rises continuously toward its crown"
+            );
+            previous = depth;
+        }
+        for x in center + 1..right.floor() as i32 {
+            let depth = bridge_under_depth(x);
+            assert!(
+                depth >= previous,
+                "the arch descends continuously into the other foundation"
+            );
+            previous = depth;
+        }
+        for (x, platform, label) in [
+            (left.floor() as i32, LANDING, L_LANDING),
+            (right.ceil() as i32, TERRACE, L_TERRACE),
+        ] {
+            let shoulder = face_height(label) + under_depth(label, x);
+            let spring = face_height(L_BRIDGE) + bridge_under_depth(x);
+            let platform_lip = platform.cy
+                + platform.ry
+                    * (1.0 - ((x as f32 + 0.5 - platform.cx) / platform.rx).powi(2))
+                        .max(0.0)
+                        .sqrt();
+            assert!(
+                BRIDGE.3 as f32 + spring as f32 <= platform_lip + shoulder as f32 + 2.0,
+                "the spring at {x} must be seated in real platform masonry/rock, not hang below it"
+            );
+        }
     }
 }

@@ -2,10 +2,10 @@
 //! over the painted lakebed with crisp palette steps (no blending), plus shore lapping,
 //! wobbling reflections of the crystals and mushrooms on the shore.
 
-use super::art::{ROCK, VIOLET, WATER};
-use super::paint::{DEEP, Fields, PixMap, SHALLOW};
+use super::art::{VIOLET, WATER};
+use super::paint::{DEEP, DEEP_WATER, Fields, PixMap, SHALLOW, deep_water_level};
 use super::{Decor, Kind};
-use crate::gfx::{Cell, Frame, H, Rgb, W};
+use crate::gfx::{Cell, Frame, H, Rgb, W, rgb};
 use crate::util::{bayer4, hash2};
 
 /// Ripple grid cell size in world pixels. Heights are sampled bilinearly per pixel, so ring
@@ -13,9 +13,9 @@ use crate::util::{bayer4, hash2};
 const CELL: i32 = 2;
 /// Wave speed squared (cells per tick, squared). Must stay below 0.5 for stability.
 const C2: f32 = 0.30;
-const DAMP: f32 = 0.982;
+const DAMP: f32 = 0.972;
 /// The open deep surface inside a lake interval: slate between WATER[0] and WATER[1].
-const OPEN_DEEP: Rgb = ROCK[1];
+const OPEN_DEEP: Rgb = rgb(0x234255);
 /// Broad, unequal horizontal intervals on the lake's open deep surface, in world pixels:
 /// (y0, y1, x0, x1, left end step per row, right end step per row, drift phase).
 /// Heights and gaps grow toward the near shore so the dark body reads as one level plane.
@@ -30,7 +30,15 @@ const LAKE_INTERVALS: [(i32, i32, i32, i32, i32, i32, u32); 7] = [
 ];
 /// Short paired catches beside the lake's crystals: (y, x0, x1, drift phase). Inside a
 /// crystal's reach they take WATER[2]; elsewhere they step one ramp colour up.
-const LAKE_CATCHES: [(i32, i32, i32, u32); 7] = [(339, 361, 380, 0), (341, 367, 373, 61), (412, 471, 490, 90), (414, 477, 484, 151), (427, 549, 573, 260), (430, 556, 563, 311), (423, 652, 670, 140)];
+const LAKE_CATCHES: [(i32, i32, i32, u32); 7] = [
+    (339, 361, 380, 0),
+    (341, 367, 373, 61),
+    (412, 471, 490, 90),
+    (414, 477, 484, 151),
+    (427, 549, 573, 260),
+    (430, 556, 563, 311),
+    (423, 652, 670, 140),
+];
 /// Ticks per drift cycle of the lake intervals and catches (7 s at 60 Hz).
 const LAKE_PERIOD: f32 = 420.0;
 
@@ -55,11 +63,15 @@ pub struct Water {
     ph: i32,
     /// Per world pixel: 255 = no water; else the lakebed's WATER ramp index (0..=3), +8 if deep.
     bed: Vec<u8>,
+    /// Baked underwater terrace shade (0..=3), independent of ripple/shore cue indices.
+    depth_tone: Vec<u8>,
     /// Per world pixel: distance to land (px), capped.
     dland: Vec<u8>,
     /// Selected shore segments share a world-anchored phase, never a screen-space pattern.
     shore: Vec<u8>,
     source: Vec<Option<SourceCrest>>,
+    /// Sparse horizontal surface catches, baked into the actual receiving water.
+    currents: Vec<u8>,
     mirrors: Vec<BankMirror>,
     gw: i32,
     gh: i32,
@@ -74,6 +86,7 @@ impl Water {
     pub fn new(m: &PixMap, fl: &Fields, ground: &[Rgb], decor: &[Decor]) -> Water {
         let (pw, ph) = (m.w, m.h);
         let mut bed = vec![255u8; (pw * ph) as usize];
+        let mut depth_tone = vec![0u8; bed.len()];
         for i in 0..bed.len() {
             let c = m.cls[i];
             if c == SHALLOW || c == DEEP {
@@ -88,7 +101,14 @@ impl Water {
                         best = k;
                     }
                 }
-                bed[i] = best.min(3) as u8 + if c == DEEP { 8 } else { 0 };
+                if c == DEEP {
+                    let (x, y) = (i as i32 % pw, i as i32 / pw);
+                    let d = fl.d_land[i];
+                    bed[i] = 8 + u8::from(d < 8 && m.rock(x, y - d as i32 - 2));
+                    depth_tone[i] = deep_water_level(fl, x, y, i) as u8;
+                } else {
+                    bed[i] = best.min(3) as u8;
+                }
             }
         }
         // Propagate nearest dry coordinates only through the receiving shore and its quiet outgoing wave band.
@@ -109,7 +129,16 @@ impl Water {
         for band in bands.iter().skip(1) {
             for &i in band {
                 let (x, y) = (i as i32 % pw, i as i32 / pw);
-                for (nx, ny) in [(x, y - 1), (x - 1, y), (x + 1, y), (x, y + 1), (x - 1, y - 1), (x + 1, y - 1), (x - 1, y + 1), (x + 1, y + 1)] {
+                for (nx, ny) in [
+                    (x, y - 1),
+                    (x - 1, y),
+                    (x + 1, y),
+                    (x, y + 1),
+                    (x - 1, y - 1),
+                    (x + 1, y - 1),
+                    (x - 1, y + 1),
+                    (x + 1, y + 1),
+                ] {
                     if nx < 0 || ny < 0 || nx >= pw || ny >= ph {
                         continue;
                     }
@@ -127,6 +156,27 @@ impl Water {
             }
         }
         let mut source = vec![None; bed.len()];
+        let mut currents = vec![0; bed.len()];
+        for y in 0..ph {
+            let row = y.div_euclid(19);
+            let line = 3 + (hash2(row, 0, 877) * 10.0) as i32;
+            if y.rem_euclid(19) != line {
+                continue;
+            }
+            for x in 0..pw {
+                let i = (y * pw + x) as usize;
+                if bed[i] == 255 || fl.d_land[i] < 5 {
+                    continue;
+                }
+                let col = (x + row * 29).div_euclid(79);
+                let start = 7 + (hash2(col, row, 879) * 24.0) as i32;
+                let length = 8 + (hash2(col, row, 881) * 16.0) as i32;
+                let local = (x + row * 29).rem_euclid(79);
+                if (start..start + length).contains(&local) {
+                    currents[i] = 1;
+                }
+            }
+        }
         let mut mirrors = Vec::new();
         for d in decor {
             if d.kind != Kind::Crystal {
@@ -149,23 +199,44 @@ impl Water {
                     if r < 5.0 || r > 42.0 || dy < 2.0 || dx.abs() < dy * 0.25 {
                         continue;
                     }
-                    let crest = SourceCrest { radius: (r * 4.0).round() as u8, phase: ((cx + cy).rem_euclid(96)) as u8, glint: dx.abs() < 16.0 && fl.d_land[i] > 2 };
+                    let crest = SourceCrest {
+                        radius: (r * 4.0).round() as u8,
+                        phase: ((cx + cy).rem_euclid(96)) as u8,
+                        glint: dx.abs() < 16.0 && fl.d_land[i] > 2,
+                    };
                     if source[i].is_none_or(|old: SourceCrest| crest.radius < old.radius) {
                         source[i] = Some(crest);
                     }
                 }
             }
             if let Some(mirror) = d.mirror {
-                let ax = if d.flip { d.cell.w - 1 - d.anchor.0 } else { d.anchor.0 };
+                let ax = if d.flip {
+                    d.cell.w - 1 - d.anchor.0
+                } else {
+                    d.anchor.0
+                };
                 let left = cx - ax;
                 let mut lines = Vec::new();
                 let mut pixels = Vec::new();
                 for x in left..left + d.cell.w {
-                    let line = (cy..mirror.ceil() as i32 + 8).find(|&y| x >= 0 && x < pw && y >= 0 && y < ph && bed[(y * pw + x) as usize] != 255).unwrap_or(mirror.floor() as i32);
+                    let line = (cy..mirror.ceil() as i32 + 8)
+                        .find(|&y| {
+                            x >= 0
+                                && x < pw
+                                && y >= 0
+                                && y < ph
+                                && bed[(y * pw + x) as usize] != 255
+                        })
+                        .unwrap_or(mirror.floor() as i32);
                     lines.push(line);
                     for y in cy..line {
                         let wy = 2 * line - 1 - y;
-                        if x < 0 || x >= pw || y < 0 || wy >= ph || bed[(wy * pw + x) as usize] == 255 {
+                        if x < 0
+                            || x >= pw
+                            || y < 0
+                            || wy >= ph
+                            || bed[(wy * pw + x) as usize] == 255
+                        {
                             continue;
                         }
                         let l = ground[(y * pw + x) as usize].luma();
@@ -182,7 +253,12 @@ impl Water {
                         ));
                     }
                 }
-                mirrors.push(BankMirror { source: (cx, cy), left, lines, pixels });
+                mirrors.push(BankMirror {
+                    source: (cx, cy),
+                    left,
+                    lines,
+                    pixels,
+                });
             }
         }
         let gw = pw / CELL + 1;
@@ -207,12 +283,32 @@ impl Water {
                 }
             }
         }
-        Water { pw, ph, bed, dland: fl.d_land.clone(), shore, source, mirrors, gw, gh, cur: vec![0.0; (gw * gh) as usize], prev: vec![0.0; (gw * gh) as usize], wet, active }
+        Water {
+            pw,
+            ph,
+            bed,
+            depth_tone,
+            dland: fl.d_land.clone(),
+            shore,
+            source,
+            currents,
+            mirrors,
+            gw,
+            gh,
+            cur: vec![0.0; (gw * gh) as usize],
+            prev: vec![0.0; (gw * gh) as usize],
+            wet,
+            active,
+        }
     }
 
     #[inline]
     pub fn is_water(&self, x: i32, y: i32) -> bool {
-        x >= 0 && y >= 0 && x < self.pw && y < self.ph && self.bed[(y * self.pw + x) as usize] != 255
+        x >= 0
+            && y >= 0
+            && x < self.pw
+            && y < self.ph
+            && self.bed[(y * self.pw + x) as usize] != 255
     }
 
     /// Push the surface down in a small disc at world (x, y).
@@ -225,7 +321,8 @@ impl Water {
                 if gx < 1 || gy < 1 || gx >= self.gw - 1 || gy >= self.gh - 1 {
                     continue;
                 }
-                let d = ((gx as f32 + 0.5 - cx).powi(2) + (gy as f32 + 0.5 - cy).powi(2)).sqrt() / rr;
+                let d =
+                    ((gx as f32 + 0.5 - cx).powi(2) + (gy as f32 + 0.5 - cy).powi(2)).sqrt() / rr;
                 if d < 1.0 {
                     let i = (gy * self.gw + gx) as usize;
                     if self.wet[i] {
@@ -283,6 +380,7 @@ impl Water {
             if wy < 0 || wy >= self.ph {
                 continue;
             }
+            let offset = ((t as f32 / 240.0 + wy as f32 * 0.04).sin()).round() as i32;
             for sx in 0..W as i32 {
                 let wx = sx + f.cam_x;
                 if wx < 0 || wx >= self.pw {
@@ -300,7 +398,8 @@ impl Water {
                 let ox = (dx * 5.0).round().clamp(-2.0, 2.0) as i32;
                 let oy = (dy * 5.0).round().clamp(-2.0, 2.0) as i32;
                 let mut idx = if ox != 0 || oy != 0 {
-                    let j = ((wy + oy).clamp(0, self.ph - 1) * self.pw + (wx + ox).clamp(0, self.pw - 1)) as usize;
+                    let j = ((wy + oy).clamp(0, self.ph - 1) * self.pw
+                        + (wx + ox).clamp(0, self.pw - 1)) as usize;
                     let bb = self.bed[j];
                     if bb == 255 { b & 7 } else { bb & 7 }
                 } else {
@@ -328,9 +427,15 @@ impl Water {
                 }
                 // Short horizontal catches lie on the plane across shallow and deep alike.
                 let open = deep && b & 7 == 0;
-                let caught = lake_catch(wx, wy, t);
+                let mx = (wx + offset).clamp(0, self.pw - 1);
+                let caught = lake_catch(wx, wy, t)
+                    || self.currents[(wy * self.pw + mx) as usize] != 0 && dl > 4;
                 if caught {
-                    idx = if self.source[i].is_some() { 2 } else { (idx + 1).min(2) };
+                    idx = if self.source[i].is_some() {
+                        2
+                    } else {
+                        (idx + 1).min(2)
+                    };
                 }
                 // ripple shading in crisp steps
                 let th = 0.085 + bayer4(wx, wy) * 0.008;
@@ -341,8 +446,22 @@ impl Water {
                     idx = (idx - 1).max(0);
                     dark = true;
                 }
-                let surface = if open && idx == 0 && !dark && !caught && lake_interval(wx, wy, t) { OPEN_DEEP } else { WATER[idx.clamp(0, 2) as usize] };
-                f.albedo[sy as usize * W + sx as usize] = if glint { VIOLET[2] } else { surface };
+                let surface = if open && idx == 0 && !dark && !caught {
+                    let base = DEEP_WATER[self.depth_tone[i] as usize];
+                    if lake_interval(wx, wy, t) {
+                        base.lerp(OPEN_DEEP, 0.48)
+                    } else {
+                        base
+                    }
+                } else {
+                    WATER[idx.clamp(0, 2) as usize]
+                };
+                let screen = sy as usize * W + sx as usize;
+                f.albedo[screen] = if glint { VIOLET[2] } else { surface };
+                // Actors and gates share the real water plane. The landmarks use their
+                // column-specific reflection below, so region scenery opts out of this pass.
+                f.water[screen] = 255;
+                f.water_any = true;
             }
         }
     }
@@ -350,23 +469,49 @@ impl Water {
     /// A wobbling, darkened mirror image of a sprite standing at world (x, y), drawn only on water.
     /// Emissive pixels reflect as dimmer glow.
     #[allow(clippy::too_many_arguments)]
-    pub fn reflect(&self, f: &mut Frame, cell: &Cell, anchor: (i32, i32), x: f32, y: f32, flip: bool, emit_gain: f32, t: u64) {
-        let ax = if flip { cell.w - 1 - anchor.0 } else { anchor.0 };
+    pub fn reflect(
+        &self,
+        f: &mut Frame,
+        cell: &Cell,
+        anchor: (i32, i32),
+        x: f32,
+        y: f32,
+        flip: bool,
+        emit_gain: f32,
+        t: u64,
+    ) {
+        let ax = if flip {
+            cell.w - 1 - anchor.0
+        } else {
+            anchor.0
+        };
         let base_x = x.floor() as i32 - ax;
         let base_y = y.floor() as i32;
         let tf = t as f32;
-        let mirror = self.mirrors.iter().find(|m| m.source == (x.floor() as i32, base_y));
+        let mirror = self
+            .mirrors
+            .iter()
+            .find(|m| m.source == (x.floor() as i32, base_y));
         if let Some(m) = mirror {
             for &(wx, wy, idx) in &m.pixels {
                 let depth = wy - m.lines[(wx - m.left) as usize];
-                if (8..=10).contains(&depth) || (18..=20).contains(&depth)
-                    || depth > 22 && depth % 4 >= 2 {
+                if (8..=10).contains(&depth)
+                    || (18..=20).contains(&depth)
+                    || depth > 22 && depth % 4 >= 2
+                {
                     continue;
                 }
                 // Keep contact fixed; only the lower reflected bank shears with the surface.
-                let wob = if depth <= 2 { 0 } else { ((wy as f32 * 0.15 + tf * 0.025).sin() * 0.7).round() as i32 };
+                let wob = if depth <= 2 {
+                    0
+                } else {
+                    ((wy as f32 * 0.15 + tf * 0.025).sin() * 0.7).round() as i32
+                };
                 let (sx, sy) = (wx + wob - f.cam_x, wy - f.cam_y);
-                if self.is_water(wx + wob, wy) && (0..W as i32).contains(&sx) && (0..H as i32).contains(&sy) {
+                if self.is_water(wx + wob, wy)
+                    && (0..W as i32).contains(&sx)
+                    && (0..H as i32).contains(&sy)
+                {
                     f.albedo[sy as usize * W + sx as usize] = WATER[idx];
                 }
             }
@@ -379,8 +524,10 @@ impl Water {
             let wy = base_y + hgt;
             // Broad unequal water intervals break the reflected vertical mass into a surface.
             let broken = if mirror.is_some() {
-                (9..=11).contains(&hgt) || (24..=26).contains(&hgt)
-                    || (39..=42).contains(&hgt) || hgt > 29 && hgt % 4 >= 2
+                (9..=11).contains(&hgt)
+                    || (24..=26).contains(&hgt)
+                    || (39..=42).contains(&hgt)
+                    || hgt > 29 && hgt % 4 >= 2
             } else {
                 matches!(hgt, 12 | 27 | 43)
             };
@@ -396,7 +543,9 @@ impl Water {
                 }
                 let lx = if flip { cell.w - 1 - cx } else { cx };
                 let wx = base_x + lx + wob;
-                let line = mirror.map(|m| m.lines[(base_x + lx - m.left) as usize]).unwrap_or(base_y);
+                let line = mirror
+                    .map(|m| m.lines[(base_x + lx - m.left) as usize])
+                    .unwrap_or(base_y);
                 let wy = 2 * line - base_y + hgt;
                 let sy = wy - f.cam_y;
                 if !(0..H as i32).contains(&sy) || !self.is_water(wx, wy) {
@@ -424,7 +573,11 @@ impl Water {
                     f.albedo[k] = if mirror.is_some() && hgt < 18 && idx > 0 {
                         VIOLET[idx - 1]
                     } else {
-                        WATER[if mirror.is_some() && hgt >= 18 { idx.min(1) } else { idx }]
+                        WATER[if mirror.is_some() && hgt >= 18 {
+                            idx.min(1)
+                        } else {
+                            idx
+                        }]
                     };
                 }
             }
@@ -440,14 +593,16 @@ fn lake_drift(t: u64, phase: u32) -> (i32, f32) {
 
 /// True when a broad lake interval covers world (wx, wy) at tick t.
 fn lake_interval(wx: i32, wy: i32, t: u64) -> bool {
-    LAKE_INTERVALS.iter().any(|&(y0, y1, x0, x1, sl, sr, phase)| {
-        if wy < y0 || wy >= y1 {
-            return false;
-        }
-        let (off, _) = lake_drift(t, phase);
-        let r = wy - y0;
-        (x0 + sl * r + off..x1 + sr * r + off).contains(&wx)
-    })
+    LAKE_INTERVALS
+        .iter()
+        .any(|&(y0, y1, x0, x1, sl, sr, phase)| {
+            if wy < y0 || wy >= y1 {
+                return false;
+            }
+            let (off, _) = lake_drift(t, phase);
+            let r = wy - y0;
+            (x0 + sl * r + off..x1 + sr * r + off).contains(&wx)
+        })
 }
 
 /// True when a lake catch covers world (wx, wy) at tick t; alternate ends breathe by up to 2 px.
@@ -458,7 +613,11 @@ fn lake_catch(wx: i32, wy: i32, t: u64) -> bool {
         }
         let (off, a) = lake_drift(t, phase);
         let trim = (((a * 0.5 + 1.3).sin() * 0.5 + 0.5) * 2.0).round() as i32;
-        let (lo, hi) = if phase % 2 == 0 { (x0 + off + trim, x1 + off) } else { (x0 + off, x1 + off - trim) };
+        let (lo, hi) = if phase % 2 == 0 {
+            (x0 + off + trim, x1 + off)
+        } else {
+            (x0 + off, x1 + off - trim)
+        };
         (lo..hi).contains(&wx)
     })
 }
@@ -500,10 +659,24 @@ mod tests {
         assert_eq!(mirror.source, (520, 404));
         for x in 504..=536 {
             let line = mirror.lines[(x - mirror.left) as usize];
-            assert!((431..=433).contains(&line), "unexpected physical shore at {x},{line}");
-            assert!(mirror.pixels.iter().any(|&(px, py, _)| px == x && py == line), "detached support at {x}");
+            assert!(
+                (431..=433).contains(&line),
+                "unexpected physical shore at {x},{line}"
+            );
+            assert!(
+                mirror
+                    .pixels
+                    .iter()
+                    .any(|&(px, py, _)| px == x && py == line),
+                "detached support at {x}"
+            );
         }
-        assert!(mirror.pixels.iter().all(|&(x, y, idx)| water.is_water(x, y) && idx <= 2));
+        assert!(
+            mirror
+                .pixels
+                .iter()
+                .all(|&(x, y, idx)| water.is_water(x, y) && idx <= 2)
+        );
         let mut a = Frame::new();
         a.cam_x = 228;
         a.cam_y = 314;
@@ -512,7 +685,12 @@ mod tests {
         b.cam_y = a.cam_y;
         water.draw(&mut a, 300);
         water.draw(&mut b, 308);
-        let changed = a.albedo.iter().zip(&b.albedo).filter(|(a, b)| a.r != b.r || a.g != b.g || a.b != b.b).count();
+        let changed = a
+            .albedo
+            .iter()
+            .zip(&b.albedo)
+            .filter(|(a, b)| a.r != b.r || a.g != b.g || a.b != b.b)
+            .count();
         assert!(changed > 50, "idle surface only changed {changed} pixels");
         assert!(changed < 1500, "idle surface too busy: {changed} pixels");
         // Ambient movement is analytical, so the wading field remains undisturbed at rest.

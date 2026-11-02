@@ -7,7 +7,8 @@ pub mod prop;
 use crate::combat::Hit;
 use crate::entities::EnemyKind;
 use crate::fx::{Fx, Light};
-use crate::gfx::{Frame, Grade, H, Rgb, W};
+use crate::gfx::{Cell, Frame, Grade, H, Rgb, W};
+use crate::gfx::frame::PointLight;
 pub use prop::Prop;
 
 pub const TILE: i32 = 16;
@@ -105,8 +106,13 @@ pub struct Zone {
     pub pw: i32,
     pub ph: i32,
     pub tiles: Vec<Tile>,
+    /// Optional native-pixel movement surface, matching rounded shores and authored decks.
+    /// The coarse tile grid remains available for map structure and navigation.
+    pub surface_tiles: Option<Vec<Tile>>,
     /// Pre-rendered ground albedo, pw*ph. Region builders paint this once at load.
     pub ground: Vec<Rgb>,
+    /// Exact native source normals retained by terrain painters (four bytes per pixel).
+    pub(crate) ground_surfaces: Vec<crate::gfx::lighting::TerrainSurface>,
     /// Pre-rendered ground emissive (glowing moss, lava cracks...), pw*ph.
     pub ground_emit: Vec<Rgb>,
     pub props: Vec<Prop>,
@@ -145,7 +151,9 @@ impl Zone {
             pw,
             ph,
             tiles: vec![Tile::Floor; (tw * th) as usize],
+            surface_tiles: None,
             ground: vec![Rgb::BLACK; (pw * ph) as usize],
+            ground_surfaces: vec![crate::gfx::lighting::TerrainSurface::default(); (pw * ph) as usize],
             ground_emit: vec![Rgb::BLACK; (pw * ph) as usize],
             props: Vec::new(),
             lights: Vec::new(),
@@ -174,11 +182,29 @@ impl Zone {
     pub fn set_tile(&mut self, tx: i32, ty: i32, t: Tile) {
         if tx >= 0 && ty >= 0 && tx < self.tw && ty < self.th {
             self.tiles[(ty * self.tw + tx) as usize] = t;
+            if let Some(surface) = &mut self.surface_tiles {
+                for y in ty * TILE..(ty + 1) * TILE {
+                    let start = (y * self.pw + tx * TILE) as usize;
+                    surface[start..start + TILE as usize].fill(t);
+                }
+            }
             self.invalidate_lighting();
         }
     }
     pub fn tile_at(&self, wx: f32, wy: f32) -> Tile {
-        self.tile((wx / TILE as f32).floor() as i32, (wy / TILE as f32).floor() as i32)
+        if let Some(surface) = &self.surface_tiles {
+            let (x, y) = (wx.floor() as i32, wy.floor() as i32);
+            if x < 0 || y < 0 || x >= self.pw || y >= self.ph { return Tile::Void; }
+            surface[(y * self.pw + x) as usize]
+        } else {
+            self.tile((wx / TILE as f32).floor() as i32, (wy / TILE as f32).floor() as i32)
+        }
+    }
+    /// Install the finished painter's physical material classification on the native grid.
+    pub fn set_surface_tiles(&mut self, pixels: Vec<Tile>) {
+        assert_eq!(pixels.len(), (self.pw * self.ph) as usize, "surface must cover the native zone");
+        self.surface_tiles = Some(pixels);
+        self.invalidate_lighting();
     }
     pub fn solid_tile_at(&self, wx: f32, wy: f32) -> bool {
         self.tile_at(wx, wy).solid()
@@ -191,9 +217,44 @@ impl Zone {
     #[inline]
     pub fn gset(&mut self, x: i32, y: i32, c: Rgb) {
         if x >= 0 && y >= 0 && x < self.pw && y < self.ph {
-            self.ground[(y * self.pw + x) as usize] = c;
+            let i = (y * self.pw + x) as usize;
+            self.ground[i] = c;
+            if c.r < 0.0 { self.ground_surfaces[i] = crate::gfx::lighting::TerrainSurface::default(); }
             self.invalidate_lighting();
         }
+    }
+    /// Retain the normal at the exact native UV copied by a terrain painter.
+    /// OpenGL source axes are right/up/toward-viewer; floor and upright art
+    /// have distinct world bases. Color and collision are never changed here.
+    #[allow(clippy::too_many_arguments)]
+    pub fn gset_surface(&mut self, x: i32, y: i32, cell: &crate::gfx::Cell, sx: i32, sy: i32, upright: bool, height: f32) {
+        if x < 0 || y < 0 || x >= self.pw || y >= self.ph || sx < 0 || sy < 0 || sx >= cell.w || sy >= cell.h { return; }
+        let Some(pixel) = cell.surface.get((sy * cell.w + sx) as usize) else { return };
+        if !pixel.a { return; }
+        let [nx, ny, nz] = pixel.n.map(|n| n as f32 / 127.0);
+        let normal = if upright { [nx, nz, ny] } else { [nx, -ny, nz] };
+        self.ground_surfaces[(y * self.pw + x) as usize] = crate::gfx::lighting::TerrainSurface::new(normal, height);
+        self.invalidate_lighting();
+    }
+    /// Rotate an upright material's front axis around a curved authored wall.
+    /// `front` is its horizontal world-space outward normal, never an RGB gradient.
+    pub fn gorient_surface(&mut self, x: i32, y: i32, front: [f32; 2]) {
+        if x < 0 || y < 0 || x >= self.pw || y >= self.ph { return; }
+        let i = (y * self.pw + x) as usize;
+        let surface = self.ground_surfaces[i];
+        if !surface.present() { return; }
+        let [nx, ny, nz] = surface.normal.map(|n| n as f32 / 127.0);
+        let length = front[0].hypot(front[1]).max(0.001);
+        let [fx, fy] = front.map(|n| n / length);
+        self.ground_surfaces[i] = crate::gfx::lighting::TerrainSurface::new(
+            [nx * fy + ny * fx, ny * fy - nx * fx, nz], surface.height as f32);
+        self.invalidate_lighting();
+    }
+    /// Retain an explicitly authored geometric face where there is no native normal atlas.
+    pub fn gset_plane_surface(&mut self, x: i32, y: i32, normal: [f32; 3], height: f32) {
+        if x < 0 || y < 0 || x >= self.pw || y >= self.ph { return; }
+        self.ground_surfaces[(y * self.pw + x) as usize] = crate::gfx::lighting::TerrainSurface::new(normal, height);
+        self.invalidate_lighting();
     }
     #[inline]
     pub fn gget(&self, x: i32, y: i32) -> Rgb {
@@ -211,25 +272,28 @@ impl Zone {
     pub fn blocked(&self, x: f32, y: f32, r: f32) -> bool {
         let hw = r;
         let hh = r * 0.6;
-        let x0 = ((x - hw) / TILE as f32).floor() as i32;
-        let x1 = ((x + hw - 0.01) / TILE as f32).floor() as i32;
-        let y0 = ((y - hh) / TILE as f32).floor() as i32;
-        let y1 = ((y + hh - 0.01) / TILE as f32).floor() as i32;
-        for ty in y0..=y1 {
-            for tx in x0..=x1 {
-                if self.tile(tx, ty).solid() {
+        if let Some(surface) = &self.surface_tiles {
+            let (x0, x1) = ((x - hw).floor() as i32, (x + hw).ceil() as i32);
+            let (y0, y1) = ((y - hh).floor() as i32, (y + hh).ceil() as i32);
+            if x0 < 0 || y0 < 0 || x1 > self.pw || y1 > self.ph { return true; }
+            for py in y0..y1 {
+                if surface[(py * self.pw + x0) as usize..(py * self.pw + x1) as usize].iter().any(|t| t.solid()) {
                     return true;
+                }
+            }
+        } else {
+            let x0 = ((x - hw) / TILE as f32).floor() as i32;
+            let x1 = ((x + hw - 0.01) / TILE as f32).floor() as i32;
+            let y0 = ((y - hh) / TILE as f32).floor() as i32;
+            let y1 = ((y + hh - 0.01) / TILE as f32).floor() as i32;
+            for ty in y0..=y1 {
+                for tx in x0..=x1 {
+                    if self.tile(tx, ty).solid() { return true; }
                 }
             }
         }
         for p in &self.props {
-            if let Some((fw, fh)) = p.footprint
-                && p.alive
-                && (x - p.x).abs() < hw + fw * 0.5
-                && (y - (p.y - fh * 0.5)).abs() < hh + fh * 0.5
-            {
-                return true;
-            }
+            if p.blocks(x, y, hw, hh) { return true; }
         }
         false
     }
@@ -313,6 +377,18 @@ pub struct RegionCtx<'a> {
     pub cam: (i32, i32),
 }
 
+/// Actual rendered native ink that may occlude a live light. Collision proxies are separate.
+/// The bottom opaque source row supplies its ground base, including atlas gutters.
+pub struct LightOccluder<'a> {
+    pub cell: &'a Cell,
+    pub anchor: (i32, i32),
+    pub x: f32,
+    pub y: f32,
+    pub flip: bool,
+    /// This exact emitter belongs to the sprite and must not shadow itself.
+    pub own_light: Option<PointLight>,
+}
+
 /// Region-specific life. Every hook has a default no-op, so implement what you need.
 /// Items returned by `sorted_items` are y-sorted with characters and props; the engine calls
 /// `draw_item` back for each in order.
@@ -325,6 +401,8 @@ pub trait Region {
     /// Y-sorted region items on screen: push (sort_y, id).
     fn sorted_items(&self, _zone: &Zone, _f: &Frame, _out: &mut Vec<(f32, u32)>) {}
     fn draw_item(&self, _zone: &Zone, _f: &mut Frame, _id: u32, _t: u64) {}
+    /// Expose region-owned rendered cells; physical solidity does not decide light occlusion.
+    fn light_occluders<'a>(&'a self, _t: u64, _out: &mut Vec<LightOccluder<'a>>) {}
     /// After characters and canopies: falling petals, embers, fog, god rays.
     fn draw_overlay(&self, _zone: &Zone, _f: &mut Frame, _t: u64) {}
     /// After ambient and point lights are in `f.light`: cloud shadows, light shafts, darkness.
@@ -332,7 +410,69 @@ pub trait Region {
     /// Background seen beyond the map edge / in void tiles, drawn before the ground
     /// (sea of clouds, starfield). Default: nothing.
     fn draw_backdrop(&self, _zone: &Zone, _f: &mut Frame, _t: u64) {}
+    /// Exposure of actual background pixels, after nearby world lights are excluded.
+    fn backdrop_light(&self, ambient: Rgb) -> Rgb { ambient }
 }
 
 pub struct NoRegion;
 impl Region for NoRegion {}
+
+#[cfg(test)]
+mod surface_tests {
+    use super::*;
+    use crate::entities::{Player, player::PlayerCtx};
+    use crate::input::{Input, Raw};
+
+    #[test]
+    fn native_surface_uses_full_half_open_feet_and_preserves_coarse_map() {
+        let mut zone = Zone::new(ZoneId::Glasswater, 12, 12);
+        let mut surface = vec![Tile::Floor; (zone.pw * zone.ph) as usize];
+        for y in 0..zone.ph {
+            for x in 100..zone.pw { surface[(y * zone.pw + x) as usize] = Tile::Deep; }
+        }
+        zone.set_surface_tiles(surface);
+        assert_eq!(zone.tile(6, 3), Tile::Floor);
+        assert_eq!(zone.tile_at(100.0, 50.0), Tile::Deep);
+        assert_eq!(zone.tile_at(99.999, 50.0), Tile::Floor);
+        assert_eq!(zone.tile_at(-0.01, 50.0), Tile::Void);
+        assert_eq!(zone.tile_at(10.0, -0.01), Tile::Void);
+        assert_eq!(zone.tile_at(zone.pw as f32, 50.0), Tile::Void);
+        assert!(!zone.blocked(96.0, 50.0, 4.0), "exact contact is allowed");
+        assert!(zone.blocked(96.01, 50.0, 4.0), "one fraction over the pixel shore is blocked");
+        assert!(zone.blocked(3.99, 50.0, 4.0));
+        zone.set_tile(7, 3, Tile::Shallow);
+        assert_eq!(zone.tile_at(112.0, 50.0), Tile::Shallow, "later physical tile edits update both surfaces");
+    }
+
+    #[test]
+    fn real_player_stops_at_painted_shore_inside_walkable_coarse_tile() {
+        let mut zone = Zone::new(ZoneId::Glasswater, 12, 12);
+        let mut surface = vec![Tile::Floor; (zone.pw * zone.ph) as usize];
+        for y in 0..zone.ph {
+            // A curved shore steps at native pixels, not at 16px tile boundaries.
+            let edge = 113 + (y / 8) % 4;
+            for x in edge..zone.pw { surface[(y * zone.pw + x) as usize] = Tile::Deep; }
+        }
+        zone.set_surface_tiles(surface);
+        let mut player = Player::new(80.0, 100.0);
+        let mut input = Input::default();
+        let mut fx = Fx::new(7);
+        for _ in 0..90 {
+            input.step(Raw { mv: (1.0, 0.0), ..Raw::default() });
+            player.update(&input, &mut PlayerCtx { zone: &zone, fx: &mut fx, hits: &mut Vec::new() });
+            fx.tick();
+        }
+        assert_eq!(zone.tile(7, 6), Tile::Floor);
+        assert!(player.body.x > 107.0 && player.body.x + player.body.r <= 113.001,
+            "player should stop at the actual shore, ended {:?}", (player.body.x, player.body.y));
+    }
+
+    #[test]
+    fn coarse_collision_remains_available_without_surface() {
+        let mut zone = Zone::new(ZoneId::Bloomwild, 12, 12);
+        zone.set_tile(7, 3, Tile::Wall);
+        assert_eq!(zone.tile_at(-0.01, 50.0), Tile::Void);
+        assert!(!zone.blocked(108.0, 50.0, 4.0));
+        assert!(zone.blocked(108.01, 50.0, 4.0));
+    }
+}

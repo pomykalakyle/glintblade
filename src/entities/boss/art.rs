@@ -205,6 +205,9 @@ pub struct Look {
     pub alpha: f32,
     /// Solid color for every pixel (smears, afterimages); glows.
     pub silhouette: Option<Rgb>,
+    /// True world ground plane under this part. Attached/airborne parts share
+    /// their body's ground instead of pretending their visible bottom is a foot.
+    pub ground_y: Option<f32>,
 }
 
 impl Default for Look {
@@ -219,6 +222,7 @@ impl Default for Look {
             clip_y: i32::MAX,
             alpha: 1.0,
             silhouette: None,
+            ground_y: None,
         }
     }
 }
@@ -239,6 +243,43 @@ pub fn origin(cell: &Cell, anchor: (i32, i32), sx: i32, sy: i32, flip: bool) -> 
 pub fn blit(f: &mut Frame, s: Spr, sx: i32, sy: i32, l: &Look) {
     let cell = s.cell;
     let (ox, oy) = origin(cell, s.anchor, sx, sy, l.flip);
+    let ordinary_base = crate::gfx::surface::base(cell, s.anchor, sy + f.cam_y, 0.0);
+    let base = l.ground_y.unwrap_or(ordinary_base);
+    let owner = if l.silhouette.is_none() {
+        crate::gfx::surface::register(
+            f,
+            cell,
+            s.anchor,
+            sx,
+            sy,
+            l.flip,
+            base - ordinary_base,
+            l.alpha,
+        )
+    } else {
+        0
+    };
+    // Kneeling stone disappears below its physical ground line. Remove those
+    // same source rows from the shadow silhouette, even when off screen.
+    if owner != 0 && l.clip_y < oy + cell.h - 1 {
+        let first_hidden = (l.clip_y - oy + 1).clamp(0, cell.h) as usize;
+        if let Some(caster) = f.surface_casters.last_mut() {
+            let mut pixels = caster.pixels.to_vec();
+            for p in &mut pixels[first_hidden * cell.w as usize..] {
+                p.a = false;
+                p.emit = false;
+            }
+            caster.pixels = pixels.into();
+            // Rebuild the native foot from the visible kneel cut; hidden rows
+            // cannot move the volume in front of its physical ground plane.
+            let mut clipped = cell.clone();
+            for p in &mut clipped.px[first_hidden * cell.w as usize..] { *p=Px::default(); }
+            let clipped_base=crate::gfx::surface::base(&clipped,s.anchor,sy+f.cam_y,0.0);
+            let airborne=(base-clipped_base).max(0.0);
+            caster.foot=crate::gfx::surface::foot_profile(&clipped,s.anchor,sy+f.cam_y,airborne,None);
+            caster.min_height=airborne;
+        }
+    }
     if ox > crate::gfx::WI || oy > crate::gfx::HI || ox + cell.w < 0 || oy + cell.h < 0 {
         return;
     }
@@ -261,7 +302,14 @@ pub fn blit(f: &mut Frame, s: Spr, sx: i32, sy: i32, l: &Look) {
             }
             let c = cell.flash_color(x, y, p.c, l.flash);
             put_px(f, px, py, Px { c, ..p }, l);
-            if l.energy_flash > 0.0 && [(1, 0), (-1, 0), (0, 1), (0, -1)].iter().all(|&(dx, dy)| solid_at(cell, x + dx, y + dy)) {
+            if owner != 0 && !p.emit {
+                crate::gfx::surface::stamp(f, cell, x, y, px, py, owner, l.flip, base, true);
+            }
+            if l.energy_flash > 0.0
+                && [(1, 0), (-1, 0), (0, 1), (0, -1)]
+                    .iter()
+                    .all(|&(dx, dy)| solid_at(cell, x + dx, y + dy))
+            {
                 f.add_emit(px, py, PW.scale(l.energy_flash * 0.25));
             }
         }
@@ -475,11 +523,7 @@ impl Canvas {
     }
     /// Finish the fallback canvas as a sprite cell.
     fn cell(self) -> Cell {
-        Cell {
-            w: self.w,
-            h: self.h,
-            px: self.px,
-        }
+        Cell::new(self.w, self.h, self.px)
     }
 }
 
@@ -570,7 +614,6 @@ fn fallback(sheet_name: &str, anim: &str) -> &'static Cell {
         .unwrap_or_else(|| cells.get(CRYSTAL).unwrap())
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -578,13 +621,28 @@ mod tests {
     /// Warden material flashes keep the perimeter and never turn matte stone into an emitter.
     #[test]
     fn material_flash_preserves_ink_and_native_emission() {
-        let cell = Cell::from_ascii(&["aaaaa", "abbba", "abeba", "abbba", "aaaaa"],
-            &[('a', rgb(0x1f2838)), ('b', rgb(0x7f8797)), ('e', PW)], &['e']);
+        let cell = Cell::from_ascii(
+            &["aaaaa", "abbba", "abeba", "abbba", "aaaaa"],
+            &[('a', rgb(0x1f2838)), ('b', rgb(0x7f8797)), ('e', PW)],
+            &['e'],
+        );
         let mut frame = Frame::new();
         // Cover an earlier emitter to prove opaque stone also clears underlying emission.
         frame.put_glow(10, 10, PW);
-        let s = Spr { cell: Box::leak(Box::new(cell)), anchor: (0, 0) };
-        blit(&mut frame, s, 10, 10, &Look { flash: 1.0, ..Default::default() });
+        let s = Spr {
+            cell: Box::leak(Box::new(cell)),
+            anchor: (0, 0),
+        };
+        blit(
+            &mut frame,
+            s,
+            10,
+            10,
+            &Look {
+                flash: 1.0,
+                ..Default::default()
+            },
+        );
         assert_eq!(frame.albedo[10 * crate::gfx::W + 10], rgb(0x1f2838));
         assert_ne!(frame.albedo[11 * crate::gfx::W + 11], rgb(0x7f8797));
         for y in 0..5 {
@@ -598,17 +656,111 @@ mod tests {
     /// The death overload floods the stone interior while keeping its outer ink intact.
     #[test]
     fn death_overload_lights_only_the_interior() {
-        let cell = Cell::from_ascii(&["aaaaa", "abbba", "abbba", "abbba", "aaaaa"],
-            &[('a', rgb(0x1f2838)), ('b', rgb(0x7f8797))], &[]);
+        let cell = Cell::from_ascii(
+            &["aaaaa", "abbba", "abbba", "abbba", "aaaaa"],
+            &[('a', rgb(0x1f2838)), ('b', rgb(0x7f8797))],
+            &[],
+        );
         let mut frame = Frame::new();
-        let s = Spr { cell: Box::leak(Box::new(cell)), anchor: (0, 0) };
-        blit(&mut frame, s, 10, 10, &Look { flash: 1.0, energy_flash: 1.0, ..Default::default() });
+        let s = Spr {
+            cell: Box::leak(Box::new(cell)),
+            anchor: (0, 0),
+        };
+        blit(
+            &mut frame,
+            s,
+            10,
+            10,
+            &Look {
+                flash: 1.0,
+                energy_flash: 1.0,
+                ..Default::default()
+            },
+        );
         for y in 0..5 {
             for x in 0..5 {
                 let emit = frame.emissive[(10 + y) * crate::gfx::W + 10 + x];
-                assert_eq!(emit.max_c() > 0.20, (1..4).contains(&x) && (1..4).contains(&y));
+                assert_eq!(
+                    emit.max_c() > 0.20,
+                    (1..4).contains(&x) && (1..4).contains(&y)
+                );
             }
         }
         assert_eq!(frame.albedo[10 * crate::gfx::W + 10], rgb(0x1f2838));
+    }
+
+    #[test]
+    fn boss_normals_and_shadow_alpha_follow_ground_and_kneeling_clip() {
+        let cell = Cell::from_ascii(&["aaa", "aaa", "aaa", "aaa"], &[('a', rgb(0x7f8797))], &[]);
+        let s = Spr {
+            cell: Box::leak(Box::new(cell)),
+            anchor: (0, 0),
+        };
+        let mut frame = Frame::new();
+        frame.surface_lighting = true;
+        frame.cam_y = 11;
+        blit(
+            &mut frame,
+            s,
+            10,
+            10,
+            &Look {
+                ground_y: Some(40.0),
+                clip_y: 11,
+                ..Default::default()
+            },
+        );
+        assert_eq!(frame.surface_casters.len(), 1);
+        let caster = &frame.surface_casters[0];
+        assert_eq!(caster.base, 40.0);
+        assert!(caster.pixels[..6].iter().all(|p| p.a));
+        assert!(caster.pixels[6..].iter().all(|p| !p.a));
+        let material = frame.surfaces[10 * crate::gfx::W + 10];
+        assert_eq!(material.owner, caster.owner);
+        assert_eq!(material.kind, 3);
+        // The visible cut has ground extent38..40. Its front voxel center
+        // is39.5; projected pixel center21.5 therefore has height18.
+        assert_eq!(caster.foot[0],[38.0,40.0]);
+        assert_eq!(caster.min_height,17.0);
+        assert!((material.height - 18.0).abs() < 0.0001);
+        assert_eq!(frame.surfaces[12 * crate::gfx::W + 10].kind, 0);
+    }
+
+    #[test]
+    fn boss_afterimages_do_not_become_geometry_or_shadow_casters() {
+        let cell = Cell::from_ascii(&["aaa", "aaa", "aaa"], &[('a', rgb(0x7f8797))], &[]);
+        let s = Spr {
+            cell: Box::leak(Box::new(cell)),
+            anchor: (0, 0),
+        };
+        let mut frame = Frame::new();
+        frame.surface_lighting = true;
+        blit(
+            &mut frame,
+            s,
+            10,
+            10,
+            &Look {
+                silhouette: Some(PW),
+                ..Default::default()
+            },
+        );
+        assert!(frame.surface_casters.is_empty());
+        assert_eq!(frame.surfaces[11 * crate::gfx::W + 11].kind, 0);
+        assert_ne!(frame.emissive[11 * crate::gfx::W + 11], Rgb::BLACK);
+    }
+
+    #[test]
+    fn offscreen_boss_parts_remain_available_as_native_shadow_casters() {
+        let cell = Cell::from_ascii(&["aaa", "aaa", "aaa"], &[('a', rgb(0x7f8797))], &[]);
+        let s = Spr {
+            cell: Box::leak(Box::new(cell)),
+            anchor: (0, 0),
+        };
+        let mut frame = Frame::new();
+        frame.surface_lighting = true;
+        blit(&mut frame, s, -20, 10, &Look::default());
+        assert_eq!(frame.surface_casters.len(), 1);
+        assert!(frame.surfaces.iter().all(|p| p.kind == 0));
     }
 }

@@ -1,0 +1,31 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"background_job_id\": \"f4e1eb64-62fa-466d-a616-b2ccd37ace44\",\n  \"image_id\": \"67900768-0991-5a02-9a79-ae2867e91f73\",\n  \"status\": \"processing\",\n  \"source_image_id\": \"67900768-0991-5a02-9a79-ae2867e91f73\",\n  \"job_id\": \"f4e1eb64-62fa-466d-a616-b2ccd37ace44\",\n  \"description\": \"A continuous seamless quiet slate cave bedrock floor, native128x128 pixel art map material. ENTIRE canvas must be fully filled by horizontal slate rock with NO surrounding background or framed margin. Broad connected angular strata shaped like immense worn slabs 40-90 pixels across. Mostly calm muted #4c6070 with subtle #424956 planes and sparse short dark fractures. At least75 percent flat main slate. These are shallow bedrock planes, NOT individual little pebbles or round stones. No uniform repetition, no grid of square tiles, no paving blocks, no thick outline, no checker shading, no grass, no glowing mineral, no cracks at every border, no high contrast, no speckled noise. Overhead3/4 view of horizontal ground, upper-left restrained light, crisp single native pixel grid. Left and right and top and bottom should connect invisibly.\",\n  \"seed\": 249,\n  \"image_size\": {\n    \"width\": 128,\n    \"height\": 128\n  },\n  \"output_count\": 1,\n  \"estimated_generations\": 6,\n  \"pricing_provisional\": true,\n  \"poll_tool\": \"get_image\",\n  \"download_path\": \"/mcp/images/f4e1eb64-62fa-466d-a616-b2ccd37ace44/download\"\n}\nPoll get_image(job_id=\"f4e1eb64-62fa-466d-a616-b2ccd37ace44\"). The source_image_id is usable after completion; it is an image ID, not a character/object ID. Actual usage is reported on completion. cancel_job(job_id=...) cancels unfinished work.",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": {
+    "background_job_id": "f4e1eb64-62fa-466d-a616-b2ccd37ace44",
+    "image_id": "67900768-0991-5a02-9a79-ae2867e91f73",
+    "status": "processing",
+    "source_image_id": "67900768-0991-5a02-9a79-ae2867e91f73",
+    "job_id": "f4e1eb64-62fa-466d-a616-b2ccd37ace44",
+    "description": "A continuous seamless quiet slate cave bedrock floor, native128x128 pixel art map material. ENTIRE canvas must be fully filled by horizontal slate rock with NO surrounding background or framed margin. Broad connected angular strata shaped like immense worn slabs 40-90 pixels across. Mostly calm muted #4c6070 with subtle #424956 planes and sparse short dark fractures. At least75 percent flat main slate. These are shallow bedrock planes, NOT individual little pebbles or round stones. No uniform repetition, no grid of square tiles, no paving blocks, no thick outline, no checker shading, no grass, no glowing mineral, no cracks at every border, no high contrast, no speckled noise. Overhead3/4 view of horizontal ground, upper-left restrained light, crisp single native pixel grid. Left and right and top and bottom should connect invisibly.",
+    "seed": 249,
+    "image_size": {
+      "width": 128,
+      "height": 128
+    },
+    "output_count": 1,
+    "estimated_generations": 6,
+    "pricing_provisional": true,
+    "poll_tool": "get_image",
+    "download_path": "/mcp/images/f4e1eb64-62fa-466d-a616-b2ccd37ace44/download"
+  },
+  "isError": false,
+  "resultType": "complete"
+}

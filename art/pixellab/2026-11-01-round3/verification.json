@@ -1,0 +1,148 @@
+{
+  "created": "2026-11-01",
+  "scope": [
+    "bloomwild",
+    "glasswater",
+    "cinder",
+    "summit"
+  ],
+  "selected_environment_sheets": 30,
+  "native_resolution": [
+    384,
+    216
+  ],
+  "desktop_binary_sha256": "ec55fbc01d36e090049ab7f83b4b672afa2ba7159beb9f013b5df3169c31cedd",
+  "webassembly_sha256": "14b4878bf8c584db557f17b40d8ebf18385a04cf480ae60506ffabca6156fcb8",
+  "builds": {
+    "desktop_release": "pass",
+    "wasm32_unknown_unknown_release": "pass"
+  },
+  "release_tests": {
+    "passed": 116,
+    "failed": 0,
+    "ignored_manual_visual": 3,
+    "ignored_documentation": 1,
+    "single_thread": true,
+    "duration_seconds": 21.05,
+    "log_sha256": "90a2a90891208ef9bed8fd9cb512be02878be709c1013d0339c8ab1e84639dd2"
+  },
+  "asset_rebuild": {
+    "files": 60,
+    "byte_identical_to_embedded": true,
+    "network_or_paid_generation_required": false
+  },
+  "independent_reviews": {
+    "whole_game_native_scenes": 26,
+    "whole_maps": 4,
+    "title_screen": true,
+    "whole_route_sampled_frames": 81,
+    "full_warden_replay_ticks": 4010,
+    "measured_attack_transition_frames": 358,
+    "critical_final_candidate_pixel_matches": 48,
+    "atlas_code_audit_pairs": 79
+  },
+  "review_fixes": [
+    "foreground tree wood reveals actual hero pose",
+    "native Summit stone-base support masks",
+    "physics-only proxies excluded from planes and shadows",
+    "solid Cinder shrine center",
+    "quiet Bloomwild terrace replacing embossed repetition",
+    "attack-source edge cues",
+    "consistent weapon-safe camera across attack phases, approach and retreat",
+    "true60fps captures with original emitted audio"
+  ],
+  "motion_regressions": {
+    "1136_to_1137": {
+      "before_vertical_pixels": -12,
+      "after_vertical_pixels": -2
+    },
+    "2522_to_2523": {
+      "before_vertical_pixels": -8,
+      "after_vertical_pixels": 0
+    },
+    "2611_to_2612": {
+      "after_pixels": [
+        3,
+        -2
+      ],
+      "assessment": "intentional beam flash/shake; camera policy step removed"
+    },
+    "measurement": "Illumination-invariant background gradient correspondence, independently reviewed."
+  },
+  "evidence": {
+    "world_manifest": "out/pixellab/world/final-v7/manifest.json",
+    "motion_measurements": "out/pixellab/round3/independent-whole-review/v6-full/gradient-motion-review.json",
+    "final_pixel_identity": "out/pixellab/round3/independent-whole-review/v7-critical/v6-pixel-identity.json",
+    "critical_captures": "out/pixellab/round3/framing-v7-critical/"
+  },
+  "coverage_limit": "Automated full-route QA uses invulnerability; does not establish normal-player difficulty balance.",
+  "known_retained_surfaces": [
+    "Bloomwild bevel altar",
+    "Cinder legacy quiet ash flats and bridges",
+    "Glasswater broad procedural floor contours",
+    "Summit elliptical arena silhouette and secondary posts/banners"
+  ],
+  "publication": "local working tree; browser site still previous build",
+  "final_recording": {
+    "file": "out/pixellab/recordings/whole-game-v7/gameplay.mp4",
+    "sha256": "652293978bc1a06c05a040199a40267c4927454cc86bfa0d75f78f7264cab1df",
+    "fps": 60,
+    "frames": 14538,
+    "duration_seconds": 242.3,
+    "all_four_regions": true,
+    "three_shards": true,
+    "real_victory": true,
+    "god": true,
+    "audio_events": 1493,
+    "missing_sounds": [],
+    "documentation_clips": {
+      "highlights.mp4": {
+        "frames": 480,
+        "fps": 60,
+        "duration_seconds": 8.0,
+        "sound": true,
+        "sha256": "57364c787e0ea3f81b3ddf2020151066bd9a54cce1751c772db8179e9b825583"
+      },
+      "combat.mp4": {
+        "frames": 720,
+        "fps": 60,
+        "duration_seconds": 12.0,
+        "sound": true,
+        "sha256": "0a5e0088742746d2b0b8a81f7fea7164c740ad6243dbf75b3246b689cbbba0c1"
+      },
+      "warden_fight.mp4": {
+        "frames": 4239,
+        "fps": 60,
+        "duration_seconds": 70.65,
+        "sound": true,
+        "sha256": "99696fccb5e2f9f87424af1eb8f69ea8d6789c3da6ffab7c05e64127559d7604"
+      }
+    },
+    "sampled_mean_codec_errors": [
+      {
+        "tick": 1740,
+        "mean_rgb_error": 1.7177
+      },
+      {
+        "tick": 4680,
+        "mean_rgb_error": 1.5802
+      },
+      {
+        "tick": 7780,
+        "mean_rgb_error": 1.1951
+      },
+      {
+        "tick": 9840,
+        "mean_rgb_error": 1.1731
+      },
+      {
+        "tick": 12076,
+        "mean_rgb_error": 1.4013
+      },
+      {
+        "tick": 14039,
+        "mean_rgb_error": 0.0
+      }
+    ]
+  }
+}

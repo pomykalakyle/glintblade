@@ -2,42 +2,63 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GLINTBLADE</title>
-<style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #000; }
-  canvas { position: absolute; inset: 0; width: 100%; height: 100%; outline: none; }
-  #start {
-    position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 14px;
-    background: #10131a; color: #d8dccf; cursor: pointer;
-    font: 15px/1.5 ui-monospace, Menlo, Consolas, monospace; text-align: center;
-  }
-  #start h1 { margin: 0; font-size: 34px; letter-spacing: 6px; color: #e8ecdf; }
-  #start .go { color: #7fd6e0; }
-  #start .small { font-size: 13px; color: #8a9087; max-width: 44em; }
-  #start a { color: #8a9087; }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10131a">
+<title>GLINTBLADE — Play</title>
+<meta name="description" content="Explore a ruined world, slash through monsters, and face the Warden. Play GLINTBLADE in your browser.">
+<meta name="twitter:card" content="player">
+<meta name="twitter:title" content="GLINTBLADE">
+<meta name="twitter:description" content="A pixel-art action adventure. Move with WASD, slash with J, dash with K or Space. Click to play.">
+<meta name="twitter:image" content="https://pomykalakyle.github.io/glintblade/card-pixellab-r9.png">
+<meta name="twitter:image:alt" content="GLINTBLADE pixel-art action adventure">
+<meta name="twitter:player" content="https://pomykalakyle.github.io/glintblade/?v=pixellab-r9">
+<meta name="twitter:player:width" content="480">
+<meta name="twitter:player:height" content="360">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GLINTBLADE">
+<meta property="og:description" content="A pixel-art action adventure. Play in your browser.">
+<meta property="og:url" content="https://pomykalakyle.github.io/glintblade/">
+<meta property="og:image" content="https://pomykalakyle.github.io/glintblade/card-pixellab-r9.png">
+<meta property="og:image:alt" content="GLINTBLADE pixel-art action adventure">
+<link rel="stylesheet" href="player.css?v=pixellab-r9">
 </head>
-<body>
-<canvas id="glcanvas" tabindex="1"></canvas>
-<div id="start">
-  <h1>GLINTBLADE</h1>
-  <div class="go">Click to play</div>
-  <div class="small">Move with WASD or the arrow keys, slash with J, dash with K or Space.<br>
-  If your keyboard types Colemak-DH on its own, press Tab on the title screen so the same keys work.</div>
-  <div class="small">Made by AI agents in one night. <a href="https://github.com/pomykalakyle/glintblade" onclick="event.stopPropagation()">Source on GitHub</a></div>
-</div>
-<!-- The bundled networking plugin assigns this global in strict mode; declaring it avoids a load error. -->
+<body data-state="idle">
+<main id="player" aria-label="GLINTBLADE game">
+  <canvas id="glcanvas" tabindex="0" aria-label="GLINTBLADE. WASD or arrows to move, J to slash, K or Space to dash."></canvas>
+  <section id="start" aria-labelledby="game-title">
+    <div class="intro">
+      <h1 id="game-title">GLINTBLADE</h1>
+      <p class="tagline">A ruined world. A blade of light.</p>
+      <button id="play" type="button">Play with sound</button>
+      <p id="status" role="status" aria-live="polite">Click to begin · about 23 MB</p>
+      <progress id="progress" aria-label="Game download" hidden></progress>
+      <p class="instructions">WASD / arrows to move · J to slash<br>K / Space to dash · Enter to start</p>
+      <details><summary>Keyboard layout</summary><p>WASD is the default. For Colemak-DH, press Tab on the game's title screen.</p></details>
+    </div>
+  </section>
+  <nav id="touch" aria-label="Touch game controls" hidden>
+    <div class="dpad">
+      <button type="button" data-code="ArrowUp" aria-label="Move up" class="up">▲</button>
+      <button type="button" data-code="ArrowLeft" aria-label="Move left" class="left">◀</button>
+      <button type="button" data-code="ArrowDown" aria-label="Move down" class="down">▼</button>
+      <button type="button" data-code="ArrowRight" aria-label="Move right" class="right">▶</button>
+    </div>
+    <div class="actions">
+      <button type="button" data-code="Escape" aria-label="Pause">Ⅱ</button>
+      <button type="button" data-code="Enter">Start</button>
+      <button type="button" data-code="KeyX">Slash</button>
+      <button type="button" data-code="KeyC">Dash</button>
+    </div>
+  </nav>
+</main>
+<footer>
+  <span id="hint">WASD move · J slash · K / Space dash</span>
+  <span class="links"><a href="https://pixellab.ai" target="_blank" rel="noopener noreferrer">Art: PixelLab</a><a href="https://pomykalakyle.github.io/glintblade/?v=pixellab-r9" target="_blank" rel="noopener noreferrer">Open full page ↗</a></span>
+</footer>
+<noscript><p class="no-script">Enable JavaScript to play GLINTBLADE.</p></noscript>
+<!-- The networking plugin assigns this global in strict mode. -->
 <script>var register_plugin;</script>
 <script src="mq_js_bundle.js"></script>
-<script>
-  // Start on a click so the browser allows sound and the canvas has keyboard focus.
-  document.getElementById("start").addEventListener("click", function () {
-    this.remove();
-    document.getElementById("glcanvas").focus();
-    load("glintblade.wasm");
-  }, { once: true });
-</script>
+<script src="player.js?v=pixellab-r9"></script>
 </body>
 </html>

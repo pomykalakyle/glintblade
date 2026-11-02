@@ -1,0 +1,9 @@
+ThornImp skin=0 release_tick=449 owned_before=3 foreign_unchanged=true expected_cancellation=true
+ThornImp skin=1 release_tick=492 owned_before=3 foreign_unchanged=true expected_cancellation=true
+ThornImp skin=2 release_tick=503 owned_before=3 foreign_unchanged=true expected_cancellation=true
+SpittingTotem skin=0 release_tick=103 owned_before=1 foreign_unchanged=true expected_cancellation=true
+SpittingTotem skin=1 release_tick=116 owned_before=1 foreign_unchanged=true expected_cancellation=true
+SpittingTotem skin=2 release_tick=142 owned_before=1 foreign_unchanged=true expected_cancellation=true
+Wisp skin=0 release_tick=157 owned_before=1 foreign_unchanged=true expected_cancellation=true
+Wisp skin=1 release_tick=186 owned_before=1 foreign_unchanged=true expected_cancellation=true
+Wisp skin=2 release_tick=109 owned_before=1 foreign_unchanged=true expected_cancellation=true

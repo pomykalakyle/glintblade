@@ -1,0 +1,19 @@
+{
+  "description": "Quiet seamless top-down slate cave bedrock material, native 96x96 pixel art texture. Predominantly one calm muted slate grey #424956. Two or three very broad angular layered slab planes connected across the entire canvas with a few short deep fractured joints, unequal sizes 35-60 pixels, upper-left light. Very low contrast, maximum five colors, no pebble noise, no small isolated stones, no hatching, no checker pattern, no grid of rectangular tiles. Entire canvas solid rock, no isolated island, no background, no plants, no water, no purple crystals, no glowing veins, no vertical cliff faces. This is the calm horizontal upper surface of a huge cave wall, no more than 15 percent texture detail.",
+  "width": 96,
+  "height": 96,
+  "no_background": false,
+  "palette": [
+    "#222d3d",
+    "#29313f",
+    "#364657",
+    "#424956",
+    "#4c6070",
+    "#626a74",
+    "#73858b",
+    "#929797"
+  ],
+  "palette_name": "Quiet cave slate",
+  "max_colors": 5,
+  "seed": 241
+}

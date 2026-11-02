@@ -468,7 +468,7 @@ impl Particles {
                 });
             }
             if p.light > 0.0 {
-                f.add_light_w(p.x, p.y - p.z, p.light, c, 0.5 * (1.0 - k));
+                f.add_light_3d_w(p.x, p.y, p.z, p.light, c, 0.5 * (1.0 - k));
             }
         }
     }

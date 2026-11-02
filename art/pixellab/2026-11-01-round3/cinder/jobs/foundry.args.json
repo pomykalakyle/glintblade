@@ -1,0 +1,22 @@
+{
+  "description": "One isolated abandoned monumental obsidian sluice press, a melancholy industrial sculpture for a top down pixel art game. A narrow tall split stone fin rises from a wide low eroded stone plinth, open negative slot through the upper body, small cold weathered iron fittings. About60pixels tall, side widths no more44pixels, top down three quarter camera looking at front and top. No fire, no gold, no lettering, no magic, no crystals, no runes, no character face, no skull. Cold ash mauve and dark soot mineral planes, one small chipped light edge high left. Deliberate sharp native pixel clusters and strong slim silhouette, transparent background, no cast shadow.",
+  "width": 64,
+  "height": 80,
+  "no_background": true,
+  "palette": [
+    "#101017",
+    "#16151d",
+    "#1a1923",
+    "#24232d",
+    "#292c3c",
+    "#363340",
+    "#393746",
+    "#3f414f",
+    "#514854",
+    "#56505d",
+    "#5b5966",
+    "#79707a"
+  ],
+  "max_colors": 10,
+  "seed": 7282
+}

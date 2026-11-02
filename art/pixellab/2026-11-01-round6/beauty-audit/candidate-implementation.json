@@ -1,0 +1,28 @@
+{
+  "status": "candidate source frozen; root must compile/render/test before selection",
+  "files": {
+    "src/regions/summit/paint.rs": "15fa4c7add8bc244cdf5ada0db18593c587c2f96d6cfd3a56aadebce39ff84dc",
+    "src/regions/glasswater.rs": "1b6c58d19b5f39ad354f01f37baf79b9a9366fe800912540f48b1555ea52638e",
+    "src/regions/glasswater/place.rs": "8d279e46d6a20297cfaeefe9da0ab51900b823bdb545aa3f1116085a1876ba6b",
+    "src/regions/glasswater/paint.rs": "7e2a50681ee3955040636c77a8cb22253ff96437e57fd893a04aa60ca6ea8570"
+  },
+  "changes": [
+    "Summit arena floor: perspective-correct broad wedge masonry around prism seal, three close stone body values, shallow interrupted joints, two broken non-emissive astrolabe arcs and attached index marks. Native curb/dais/seal/wear retained.",
+    "Glasswater permanent crystal sources: actual native emissive-crest centroid supplies x/y origin. Radius follows actual crest height/body width; source intensity reduced from0.42 to0.23small/0.30landmark and falloff broadened. Source registration and own-light occlusion still share Decor::point_light.",
+    "Glasswater dry bank details: restrained slate/teal bedding ledges clipped to real FLOOR shore pixels, preserving water/void/contact shadows. Native source/crystal geometry unchanged."
+  ],
+  "preserved_by_construction": [
+    "Summit platform label map and physical surface generation unchanged.",
+    "Glasswater physical classification, water wetmask classes, blockers, props, spawns, objectives unchanged.",
+    "No gameplay, enemy state, RNG use or particles changed.",
+    "No common lighting engine changes; all actual added sources remain normal registered PointLight entries."
+  ],
+  "verification_pending": [
+    "Cargo build and regional tests centralized at root.",
+    "New candidate native captures for Summit arena/dais/west/approach and Glasswater lake/island/gallery/grove/shallow-grove.",
+    "Visual compare static and actual Warden combat against quiet attack-cue values.",
+    "Selected-candidate independent lighting and physical mask parity audit."
+  ],
+  "audit_scope": "40 zone stills,title,and56 sampled baseline campaign keyframes directly viewed. Baseline binary SHA883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c. No claim to viewing all14322campaign frames or listening to audio.",
+  "notes": "Original source art still dictates material; this pass adds authored regional code geometry rather than spending PixelLab calls on native assets that were already sufficient. Root is producing new enemy art separately."
+}

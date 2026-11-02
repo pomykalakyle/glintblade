@@ -1,0 +1,302 @@
+   Compiling glintblade v0.1.0 (/home/krp/Projects/glintblade)
+    Finished `release` profile [optimized] target(s) in 6.80s
+     Running unittests src/lib.rs (target/release/deps/glintblade-8d989f6c76d4b31a)
+
+running 265 tests
+test camera::tests::attack_camera_fits_sources_when_possible_and_keeps_hero_when_not ... ok
+test camera::tests::bounded_camera_matches_original_view ... ok
+test camera::tests::distant_charge_onset_preserves_prepared_weapon_view ... ok
+test camera::tests::prepared_assembly_does_not_snap_at_beam_onset ... ok
+test camera::tests::tightly_fitting_crown_hero_and_weapon_survive_shake ... ok
+test entities::boss::art::tests::boss_afterimages_do_not_become_geometry_or_shadow_casters ... ok
+test entities::boss::art::tests::boss_normals_and_shadow_alpha_follow_ground_and_kneeling_clip ... ok
+test entities::boss::art::tests::death_overload_lights_only_the_interior ... ok
+test entities::boss::art::tests::material_flash_preserves_ink_and_native_emission ... ok
+test entities::boss::art::tests::offscreen_boss_parts_remain_available_as_native_shadow_casters ... ok
+test entities::boss::death::tests::collapse_keeps_rng_and_clears_fine_grains ... ok
+test entities::boss::hazards::tests::physical_prism_beam_lights_follow_sweep_and_fade ... ok
+test entities::boss::hazards::tests::prism_warnings_preserve_danger_contrast ... ok
+test entities::boss::surface_light_tests::physical_warden_body_and_source_swap_on_actual_burst_effects ... ok
+test entities::boss::surface_light_tests::physical_warden_closed_heart_reaches_front_floor_but_still_casts_body_shadow ... ok
+test entities::boss::surface_light_tests::physical_warden_fist_lights_move_and_break ... ok
+test entities::boss::surface_light_tests::physical_warden_full_play_firing_timing ... ignored, manual full-Play Warden firing timing; run alone with --nocapture
+test entities::boss::surface_light_tests::physical_warden_heart_follows_opening_and_finale ... ok
+test entities::boss::surface_light_tests::physical_warden_opening_ramp_has_no_early_heart_or_light_reversal ... ok
+test entities::boss::surface_light_tests::physical_warden_pylon_light_follows_recoil_and_removal ... ok
+test entities::boss::tests::beam_warnings_remain_readable_across_prism_and_cracked_phases ... ok
+test entities::boss::tests::capture_warden_fight ... ignored, manual visual capture; GLINT_WARDEN_CAPTURE chooses output directory
+test entities::boss::tests::part_contours_preserve_approved_attachments ... ok
+test entities::boss::tests::retry_and_heart_opening_clear_hostile_hazards ... ok
+test entities::boss::tests::returning_beam_keeps_its_angle_during_fade ... ok
+test entities::boss::tests::slam_has_a_fixed_dodge_window_and_punish_window ... ok
+test entities::boss::tests::slam_poses_match_contact_without_double_lift ... ok
+test entities::boss::tests::sword_playthrough_reaches_victory ... ok
+test entities::enemies::crystal_beetle::tests::armor_deflects_lethal_front_but_accepts_flank_and_dazed_hits ... ok
+test entities::enemies::crystal_beetle::tests::crest_light_matches_current_native_cap_under_mirroring ... ok
+test entities::enemies::crystal_beetle::tests::locked_charge_keeps_direction_and_stuns_on_a_glancing_wall ... ok
+test entities::enemies::ember_hound::tests::locked_lunge_can_be_dodged_or_interrupted ... ok
+test entities::enemies::skin_tests::skin_debris_preserves_following_combat_randomness_and_live_projectiles ... ok
+test entities::enemies::spitting_totem::tests::death_cancels_pending_glob_damage ... ok
+test entities::enemies::spitting_totem::tests::fallback_outlet_matches_authored_sheet ... ok
+test entities::enemies::spitting_totem::tests::glob_marker_matches_actual_landing ... ok
+test entities::enemies::spitting_totem::tests::native_dark_idle_does_not_invent_a_light_and_luminous_idle_relights ... ok
+test entities::enemies::spitting_totem::tests::slashed_glob_cannot_splash_damage ... ok
+test entities::enemies::sproutling::tests::group_turns_include_tick_zero ... ok
+test entities::enemies::sproutling::tests::hit_interrupts_lunge ... ok
+test entities::enemies::thorn_imp::tests::death_cancels_its_marked_volley ... ok
+test entities::enemies::thorn_imp::tests::seed_follows_release_pose ... ok
+test entities::enemies::variation::tests::complete_skins_keep_pose_clocks_anchors_and_combat_cues ... ok
+test entities::enemies::wisp::tests::a_hit_interrupts_a_ready_spell_and_death_extinguishes_sprite_pixels ... ok
+test entities::enemies::wisp::tests::firing_holds_its_last_aim_and_gives_the_player_recovery_time ... ok
+test entities::enemies::wisp::tests::flame_core_tracks_actual_native_emission_for_every_pose_and_appearance ... ok
+test entities::enemies::wisp::tests::luminous_enemy_death_extinguishes_live_source_and_housing ... ok
+test entities::enemies::wisp::tests::native_flame_lights_its_nearby_floor_without_self_occluding ... ok
+test entities::enemies::wisp::tests::native_flame_source_preserves_mirrored_and_hovering_attachment ... ok
+test entities::player::tests::blade_emitter_excludes_disconnected_eyes ... ok
+test entities::player::tests::blade_light_matches_live_sprite_anchors ... ok
+test entities::player::tests::buffered_combo_has_three_weighted_hits ... ok
+test entities::player::tests::cave_hero_light_is_local_and_uses_current_frame ... ok
+test entities::player::tests::charge_releases_a_single_protected_spin ... ok
+test entities::player::tests::combo_smear_heads_follow_held_strike_frames ... ok
+test entities::player::tests::combo_smears_follow_blade_handedness ... ok
+test entities::player::tests::dash_echoes_leave_a_short_separated_tail ... ok
+test entities::player::tests::dash_is_immediate_and_invulnerable ... ok
+test entities::player::tests::dash_respects_collision ... ok
+test entities::player::tests::daylight_has_no_hero_floor_light ... ok
+test entities::player::tests::death_finishes_every_pose_before_bursting ... ok
+test entities::player::tests::hurt_dash_escape_and_respawn ... ok
+test entities::player::tests::physical_blade_light_stays_on_live_emissive_art ... ok
+test entities::player::tests::physical_blade_light_survives_bright_ambient ... ok
+test entities::player::tests::recovers_a_press_held_through_hitstop ... ok
+test entities::player::tests::recovery_cancel_keeps_the_new_aim ... ok
+test entities::player::tests::scarf_follows_combos_and_stays_bounded ... ok
+test entities::player::tests::scarf_settles_in_every_facing ... ok
+test entities::player::tests::scarf_stays_bounded_through_turns ... ok
+test entities::player::tests::scene_can_buffer_a_short_tap_during_hitstop ... ok
+test entities::player::tests::spin_stays_unmirrored_in_every_facing ... ok
+test entities::projectiles::tests::slashed_bolt_cannot_damage_player_later_in_the_same_tick ... ok
+test fx::particles::tests::burst_clusters_keep_source_pixels_and_clear_the_grains ... ok
+test fx::particles::tests::burst_preserves_initial_pixels_and_settles ... ok
+test fx::particles::tests::particle_study ... ok
+test fx::particles::tests::shards_do_not_tunnel_or_settle_in_liquid ... ok
+test game::tests::pause_freezes_player_and_run_clock ... ok
+test game::tests::region_sequence_and_victory_return_preserve_then_reset_run ... ok
+test game::tests::title_camera_is_snapped_and_unbounded ... ok
+test game::tests::title_start_completes_within_capture_script ... ok
+test gfx::lighting::dynamic::tests::actual_glasswater_cells_and_noncolliding_summit_sprites_cast_on_real_tops ... ok
+test gfx::lighting::dynamic::tests::cached_native_casts_and_planes_ignore_atlas_anchor_staging_gutters ... ok
+test gfx::lighting::dynamic::tests::dim_sources_near_supports_and_exact_emitter_identity_remain_continuous ... ok
+test gfx::lighting::dynamic::tests::moving_sources_cast_native_ground_shadows_without_changing_actors_or_emission ... ok
+test gfx::lighting::dynamic::tests::region_owned_native_surfaces_never_receive_flat_ground_shadows ... ok
+test gfx::lighting::dynamic::tests::weather_covers_every_native_corner_for_all_camera_grid_remainders ... ok
+test gfx::lighting::dynamic::tests::weather_is_world_anchored_slow_and_neutral_at_zero_gain ... ok
+test gfx::lighting::dynamic::tests::weather_scanlines_match_bilinear_tints_and_keep_camera_overlap_exact ... ok
+test gfx::lighting::patch::tests::scenery_crops_match_canonical_full_zone_pixels_across_all_regions ... ok
+test gfx::lighting::retained_surface_tests::moving_day_shadows_preserve_daylight_exposure_and_materials ... ok
+test gfx::lighting::retained_surface_tests::native_terrain_uv_retains_vectors_without_changing_art_or_physics ... ok
+test gfx::lighting::retained_surface_tests::physical_night_fill_excludes_cached_point_facing_and_proxy_casts ... ok
+test gfx::lighting::retained_surface_tests::revealed_ground_never_inherits_a_cached_prop_plane ... ok
+test gfx::lighting::sun_shadows::tests::coarse_terrain_blocks_match_original_pixel_and_eight_pixel_rays ... ok
+test gfx::lighting::sun_shadows::tests::mirrored_alpha_and_per_column_foot_depth_reflect_the_same_volume ... ok
+test gfx::lighting::sun_shadows::tests::native_alpha_tiles_match_original_pixel_rays_for_mirrors_depth_and_partial_tiles ... ok
+test gfx::lighting::sun_shadows::tests::native_depth_retains_foot_rows_and_transparent_alpha_holes ... ok
+test gfx::lighting::sun_shadows::tests::offscreen_native_caster_shadows_visible_pixels_and_owner_is_exempt ... ok
+test gfx::lighting::sun_shadows::tests::prepared_native_ground_rows_match_original_rays_and_contain_every_hit ... ok
+test gfx::lighting::sun_shadows::tests::prepared_sun_ground_rows_paired_real_scene_timing ... ignored, manual paired native/terrain Sun row timing; run alone with --nocapture
+test gfx::lighting::sun_shadows::tests::shadow_bounds_preserve_all_hits_at_ground_and_raised_heights ... ok
+test gfx::lighting::sun_shadows::tests::sparse_height_receivers_match_original_mask_for_pose_flip_hover_and_camera ... ok
+test gfx::lighting::sun_shadows::tests::sun_direction_is_slow_normalized_periodic_and_above_the_horizon ... ok
+test gfx::lighting::sun_shadows::tests::tall_caster_reaches_the_view_from_far_offscreen_without_a_length_cap ... ok
+test gfx::lighting::sun_shadows::tests::terrain_own_contiguous_front_plane_is_exempt_but_actor_is_not ... ok
+test gfx::lighting::sun_shadows::tests::terrain_parallel_dda_matches_independent_all_sheet_slab_oracle ... ok
+test gfx::lighting::sun_shadows::tests::terrain_row_culls_and_plane_block_proofs_preserve_full_original_masks ... ok
+test gfx::lighting::sun_shadows::tests::terrain_uses_native_height_sheets_and_camera_pans_preserve_shadow ... ok
+test gfx::lighting::surface_shadows::tests::a_higher_light_shortens_ground_shadow ... ok
+test gfx::lighting::surface_shadows::tests::cached_alpha_bounds_follow_immutable_pose_identity_and_shape ... ok
+test gfx::lighting::surface_shadows::tests::cell_sphere_prefilter_preserves_mirrored_anchors_height_and_pixel_depth ... ok
+test gfx::lighting::surface_shadows::tests::coplanar_light_still_intersects_finite_native_pixel_depth ... ok
+test gfx::lighting::surface_shadows::tests::finite_volume_contact_follows_the_native_rounded_foot_profile ... ok
+test gfx::lighting::surface_shadows::tests::finite_volume_preserves_native_alpha_tunnels_and_asymmetric_flip ... ok
+test gfx::lighting::surface_shadows::tests::finite_volume_scanline_and_sphere_bounds_preserve_alpha_ray_hits ... ok
+test gfx::lighting::surface_shadows::tests::grazing_light_casts_a_finite_native_footprint_instead_of_one_pixel_rail ... ok
+test gfx::lighting::surface_shadows::tests::local_emitter_window_matches_full_native_search ... ok
+test gfx::lighting::surface_shadows::tests::native_alpha_holes_and_flip_are_geometric ... ok
+test gfx::lighting::surface_shadows::tests::only_matching_emissive_geometry_excludes_the_source_housing ... ok
+test gfx::lighting::surface_shadows::tests::prepared_ground_ray_intervals_match_original_pixel_rays ... ok
+test gfx::lighting::surface_shadows::tests::projected_scanline_bounds_preserve_every_geometric_hit ... ok
+test gfx::lighting::surface_shadows::tests::receiving_height_changes_visibility_on_the_same_projected_pixel ... ok
+test gfx::lighting::surface_shadows::tests::sparse_point_receivers_match_original_visibility_masks ... ok
+test gfx::lighting::surface_shadows::tests::world_sphere_covers_raised_receivers_outside_a_projected_radius_circle ... ok
+test gfx::lighting::terrain_shadows::tests::actual_cinder_terrain_cache_working_set_diagnostic ... ignored, explicit isolated release-mode Cinder terrain-cache diagnostic
+test gfx::lighting::terrain_shadows::tests::actual_glasswater_crystal_is_occluded_across_its_native_wall ... ok
+test gfx::lighting::terrain_shadows::tests::authored_summit_high_beam_full_masks_match_original_dda_with_native_actors ... ok
+test gfx::lighting::terrain_shadows::tests::cached_terrain_visibility_is_world_anchored_but_raised_actors_are_live ... ok
+test gfx::lighting::terrain_shadows::tests::exact_native_height_blocks_without_promoting_collision_tiles ... ok
+test gfx::lighting::terrain_shadows::tests::height_bound_skips_match_original_native_dda_including_own_plane_prefixes ... ok
+test gfx::lighting::terrain_shadows::tests::integral_empty_rectangle_proof_matches_block_occupancy ... ok
+test gfx::lighting::terrain_shadows::tests::lazy_cache_matches_uncached_native_rays_across_camera_radius_and_actor_changes ... ok
+test gfx::lighting::terrain_shadows::tests::lazy_cache_only_evaluates_visible_receivers_and_reuses_flickering_radius ... ok
+test gfx::lighting::terrain_shadows::tests::negative_boundary_entry_and_mirrored_rays_always_advance ... ok
+test gfx::lighting::terrain_shadows::tests::own_front_plane_is_exempt_but_actor_and_separate_sheet_are_not ... ok
+test gfx::lighting::terrain_shadows::tests::recurring_forty_seven_light_working_set_promotes_and_reuses_every_native_ray ... ok
+test gfx::lighting::terrain_shadows::tests::stable_cache_has_an_explicit_byte_budget_in_addition_to_its_entry_limit ... ok
+test gfx::lighting::tests::actor_light_is_independent_of_ground_holes ... ok
+test gfx::lighting::tests::actual_sword_break_full_render_timing ... FAILED
+test gfx::lighting::tests::alpha_projection_and_planes_are_native_and_nonstacking ... ok
+test gfx::lighting::tests::authored_terrain_ignores_collision_grid_planes ... ok
+test gfx::lighting::tests::breakable_patch_matches_fresh_bakes_and_preserves_overlaps ... ok
+test gfx::lighting::tests::cinder_court_reception_does_not_leak_into_actors ... ok
+test gfx::lighting::tests::contacts_materials_emission_and_actor_readability ... ok
+test gfx::lighting::tests::dependent_procedural_and_camera_seam_patches_match_fresh ... ok
+test gfx::lighting::tests::fractional_native_light_planes_match_the_drawn_sprite_raster ... ok
+test gfx::lighting::tests::full_game_release_timing ... FAILED
+test gfx::lighting::tests::glasswater_native_crystal_keys_survive_collision_refinement ... ok
+test gfx::lighting::tests::lava_field_and_local_keys_follow_sources ... ok
+test gfx::lighting::tests::moving_floor_pixels_do_not_receive_actor_fill ... ok
+test gfx::lighting::tests::rare_geometry_and_source_changes_still_rebake ... ok
+test gfx::lighting::tests::real_breakables_match_fresh_fields ... ok
+test gfx::lighting::tests::real_regions_repeat_and_stay_world_anchored ... ok
+test gfx::lighting::tests::source_rim_preserves_outer_actor_contour ... ok
+test gfx::lighting::tests::summit_collision_companions_do_not_add_planes ... ok
+test gfx::lighting::tests::zone_owned_cache_invalidates_geometry_and_breakage ... ok
+test gfx::post::tests::compose_fast_paths_match_original_for_actual_native_regions ... ok
+test gfx::post::tests::compose_fast_paths_match_original_highlights_shade_grades_and_dither ... ok
+test gfx::sprite::override_tests::aqueduct_split_preserves_pixels_and_keeps_arch_open ... ok
+test gfx::sprite::override_tests::incomplete_animation_candidate_keeps_original_sheet ... ok
+test gfx::sprite::override_tests::png_only_candidate_retains_anchors_and_collision_contract ... ok
+test gfx::sprite::shadow_opacity_tests::presentation_alpha_preserves_physical_shadow_without_changing_dither ... ok
+test gfx::surface::tests::actor_ground_plane_does_not_follow_weapon_or_tail_pixels ... ok
+test gfx::surface::tests::bright_night_ambient_cannot_create_a_directional_sun ... ok
+test gfx::surface::tests::conventions_and_mirror ... ok
+test gfx::surface::tests::explicit_canopy_base_preserves_height_above_its_shared_root ... ok
+test gfx::surface::tests::lighting_exchanges_faces_without_changing_albedo_or_emission ... ok
+test gfx::surface::tests::one_pixel_feet_remain_valid_at_fractional_hover_heights ... ok
+test gfx::surface::tests::paired_full_play_point_shading_timing ... ignored, explicit isolated release-mode paired point-shading timing
+test gfx::surface::tests::point_row_runs_match_complete_real_region_render_bits_and_rgba ... ok
+test gfx::surface::tests::point_row_runs_match_reference_light_bits_and_rgba ... ok
+test gfx::surface::tests::reached_height_runs_preserve_every_float_boundary ... ok
+test gfx::surface::tests::sole_profile_ignores_low_emissive_weapon_and_follows_native_foot_shape ... ok
+test gfx::surface::tests::visible_owner_tracks_alpha_flip_foreground_and_glow ... ok
+test gfx::tests::actor_coverage_tracks_opaque_sprite_and_foreground ... ok
+test gfx::tests::ambient_is_flat_and_light_bands_keep_hue ... ok
+test gfx::tests::fades_and_flashes_cover_glow_and_ui ... ok
+test gfx::tests::hit_flash_preserves_actor_edges_and_material_emission ... ok
+test gfx::tests::light_and_glow_are_world_anchored ... ok
+test gfx::tests::neutral_palette_is_exact ... ok
+test gfx::tests::reflections_are_masked_and_sprite_occlusion_is_opaque ... ok
+test gfx::tests::regional_water_depth_caps_preserve_contact_without_a_full_actor_duplicate ... ok
+test gfx::tests::renderer_performance ... ignored, explicit release-mode render timing and visual output
+test gfx::tests::renderer_study ... ok
+test play::tests::ambient_and_render_share_camera_mode ... ok
+test play::tests::bloomwild_foreground_wood_reveals_actual_hero_pixels_at_motion_probe ... ok
+test play::tests::summit_camera_keeps_player_visible_on_retry_and_retreat ... ok
+test regions::bloomwild::grass::tests::native_leaf_normals_follow_actual_pixels_sway_and_world_roots ... ok
+test regions::bloomwild::grass::tests::opposing_real_leaf_normals_respond_in_opposite_directions_to_the_moving_sun ... ok
+test regions::bloomwild::grass::tests::procedural_blades_preserve_legacy_pixels_and_restore_their_own_raised_surfaces ... ok
+test regions::bloomwild::life::tests::clear_water_changes_never_paint_dry_banks_or_bridge_decks ... ok
+test regions::bloomwild::life::tests::signature_live_game_stays_inside_eight_millisecond_budget ... FAILED
+test regions::bloomwild::life::tests::signature_material_footprint_and_meadow_continuity ... ok
+test regions::bloomwild::life::tests::upper_fall_remains_a_connected_curtain_and_only_long_outlet_separates ... ok
+test regions::bloomwild::life::tests::wading_wakes_are_bounded_and_never_spawn_on_dry_bridge_or_deep_water ... ok
+test regions::bloomwild::paint::material_tests::bounded_and_empty_gardens_do_not_paint_orphan_level_details_into_sky ... ok
+test regions::bloomwild::paint::material_tests::candidate_materials_clip_water_preserve_transparency_and_use_matching_material ... ok
+test regions::bloomwild::paint::material_tests::complete_terrace_endcap_sits_on_connected_rock_instead_of_air ... ok
+test regions::bloomwild::paint::material_tests::exposed_shelves_and_recessed_corners_share_a_continuous_native_origin ... ok
+test regions::bloomwild::paint::material_tests::material_variants_are_deterministic_and_do_not_repeat_neighbors ... ok
+test regions::bloomwild::paint::material_tests::native_facade_drops_standalone_end_posts_and_keeps_real_stairs_and_outlets_open ... ok
+test regions::bloomwild::paint::material_tests::native_perimeter_covers_every_land_face_and_preserves_outlet_support ... ok
+test regions::bloomwild::paint::material_tests::natural_cliff_contacts_leave_broken_native_rock_and_preserve_the_entire_surface ... ok
+test regions::bloomwild::paint::material_tests::rounded_coast_separates_traversable_tops_from_attached_vertical_rock ... ok
+test regions::bloomwild::paint::material_tests::rounded_shores_and_sky_cuts_have_the_same_physical_surface_as_the_art ... ok
+test regions::bloomwild::paint::material_tests::side_returns_attach_to_native_turf_without_changing_any_contact_or_water ... ok
+test regions::bloomwild::paint::material_tests::terrace_contacts_preserve_openings_and_all_wet_pixels ... ok
+test regions::bloomwild::paint::material_tests::terrace_endcaps_wrap_only_exposed_wall_ends_and_preserve_every_surface ... ok
+test regions::bloomwild::tests::completed_scene_preserves_eroded_sky_cuts ... ok
+test regions::bloomwild::tests::deep_water_art_covers_the_collision_mask ... ok
+test regions::bloomwild::tests::grass_cut_persists_and_only_reacts_to_player_hits ... ok
+test regions::bloomwild::tests::native_renderer_is_deterministic_and_animated ... ok
+test regions::bloomwild::tests::route_reaches_landmarks_with_solid_props ... ok
+test regions::bloomwild::tests::title_headland_continues_into_the_world_and_keeps_glint_on_clear_ground ... ok
+test regions::cinder::heat::tests::actor_heat_preserves_ink_and_floor ... ok
+test regions::cinder::heat::tests::heat_only_reaches_visible_matched_stone ... ok
+test regions::cinder::lava::tests::cinder_signature_render_timing ... ignored, explicit release-mode Cinder render timing
+test regions::cinder::lava::tests::foundry_spill_turns_into_river_without_a_texture_reset ... ok
+test regions::cinder::lava::tests::hot_native_currents_increase_real_bank_light_variation ... ok
+test regions::cinder::lava::tests::local_lava_heat_changes_independently_with_native_crust ... ok
+test regions::cinder::lava::tests::molten_sources_reach_real_bank_and_obey_receiving_normals ... ok
+test regions::cinder::lava::tests::native_material_repeats_without_wrap_phase_jumps ... ok
+test regions::cinder::lava::tests::physical_lava_sources_are_world_anchored_actual_molten_pixels ... ok
+test regions::cinder::lava::tests::river_motion_preserves_banks_crossings_and_camera_alignment ... ok
+test regions::cinder::tests::brazier_support_stops_player_without_sealing_court_lane ... ok
+test regions::cinder::tests::bridge_input_crossings_preserve_both_landings ... ok
+test regions::cinder::tests::live_brazier_keeps_its_authored_3d_emitter_in_normal_mode ... ok
+test regions::cinder::tests::processional_route_is_traversable ... ok
+test regions::cinder::textures::tests::native_mineral_art_preserves_hot_surfaces_and_crossings ... ok
+test regions::glasswater::art::tests::authored_cap_emission_precedes_a_brighter_legacy_palette_color ... ok
+test regions::glasswater::art::tests::native_crystal_caps_cover_every_palette_without_repainting_geometry ... ok
+test regions::glasswater::materials::tests::generated_materials_preserve_water_and_abyss ... ok
+test regions::glasswater::place::tests::an_empty_crystal_mask_cannot_invent_a_size_based_source ... ok
+test regions::glasswater::place::tests::crest_centers_follow_the_renderers_mirrored_anchor_convention ... ok
+test regions::glasswater::place::tests::every_populated_crystal_lights_from_actual_native_emissive_housing ... ok
+test regions::glasswater::place::tests::live_crystal_light_tracks_fractional_mirrored_and_wobbling_raster ... ok
+test regions::glasswater::place::tests::small_sprig_source_follows_its_existing_emissive_pixels ... ok
+test regions::glasswater::tests::causeway_input_crossing_and_visible_edge_match ... ok
+test regions::glasswater::tests::objectives_and_encounters_are_reachable ... ok
+test regions::glasswater::tests::shattering_sprig_extinguishes_surrounding_light_and_occluder ... ok
+test regions::glasswater::water::tests::idle_surface_keeps_the_island_mirror_on_its_bank ... ok
+test regions::glasswater::water::tests::ripples_decay_offscreen ... ok
+test regions::summit::paint::bridge_support_tests::one_shallow_arch_seats_in_the_actual_island_foundations ... ok
+test regions::summit::tests::brazier_receivers_preserve_materials_and_actor_ink ... ok
+test regions::summit::tests::curved_platform_contacts_use_the_finished_native_top ... ok
+test regions::summit::tests::native_environment_preserves_all_platform_tiles ... ok
+test regions::summit::tests::native_support_masks_cover_all_visible_base_pixels_and_keep_routes_open ... ok
+test regions::summit::tests::west_pier_contact_stops_hero_outside_visible_stone ... ok
+test tools::tests::delayed_warden_pilot_reveals_after_banner_and_finishes ... ok
+test tools::tests::warden_pilot_reaches_real_victory ... ok
+test tools::tour::tests::navigation_path_crosses_actual_bloomwild_bridge_and_stairs ... ok
+test tools::tour::tests::whole_game_tour_collects_all_shards_and_reaches_real_victory ... ok
+test ui::tests::glyph_sheet_masks_render_without_lost_pixels ... ok
+test ui::tests::hud_reacts_to_health_shards_and_warden_damage ... ok
+test world::prop::tests::broken_column_feet_finish_inside_the_native_cell ... ok
+test world::prop::tests::canopy_reveal_fades_native_ink_without_changing_physical_opacity ... ok
+test world::prop::tests::dynamic_decor_support_matches_native_pixels_and_honors_disable_and_death ... ok
+test world::prop::tests::fractional_native_supports_match_the_rendered_pixels_in_both_flips ... ok
+test world::prop::tests::low_native_foliage_receives_sun_without_rotating_stone_or_tree_normals ... ok
+test world::prop::tests::native_tree_and_ruin_supports_stop_real_player_from_all_sides ... ok
+test world::prop::tests::old_tree_box_missed_root_and_blocked_empty_ground ... ok
+test world::prop::tests::pillar_moss_preserves_support_and_only_touches_the_actual_lowest_three_rows ... ok
+test world::surface_tests::coarse_collision_remains_available_without_surface ... ok
+test world::surface_tests::native_surface_uses_full_half_open_feet_and_preserves_coarse_map ... ok
+test world::surface_tests::real_player_stops_at_painted_shore_inside_walkable_coarse_tile ... ok
+
+failures:
+
+---- gfx::lighting::tests::actual_sword_break_full_render_timing stdout ----
+BREAK_RENDER Bloomwild prop=77: load_including_bake=128.850ms sword_tick=34 break_frame=12.607ms mean=10.363ms p95=11.200ms max=12.607ms patched_pixels=12051 zone_pixels=1118208 storage_unchanged=true
+
+thread 'gfx::lighting::tests::actual_sword_break_full_render_timing' (699631) panicked at src/gfx/lighting/tests.rs:572:13:
+complete render exceeds budget
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- gfx::lighting::tests::full_game_release_timing stdout ----
+DEFAULT_RENDER Bloomwild: cold_full=12.663ms warm_mean=11.851ms p95=12.150ms max=13.374ms
+DEFAULT_BAKE Bloomwild: 42.891ms retained=28.79MiB
+
+thread 'gfx::lighting::tests::full_game_release_timing' (699660) panicked at src/gfx/lighting/tests.rs:380:13:
+Bloomwild rendering exceeds budget
+
+---- regions::bloomwild::life::tests::signature_live_game_stays_inside_eight_millisecond_budget stdout ----
+Bloomwild live opening: mean 12.110 ms; p95 12.571 ms; max 12.913 ms
+
+thread 'regions::bloomwild::life::tests::signature_live_game_stays_inside_eight_millisecond_budget' (699827) panicked at src/regions/bloomwild/life.rs:638:13:
+opening: mean 12.110, p95 12.571 ms
+
+
+failures:
+    gfx::lighting::tests::actual_sword_break_full_render_timing
+    gfx::lighting::tests::full_game_release_timing
+    regions::bloomwild::life::tests::signature_live_game_stays_inside_eight_millisecond_budget
+
+test result: FAILED. 255 passed; 3 failed; 7 ignored; 0 measured; 0 filtered out; finished in 28.33s
+
+error: test failed, to rerun pass `--lib`

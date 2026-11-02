@@ -1131,6 +1131,40 @@ impl Player {
         (self.body.x + dx, self.body.y + dy.max(0.0), (-dy).max(0.0) + self.body.z)
     }
 
+    /// An actual glowing pixel near the upper end of the live blade. Most idle tips drag
+    /// below the feet: using the tip as a height-zero source cannot illuminate the floor.
+    /// Keep this emitter on the visible blade instead of raising an invisible body lantern.
+    fn blade_light_position(&self) -> Option<(f32, f32, f32)> {
+        let p = self.pose()?;
+        let (px, py) = if let Some(a) = p.anim {
+            type BladeSources = std::collections::HashMap<(usize, usize), Option<(i32, i32)>>;
+            static SOURCES: OnceLock<BladeSources> = OnceLock::new();
+            *SOURCES.get_or_init(|| {
+                let mut sources = BladeSources::new();
+                if let Some(s) = sheet("hero") {
+                    for a in s.anims.values() {
+                        for frame in 0..a.frames {
+                            let source = a.point("blade_tip", frame)
+                                .and_then(|tip| upper_blade_pixel(s.cell(a, frame), tip));
+                            sources.insert((a.row, frame), source);
+                        }
+                    }
+                }
+                sources
+            }).get(&(a.row, p.frame))?
+        } else {
+            let (tx, gy, gz) = self.blade_tip();
+            let dx = (tx - self.body.x) as i32;
+            let dy = (gy - gz - (self.body.y - self.body.z)) as i32;
+            upper_blade_pixel(p.cell, (p.anchor.0 + if p.flip { -dx } else { dx }, p.anchor.1 + dy))
+        }?;
+        // Match the sprite raster, including fractional motion, elevation and mirroring.
+        let x = self.body.x.floor() + if p.flip { p.anchor.0 - px } else { px - p.anchor.0 } as f32 + 0.5;
+        let projected_y = (self.body.y - self.body.z).floor() + (py - p.anchor.1) as f32 + 0.5;
+        let height = (self.body.y.floor() - projected_y).max(self.body.z.max(0.0));
+        Some((x, projected_y + height, height))
+    }
+
     // ---------------------------------------------------------------------------- draw
 
     pub fn draw(&self, f: &mut Frame) {
@@ -1171,7 +1205,7 @@ impl Player {
         if let Some(p) = self.pose() {
             let tint = if self.heal_t > 0 { Some((HEAL, self.heal_t as f32 / 24.0 * 0.4)) } else { None };
             let flash = if matches!(self.state, State::Dead { t } if t < 6) { 1.0 } else { self.body.flash };
-            let o = DrawOpts { actor: true, flip: p.flip, flash, alpha: if blink { 0.5 } else { 1.0 }, tint, ..Default::default() };
+            let o = DrawOpts { actor: true, foot_depth: 4, foot_half_w: self.body.r, ground_y: Some(self.body.y.floor()), elevation: self.body.z, flip: p.flip, flash, alpha: if blink { 0.5 } else { 1.0 }, shadow_alpha: blink.then_some(1.0), tint, ..Default::default() };
             f.sprite_w(p.cell, p.anchor, self.body.x, self.body.y - z, &o);
         }
         if scarf_front {
@@ -1183,8 +1217,13 @@ impl Player {
         self.draw_glints(f);
     }
 
-    /// Keep reflected blade light local in darkness and absent under ordinary daylight.
+    /// Surface lighting follows the blade in every region; the legacy renderer retains its
+    /// original daylight gate and compact additive pools.
     fn draw_lights(&self, f: &mut Frame) {
+        if f.surface_lighting {
+            self.draw_surface_lights(f);
+            return;
+        }
         // Read the current frame, including headless views that never update the player.
         // Emissive blade/eye pixels are drawn separately and remain bright in every zone.
         let dark = (1.0 - f.ambient.luma() * 1.4).clamp(0.0, 1.0);
@@ -1192,7 +1231,7 @@ impl Player {
             return;
         }
         let (bx, by, bz) = self.blade_tip();
-        let (x, y) = (self.body.x, self.body.y - self.body.z);
+        let x = self.body.x;
         if matches!(self.state, State::Dead { .. }) {
             if self.burst {
                 let t = match self.state {
@@ -1200,14 +1239,14 @@ impl Player {
                     _ => 0,
                 };
                 let k = (1.0 - t as f32 / 50.0).max(0.0);
-                f.add_light_w(x, y - 6.0, 18.0 * k + 4.0, BLADE_MID, 0.35 * k * dark);
+                f.add_light_3d_w(x, self.body.y, self.body.z + 6.0, 18.0 * k + 4.0, BLADE_MID, 0.35 * k * dark);
             }
             return;
         }
         // A blade-sized reflection, rather than a lantern-sized pool around the hero.
         let r = 14.0 + 4.0 * dark;
         let i = 0.26 * dark;
-        f.add_light_w(bx, by - bz, r, BLADE_MID, i);
+        f.add_light_3d_w(bx, by, bz, r, BLADE_MID, i);
         match self.state {
             State::Attack { stage, t } => {
                 let t = t.saturating_sub(1);
@@ -1216,24 +1255,55 @@ impl Player {
                     // Keep the flash within the cutting edge's immediate footprint.
                     let k = 1.0 - (t - sw.windup) as f32 / (sw.active + 4) as f32;
                     let (fxd, fyd) = self.body.face;
-                    f.add_light_w(x + fxd * 12.0, y - 6.0 + fyd * 8.0, 12.0 + sw.r * 0.35, BLADE_MID, 0.45 * dark * k);
+                    f.add_light_3d_w(x + fxd * 12.0, self.body.y + fyd * 8.0, self.body.z + 6.0, 12.0 + sw.r * 0.35, BLADE_MID, 0.45 * dark * k);
                 }
             }
             State::Charge { t } => {
                 let p = ((t - CHARGE_START) as f32 / (CHARGE_FULL - CHARGE_START) as f32).min(1.0);
                 let pulse = if self.full_t > 0 { 0.04 * ((self.full_t as f32) * 0.2).sin() } else { 0.0 };
-                f.add_light_w(bx, by - bz, 14.0 + 8.0 * p, BLADE_MID, (0.3 + 0.15 * p + pulse) * dark);
+                f.add_light_3d_w(bx, by, bz, 14.0 + 8.0 * p, BLADE_MID, (0.3 + 0.15 * p + pulse) * dark);
             }
             State::Spin { t } if t > SPIN_WINDUP => {
                 let t = t - 1;
                 let k = 1.0 - ((t - SPIN_WINDUP) as f32 / (SPIN_TOTAL - SPIN_WINDUP) as f32);
-                f.add_light_w(x, y - 6.0, 24.0, BLADE_MID, 0.5 * k * dark);
+                f.add_light_3d_w(x, self.body.y, self.body.z + 6.0, 24.0, BLADE_MID, 0.5 * k * dark);
             }
             State::Respawn { .. } => {
-                f.add_light_w(x, y - 6.0, 18.0, BLADE_MID, 0.3 * dark);
+                f.add_light_3d_w(x, self.body.y, self.body.z + 6.0, 18.0, BLADE_MID, 0.3 * dark);
             }
             _ => {}
         }
+    }
+
+    /// One moving source, rather than stacked circular pools. Its authored pose changes both
+    /// the direction of reflected light and the shadows of nearby enemies and scenery.
+    fn draw_surface_lights(&self, f: &mut Frame) {
+        if matches!(self.state, State::Dead { .. }) {
+            return;
+        }
+        let Some((x, y, height)) = self.blade_light_position() else { return };
+        let (radius, intensity) = match self.state {
+            State::Attack { stage, t } => {
+                let sw = &SWINGS[(stage - 1) as usize];
+                let tick = t.saturating_sub(1);
+                let k = if tick >= sw.windup {
+                    (1.0 - (tick - sw.windup) as f32 / (sw.active + 4) as f32).max(0.0)
+                } else { 0.0 };
+                (48.0 + (if sw.heavy { 16.0 } else { 12.0 }) * k,
+                 0.9 + (if sw.heavy { 0.6 } else { 0.4 }) * k)
+            }
+            State::Charge { t } => {
+                let p = (t.saturating_sub(CHARGE_START) as f32 / (CHARGE_FULL - CHARGE_START) as f32).min(1.0);
+                let pulse = if self.full_t > 0 { 0.035 * (self.full_t as f32 * 0.2).sin() } else { 0.0 };
+                (48.0 + 16.0 * p, 0.9 + 0.45 * p + pulse)
+            }
+            State::Spin { t } if t > SPIN_WINDUP => {
+                let k = (1.0 - (t - SPIN_WINDUP) as f32 / (SPIN_TOTAL - SPIN_WINDUP) as f32).max(0.0);
+                (48.0 + 16.0 * k, 0.9 + 0.45 * k)
+            }
+            _ => (48.0, 0.9),
+        };
+        f.add_light_3d_w(x, y, height, radius, BLADE_MID, intensity);
     }
 
     /// The scarf ribbon: rasterized around the chain's projected centerline, shaded by which face
@@ -1555,6 +1625,37 @@ fn pose_point(p: &Pose, key: &str) -> Option<(f32, f32)> {
     let (px, py) = p.anim?.point(key, p.frame)?;
     let dx = if p.flip { p.anchor.0 - px } else { px - p.anchor.0 };
     Some((dx as f32, (py - p.anchor.1) as f32))
+}
+
+/// The blade's connected emissive component excludes disconnected eye pixels. Cache callers
+/// resolve this once per native pose; the per-frame source then needs no image scan/allocation.
+fn upper_blade_pixel(cell: &Cell, tip: (i32, i32)) -> Option<(i32, i32)> {
+    let seed = cell.px.iter().enumerate().filter(|(_, p)| p.a && p.emit)
+        .min_by_key(|(i, _)| {
+            let (x, y) = (*i as i32 % cell.w, *i as i32 / cell.w);
+            ((x - tip.0).pow(2) + (y - tip.1).pow(2), y, x)
+        }).map(|(i, _)| i)?;
+    let mut visited = vec![false; cell.px.len()];
+    let mut component = vec![seed];
+    visited[seed] = true;
+    let mut head = 0;
+    while head < component.len() {
+        let i = component[head];
+        head += 1;
+        let (x, y) = (i as i32 % cell.w, i as i32 / cell.w);
+        for dy in -1..=1 { for dx in -1..=1 {
+            let (nx, ny) = (x + dx, y + dy);
+            if !(0..cell.w).contains(&nx) || !(0..cell.h).contains(&ny) { continue; }
+            let next = (ny * cell.w + nx) as usize;
+            let p = cell.px[next];
+            if !visited[next] && p.a && p.emit {
+                visited[next] = true;
+                component.push(next);
+            }
+        }}
+    }
+    component.into_iter().map(|i| (i as i32 % cell.w, i as i32 / cell.w))
+        .min_by_key(|&(x, y)| (y, (x - tip.0).abs(), x))
 }
 
 fn step_sound(zone: &Zone, x: f32, y: f32) -> &'static str {
@@ -2316,5 +2417,68 @@ mod tests {
             assert!((x - (p.body.x + dx)).abs() < 0.001);
             assert!((y - z - (p.body.y + dy - p.body.z)).abs() < 0.001);
         }
+    }
+
+    /// The real blade lights remain visible in bright regions, with one local source instead
+    /// of ambient-gated or stacked pools. The old renderer still uses its daylight gate above.
+    #[test]
+    fn physical_blade_light_survives_bright_ambient() {
+        let mut p = Player::new(192.0, 108.0);
+        let mut f = Frame::new();
+        for ambient in [Rgb::WHITE, Rgb::new(0.91, 0.90, 0.94), rgb(0x9caeb9).scale(0.72)] {
+            for state in [State::Normal, State::Attack { stage: 1, t: 5 }, State::Attack { stage: 3, t: 10 }, State::Charge { t: CHARGE_FULL }, State::Spin { t: 5 }, State::Respawn { t: 1 }] {
+                p.state = state;
+                f.begin(Rgb::BLACK, ambient);
+                f.surface_lighting = true;
+                p.draw_lights(&mut f);
+                assert_eq!(f.point_lights.len(), 1, "missing or stacked blade sources in {state:?}");
+                let light = f.point_lights[0];
+                assert!((48.0..=64.0).contains(&light.radius));
+                assert!((0.9..=1.5).contains(&light.intensity));
+                assert_eq!(light.color, BLADE_MID);
+                assert!(f.light.iter().all(|c| *c == ambient), "physical source wrote a radial pool");
+            }
+        }
+    }
+
+    /// Moving/turning/striking relocates the light to an actual emissive blade pixel, including
+    /// sprite raster snapping and airborne poses. No fixed body or phantom overhead source.
+    #[test]
+    fn physical_blade_light_stays_on_live_emissive_art() {
+        let mut p = Player::new(192.35, 108.7);
+        p.body.z = 7.25;
+        let mut sources = std::collections::HashSet::new();
+        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+            p.dir = dir;
+            for moving in [false, true] {
+                p.moving = moving;
+                for t in 0..80 {
+                    p.anim_t = t;
+                    for state in [State::Normal, State::Attack { stage: 1, t }, State::Attack { stage: 2, t }, State::Attack { stage: 3, t }, State::Charge { t: CHARGE_FULL }, State::Spin { t }] {
+                        p.state = state;
+                        let (x, y, z) = p.blade_light_position().expect("live blade has emissive pixels");
+                        let pose = p.pose().unwrap();
+                        let dx = x.floor() as i32 - p.body.x.floor() as i32;
+                        let px = pose.anchor.0 + if pose.flip { -dx } else { dx };
+                        let py = (y - z).floor() as i32 - (p.body.y - p.body.z).floor() as i32 + pose.anchor.1;
+                        let pixel = pose.cell.at(px, py);
+                        assert!(pixel.a && pixel.emit, "source left the live blade in {dir:?} {state:?}");
+                        assert!(z >= p.body.z, "source fell below the airborne blade");
+                        sources.insert((x.to_bits(), (y - z).to_bits()));
+                    }
+                }
+            }
+        }
+        assert!(sources.len() > 50, "the emitter did not follow authored blade motion");
+    }
+
+    #[test]
+    fn blade_emitter_excludes_disconnected_eyes() {
+        let cell = Cell::from_ascii(
+            &["..e.e..", ".......", ".....b.", "....bb.", "...b..."],
+            &[('e', BLADE_CORE), ('b', BLADE_MID)], &['e', 'b'],
+        );
+        assert_eq!(upper_blade_pixel(&cell, (3, 4)), Some((5, 2)));
+        assert_eq!(upper_blade_pixel(&Cell::default(), (0, 0)), None);
     }
 }

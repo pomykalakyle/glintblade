@@ -1,0 +1,1110 @@
+{
+  "reviewer": "column_base_audit_round5, independent read-only source/art reviewer",
+  "status": "PASS: reported broken-column source cutoff repaired; final embedded scene contacts independently approved",
+  "scope": "Direct attachment review; native PNG frames listed below; ten selected in-world contact crops from frozen round5-final; three dedicated Glasswater fin placements. Still images only, no motion or collision certification. Derived contact sheets use nearest-neighbor enlargement only and are analysis artifacts, not shipped art.",
+  "scene_binary_sha256": "7756a3bd85ef76acad6a697c0bb0848430d78bb52b8efeaccbc60409ce0c2ae7",
+  "evidence": [
+    {
+      "path": "out/pixellab/round5/columns-audit/bloom-source-3x.png",
+      "sha256": "572cca13712d9f9bb84d88e18a3944f64adc4608d95ee4f7d8719dbf8bfe170c"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/cinder-source-3x.png",
+      "sha256": "fb8aca3d239f71cdbf767e6bbad66b5cdadd377aad0b9a47a1017f840c75c056"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/summit-source-3x.png",
+      "sha256": "9f68c6f2f996b9d59ee30fa6d949ab7438296c377049de5c2efca0d1a804b65f"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/glass-all-fins-4x.png",
+      "sha256": "4b8b9e596a7924d9baff090792621321443126b036cd2d5c532c418e42a2fb98"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/other-source-3x.png",
+      "sha256": "e1270aaa80169e22c5ce5982cb6d2f255e51e7c49d7983daf77611d9e5b83afb"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/actual-contacts-4x.png",
+      "sha256": "39b489db06e1b622c3e210c313d499a667f0ed880703143f9b78f9247899ceb5"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/lake-fin/glasswater_t00090.png",
+      "sha256": "349998360ee1706283884878691b2a10c823fa520af7913cc0315dcfa277ddfe"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/grove-fin/glasswater_t00090.png",
+      "sha256": "9e158020741b1d4f450b103b29b741b414602f8fe7fc55e33600fcd2528a7b35"
+    },
+    {
+      "path": "out/pixellab/round5/columns-audit/heart-fin/glasswater_t00090.png",
+      "sha256": "082a5efb25fe8a7c615d493d69bd2b3080df8f42ad09f70619682e07145efd34"
+    }
+  ],
+  "findings": [
+    {
+      "priority": "must fix",
+      "family": "bloomwild_ruins",
+      "anims": [
+        "pillar_broken_tall",
+        "pillar_broken_short"
+      ],
+      "finding": "Both native shaft silhouettes remain opaque x9..37 across rows48..55 and terminate at the exact 56px cell boundary. The visible lower face never turns into a closed foot. The in-world grey contact/cast shadow starts at that horizontal cut and cannot supply the missing stone volume.",
+      "acceptance": "A restrained chipped or beveled footing with visible front/side faces, a fully closed silhouette and transparent lower margin, reviewed both without ground overlays and at actual native gameplay scale. Preserve upper-shaft identity; no moss or shadow used to hide a crop."
+    },
+    {
+      "priority": "non-blocking observation",
+      "family": "summit_pillars and summit_stones",
+      "anims": [
+        "pillar_2",
+        "monolith_0"
+      ],
+      "finding": "Native cell pixels are identical, but the duplicate is separated between the arrival landmark and arena ring. No conspicuous same-camera adjacent duplication found in reviewed views, so no extra generation requested."
+    }
+  ],
+  "other_base_assessment": "Other reviewed Bloom intact pillars, arch posts, aqueduct, statue and drum show complete feet or intentional enclosed plinths. Cinder markers/old pillars, press and statue have complete front/side or stepped base planes. Summit piers/monoliths/dais have complete native plinth volume and margins. All three Glasswater fin frames finish in enclosed projecting feet; reviewed actual lake, grove and heart placements meet the ground. No second source-border cutoff was found within this scope. Legacy Cinder statue/ruins and Bloom waterworks were inspected as source sheets; they were not claimed as current scene placements.",
+  "candidate_source_review": {
+    "candidate": "hybrid -42 native registered footer",
+    "status": "approved as in-world candidate, actual runtime ground/shadow and updated collision integration review pending",
+    "files": [
+      {
+        "path": "art/pixellab/2026-11-01-round5/columns/hybrid-tall-a-short-foot-42.png",
+        "sha256": "9de3c4c8ee40a2cab0ef34fd11c112844b12226d5dc7f8434a0e6da55b668d07",
+        "native_size": [
+          48,
+          56
+        ],
+        "opaque_bounds": [
+          5,
+          8,
+          42,
+          54
+        ],
+        "binary_alpha": true
+      },
+      {
+        "path": "art/pixellab/2026-11-01-round5/columns/hybrid-short-b-short-foot-42.png",
+        "sha256": "3919b30d1a077d788835633b19a003ed6356666bfb343e53d2ffb31de41971ab",
+        "native_size": [
+          48,
+          56
+        ],
+        "opaque_bounds": [
+          5,
+          22,
+          42,
+          54
+        ],
+        "binary_alpha": true
+      }
+    ],
+    "direct_review": "Full 6x registration comparison plus both exact native 1x cells inspected. Third register closes into a clearly modeled beveled foot with front and shadow-side planes and two transparent lower rows. No painted shadow or added moss substitutes for missing stone. The lower side is broader and more regular than the chipped intact-column feet, but reads coherent enough for scene evaluation.",
+    "integration_requirements": "New visible base is37px wide (old29) and ends at native y53 (old55). Recompute exact opaque support/collision and sort depth from finished source. Check all placements near coasts, steps and walk lanes; retain upper40 native source rows exactly."
+  },
+  "candidate_runtime_review": {
+    "kind": "Frozen pre-column binary7756a3bd with art/metadata override, not the final embedded build",
+    "images": [
+      "out/pixellab/round5/columns/fallback/temple/bloomwild_t00090.png",
+      "out/pixellab/round5/columns/fallback/title/f00240.png"
+    ],
+    "matched_evidence": {
+      "path": "out/pixellab/round5/columns-audit/candidate-runtime-matched-5x.png",
+      "sha256": "b3f1207c624526ec6f0b012411ab6731c8db9c62527552f5a42545d41a2407e0"
+    },
+    "direct_review": "Inspected full native temple/title views plus matched5x contacts. New footings close into visible front/side stone planes and read convincingly grounded. The focal title ruin also has a complete foot; no new smear or ground-colored strip hides it.",
+    "status": "Art cutoff repaired in candidate; final combined scene approval blocked by a placement/ordering overlap",
+    "integration_finding": "The existing toppled drum at1103,505 now visibly overlays the front-right short-column lower shaft and new pedestal around temple screen240,145. The changed native foot and sort depth expose the old overlap. Separate the drum from the column footprint and rerender; do not compensate with forced ordering that would preserve an impossible physical overlap. Also verify every widened new foot on finished physical ground."
+  },
+  "selected_source_review": {
+    "status": "approved; full embedded-build placement/integration review pending",
+    "files": [
+      {
+        "path": "art/pixellab/2026-11-01-round5/columns/selected-pillar_broken_tall.png",
+        "sha256": "564f4eef3d6b23856dd316438ecc2ba6061d5fbb4305a004dd2dba5f721466f3",
+        "native_size": [
+          48,
+          56
+        ],
+        "opaque_bounds": [
+          5,
+          8,
+          42,
+          54
+        ],
+        "binary_alpha": true,
+        "upper40_rgba_byte_identical_to_original": true,
+        "bottom_transparent_rows": 2
+      },
+      {
+        "path": "art/pixellab/2026-11-01-round5/columns/selected-pillar_broken_short.png",
+        "sha256": "c025fa2f84ca883e45fa919aa408c2a05f55f9007b5ab7f7195bff0c5028b511",
+        "native_size": [
+          48,
+          56
+        ],
+        "opaque_bounds": [
+          5,
+          22,
+          42,
+          54
+        ],
+        "binary_alpha": true,
+        "upper40_rgba_byte_identical_to_original": true,
+        "bottom_transparent_rows": 2
+      }
+    ],
+    "direct_review": "Inspected selected-pair-6x.png, exact native selected cells and completed override temple/title1x views. Both shafts sit in a restrained chipped/beveled stone foot with visible front/shadow-side planes. Lower silhouettes fully close with two transparent rows. Original upper40 RGBA rows verified byte-identical. Tall and short use slightly different native lower-face chips. This fixes the actual source cutoff without moss, added shadows, palette blending or scaled art.",
+    "runtime_override_images": [
+      "out/pixellab/round5/columns/completed/temple/bloomwild_t00090.png",
+      "out/pixellab/round5/columns/completed/title/f00240.png"
+    ],
+    "remaining": "Separate the temple drum from the newly exposed short-column base; inspect every widened footing against finished land; review the final embedded binary rather than only the external asset override."
+  },
+  "pre_repair_sources": [
+    {
+      "sheet": "bloomwild_ruins",
+      "png_sha256": "074d9a8805d467f4e41396348fee63402d5225ca2dbd16323186ac05060ba98f",
+      "metadata_sha256": "da68df3c8ed600f98707a8113dc438781e63e2c41d48b661f46e521310b4f252",
+      "native_cell": [
+        48,
+        56
+      ],
+      "frames": [
+        {
+          "anim": "pillar",
+          "frame": 0,
+          "opaque_bounds": [
+            10,
+            4,
+            39,
+            52
+          ],
+          "bottom_gutter": 4
+        },
+        {
+          "anim": "pillar_broken_tall",
+          "frame": 0,
+          "opaque_bounds": [
+            9,
+            8,
+            38,
+            56
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "pillar_broken_short",
+          "frame": 0,
+          "opaque_bounds": [
+            9,
+            22,
+            38,
+            56
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "drum",
+          "frame": 0,
+          "opaque_bounds": [
+            10,
+            36,
+            39,
+            53
+          ],
+          "bottom_gutter": 3
+        },
+        {
+          "anim": "wall_low",
+          "frame": 0,
+          "opaque_bounds": [
+            3,
+            23,
+            45,
+            53
+          ],
+          "bottom_gutter": 3
+        },
+        {
+          "anim": "wall_tall",
+          "frame": 0,
+          "opaque_bounds": [
+            3,
+            23,
+            45,
+            53
+          ],
+          "bottom_gutter": 3
+        },
+        {
+          "anim": "statue",
+          "frame": 0,
+          "opaque_bounds": [
+            12,
+            15,
+            37,
+            54
+          ],
+          "bottom_gutter": 2
+        },
+        {
+          "anim": "pillar_b",
+          "frame": 0,
+          "opaque_bounds": [
+            9,
+            4,
+            39,
+            52
+          ],
+          "bottom_gutter": 4
+        },
+        {
+          "anim": "pillar_c",
+          "frame": 0,
+          "opaque_bounds": [
+            11,
+            4,
+            38,
+            52
+          ],
+          "bottom_gutter": 4
+        }
+      ]
+    },
+    {
+      "sheet": "bloomwild_arch",
+      "png_sha256": "c6240d344883f58b9e0b4bf6e5092e77513560aa8a14dee2e28da6416cd61cb0",
+      "metadata_sha256": "6f0d9dfb90d52ca7fa9d277817c98aa66e4cb8254e20c5fe82bca3a0fb3480b6",
+      "native_cell": [
+        64,
+        72
+      ],
+      "frames": [
+        {
+          "anim": "arch_post_left",
+          "frame": 0,
+          "opaque_bounds": [
+            22,
+            10,
+            40,
+            67
+          ],
+          "bottom_gutter": 5
+        },
+        {
+          "anim": "arch_post",
+          "frame": 0,
+          "opaque_bounds": [
+            22,
+            10,
+            40,
+            67
+          ],
+          "bottom_gutter": 5
+        },
+        {
+          "anim": "arch_span",
+          "frame": 0,
+          "opaque_bounds": [
+            23,
+            7,
+            42,
+            66
+          ],
+          "bottom_gutter": 6
+        },
+        {
+          "anim": "arch_post_right",
+          "frame": 0,
+          "opaque_bounds": [
+            25,
+            6,
+            42,
+            61
+          ],
+          "bottom_gutter": 11
+        }
+      ]
+    },
+    {
+      "sheet": "bloomwild_aqueduct",
+      "png_sha256": "5704d65c8d7e5e174b926b4eec5afe8df7d0fc44bf613f562bd2d8edaee116f7",
+      "metadata_sha256": "594dd167f98271b3f53f74036a30643b10006a028f472951fb9d05393b366c0f",
+      "native_cell": [
+        128,
+        96
+      ],
+      "frames": [
+        {
+          "anim": "body",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            12,
+            121,
+            85
+          ],
+          "bottom_gutter": 11
+        }
+      ]
+    },
+    {
+      "sheet": "bloomwild_waterworks",
+      "png_sha256": "5338bcf10abe6babb2e7411b56c29e3de29af6c9358b8642e64624e5336de05d",
+      "metadata_sha256": "5e064acc87730518cd2cd3b3063ce6e690a94e99cb4a80843c5154698304fcf9",
+      "native_cell": [
+        64,
+        128
+      ],
+      "frames": [
+        {
+          "anim": "fin",
+          "frame": 0,
+          "opaque_bounds": [
+            18,
+            12,
+            48,
+            125
+          ],
+          "bottom_gutter": 3
+        }
+      ]
+    },
+    {
+      "sheet": "cinder_pillars",
+      "png_sha256": "ae013216d39788277b10b2c9f0a9ccd1892a22c215b1291640720d13d37b9116",
+      "metadata_sha256": "f52c5221ed1a373ca188b9bd5d54d52370ccf8758a01f57b21bf9f9a451223f7",
+      "native_cell": [
+        32,
+        48
+      ],
+      "frames": [
+        {
+          "anim": "pillar",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            3,
+            26,
+            46
+          ],
+          "bottom_gutter": 2
+        },
+        {
+          "anim": "pillar_rune",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            3,
+            26,
+            46
+          ],
+          "bottom_gutter": 2
+        },
+        {
+          "anim": "pillar_broken_tall",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            16,
+            30,
+            46
+          ],
+          "bottom_gutter": 2
+        },
+        {
+          "anim": "pillar_broken_short",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            29,
+            30,
+            46
+          ],
+          "bottom_gutter": 2
+        }
+      ]
+    },
+    {
+      "sheet": "cinder_markers",
+      "png_sha256": "7d6b837912e3551f9fd0c6c669d69ddda237abfea7b440573a19bca2b12f1ef3",
+      "metadata_sha256": "6a5f7bdce90ab09fb251cc998d0e24012d35b63fa0430a5aabc2d80c20e54f3d",
+      "native_cell": [
+        64,
+        80
+      ],
+      "frames": [
+        {
+          "anim": "pillar",
+          "frame": 0,
+          "opaque_bounds": [
+            21,
+            24,
+            43,
+            76
+          ],
+          "bottom_gutter": 4
+        },
+        {
+          "anim": "pillar_broken_tall",
+          "frame": 0,
+          "opaque_bounds": [
+            17,
+            25,
+            47,
+            76
+          ],
+          "bottom_gutter": 4
+        },
+        {
+          "anim": "pillar_lean",
+          "frame": 0,
+          "opaque_bounds": [
+            18,
+            25,
+            46,
+            76
+          ],
+          "bottom_gutter": 4
+        },
+        {
+          "anim": "pillar_slotted",
+          "frame": 0,
+          "opaque_bounds": [
+            17,
+            25,
+            47,
+            76
+          ],
+          "bottom_gutter": 4
+        }
+      ]
+    },
+    {
+      "sheet": "cinder_statue",
+      "png_sha256": "8f986ac73e2fa9d9e069e7d40ec36ca9b22312d9760d1603acdc860e2b8b6ff6",
+      "metadata_sha256": "7670b3f549469428d01aaf6887124f66e811946506c1af4ca579efbfbdf71a66",
+      "native_cell": [
+        64,
+        64
+      ],
+      "frames": [
+        {
+          "anim": "statue",
+          "frame": 0,
+          "opaque_bounds": [
+            14,
+            3,
+            61,
+            62
+          ],
+          "bottom_gutter": 2
+        }
+      ]
+    },
+    {
+      "sheet": "cinder_ruins",
+      "png_sha256": "a4eeae8c860c19bae0e123940fb1bbb383d1146e124f9b24971d7b2fc22519ed",
+      "metadata_sha256": "a6c9975b0917c48098fd55ee9479034c5cd6f9b0fa81fd881169663ab4bab6f5",
+      "native_cell": [
+        64,
+        48
+      ],
+      "frames": [
+        {
+          "anim": "wall_long",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            20,
+            60,
+            44
+          ],
+          "bottom_gutter": 4
+        },
+        {
+          "anim": "wall_low",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            32,
+            60,
+            44
+          ],
+          "bottom_gutter": 4
+        },
+        {
+          "anim": "arch_broken",
+          "frame": 0,
+          "opaque_bounds": [
+            9,
+            4,
+            54,
+            44
+          ],
+          "bottom_gutter": 4
+        }
+      ]
+    },
+    {
+      "sheet": "cinder_shrine",
+      "png_sha256": "e5b202d169e68ac3a5bbf0323e3b531e3eb8e25bf2744fdfb27ad18ccec98f52",
+      "metadata_sha256": "d8c85032e13ce89730a3e0fbacd8d32037980de2a6ba05f266dd2c535c1839ff",
+      "native_cell": [
+        128,
+        96
+      ],
+      "frames": [
+        {
+          "anim": "body",
+          "frame": 0,
+          "opaque_bounds": [
+            11,
+            14,
+            117,
+            83
+          ],
+          "bottom_gutter": 13
+        }
+      ]
+    },
+    {
+      "sheet": "cinder_foundry",
+      "png_sha256": "c5da64f8239111e83c6f1df0b40f33548f0abf503964d5ee016ecc77e8f26b97",
+      "metadata_sha256": "089c0f4541f114774ec7795df0828d7d42e5a6ed389632e4771ed960e5506c33",
+      "native_cell": [
+        64,
+        80
+      ],
+      "frames": [
+        {
+          "anim": "press",
+          "frame": 0,
+          "opaque_bounds": [
+            7,
+            6,
+            57,
+            74
+          ],
+          "bottom_gutter": 6
+        },
+        {
+          "anim": "broken_press",
+          "frame": 0,
+          "opaque_bounds": [
+            6,
+            7,
+            57,
+            74
+          ],
+          "bottom_gutter": 6
+        }
+      ]
+    },
+    {
+      "sheet": "cinder_brazier",
+      "png_sha256": "9daabcda8cb10f229e45e310cb111e6c6deb9092b9c5c6c4f1ba784bed6366b9",
+      "metadata_sha256": "b60c8840dc31cca77545069308fc8de92f91b2bb20acaa7ffc6e3043e84298c3",
+      "native_cell": [
+        16,
+        32
+      ],
+      "frames": [
+        {
+          "anim": "brazier_lit",
+          "frame": 0,
+          "opaque_bounds": [
+            0,
+            2,
+            16,
+            32
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "brazier_lit",
+          "frame": 1,
+          "opaque_bounds": [
+            0,
+            7,
+            16,
+            32
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "brazier_lit",
+          "frame": 2,
+          "opaque_bounds": [
+            0,
+            4,
+            16,
+            32
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "brazier_lit",
+          "frame": 3,
+          "opaque_bounds": [
+            0,
+            2,
+            16,
+            32
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "brazier_lit",
+          "frame": 4,
+          "opaque_bounds": [
+            0,
+            2,
+            16,
+            32
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "brazier_lit",
+          "frame": 5,
+          "opaque_bounds": [
+            0,
+            5,
+            16,
+            32
+          ],
+          "bottom_gutter": 0
+        },
+        {
+          "anim": "brazier_unlit",
+          "frame": 0,
+          "opaque_bounds": [
+            0,
+            12,
+            16,
+            32
+          ],
+          "bottom_gutter": 0
+        }
+      ]
+    },
+    {
+      "sheet": "summit_pillars",
+      "png_sha256": "c37311d153ac512842f53ae1eccb7eca0baad7d1daf4a9f9310ae9cea3b5b5f5",
+      "metadata_sha256": "5ff1ffae7ff4cee14a783e82a732fcb231103219a526db90e6f5950c22ab0805",
+      "native_cell": [
+        64,
+        112
+      ],
+      "frames": [
+        {
+          "anim": "pillar_0",
+          "frame": 0,
+          "opaque_bounds": [
+            8,
+            11,
+            56,
+            101
+          ],
+          "bottom_gutter": 11
+        },
+        {
+          "anim": "pillar_1",
+          "frame": 0,
+          "opaque_bounds": [
+            9,
+            14,
+            53,
+            100
+          ],
+          "bottom_gutter": 12
+        },
+        {
+          "anim": "pillar_2",
+          "frame": 0,
+          "opaque_bounds": [
+            13,
+            11,
+            52,
+            100
+          ],
+          "bottom_gutter": 12
+        }
+      ]
+    },
+    {
+      "sheet": "summit_stones",
+      "png_sha256": "6ef26abda1834ff1e37d57854bdf82dcbb47b174dce7714a48de66eb5aee2d6e",
+      "metadata_sha256": "3d25b0999dd16382e3e53a3c5cbb4454a055c09b8f6a4152db5d342fabe2fb30",
+      "native_cell": [
+        64,
+        112
+      ],
+      "frames": [
+        {
+          "anim": "monolith_0",
+          "frame": 0,
+          "opaque_bounds": [
+            13,
+            11,
+            52,
+            100
+          ],
+          "bottom_gutter": 12
+        },
+        {
+          "anim": "monolith_1",
+          "frame": 0,
+          "opaque_bounds": [
+            10,
+            19,
+            54,
+            102
+          ],
+          "bottom_gutter": 10
+        }
+      ]
+    },
+    {
+      "sheet": "summit_foundation",
+      "png_sha256": "bfc1400e3b06cef26c726bcbe776d9c11756fd9ed4db81b5cd7d8909bf49ba0f",
+      "metadata_sha256": "1576ee9fe1b78e594f31da95fac0a87a363825259304b7207d87c50e180c7e6b",
+      "native_cell": [
+        128,
+        128
+      ],
+      "frames": [
+        {
+          "anim": "rock",
+          "frame": 0,
+          "opaque_bounds": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "bottom_gutter": 0
+        }
+      ]
+    },
+    {
+      "sheet": "summit_dais",
+      "png_sha256": "8f857cca6f1b88c9e20a00a3817f30f7803405e7121f4286ad541051d7e50852",
+      "metadata_sha256": "3a6814b08be6ce08a3449c22c333033042a43293e7356978bd012d54a46fb3b0",
+      "native_cell": [
+        128,
+        80
+      ],
+      "frames": [
+        {
+          "anim": "dais",
+          "frame": 0,
+          "opaque_bounds": [
+            19,
+            18,
+            108,
+            63
+          ],
+          "bottom_gutter": 17
+        }
+      ]
+    },
+    {
+      "sheet": "summit_walls",
+      "png_sha256": "eaa5932265f173df4587e71f68156182a9e20e22715c2c3a97187a7f62192df1",
+      "metadata_sha256": "9ae63a273cdfdf8612292a53917f7789ab8c80d04c4827d3c52b8ef88fc05e78",
+      "native_cell": [
+        16,
+        24
+      ],
+      "frames": [
+        {
+          "anim": "post",
+          "frame": 0,
+          "opaque_bounds": [
+            3,
+            8,
+            12,
+            23
+          ],
+          "bottom_gutter": 1
+        }
+      ]
+    },
+    {
+      "sheet": "summit_brazier",
+      "png_sha256": "e9043e4c42a9cf8544b1eff44c3104f6fd0d5759cf45cd8bc4ad379e23274948",
+      "metadata_sha256": "693ff7b036960cd6a55d6e9b54f50f5a3d6672b9bf996f69748ad7785b72b519",
+      "native_cell": [
+        24,
+        40
+      ],
+      "frames": [
+        {
+          "anim": "brazier",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            10,
+            22,
+            39
+          ],
+          "bottom_gutter": 1
+        },
+        {
+          "anim": "brazier",
+          "frame": 1,
+          "opaque_bounds": [
+            5,
+            11,
+            22,
+            39
+          ],
+          "bottom_gutter": 1
+        },
+        {
+          "anim": "brazier",
+          "frame": 2,
+          "opaque_bounds": [
+            5,
+            10,
+            22,
+            39
+          ],
+          "bottom_gutter": 1
+        },
+        {
+          "anim": "brazier",
+          "frame": 3,
+          "opaque_bounds": [
+            5,
+            11,
+            22,
+            39
+          ],
+          "bottom_gutter": 1
+        },
+        {
+          "anim": "brazier",
+          "frame": 4,
+          "opaque_bounds": [
+            5,
+            10,
+            22,
+            39
+          ],
+          "bottom_gutter": 1
+        },
+        {
+          "anim": "brazier",
+          "frame": 5,
+          "opaque_bounds": [
+            5,
+            11,
+            22,
+            39
+          ],
+          "bottom_gutter": 1
+        },
+        {
+          "anim": "brazier_cold",
+          "frame": 0,
+          "opaque_bounds": [
+            5,
+            19,
+            22,
+            39
+          ],
+          "bottom_gutter": 1
+        }
+      ]
+    },
+    {
+      "sheet": "glasswater_waterworks",
+      "png_sha256": "8f9528f5ddd0a4722b4108d8d8e947a6d716df8512b7eda50e49297074b6ae3d",
+      "metadata_sha256": "4b6c513445231056230be4418b161b860c3eb8aae3bba68d98864433af94a78f",
+      "native_cell": [
+        96,
+        96
+      ],
+      "frames": [
+        {
+          "anim": "body",
+          "frame": 0,
+          "opaque_bounds": [
+            24,
+            10,
+            71,
+            90
+          ],
+          "bottom_gutter": 6
+        },
+        {
+          "anim": "body",
+          "frame": 1,
+          "opaque_bounds": [
+            24,
+            10,
+            76,
+            90
+          ],
+          "bottom_gutter": 6
+        },
+        {
+          "anim": "body",
+          "frame": 2,
+          "opaque_bounds": [
+            21,
+            12,
+            74,
+            90
+          ],
+          "bottom_gutter": 6
+        }
+      ]
+    }
+  ],
+  "final_embedded_review": {
+    "binary": "out/pixellab/round5/selected/glintblade",
+    "binary_sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c",
+    "GLINT_SPRITES_override": null,
+    "scene_manifest": "out/pixellab/world/round5-selected/manifest.json",
+    "images": [
+      {
+        "path": "out/pixellab/world/round5-selected/title/f00240.png",
+        "sha256": "98fb3277adafe9f52d068974b3cc23fc094a11ef54445af4877174806e2a9131"
+      },
+      {
+        "path": "out/pixellab/world/round5-selected/bloomwild/temple/bloomwild_t00090.png",
+        "sha256": "8e9bf004a593e635fcd3d88abe40ccd1143ce60c63e029e6ad796257d2feec2f"
+      },
+      {
+        "path": "out/pixellab/world/round5-selected/bloomwild/landing/bloomwild_t00090.png",
+        "sha256": "8623bb785efb9c55ed1e0dfe72492748229026f83b84336a091fba44ffbbd1b9"
+      },
+      {
+        "path": "out/pixellab/round5/columns/selected/altar/bloomwild_t00090.png",
+        "sha256": "9d08887deb5b9d3420ec96834780ff2837266d2d7cf0f3a57b7416ea9ff9d902"
+      },
+      {
+        "path": "out/pixellab/round5/columns-audit/selected-runtime-matched-5x.png",
+        "sha256": "66adc0ba53921e7da4c87952605992f9a48bff6ae77d7de5a8e4bce27bff508d"
+      }
+    ],
+    "final_atlas_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+    "final_metadata_sha256": "386810b1e2da52b1c3478e050073ec0e4179aedd7c53224e1531081c5eae7d79",
+    "native_source_checks": [
+      {
+        "anim": "pillar_broken_tall",
+        "embedded_atlas_pixels_equal_selected_native": true,
+        "opaque_bounds": [
+          5,
+          8,
+          42,
+          54
+        ],
+        "collision_rects": [
+          [
+            5,
+            44,
+            42,
+            48
+          ],
+          [
+            6,
+            48,
+            41,
+            49
+          ],
+          [
+            7,
+            49,
+            40,
+            50
+          ],
+          [
+            9,
+            50,
+            38,
+            51
+          ],
+          [
+            11,
+            51,
+            36,
+            52
+          ],
+          [
+            13,
+            52,
+            34,
+            53
+          ],
+          [
+            16,
+            53,
+            31,
+            54
+          ]
+        ]
+      },
+      {
+        "anim": "pillar_broken_short",
+        "embedded_atlas_pixels_equal_selected_native": true,
+        "opaque_bounds": [
+          5,
+          22,
+          42,
+          54
+        ],
+        "collision_rects": [
+          [
+            5,
+            44,
+            42,
+            48
+          ],
+          [
+            5,
+            48,
+            41,
+            49
+          ],
+          [
+            7,
+            49,
+            40,
+            50
+          ],
+          [
+            8,
+            50,
+            39,
+            51
+          ],
+          [
+            10,
+            51,
+            37,
+            52
+          ],
+          [
+            12,
+            52,
+            35,
+            53
+          ],
+          [
+            15,
+            53,
+            32,
+            54
+          ]
+        ]
+      }
+    ],
+    "direct_review": "Fresh direct inspection of selected embedded-build native title, temple, landing and dedicated altar frame. Selected comparison also inspected at integer5x. Both repaired column families have a complete modeled beveled/chipped front and shadow-side footing. The source-cell horizontal cutoff is gone; the stone visibly closes before the ground begins. Temple slab bases, title grass footing and landing/altar grass-edge feet read supported and calm. The drum now lies separately below the front-right column instead of crossing its lower shaft/plinth; the open gap is readable. No new bright seam, solid contact rectangle or moss coverup is visible.",
+    "verdict": "APPROVED for the user-reported visual defect within these still-image scopes. Root physics scan and test suite remain separate evidence; this review does not certify all terrain, dynamic lighting, gameplay balance or animation."
+  }
+}

@@ -163,6 +163,27 @@ fn blocker(z: &mut Zone, x: f32, y: f32, w: f32, h: f32) {
     z.props.push(p);
 }
 
+/// Match collision to native visible support pixels. The rectangles are merged
+/// source-row spans, rather than one oversized box across angled corners/gaps.
+fn native_supports(z: &mut Zone, name: &str, anim: &str, x: f32, y: f32) -> bool {
+    let Some(s) = sheet(name) else { return false };
+    let Some(a) = s.anim(anim) else { return false };
+    let Some(rects) = a.json.get("collision_rects").and_then(|v| v.as_array()) else { return false };
+    let (ax, ay) = s.anchor_of(a);
+    let mut placed = false;
+    for r in rects {
+        let Some(v) = r.as_array().filter(|v| v.len() == 4) else { continue };
+        let values: Option<Vec<f32>> = v.iter().map(|n| n.as_f64().map(|n| n as f32)).collect();
+        let Some(v) = values else { continue };
+        let (x0, y0, x1, y1) = (v[0], v[1], v[2], v[3]);
+        if x1 <= x0 || y1 <= y0 { continue; }
+        blocker(z, x - ax as f32 + (x0 + x1) * 0.5,
+            y - ay as f32 + y1, x1 - x0, y1 - y0);
+        placed = true;
+    }
+    placed
+}
+
 /// Place architecture outside the central fighting space and use live artist sheets.
 fn place_items(z: &mut Zone) -> Vec<Item> {
     let mut items = Vec::new();
@@ -204,32 +225,42 @@ fn place_items(z: &mut Zone) -> Vec<Item> {
         push(ItemKind::Pillar(v), x.round(), y.round());
     }
     // Standing stones at the landing.
-    push(ItemKind::Monolith(0), 150.0, 752.0);
-    push(ItemKind::Monolith(1), 176.0, 732.0);
+    // Both broken tops fit the actual arrival camera; the bridge's eastbound
+    // route stays open below this complete, readable landing landmark.
+    push(ItemKind::Monolith(0), 150.0, 764.0);
+    push(ItemKind::Monolith(1), 196.0, 756.0);
 
     for it in &mut items {
         let (name, anim) = it.sprite();
         if sheet(name).and_then(|s| s.anim(&anim)).is_some() {
             let mut p = Prop::new(name, &anim, it.x, it.y);
             p.flip = matches!(it.kind, ItemKind::Banner(true));
-            // Keep the original region feet boxes, including their one-pixel y offset.
+            // Collision is instantiated below from native support masks (or the
+            // legacy feet fallback), so the visible prop never adds a second box.
             p.footprint = None;
             z.props.push(p);
             it.sprite = true;
         }
-        let footprint = match it.kind {
+        let native = matches!(it.kind, ItemKind::Pillar(_) | ItemKind::Monolith(_))
+            && native_supports(z, name, &anim, it.x, it.y);
+        let footprint = if native { None } else { match it.kind {
             ItemKind::Brazier => Some((14.0, 6.0)),
             ItemKind::Pillar(_) => Some((16.0, 7.0)),
             ItemKind::Monolith(_) => Some((14.0, 6.0)),
             ItemKind::Banner(_) => Some((4.0, 3.0)),
             _ => None,
-        };
+        } };
         if let Some((w, h)) = footprint {
             blocker(z, it.x, it.y + 1.0, w, h);
         }
     }
     // The raised dais is solid.
-    blocker(z, DAIS.cx, DAIS.cy + DAIS.ry * 0.7, DAIS.rx * 1.6, DAIS.ry * 1.3);
+    if !native_supports(z, "summit_dais", "dais", DAIS.cx, DAIS.cy + 14.0) {
+    let dais_footprint = sheet("summit_dais").and_then(|s| s.anim("dais"))
+        .and_then(|a| a.point("footprint", 0))
+        .map(|(w, h)| (w as f32, h as f32)).unwrap_or((DAIS.rx * 1.6, DAIS.ry * 1.3));
+    blocker(z, DAIS.cx, DAIS.cy + DAIS.ry * 0.7, dais_footprint.0, dais_footprint.1);
+    }
     items
 }
 
@@ -292,6 +323,110 @@ impl Item {
 mod tests {
     use super::*;
 
+    /// New materials and silhouettes cannot create a walkable void or narrow the
+    /// bridge/stair: movement still follows the original five platform domains.
+    #[test]
+    fn native_environment_preserves_all_platform_tiles() {
+        use crate::world::{TILE, Tile};
+        let (zone, _) = build();
+        for ty in 0..TH {
+            for tx in 0..TW {
+                let x = tx * TILE + TILE / 2;
+                let y = ty * TILE + TILE / 2;
+                let rect = |r: (i32, i32, i32, i32)| x >= r.0 && x < r.2 && y >= r.1 && y < r.3;
+                let floor = [ARENA, TERRACE, LANDING].iter().any(|e| e.contains(x as f32 + 0.5, y as f32 + 0.5))
+                    || rect(BRIDGE) || rect(STAIR);
+                assert_eq!(zone.tile(tx, ty), if floor { Tile::Floor } else { Tile::Void }, "tile {tx},{ty}");
+            }
+        }
+    }
+
+    /// Every visible support pixel is solid, including asymmetric shoulders and
+    /// the front tips that the old centered 16x7 collision boxes missed.
+    #[test]
+    fn native_support_masks_cover_all_visible_base_pixels_and_keep_routes_open() {
+        let (zone, _) = build();
+        for item in zone.props.iter().filter(|p| p.sheet == "summit_pillars" || p.sheet == "summit_stones") {
+            let (name, anim) = (item.sheet, &item.anim);
+            let s = sheet(name).unwrap();
+            let a = s.anim(&anim).unwrap();
+            let first = a.json["support_first_row"].as_i64().expect("native support row") as i32;
+            let cell = s.cell(a, 0);
+            let (ax, ay) = s.anchor_of(a);
+            for y in first..cell.h {
+                for x in 0..cell.w {
+                    if cell.at(x, y).a {
+                        assert!(zone.blocked(item.x - ax as f32 + x as f32 + 0.5,
+                            item.y - ay as f32 + y as f32 + 0.5, 0.05), "{name}/{anim} source {x},{y}");
+                    }
+                }
+            }
+            if name == "summit_stones" {
+                let first_opaque = (0..cell.h).find(|&y| (0..cell.w).any(|x| cell.at(x, y).a)).unwrap();
+                assert!(item.y - ay as f32 + first_opaque as f32 >= zone.player_start.1 - 108.0,
+                    "arrival landmark top cropped: {anim}");
+            }
+        }
+        let s = sheet("summit_dais").unwrap();
+        let a = s.anim("dais").unwrap();
+        let (ax, ay) = s.anchor_of(a);
+        let cell = s.cell(a, 0);
+        for y in 0..cell.h {
+            for x in 0..cell.w {
+                if cell.at(x, y).a {
+                    assert!(zone.blocked(DAIS.cx - ax as f32 + x as f32 + 0.5,
+                        DAIS.cy + 14.0 - ay as f32 + y as f32 + 0.5, 0.05), "dais source {x},{y}");
+                }
+            }
+        }
+        for x in (196..720).step_by(2) {
+            assert!(!zone.blocked(x as f32, 782.0, 4.0), "bridge route {x},782");
+        }
+        for y in (640..792).step_by(2) {
+            assert!(!zone.blocked(720.0, y as f32, 4.0), "stair route 720,{y}");
+        }
+    }
+
+    /// A rounded visible corner must not be replaced by the coarse16px navigation cell.
+    #[test]
+    fn curved_platform_contacts_use_the_finished_native_top() {
+        use crate::world::Tile;
+        let (z, _) = build();
+        assert_eq!(z.tile(27, 20), Tile::Floor);
+        assert_eq!(z.tile_at(435.0, 320.0), Tile::Void, "outside the visible curved top in the same coarse floor tile");
+        assert_eq!(z.tile_at(440.0, 328.0), Tile::Floor);
+        let (x, y, hit) = z.move_box(470.0, 320.0, 4.0, -60.0, 0.0);
+        assert!(hit && (440.0..448.0).contains(&x), "native corner contact: {x},{y}");
+        assert!(!z.blocked(x, y, 4.0));
+        assert!(z.blocked(x - 2.0, y, 4.0));
+        for py in (y - 2.4).floor() as i32..(y + 2.4).ceil() as i32 {
+            for px in (x - 4.0).floor() as i32..(x + 4.0).ceil() as i32 {
+                assert!(!z.tile_at(px as f32, py as f32).solid(), "feet entered a visible gap");
+            }
+        }
+    }
+
+    /// Reproduce the independent reviewer's ordinary R50 contact case through
+    /// real Game::tick input. Glint must stop before the visible left footing.
+    #[test]
+    fn west_pier_contact_stops_hero_outside_visible_stone() {
+        use crate::game::{Game, Options, Scene};
+        use crate::input::{Input, Raw};
+        let mut game = Game::new(Options { start: Some(ZoneId::Summit), peaceful: true, ..Options::default() });
+        if let Scene::Play(p) = &mut game.scene { p.player.respawn(460.0, 532.0); }
+        let mut input = Input::default();
+        for _ in 0..50 {
+            input.step(Raw { mv: (1.0, 0.0), ..Raw::default() });
+            game.tick(&input);
+            game.fx.sounds.clear();
+        }
+        let Scene::Play(p) = &game.scene else { panic!("left play scene") };
+        let (x, y) = (p.player.body.x, p.player.body.y);
+        assert!(x > 462.0 && x <= 469.0, "walked inside visible footing: {x},{y}");
+        assert!(!p.zone.blocked(x, y, p.player.body.r));
+        assert!(p.zone.blocked(x + 1.5, y, p.player.body.r));
+    }
+
     /// Received fire stays on existing stone and bowl facets, preserving actors and albedo.
     #[test]
     fn brazier_receivers_preserve_materials_and_actor_ink() {
@@ -326,6 +461,10 @@ mod tests {
 }
 
 impl Region for Summit {
+    fn backdrop_light(&self, _ambient: Rgb) -> Rgb {
+        Rgb::WHITE
+    }
+
     fn update(&mut self, _zone: &mut Zone, _ctx: &RegionCtx, fx: &mut Fx) {
         // Pixels that fall off the edge drop into the sky instead of resting on thin air.
         let (pw, ph) = (self.pw, self.ph);
@@ -372,9 +511,9 @@ impl Region for Summit {
         for it in &self.items {
             if matches!(it.kind, ItemKind::Brazier) {
                 if !it.sprite {
-                    f.add_light_w(it.x, it.y - 23.0, 22.0, pal::FIRE, 0.3 * it.flicker(t));
+                    f.add_light_3d_w(it.x, it.y, 23.0, 22.0, pal::FIRE, 0.3 * it.flicker(t));
                 }
-                it.light_receivers(zone, f, t);
+                if !f.surface_lighting { it.light_receivers(zone, f, t); }
             }
         }
         // The boss code owns its heart light, so it dies with the Warden.

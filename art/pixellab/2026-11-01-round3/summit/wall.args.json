@@ -1,0 +1,19 @@
+{
+  "description": "A single seamless horizontal ancient masonry retaining wall material panel, front elevation. Blue grey ashlar stone for an immense abandoned waterworks fortress in a restrained hand-crafted pixel game. Canvas128x96; fill all pixels, no background. Four unequal horizontal masonry courses, block lengths about40 to70pixels, dark narrow mortar interrupted by chipped joints, subtle broken triangular corners, mostly broad calm shaded planes. Top left cool light, bottom right shadow. No border around image; blocks continue beyond all edges. No top surface, no isometric cube, no ornaments, no glow, no moss, no noise or dithering. Strong designed clusters and believable irregular compression cracks, tiny selective edge highlights at focal chips. Dominant #2b3548 #333b4c #46526a, only sparse #64738a chipped facets. Structural material to be masked on curved foundation walls. Native128x96 pixel art.",
+  "width": 128,
+  "height": 96,
+  "no_background": false,
+  "palette": [
+    "#1f2838",
+    "#2b3548",
+    "#333b4c",
+    "#46526a",
+    "#555d70",
+    "#64738a",
+    "#7f8797",
+    "#94a1ae",
+    "#c1c8c5"
+  ],
+  "max_colors": 7,
+  "seed": 418
+}

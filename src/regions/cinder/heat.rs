@@ -69,6 +69,8 @@ impl Heat {
 
     /// Apply cached stone reception and the existing flame key inside opaque actor contours.
     pub fn light(&self, f: &mut Frame) {
+        // The real brazier is now evaluated per normal and per-source visibility.
+        if f.surface_lighting { return; }
         self.static_light(f);
         let Some((sx, sy, color)) = self.actor_key else { return };
         for y in 1..H - 1 {

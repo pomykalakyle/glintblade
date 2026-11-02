@@ -1,0 +1,38 @@
+{
+  "scope": "16 scene light passes across all four zones. Exact current immutable library; material/emission/actor/water/point-list preservation asserted in each. Quiet-versus-off protected masks include native cells, actors, nonreceivers, sky. Bloomwild weather intentionally modulates lighting, so its protected hash may differ. Pure court receiver runs current pinned cinder_floor.rs in Rect adapter for all native points.",
+  "lines_off": 18,
+  "lines_quiet": 18,
+  "self_emitter": "OWN_EMITTER checks=261 exact_all_crystal_centroids=14",
+  "court": "COURT checked=1284096 actual_floor_receivers=30525 excluded_liquid=98876",
+  "protected_mask_differences": [],
+  "scenes_with_live_light_delta": [
+    "LIGHT Bloomwild scene=0",
+    "LIGHT Bloomwild scene=1",
+    "LIGHT Bloomwild scene=2",
+    "LIGHT Bloomwild scene=3",
+    "LIGHT Glasswater scene=2",
+    "LIGHT Summit scene=1"
+  ],
+  "all_assertions_passed": true,
+  "controlled_point_fixture": {
+    "scope": "Same 16 scenes with additional transient cyan point emitter (170px radius, intensity0.85), to exercise shadow receivers where the still scene has no remote emitter.",
+    "protected_mask_differences": [],
+    "scenes_with_light_delta": [
+      "LIGHT Bloomwild scene=0",
+      "LIGHT Bloomwild scene=1",
+      "LIGHT Bloomwild scene=2",
+      "LIGHT Bloomwild scene=3",
+      "LIGHT Glasswater scene=0",
+      "LIGHT Glasswater scene=1",
+      "LIGHT Glasswater scene=2",
+      "LIGHT Glasswater scene=3",
+      "LIGHT Cinder scene=0",
+      "LIGHT Cinder scene=1",
+      "LIGHT Cinder scene=3",
+      "LIGHT Summit scene=0",
+      "LIGHT Summit scene=1",
+      "LIGHT Summit scene=2"
+    ],
+    "all_assertions_passed": true
+  }
+}

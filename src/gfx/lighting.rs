@@ -4,7 +4,11 @@
 //! Sprite breakage refreshes bounded world-space patches; other geometry still invalidates the bake.
 
 mod cinder_floor;
+mod dynamic;
 mod patch;
+mod surface_shadows;
+mod terrain_shadows;
+mod sun_shadows;
 use patch::{Planes, Rect, incremental, procedural_bounds, prop_bounds};
 
 use super::{Caster, Cell, Frame, H, Rgb, W, rgb};
@@ -12,6 +16,18 @@ use crate::world::{Region, TILE, Tile, Zone, ZoneId};
 use std::hash::{Hash, Hasher};
 
 const PROCEDURAL_HEIGHT: i32 = 192;
+
+/// One native diagnostic selects the former baked lighting. Browser/default
+/// builds always use the live surface renderer and never bake its casts into art.
+pub(crate) fn legacy_mode() -> bool {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        static LEGACY: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        *LEGACY.get_or_init(|| std::env::var("GLINT_LIGHTING").is_ok_and(|v| v == "legacy"))
+    }
+    #[cfg(target_arch = "wasm32")]
+    { false }
+}
 
 /// Reserve inferred box planes for upright stone masses with an explicit material identity.
 fn mineral_sprite(p: &crate::world::Prop, cell: &Cell) -> bool {
@@ -38,7 +54,7 @@ fn mineral_sprite(p: &crate::world::Prop, cell: &Cell) -> bool {
 
 /// A collision-only companion must not recover a second copy of an existing sprite's planes.
 fn sprite_companion(z: &Zone, p: &crate::world::Prop) -> bool {
-    p.sheet().and_then(|s| s.anim(&p.anim)).is_none()
+    p.sheet == "__summit_blocker" || p.sheet().and_then(|s| s.anim(&p.anim)).is_none()
         && z.props.iter().any(|other| other.alive
             && (other.x - p.x).abs() <= 2.0 && (other.y - p.y).abs() <= 2.0
             && other.sheet().and_then(|s| s.anim(&other.anim)).is_some())
@@ -68,6 +84,37 @@ struct Plane {
     edge: f32,
 }
 
+/// Compact retained terrain geometry: three signed normal components and native altitude.
+/// Zero normal denotes absent metadata. Four bytes per world pixel avoids retaining
+/// the twenty-byte scratch Plane across the whole zone.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(crate) struct TerrainSurface {
+    pub normal: [i8; 3],
+    pub height: u8,
+}
+
+impl TerrainSurface {
+    pub(crate) fn new(normal: [f32; 3], height: f32) -> Self {
+        let length = (normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]).sqrt();
+        if !length.is_finite() || length < 0.001 { return Self::default(); }
+        Self {
+            normal: normal.map(|n| (n / length * 127.0).round().clamp(-127.0, 127.0) as i8),
+            height: height.round().clamp(0.0, 255.0) as u8,
+        }
+    }
+
+    pub(crate) fn present(self) -> bool { self.normal != [0; 3] }
+
+    fn surface(self) -> super::frame::Surface {
+        super::frame::Surface {
+            normal: self.normal.map(|n| n as f32 / 127.0),
+            height: self.height as f32,
+            owner: 0,
+            kind: if self.height == 0 { 1 } else { 2 },
+        }
+    }
+}
+
 pub(crate) struct Field {
     settings: crate::world::LightingSettings,
     key: u64,
@@ -79,8 +126,15 @@ pub(crate) struct Field {
     h: i32,
     light: Vec<Rgb>,
     dark: Vec<u8>,
+    /// Source-independent contact/AO, retained separately from legacy fixed casts.
+    contact: Vec<u8>,
+    /// Cold matte form multiplier; physical lighting supplies all point-source facing live.
+    cold_form: Vec<u8>,
     raised: Vec<bool>,
     receiving: Vec<bool>,
+    terrain: Vec<TerrainSurface>,
+    terrain_shadow: terrain_shadows::Geometry,
+    sun_terrain: Option<sun_shadows::SunTerrain>,
     art: Vec<Rgb>,
     sources: Vec<Source>,
     lava: Vec<(i32, i32, u16)>,
@@ -121,6 +175,9 @@ fn geometry_key(z: &Zone) -> u64 {
             v.to_bits().hash(&mut hash);
         }
         p.footprint.is_some().hash(&mut hash);
+        for r in p.collision_rects() {
+            for v in r { v.to_bits().hash(&mut hash); }
+        }
         if let Some((c, r, i, x, y)) = p.light {
             for v in [c.r, c.g, c.b, r, i, x, y] {
                 v.to_bits().hash(&mut hash);
@@ -144,15 +201,20 @@ fn geometry_key(z: &Zone) -> u64 {
     hash.finish()
 }
 
-/// Draw only authored scenery, at a canonical tick, for full-zone alpha and procedural relief recovery.
+/// Draw authored scenery at a canonical tick for alpha and procedural relief recovery.
+/// Page from the requested crop's origin: a small patch straddling old screen-page
+/// seams needs one reconstruction, rather than up to four complete frames. All
+/// material/reflection sampling stays in world coordinates.
 fn scenery(z: &Zone, region: &dyn Region, rect: Rect) -> (Vec<Rgb>, Vec<Rgb>, Vec<u8>) {
     let n = rect.len();
     let mut art = vec![Rgb::BLACK; n];
     let mut emit = vec![Rgb::BLACK; n];
     let mut contact = vec![0; n];
+    if n == 0 { return (art, emit, contact); }
+    let row_width = (rect.x1 - rect.x0) as usize;
     let mut f = Frame::new();
-    for cy in (rect.y0.div_euclid(H as i32) * H as i32..rect.y1).step_by(H) {
-        for cx in (rect.x0.div_euclid(W as i32) * W as i32..rect.x1).step_by(W) {
+    for cy in (rect.y0..rect.y1).step_by(H) {
+        for cx in (rect.x0..rect.x1).step_by(W) {
             f.cam_x = cx;
             f.cam_y = cy;
             f.begin(z.bg, z.ambient);
@@ -169,7 +231,7 @@ fn scenery(z: &Zone, region: &dyn Region, rect: Rect) -> (Vec<Rgb>, Vec<Rgb>, Ve
                     .iter()
                     .enumerate()
                     .filter(|(_, p)| p.alive && !p.canopy)
-                    .map(|(i, p)| (p.y, true, i)),
+                    .map(|(i, p)| (p.sort_y(), true, i)),
             );
             ordered.sort_by(|a, b| a.0.total_cmp(&b.0).then(b.1.cmp(&a.1)));
             for (_, prop, i) in ordered {
@@ -182,15 +244,17 @@ fn scenery(z: &Zone, region: &dyn Region, rect: Rect) -> (Vec<Rgb>, Vec<Rgb>, Ve
             for p in z.props.iter().filter(|p| p.alive && p.canopy) {
                 p.draw(&mut f, 0, 1.0);
             }
-            for y in 0..H.min((z.ph - cy) as usize) {
-                for x in 0..W.min((z.pw - cx) as usize) {
-                    let i = y * W + x;
-                    let Some(j) = rect.index(cx + x as i32, cy + y as i32) else {
-                        continue;
-                    };
-                    art[j] = f.albedo[i];
-                    emit[j] = f.emissive[i];
-                    contact[j] = ((1.0 - f.shade[i]) * 255.0).round() as u8;
+            // Copy only reconstructed rows/columns. Iterating whole canonical pages
+            // and testing rect.index per pixel made a 12k crop scan up to 330k pixels.
+            let rows = (rect.y1.min(z.ph) - cy).clamp(0, H as i32) as usize;
+            let cols = (rect.x1.min(z.pw) - cx).clamp(0, W as i32) as usize;
+            for y in 0..rows {
+                let src = y * W;
+                let dst = ((cy - rect.y0) as usize + y) * row_width + (cx - rect.x0) as usize;
+                art[dst..dst + cols].copy_from_slice(&f.albedo[src..src + cols]);
+                emit[dst..dst + cols].copy_from_slice(&f.emissive[src..src + cols]);
+                for (out, shade) in contact[dst..dst + cols].iter_mut().zip(&f.shade[src..src + cols]) {
+                    *out = ((1.0 - shade) * 255.0).round() as u8;
                 }
             }
         }
@@ -250,7 +314,11 @@ impl Field {
             for dx in -rx..=rx {
                 let q = (dx as f32 / rx as f32).powi(2) + (dy as f32 / ry as f32).powi(2);
                 if q <= 1.0 {
-                    self.write(x + dx, y - 1 + dy, if q < 0.5 { 89 } else { 46 });
+                    let amount = if q < 0.5 { 89 } else { 46 };
+                    self.write(x + dx, y - 1 + dy, amount);
+                    if let Some(i) = self.paint_index(x + dx, y - 1 + dy) {
+                        self.contact[i] = self.contact[i].max(amount);
+                    }
                 }
             }
         }
@@ -325,7 +393,7 @@ impl Field {
     /// Project away from daylight or an exposed local emitter; unlit rests cast no invented sun shadow.
     fn direction(&self, id: ZoneId, x: f32, y: f32, heart: Option<Source>) -> Option<(f32, f32)> {
         if id == ZoneId::Bloomwild {
-            return Some((0.98, 0.47));
+            return Some((0.55, 0.27));
         }
         let local = self.source(x, y);
         let source = heart
@@ -351,17 +419,19 @@ impl Field {
         anchor: (i32, i32),
         p: &crate::world::Prop,
     ) {
-        let ox = p.x.round() as i32
+        let ox = p.x.floor() as i32
             - if p.flip {
                 cell.w - 1 - anchor.0
             } else {
                 anchor.0
             };
-        let oy = p.y.round() as i32 - anchor.1;
-        let top = (0..cell.h)
-            .find(|&y| (0..cell.w).any(|x| cell.at(x, y).a))
-            .unwrap_or(0);
-        let dir = self.direction(z.id, p.x, p.y, None);
+        let oy = p.y.floor() as i32 - anchor.1;
+        let Some(bottom) = (0..cell.h).rev().find(|&y| (0..cell.w).any(|x| cell.at(x, y).a)) else { return };
+        let top = (0..=bottom).find(|&y| (0..cell.w).any(|x| cell.at(x, y).a)).unwrap();
+        // The first empty row below native ink is the receiving ground, even when
+        // the atlas stages the sprite above its anchor or extends a base below it.
+        let base = oy + bottom + 1;
+        let dir = self.direction(z.id, p.x.floor(), base as f32, None);
         // Trees retain their own authored foliage ramp; planes are reserved for mineral masses.
         let mineral = mineral_sprite(p, cell);
         for y in 0..cell.h {
@@ -380,11 +450,11 @@ impl Field {
                         } else {
                             (left, right)
                         };
-                        planes.set(wx, wy, plane(wx - ox, y, l, r, top, anchor.1));
+                        planes.set(wx, wy, plane(wx - ox, y, l, r, top, bottom + 1));
                     }
                 }
                 if let Some((dx, dy)) = dir {
-                    let height = anchor.1 - y;
+                    let height = bottom - y;
                     if height < 0 {
                         continue;
                     }
@@ -393,7 +463,7 @@ impl Field {
                         let h = height as f32 + sub as f32 / steps as f32;
                         self.write(
                             (wx as f32 + h * dx).round() as i32,
-                            (p.y + h * dy).round() as i32,
+                            (base as f32 + h * dy).round() as i32,
                             186,
                         );
                     }
@@ -478,9 +548,14 @@ impl Field {
             w: z.pw,
             h: z.ph,
             light: vec![Rgb::WHITE; n],
+            contact: dark.clone(),
+            cold_form: vec![255; n],
             dark,
             raised: vec![false; n],
             receiving: vec![false; n],
+            terrain: vec![TerrainSurface::default(); n],
+            terrain_shadow: terrain_shadows::Geometry::new(z),
+            sun_terrain: (z.id == ZoneId::Bloomwild).then(|| sun_shadows::SunTerrain::new(z)),
             art,
             sources: Vec::new(),
             lava: Vec::new(),
@@ -634,18 +709,39 @@ impl Field {
                         .map(|(_, d)| *d)
                         .min()
                         .unwrap_or(16);
-                    f.dark[i] = f.dark[i].max(match d {
+                    let contact = match d {
                         0 => 82,
                         1 => 56,
                         2..=3 => 26,
                         _ => 0,
-                    });
+                    };
+                    f.dark[i] = f.dark[i].max(contact);
+                    f.contact[i] = f.contact[i].max(contact);
                 }
             }
         }
+        // Retain receiving terrain before y-sorted prop planes overwrite the scratch.
+        // A revealed tree/column must expose ground geometry, never its cached body plane.
+        for y in f.clip.y0..f.clip.y1 {
+            for x in f.clip.x0..f.clip.x1 {
+                let i = (y * f.w + x) as usize;
+                let native = z.ground_surfaces[i];
+                let p = planes.at(x, y);
+                f.terrain[i] = if z.ground[i].r < 0.0 {
+                    TerrainSurface::default()
+                } else if native.present() {
+                    native
+                } else {
+                    TerrainSurface::new([p.nx, p.ny, p.nz], p.h)
+                };
+            }
+        }
         let mut props: Vec<_> = z.props.iter().filter(|p| p.alive).collect();
-        props.sort_by(|a, b| a.canopy.cmp(&b.canopy).then(a.y.total_cmp(&b.y)));
+        props.sort_by(|a, b| a.canopy.cmp(&b.canopy).then(a.sort_y().total_cmp(&b.sort_y())));
         for p in props {
+            // Offset row-span physics proxies have no visible silhouette or contact shade.
+            // Their authored source sprite already supplies both, even far from this box.
+            if p.sheet == "__summit_blocker" { continue; }
             let bounds = if p.sheet().and_then(|s| s.anim(&p.anim)).is_some() {
                 prop_bounds(p)
             } else {
@@ -654,10 +750,11 @@ impl Field {
             if !bounds.intersects(f.clip) {
                 continue;
             }
-            if let Some((w, d)) = p.footprint {
+            if let Some([x0, y0, x1, y1]) = p.collision_bounds() {
+                let (w, d) = (x1 - x0, y1 - y0);
                 // The painted dais has its own stone faces; its collision proxy is not an oval prop.
                 if !(z.id == ZoneId::Summit && p.sheet == "__summit_blocker" && w > 80.0) {
-                    f.contact(p.x.round() as i32, p.y.round() as i32, w, d);
+                    f.contact(((x0 + x1) * 0.5).round() as i32, y1.round() as i32, w, d);
                 }
             }
             if let Some(s) = p.sheet()
@@ -671,9 +768,12 @@ impl Field {
         for y in f.clip.y0..f.clip.y1 {
             for x in f.clip.x0..f.clip.x1 {
                 let i = (y * f.w + x) as usize;
-                f.light[i] = f.form(z.id, planes.at(x, y), x as f32, y as f32);
+                let plane = planes.at(x, y);
+                f.light[i] = f.form(z.id, plane, x as f32, y as f32);
+                f.cold_form[i] = (Self::cold_form(plane) * 255.0).round() as u8;
                 if f.raised[i] || !f.receiving[i] {
                     f.dark[i] = 0;
+                    f.contact[i] = 0;
                 }
             }
         }
@@ -686,11 +786,7 @@ impl Field {
             self.settings.fill + rgb(0xffefd3) * (key * 0.68)
         } else {
             let fill = self.settings.fill;
-            let form = if p.h > 0.0 {
-                (0.72 + p.nz * 0.20 - p.nx * 0.08 - p.ny * 0.12).clamp(0.56, 1.0)
-            } else {
-                1.0
-            };
+            let form = Self::cold_form(p);
             fill * form
         };
         if id != ZoneId::Bloomwild
@@ -722,6 +818,42 @@ impl Field {
         }
         light
     }
+
+    fn cold_form(p: Plane) -> f32 {
+        if p.h > 0.0 {
+            (0.72 + p.nz * 0.20 - p.nx * 0.08 - p.ny * 0.12).clamp(0.56, 1.0)
+        } else {
+            1.0
+        }
+    }
+
+    /// No cached point-source direction or rim enters the physical base light.
+    /// Cinder's broad molten-bank reception remains a motivated area-emission fill.
+    fn cold_light(&self, id: ZoneId, i: usize, actor: bool) -> Rgb {
+        let form = if actor { 1.0 } else { self.cold_form[i] as f32 / 255.0 };
+        // Open daylight receives broad sky and ground bounce even when the sun
+        // is hidden. Trade some direct-key energy for this diffuse contribution
+        // so moving cast shadows stay in the same daytime exposure as the sky.
+        let fill = if id == ZoneId::Bloomwild {
+            self.settings.fill + Rgb::new(0.26, 0.26, 0.24)
+        } else {
+            self.settings.fill
+        };
+        let mut light = fill * form;
+        if id == ZoneId::Cinder {
+            let heat = match self.lava[i].2 {
+                0..=7 => 0.52,
+                8..=19 => 0.38,
+                20..=37 => 0.24,
+                38..=61 => 0.12,
+                _ => 0.0,
+            };
+            // The exposed moving current supplies directional, occluded light;
+            // retain only a little broad area bounce as the cold fill.
+            light += Rgb::new(1.0, 0.64, 0.40) * (heat * 0.30);
+        }
+        light
+    }
 }
 
 /// Finalize at zone load; refresh sprite breakage locally and rebuild other geometry on first use.
@@ -735,11 +867,76 @@ pub(crate) fn prepare(zone: &Zone, region: &dyn Region) {
     }
 }
 
-/// Bake on first use; later frames only sample static light and project moving body casters.
-pub fn apply(zone: &Zone, region: &dyn Region, f: &mut Frame, _t: u64) {
+/// Stamp the visible terrain after region ground effects and before sorted objects.
+/// Native texture normals keep their painter's exact UV; geometry-only fallbacks
+/// supply planar floors and authored cliff faces without inferring bumps from RGB.
+pub fn ground_surface(zone: &Zone, region: &dyn Region, f: &mut Frame) {
+    if !f.surface_lighting { return; }
     prepare(zone, region);
     let cache = zone.lighting.borrow();
     let field = cache.as_ref().unwrap();
+    for y in 0..H {
+        for x in 0..W {
+            let i = y * W + x;
+            // Region ground cells already stamped their current frame metadata.
+            if f.surfaces[i].kind != 0 { continue; }
+            let Some(j) = field.index(x as i32 + f.cam_x, y as i32 + f.cam_y) else { continue };
+            let surface = field.terrain[j];
+            if surface.present() { f.surfaces[i] = surface.surface(); }
+        }
+    }
+}
+
+/// Diagnostic counts: opaque terrain with exact source-UV metadata, raised
+/// source pixels, and distinct world normals. No lighting or geometry is changed.
+pub fn terrain_normal_coverage(zone: &Zone) -> (usize, usize, usize) {
+    let mut pixels = 0;
+    let mut raised = 0;
+    let mut normals = std::collections::HashSet::new();
+    for (art, surface) in zone.ground.iter().zip(&zone.ground_surfaces) {
+        if art.r < 0.0 || !surface.present() { continue; }
+        pixels += 1;
+        raised += usize::from(surface.height > 0);
+        normals.insert(surface.normal);
+    }
+    (pixels, raised, normals.len())
+}
+
+/// Per-source geometric visibility for the normal-aware direct-light pass.
+pub(crate) fn sun_direction(t: u64) -> [f32; 3] { sun_shadows::direction(t) }
+
+pub(crate) fn sun_visibility(zone: Option<&Zone>, f: &Frame, direction: [f32; 3]) -> Vec<u8> {
+    let mut visible = sun_shadows::visibility(f, direction);
+    if let Some(zone) = zone {
+        let cached = zone.lighting.borrow();
+        if let Some(terrain) = cached.as_ref().and_then(|field| field.sun_terrain.as_ref()) {
+            terrain.occlude(f, direction, &mut visible);
+        }
+    }
+    visible
+}
+
+pub(crate) fn point_visibility(f: &Frame, light: super::frame::PointLight) -> Vec<u8> {
+    surface_shadows::visibility(f, light)
+}
+
+/// Geometric local-light visibility including exact native terrain height sheets.
+pub(crate) fn point_visibility_world(zone: &Zone, f: &Frame, light: super::frame::PointLight) -> Vec<u8> {
+    let mut visibility = surface_shadows::visibility(f, light);
+    if let Some(field) = zone.lighting.borrow().as_ref() {
+        terrain_shadows::occlude(zone, field, f, light, &mut visibility);
+    }
+    visibility
+}
+
+/// Bake on first use; later frames only sample static light and project moving body casters.
+pub fn apply(zone: &Zone, region: &dyn Region, f: &mut Frame, t: u64) {
+    prepare(zone, region);
+    let cache = zone.lighting.borrow();
+    let field = cache.as_ref().unwrap();
+    let strength = dynamic::strength();
+    if !f.surface_lighting { dynamic::occlude_points(zone,region,field,f,t,strength); }
+    let weather = if !f.surface_lighting && strength>0.0 { dynamic::Weather::new(zone.id,f.cam_x,f.cam_y,t,strength) } else { None };
     let mut dynamic = vec![0u8; W * H];
     let heart = if zone.id == ZoneId::Summit {
         f.casters.iter().find(|c| c.height > 80.0).map(|c| Source {
@@ -752,41 +949,50 @@ pub fn apply(zone: &Zone, region: &dyn Region, f: &mut Frame, _t: u64) {
     } else {
         None
     };
-    for &c in &f.casters {
-        let source = if c.height > 80.0 { None } else { heart };
-        if let Some(dir) = field.direction(zone.id, c.x, c.y, source) {
-            character_shadow(f, &mut dynamic, c, dir);
+    let physical = f.surface_lighting;
+    if !physical {
+        for &c in &f.casters {
+            let source = if c.height > 80.0 { None } else { heart };
+            if let Some(dir) = field.direction(zone.id, c.x, c.y, source) {
+                character_shadow(f, &mut dynamic, c, dir);
+            }
         }
     }
     let ambient = f.ambient;
     if zone.id != ZoneId::Glasswater { f.look.light_dither = 0.0; }
     f.look.light_scatter = 0.018;
+    let mut weather_row=[Rgb::WHITE;W];
     for y in 0..H {
+        if let Some(weather)=&weather { weather.row(f.cam_x,f.cam_y+y as i32,&mut weather_row); }
         for x in 0..W {
             let i = y * W + x;
             let (wx, wy) = (x as i32 + f.cam_x, y as i32 + f.cam_y);
             let Some(j) = field.index(wx, wy) else {
+                if !f.actor_pixels[i] { f.light[i] = region.backdrop_light(ambient); }
                 continue;
             };
             if zone.ground[j].r < 0.0 && !field.raised[j] && !f.actor_pixels[i] {
+                f.light[i] = region.backdrop_light(ambient);
                 continue;
             }
             let actor = f.actor_pixels[i];
             let raw = f.light[i] - ambient;
             let live = Rgb::new(raw.r.max(0.0), raw.g.max(0.0), raw.b.max(0.0));
-            let raised = field.raised[j] || actor;
+            let raised = field.raised[j] || actor || (f.surface_lighting && f.surfaces[i].height > 0.5);
+            let cached_dark = if physical { field.contact[j] } else { field.dark[j] };
             let darkness = if !raised && field.receiving[j] {
-                (field.dark[j].max(dynamic[i]) as f32 / 255.0).max(1.0 - f.shade[i])
+                (cached_dark.max(dynamic[i]) as f32 / 255.0).max(1.0 - f.shade[i])
             } else {
                 0.0
             };
             // A single visibility loss, never AO multiplied over a cast shadow or C's form plane.
             let tint = Rgb::WHITE.lerp(field.settings.shadow_tint, darkness);
-            let mut base = field.light[j] * tint;
-            if !raised && field.receiving[j]
+            let cold = if physical { field.cold_light(zone.id, j, actor) } else { field.light[j] };
+            let mut base = cold * tint;
+            if !physical && !raised && field.receiving[j]
                 && let Some((warm, mul)) = field.court.as_ref().and_then(|court| court.at(wx, wy)) {
                 // Darken only cold fill; cast/contact shadows still occlude the shaped fire reception.
-                base = (field.light[j] - field.settings.fill * (1.0 - mul)) * tint
+                base = (cold - field.settings.fill * (1.0 - mul)) * tint
                     + warm * (1.0 - darkness * 1.6).max(0.0);
             }
             let mut light = base
@@ -796,9 +1002,17 @@ pub fn apply(zone: &Zone, region: &dyn Region, f: &mut Frame, _t: u64) {
                     } else {
                         1.0
                     });
+            if physical && zone.id != ZoneId::Bloomwild { light = light.scale(0.82); }
             if actor {
-                light = Rgb::new(light.r.max(0.78), light.g.max(0.81), light.b.max(0.90));
-                if zone.id == ZoneId::Cinder { light += actor_rim(field, f, x, y); }
+                let floor = if physical { Rgb::new(0.42, 0.46, 0.57) } else { Rgb::new(0.78, 0.81, 0.90) };
+                light = Rgb::new(light.r.max(floor.r), light.g.max(floor.g), light.b.max(floor.b));
+                if !f.surface_lighting && zone.id == ZoneId::Cinder { light += actor_rim(field, f, x, y); }
+            }
+            if weather.is_some() {
+                let original = light;
+                light = light * weather_row[x];
+                // Weather modulates materials, while silhouettes stay readable in a dark arena.
+                if actor { light = Rgb::new(light.r.max(original.r.min(0.78)),light.g.max(original.g.min(0.81)),light.b.max(original.b.min(0.90))); }
             }
             f.light[i] = light;
             f.shade[i] = 1.0; // Compose must not apply the existing contact a second time.
@@ -851,3 +1065,147 @@ fn character_shadow(f: &Frame, mask: &mut [u8], c: Caster, dir: (f32, f32)) {
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod retained_surface_tests {
+    use super::*;
+    use crate::gfx::surface::NormalPixel;
+    use crate::world::{NoRegion, Prop};
+
+    #[test]
+    fn moving_day_shadows_preserve_daylight_exposure_and_materials() {
+        let mut zone = Zone::new(ZoneId::Bloomwild, 8, 8);
+        zone.ground.fill(rgb(0x929b90));
+        let column = Cell::from_ascii(&["xxxxxxxxxxxx"; 48], &[('x', rgb(0xc2b59b))], &[]);
+        let mut darkest_shade = f32::INFINITY;
+        let mut dimmest_sun = f32::INFINITY;
+        let mut brightest_sun = 0.0_f32;
+        let mut masks = Vec::new();
+        for t in (0..2160).step_by(270) {
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, zone.ambient);
+            f.surface_lighting = true;
+            f.normal_sun = true;
+            f.t = t;
+            zone.draw_ground(&mut f);
+            ground_surface(&zone, &NoRegion, &mut f);
+            f.sprite(&column, (6, 48), 56, 72, &Default::default());
+            // An actor facing away from the key still shares the scene's day fill.
+            let actor = 112 * W + 112;
+            f.actor_pixels[actor] = true;
+            f.surfaces[actor] = super::super::frame::Surface {
+                normal: [1.0, 0.0, 0.0], height: 12.0, owner: 0, kind: 3,
+            };
+            f.put_glow(110, 110, rgb(0xffa870));
+            let art = f.albedo.clone();
+            let emission = f.emissive.clone();
+            let visibility = sun_visibility(Some(&zone), &f, sun_direction(t));
+            apply(&zone, &NoRegion, &mut f, t);
+            super::super::surface::apply_world(&zone, &mut f);
+            let mut shadowed = 0;
+            let mut sunny = 0;
+            for y in 4..124 { for x in 4..124 {
+                let i = y * W + x;
+                if f.surfaces[i].kind != 1 { continue; }
+                match visibility[i] {
+                    0 => {
+                        shadowed += 1;
+                        darkest_shade = darkest_shade.min(f.light[i].luma());
+                    }
+                    255 => {
+                        sunny += 1;
+                        dimmest_sun = dimmest_sun.min(f.light[i].luma());
+                        brightest_sun = brightest_sun.max(f.light[i].luma());
+                    }
+                    _ => {}
+                }
+            } }
+            assert!(shadowed > 40 && sunny > 1000, "exercise actual geometric cast shade and open ground at tick {t}");
+            assert!(f.light[actor].luma() > 0.58, "back-facing actor remains in daylight at tick {t}");
+            assert_eq!(f.albedo, art, "day fill must preserve authored materials");
+            assert_eq!(f.emissive, emission, "day fill must preserve self-lit pixels");
+            masks.push(visibility);
+        }
+        assert!(darkest_shade > brightest_sun * 0.58, "cast shade must remain daylight: shade={darkest_shade}, sun={brightest_sun}");
+        assert!(darkest_shade < dimmest_sun * 0.78, "moving casts must remain visible");
+        assert!((0.90..1.10).contains(&dimmest_sun) && brightest_sun < 1.10, "retain the lit material exposure");
+        assert!(brightest_sun - dimmest_sun < 0.07, "sun arc must not create an exposure cycle");
+        assert!(masks.iter().skip(1).any(|mask| mask != &masks[0]), "the sun and its geometric shadows must keep moving");
+    }
+
+    #[test]
+    fn native_terrain_uv_retains_vectors_without_changing_art_or_physics() {
+        assert_eq!(std::mem::size_of::<TerrainSurface>(), 4);
+        let mut cell = Cell::from_ascii(&["ab"], &[( 'a', rgb(0x112233)), ('b', rgb(0xeeddcc))], &[]);
+        cell.surface = std::sync::Arc::from([
+            NormalPixel { n: [0, 0, 127], a: true, emit: false },
+            NormalPixel { n: [64, 32, 104], a: true, emit: false },
+        ]);
+        let mut zone = Zone::new(ZoneId::Bloomwild, 4, 4);
+        let art = zone.ground.clone();
+        let tiles = zone.tiles.clone();
+        zone.gset_surface(11, 13, &cell, 1, 0, false, 0.0);
+        let floor = zone.ground_surfaces[(13 * zone.pw + 11) as usize];
+        assert!(floor.normal[0] > 0 && floor.normal[1] < 0 && floor.normal[2] > 0);
+        zone.gset_surface(12, 13, &cell, 1, 0, true, 17.0);
+        let face = zone.ground_surfaces[(13 * zone.pw + 12) as usize];
+        assert_eq!(face.height, 17);
+        assert_eq!(face.normal, [floor.normal[0], floor.normal[2], -floor.normal[1]]);
+        zone.gset_surface(14, 13, &cell, 0, 0, true, 20.0);
+        zone.gorient_surface(14, 13, [1.0, 0.0]);
+        assert_eq!(zone.ground_surfaces[(13 * zone.pw + 14) as usize].normal, [127, 0, 0]);
+        assert_eq!(zone.ground, art);
+        assert_eq!(zone.tiles, tiles);
+    }
+
+    #[test]
+    fn revealed_ground_never_inherits_a_cached_prop_plane() {
+        let mut zone = Zone::new(ZoneId::Bloomwild, 8, 8);
+        zone.ground.fill(rgb(0x929b90));
+        zone.props.push(Prop::new("bloomwild_ruins", "pillar_b", 64.0, 80.0));
+        let field = Field::bake(&zone, &NoRegion, geometry_key(&zone));
+        assert!(field.raised.iter().any(|&v| v), "fixture must include actual raised native art");
+        assert!(field.terrain.iter().all(|p| p.normal == [0, 0, 127] && p.height == 0));
+        let mut f = Frame::new();
+        f.begin(Rgb::BLACK, zone.ambient);
+        f.surface_lighting = true;
+        f.surfaces[0] = super::super::frame::Surface { normal: [1.0, 0.0, 0.0], height: 9.0, owner: 42, kind: 2 };
+        ground_surface(&zone, &NoRegion, &mut f);
+        assert_eq!(f.surfaces[0].owner, 42, "actual ground-hook native drawing wins over the terrain fallback");
+        assert_eq!(f.surfaces[80 * W + 64].normal, [0.0, 0.0, 1.0]);
+        assert_eq!(f.surfaces[80 * W + 64].height, 0.0);
+        assert_eq!(f.surfaces[127 * W + 127].kind, 1);
+        assert_eq!(f.surfaces[128 * W + 128].kind, 0, "map-edge backdrop has no terrain normal");
+    }
+
+    #[test]
+    fn physical_night_fill_excludes_cached_point_facing_and_proxy_casts() {
+        let make = |source_x| {
+            let mut zone = Zone::new(ZoneId::Glasswater, 8, 8);
+            zone.ground.fill(rgb(0x929b90));
+            zone.props.push(Prop::new("bloomwild_ruins", "pillar_b", 64.0, 80.0));
+            zone.lights.push(crate::fx::Light {
+                x: source_x, y: 40.0, radius: 128.0, color: rgb(0xffbc78), intensity: 1.0,
+            });
+            zone
+        };
+        let left = make(8.0);
+        let right = make(120.0);
+        let sample = |zone: &Zone, physical: bool, proxy: bool| {
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, zone.ambient);
+            f.surface_lighting = physical;
+            if proxy { f.casters.push(Caster { x: 64.0, y: 110.0, half_w: 5.0, height: 20.0 }); }
+            apply(zone, &NoRegion, &mut f, 90);
+            f.light
+        };
+        let physical = sample(&left, true, false);
+        assert_eq!(physical, sample(&right, true, false), "moving cached source metadata cannot leave frozen facing or cast shadows in physical fill");
+        assert_eq!(physical, sample(&left, true, true), "physical night casts belong to native silhouette visibility, not the old body ellipse");
+        assert_ne!(sample(&left, false, false), sample(&right, false, false), "fixture must exercise the legacy source-facing/static-cast terms");
+        let field = left.lighting.borrow();
+        let field = field.as_ref().unwrap();
+        assert!(field.contact.iter().any(|&a| a > 0), "attached AO remains present");
+        assert!(field.dark.iter().zip(&field.contact).any(|(cast, contact)| cast > contact), "fixture separates cast darkness from contact darkness");
+    }
+}

@@ -1,0 +1,282 @@
+{
+  "scope": "Emitter registration only; no simulation, geometry, emissive pixels, source radius, source color or source intensity edits.",
+  "api": "add_light_3d_w(x, ground_y, height, radius, color, intensity); PointLight x/y remain projected world coordinates.",
+  "runtime_calls_migrated": 20,
+  "pointlight_constructors_migrated": 1,
+  "coordinate_proof": [
+    {
+      "owner": "player",
+      "source": "blade/charge",
+      "old_projected_y": "by - bz",
+      "new_ground_y": "by",
+      "new_height": "bz",
+      "example": {
+        "ground_y": 242.5,
+        "height": 7.25,
+        "old_projected_y": 235.25,
+        "new_projected_y": 235.25,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "player",
+      "source": "death/spin/respawn",
+      "old_projected_y": "(body.y - body.z) - 6",
+      "new_ground_y": "body.y",
+      "new_height": "body.z + 6",
+      "example": {
+        "ground_y": 680.375,
+        "height": 18.25,
+        "old_projected_y": 662.125,
+        "new_projected_y": 662.125,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "player",
+      "source": "slash",
+      "old_projected_y": "((body.y - body.z) - 6) + face.y*8",
+      "new_ground_y": "body.y + face.y*8",
+      "new_height": "body.z + 6",
+      "example": {
+        "ground_y": 672.375,
+        "height": 18.25,
+        "old_projected_y": 654.125,
+        "new_projected_y": 654.125,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "wisp",
+      "source": "flame",
+      "old_projected_y": "(gy - hover) - 5",
+      "new_ground_y": "gy",
+      "new_height": "hover + 5",
+      "example": {
+        "ground_y": 648,
+        "height": 13.75,
+        "old_projected_y": 634.25,
+        "new_projected_y": 634.25,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "crystal_beetle",
+      "source": "crest",
+      "old_projected_y": "b.y - 10",
+      "new_ground_y": "b.y",
+      "new_height": "10",
+      "example": {
+        "ground_y": 472,
+        "height": 10,
+        "old_projected_y": 462.0,
+        "new_projected_y": 462.0,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "ember_hound",
+      "source": "eye",
+      "old_projected_y": "(b.y - air) + eye.y",
+      "new_ground_y": "b.y",
+      "new_height": "air - eye.y",
+      "example": {
+        "ground_y": 535,
+        "height": 15.5,
+        "old_projected_y": 519.5,
+        "new_projected_y": 519.5,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "ember_hound",
+      "source": "heat",
+      "old_projected_y": "(b.y - air) - 6",
+      "new_ground_y": "b.y",
+      "new_height": "air + 6",
+      "example": {
+        "ground_y": 535,
+        "height": 9.5,
+        "old_projected_y": 525.5,
+        "new_projected_y": 525.5,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "spitting_totem",
+      "source": "body heat",
+      "old_projected_y": "y - maw_height*0.5",
+      "new_ground_y": "y",
+      "new_height": "maw_height*0.5",
+      "example": {
+        "ground_y": 232,
+        "height": 6.125,
+        "old_projected_y": 225.875,
+        "new_projected_y": 225.875,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "spitting_totem",
+      "source": "hot outlet",
+      "old_projected_y": "(y - maw_height) + 2",
+      "new_ground_y": "y",
+      "new_height": "maw_height - 2",
+      "example": {
+        "ground_y": 232,
+        "height": 10.25,
+        "old_projected_y": 221.75,
+        "new_projected_y": 221.75,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "particles",
+      "source": "moving light",
+      "old_projected_y": "p.y - p.z",
+      "new_ground_y": "p.y",
+      "new_height": "p.z",
+      "example": {
+        "ground_y": 435.125,
+        "height": 83.375,
+        "old_projected_y": 351.75,
+        "new_projected_y": 351.75,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "glasswater",
+      "source": "native crest",
+      "old_projected_y": "decor.y - authored_height",
+      "new_ground_y": "decor.y",
+      "new_height": "authored_height",
+      "example": {
+        "ground_y": 472,
+        "height": 38,
+        "old_projected_y": 434.0,
+        "new_projected_y": 434.0,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "boss",
+      "source": "dying shard",
+      "old_projected_y": "shard_y",
+      "new_ground_y": "boss.y",
+      "new_height": "boss.y - shard_y",
+      "example": {
+        "ground_y": 128,
+        "height": 163.5,
+        "old_projected_y": -35.5,
+        "new_projected_y": -35.5,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "boss",
+      "source": "heart",
+      "old_projected_y": "heart_pos.y",
+      "new_ground_y": "boss.y + HEART_OUT.0*ease_in_out(heart.out)",
+      "new_height": "ground_y - heart_pos.y",
+      "example": {
+        "ground_y": 140,
+        "height": 21.75,
+        "old_projected_y": 118.25,
+        "new_projected_y": 118.25,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "boss",
+      "source": "fist crystal",
+      "old_projected_y": "fist_crystal_center.y",
+      "new_ground_y": "fist.y",
+      "new_height": "fist.y - crystal_y",
+      "example": {
+        "ground_y": 204,
+        "height": 57.25,
+        "old_projected_y": 146.75,
+        "new_projected_y": 146.75,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "boss",
+      "source": "pylon",
+      "old_projected_y": "pylon.y - 10",
+      "new_ground_y": "pylon.y",
+      "new_height": "10",
+      "example": {
+        "ground_y": 286,
+        "height": 10,
+        "old_projected_y": 276.0,
+        "new_projected_y": 276.0,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "boss/hazards",
+      "source": "ground ring",
+      "old_projected_y": "ring.y + sin(angle)*ring.radius",
+      "new_ground_y": "ring.y + sin(angle)*ring.radius",
+      "new_height": "0",
+      "example": {
+        "ground_y": 276.5,
+        "height": 0,
+        "old_projected_y": 276.5,
+        "new_projected_y": 276.5,
+        "bit_equal": true
+      }
+    },
+    {
+      "owner": "boss/hazards",
+      "source": "falling crystal/pylon shard",
+      "old_projected_y": "shard.y - falling_z",
+      "new_ground_y": "shard.y",
+      "new_height": "falling_z",
+      "example": {
+        "ground_y": 276.5,
+        "height": 112.25,
+        "old_projected_y": 164.25,
+        "new_projected_y": 164.25,
+        "bit_equal": true
+      }
+    }
+  ],
+  "limitations": [
+    "Source positions are algebraically unchanged. Compound f32 reassociation may differ by less than 0.001 native pixel; see numerical audit.",
+    "src/view.rs owns zone/prop/FX lights and is migrated by root; src/world/prop.rs has no emitter registration of its own.",
+    "Two beam flare/path calls remain on legacy add_light_w because Beam owns projected ox/oy but no height. A 3D beam migration needs altitude supplied by the owning boss at draw time.",
+    "No Cargo builds or runtime captures run by this agent; root owns serialized integration checks."
+  ],
+  "source_sha256": {
+    "src/entities/player.rs": "1cc75c082117513e349a395fa48c236e0873e23b1055227280a2c6a5156dcf92",
+    "src/entities/boss.rs": "a7b3bb0965865d8ec2e60b2f0ebae65c492c5f45e107224180fde1700d0465aa",
+    "src/entities/enemies/wisp.rs": "3fd427fa1e82f3d44964576cef28758781948ebe16ac9ad551dbffab7c2470d8",
+    "src/entities/enemies/crystal_beetle.rs": "6e7e0d82fe37604211b9951a81dde1db4f1270e12e25e5b23a458a0f1eb2faa3",
+    "src/entities/enemies/ember_hound.rs": "c04771c31458612f6d5266d5507a7cb8129d5268c65d084fee7b339e9f6a3081",
+    "src/entities/enemies/spitting_totem.rs": "06e48e29716ff56ddb129c685f216d74998eb95cf0d960ff36e4662b396d4cc7",
+    "src/fx/particles.rs": "35e8bc82ddf16956b8298dfca5459c34e334a80ffad3b85af031ac314328c8dd",
+    "src/regions/glasswater.rs": "a48d8961fdd00f3f5d57979b5169bc48e89d733488b7a6cc6e2f5a179d7be861",
+    "src/entities/boss/hazards.rs": "45d45f089549b031ea20c03f43bb00895d6e63244f694c61ef70e2d069a9d984"
+  },
+  "numerical_audit": {
+    "seed": 77112026,
+    "samples_per_family": 20000,
+    "sample_world_y": [
+      64,
+      2048
+    ],
+    "sample_height": [
+      0,
+      180
+    ],
+    "max_abs_native_pixel_error": {
+      "lift_plus_offset": 0.0001220703125,
+      "slash_depth_plus_lift": 0.000244140625,
+      "eye_plus_lift": 0.0001220703125,
+      "inverse_boss_projection": 0.0
+    },
+    "within_authorized_tolerance": 0.001
+  }
+}

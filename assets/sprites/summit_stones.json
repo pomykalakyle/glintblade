@@ -1,32 +1,256 @@
 {
- "cell": [
-  40,
-  112
- ],
- "anchor": [
-  20,
-  107
- ],
- "emissive": [],
- "anims": {
-  "monolith_0": {
-   "row": 0,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    14,
-    6
-   ]
+  "cell": [
+    64,
+    112
+  ],
+  "anchor": [
+    32,
+    99
+  ],
+  "emissive": [],
+  "anims": {
+    "monolith_0": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1,
+      "anchor": [
+        32,
+        97
+      ],
+      "footprint": [
+        39,
+        21
+      ],
+      "collision_rects": [
+        [
+          16,
+          79,
+          50,
+          80
+        ],
+        [
+          16,
+          80,
+          51,
+          81
+        ],
+        [
+          16,
+          81,
+          52,
+          83
+        ],
+        [
+          14,
+          83,
+          52,
+          84
+        ],
+        [
+          13,
+          84,
+          52,
+          92
+        ],
+        [
+          13,
+          92,
+          51,
+          93
+        ],
+        [
+          13,
+          93,
+          49,
+          94
+        ],
+        [
+          13,
+          94,
+          47,
+          95
+        ],
+        [
+          14,
+          95,
+          45,
+          96
+        ],
+        [
+          16,
+          96,
+          32,
+          97
+        ],
+        [
+          36,
+          96,
+          43,
+          97
+        ],
+        [
+          18,
+          97,
+          30,
+          98
+        ],
+        [
+          38,
+          97,
+          41,
+          98
+        ],
+        [
+          20,
+          98,
+          28,
+          99
+        ],
+        [
+          22,
+          99,
+          26,
+          100
+        ]
+      ],
+      "support_first_row": 79
+    },
+    "monolith_1": {
+      "row": 1,
+      "frames": 1,
+      "fps": 1,
+      "anchor": [
+        32,
+        99
+      ],
+      "footprint": [
+        44,
+        26
+      ],
+      "collision_rects": [
+        [
+          14,
+          76,
+          53,
+          77
+        ],
+        [
+          14,
+          77,
+          54,
+          84
+        ],
+        [
+          13,
+          84,
+          54,
+          85
+        ],
+        [
+          11,
+          85,
+          54,
+          86
+        ],
+        [
+          10,
+          86,
+          54,
+          87
+        ],
+        [
+          10,
+          87,
+          53,
+          88
+        ],
+        [
+          10,
+          88,
+          51,
+          89
+        ],
+        [
+          10,
+          89,
+          50,
+          90
+        ],
+        [
+          10,
+          90,
+          48,
+          91
+        ],
+        [
+          10,
+          91,
+          46,
+          92
+        ],
+        [
+          10,
+          92,
+          36,
+          95
+        ],
+        [
+          38,
+          92,
+          44,
+          93
+        ],
+        [
+          40,
+          93,
+          42,
+          94
+        ],
+        [
+          11,
+          95,
+          35,
+          96
+        ],
+        [
+          13,
+          96,
+          34,
+          97
+        ],
+        [
+          14,
+          97,
+          32,
+          98
+        ],
+        [
+          16,
+          98,
+          30,
+          99
+        ],
+        [
+          18,
+          99,
+          28,
+          100
+        ],
+        [
+          20,
+          100,
+          26,
+          101
+        ],
+        [
+          22,
+          101,
+          24,
+          102
+        ]
+      ],
+      "support_first_row": 76
+    }
   },
-  "monolith_1": {
-   "row": 1,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    14,
-    6
-   ]
-  }
- },
- "notes": "The Long Quiet v2. regions.warden palette. Broad slotted waterworks, quiet unlit stone; only burner coals emit. Rebuild: uv run --no-project --with pillow python3 tools/summit/style_v2.py"
+  "notes": "Fractured slotted engineering piers replace geometric placeholders. Source-specific native foot anchors and exact opaque base collision rectangles, including asymmetric footings and gaps. Native source pixels only; no resampling, mirroring or recoloring. Rebuild: tools/pixellab/build_summit.py. Receipts: art/pixellab/2026-11-01-round3/summit/."
 }

@@ -1,0 +1,108 @@
+{
+ "cell": [
+  80,
+  96
+ ],
+ "anchor": [
+  40,
+  90
+ ],
+ "anims": {
+  "a_trunk": {
+   "row": 0,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    11,
+    5
+   ]
+  },
+  "a_canopy": {
+   "row": 1,
+   "frames": 2,
+   "fps": 2,
+   "durations": [
+    56,
+    40
+   ],
+   "layer": "canopy"
+  },
+  "b_trunk": {
+   "row": 2,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    9,
+    5
+   ]
+  },
+  "b_canopy": {
+   "row": 3,
+   "frames": 2,
+   "fps": 2,
+   "durations": [
+    56,
+    40
+   ],
+   "layer": "canopy"
+  },
+  "c_trunk": {
+   "row": 4,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    10,
+    5
+   ]
+  },
+  "c_canopy": {
+   "row": 5,
+   "frames": 2,
+   "fps": 2,
+   "durations": [
+    56,
+    40
+   ],
+   "layer": "canopy"
+  },
+  "d_trunk": {
+   "row": 6,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    8,
+    5
+   ]
+  },
+  "d_canopy": {
+   "row": 7,
+   "frames": 2,
+   "fps": 2,
+   "durations": [
+    56,
+    40
+   ],
+   "layer": "canopy"
+  },
+  "e_trunk": {
+   "row": 8,
+   "frames": 1,
+   "fps": 1,
+   "footprint": [
+    6,
+    5
+   ]
+  },
+  "e_canopy": {
+   "row": 9,
+   "frames": 2,
+   "fps": 2,
+   "durations": [
+    56,
+    40
+   ],
+   "layer": "canopy"
+  }
+ },
+ "notes": "Style v2: wind-combed dried-rose crowns built from branch clusters and leaf bundles, streaming east, with dark clefts, limb glimpses and rooted mineral-gray trunks. Upper clusters move one pixel downwind; trunk and canopy share the original anchors and footprints."
+}

@@ -1,0 +1,56 @@
+{
+  "baseline": "out/pixellab/captures/summit-before",
+  "final": "out/pixellab/captures/summit-final",
+  "binary_sha256": "012bb47df9302b7617381c3a7cd16e4bd32d8f10be5694702aa8f24c8bfaef41",
+  "reviewed_native_views": [
+    "arrival",
+    "bridge",
+    "stair",
+    "arena",
+    "dais",
+    "west",
+    "warden-location geometry"
+  ],
+  "reviewed_actual_boss_frames": [
+    1,
+    90,
+    180,
+    300,
+    450,
+    600,
+    900,
+    1200
+  ],
+  "testing": "Focused original platform-domain invariant passed; atlas/manifest rebuild exact for all12 files. Full shared test suite owned by root.",
+  "fixed_during_scene_review": [
+    "Two-pixel dark staging gutters were masked, removing black floor boxes.",
+    "Light lichen stamps rejected: read as decorative particles.",
+    "Variant arithmetic changed to avoid repeating a single scratch along a whole row.",
+    "Dais collider reduced from102x39 to78x32 to match its visible native stone base."
+  ],
+  "remaining_limits": [
+    "Bridge posts and thin torn banners are legacy art; regular spacing remains conspicuous.",
+    "Arena retains exact playable elliptical platform silhouette, so overall silhouette remains geometrically idealized.",
+    "Summit palette remains deliberately narrow and the fighting floor low contrast; most improvement is material/structural, not a wholesale layout or lighting redesign.",
+    "Actual beam-phase frame1200 crops the upper boss when hero is far south; this is a camera/framing concern outside the region art, not proof of a fully reviewed boss animation."
+  ],
+  "cost_generations": 38,
+  "pending_generation_jobs": 0,
+  "independent_review_followup": {
+    "confirmed_defect": "Legacy centered16x7 pier boxes let hero feet enter visible stone; westR50 at460,532 ended479.59,532.",
+    "fix": "All native pillars, monoliths and dais use merged source-row support masks. Each rectangle uses source-cell coordinates and per-animation anchor. Split feet and diagonal corners keep their actual gaps.",
+    "arrival_fix": "Monoliths moved to150,764 and196,756 so both fractured tops fit actual arrival camera.",
+    "status": "Native masks tested: all4 Summit regressions passed; ordinary R50 stops467.7471,532 outside visible stone; actual R350 U84 traverses bridge/stair to720.9999,658.9117. Arrival tops fit after title clears.",
+    "evidence": "out/pixellab/captures/summit-contact-fixed/",
+    "candidate_binary_sha256": "1dbf19a942982c92b16548c40550aaaccbee8c58301cc58f444680e246aca02a",
+    "secondary_visual_issue": "Offset physics row-span proxies exposed shared lighting procedural-recovery bug: rectangular sky shading behind arrival piers. Root has exact cause and owns shared fix; visual recapture required afterward."
+  },
+  "root_final_resolution": {
+    "candidate_sha256": "ec55fbc01d36e090049ab7f83b4b672afa2ba7159beb9f013b5df3169c31cedd",
+    "physics_proxy_sky_shadows": "resolved: companion geometry excluded from planes and contact shading, regression test and independent final captures pass",
+    "beam_frame1200": "native full giant cannot fit; actual emitters are prioritized and offscreen directional cues are explicit",
+    "camera_policy_steps": "resolved by one weapon-safe viewport, independent358-transition review and48 final-candidate pixel matches",
+    "full_release_suite": "116 passed;0 failed;3 manual ignored",
+    "central_verification": "../verification.json"
+  }
+}

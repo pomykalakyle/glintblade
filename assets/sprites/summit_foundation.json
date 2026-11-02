@@ -1,0 +1,19 @@
+{
+  "cell": [
+    128,
+    128
+  ],
+  "anchor": [
+    64,
+    127
+  ],
+  "emissive": [],
+  "anims": {
+    "rock": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1
+    }
+  },
+  "notes": "Static Summit architecture material; platform domain retained, dais collider fitted to visible native base. Native source pixels only; no resampling, mirroring or recoloring. Rebuild: tools/pixellab/build_summit.py. Receipts: art/pixellab/2026-11-01-round3/summit/."
+}

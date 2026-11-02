@@ -1,0 +1,408 @@
+{
+  "created": "2026-11-01",
+  "sheets": [
+    {
+      "name": "glasswater_materials",
+      "size": [
+        32,
+        32
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "anim": "floor",
+      "files": [
+        "selected/floor-01.png",
+        "selected/floor-04.png",
+        "selected/floor-09.png",
+        "selected/floor-18.png",
+        "selected/floor-21.png",
+        "selected/floor-29.png",
+        "selected/floor-38.png",
+        "selected/floor-43.png",
+        "selected/floor-49.png",
+        "selected/floor-62.png"
+      ]
+    },
+    {
+      "name": "glasswater_walls",
+      "size": [
+        128,
+        64
+      ],
+      "anchor": [
+        0,
+        24
+      ],
+      "files": [
+        "selected/wall-0.png"
+      ],
+      "notes": "Native crops from wall candidates1,3,4. Upper24 rows from candidate1; lower38 rows from3/4 rows14..52, bottom2 from original62..64. No resampling. Only vertical faces used; wall-top contour mapping was rejected after actual game inspection. Candidate4 face rejected after full-scene review: its shallow upper crop made distracting horizontal contour bands. Candidate3 vertical fracture face retained."
+    },
+    {
+      "name": "glasswater_crystals_native",
+      "size": [
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        60
+      ],
+      "files": [
+        "selected/crystal-large-04.png",
+        "selected/crystal-large-05.png",
+        "selected/crystal-large-06.png",
+        "selected/crystal-large-09.png",
+        "selected/crystal-large-10.png",
+        "selected/crystal-large-12.png",
+        "selected/crystal-large-13.png",
+        "selected/crystal-large-14.png"
+      ]
+    },
+    {
+      "name": "glasswater_waterworks",
+      "size": [
+        96,
+        96
+      ],
+      "anchor": [
+        48,
+        90
+      ],
+      "files": [
+        "selected/waterworks-00.png",
+        "selected/waterworks-01.png",
+        "selected/waterworks-02.png"
+      ]
+    },
+    {
+      "name": "glasswater_walltop",
+      "size": [
+        128,
+        128
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "files": [
+        "selected/floor-macro.png"
+      ],
+      "notes": "Native128px bedrock geometry, deliberately reduced to3 existing slate swatches after whole-zone overview rejected the high-contrast zebra repetition. Source retained; exact palette mapping documented in selection.json. No resampling, rotation or mirroring."
+    },
+    {
+      "name": "glasswater_crystals_small",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        38
+      ],
+      "files": [
+        "selected/crystal-small-00.png",
+        "selected/crystal-small-08.png",
+        "selected/crystal-small-17.png",
+        "selected/crystal-small-19.png",
+        "selected/crystal-small-22.png",
+        "selected/crystal-small-30.png",
+        "selected/crystal-small-34.png",
+        "selected/crystal-small-39.png"
+      ]
+    },
+    {
+      "name": "glasswater_floor_macro",
+      "size": [
+        128,
+        128
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "files": [
+        "selected/floor-macro.png"
+      ],
+      "notes": "Native128px bedrock geometry, deliberately reduced to3 existing slate swatches after whole-zone overview rejected the high-contrast zebra repetition. Source retained; exact palette mapping documented in selection.json. No resampling, rotation or mirroring."
+    },
+    {
+      "name": "glasswater_fungi",
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        44
+      ],
+      "files": [
+        "selected/fungi-00.png",
+        "selected/fungi-06.png",
+        "selected/fungi-11.png",
+        "selected/fungi-16.png"
+      ]
+    }
+  ],
+  "repairs": [
+    {
+      "source": "sources/crystal-large-04.png",
+      "selected": "selected/crystal-large-04.png",
+      "translate": [
+        0,
+        0
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-large-05.png",
+      "selected": "selected/crystal-large-05.png",
+      "translate": [
+        0,
+        1
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-large-06.png",
+      "selected": "selected/crystal-large-06.png",
+      "translate": [
+        0,
+        2
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-large-09.png",
+      "selected": "selected/crystal-large-09.png",
+      "translate": [
+        0,
+        1
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-large-10.png",
+      "selected": "selected/crystal-large-10.png",
+      "translate": [
+        0,
+        1
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-large-12.png",
+      "selected": "selected/crystal-large-12.png",
+      "translate": [
+        0,
+        1
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-large-13.png",
+      "selected": "selected/crystal-large-13.png",
+      "translate": [
+        0,
+        0
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-large-14.png",
+      "selected": "selected/crystal-large-14.png",
+      "translate": [
+        0,
+        0
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/waterworks-00.png",
+      "selected": "selected/waterworks-00.png",
+      "translate": [
+        0,
+        2
+      ]
+    },
+    {
+      "source": "sources/waterworks-01.png",
+      "selected": "selected/waterworks-01.png",
+      "translate": [
+        0,
+        1
+      ]
+    },
+    {
+      "source": "sources/waterworks-02.png",
+      "selected": "selected/waterworks-02.png",
+      "translate": [
+        0,
+        3
+      ]
+    },
+    {
+      "source": "sources/crystal-small-00.png",
+      "selected": "selected/crystal-small-00.png",
+      "translate": [
+        0,
+        5
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-small-08.png",
+      "selected": "selected/crystal-small-08.png",
+      "translate": [
+        0,
+        5
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-small-17.png",
+      "selected": "selected/crystal-small-17.png",
+      "translate": [
+        0,
+        5
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-small-19.png",
+      "selected": "selected/crystal-small-19.png",
+      "translate": [
+        0,
+        5
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-small-22.png",
+      "selected": "selected/crystal-small-22.png",
+      "translate": [
+        0,
+        5
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-small-30.png",
+      "selected": "selected/crystal-small-30.png",
+      "translate": [
+        0,
+        6
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-small-34.png",
+      "selected": "selected/crystal-small-34.png",
+      "translate": [
+        0,
+        6
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/crystal-small-39.png",
+      "selected": "selected/crystal-small-39.png",
+      "translate": [
+        0,
+        6
+      ],
+      "removed_components": []
+    },
+    {
+      "source": "sources/fungi-00.png",
+      "selected": "selected/fungi-00.png",
+      "translate": [
+        0,
+        -3
+      ]
+    },
+    {
+      "source": "sources/fungi-06.png",
+      "selected": "selected/fungi-06.png",
+      "translate": [
+        0,
+        -3
+      ]
+    },
+    {
+      "source": "sources/fungi-11.png",
+      "selected": "selected/fungi-11.png",
+      "translate": [
+        0,
+        -3
+      ]
+    },
+    {
+      "source": "sources/fungi-16.png",
+      "selected": "selected/fungi-16.png",
+      "translate": [
+        0,
+        -3
+      ]
+    }
+  ],
+  "floor_choices": [
+    1,
+    4,
+    9,
+    18,
+    21,
+    29,
+    38,
+    43,
+    49,
+    62
+  ],
+  "large_crystal_choices": [
+    4,
+    5,
+    6,
+    9,
+    10,
+    12,
+    13,
+    14
+  ],
+  "floor_border_repair": {
+    "description": "Model added one dark border despite prompt. Explicit native pixel repair: outer3 rows/columns set to the authored main slate #4c6070. Interior source pixels preserved. Full-frame review caught and removed the visible grid."
+  },
+  "walltop_crop": [
+    16,
+    16,
+    80,
+    80
+  ],
+  "small_crystal_choices": [
+    0,
+    8,
+    17,
+    19,
+    22,
+    30,
+    34,
+    39
+  ],
+  "rejected_walltop": "Flash96 crop64 created obvious periodic framing in the real bridge view; retained raw result but omitted from atlas.",
+  "fungi_choices": [
+    0,
+    6,
+    11,
+    16
+  ],
+  "macro_palette_edit": {
+    "reason": "Whole-zone overview exposed strong diagonal zebra repetition missed in isolated camera views. Merge both broad high-contrast planes into the main slate, keep only restrained fracture beds and deepest joints. Native cluster geometry and resolution preserved.",
+    "map": {
+      "#424956": "#4c6070",
+      "#364657": "#424956",
+      "#626a74": "#4c6070",
+      "#29313f": "#364657"
+    }
+  }
+}

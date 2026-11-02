@@ -1,0 +1,22 @@
+{
+  "cell": [
+    128,
+    96
+  ],
+  "anchor": [
+    64,
+    26
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 4,
+      "fps": 1,
+      "footprint": [
+        0,
+        0
+      ]
+    }
+  },
+  "notes": "Four native organic cliff variants, clipped to decorative island faces. Original refined frame plus selected Pro variants; upper-left lighting retained."
+}

@@ -1,0 +1,137 @@
+{
+  "checks": {
+    "autoplay_ignored": true,
+    "fullscreen_request_not_fatal": true,
+    "denied_fullscreen_not_fatal": true,
+    "wasd_j_k_delivered": true,
+    "touch_controls_visible": true,
+    "physical_up_preserves_touch_hold": true,
+    "touch_releases_key": true,
+    "touch_attack_dash_delivered": true,
+    "blur_releases_touch": true,
+    "download_error_has_retry": true,
+    "download_error_has_fullpage": true
+  },
+  "console": [
+    {
+      "type": "warning",
+      "text": "Unrecognized feature: 'web-share'."
+    },
+    {
+      "type": "log",
+      "text": "Plugin sapp_jsutils is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "Plugin quad_net is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "fix"
+    },
+    {
+      "type": "warning",
+      "text": "Unrecognized feature: 'web-share'."
+    },
+    {
+      "type": "log",
+      "text": "Plugin sapp_jsutils is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "Plugin quad_net is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "fix"
+    },
+    {
+      "type": "warning",
+      "text": "Unrecognized feature: 'web-share'."
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "type": "error",
+      "text": "GLINTBLADE player: Error: Download failed: 503\n    at fetchGame (https://pomykalakyle.github.io/glintblade/player.js?v=pixellab-r9:86:29)\n    at async HTMLButtonElement.start (https://pomykalakyle.github.io/glintblade/player.js?v=pixellab-r9:121:21)"
+    }
+  ],
+  "errors": [],
+  "startup_seconds": 5.276,
+  "runtime": {
+    "version": 2,
+    "canvas": [
+      480,
+      336
+    ],
+    "body": [
+      480,
+      360
+    ],
+    "focus": "glcanvas"
+  },
+  "keyboard_events": [
+    [
+      "down",
+      257,
+      0,
+      false
+    ],
+    [
+      "up",
+      257,
+      0
+    ],
+    [
+      "down",
+      68,
+      0,
+      false
+    ],
+    [
+      "up",
+      68,
+      0
+    ],
+    [
+      "down",
+      74,
+      0,
+      false
+    ],
+    [
+      "up",
+      74,
+      0
+    ],
+    [
+      "down",
+      75,
+      0,
+      false
+    ],
+    [
+      "up",
+      75,
+      0
+    ],
+    [
+      "down",
+      70,
+      0,
+      false
+    ],
+    [
+      "up",
+      70,
+      0
+    ]
+  ],
+  "frame_cpu_ms": {
+    "count": 553,
+    "mean": 13.069258590395584,
+    "max": 187.39999997615814
+  }
+}

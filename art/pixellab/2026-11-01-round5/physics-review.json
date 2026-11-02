@@ -1,0 +1,624 @@
+{
+  "scope": "Independent read-only source, offline exported native supports, actual Player.update geometry, completed-column-foot placement and actual executable contact review against the final selected immutable artifact. This certifies tested physical integration; overall aesthetic and lighting approval excluded.",
+  "candidate": "out/pixellab/round5/selected/glintblade",
+  "candidate_sha256": "883ca526023f1889f8aadbace7b2a3569c03325cbc51e77e776bd5007078633c",
+  "native_library": "out/pixellab/round5/selected/libglintblade.rlib",
+  "native_library_sha256": "0996716ae2a494d9ec1b556a84d7cc8a2ff94909f07c84940632cc080635e515",
+  "asset_rebuild": "art/pixellab/2026-11-01-round5/asset-rebuild.json",
+  "geometry_report": "out/pixellab/round5/independent-physics/geometry-audit-selected.txt",
+  "placement_options": "out/pixellab/round5/independent-physics/supported-position-options-rc3.txt",
+  "checks": {
+    "native_source_alpha_queries": 121920,
+    "collision_animations": 46,
+    "real_Player_update_approaches": 1472,
+    "approach_matrix": "46 exported animation bases \u00d72 flips \u00d72 fractional anchors \u00d74 cardinal directions \u00d7walk/dash;90 updates per approach; source alpha independently checked at native pixel centers.",
+    "native_raster": "actual Frame.sprite_w vs code-native alpha-gap support in both flips and two fractional anchors: PASS",
+    "half_open_feet": "Exact native contact allowed; fractional penetration and negative boundary rejected; coarse setters synchronize precise surface: PASS",
+    "all_four_native_surface_masks_installed": true,
+    "all_four_player_starts_clear": true,
+    "actual_enemy_spawn_radii_checked": 38,
+    "actual_enemy_spawn_radii_clear": true,
+    "staged_camera_positions_checked": 40,
+    "legal_hero_feet": 35,
+    "scenery_only": 5,
+    "scenery_only_list": [
+      "bloomwild/terrace",
+      "bloomwild/west-terrace",
+      "bloomwild/falls-impact",
+      "glasswater/island",
+      "glasswater/channel"
+    ],
+    "all_walkable_pixels_have_visible_ground": true,
+    "sorting_follows_actual_native_support_bottom": true,
+    "dead_and_footprint_disabled_colliders_disabled": true,
+    "all_six_reported_world_grounding_fixes_verified": true,
+    "title_pillar_base_pixels_supported": 306,
+    "title_tree_base_pixels_supported": 296,
+    "title_hero_full_feet_clear": true,
+    "title_headland_continues_right_and_bottom": true,
+    "actual_input_bridge_crossings": 5,
+    "bridge_crossing_scope": "Bloom lower and upper bridges, Glasswater causeway, Cinder basalt arch, Summit bridge; every individual Player.update tick has legal full feet.",
+    "actual_input_native_hazard_contacts": 3,
+    "native_hazard_scope": "Glasswater Deep, Cinder Lava, Summit curved Void; final feet legal and next2px blocked.",
+    "final_executable_contact_cases": 14,
+    "final_executable_trace_health": "Every recorded15-tick sample HP6/deaths0; godfalse; peaceful true.",
+    "all_final_contact_full_feet_boxes": "Legal; intended native support, hazard or clear bridge/passage continuation independently checked against final rlib.",
+    "completed_broken_column_instances_ground_and_overlap_checked": 17,
+    "completed_broken_column_instances_all_native_base_pixels_actual_Floor": true,
+    "completed_column_instances_no_other_prop_native_foot_overlap": true,
+    "selected_temple_drum_native_ink_vertical_gap_px": 6,
+    "selected_radius5_Bloom_route_connected_grid_cells": 41675,
+    "selected_radius5_all13enemy_positions_and_landmarks_connected": true,
+    "selected_actual_temple_south_lane": "Player.update70ticks1070,536\u21921172.0881,536, legal final feet."
+  },
+  "findings": [
+    {
+      "region": "bloomwild",
+      "prop": "bloomwild_ruins/pillar_c",
+      "old_position": [
+        360,
+        56
+      ],
+      "base_pixels_over_void_or_lava": 173,
+      "base_pixels_total": 221,
+      "status": "Fixed and independently verified in final immutable native library: every opaque structural support pixel on Floor/Shallow.",
+      "final_position": [
+        369,
+        63
+      ],
+      "final_base_pixels_over_void_or_lava": 0
+    },
+    {
+      "region": "bloomwild",
+      "prop": "bloomwild_ruins/pillar_b",
+      "old_position": [
+        456,
+        56
+      ],
+      "base_pixels_over_void_or_lava": 175,
+      "base_pixels_total": 231,
+      "status": "Fixed and independently verified in final immutable native library: every opaque structural support pixel on Floor/Shallow.",
+      "final_position": [
+        449,
+        63
+      ],
+      "final_base_pixels_over_void_or_lava": 0
+    },
+    {
+      "region": "bloomwild",
+      "prop": "bloomwild_trees/c_trunk",
+      "old_position": [
+        104,
+        88
+      ],
+      "base_pixels_over_void_or_lava": 92,
+      "base_pixels_total": 123,
+      "status": "Fixed and independently verified in final immutable native library: every opaque structural support pixel on Floor/Shallow.",
+      "final_position": [
+        125,
+        93
+      ],
+      "final_base_pixels_over_void_or_lava": 0
+    },
+    {
+      "region": "bloomwild",
+      "prop": "bloomwild_trees/f_trunk",
+      "old_position": [
+        88,
+        488
+      ],
+      "base_pixels_over_void_or_lava": 113,
+      "base_pixels_total": 296,
+      "status": "Fixed and independently verified in final immutable native library: every opaque structural support pixel on Floor/Shallow.",
+      "final_position": [
+        104,
+        483
+      ],
+      "final_base_pixels_over_void_or_lava": 0
+    },
+    {
+      "region": "bloomwild",
+      "prop": "bloomwild_trees/a_trunk",
+      "old_position": [
+        100,
+        676
+      ],
+      "base_pixels_over_void_or_lava": 24,
+      "base_pixels_total": 141,
+      "status": "Fixed and independently verified in final immutable native library: every opaque structural support pixel on Floor/Shallow.",
+      "final_position": [
+        110,
+        678
+      ],
+      "final_base_pixels_over_void_or_lava": 0
+    },
+    {
+      "region": "cinder",
+      "prop": "cinder_markers/pillar_slotted",
+      "old_position": [
+        1190,
+        232
+      ],
+      "base_pixels_over_void_or_lava": 18,
+      "base_pixels_total": 169,
+      "status": "Fixed and independently verified in final immutable native library: every opaque structural support pixel on Floor/Shallow.",
+      "final_position": [
+        1185,
+        232
+      ],
+      "final_base_pixels_over_void_or_lava": 0
+    },
+    {
+      "region": "title",
+      "prop": "bloomwild_ruins/pillar_broken_tall",
+      "old_position": [
+        334,
+        114
+      ],
+      "base_pixels_over_void_or_lava": 15,
+      "base_pixels_total": 288,
+      "final_position": [
+        342,
+        114
+      ],
+      "final_base_pixels_over_void_or_lava": 0,
+      "status": "Fixed and independently verified against selected completed native feet:306/306base pixels on Floor. Source repair widened the foot; +4additional x shift from338 was required.",
+      "final_opaque_support_pixels": 306,
+      "intermediate_position": [
+        338,
+        114
+      ],
+      "intermediate_repaired_foot_pixels_on_Void": 14
+    },
+    {
+      "region": "bloomwild temple",
+      "prop": "bloomwild_ruins/drum",
+      "old_position": [
+        1103,
+        505
+      ],
+      "issue": "New completed short-column foot at1112,504 physically overlapped the old drum; the actual ink also visually overlapped.",
+      "final_position": [
+        1102,
+        528
+      ],
+      "status": "Fixed and independently verified in final selected artifact:213opaque base pixels supported, no other prop-foot overlap; drum ink starts6px below column ink.",
+      "drum_native_opaque_bounds_half_open": [
+        1088,
+        511,
+        1117,
+        528
+      ],
+      "column_native_opaque_bounds_half_open": [
+        1093,
+        473,
+        1130,
+        505
+      ]
+    }
+  ],
+  "unclassified_observations": [
+    "Six Glasswater code-native decor supports overlap physical Wall pixels, matching embedding into cave masonry. No reported overlaps onto Void or Lava in the actual Bloom/Cinder worlds remain."
+  ],
+  "source_audit": [
+    "Prop world_support floors world anchors and reflects half-open native spans in the same native-pixel convention as Frame.sprite_w.",
+    "Zone.blocked checks every covered native terrain pixel of the half-open feet box, then precise prop spans; move_box subdivides movement to <=2px.",
+    "Bloom paint.physical_surface marks GRASS/PATH/SLAB/BRIDGE/STAIRS as Floor only with non-HOLE pixels; attached EDGE faces and true VOID remain nonwalkable.",
+    "Bloom side-return planes modify only native EDGE/VOID decoration; final independent full-pixel comparison proves exact physical masks and unchanged wet coordinates.",
+    "Summit installs exact top surface after the coarse set_tile loop; rendered vertical faces remain Void.",
+    "Glasswater code-native supports derive from actual Decor source cell and anchor; collision and light metadata remain separate."
+  ],
+  "next_required": [],
+  "limits": [
+    "Cardinal approaches cover every exported native support family in both flips/fractional anchors and walk/dash, but cannot cover every possible gameplay input at every world pixel.",
+    "The14executable cases isolate physical scenery in peaceful mode; they do not establish enemy difficulty/balance.",
+    "Wet historical comparison covers Bloomwild, whose coast/falls changed this round. Other regions receive current native-mask/spawn/contact/bridge checks; no claim of historical whole-map wet hashes for them.",
+    "No overall art, dynamic-lighting, sound-mix or all attack-raycast approval. Root owns visual/lighting review, full release suite, performance, wasm and campaign verification.",
+    "The original cropped broken-column artwork was identified by user closeup after an earlier physically correct review. This selected artifact includes its repaired native closed feet; physical correctness still does not establish overall visual quality."
+  ],
+  "source_snapshot": "out/pixellab/round5/selected/sources.json",
+  "source_and_asset_hashes_match_snapshot": true,
+  "terrain_material_review": {
+    "report": "out/pixellab/round5/independent-physics/wet-and-surface-selected.txt",
+    "preserved_old_painter": "out/pixellab/round5/cliffs/source-before/bloomwild-paint.rs",
+    "preserved_old_painter_sha256": "bce2928a1ae33a731a7bd2584e2719bfed39c1c145c991d3157d7f1992737ac5",
+    "current_painter_sha256": "a67ea8c9c54c2872fc7979aa04ffb78b803bb63319c7320595f01a3237c6da7e",
+    "comparison": "Same actual authored map and Life builder, preserved pre-round5 and current painter. Full native wet coordinate+material FNV1a hashes agree; also exact per-coordinate wet comparison before/after Life.",
+    "old_wet_fnv1a": "0xe0476554b34f36ed",
+    "final_wet_fnv1a": "0xe0476554b34f36ed",
+    "wet_coordinates_or_kinds_changed": 0,
+    "wet_counts": {
+      "Deep": 37404,
+      "Shallow": 23081,
+      "Falls": 1536,
+      "Bigfalls": 3129
+    },
+    "actual_native_terrain_pixels_checked": 1118208,
+    "true_sky_pixels_preserved": 226144,
+    "visible_attached_EDGE_face_pixels_verified_unwalkable": 59574,
+    "note": "Attached native vertical EDGE rock is intentionally visible and remains Void. Coarse-Floor/fine-Void is therefore not a valid blanket transparency invariant; only true sky and designated eroded turf cuts must stay HOLE."
+  },
+  "executable_verification": {
+    "manifest": "out/pixellab/round5/independent-physics/selected-contacts/manifest.json",
+    "verification": "out/pixellab/round5/independent-physics/selected-contacts/verification.txt",
+    "cases": 14,
+    "native_images": 28,
+    "setup": "Explicit initial position, then W300 allows entry banner to fade and ordinary Game.tick/Input movement. Peaceful isolates contact, god disabled. Original engine/render path,1x384x216.",
+    "cases_and_endpoints": [
+      {
+        "name": "tree-from-east",
+        "end_pos": [
+          120.40603637695312,
+          674.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/tree-from-east/report.json"
+      },
+      {
+        "name": "arch-center-open",
+        "end_pos": [
+          152.0,
+          532.9116821289062
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/arch-center-open/report.json"
+      },
+      {
+        "name": "arch-pier-solid",
+        "end_pos": [
+          156.952880859375,
+          603.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/arch-pier-solid/report.json"
+      },
+      {
+        "name": "aqueduct-center-open",
+        "end_pos": [
+          335.0,
+          635.4116821289062
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/aqueduct-center-open/report.json"
+      },
+      {
+        "name": "glass-bridge-across",
+        "end_pos": [
+          967.5883178710938,
+          256.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/glass-bridge-across/report.json"
+      },
+      {
+        "name": "glass-native-deep-edge",
+        "end_pos": [
+          407.0353088378906,
+          364.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/glass-native-deep-edge/report.json"
+      },
+      {
+        "name": "cinder-basalt-bridge",
+        "end_pos": [
+          457.0882568359375,
+          488.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/cinder-basalt-bridge/report.json"
+      },
+      {
+        "name": "cinder-brazier-solid",
+        "end_pos": [
+          656.381591796875,
+          455.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/cinder-brazier-solid/report.json"
+      },
+      {
+        "name": "cinder-native-lava-edge",
+        "end_pos": [
+          969.0885620117188,
+          168.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/cinder-native-lava-edge/report.json"
+      },
+      {
+        "name": "summit-curved-edge",
+        "end_pos": [
+          444.41070556640625,
+          320.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/summit-curved-edge/report.json"
+      },
+      {
+        "name": "bloom-lower-bridge",
+        "end_pos": [
+          922.0883178710938,
+          590.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/bloom-lower-bridge/report.json"
+      },
+      {
+        "name": "bloom-upper-bridge",
+        "end_pos": [
+          622.9116821289062,
+          274.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/bloom-upper-bridge/report.json"
+      },
+      {
+        "name": "summit-bridge-across",
+        "end_pos": [
+          602.0882568359375,
+          782.0
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/summit-bridge-across/report.json"
+      },
+      {
+        "name": "glass-bridge-north-edge",
+        "end_pos": [
+          832.0,
+          243.86610412597656
+        ],
+        "report": "out/pixellab/round5/independent-physics/selected-contacts/glass-bridge-north-edge/report.json"
+      }
+    ],
+    "binary_hash_unchanged_before_after": true,
+    "directly_inspected_final_images": []
+  },
+  "harnesses_and_evidence": [
+    {
+      "file": "out/pixellab/round5/independent-physics/geometry_audit_selected.rs",
+      "sha256": "bf2a52386a215486a0830a3a6a748858fec81bc90984bb5daf75499b6bd03188"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/cases.rs",
+      "sha256": "6d03e05f17abd1f99da398a7dc2c8b0651f3c509880910d1cadd8f7b636cb696"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/wet_and_surface_final.rs",
+      "sha256": "3578e6ef21d61eaa55edb1fcd233c1045af52e2f191ac9236f966bc46be381e0"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/column_placement_audit.rs",
+      "sha256": "16685f853760013a9d565a168036d33164548b265a9fa94e9e7d2ddf93639fbe"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/column_routes_override.rs",
+      "sha256": "d5fca4a939067cbc8116f47decd3744f1bd4aff0976e7290a58b917ab5e042b7"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/capture_final_contacts.py",
+      "sha256": "d122c058724b0773261959086fcadace48d4495a0c578b0aee1fa79d31061606"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/prepare_contact_verifier.py",
+      "sha256": "a1072be6526281c0f1b73d745eafa88c4d6561c856c45c51c389e05b3201a8a2"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/verify_executable_contacts.rs",
+      "sha256": "207ef50ff9a79189bf40f6cf6e5fc6ef0884941d52d5648900512bcce9f254bb"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/geometry-audit-selected.txt",
+      "sha256": "68b37f730cce12fa136ba2a539df7b0e3c06dc41f00cc579221d97b7436cd29f"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/wet-and-surface-selected.txt",
+      "sha256": "5932ad4fb8ddaf3105add7f69f31217e273a60b830acc124dc06df6e126c7881"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/selected-contacts/manifest.json",
+      "sha256": "ca2463969b71585bde33da3f9bef1e678938677efa38f99564ab30c42225e5d5"
+    },
+    {
+      "file": "out/pixellab/round5/independent-physics/selected-contacts/verification.txt",
+      "sha256": "de61c920cf253a7f1cc9e8864284e51389b54fc67135e941965d195b09af37ca"
+    }
+  ],
+  "candidate_status": "Final selected completed-column-feet artifact independently verified for this physical/material scope.",
+  "completed_column_placement_review": {
+    "source": "Embedded selected artifact; GLINT_SPRITES absent. Earlier override coordinate recommendations independently rechecked in actual compiled selected world.",
+    "instances": [
+      {
+        "scene": "title",
+        "animation": "pillar_broken_tall",
+        "position": [
+          342.0,
+          114.0
+        ],
+        "opaque_support_pixels": 306,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_tall",
+        "position": [
+          312.0,
+          88.0
+        ],
+        "opaque_support_pixels": 306,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_tall",
+        "position": [
+          552.0,
+          136.0
+        ],
+        "opaque_support_pixels": 306,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          856.0,
+          184.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          264.0,
+          216.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          552.0,
+          216.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          504.0,
+          264.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_tall",
+        "position": [
+          1032.0,
+          280.0
+        ],
+        "opaque_support_pixels": 306,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          1016.0,
+          408.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_tall",
+        "position": [
+          1064.0,
+          408.0
+        ],
+        "opaque_support_pixels": 306,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          1208.0,
+          408.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          280.0,
+          472.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          1064.0,
+          504.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          1112.0,
+          504.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_tall",
+        "position": [
+          552.0,
+          616.0
+        ],
+        "opaque_support_pixels": 306,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          984.0,
+          712.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      },
+      {
+        "scene": "world",
+        "animation": "pillar_broken_short",
+        "position": [
+          102.0,
+          722.0
+        ],
+        "opaque_support_pixels": 315,
+        "all_pixels_actual_Floor": true,
+        "other_prop_native_foot_overlap": false
+      }
+    ],
+    "title_pillar_position": [
+      342,
+      114
+    ],
+    "temple_drum_position": [
+      1102,
+      528
+    ],
+    "new_native_base_width": 37,
+    "native_base_depth": 10,
+    "final_tall_opaque_support_pixels": 306,
+    "final_short_opaque_support_pixels": 315,
+    "native_sprite_sort_foot": "anchor_y+1, corresponding to source opaque bottom54 versus anchor53; original cropped source ended at56/anchor+3."
+  },
+  "directly_inspected_selected_images": [
+    "out/pixellab/world/round5-selected/title/f00240.png",
+    "out/pixellab/world/round5-selected/bloomwild/temple/bloomwild_t00090.png"
+  ]
+}

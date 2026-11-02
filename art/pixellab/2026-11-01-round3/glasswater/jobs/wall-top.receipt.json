@@ -1,0 +1,31 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"background_job_id\": \"c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa\",\n  \"image_id\": \"683fcb96-170b-5d1c-a3f5-ea7bc8402f45\",\n  \"status\": \"processing\",\n  \"source_image_id\": \"683fcb96-170b-5d1c-a3f5-ea7bc8402f45\",\n  \"job_id\": \"c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa\",\n  \"description\": \"Quiet seamless top-down slate cave bedrock material, native 96x96 pixel art texture. Predominantly one calm muted slate grey #424956. Two or three very broad angular layered slab planes connected across the entire canvas with a few short deep fractured joints, unequal sizes 35-60 pixels, upper-left light. Very low contrast, maximum five colors, no pebble noise, no small isolated stones, no hatching, no checker pattern, no grid of rectangular tiles. Entire canvas solid rock, no isolated island, no background, no plants, no water, no purple crystals, no glowing veins, no vertical cliff faces. This is the calm horizontal upper surface of a huge cave wall, no more than 15 percent texture detail.\",\n  \"seed\": 241,\n  \"image_size\": {\n    \"width\": 96,\n    \"height\": 96\n  },\n  \"output_count\": 1,\n  \"estimated_generations\": 5,\n  \"pricing_provisional\": true,\n  \"poll_tool\": \"get_image\",\n  \"download_path\": \"/mcp/images/c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa/download\"\n}\nPoll get_image(job_id=\"c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa\"). The source_image_id is usable after completion; it is an image ID, not a character/object ID. Actual usage is reported on completion. cancel_job(job_id=...) cancels unfinished work.",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": {
+    "background_job_id": "c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa",
+    "image_id": "683fcb96-170b-5d1c-a3f5-ea7bc8402f45",
+    "status": "processing",
+    "source_image_id": "683fcb96-170b-5d1c-a3f5-ea7bc8402f45",
+    "job_id": "c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa",
+    "description": "Quiet seamless top-down slate cave bedrock material, native 96x96 pixel art texture. Predominantly one calm muted slate grey #424956. Two or three very broad angular layered slab planes connected across the entire canvas with a few short deep fractured joints, unequal sizes 35-60 pixels, upper-left light. Very low contrast, maximum five colors, no pebble noise, no small isolated stones, no hatching, no checker pattern, no grid of rectangular tiles. Entire canvas solid rock, no isolated island, no background, no plants, no water, no purple crystals, no glowing veins, no vertical cliff faces. This is the calm horizontal upper surface of a huge cave wall, no more than 15 percent texture detail.",
+    "seed": 241,
+    "image_size": {
+      "width": 96,
+      "height": 96
+    },
+    "output_count": 1,
+    "estimated_generations": 5,
+    "pricing_provisional": true,
+    "poll_tool": "get_image",
+    "download_path": "/mcp/images/c0c5c8ba-4ea7-4508-9c9d-544e22aedbaa/download"
+  },
+  "isError": false,
+  "resultType": "complete"
+}

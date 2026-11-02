@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 41ccd322-33af-43ac-b8fb-2aa1a5e3eb07\njob_id: 41ccd322-33af-43ac-b8fb-2aa1a5e3eb07\nmodel: pro\ndescription: Seamless horizontal side-view cave wall material strip for a tiny 3/4 top-down action RPG. Entire canvas filled with solid slate bedrock. Upper 24 pixel rows a flat dark slate top surface with broad angular slabs; lower 40 rows a vertical fractured rock face, upper-left chisel highlights, deep joints, uneven interlocking large layered chunks 25-50 pixels wide. Restrained cool grey slate, no violet mineral, no plants. The cliff starts exactly at y=24 and ends at bottom y=63. Left and right edge seamless. At most ten muted colours. Crisp one pixel grid, compact connected pixel clusters, no speckle, no smooth gradient, no outlines around every facet, no isolated object or floating island, no surrounding background.\nsize: 128x64px\ntransparent: False\ncandidates: 4\npalette: 15 colours (Glasswater slate and pale iris)\nmax colours: 10 per image\nseed: 217\nasset_id: 81c2270c-3698-583c-a701-e0e3dfcdc4df\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"41ccd322-33af-43ac-b8fb-2aa1a5e3eb07\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/41ccd322-33af-43ac-b8fb-2aa1a5e3eb07/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

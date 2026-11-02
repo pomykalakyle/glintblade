@@ -1,0 +1,27 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "anchor": [
+    0,
+    0
+  ],
+  "anims": {
+    "grass": {
+      "row": 0,
+      "frames": 16,
+      "fps": 1,
+      "coverage": 1.0
+    },
+    "slab": {
+      "row": 1,
+      "frames": 11,
+      "fps": 1,
+      "coverage": 1.0
+    }
+  },
+  "notes": "Native PixelLab 32px modules, curated from grass-focus16 and stone-focus16. Ground-only material clipping; no collision change, resampling, recoloring or baked actor shadows. Existing path remains authored; variants are selected in stable world space.",
+  "preserve_fields": true,
+  "live_grass_density": 0.18
+}

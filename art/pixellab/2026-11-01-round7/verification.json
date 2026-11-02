@@ -1,0 +1,151 @@
+{
+  "status": "verified",
+  "selected_native_sha256": "18a46a6da8fd9642b88b7a42b8d7bff6c504d93aa35563033023aa43609423a4",
+  "source_files_checked": 455,
+  "source_mismatches": [],
+  "binary_artifacts_checked": {
+    "glintblade": "18a46a6da8fd9642b88b7a42b8d7bff6c504d93aa35563033023aa43609423a4",
+    "libglintblade.rlib": "f4617e9713931c5ea22b304bacd2e5af2b437a168e20594eed8e56d09491ebe6",
+    "normal_enemy_trials": "9d20044b548d230a786df8f1c8ed0d3c4de6d93cacdd5389d049ed99625b3a4f",
+    "glintblade.wasm": "22b2226813b414a47c68cb4bb83623708d4ef429d655da73e3ddf105dd08ecfd"
+  },
+  "local_web_wasm_matches": true,
+  "tests": {
+    "full_release": {
+      "passed": 199,
+      "failed": 0,
+      "ignored": 3
+    },
+    "separate_cinder_timing": "passed",
+    "quiet_serial": true
+  },
+  "normal_pairs_checked": 78,
+  "normal_alpha_dimension_mismatches": 0,
+  "native_scene_studies": 40,
+  "overviews": 4,
+  "title": true,
+  "campaign": {
+    "frames": 14498,
+    "fps": 60,
+    "duration_seconds": 241.63333333333333,
+    "regions": [
+      "Bloomwild",
+      "Glasswater",
+      "Cinder",
+      "Summit"
+    ],
+    "milestones": {
+      "bloomwild_shard": 3094,
+      "cinder_shard": 9350,
+      "glasswater_shard": 6357,
+      "phase_2_damage": 11656,
+      "phase_2_heart_open": 12032,
+      "phase_3_damage": 13290,
+      "victory": 13999,
+      "warden_awake": 10344,
+      "warden_dying": 13616
+    },
+    "final_scene": "victory",
+    "god_mode": true,
+    "audio_events": 1452,
+    "missing_sounds": [],
+    "state_audio_and_progression_identical_to_r2": true,
+    "ordinary_combat_balance_not_validated": true
+  },
+  "enemy_pose_study": {
+    "frames": 240,
+    "looks": 18,
+    "fixed_light_exact_repeats": 4241
+  },
+  "final_gif": {
+    "file": "/home/krp/Projects/glintblade/out/share/glint-blade-gameplay.gif",
+    "bytes": 4763733,
+    "size": [
+      768,
+      432
+    ],
+    "frames": 120,
+    "duration_ms": 8000,
+    "fps": 15,
+    "loop": 0,
+    "sha256": "2d7cbc5aba43ad54f384c8e758506915a4fc351e78682e9fd9dbccf47746e83f",
+    "source_recording": "/home/krp/Projects/glintblade/out/pixellab/recordings/whole-game-round7-r3",
+    "source_binary_sha256": "18a46a6da8fd9642b88b7a42b8d7bff6c504d93aa35563033023aa43609423a4",
+    "source_fps": 60,
+    "sampling": "every fourth actual native frame, normal playback speed",
+    "clips": [
+      {
+        "region": "Bloomwild",
+        "first_tick": 2640,
+        "source_frames": 120
+      },
+      {
+        "region": "Glasswater",
+        "first_tick": 4725,
+        "source_frames": 120
+      },
+      {
+        "region": "Cinder",
+        "first_tick": 7575,
+        "source_frames": 120
+      },
+      {
+        "region": "Summit",
+        "first_tick": 9960,
+        "source_frames": 120
+      }
+    ],
+    "overlays": "original game HUD only"
+  },
+  "report_hashes": {
+    "art/pixellab/2026-11-01-round7/technical-review.json": "6414fb80cd1d74cc9920476c917b1025ab474137e881e5eeb6404282ed2fb212",
+    "art/pixellab/2026-11-01-round7/enemy-motion-review.json": "f8b881e14128a8bb978749284cd464bc8029b85cf9fdb5cbbebb731dba16fd0b",
+    "art/pixellab/2026-11-01-round7/terrain-shadow-implementation.json": "6d9389860bcd9fe8a3bce4cfdcad1611290d9cf639e275a8ffa58dbefe681197",
+    "out/pixellab/round7/final-visual-review/r3/motion/review.json": "7e43faf3b93eea46ed018af52aad6f8a86154bda7d2966c999d64d444ad51563",
+    "out/pixellab/round7/final-visual-review/r3/static-review.json": "d336c42ea5c51767c3c7217f7f8ce23fa6fea84008b7a62278df42efefef4ec7"
+  },
+  "provenance": {
+    "out/pixellab/round7/selected-r3/sources.json": "8dba783670bd54e70ec532f251781ad5af86f32023ed087ce32e626c50e1e4df",
+    "out/pixellab/round7/selected-r3/binaries.json": "83c47fa09aaaddd73872a1c0ab084a56c3c67f39a2310dd4c4193a94e5fb8bde",
+    "out/pixellab/round7/selected-r3/tests.log": "96d81976d24d7c8e9fdb022d082a41ce3393e39b8bd5ffd4c13a8874c68d050a",
+    "out/pixellab/round7/selected-r3/cinder-timing.log": "cb46cdc3fffd26910473f66a01b3b1e9d3004efffafc9c63e56dfaf134c11195",
+    "out/pixellab/world/round7-r3/manifest.json": "b1d4953850fbeafc0ed7871e30de257b81ecb9370f828fb9142fcc5de5f526cd",
+    "out/pixellab/recordings/whole-game-round7-r3/manifest.json": "c543d0fa304b73ec637313549f847dd908539322a3730d3ab42386610ad9bcbc",
+    "out/pixellab/recordings/whole-game-round7-r3/report.json": "0040ef6fff4a4881b58dcf659eb1453d0251d67ab6f99c1e02f16e92c724c9fd",
+    "out/pixellab/round7/enemy-pose-study-r3/motion-audit.json": "9b4d23287bde9c8bee7f42f053bc7554923542550d3c12800ba546e0c0613cc9"
+  },
+  "limits": [
+    "2.5D native sprite volumes and painted terrain sheets; unseen geometry is not reconstructed.",
+    "Full campaign was captured; visual review uses explicitly sampled scenes/temporal intervals.",
+    "Audio event mix validated structurally; no full audio audition claim.",
+    "WASM build verified; browser performance was not measured."
+  ],
+  "independent_visual_review": {
+    "result": "no_must_fix_in_explicit_sampled_scope",
+    "static": {
+      "native_scenes_directly_viewed": 40,
+      "comparison": "All forty R3 native scenes directly viewed side-by-side with matching R2; earlier R1/R6 review retained separately.",
+      "whole_zone_overviews_directly_viewed": 4,
+      "title_directly_viewed": true,
+      "nearest_neighbor_4x_contact_crops_directly_viewed": 10,
+      "motion": "Fresh R3 review in motion/review.json; explicit 390-frame/13-interval sampled scope."
+    },
+    "motion": {
+      "recording_frames": 14498,
+      "recording_simulation_hz": 60,
+      "directly_reviewed_consecutive_frames": 390,
+      "continuous_intervals": 13,
+      "seconds_per_interval": 0.5,
+      "review_method": "Each of the thirty actual 60 Hz source frames in every interval directly viewed in chronological full-frame strips; eight intervals also directly viewed as fixed-crop nearest-neighbor 2x strips. These are sequential-frame inspections, not a continuous-speed audiovisual audition.",
+      "extra_keyframes": 4,
+      "god_mode": true,
+      "recording_complete_report_victory_ready": true,
+      "zones": [
+        "Bloomwild",
+        "Glasswater",
+        "Cinder",
+        "Summit"
+      ]
+    }
+  }
+}

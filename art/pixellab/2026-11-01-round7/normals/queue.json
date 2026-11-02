@@ -1,0 +1,3851 @@
+[
+  {
+    "name": "bloomwild_aqueduct",
+    "id": "bloomwild_aqueduct",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_aqueduct.png",
+    "source": "assets/sprites/bloomwild_aqueduct.png",
+    "source_sha256": "5704d65c8d7e5e174b926b4eec5afe8df7d0fc44bf613f562bd2d8edaee116f7",
+    "size": [
+      128,
+      96
+    ],
+    "cell": [
+      128,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_arch",
+    "id": "bloomwild_arch",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_arch.png",
+    "source": "assets/sprites/bloomwild_arch.png",
+    "source_sha256": "c6240d344883f58b9e0b4bf6e5092e77513560aa8a14dee2e28da6416cd61cb0",
+    "size": [
+      64,
+      216
+    ],
+    "cell": [
+      64,
+      72
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          216
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          216
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_cliff",
+    "id": "bloomwild_cliff",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_cliff.png",
+    "source": "assets/sprites/bloomwild_cliff.png",
+    "source_sha256": "2fefec1e52c634171b21a44ae8365eba333918a4a26866aae4708b601a97f56d",
+    "size": [
+      512,
+      96
+    ],
+    "cell": [
+      128,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          512,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          512,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_floor_details",
+    "id": "bloomwild_floor_details",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_floor_details.png",
+    "source": "assets/sprites/bloomwild_floor_details.png",
+    "source_sha256": "251798ca01770fd5dd41ee881150e65ed41a4b6b499da93cf110a624cd87a4d6",
+    "size": [
+      128,
+      256
+    ],
+    "cell": [
+      128,
+      64
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          256
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          256
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_grass",
+    "id": "bloomwild_grass",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_grass.png",
+    "source": "assets/sprites/bloomwild_grass.png",
+    "source_sha256": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6",
+    "size": [
+      256,
+      32
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          256,
+          32
+        ],
+        "to": [
+          0,
+          0,
+          256,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_growth",
+    "id": "bloomwild_growth",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_growth.png",
+    "source": "assets/sprites/bloomwild_growth.png",
+    "source_sha256": "98ed375ea3a6d3a07e045577a265051fd79c092a8d79b5ccc8b264179b46e2ff",
+    "size": [
+      64,
+      80
+    ],
+    "cell": [
+      64,
+      80
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          80
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          80
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_growth_low",
+    "id": "bloomwild_growth_low",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_growth_low.png",
+    "source": "assets/sprites/bloomwild_growth_low.png",
+    "source_sha256": "bc5b738b5ea30d7b226678128f71bf49b123ed97903bd3a0245257889deb02ab",
+    "size": [
+      48,
+      32
+    ],
+    "cell": [
+      48,
+      32
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          48,
+          32
+        ],
+        "to": [
+          0,
+          0,
+          48,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_lantern",
+    "id": "bloomwild_lantern",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_lantern.png",
+    "source": "assets/sprites/bloomwild_lantern.png",
+    "source_sha256": "86fef25866528974af965f51d9f4a05a16ef1d82687b20a20a4bfdedca609e90",
+    "size": [
+      96,
+      80
+    ],
+    "cell": [
+      24,
+      40
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          96,
+          80
+        ],
+        "to": [
+          0,
+          0,
+          96,
+          80
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_materials",
+    "id": "bloomwild_materials",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_materials.png",
+    "source": "assets/sprites/bloomwild_materials.png",
+    "source_sha256": "3e2b50c7294540dcd5eb8b9f29cad27c7cb897eac0813128fa271586a8b825db",
+    "size": [
+      512,
+      64
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          512,
+          64
+        ],
+        "to": [
+          0,
+          0,
+          512,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_props",
+    "id": "bloomwild_props",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_props.png",
+    "source": "assets/sprites/bloomwild_props.png",
+    "source_sha256": "1ba479ae5f0ad66d39acb1db9e5575f765b9ad6d4312cb177cf0f745bbcc2dbe",
+    "size": [
+      32,
+      288
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          32,
+          288
+        ],
+        "to": [
+          0,
+          0,
+          32,
+          288
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_ruins",
+    "id": "bloomwild_ruins",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_ruins.png",
+    "source": "assets/sprites/bloomwild_ruins.png",
+    "source_sha256": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+    "size": [
+      48,
+      504
+    ],
+    "cell": [
+      48,
+      56
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.15,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          48,
+          504
+        ],
+        "to": [
+          0,
+          0,
+          48,
+          504
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_terrace",
+    "id": "bloomwild_terrace",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_terrace.png",
+    "source": "assets/sprites/bloomwild_terrace.png",
+    "source_sha256": "7025f66820aec87519e79b781cc8757a7a555b36e22da762c845147a74525633",
+    "size": [
+      128,
+      32
+    ],
+    "cell": [
+      128,
+      32
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          32
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_tiles",
+    "id": "bloomwild_tiles",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_tiles.png",
+    "source": "assets/sprites/bloomwild_tiles.png",
+    "source_sha256": "0da11cb7001f9add157f0ec57c881d8b85d1eb267a166fe490126dba77ffe0bf",
+    "size": [
+      256,
+      240
+    ],
+    "cell": [
+      16,
+      16
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          256,
+          240
+        ],
+        "to": [
+          0,
+          0,
+          256,
+          240
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_trees",
+    "id": "bloomwild_trees-composite-part-0",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_trees-composite-part-0.png",
+    "source": "assets/sprites/bloomwild_trees.png",
+    "source_sha256": "96bbe341c7d4e1a3e828569c7f962deb347605605498ef5ec66aa59fcb187877",
+    "size": [
+      160,
+      1344
+    ],
+    "cell": [
+      80,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          0,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          96,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          80,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          192,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          80,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          288,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          160,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          384,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          160,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          480,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          240,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          576,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          240,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          672,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          320,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          768,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          320,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          864,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          400,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          960,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          400,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          1056,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          0,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          0,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          0,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          96,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          80,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          192,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          80,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          288,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          160,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          384,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          160,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          480,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          240,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          576,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          240,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          672,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          320,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          768,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          320,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          864,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          400,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          960,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          400,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          1056,
+          80,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_trees",
+    "id": "bloomwild_trees-composite-part-480",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_trees-composite-part-480.png",
+    "source": "assets/sprites/bloomwild_trees.png",
+    "source_sha256": "96bbe341c7d4e1a3e828569c7f962deb347605605498ef5ec66aa59fcb187877",
+    "size": [
+      160,
+      1344
+    ],
+    "cell": [
+      80,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          1152,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          0,
+          0,
+          80,
+          96
+        ],
+        "to": [
+          0,
+          1248,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          0,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          1152,
+          80,
+          96
+        ]
+      },
+      {
+        "from": [
+          0,
+          96,
+          80,
+          96
+        ],
+        "to": [
+          80,
+          1248,
+          80,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bloomwild_waterworks",
+    "id": "bloomwild_waterworks",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/bloomwild_waterworks.png",
+    "source": "assets/sprites/bloomwild_waterworks.png",
+    "source_sha256": "5338bcf10abe6babb2e7411b56c29e3de29af6c9358b8642e64624e5336de05d",
+    "size": [
+      64,
+      128
+    ],
+    "cell": [
+      64,
+      128
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          128
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          128
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_brazier",
+    "id": "cinder_brazier",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_brazier.png",
+    "source": "assets/sprites/cinder_brazier.png",
+    "source_sha256": "9daabcda8cb10f229e45e310cb111e6c6deb9092b9c5c6c4f1ba784bed6366b9",
+    "size": [
+      96,
+      64
+    ],
+    "cell": [
+      16,
+      32
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          96,
+          64
+        ],
+        "to": [
+          0,
+          0,
+          96,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_cliff",
+    "id": "cinder_cliff",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_cliff.png",
+    "source": "assets/sprites/cinder_cliff.png",
+    "source_sha256": "ffd005bf5ffa431d580c7e0c8d7140007623c08bb773342d0e6bcbf9c5c21122",
+    "size": [
+      256,
+      96
+    ],
+    "cell": [
+      128,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          256,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          256,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_floor",
+    "id": "cinder_floor",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_floor.png",
+    "source": "assets/sprites/cinder_floor.png",
+    "source_sha256": "6af3e9b057af5d3289d4b73bbc6a4e91e1ffc51b36a5019bea698e02c7a8c6d9",
+    "size": [
+      512,
+      24
+    ],
+    "cell": [
+      32,
+      24
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          512,
+          24
+        ],
+        "to": [
+          0,
+          0,
+          512,
+          24
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_foundry",
+    "id": "cinder_foundry",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_foundry.png",
+    "source": "assets/sprites/cinder_foundry.png",
+    "source_sha256": "c5da64f8239111e83c6f1df0b40f33548f0abf503964d5ee016ecc77e8f26b97",
+    "size": [
+      64,
+      160
+    ],
+    "cell": [
+      64,
+      80
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          160
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          160
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_lava_surface",
+    "id": "cinder_lava_surface-part-0-0",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_lava_surface-part-0-0.png",
+    "source": "assets/sprites/cinder_lava_surface.png",
+    "source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+    "size": [
+      1056,
+      264
+    ],
+    "cell": [
+      1056,
+      264
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          512,
+          264
+        ],
+        "to": [
+          0,
+          0,
+          512,
+          264
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_lava_surface",
+    "id": "cinder_lava_surface-part-512-0",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_lava_surface-part-512-0.png",
+    "source": "assets/sprites/cinder_lava_surface.png",
+    "source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+    "size": [
+      1056,
+      264
+    ],
+    "cell": [
+      1056,
+      264
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          512,
+          264
+        ],
+        "to": [
+          512,
+          0,
+          512,
+          264
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_lava_surface",
+    "id": "cinder_lava_surface-part-1024-0",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_lava_surface-part-1024-0.png",
+    "source": "assets/sprites/cinder_lava_surface.png",
+    "source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+    "size": [
+      1056,
+      264
+    ],
+    "cell": [
+      1056,
+      264
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          32,
+          264
+        ],
+        "to": [
+          1024,
+          0,
+          32,
+          264
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_markers",
+    "id": "cinder_markers",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_markers.png",
+    "source": "assets/sprites/cinder_markers.png",
+    "source_sha256": "7d6b837912e3551f9fd0c6c669d69ddda237abfea7b440573a19bca2b12f1ef3",
+    "size": [
+      64,
+      320
+    ],
+    "cell": [
+      64,
+      80
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          320
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          320
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_mineral",
+    "id": "cinder_mineral",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_mineral.png",
+    "source": "assets/sprites/cinder_mineral.png",
+    "source_sha256": "0f61996b140b9b19de1a143e987a66762c7eeeeb476f84000dd581acdf1ee3ad",
+    "size": [
+      192,
+      48
+    ],
+    "cell": [
+      64,
+      48
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          48
+        ],
+        "to": [
+          0,
+          0,
+          192,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_pillars",
+    "id": "cinder_pillars",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_pillars.png",
+    "source": "assets/sprites/cinder_pillars.png",
+    "source_sha256": "ae013216d39788277b10b2c9f0a9ccd1892a22c215b1291640720d13d37b9116",
+    "size": [
+      32,
+      192
+    ],
+    "cell": [
+      32,
+      48
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          32,
+          192
+        ],
+        "to": [
+          0,
+          0,
+          32,
+          192
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_props",
+    "id": "cinder_props",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_props.png",
+    "source": "assets/sprites/cinder_props.png",
+    "source_sha256": "5f125d995ed902929d49f69395287f7afc46aea8384f2014f0928ba524509a4d",
+    "size": [
+      64,
+      160
+    ],
+    "cell": [
+      16,
+      16
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          160
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          160
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_props_m",
+    "id": "cinder_props_m",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_props_m.png",
+    "source": "assets/sprites/cinder_props_m.png",
+    "source_sha256": "a8ae09af37874dd8c1bdb4cd33d602a5e68e387319db6fc169b07de855fbf06f",
+    "size": [
+      128,
+      160
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          160
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          160
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_ruins",
+    "id": "cinder_ruins",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_ruins.png",
+    "source": "assets/sprites/cinder_ruins.png",
+    "source_sha256": "a4eeae8c860c19bae0e123940fb1bbb383d1146e124f9b24971d7b2fc22519ed",
+    "size": [
+      64,
+      144
+    ],
+    "cell": [
+      64,
+      48
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          144
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          144
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_shrine",
+    "id": "cinder_shrine",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_shrine.png",
+    "source": "assets/sprites/cinder_shrine.png",
+    "source_sha256": "e5b202d169e68ac3a5bbf0323e3b531e3eb8e25bf2744fdfb27ad18ccec98f52",
+    "size": [
+      128,
+      96
+    ],
+    "cell": [
+      128,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_statue",
+    "id": "cinder_statue",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_statue.png",
+    "source": "assets/sprites/cinder_statue.png",
+    "source_sha256": "8f986ac73e2fa9d9e069e7d40ec36ca9b22312d9760d1603acdc860e2b8b6ff6",
+    "size": [
+      64,
+      64
+    ],
+    "cell": [
+      64,
+      64
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_tiles",
+    "id": "cinder_tiles",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_tiles.png",
+    "source": "assets/sprites/cinder_tiles.png",
+    "source_sha256": "05f61f6953095fc35b9dc8023d816992e7e528d713cc3961574db0082db973de",
+    "size": [
+      48,
+      96
+    ],
+    "cell": [
+      16,
+      16
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          48,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          48,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_trees",
+    "id": "cinder_trees",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_trees.png",
+    "source": "assets/sprites/cinder_trees.png",
+    "source_sha256": "6938e4838036e1bf6f06ec16b7fc69747684b67a8519f29b121f05cbda9f9ccc",
+    "size": [
+      48,
+      256
+    ],
+    "cell": [
+      48,
+      64
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          48,
+          256
+        ],
+        "to": [
+          0,
+          0,
+          48,
+          256
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cinder_vent",
+    "id": "cinder_vent",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/cinder_vent.png",
+    "source": "assets/sprites/cinder_vent.png",
+    "source_sha256": "86d7b462123672eda8d4bed792178b719812e44b6e738ebb3b5c9244bf91d1f8",
+    "size": [
+      384,
+      96
+    ],
+    "cell": [
+      32,
+      48
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          384,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          384,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "crystal_beetle",
+    "id": "crystal_beetle",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/crystal_beetle.png",
+    "source": "assets/sprites/crystal_beetle.png",
+    "source_sha256": "fda1edfcc9c5953de671d91afa8ce49ce53fcb925dd18100c5c7bc9089740307",
+    "size": [
+      192,
+      468
+    ],
+    "cell": [
+      32,
+      26
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          468
+        ],
+        "to": [
+          0,
+          0,
+          192,
+          468
+        ]
+      }
+    ]
+  },
+  {
+    "name": "crystal_beetle_v1",
+    "id": "crystal_beetle_v1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/crystal_beetle_v1.png",
+    "source": "assets/sprites/crystal_beetle_v1.png",
+    "source_sha256": "cad5e7d42e39ca44ca7634432da093752b952fd7597e12c2ad5e7abb6e9de0eb",
+    "size": [
+      192,
+      468
+    ],
+    "cell": [
+      32,
+      26
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          468
+        ],
+        "to": [
+          0,
+          0,
+          192,
+          468
+        ]
+      }
+    ]
+  },
+  {
+    "name": "crystal_beetle_v2",
+    "id": "crystal_beetle_v2",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/crystal_beetle_v2.png",
+    "source": "assets/sprites/crystal_beetle_v2.png",
+    "source_sha256": "ced9503dcb37994819347b3feb2ceb20ca753f34f5fee57e271409f0177eee89",
+    "size": [
+      192,
+      468
+    ],
+    "cell": [
+      32,
+      26
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          468
+        ],
+        "to": [
+          0,
+          0,
+          192,
+          468
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ember_hound",
+    "id": "ember_hound",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/ember_hound.png",
+    "source": "assets/sprites/ember_hound.png",
+    "source_sha256": "921907db8ed0a3aee50edc98a15b35999254bb7a77a1d79f7d67b2c61976ca89",
+    "size": [
+      240,
+      360
+    ],
+    "cell": [
+      40,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          240,
+          360
+        ],
+        "to": [
+          0,
+          0,
+          240,
+          360
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ember_hound_v1",
+    "id": "ember_hound_v1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/ember_hound_v1.png",
+    "source": "assets/sprites/ember_hound_v1.png",
+    "source_sha256": "23917b88b5e3b3c79d28500fafae9990e1bcb44a35061d6f08a57937c2c8be0c",
+    "size": [
+      240,
+      360
+    ],
+    "cell": [
+      40,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          240,
+          360
+        ],
+        "to": [
+          0,
+          0,
+          240,
+          360
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ember_hound_v2",
+    "id": "ember_hound_v2",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/ember_hound_v2.png",
+    "source": "assets/sprites/ember_hound_v2.png",
+    "source_sha256": "fd1ffe788e16da28ed462760710c3722a2e5478b1dccc4923111df7f74830f96",
+    "size": [
+      240,
+      360
+    ],
+    "cell": [
+      40,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          240,
+          360
+        ],
+        "to": [
+          0,
+          0,
+          240,
+          360
+        ]
+      }
+    ]
+  },
+  {
+    "name": "gate",
+    "id": "gate",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/gate.png",
+    "source": "assets/sprites/gate.png",
+    "source_sha256": "9664e8d53d2e89be3c94a725b796bdff27b58613651deacd79540bba94436b55",
+    "size": [
+      384,
+      192
+    ],
+    "cell": [
+      48,
+      64
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          384,
+          192
+        ],
+        "to": [
+          0,
+          0,
+          384,
+          192
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_crystals_big",
+    "id": "glasswater_crystals_big",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_crystals_big.png",
+    "source": "assets/sprites/glasswater_crystals_big.png",
+    "source_sha256": "3f67139499f485151c873db804894b65a1d3064552e6547c52314310efa71b77",
+    "size": [
+      48,
+      256
+    ],
+    "cell": [
+      48,
+      64
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.15,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          48,
+          256
+        ],
+        "to": [
+          0,
+          0,
+          48,
+          256
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_crystals_native",
+    "id": "glasswater_crystals_native",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_crystals_native.png",
+    "source": "assets/sprites/glasswater_crystals_native.png",
+    "source_sha256": "f12449e1d0131ed873f1ee8b5a00554df1c849d7d76a2d43b85040f82479f7df",
+    "size": [
+      384,
+      64
+    ],
+    "cell": [
+      48,
+      64
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          384,
+          64
+        ],
+        "to": [
+          0,
+          0,
+          384,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_crystals_small",
+    "id": "glasswater_crystals_small",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_crystals_small.png",
+    "source": "assets/sprites/glasswater_crystals_small.png",
+    "source_sha256": "de4965e9d88022bf3c9194bb4458a0b056c7ba7d36835071f28197cd9ada0825",
+    "size": [
+      256,
+      40
+    ],
+    "cell": [
+      32,
+      40
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          256,
+          40
+        ],
+        "to": [
+          0,
+          0,
+          256,
+          40
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_floor_macro",
+    "id": "glasswater_floor_macro",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_floor_macro.png",
+    "source": "assets/sprites/glasswater_floor_macro.png",
+    "source_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+    "size": [
+      128,
+      128
+    ],
+    "cell": [
+      128,
+      128
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          128
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_fungi",
+    "id": "glasswater_fungi",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_fungi.png",
+    "source": "assets/sprites/glasswater_fungi.png",
+    "source_sha256": "05bbb2871c9481762d10ef91b56b8d0574ab01993a5466feb6dfd2c92f590809",
+    "size": [
+      192,
+      48
+    ],
+    "cell": [
+      48,
+      48
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          48
+        ],
+        "to": [
+          0,
+          0,
+          192,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_materials",
+    "id": "glasswater_materials",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_materials.png",
+    "source": "assets/sprites/glasswater_materials.png",
+    "source_sha256": "13af62b20b11db672e6f28d206359590d13841a8810c970f26cb70a4f7ad5ae8",
+    "size": [
+      320,
+      32
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          320,
+          32
+        ],
+        "to": [
+          0,
+          0,
+          320,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_tiles",
+    "id": "glasswater_tiles",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_tiles.png",
+    "source": "assets/sprites/glasswater_tiles.png",
+    "source_sha256": "923cb327ad7993b24bc5edf11bc0a930695748cfa03ac06f70e801d5e4060482",
+    "size": [
+      256,
+      208
+    ],
+    "cell": [
+      16,
+      16
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          256,
+          208
+        ],
+        "to": [
+          0,
+          0,
+          256,
+          208
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_walls",
+    "id": "glasswater_walls",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_walls.png",
+    "source": "assets/sprites/glasswater_walls.png",
+    "source_sha256": "50892125c9c43e02ad9345c988b2577f432b10697e4a5041b77d893048ffc6ce",
+    "size": [
+      128,
+      64
+    ],
+    "cell": [
+      128,
+      64
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          64
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_walltop",
+    "id": "glasswater_walltop",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_walltop.png",
+    "source": "assets/sprites/glasswater_walltop.png",
+    "source_sha256": "777f75d5bd959fbec25589673d667f4f1bf806d3e1c9b57f5b6c8b7a3be0d333",
+    "size": [
+      128,
+      128
+    ],
+    "cell": [
+      128,
+      128
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          128
+        ]
+      }
+    ]
+  },
+  {
+    "name": "glasswater_waterworks",
+    "id": "glasswater_waterworks",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/glasswater_waterworks.png",
+    "source": "assets/sprites/glasswater_waterworks.png",
+    "source_sha256": "8f9528f5ddd0a4722b4108d8d8e947a6d716df8512b7eda50e49297074b6ae3d",
+    "size": [
+      288,
+      96
+    ],
+    "cell": [
+      96,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          288,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          288,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "hero",
+    "id": "hero-part-0-0",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-0.png",
+    "source": "assets/sprites/hero.png",
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "size": [
+      384,
+      1872
+    ],
+    "cell": [
+      48,
+      48
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          384,
+          480
+        ],
+        "to": [
+          0,
+          0,
+          384,
+          480
+        ]
+      }
+    ]
+  },
+  {
+    "name": "hero",
+    "id": "hero-part-0-480",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-480.png",
+    "source": "assets/sprites/hero.png",
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "size": [
+      384,
+      1872
+    ],
+    "cell": [
+      48,
+      48
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          384,
+          480
+        ],
+        "to": [
+          0,
+          480,
+          384,
+          480
+        ]
+      }
+    ]
+  },
+  {
+    "name": "hero",
+    "id": "hero-part-0-960",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-960.png",
+    "source": "assets/sprites/hero.png",
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "size": [
+      384,
+      1872
+    ],
+    "cell": [
+      48,
+      48
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          384,
+          480
+        ],
+        "to": [
+          0,
+          960,
+          384,
+          480
+        ]
+      }
+    ]
+  },
+  {
+    "name": "hero",
+    "id": "hero-part-0-1440",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/hero-part-0-1440.png",
+    "source": "assets/sprites/hero.png",
+    "source_sha256": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "size": [
+      384,
+      1872
+    ],
+    "cell": [
+      48,
+      48
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          384,
+          432
+        ],
+        "to": [
+          0,
+          1440,
+          384,
+          432
+        ]
+      }
+    ]
+  },
+  {
+    "name": "shard",
+    "id": "shard",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/shard.png",
+    "source": "assets/sprites/shard.png",
+    "source_sha256": "5ed11d8372dc9172e0846337a0bb08ba2689e864f0e961c39898d71e6905d30a",
+    "size": [
+      128,
+      48
+    ],
+    "cell": [
+      16,
+      24
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          48
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "name": "spitting_totem",
+    "id": "spitting_totem",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/spitting_totem.png",
+    "source": "assets/sprites/spitting_totem.png",
+    "source_sha256": "9260d8401852ab3bed3034086bda640bd2203f4da3c7f77e3daa7e0d655cb656",
+    "size": [
+      140,
+      288
+    ],
+    "cell": [
+      28,
+      36
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          140,
+          288
+        ],
+        "to": [
+          0,
+          0,
+          140,
+          288
+        ]
+      }
+    ]
+  },
+  {
+    "name": "spitting_totem_v1",
+    "id": "spitting_totem_v1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/spitting_totem_v1.png",
+    "source": "assets/sprites/spitting_totem_v1.png",
+    "source_sha256": "62cdc041ab714d25255e6e61b48d47ba1b972eae303d506d4cd6b36c2b82983c",
+    "size": [
+      140,
+      288
+    ],
+    "cell": [
+      28,
+      36
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          140,
+          288
+        ],
+        "to": [
+          0,
+          0,
+          140,
+          288
+        ]
+      }
+    ]
+  },
+  {
+    "name": "spitting_totem_v2",
+    "id": "spitting_totem_v2",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/spitting_totem_v2.png",
+    "source": "assets/sprites/spitting_totem_v2.png",
+    "source_sha256": "43734738198a41136a1396bc086e99c30f44069e933e002fdb971a8d44e873b8",
+    "size": [
+      140,
+      288
+    ],
+    "cell": [
+      28,
+      36
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          140,
+          288
+        ],
+        "to": [
+          0,
+          0,
+          140,
+          288
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sproutling",
+    "id": "sproutling",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/sproutling.png",
+    "source": "assets/sprites/sproutling.png",
+    "source_sha256": "71a1337a24c2bf060c54b3570c1ed462de3499cc45c215ff943b5a42eecb289c",
+    "size": [
+      144,
+      360
+    ],
+    "cell": [
+      24,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          144,
+          360
+        ],
+        "to": [
+          0,
+          0,
+          144,
+          360
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sproutling_v1",
+    "id": "sproutling_v1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/sproutling_v1.png",
+    "source": "assets/sprites/sproutling_v1.png",
+    "source_sha256": "fb9f90f6cfcc3018408a8e36283a46fddcd730f1f72e081fb0598c2162b35d01",
+    "size": [
+      144,
+      360
+    ],
+    "cell": [
+      24,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          144,
+          360
+        ],
+        "to": [
+          0,
+          0,
+          144,
+          360
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sproutling_v2",
+    "id": "sproutling_v2",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/sproutling_v2.png",
+    "source": "assets/sprites/sproutling_v2.png",
+    "source_sha256": "062b91753925027c415876163f8c07a5590310c15789331065100867ac7b657a",
+    "size": [
+      144,
+      360
+    ],
+    "cell": [
+      24,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          144,
+          360
+        ],
+        "to": [
+          0,
+          0,
+          144,
+          360
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_banners",
+    "id": "summit_banners",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_banners.png",
+    "source": "assets/sprites/summit_banners.png",
+    "source_sha256": "868992049e052eff4d583d3705268daee99ef8ab6fd3ab443040ed7e722b62aa",
+    "size": [
+      32,
+      64
+    ],
+    "cell": [
+      32,
+      64
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          32,
+          64
+        ],
+        "to": [
+          0,
+          0,
+          32,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_brazier",
+    "id": "summit_brazier",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_brazier.png",
+    "source": "assets/sprites/summit_brazier.png",
+    "source_sha256": "e9043e4c42a9cf8544b1eff44c3104f6fd0d5759cf45cd8bc4ad379e23274948",
+    "size": [
+      144,
+      80
+    ],
+    "cell": [
+      24,
+      40
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          144,
+          80
+        ],
+        "to": [
+          0,
+          0,
+          144,
+          80
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_dais",
+    "id": "summit_dais",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_dais.png",
+    "source": "assets/sprites/summit_dais.png",
+    "source_sha256": "8f857cca6f1b88c9e20a00a3817f30f7803405e7121f4286ad541051d7e50852",
+    "size": [
+      128,
+      80
+    ],
+    "cell": [
+      128,
+      80
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          80
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          80
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_floor",
+    "id": "summit_floor",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_floor.png",
+    "source": "assets/sprites/summit_floor.png",
+    "source_sha256": "86b9d253b533258c0a5dcdd2b3feb7e45bd36e46d8e06072ad997f6849fdd20b",
+    "size": [
+      192,
+      32
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          32
+        ],
+        "to": [
+          0,
+          0,
+          192,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_foundation",
+    "id": "summit_foundation",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_foundation.png",
+    "source": "assets/sprites/summit_foundation.png",
+    "source_sha256": "bfc1400e3b06cef26c726bcbe776d9c11756fd9ed4db81b5cd7d8909bf49ba0f",
+    "size": [
+      128,
+      128
+    ],
+    "cell": [
+      128,
+      128
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          128
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_masonry",
+    "id": "summit_masonry",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_masonry.png",
+    "source": "assets/sprites/summit_masonry.png",
+    "source_sha256": "d7a1facb0829f0003fead1ea2cb07e28c95037bb6c4a8b9c971175b2de07d2b9",
+    "size": [
+      128,
+      96
+    ],
+    "cell": [
+      128,
+      96
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          128,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          128,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_pillars",
+    "id": "summit_pillars",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_pillars.png",
+    "source": "assets/sprites/summit_pillars.png",
+    "source_sha256": "c37311d153ac512842f53ae1eccb7eca0baad7d1daf4a9f9310ae9cea3b5b5f5",
+    "size": [
+      64,
+      336
+    ],
+    "cell": [
+      64,
+      112
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          336
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          336
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_props",
+    "id": "summit_props",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_props.png",
+    "source": "assets/sprites/summit_props.png",
+    "source_sha256": "32c28b45bb75bd87e8af763a2a736c7ff3f40f30258c30d5a3a1f6f146c3b0f9",
+    "size": [
+      64,
+      48
+    ],
+    "cell": [
+      64,
+      48
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          48
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_stones",
+    "id": "summit_stones",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_stones.png",
+    "source": "assets/sprites/summit_stones.png",
+    "source_sha256": "6ef26abda1834ff1e37d57854bdf82dcbb47b174dce7714a48de66eb5aee2d6e",
+    "size": [
+      64,
+      224
+    ],
+    "cell": [
+      64,
+      112
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          64,
+          224
+        ],
+        "to": [
+          0,
+          0,
+          64,
+          224
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_tiles",
+    "id": "summit_tiles-part-0-0",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_tiles-part-0-0.png",
+    "source": "assets/sprites/summit_tiles.png",
+    "source_sha256": "400e23f5b4ce17cd9aa30c323e19dd4652e27235cfe6979029b665804521bdbf",
+    "size": [
+      192,
+      608
+    ],
+    "cell": [
+      16,
+      16
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          512
+        ],
+        "to": [
+          0,
+          0,
+          192,
+          512
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_tiles",
+    "id": "summit_tiles-part-0-512",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_tiles-part-0-512.png",
+    "source": "assets/sprites/summit_tiles.png",
+    "source_sha256": "400e23f5b4ce17cd9aa30c323e19dd4652e27235cfe6979029b665804521bdbf",
+    "size": [
+      192,
+      608
+    ],
+    "cell": [
+      16,
+      16
+    ],
+    "params": {
+      "kind": "topdown",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.35,
+      "outline_rounding": 0.0,
+      "part_shapes": 0.0,
+      "surface_detail": 0.08,
+      "detail_softness": 1.5
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          192,
+          96
+        ],
+        "to": [
+          0,
+          512,
+          192,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "summit_walls",
+    "id": "summit_walls",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/summit_walls.png",
+    "source": "assets/sprites/summit_walls.png",
+    "source_sha256": "eaa5932265f173df4587e71f68156182a9e20e22715c2c3a97187a7f62192df1",
+    "size": [
+      16,
+      24
+    ],
+    "cell": [
+      16,
+      24
+    ],
+    "params": {
+      "kind": "object",
+      "mode": "pro",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          16,
+          24
+        ],
+        "to": [
+          0,
+          0,
+          16,
+          24
+        ]
+      }
+    ]
+  },
+  {
+    "name": "thorn_imp",
+    "id": "thorn_imp",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/thorn_imp.png",
+    "source": "assets/sprites/thorn_imp.png",
+    "source_sha256": "185969262dff1ddcd0230ed2f0d25400c8f89ac453dd0a1497439bd20b6b6245",
+    "size": [
+      160,
+      480
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          160,
+          480
+        ],
+        "to": [
+          0,
+          0,
+          160,
+          480
+        ]
+      }
+    ]
+  },
+  {
+    "name": "thorn_imp_v1",
+    "id": "thorn_imp_v1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/thorn_imp_v1.png",
+    "source": "assets/sprites/thorn_imp_v1.png",
+    "source_sha256": "0419a1fbc70b6a8df85f703bfe04ea8767f88c5f21a0d2baf1b21683f51b6fcc",
+    "size": [
+      160,
+      480
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          160,
+          480
+        ],
+        "to": [
+          0,
+          0,
+          160,
+          480
+        ]
+      }
+    ]
+  },
+  {
+    "name": "thorn_imp_v2",
+    "id": "thorn_imp_v2",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/thorn_imp_v2.png",
+    "source": "assets/sprites/thorn_imp_v2.png",
+    "source_sha256": "3a0587c2a1b124f4da19e39d0920e30e06730b651851aa4aed7f38f3461c6360",
+    "size": [
+      160,
+      480
+    ],
+    "cell": [
+      32,
+      32
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          160,
+          480
+        ],
+        "to": [
+          0,
+          0,
+          160,
+          480
+        ]
+      }
+    ]
+  },
+  {
+    "name": "warden_body",
+    "id": "warden_body",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_body.png",
+    "source": "assets/sprites/warden_body.png",
+    "source_sha256": "39732f6787d54111f5fab76d1f7ecb23fdaaf362973e99c0bf8b1d135f5a8991",
+    "size": [
+      120,
+      336
+    ],
+    "cell": [
+      120,
+      112
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          120,
+          336
+        ],
+        "to": [
+          0,
+          0,
+          120,
+          336
+        ]
+      }
+    ]
+  },
+  {
+    "name": "warden_crystal",
+    "id": "warden_crystal",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_crystal.png",
+    "source": "assets/sprites/warden_crystal.png",
+    "source_sha256": "825025989ec7fd779a2d0dfc5435d4299fc11cb81265dd5bf07d13671db49dc1",
+    "size": [
+      80,
+      72
+    ],
+    "cell": [
+      20,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          80,
+          72
+        ],
+        "to": [
+          0,
+          0,
+          80,
+          72
+        ]
+      }
+    ]
+  },
+  {
+    "name": "warden_fist",
+    "id": "warden_fist",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_fist.png",
+    "source": "assets/sprites/warden_fist.png",
+    "source_sha256": "25c9f7299eddd133a1078e4ea6bed3be91b94b774e26513cbdc4445096da85c5",
+    "size": [
+      200,
+      224
+    ],
+    "cell": [
+      40,
+      56
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          200,
+          224
+        ],
+        "to": [
+          0,
+          0,
+          200,
+          224
+        ]
+      }
+    ]
+  },
+  {
+    "name": "warden_head",
+    "id": "warden_head",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_head.png",
+    "source": "assets/sprites/warden_head.png",
+    "source_sha256": "fe67c789cedacff81a295c4ed6a62a23410bcc73535c12a229b7fc26f997a281",
+    "size": [
+      264,
+      132
+    ],
+    "cell": [
+      44,
+      44
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          264,
+          132
+        ],
+        "to": [
+          0,
+          0,
+          264,
+          132
+        ]
+      }
+    ]
+  },
+  {
+    "name": "warden_heart",
+    "id": "warden_heart",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/warden_heart.png",
+    "source": "assets/sprites/warden_heart.png",
+    "source_sha256": "dd26d82dc88a064b2438e9a65420d2b9bc382cdc012a85366c987682c2629642",
+    "size": [
+      96,
+      128
+    ],
+    "cell": [
+      24,
+      32
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          96,
+          128
+        ],
+        "to": [
+          0,
+          0,
+          96,
+          128
+        ]
+      }
+    ]
+  },
+  {
+    "name": "wisp",
+    "id": "wisp",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/wisp.png",
+    "source": "assets/sprites/wisp.png",
+    "source_sha256": "350f00713ba96954182df5f350156483ee95912788fef9d5c8fd0c27636b1243",
+    "size": [
+      96,
+      96
+    ],
+    "cell": [
+      16,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          96,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          96,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "wisp_v1",
+    "id": "wisp_v1",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/wisp_v1.png",
+    "source": "assets/sprites/wisp_v1.png",
+    "source_sha256": "fd0cb9837052ec15295f2046cfee8b6a529df014166f462c93319a364a52142d",
+    "size": [
+      96,
+      96
+    ],
+    "cell": [
+      16,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          96,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          96,
+          96
+        ]
+      }
+    ]
+  },
+  {
+    "name": "wisp_v2",
+    "id": "wisp_v2",
+    "input": "art/pixellab/2026-11-01-round7/normals/inputs/wisp_v2.png",
+    "source": "assets/sprites/wisp_v2.png",
+    "source_sha256": "41a095b9f84c686ddfa8a5ae09a466f16095ba53e1b786d162eb1e3af3461381",
+    "size": [
+      96,
+      96
+    ],
+    "cell": [
+      16,
+      24
+    ],
+    "params": {
+      "kind": "character",
+      "mode": "lite",
+      "convention": "opengl",
+      "strength": 0.65,
+      "outline_rounding": 0.7,
+      "part_shapes": 0.9,
+      "surface_detail": 0.1,
+      "detail_softness": 1.0
+    },
+    "mappings": [
+      {
+        "from": [
+          0,
+          0,
+          96,
+          96
+        ],
+        "to": [
+          0,
+          0,
+          96,
+          96
+        ]
+      }
+    ]
+  }
+]

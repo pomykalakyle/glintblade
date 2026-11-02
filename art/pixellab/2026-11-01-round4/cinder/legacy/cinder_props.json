@@ -1,0 +1,70 @@
+{
+ "cell": [16, 16],
+ "anchor": [8, 14],
+ "emissive": ["#d48670", "#efb68a"],
+ "anims": {
+  "urn_tall": {
+   "row": 0,
+   "frames": 1,
+   "footprint": [9, 4],
+   "breakable": true,
+   "fps": 1
+  },
+  "urn_squat": {
+   "row": 1,
+   "frames": 1,
+   "footprint": [11, 4],
+   "breakable": true,
+   "fps": 1
+  },
+  "urn_broken": {
+   "row": 2,
+   "frames": 1,
+   "fps": 1
+  },
+  "lava_rock": {
+   "row": 3,
+   "frames": 4,
+   "durations": [18, 12, 18, 12],
+   "footprint": [10, 4],
+   "light": {
+    "color": "#efb68a",
+    "radius": 22,
+    "intensity": 0.6,
+    "offset": [0, -3]
+   }
+  },
+  "skull": {
+   "row": 4,
+   "frames": 1,
+   "fps": 1
+  },
+  "bones": {
+   "row": 5,
+   "frames": 1,
+   "fps": 1
+  },
+  "ribs": {
+   "row": 6,
+   "frames": 1,
+   "fps": 1
+  },
+  "shard_small": {
+   "row": 7,
+   "frames": 1,
+   "footprint": [8, 3],
+   "fps": 1
+  },
+  "pebbles": {
+   "row": 8,
+   "frames": 1,
+   "fps": 1
+  },
+  "ash_pile": {
+   "row": 9,
+   "frames": 1,
+   "fps": 1
+  }
+ },
+ "notes": "Style V2 Cinder graft: palettes_v2.json ash/obsidian/basalt and salmon lava. Custom soot shades #101017 #16151d #1a1923 #24232d preserve C mock dark values. Cold stone and burned wood share the mineral ramp; copper is weathered, not gold. All pixels are authored at native scale; lava/fire alone carry emissive heat. Small relics use cold mineral stone; the lava rock alone is hot."
+}

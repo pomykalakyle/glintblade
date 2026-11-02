@@ -1,0 +1,37 @@
+{
+  "job": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 06f8452a-2f2f-4fc5-a8ee-4737518abbfb\njob_id: 06f8452a-2f2f-4fc5-a8ee-4737518abbfb\nsize: 96x112px\nmask: custom mask\nfill: Repair the foot of EACH of these FOUR ancient broken fluted limestone columns on a transparent 2 by 2 sprite sheet. Each independent cell is 48 pixels wide by 56 pixels tall. Preserve all upper column pixels exactly. Only rebuild the bottom 16 pixels of each cell: the existing shafts are guillotined at the image edge and need to end as real standing architectural fragments. Rework the lower flutes into a small worn stone torus or beveled irregular limestone plinth, with a readable pale top bevel, a narrow dark side plane, chipped corners, and a subtly rounded or stepped ground-contact silhouette. The base belongs to the same column, with the same pale ivory left face and desaturated dark blue gray right face, same native chunky pixel size, same three-quarter top-down perspective and upper-left light. Give the two columns in each row slightly different chips and weathering. Maximum base width about 34 pixels; each entire column MUST end by local row 53, with local rows 54 and 55 entirely TRANSPARENT. No cut-off vertical shafts, no added pedestal below the cell, no extra objects, no ground slab, no floor, no grass, no moss blanket, no fuzzy shadow, no black outline, no cast shadow, no resizing, no antialiasing. Make an actual finished column foot with believable volume, not a flat rectangular bottom crop.\ntransparent: True\nseed: 150117\nasset_id: 68b8b89f-afa8-512a-953a-efc5b03247b5\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"06f8452a-2f2f-4fc5-a8ee-4737518abbfb\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/06f8452a-2f2f-4fc5-a8ee-4737518abbfb/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  },
+  "description": "Repair the foot of EACH of these FOUR ancient broken fluted limestone columns on a transparent 2 by 2 sprite sheet. Each independent cell is 48 pixels wide by 56 pixels tall. Preserve all upper column pixels exactly. Only rebuild the bottom 16 pixels of each cell: the existing shafts are guillotined at the image edge and need to end as real standing architectural fragments. Rework the lower flutes into a small worn stone torus or beveled irregular limestone plinth, with a readable pale top bevel, a narrow dark side plane, chipped corners, and a subtly rounded or stepped ground-contact silhouette. The base belongs to the same column, with the same pale ivory left face and desaturated dark blue gray right face, same native chunky pixel size, same three-quarter top-down perspective and upper-left light. Give the two columns in each row slightly different chips and weathering. Maximum base width about 34 pixels; each entire column MUST end by local row 53, with local rows 54 and 55 entirely TRANSPARENT. No cut-off vertical shafts, no added pedestal below the cell, no extra objects, no ground slab, no floor, no grass, no moss blanket, no fuzzy shadow, no black outline, no cast shadow, no resizing, no antialiasing. Make an actual finished column foot with believable volume, not a flat rectangular bottom crop.",
+  "balance_before": {
+    "credits": 0,
+    "generations_remaining": 1551,
+    "generations_used": 449,
+    "generations_total": 2000
+  },
+  "mask": {
+    "cell": [
+      48,
+      56
+    ],
+    "grid": [
+      2,
+      2
+    ],
+    "preserve_local_rows": [
+      0,
+      40
+    ],
+    "edit_local_rows": [
+      40,
+      56
+    ],
+    "seed": 150117
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "status": "frozen",
+  "families": 78,
+  "native_generation_parts": 85,
+  "map_bytes": 1251221,
+  "opaque_pixels": 1142569,
+  "near_poses_stabilized": 647,
+  "normal_pixels_transported": 146259,
+  "duplicate_cells_canonicalized": 1209,
+  "mirrored_cells_canonicalized": 18,
+  "selected_png_list_sha256": "646c096e1fc3341119fa7a5a2da6d9ecf358e4a4a17ecccac5d1c921812f0953",
+  "selected_manifest_sha256": "2486f71e5edba3fd6a56320044dea4b7b17d881e7161daee68c39235d25edfa6",
+  "normal_asset_code_sha256": "2c70977b35edfc7bf699cf87cb608310b7cb1511f60bce2bcec1e2e46e12079e",
+  "included_generations_used": 27.4,
+  "generations_remaining": 1333.6,
+  "paid_credits_spent": 0
+}

@@ -161,7 +161,6 @@ pub fn marker(fx: &mut Fx, x: f32, y: f32, r: f32, k: f32, locked: u32, t: u32) 
             }
         }
     }
-
 }
 
 /// Hand the scene a hit that lands on the player (collision already decided here).
@@ -359,9 +358,10 @@ impl Ring {
         let n = 8;
         for i in 0..n {
             let a = i as f32 / n as f32 * TAU;
-            f.add_light_w(
+            f.add_light_3d_w(
                 self.x + a.cos() * self.r,
                 self.y + a.sin() * self.r,
+                0.0,
                 12.0,
                 D2,
                 0.15 * k,
@@ -532,7 +532,8 @@ impl Beam {
     }
 
     /// Draw the hazard’s crisp silhouette and motivated light.
-    pub fn draw(&self, f: &mut Frame) {
+    /// The live boss supplies the physical prism height separately from its projection.
+    pub fn draw_at_height(&self, f: &mut Frame, height: f32) {
         let (ox, oy) = (self.ox, self.oy);
         if self.charging() {
             // aim line: a thin dotted danger line along the start angle, crawling outward,
@@ -580,7 +581,15 @@ impl Beam {
                 f.put_glow(sx + i, sy, PW);
                 f.put_glow(sx, sy + i, PW);
             }
-            f.add_light_w(ox, oy, 12.0 + k * 12.0, PW, 0.18 + k * 0.18);
+            if f.surface_lighting {
+                let ramp = k * k * (3.0 - 2.0 * k);
+                // The prism sits over 100px above the floor; a 24px source could only light
+                // its own crown. Keep its actual altitude and let the charge reach the body.
+                f.add_light_3d_w(ox, oy + height, height,
+                    (height + 40.0).clamp(72.0, 152.0), PW, 0.12 + 0.7 * ramp);
+            } else {
+                f.add_light_3d_w(ox, oy+height, height, 12.0 + k * 12.0, PW, 0.18 + k * 0.18);
+            }
             return;
         }
         let w = self.width();
@@ -633,11 +642,31 @@ impl Beam {
             f.put_glow(sx + i, sy + i, PW);
             f.put_glow(sx + i, sy - i, PW);
         }
-        // Small source-bound lights along the actual beam, leaving the floor calm.
-        let mut d = 0.0;
-        while d < 300.0 {
-            f.add_light_w(ox + dx * d, oy + dy * d, 16.0, PW, 0.18);
-            d += 40.0;
+        if f.surface_lighting {
+            let fire_end = self.charge + self.sweep * if self.back { 2 } else { 1 };
+            let fade = if self.t < fire_end { 1.0 } else {
+                (1.0 - (self.t - fire_end) as f32 / BEAM_FADE as f32).max(0.0)
+            };
+            let rise = ((self.t - self.charge + 1) as f32 / 4.0).min(1.0);
+            let radius = (height + 40.0).clamp(72.0, 152.0);
+            // Three coherent sources replace eight nearly invisible pearls. Every source
+            // remains on the actual moving beam at its real prism altitude. The origin is
+            // strongest; the two distant contributions remain restrained and fade together.
+            for (d, intensity) in [(0.0, 0.9), (176.0, 0.4), (352.0, 0.4)] {
+                // The charged prism is already bright when firing begins. Carry that
+                // stored light into the origin while the distant beam sources rise.
+                let power = if d == 0.0 { 0.82 + (intensity - 0.82) * rise }
+                    else { intensity * rise };
+                f.add_light_3d_w(ox + dx * d, oy + dy * d + height, height,
+                    radius, PW, power * fade);
+            }
+        } else {
+            // Preserve the original comparison renderer's compact additive beam pools.
+            let mut d = 0.0;
+            while d < 300.0 {
+                f.add_light_3d_w(ox + dx * d, oy + dy * d+height, height, 16.0, PW, 0.18);
+                d += 40.0;
+            }
         }
     }
 }
@@ -832,7 +861,7 @@ impl Shard {
             }
         }
         if self.kind != ShardKind::Rock {
-            f.add_light_w(self.x, self.y - z, 12.0, PW, 0.22);
+            f.add_light_3d_w(self.x, self.y, z, 12.0, PW, 0.22);
         }
         // shadow grows as it nears the ground
         let k = 1.0 - z / SKY;
@@ -979,7 +1008,6 @@ pub fn clamp_down(a: f32, lo: f32, hi: f32) -> f32 {
     a.clamp(lo, hi)
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -987,9 +1015,62 @@ mod tests {
     /// Iris fissures keep the former rose ramp's luminance at every telegraph contrast step.
     #[test]
     fn prism_warnings_preserve_danger_contrast() {
-        for (new, old) in [(D0, rgb(0x724b59)), (D1, rgb(0x724b59)),
-            (D2, rgb(0xbd7a85)), (D3, rgb(0xe6b4ac)), (D4, rgb(0xe6b4ac))] {
+        for (new, old) in [
+            (D0, rgb(0x724b59)),
+            (D1, rgb(0x724b59)),
+            (D2, rgb(0xbd7a85)),
+            (D3, rgb(0xe6b4ac)),
+            (D4, rgb(0xe6b4ac)),
+        ] {
             assert!((new.luma() - old.luma()).abs() < 0.000001);
         }
+    }
+
+    /// Charging builds one source; the live sweep has three real-height sources that turn
+    /// with its art, fade out with the beam, and leave no residual points after the hazard.
+    #[test]
+    fn physical_prism_beam_lights_follow_sweep_and_fade() {
+        let mut beam = Beam { ox: 42.0, oy: 42.0, a: 0.0, a0: 0.0, a1: 0.5,
+            t: 0, charge: 20, sweep: 40, back: false, id: 1, side: 0 };
+        let draw = |beam: &Beam| {
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, Rgb::WHITE);
+            f.surface_lighting = true;
+            beam.draw_at_height(&mut f, 80.0);
+            f
+        };
+        let start = draw(&beam);
+        assert_eq!(start.point_lights.len(), 1);
+        beam.t = beam.charge - 1;
+        let charged = draw(&beam).point_lights[0].intensity;
+        assert!(charged > start.point_lights[0].intensity);
+        let mut previous = charged;
+        let mut previous_distant = 0.0;
+        for t in beam.charge..beam.charge + 4 {
+            beam.t = t;
+            let firing = draw(&beam);
+            assert_eq!(firing.point_lights.len(), 3);
+            assert!(firing.point_lights[0].intensity >= previous,
+                "the already-charged prism must not darken when its beam begins");
+            assert!(firing.point_lights[1].intensity > previous_distant);
+            previous = firing.point_lights[0].intensity;
+            previous_distant = firing.point_lights[1].intensity;
+        }
+        beam.t = beam.charge + 8;
+        let live = draw(&beam);
+        assert_eq!(live.point_lights.len(), 3, "beam emitted redundant points");
+        for light in &live.point_lights {
+            assert_eq!(light.height, 80.0);
+            assert!(light.radius > light.height);
+            assert_eq!(light.y, beam.oy);
+        }
+        beam.a = 0.35;
+        let swept = draw(&beam);
+        assert!(swept.point_lights[1].y > live.point_lights[1].y + 40.0);
+        assert!(swept.point_lights.iter().all(|light| light.height == 80.0));
+        beam.t = beam.total() - 2;
+        assert!(draw(&beam).point_lights[0].intensity < live.point_lights[0].intensity);
+        beam.t = beam.total();
+        assert!(draw(&beam).point_lights.is_empty());
     }
 }

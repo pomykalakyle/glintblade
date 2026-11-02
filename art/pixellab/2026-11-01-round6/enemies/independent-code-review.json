@@ -1,0 +1,62 @@
+{
+  "scope": "Read-only independent review of six pose resolvers, draw/hurt/death continuity, skin cache, source-driven projectile anchors, and isolated death RNG reference. No Cargo run by reviewer.",
+  "files": [
+    {
+      "file": "src/entities/enemies/mod.rs",
+      "sha256": "40abb625d6171c2692af14e4275a64a0102cd57b2fa58c8d172168db018bb444"
+    },
+    {
+      "file": "src/entities/enemies/variation.rs",
+      "sha256": "7e8f646fa26821efb33d0643ee1a70760a3feb0b69657205f0821d15278728fb"
+    },
+    {
+      "file": "src/entities/enemies/sproutling.rs",
+      "sha256": "eda2db3d970f192902e951072a2824604c14530cc2314eb1a0c891b2854cede1"
+    },
+    {
+      "file": "src/entities/enemies/thorn_imp.rs",
+      "sha256": "cde05634b32f9b68432fbd3899e2f31746962d74746706992b741a49ecb57417"
+    },
+    {
+      "file": "src/entities/enemies/crystal_beetle.rs",
+      "sha256": "794c4227e129629a3a0aec1192c85f50c5be23069f50b854182373f1aa8ee38c"
+    },
+    {
+      "file": "src/entities/enemies/wisp.rs",
+      "sha256": "cfa0b2e9a3d0efc76b9550ccec970adc8cf1ac4c35dfbdf84bc2041c3be69150"
+    },
+    {
+      "file": "src/entities/enemies/ember_hound.rs",
+      "sha256": "3b18c5b2a01ae8dd1f0ca963541806e50bee52af53f8a23c14a3e4ab4bbe9bce"
+    },
+    {
+      "file": "src/entities/enemies/spitting_totem.rs",
+      "sha256": "fefb0b03dac77d432391e91460dbf9facdf5b93a47b18ea17783ba376aa6606e"
+    }
+  ],
+  "findings": [
+    {
+      "issue": "Skin opaque counts change shared FX RNG used by later hound/totem combat decisions",
+      "status": "root repaired using source skin death in isolated scratch FX and cloned projectile collection. The live death runs once and its debris uses the actual skin. Reference post-death RNG replaces live RNG."
+    }
+  ],
+  "inspection": [
+    "Skin choice stable at spawn; draw/hurt/afterimage/death resolve same variant.",
+    "Pose cache targets same row/frame; animation clocks and anchors stay sourced from original metadata.",
+    "Thorn release offset metadata unchanged; fallback held-seed colors/centroid independently exact in all variant frames.",
+    "Totem original outlet/emission mask independently exact; original maw centroid remains aligned.",
+    "Reference death discards scratch sounds, hits, trauma, particles; projectile cancellation affects live projectiles only during the real death.",
+    "Nested reference override restores previous value on return and unwind."
+  ],
+  "pending": [],
+  "selected_binary_sha256": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+  "root_reported_test_result": "Full unit suite 161 passed / 3 manual ignored; root owns executable logs.",
+  "executable_evidence": {
+    "tests_log": "out/pixellab/round6/selected/tests.log",
+    "sha256": "65ea5bc628b9e57bc2483240e1c1cf89f026e5bd45efc221d5373346b963a0fe",
+    "unit_result": "161 passed, 0 failed, 3 ignored",
+    "skin_rng_test": "passed; six families, three skins, two phases, empty/nearly-full buffers, following 64 draws and live projectiles",
+    "pose_contract_test": "passed"
+  },
+  "runtime_evidence": "out/pixellab/round6/enemy-independent/sampled-combat-evidence.json"
+}

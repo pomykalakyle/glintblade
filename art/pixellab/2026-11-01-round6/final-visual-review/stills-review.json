@@ -1,0 +1,447 @@
+{
+  "reviewer": "fresh_final_beauty_round6",
+  "selected_binary_sha256": "0d9244d6acdb90161bb29d3174352a70c22cfe2fea44772add6056414fd1f212",
+  "direct_scope": "All 40 native scene studies, all four native overview maps, and title; every final scene compared visually with R5. Integer 2x nearest-neighbor paired contacts for scene studies, native overview images and native title. No GUI and no source mutation. Actual campaign review pending.",
+  "stills": [
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "landing",
+      "file": "out/pixellab/world/round6-selected/bloomwild/landing/bloomwild_t00090.png",
+      "sha256": "547421e02d973499864def0d29c105c8249d2eef37bdf0de62ceb67e90347115",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "entry",
+      "file": "out/pixellab/world/round6-selected/bloomwild/entry/bloomwild_t00090.png",
+      "sha256": "add6c8cea0e06041a4156b102f46c4d58127fdf8b63c20337642ecec7f01b87e",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "courtyard",
+      "file": "out/pixellab/world/round6-selected/bloomwild/courtyard/bloomwild_t00090.png",
+      "sha256": "18b2ef9846e6bfba927cef7efc856497d57ed18660fd82468f39e98e1753319e",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "temple",
+      "file": "out/pixellab/world/round6-selected/bloomwild/temple/bloomwild_t00090.png",
+      "sha256": "13e525c3714c8944e1dfe91a854295ec0234bbda59610ec54d33e452e5a1b27c",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "terrace",
+      "file": "out/pixellab/world/round6-selected/bloomwild/terrace/bloomwild_t00090.png",
+      "sha256": "19e3b9f21415d2008d109fbf1b75c9e78ba5a7044ca6edacfacf85aadd59a452",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "altar",
+      "file": "out/pixellab/world/round6-selected/bloomwild/altar/bloomwild_t00090.png",
+      "sha256": "b7089ddef80283a27eeedca88c405b4d0f91ec94f9570c91407c6bcc9b43f527",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "falls",
+      "file": "out/pixellab/world/round6-selected/bloomwild/falls/bloomwild_t00090.png",
+      "sha256": "628777ba1ef99ffc811c5ae77ba14306ac348e94d26f16d890373fee586b4d1c",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "grove",
+      "file": "out/pixellab/world/round6-selected/bloomwild/grove/bloomwild_t00090.png",
+      "sha256": "f58a1ef80339db6ee8837959893218f36446d65fa94e9f806fc2a162485c896c",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "upper-bridge",
+      "file": "out/pixellab/world/round6-selected/bloomwild/upper-bridge/bloomwild_t00090.png",
+      "sha256": "7a639405136bc08c09bc2306aea7ff09057e599efa278de1ee6c98b3499c34b1",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "lower-bridge",
+      "file": "out/pixellab/world/round6-selected/bloomwild/lower-bridge/bloomwild_t00090.png",
+      "sha256": "ec7ecf208c3a2bff47246fc2a3fd084238f63c850c329aec4295be2b21bd5636",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "stair-contact",
+      "file": "out/pixellab/world/round6-selected/bloomwild/stair-contact/bloomwild_t00090.png",
+      "sha256": "8de75efd53c6857925ba4673b67acdce0c77cfae2b2c1e77315f803184a9ebb0",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "west-terrace",
+      "file": "out/pixellab/world/round6-selected/bloomwild/west-terrace/bloomwild_t00090.png",
+      "sha256": "7957571bfd65b4e38615c3856fb30e37859f1858bc681b1075aa93b60f695aad",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "cliff-contact",
+      "file": "out/pixellab/world/round6-selected/bloomwild/cliff-contact/bloomwild_t00090.png",
+      "sha256": "f5e807719f4404906972dde5a8df5d764a8e2664f96b3f70a4b155abaf9675b3",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "falls-impact",
+      "file": "out/pixellab/world/round6-selected/bloomwild/falls-impact/bloomwild_t00090.png",
+      "sha256": "df7ce70dce0439cc01340b62b64e107b20c42789ce81982be84a0090fbc4c007",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "bloomwild",
+      "name": "outlet-bank",
+      "file": "out/pixellab/world/round6-selected/bloomwild/outlet-bank/bloomwild_t00090.png",
+      "sha256": "b29c1c0b9f8f35815e60ad18b6a767aa71734b4e3ca111e3401885b4ffc2e102",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "lake",
+      "file": "out/pixellab/world/round6-selected/glasswater/lake/glasswater_t00090.png",
+      "sha256": "db52302118be26faea60b532ff5409eb92ee7bda508788e62f0f621c0753a370",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "island",
+      "file": "out/pixellab/world/round6-selected/glasswater/island/glasswater_t00090.png",
+      "sha256": "1bb913dad4e9506b481e898fc772278e148d124eeefb6b7d0353c7cb0daabcec",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "gallery",
+      "file": "out/pixellab/world/round6-selected/glasswater/gallery/glasswater_t00090.png",
+      "sha256": "cfe3162b34f328bcc9ed7ff823f889abed2cea1f19cdf3991b73bc8afdd3fd3a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "bridge",
+      "file": "out/pixellab/world/round6-selected/glasswater/bridge/glasswater_t00090.png",
+      "sha256": "f15c3a719e8befcd4a1726bacdd66c793074341effb29350399946abf79fe29a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "grove",
+      "file": "out/pixellab/world/round6-selected/glasswater/grove/glasswater_t00090.png",
+      "sha256": "bfdbaac05a879684102a0da7e391f30b6453f27c689369d661c544a68aec9661",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "heart",
+      "file": "out/pixellab/world/round6-selected/glasswater/heart/glasswater_t00090.png",
+      "sha256": "761a75c14ead52fda9f55dbba6d1b193fbcbf9e12a5fd8304fe89d9916793f77",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "channel",
+      "file": "out/pixellab/world/round6-selected/glasswater/channel/glasswater_t00090.png",
+      "sha256": "d7fadc38d84bc71fdea8993e8b0ad6081d936769063fcc27faf00fcddc8657b6",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "causeway",
+      "file": "out/pixellab/world/round6-selected/glasswater/causeway/glasswater_t00090.png",
+      "sha256": "3fa7913c974e78dcf89b40e2d3fc9e82a6f844baf9613b5ed69c8c79ef224a37",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "glasswater",
+      "name": "shallow-grove",
+      "file": "out/pixellab/world/round6-selected/glasswater/shallow-grove/glasswater_t00090.png",
+      "sha256": "fc007745300eb182f7aa95b4014b71738c64a965081a1e2d68159d8cdae2bf81",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "approach",
+      "file": "out/pixellab/world/round6-selected/cinder/approach/cinder_t00090.png",
+      "sha256": "c81d283e42bbbb2812861f7d806d9a7554c2ab79b90e8832d387366de6ed9c7a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "crossing",
+      "file": "out/pixellab/world/round6-selected/cinder/crossing/cinder_t00090.png",
+      "sha256": "a88a6492c46e7376a5c34dfc1f7a8d3bbdb9cfd9ab0b569ef624ee11da09480a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "foundry",
+      "file": "out/pixellab/world/round6-selected/cinder/foundry/cinder_t00090.png",
+      "sha256": "cc83acf813608dee07b5fc6b08de5807351733460e8e804177a436d8f67178db",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "press",
+      "file": "out/pixellab/world/round6-selected/cinder/press/cinder_t00090.png",
+      "sha256": "a7c16ee5d8c596188c221d517aa7426dee55ca68bbc27795ddbea16fd9c529dd",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "upper-bank",
+      "file": "out/pixellab/world/round6-selected/cinder/upper-bank/cinder_t00090.png",
+      "sha256": "322d2f0860e785222bdcf78f0554fee0400be52166e94f62e0f3295927078e96",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "shrine",
+      "file": "out/pixellab/world/round6-selected/cinder/shrine/cinder_t00090.png",
+      "sha256": "f43f8a13e463865f95ae4a7291b50f0bcd61f81c75ae408f1f6887dc016b9c70",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "canal-bridge",
+      "file": "out/pixellab/world/round6-selected/cinder/canal-bridge/cinder_t00090.png",
+      "sha256": "06908828ecc29568ce900e2d5303d4f380709c6712ffc3e8fc70af2e50669d40",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "caldera-bridge",
+      "file": "out/pixellab/world/round6-selected/cinder/caldera-bridge/cinder_t00090.png",
+      "sha256": "5b154e318c1fdecbd1a933d18e02910a19909e957d2a1f7cb9948a00428d949f",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "cinder",
+      "name": "river-join",
+      "file": "out/pixellab/world/round6-selected/cinder/river-join/cinder_t00090.png",
+      "sha256": "a649cf77ff63a5103d4d8a6a701a2d9007558b0ff7e65964d9cc07e46a4b80dc",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "arrival",
+      "file": "out/pixellab/world/round6-selected/summit/arrival/summit_t00090.png",
+      "sha256": "547fb6f38cee56f1fff341a2179141f56ea5181ef8b493e29c7773ce76cd07ef",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "bridge",
+      "file": "out/pixellab/world/round6-selected/summit/bridge/summit_t00090.png",
+      "sha256": "821db200a693578de3f5b2bce71f05eddba95542e2d3877b605779bedf1bd2c4",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "stair",
+      "file": "out/pixellab/world/round6-selected/summit/stair/summit_t00090.png",
+      "sha256": "d72137f0e40cdd1cc273bd68498f79354c841b7ffb790fa7a854f242d44435ee",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "arena",
+      "file": "out/pixellab/world/round6-selected/summit/arena/summit_t00090.png",
+      "sha256": "97660cee5feb803f09777059f64b3e3c2ec04750260ca03910d6fe02e236c34a",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "dais",
+      "file": "out/pixellab/world/round6-selected/summit/dais/summit_t00090.png",
+      "sha256": "f60c7cc32826457207279d2970450659a04f3300e8c092a952f11f921dfe2e2e",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "west",
+      "file": "out/pixellab/world/round6-selected/summit/west/summit_t00090.png",
+      "sha256": "30abd543626dd450b930c750815f700363aecfb17fadc28ba2fc9d5d31828a16",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "scene study",
+      "zone": "summit",
+      "name": "curved-edge",
+      "file": "out/pixellab/world/round6-selected/summit/curved-edge/summit_t00090.png",
+      "sha256": "54438ed532dfd4988e241a3f7228c083212e5fcb4e0901608e36715c53a3947f",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "bloomwild",
+      "file": "out/pixellab/world/round6-selected/bloomwild/landing/bloomwild_overview.png",
+      "sha256": "68a3b9c72419f0c7306997a33c6a5b81733acb1019f41dcb1f7e0a949c0babef",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "glasswater",
+      "file": "out/pixellab/world/round6-selected/glasswater/lake/glasswater_overview.png",
+      "sha256": "1d3a02b1b39e914231ac43a5ddb9a41037a3098efe467fc52899933e7f2f19d4",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "cinder",
+      "file": "out/pixellab/world/round6-selected/cinder/approach/cinder_overview.png",
+      "sha256": "f3cc18a2d05e8946d7250430cbb65e3543b546c9e49efb03264e0d84a63235af",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "native overview",
+      "zone": "summit",
+      "file": "out/pixellab/world/round6-selected/summit/arrival/summit_overview.png",
+      "sha256": "2c2d47a23734f7042791f96ef12da656bf76ca5d3496fa01a541aea1f89b4228",
+      "viewed": true,
+      "compared_with_round5": true
+    },
+    {
+      "kind": "title",
+      "file": "out/pixellab/world/round6-selected/title/f00240.png",
+      "sha256": "249fe3f8b501052a71e11eb1ac7ecbb79b49fa3b7d081c17b7475fce135e8852",
+      "viewed": true,
+      "compared_with_round5": true
+    }
+  ],
+  "blocking_findings": [],
+  "improvements": [
+    {
+      "area": "Bloomwild",
+      "finding": "Softened daylight removes the broad hard polygon shadows visible in R5; temple fragments, damp upper-bridge landing and ivy/altar fragments introduce distinct local landmarks without filling combat lanes."
+    },
+    {
+      "area": "Glasswater",
+      "finding": "Submerged concentric terraces give the lake crystal a readable depth transition; softened centroid light reduces circular spotlight-sticker appearance. Navy chasm facets preserve separation from walkable floor."
+    },
+    {
+      "area": "Cinder",
+      "finding": "Cooler press bed and subtle material scars/fans give some dark open ground extra structure while the lava remains the dominant warm landmark. Native lava texture retains multiple orange/red/yellow crust channels."
+    },
+    {
+      "area": "Summit",
+      "finding": "Radial masonry/astrolabe marks replace the visibly Cartesian floor grid, giving the boss arena a coherent circular identity and maintaining quiet value contrast."
+    },
+    {
+      "area": "Title",
+      "finding": "Far headland/ridge gives additional depth behind the broad right-extending ground; column base and tree root remain visibly seated."
+    }
+  ],
+  "residual_opportunities": [
+    {
+      "severity": "low / existing art ceiling",
+      "area": "Bloomwild perimeter",
+      "finding": "Large oblique cliff highlight shapes still repeat rhythmically along the south edge in the overview. They read coherently in the reviewed game cameras, but a future hand-placed cliff-face atlas would add more geological variety. No new detached edge/corner was found in these captures."
+    },
+    {
+      "severity": "low / existing art ceiling",
+      "area": "Glasswater and Cinder quiet floor",
+      "finding": "Several open stretches still communicate geology through broad low-contrast procedural color masses. Larger distinct geological landmarks could raise the illustration quality further, but adding equal-density noise everywhere would hurt hero/enemy readability."
+    }
+  ],
+  "limitations": [
+    "Scene studies are staged views and are not evidence of live collision/physics.",
+    "Direct visual review sampled rendered images; it does not replace the independent pose/simulation/renderer tests.",
+    "The palette intentionally remains restrained and muted; this review does not claim a completely new art direction.",
+    "No claim that every campaign frame has been watched."
+  ]
+}

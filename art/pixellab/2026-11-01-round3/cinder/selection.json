@@ -1,0 +1,150 @@
+{
+  "cinder_cliff": {
+    "cell": [
+      128,
+      96
+    ],
+    "anchor": [
+      64,
+      24
+    ],
+    "sources": [
+      "jobs/cliff.result-2.png",
+      "jobs/cliff.result-3.png"
+    ],
+    "extra": {
+      "face_top": 24
+    }
+  },
+  "cinder_markers": {
+    "cell": [
+      64,
+      80
+    ],
+    "anchor": [
+      32,
+      74
+    ],
+    "sources": {
+      "pillar": {
+        "file": "jobs/pillar.result-1.png",
+        "anchor": [
+          24,
+          56
+        ]
+      },
+      "pillar_broken_tall": {
+        "file": "jobs/pillar.result-13.png",
+        "anchor": [
+          24,
+          56
+        ]
+      },
+      "pillar_lean": {
+        "file": "jobs/pillar.result-6.png",
+        "anchor": [
+          24,
+          56
+        ]
+      },
+      "pillar_slotted": {
+        "file": "jobs/pillar.result-12.png",
+        "anchor": [
+          24,
+          56
+        ]
+      }
+    }
+  },
+  "cinder_foundry": {
+    "cell": [
+      64,
+      80
+    ],
+    "anchor": [
+      32,
+      72
+    ],
+    "sources": [
+      "jobs/foundry.result-1.png",
+      "jobs/foundry.result-7.png"
+    ],
+    "rows": true,
+    "anims": {
+      "press": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "footprint": [
+          36,
+          9
+        ]
+      },
+      "broken_press": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "footprint": [
+          36,
+          9
+        ]
+      }
+    }
+  },
+  "cinder_floor": {
+    "cell": [
+      32,
+      24
+    ],
+    "anchor": [
+      16,
+      12
+    ],
+    "sources": [
+      "jobs/floor.result-1.png",
+      "jobs/floor.result-3.png",
+      "jobs/floor.result-4.png",
+      "jobs/floor.result-8.png",
+      "jobs/floor.result-9.png",
+      "jobs/floor.result-11.png",
+      "jobs/floor.result-20.png",
+      "jobs/floor.result-25.png",
+      "jobs/floor.result-26.png",
+      "jobs/floor.result-27.png",
+      "jobs/floor.result-28.png",
+      "jobs/floor.result-31.png",
+      "jobs/floor.result-35.png",
+      "jobs/floor.result-43.png",
+      "jobs/floor.result-47.png",
+      "jobs/floor.result-60.png"
+    ]
+  },
+  "cinder_shrine": {
+    "cell": [
+      128,
+      96
+    ],
+    "anchor": [
+      63,
+      43
+    ],
+    "sources": [
+      "jobs/shrine.result-4.png"
+    ]
+  },
+  "cinder_mineral": {
+    "cell": [
+      64,
+      48
+    ],
+    "anchor": [
+      32,
+      36
+    ],
+    "sources": [
+      "jobs/rocktop.result-2.png",
+      "jobs/rocktop.result-7.png",
+      "jobs/rocktop.result-15.png"
+    ]
+  }
+}

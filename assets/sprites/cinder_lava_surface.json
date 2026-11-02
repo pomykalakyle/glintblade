@@ -1,0 +1,31 @@
+{
+  "cell": [
+    1056,
+    264
+  ],
+  "anchor": [
+    0,
+    0
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1
+    }
+  },
+  "notes": "Native PixelLab source quilt with connected minimum-error integer cut seams. All278784 output pixels exactly match recorded source coordinates. No resizing, interpolation, recolouring or flips. Prompt, receipt, unchanged sources and complete cut/origin audit: art/pixellab/2026-11-01-round5/cinder/lava-study/.",
+  "native_sources": [
+    {
+      "candidate": 2,
+      "file": "result-2.png",
+      "sha256": "7eeac9ef4e2d008ae7d17a4201b2255280fdabfc12af370dda5e265c0664ba8c"
+    },
+    {
+      "candidate": 3,
+      "file": "result-3.png",
+      "sha256": "b899a84bb0e3216395134697a64948a6adb8d1ee251885ca5fa545543a5a6400"
+    }
+  ],
+  "native_origin_audit": 278784
+}

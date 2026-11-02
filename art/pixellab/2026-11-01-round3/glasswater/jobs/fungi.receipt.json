@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 8f46f7fb-0204-4fe9-9042-4263b8260698\njob_id: 8f46f7fb-0204-4fe9-9042-4263b8260698\nmodel: pro\ndescription: A small cluster of quiet slate-lilac cave shelf fungi for a melancholy 3/4 top-down pixel art action RPG. Native 48x48 transparent sprite. Two asymmetric broad flat angular mushroom caps with visible pale ribbed undersides, short thin stems rising from a rooted moist slate rock at base x24,y44. Total subject only 30px tall by 36px wide. Dusty grey-lavender caps, dark slate shadows, upper-left soft chisel highlight, no luminous colour. Crisp clean connected pixel clusters, large calm shapes, no dots, no round cartoon red mushrooms, no sparkles, no surrounding glow, no floor, no extra background.\nsize: 48x48px\ntransparent: True\ncandidates: 25\nstyle_image: yes (outline, detail, shading)\npalette: 15 colours (Glasswater slate and pale iris)\nmax colours: 7 per image\nseed: 233\nasset_id: f11e0ad4-4ebb-5d22-9315-9314fdcecf7a\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"8f46f7fb-0204-4fe9-9042-4263b8260698\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/8f46f7fb-0204-4fe9-9042-4263b8260698/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

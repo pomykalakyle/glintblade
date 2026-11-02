@@ -1,0 +1,25 @@
+{
+  "release": "pixellab-r9",
+  "source_files": 459,
+  "source_manifest_sha256": "26749d54b1e5c15be98432d7c4477bc7b6ff198735444bbf459e6e05f73cc1af",
+  "native_sha256": "7a66cee3bab63755eaf2231b84b7894384d6ba66d3b261353e8dc72f7aa76bf1",
+  "local_wasm_sha256": "888944c003c278f4702a84691707867abf9073fbb867bff5d78a45604f9696f2",
+  "normal_families": 78,
+  "tests": {
+    "passed": 255,
+    "failed": 3,
+    "ignored": 7,
+    "failures": "Existing rendering performance budget gates; all executed functional checks pass"
+  },
+  "night_scene_pngs_unchanged": 25,
+  "web_files": {
+    "index.html": "fa303dfd85ed8f8e41fa2f21ab5c490956f8b3aaa7a97885538d7e6ca8c9c9be",
+    "player.js": "2a6033c7f122457e8eb423bd362da9e49775dafcf635924f07e3499ccf8d20e9",
+    "player.css": "06a89f6fbdc1ccc5a5ebd127507a582efa5eab1e9455610efcb0407ebb4f4cf3",
+    "mq_js_bundle.js": "4bf663a44a06c113bed92e0596c58139cd9db7f0d67ef2cc49ca06016e0b5ea0",
+    "card-pixellab-r9.png": "32bc037fecd99fc566895b5cb0586e2fba82b81ca65bd4016ecf4b4c814d80d1"
+  },
+  "browser_scope": "Isolated headless Chromium with software WebGL, intercepted local build files at their final HTTPS URLs, cross-origin X-style 480x360 and 390x360 sandbox. Not a live X post or native app test. Gameplay screenshots reviewed directly. Expected 503 case is intentional.",
+  "deployed": false,
+  "final_native_title_equals_reviewed_candidate": true
+}

@@ -1,0 +1,22 @@
+{
+  "asset_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+  "native_quilt_source_sha256": "c5b2421ba486bf0ef0e5870c6e9bb5f6712daa523ca6165cab5c9f9686de0d11",
+  "pixel_count": 278784,
+  "native_origin_pixels_checked": 278784,
+  "all_pixels_match_original_sources": true,
+  "origin_map": "art/pixellab/2026-11-01-round5/cinder/lava-study/native-origins.png",
+  "no_interpolation_recolouring_flips_or_scaling": true,
+  "rebuild_pixel_identical": true,
+  "rebuild_png_byte_identical": true,
+  "sources": [
+    {
+      "candidate": 2,
+      "sha256": "7eeac9ef4e2d008ae7d17a4201b2255280fdabfc12af370dda5e265c0664ba8c"
+    },
+    {
+      "candidate": 3,
+      "sha256": "b899a84bb0e3216395134697a64948a6adb8d1ee251885ca5fa545543a5a6400"
+    }
+  ],
+  "palette_colours": 5
+}

@@ -1,0 +1,31 @@
+{
+  "anims": {
+    "pillar_broken_tall": {
+      "source": "selected-pillar_broken_tall.png",
+      "original": "original-tall-a.png",
+      "preserved_rows": 40,
+      "edit_source": "completion-result.png",
+      "source_rect": [
+        48,
+        109,
+        96,
+        123
+      ]
+    },
+    "pillar_broken_short": {
+      "source": "selected-pillar_broken_short.png",
+      "original": "original-short-a.png",
+      "preserved_rows": 40,
+      "edit_source": "completion-result.png",
+      "source_rect": [
+        0,
+        109,
+        48,
+        123
+      ]
+    }
+  },
+  "notes": [
+    "Broken-column native feet repaired in PixelLab: original upper40 rows remain exact; registered lower14 native source rows close into beveled chipped stone with2 transparent gutter rows."
+  ]
+}

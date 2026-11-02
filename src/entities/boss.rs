@@ -982,8 +982,9 @@ impl Boss {
                     .dust(&mut fx.rng, bx + s * 20.0, by + 2.0, 10, F4);
                 hazards::crater(fx, bx + s * 20.0, by + 3.0, 8, 400);
             }
-        } else if (18..38).contains(&t) {
-            // the chest splits and the heart floats out
+        } else if (17..38).contains(&t) {
+            // Tick 17 holds the closed socket before the opening ramp. Skipping it here
+            // would fall into the full-out window, then snap back at tick 18.
             self.heart.out = ease_out_cubic((t - 17) as f32 / 20.0);
             if t == 18 {
                 fx.sound("crystal_shatter");
@@ -1176,7 +1177,7 @@ impl Boss {
         };
         let k = (t as f32 / death::BURST as f32).min(1.0);
         if t < death::BURST {
-            // Mode advances after this update; seed the drawn core before the first gone frame.
+            // Keep the core seeded while the intact body approaches its burst.
             self.shard_y = self.heart_pos().1;
             self.tremble = if (t / 2) % 2 == 0 { 1 } else { -1 } * if k > 0.6 { 2 } else { 1 };
             self.flash = ((t as f32 - 150.0) / 56.0).clamp(0.0, 1.0) * 0.85;
@@ -1512,9 +1513,71 @@ impl Boss {
 
     // ---------------------------------------------------------------- drawing
 
+    /// Active prism emitters in native draw coordinates, not the feet or the giant's crown.
+    pub fn attack_sources(&self) -> impl Iterator<Item = (f32, f32)> + '_ {
+        self.beams
+            .iter()
+            .filter(|b| b.charging() || b.firing())
+            .map(|b| (b.ox, b.oy))
+    }
+
+    /// A persistent native indicator is required when emitter + hero cannot fit together.
+    /// This UI layer is drawn after world composition, clear of health and the boss bar.
+    pub fn draw_attack_cues(&self, f: &mut Frame) {
+        for b in self.beams.iter().filter(|b| b.charging() || b.firing()) {
+            let Some((sx, sy, dx, dy)) = attack_cue((b.ox - f.cam_x as f32, b.oy - f.cam_y as f32))
+            else {
+                continue;
+            };
+            let c = if b.charging() {
+                P1.lerp(PW, b.t as f32 / b.charge as f32)
+            } else {
+                PW
+            };
+            // A small cut-crystal with an outward arrow, rather than a fake on-screen emitter.
+            for y in -4i32..=4 {
+                for x in -4i32..=4 {
+                    let d = x.abs() + y.abs();
+                    if d <= 4 {
+                        f.ui_put(
+                            sx + x,
+                            sy + y,
+                            if d == 4 {
+                                hazards::F0
+                            } else if d >= 2 {
+                                P1
+                            } else {
+                                c
+                            },
+                        );
+                    }
+                }
+            }
+            for k in 0..3 {
+                let (ax, ay) = (sx + dx * (7 + k), sy + dy * (7 + k));
+                f.ui_put(ax, ay, c);
+                if k < 2 {
+                    f.ui_put(ax + dy * (2 - k), ay - dx * (2 - k), c);
+                    f.ui_put(ax - dy * (2 - k), ay + dx * (2 - k), c);
+                }
+            }
+            // Fill toward the source while charging, then hold solid throughout the sweep.
+            let n = if b.charging() {
+                (5.0 * b.t as f32 / b.charge as f32).ceil() as i32
+            } else {
+                5
+            };
+            for k in 0..5 {
+                f.ui_put(sx - 2 + k, sy + 6, if k < n { c } else { hazards::F0 });
+            }
+        }
+    }
+
     /// Highest drawn assembly or surviving core pixel, excluding hostile hazards.
     pub fn framing_top(&self) -> Option<f32> {
-        if let Mode::Dying(t) = self.mode && t >= death::BURST {
+        if let Mode::Dying(t) = self.mode
+            && t > death::BURST
+        {
             return (t < death::DONE).then(|| {
                 let s = spr("shard", &["spin"], self.t, true);
                 self.shard_y + 8.0 + art::top(s) as f32
@@ -1530,7 +1593,9 @@ impl Boss {
             top = top.min(self.shoulder_pos(i).1 + art::top(crystal) as f32);
         }
         for fi in &self.fists {
-            if self.dying > crumble_t(fi.side) { continue; }
+            if self.dying > crumble_t(fi.side) {
+                continue;
+            }
             let y = fi.y - fi.z.max(0.0);
             let (s, lift, back) = fist_pose(fi);
             top = top.min(y + (lift + art::top(s)) as f32);
@@ -1550,7 +1615,9 @@ impl Boss {
         } else {
             None
         };
-        let gone = dying_t.map(|t| t >= death::BURST).unwrap_or(false);
+        // `update` stores the next death tick after processing its effects. Retain the body
+        // until BURST has actually run, so its swap to the shard shares the flash/collapse.
+        let gone = dying_t.map(|t| t > death::BURST).unwrap_or(false);
         let kneel = self.body_dy.round();
         let trem = self.tremble as f32;
 
@@ -1617,6 +1684,7 @@ impl Boss {
             flash,
             energy_flash: if dying_t.is_some() { flash } else { 0.0 },
             clip_y: clip,
+            ground_y: Some(by + 1.0),
             ..Default::default()
         };
         let (sx, sy) = (f.sx(bx + trem), f.sy(by + kneel));
@@ -1656,6 +1724,7 @@ impl Boss {
                     flash
                 },
                 clip_y: clip,
+                ground_y: Some(by + 1.0),
                 ..Default::default()
             };
             blit(f, s, f.sx(x), f.sy(y), &cl);
@@ -1667,6 +1736,7 @@ impl Boss {
             energy_flash: if dying_t.is_some() { flash } else { 0.0 },
             emit: self.eyes,
             clip_y: clip,
+            ground_y: Some(by + 1.0),
             ..Default::default()
         };
         blit(f, head, f.sx(hx + trem), f.sy(hy + self.breath()), &hl);
@@ -1709,7 +1779,7 @@ impl Boss {
 
         // airborne: beams and falling shards over everything
         for b in &self.beams {
-            b.draw(f);
+            b.draw_at_height(f,(by+1.0-b.oy).max(0.0));
         }
         for s in &self.shards {
             s.draw(f);
@@ -1776,9 +1846,7 @@ impl Boss {
         )
     }
 
-    /// Animate the heart’s actual damage state and hit recoil.
-    fn draw_heart(&self, f: &mut Frame) {
-        let (x, y) = self.heart_pos();
+    fn heart_sprite(&self) -> Spr {
         let anim = if matches!(self.mode, Mode::Dying(t) if t > 150) {
             "shattered"
         } else if self.phase >= 2 || self.heart.hits >= 8 {
@@ -1788,7 +1856,13 @@ impl Boss {
         } else {
             "whole"
         };
-        let s = spr(art::HEART, &[anim, "whole", "idle", "pulse"], self.t, true);
+        spr(art::HEART, &[anim, "whole", "idle", "pulse"], self.t, true)
+    }
+
+    /// Animate the heart’s actual damage state and hit recoil.
+    fn draw_heart(&self, f: &mut Frame) {
+        let (x, y) = self.heart_pos();
+        let s = self.heart_sprite();
         let dim = match self.mode {
             Mode::Dormant => 0.25,
             Mode::Intro(t) if t < 6 => 0.25,
@@ -1802,6 +1876,7 @@ impl Boss {
         let l = Look {
             emit: (dim * pulse).min(1.0),
             flash: self.heart.flash,
+            ground_y: Some(self.base().1 + HEART_OUT.0 * ease_in_out(self.heart.out)),
             ..Default::default()
         };
         blit(f, s, f.sx(x), f.sy(y), &l);
@@ -1836,6 +1911,7 @@ impl Boss {
             flip,
             flash: fi.flash.max(throe),
             emit: if dim { 0.3 } else { 1.0 },
+            ground_y: Some(fi.y + 2.0),
             ..Default::default()
         };
         blit(f, s, f.sx(x), f.sy(y) + lift, &l);
@@ -1866,6 +1942,7 @@ impl Boss {
                     flip,
                     emit,
                     flash: fi.crystal_flash,
+                    ground_y: Some(fi.y + 2.0),
                     ..Default::default()
                 };
                 blit(f, cs, f.sx(cx), f.sy(cy), &l);
@@ -1886,11 +1963,13 @@ impl Boss {
         let (x, y) = (p.x + wob, p.y);
         let l = Look {
             flash: p.flash,
+            ground_y: Some(p.y + 2.0),
             ..Default::default()
         };
         let side = Look {
             flip: true,
             flash: p.flash,
+            ground_y: Some(p.y + 2.0),
             ..Default::default()
         };
         blit(f, s, f.sx(x - 6.0), f.sy(y + 1.0), &side);
@@ -1907,14 +1986,25 @@ impl Boss {
 
     /// Cast motivated light from the heart and active weak points.
     fn lights(&self, f: &mut Frame) {
-        let (bx, _) = self.base();
-        let gone = matches!(self.mode, Mode::Dying(t) if t >= death::BURST);
+        if f.surface_lighting {
+            self.surface_lights(f);
+            return;
+        }
+        let (bx, by) = self.base();
+        let gone = matches!(self.mode, Mode::Dying(t) if t > death::BURST);
         if gone {
             if let Mode::Dying(t) = self.mode {
                 let s = (t - death::BURST) as f32;
                 let k = (1.0 - s / 90.0).max(0.0);
                 if t < death::DONE {
-                    f.add_light_w(bx, self.shard_y, 14.0 + 14.0 * k, PW, 0.3 + 0.25 * k);
+                    f.add_light_3d_w(
+                        bx,
+                        by,
+                        by - self.shard_y,
+                        14.0 + 14.0 * k,
+                        PW,
+                        0.3 + 0.25 * k,
+                    );
                 }
             }
             return;
@@ -1926,48 +2016,199 @@ impl Boss {
             Mode::Dying(t) => (28.0 + t as f32 * 0.08, 0.3 + t as f32 * 0.001),
             _ => [(28.0, 0.25), (28.0, 0.3), (30.0, 0.35)][self.phase],
         };
-        f.add_light_w(hx, hy, r, HEART_LIGHT, i + self.heart.flash * 0.15);
-        // A small received catch belongs to inward-facing stone beside the actual heart,
-        // not to another circular pool or to the dais behind the head.
-        let body = spr(art::BODY, &self.body_anims(), self.t, true);
-        let (_, by) = self.base();
-        let (ox, oy) = (bx + self.tremble as f32 - body.anchor.0 as f32, by + self.body_dy.round() - body.anchor.1 as f32);
-        for dy in -7i32..=7 {
-            for dx in -16i32..=16 {
-                let distance = dx.abs() + dy.abs();
-                if dx.abs() < 12 || distance > 20 {
-                    continue;
-                }
-                let (wx, wy) = (hx.round() as i32 + dx, hy.round() as i32 + dy);
-                if self.body_dy > 0.5 && wy >= by as i32 {
-                    continue;
-                }
-                let (tx, ty) = (wx - ox.round() as i32, wy - oy.round() as i32);
-                let p = body.cell.at(tx, ty);
-                let toward = body.cell.at(tx - dx.signum() * 2, ty - dy.signum() * 2);
-                // Existing lighter bevels facing a recess receive light; ink and flat slabs do not.
-                if !p.a || p.emit || !toward.a || p.c.luma() < 0.28 || p.c.luma() - toward.c.luma() < 0.045 {
-                    continue;
-                }
-                if let Some(j) = Frame::idx(f.sx(wx as f32), f.sy(wy as f32)) {
-                    let step = if distance <= 17 { 0.34 } else { 0.18 };
-                    f.light[j] += HEART_LIGHT * (step * (i / 0.3).min(1.0));
+        // The heart moves forward from its socket while retaining its real airborne height.
+        let heart_ground_y = by + HEART_OUT.0 * ease_in_out(self.heart.out);
+        f.add_light_3d_w(
+            hx,
+            heart_ground_y,
+            heart_ground_y - hy,
+            r,
+            HEART_LIGHT,
+            i + self.heart.flash * 0.15,
+        );
+        // Retain the old authored bevel catch in the comparison renderer.
+        // Normal-lit geometry receives the real heart source instead.
+        if !f.surface_lighting {
+            let body = spr(art::BODY, &self.body_anims(), self.t, true);
+            let (_, by) = self.base();
+            let (ox, oy) = (
+                bx + self.tremble as f32 - body.anchor.0 as f32,
+                by + self.body_dy.round() - body.anchor.1 as f32,
+            );
+            for dy in -7i32..=7 {
+                for dx in -16i32..=16 {
+                    let distance = dx.abs() + dy.abs();
+                    if dx.abs() < 12 || distance > 20 {
+                        continue;
+                    }
+                    let (wx, wy) = (hx.round() as i32 + dx, hy.round() as i32 + dy);
+                    if self.body_dy > 0.5 && wy >= by as i32 {
+                        continue;
+                    }
+                    let (tx, ty) = (wx - ox.round() as i32, wy - oy.round() as i32);
+                    let p = body.cell.at(tx, ty);
+                    let toward = body.cell.at(tx - dx.signum() * 2, ty - dy.signum() * 2);
+                    // Existing lighter bevels facing a recess receive light; ink and flat slabs do not.
+                    if !p.a
+                        || p.emit
+                        || !toward.a
+                        || p.c.luma() < 0.28
+                        || p.c.luma() - toward.c.luma() < 0.045
+                    {
+                        continue;
+                    }
+                    if let Some(j) = Frame::idx(f.sx(wx as f32), f.sy(wy as f32)) {
+                        let step = if distance <= 17 { 0.34 } else { 0.18 };
+                        f.light[j] += HEART_LIGHT * (step * (i / 0.3).min(1.0));
+                    }
                 }
             }
         }
         for fi in &self.fists {
             if fi.crystal_alive() && self.dying <= crumble_t(fi.side) {
                 let (x, y) = self.fist_crystal_center(fi.side);
-                f.add_light_w(x, y, 12.0, PW, 0.18 + fi.crystal_flash * 0.2);
+                f.add_light_3d_w(x, fi.y, fi.y - y, 12.0, PW, 0.18 + fi.crystal_flash * 0.2);
             }
         }
         for p in self.pylons.iter().filter(|p| p.alive) {
-            f.add_light_w(p.x, p.y - 10.0, 16.0, PW, 0.22 + p.flash * 0.15);
+            f.add_light_3d_w(p.x, p.y, 10.0, 16.0, PW, 0.22 + p.flash * 0.15);
         }
         for r in &self.rings {
             r.light(f);
         }
     }
+
+    /// The heart and moving crystals are real finite-height emitters. Their radius must reach
+    /// past their own altitude: the former 28px socket source sat 60px above the floor.
+    fn surface_lights(&self, f: &mut Frame) {
+        let (bx, by) = self.base();
+        if let Mode::Dying(t) = self.mode {
+            if t > death::BURST {
+                if t < death::DONE {
+                    let k = (1.0 - (t - death::BURST) as f32 / 90.0).max(0.0);
+                    let ground = by + HEART_OUT.0;
+                    let height = (ground - self.shard_y).max(0.0);
+                    f.add_light_3d_w(bx, self.shard_y + height, height, 60.0 + 24.0 * k, PW, 0.45 + 0.35 * k);
+                }
+                return;
+            }
+        }
+        let awake = match self.mode {
+            Mode::Dormant => 0.0,
+            Mode::Intro(t) => (t.saturating_sub(6) as f32 / 70.0).min(1.0),
+            _ => 1.0,
+        };
+        let out = ease_in_out(self.heart.out);
+        let (hx, hy) = self.heart_pos();
+        let front = self.front_light_plane();
+        let radius = 56.0 + awake * (28.0 + 5.0 * self.phase as f32) + 16.0 * out;
+        let intensity = 0.16 + awake * (0.62 + 0.08 * self.phase as f32) + 0.35 * out + 0.1 * self.heart.flash;
+        native_part_light(f, self.heart_sprite(), hx, hy, false,
+            (by + HEART_OUT.0 * out).max(front), 0, false, radius, HEART_LIGHT, intensity);
+
+        // The open socket remains visibly luminous after the heart leaves it. Follow its
+        // real kneeling/recoil placement rather than leaving the old light at the closed chest.
+        if self.heart.out > 0.02 {
+            let socket = layout().heart;
+            let x = bx + socket.0 as f32 + self.tremble as f32;
+            let y = by + socket.1 as f32 + self.body_dy.round();
+            f.add_light_3d_w(x, front, (front - y).max(0.0), 76.0, HEART_LIGHT, 0.45 * self.heart.out);
+        }
+        for fi in &self.fists {
+            if fi.crystal_hp <= 0 || self.dying > crumble_t(fi.side) { continue; }
+            let (_, _, back) = fist_pose(fi);
+            let crystal = spr(art::CRYSTAL,
+                &[if fi.crystal_hp < fist::FIST_CRYSTAL_HP { "cracked" } else { "intact" }, "intact", "idle"], fi.t, true);
+            let grow = fi.crystal_grow.min(fist::GROW) as f32 / fist::GROW as f32;
+            let shown = (crystal.cell.h as f32 * grow).round() as i32;
+            let dim = if matches!(fi.st, St::Dormant | St::Limp(_)) { 0.3 } else { 1.0 };
+            native_part_light(f, crystal, fi.x + fi.jit as f32,
+                fi.y - fi.z.max(0.0) - 22.0 + back as f32, fi.side == 0,
+                fi.y + 2.0, crystal.cell.h - shown, grow < 1.0,
+                64.0, PW, (0.86 + fi.crystal_flash * 0.12) * dim * grow * awake);
+        }
+        for p in self.pylons.iter().filter(|p| p.alive) {
+            let crystal = spr(art::CRYSTAL,
+                &[if p.hp < hazards::PYLON_HP { "cracked" } else { "intact" }, "intact", "idle"], p.t, true);
+            // One source on the tall central crystal, shared by its two lower companions.
+            native_part_light(f, crystal, p.x + p.wob.round(), p.y - 4.0, false,
+                p.y + 2.0, 0, false, 60.0, PW, 0.74 + p.flash * 0.1);
+        }
+        for ring in &self.rings { ring.light(f); }
+    }
+
+    /// The socket is mounted on the torso's front, rather than embedded inside its opaque
+    /// finite-depth volume. Match the blitter's kneeling cut and native foot extrusion. Moving
+    /// Y and Z together leaves the source on exactly the same projected heart/socket ink.
+    fn front_light_plane(&self) -> f32 {
+        let body = spr(art::BODY, &self.body_anims(), self.t, true);
+        let sy = (self.body.y + self.body_dy.round()).floor() as i32;
+        let top = sy - body.anchor.1;
+        let last = if self.body_dy.round() > 0.5 {
+            (self.body.y.floor() as i32 - top).min(body.cell.h - 1)
+        } else { body.cell.h - 1 };
+        let bottom = (0..=last).rev().find(|&y| (0..body.cell.w).any(|x| body.cell.at(x, y).a));
+        let native_front = bottom.map_or(self.body.y + 1.0, |y| (top + y + 1) as f32);
+        // art::blit lifts a clipped body's native foot to its explicit by+1 ground plane.
+        native_front.max(self.body.y + 1.0) + 0.25
+    }
+}
+
+/// Use a current native luminous pixel, including mirrored/cropped regrowing crystals. The
+/// medoid of the emitted patch stays inside the real art rather than floating between parts.
+#[allow(clippy::too_many_arguments)]
+fn native_part_light(f: &mut Frame, s: Spr, x: f32, y: f32, flip: bool,
+    ground_y: f32, min_row: i32, silhouette: bool, radius: f32, color: Rgb, intensity: f32) {
+    let emits = |i: usize| {
+        let p = s.cell.px[i];
+        p.a && (p.emit || silhouette) && i as i32 / s.cell.w >= min_row
+    };
+    let (mut sum_x, mut sum_y, mut count) = (0i64, 0i64, 0i64);
+    for i in 0..s.cell.px.len() {
+        if emits(i) {
+            sum_x += (i as i32 % s.cell.w) as i64;
+            sum_y += (i as i32 / s.cell.w) as i64;
+            count += 1;
+        }
+    }
+    if count == 0 { return; }
+    let Some(i) = (0..s.cell.px.len()).filter(|&i| emits(i)).min_by_key(|&i| {
+        let dx = (i as i32 % s.cell.w) as i64 * count - sum_x;
+        let dy = (i as i32 / s.cell.w) as i64 * count - sum_y;
+        (dx * dx + dy * dy, i)
+    }) else { return };
+    let (px, py) = (i as i32 % s.cell.w, i as i32 / s.cell.w);
+    let (ox, oy) = art::origin(s.cell, s.anchor, x.floor() as i32, y.floor() as i32, flip);
+    let wx = (ox + if flip { s.cell.w - 1 - px } else { px }) as f32 + 0.5;
+    let wy = (oy + py) as f32 + 0.5;
+    let height = (ground_y - wy).max(0.0);
+    f.add_light_3d_w(wx, wy + height, height, radius, color, intensity);
+}
+
+/// Clamp only the cue; leave the real beam/source in world coordinates at native scale.
+/// The arrow points toward the actual offscreen emitter. No cue while its flare is readable.
+fn attack_cue((x, y): (f32, f32)) -> Option<(i32, i32, i32, i32)> {
+    let (left, right, top, bottom) = (
+        16.0,
+        crate::gfx::W as f32 - 16.0,
+        28.0,
+        crate::gfx::H as f32 - 38.0,
+    );
+    if (left..=right).contains(&x) && (top..=bottom).contains(&y) {
+        return None;
+    }
+    let sx = x.clamp(left, right).round() as i32;
+    let sy = y.clamp(top, bottom).round() as i32;
+    let (dx, dy) = if y < top {
+        (0, -1)
+    } else if y > bottom {
+        (0, 1)
+    } else if x < left {
+        (-1, 0)
+    } else {
+        (1, 0)
+    };
+    Some((sx, sy, dx, dy))
 }
 
 /// The `warden_fist` slam frame for a fist state: 0 rise, 1 held wind-up (the lock telegraph),
@@ -2133,3 +2374,321 @@ fn barrier(f: &mut Frame, (x, y): (f32, f32), t: u32) {
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod surface_light_tests {
+    use super::*;
+
+    fn light_frame(b: &Boss) -> Frame {
+        let mut f = Frame::new();
+        f.begin(Rgb::BLACK, Rgb::WHITE);
+        f.surface_lighting = true;
+        b.lights(&mut f);
+        f
+    }
+
+    /// Fist light follows the real moving crystal, then disappears with the broken weak point.
+    #[test]
+    fn physical_warden_fist_lights_move_and_break() {
+        let mut b = Boss::new(192.0, 150.0);
+        b.mode = Mode::Fight;
+        for fist in &mut b.fists { fist.st = St::Rest; }
+        let before = light_frame(&b);
+        assert_eq!(before.point_lights.len(), 3);
+        let old = before.point_lights[1];
+        b.fists[0].x += 12.0;
+        b.fists[0].z += 20.0;
+        let moving = light_frame(&b);
+        let new = moving.point_lights[1];
+        assert_eq!(new.x - old.x, 12.0);
+        assert_eq!(new.y - old.y, -20.0);
+        assert_eq!(new.height - old.height, 20.0);
+        assert!(new.radius > new.height, "a lowered fist source must reach the floor");
+        b.fists[0].crystal_hp = 0;
+        assert_eq!(light_frame(&b).point_lights.len(), 2);
+        b.fists[1].crystal_hp = 0;
+        assert_eq!(light_frame(&b).point_lights.len(), 1);
+    }
+
+    /// Opening the chest carries the source from the high socket down to the vulnerable heart;
+    /// the visible open socket remains a second source, and no boss light survives its finale.
+    #[test]
+    fn physical_warden_heart_follows_opening_and_finale() {
+        let mut b = Boss::new(192.0, 150.0);
+        b.mode = Mode::Fight;
+        for fist in &mut b.fists { fist.crystal_hp = 0; }
+        let closed = light_frame(&b).point_lights[0];
+        assert!(closed.radius > closed.height, "socket light must reach past its altitude");
+        b.mode = Mode::Stagger(45);
+        b.heart.out = 1.0;
+        b.body_dy = KNEEL;
+        let opening = light_frame(&b);
+        assert_eq!(opening.point_lights.len(), 2);
+        let open = opening.point_lights[0];
+        assert!(open.y > closed.y + 40.0);
+        assert!(open.height < closed.height - 30.0);
+        assert!(open.intensity > closed.intensity);
+        assert!(opening.light.iter().all(|c| *c == Rgb::WHITE));
+        b.mode = Mode::Dying(death::DONE);
+        assert!(light_frame(&b).point_lights.is_empty());
+    }
+
+    /// Exercise the kneel/open handoff through real updates. The hold tick cannot briefly
+    /// throw the heart and its light fully out before the following tick starts the ramp.
+    #[test]
+    fn physical_warden_opening_ramp_has_no_early_heart_or_light_reversal() {
+        let zone = crate::world::Zone::new(crate::world::ZoneId::Summit, 60, 40);
+        for phase in 0..3 {
+            let mut b = Boss::new(192.0, 150.0);
+            b.phase = phase;
+            b.mode = Mode::Stagger(16);
+            b.t = 16;
+            b.body_dy = KNEEL;
+            b.head_dy = 2.0;
+            for fist in &mut b.fists {
+                fist.crystal_hp = 0;
+                fist.st = St::Limp(16);
+            }
+            let mut fx = Fx::new(7);
+            let (mut hits, mut projectiles) = (Vec::new(), Vec::new());
+            let (mut previous_out, mut previous_source_y) = (0.0, None);
+            let mut closed_source_y = None;
+            let mut first_heart_hurtbox = None;
+            for tick in 16..=38 {
+                fx.sounds.clear();
+                let mut prior_rng = fx.rng.clone();
+                let next_random = prior_rng.next_u32();
+                b.update(&mut EnemyCtx { player: (192.0, 180.0), player_alive: true,
+                    zone: &zone, fx: &mut fx, hits: &mut hits,
+                    projectiles: &mut projectiles, t: tick as u64 });
+                assert!(b.heart.out >= previous_out,
+                    "heart opening reversed at phase {phase} tick {tick}");
+                previous_out = b.heart.out;
+                let source = light_frame(&b).point_lights[0];
+                if tick <= 17 {
+                    assert_eq!(b.heart.out, 0.0, "the kneel hold must keep the heart in its socket");
+                    if let Some(y) = closed_source_y {
+                        assert_eq!(source.y, y, "the hold tick prematurely moved the native heart light");
+                    } else { closed_source_y = Some(source.y); }
+                }
+                if let Some(y) = previous_source_y {
+                    // The authored pulse moves its emitting facet by up to two native pixels;
+                    // the former false full-out pose reversed by several dozen pixels.
+                    assert!(source.y >= y - 3.0,
+                        "heart light jumped backward at phase {phase} tick {tick}");
+                }
+                previous_source_y = Some(source.y);
+                if tick == 17 {
+                    assert!(fx.sounds.is_empty(), "the hold must add no attack sound");
+                    assert_eq!(fx.rng.clone().next_u32(), next_random,
+                        "the corrected hold must not consume effect RNG");
+                }
+                let vulnerable = b.hurtboxes().iter().any(|part| part.3 == PART_HEART);
+                if vulnerable && first_heart_hurtbox.is_none() { first_heart_hurtbox = Some(tick + 1); }
+                if tick < 29 { assert!(!vulnerable, "the heart became vulnerable before its intended window"); }
+            }
+            assert_eq!(b.heart.out, 1.0);
+            assert_eq!(first_heart_hurtbox, Some(30));
+            assert!(previous_source_y.unwrap() > closed_source_y.unwrap() + 40.0,
+                "the completed opening must carry the actual light down toward the floor");
+        }
+    }
+
+    /// Advance the real death clock across the burst. The body and its native shadow must
+    /// survive until the same update that emits the flash, collapse particles and burst sound.
+    #[test]
+    fn physical_warden_body_and_source_swap_on_actual_burst_effects() {
+        let mut b = Boss::new(192.0, 150.0);
+        b.mode = Mode::Dying(death::BURST - 2);
+        b.hp = 0;
+        for fist in &mut b.fists { fist.crystal_hp = 0; }
+        let zone = crate::world::Zone::new(crate::world::ZoneId::Summit, 60, 40);
+        let mut fx = Fx::new(7);
+        let (mut hits, mut projectiles) = (Vec::new(), Vec::new());
+        let mut burst_seen = false;
+        for _ in 0..3 {
+            fx.sounds.clear();
+            let previous_particles = fx.particles.list.len();
+            b.update(&mut EnemyCtx { player: (192.0, 180.0), player_alive: true,
+                zone: &zone, fx: &mut fx, hits: &mut hits,
+                projectiles: &mut projectiles, t: 0 });
+            let burst_now = fx.sounds.iter().any(|sound| sound.name == "boss_die");
+            burst_seen |= burst_now;
+            if burst_now {
+                assert_eq!(fx.flash, 1.0);
+                assert_eq!(fx.hitstop, 8);
+                assert!(fx.particles.list.len() > previous_particles + 100,
+                    "the body swap must coincide with its actual collapse particles");
+            }
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, Rgb::WHITE);
+            f.surface_lighting = true;
+            let body = spr(art::BODY, &b.body_anims(), b.t, true);
+            b.draw(&mut f);
+            // A kneeling cut deliberately clones the native normal/alpha array. Identify the
+            // body by its actual raster placement, then verify its entire visible alpha mask;
+            // Arc identity would incorrectly reject that legitimate clipped body caster.
+            let body_x = (b.body.x + b.tremble as f32).floor();
+            let body_y = (b.body.y + b.body_dy.round()).floor();
+            let body_caster = f.surface_casters.iter().find(|caster|
+                caster.w == body.cell.w && caster.h == body.cell.h
+                    && caster.anchor == body.anchor && caster.x == body_x && caster.y == body_y);
+            assert_eq!(body_caster.is_some(), !burst_seen,
+                "native body shadow disappeared before its burst effects");
+            if let Some(caster) = body_caster {
+                let clip = if b.body_dy.round() > 0.5 { b.body.y.floor() as i32 } else { i32::MAX };
+                for y in 0..body.cell.h { for x in 0..body.cell.w {
+                    let visible = body.cell.at(x, y).a && body_y as i32 - body.anchor.1 + y <= clip;
+                    assert_eq!(caster.pixels[(y * body.cell.w + x) as usize].a, visible,
+                        "body caster must retain exactly the currently drawn native alpha");
+                } }
+                assert!(f.surfaces.iter().filter(|surface| surface.owner == caster.owner).count() > 100,
+                    "the pre-burst body must still be visibly drawn, not just a retained caster");
+            }
+            assert_eq!(f.point_lights.len(), 1);
+            let light = f.point_lights[0];
+            if burst_seen {
+                assert_eq!((light.x, light.y), (b.body.x, b.shard_y),
+                    "the surviving shard source must replace the heart on the burst frame");
+            } else {
+                assert_ne!((light.x, light.y), (b.body.x, b.shard_y),
+                    "the visible heart must retain its native source before the burst");
+            }
+        }
+        assert!(burst_seen, "fixture never advanced through the real burst update");
+    }
+
+    /// One light follows the central pylon's actual recoil; dead pylons stop illuminating.
+    #[test]
+    fn physical_warden_pylon_light_follows_recoil_and_removal() {
+        let mut b = Boss::new(192.0, 150.0);
+        b.mode = Mode::Fight;
+        for fist in &mut b.fists { fist.crystal_hp = 0; }
+        b.pylons.push(Pylon::new(240.0, 185.0));
+        let before = light_frame(&b).point_lights[1];
+        b.pylons[0].wob = -3.0;
+        let recoil = light_frame(&b).point_lights[1];
+        assert_eq!(recoil.x - before.x, -3.0);
+        assert_eq!(recoil.y, before.y);
+        assert!(recoil.radius > recoil.height);
+        b.pylons[0].alive = false;
+        assert_eq!(light_frame(&b).point_lights.len(), 1);
+    }
+
+    /// Exercise real native torso occlusion: an embedded source was blocked everywhere on
+    /// the floor even though it existed and its receiving body owner was exempted correctly.
+    #[test]
+    fn physical_warden_closed_heart_reaches_front_floor_but_still_casts_body_shadow() {
+        let mut b = Boss::new(192.0, 150.0);
+        b.mode = Mode::Fight;
+        b.body_dy = 2.0;
+        for fist in &mut b.fists { fist.crystal_hp = 0; }
+        let mut f = Frame::new();
+        f.begin(Rgb::gray(0.5), Rgb::gray(0.2));
+        f.surface_lighting = true;
+        f.surfaces.fill(crate::gfx::frame::Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 });
+        b.draw(&mut f);
+        let light = f.point_lights[0];
+        let front = 174 * crate::gfx::W + 192;
+        assert_eq!(f.surfaces[front].height, 0.0, "front probe must be visible floor");
+        let mut embedded = light;
+        embedded.height -= light.y + light.height - b.body.y;
+        assert_eq!(crate::gfx::lighting::point_visibility(&f, embedded)[front], 0,
+            "regression fixture must expose the old opaque socket housing");
+        assert_eq!(crate::gfx::lighting::point_visibility(&f, light)[front], 255,
+            "the real front-facing heart must reach the floor");
+        // A ground probe under the rear projection deliberately replaces its receiver only;
+        // every actual native body caster remains. The correction cannot disable body shadows.
+        let rear = 128 * crate::gfx::W + 192;
+        f.surfaces[rear] = crate::gfx::frame::Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 };
+        assert_eq!(crate::gfx::lighting::point_visibility(&f, light)[rear], 0);
+        f.point_lights.truncate(1);
+        crate::gfx::surface::apply(&mut f);
+        assert!(f.light[front].r > 0.23, "closed heart source must visibly illuminate actual floor");
+    }
+
+    /// Run manually on a quiet CPU. This includes the real Summit terrain, native Warden,
+    /// player, live hazard updates/particles, camera, HUD and final grade during firing frames.
+    #[test]
+    #[ignore = "manual full-Play Warden firing timing; run alone with --nocapture"]
+    fn physical_warden_full_play_firing_timing() {
+        use crate::fx::Fx;
+        use crate::input::{Input, Raw};
+        use crate::play::{Play, PlayOpts};
+        use crate::world::ZoneId;
+        use std::time::Instant;
+        let mut results = Vec::new();
+        for (phase, twin) in [(1, false), (2, true)] {
+            let mut play = Play::new(ZoneId::Summit, &PlayOpts { god: true, peaceful: false });
+            let (bx, by) = play.zone.boss_pos.unwrap();
+            play.player.respawn(bx, by + 72.0);
+            play.boss_awake = true;
+            play.arrive_t = 10_000;
+            let boss = play.boss.as_mut().unwrap();
+            boss.phase = phase;
+            boss.hp = boss.top_hp();
+            boss.body.hp = boss.hp;
+            boss.mode = Mode::Fight;
+            boss.body_dy = 0.0;
+            boss.eyes = 1.0;
+            for side in 0..2 {
+                let (x, y, z) = boss.rest_pos(side);
+                boss.fists[side].x = x;
+                boss.fists[side].y = y;
+                boss.fists[side].z = z;
+                boss.fists[side].st = St::Rest;
+            }
+            boss.attack = Some(if phase == 1 { Attack::Summon { t: 0 } } else { Attack::Beam { t: 0, twin } });
+            let mut fx = Fx::new(7);
+            let mut input = Input::default();
+            // Keep phase two's actual shield placement and landing lifecycle, including the
+            // real Summit collision search, rather than measuring invented pylon positions.
+            if phase == 1 {
+                for _ in 0..100 {
+                    input.step(Raw::default());
+                    play.update(&input, &mut fx);
+                    fx.sounds.clear();
+                    fx.lights.clear();
+                    fx.tick();
+                }
+                let boss = play.boss.as_mut().unwrap();
+                assert_eq!(boss.pylons.iter().filter(|p| p.alive).count(), 3);
+                boss.attack = Some(Attack::Beam { t: 0, twin });
+            }
+            let mut frame = Frame::new();
+            let hud = crate::ui::Hud::new();
+            let mut times = Vec::new();
+            let (mut max_beams, mut max_points, mut max_casters) = (0, 0, 0);
+            for tick in 0..400 {
+                input.step(Raw::default());
+                play.update(&input, &mut fx);
+                let active = play.boss.as_ref().unwrap().beams.iter().filter(|b| b.firing()).count();
+                play.cam.snap(bx, by - 22.0);
+                let start = Instant::now();
+                play.render(&mut frame, &fx);
+                crate::ui::hud(&mut frame, &play, &hud);
+                crate::gfx::post::finish(&mut frame, &play.zone.grade);
+                let elapsed = start.elapsed().as_secs_f64() * 1000.0;
+                if active > 0 {
+                    times.push(elapsed);
+                    max_beams = max_beams.max(active);
+                    max_points = max_points.max(frame.point_lights.len());
+                    max_casters = max_casters.max(frame.surface_casters.len());
+                }
+                fx.sounds.clear();
+                fx.lights.clear();
+                fx.tick();
+                if tick > 120 && !times.is_empty() && play.boss.as_ref().unwrap().beams.is_empty() { break; }
+            }
+            assert!(times.len() >= 80, "did not measure a full real beam sweep");
+            assert_eq!(max_beams, if twin { 2 } else { 1 });
+            times.sort_by(f64::total_cmp);
+            results.push(serde_json::json!({"phase":phase + 1,"twin":twin,"frames":times.len(),
+                "mean_ms":times.iter().sum::<f64>() / times.len() as f64,
+                "median_ms":times[times.len()/2],"p95_ms":times[times.len()*95/100],
+                "max_ms":times[times.len()-1],"active_beams":max_beams,
+                "max_point_lights":max_points,"max_native_casters":max_casters}));
+        }
+        println!("WARDEN_RENDER {}", serde_json::to_string(&results).unwrap());
+    }
+}

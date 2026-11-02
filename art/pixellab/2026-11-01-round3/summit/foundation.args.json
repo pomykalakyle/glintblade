@@ -1,0 +1,19 @@
+{
+  "description": "A seamless opaque material panel of ancient fractured basalt bedrock beneath an immense cold-blue sky fortress. Native128x128pixel art. Flat front elevation rocky stone faces fill entire canvas; no background, no floor top, no borders, no cube or diamond. Three to five broad interlocking tall angular stone planes, large decisive clusters of blue grey shadow, occasional short oblique fracture and chipped slate ledge. Dark #1f2838 and #2b3548 crevices, broad #333b4c and #46526a rock facets, only very sparse #64738a on upper-left broken plane edges. Shadow right and below. Calm immense geological weight. NO little stones, no noise, no glitter, no moss, no glow, no regular horizontal bricks, no stripes or horizontal bands. Designed asymmetrical fracture masses. Texture continues beyond left/right edges.",
+  "width": 128,
+  "height": 128,
+  "no_background": false,
+  "palette": [
+    "#1f2838",
+    "#2b3548",
+    "#333b4c",
+    "#46526a",
+    "#555d70",
+    "#64738a",
+    "#7f8797",
+    "#94a1ae",
+    "#c1c8c5"
+  ],
+  "max_colors": 7,
+  "seed": 420
+}

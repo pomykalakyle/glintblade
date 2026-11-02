@@ -32,15 +32,26 @@ pub struct Life {
 
 impl Life {
     pub fn new() -> Life {
-        Life { rng: Rng::new(77), drips: Vec::new(), drip_points: Vec::new() }
+        Life {
+            rng: Rng::new(77),
+            drips: Vec::new(),
+            drip_points: Vec::new(),
+        }
     }
 
     pub fn update(&mut self, ctx: &RegionCtx, fx: &mut Fx, water: &mut Water) {
         let (cx, cy) = (ctx.cam.0 as f32, ctx.cam.1 as f32);
-        let on_screen = |x: f32, y: f32, m: f32| x > cx - m && x < cx + W as f32 + m && y > cy - m && y < cy + H as f32 + m;
+        let on_screen = |x: f32, y: f32, m: f32| {
+            x > cx - m && x < cx + W as f32 + m && y > cy - m && y < cy + H as f32 + m
+        };
         for p in &self.drip_points {
             if ctx.t % p.period == p.offset % p.period && on_screen(p.x, p.y, 40.0) {
-                self.drips.push(Drip { x: p.x, y: p.y, z: 110.0, vz: -1.0 });
+                self.drips.push(Drip {
+                    x: p.x,
+                    y: p.y,
+                    z: 110.0,
+                    vz: -1.0,
+                });
             }
         }
         let mut landed = Vec::new();
@@ -62,7 +73,14 @@ impl Life {
             // a tiny crown of droplets
             for k in 0..(if wet { 4 } else { 3 }) {
                 let a = k as f32 * 1.57 + self.rng.range(0.0, 0.8);
-                fx.particles.add(Particle::new(x, y).vel(a.cos() * 0.3, a.sin() * 0.15, self.rng.range(0.9, 1.5)).color(WATER[4]).fade_to(WATER[3]).life(self.rng.range(12.0, 18.0)).grav(0.15));
+                fx.particles.add(
+                    Particle::new(x, y)
+                        .vel(a.cos() * 0.3, a.sin() * 0.15, self.rng.range(0.9, 1.5))
+                        .color(WATER[4])
+                        .fade_to(WATER[3])
+                        .life(self.rng.range(12.0, 18.0))
+                        .grav(0.15),
+                );
             }
             let d2 = (x - player.0).powi(2) + (y - player.1).powi(2);
             if d2 < 220.0 * 220.0 {
@@ -83,7 +101,67 @@ impl Life {
     }
 }
 
-/// Unlit depth below the rift; the bridge and its visible crystals carry the composition.
+/// Distant, unlit wall planes below the rift. Their broad native facets stay well below the
+/// receiving ledges in value: the bridge remains the crossing, with no invented piers.
+fn abyss_plane(x: i32, y: i32) -> Option<f32> {
+    const FAR: &[(i32, i32)] = &[
+        (825, 183),
+        (893, 169),
+        (946, 184),
+        (946, 224),
+        (882, 233),
+        (837, 215),
+    ];
+    const RIGHT: &[(i32, i32)] = &[
+        (888, 296),
+        (944, 278),
+        (951, 371),
+        (932, 458),
+        (900, 490),
+        (877, 452),
+        (880, 369),
+    ];
+    const LEFT: &[(i32, i32)] = &[
+        (750, 346),
+        (778, 361),
+        (789, 412),
+        (776, 479),
+        (743, 496),
+        (734, 438),
+    ];
+    if (825..=946).contains(&x) && (169..=233).contains(&y) && in_abyss_plane(x, y, FAR) {
+        Some(if x + y / 3 < 951 { 0.55 } else { 0.43 })
+    } else if (877..=951).contains(&x) && (278..=490).contains(&y) && in_abyss_plane(x, y, RIGHT) {
+        Some(if x < 891 + (y - 300) / 16 { 0.64 } else { 0.48 })
+    } else if (734..=789).contains(&x) && (346..=496).contains(&y) && in_abyss_plane(x, y, LEFT) {
+        Some(if x < 762 - (y - 390) / 18 { 0.49 } else { 0.59 })
+    } else {
+        None
+    }
+}
+
+/// Half-open point-in-polygon on integer native pixels, with no antialiased boundary.
+fn in_abyss_plane(x: i32, y: i32, outline: &[(i32, i32)]) -> bool {
+    let (px, py) = (x * 2 + 1, y * 2 + 1);
+    let mut inside = false;
+    let mut previous = outline[outline.len() - 1];
+    for &(bx, by) in outline {
+        let (ax, ay) = previous;
+        let (ax, ay, bx, by) = (ax * 2, ay * 2, bx * 2, by * 2);
+        if (ay > py) != (by > py) {
+            let lhs = (px - ax) * (by - ay);
+            let rhs = (bx - ax) * (py - ay);
+            if if by > ay { lhs < rhs } else { lhs > rhs } {
+                inside = !inside;
+            }
+        }
+        previous = (bx / 2, by / 2);
+    }
+    inside
+}
+
+/// Draw only behind actual missing ground, so far wall planes cannot cover a bank, bridge,
+/// waterline, actor or native prop. World anchoring keeps them still while the camera moves.
 pub fn draw_abyss(zone: &Zone, f: &mut Frame) {
     let base = ROCK[0].scale(0.35);
     for sy in 0..H as i32 {
@@ -92,7 +170,11 @@ pub fn draw_abyss(zone: &Zone, f: &mut Frame) {
             let wx = sx + f.cam_x;
             let inside = wx >= 0 && wy >= 0 && wx < zone.pw && wy < zone.ph;
             if !inside || zone.ground[(wy * zone.pw + wx) as usize].r < 0.0 {
-                f.albedo[sy as usize * W + sx as usize] = base;
+                f.albedo[sy as usize * W + sx as usize] = if inside {
+                    abyss_plane(wx, wy).map_or(base, |scale| ROCK[0].scale(scale))
+                } else {
+                    base
+                };
             }
         }
     }

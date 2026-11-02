@@ -9,6 +9,51 @@ use crate::{
 };
 use std::time::Instant;
 
+#[test]
+fn fractional_native_light_planes_match_the_drawn_sprite_raster() {
+    for x in [100.2,100.8] { for flip in [false,true] {
+        let mut z=small(ZoneId::Glasswater);
+        let mut p=Prop::new("bloomwild_ruins","pillar",x,140.8); p.flip=flip;
+        let s=p.sheet().unwrap(); let a=s.anim(&p.anim).unwrap();
+        let cell=s.cell(a,0); let anchor=s.anchor_of(a);
+        let ox=x.floor() as i32-if flip{cell.w-1-anchor.0}else{anchor.0};
+        let oy=p.y.floor() as i32-anchor.1;
+        z.props.push(p);
+        let field=Field::bake(&z,&NoRegion,geometry_key(&z));
+        for y in 0..cell.h {for sx in 0..cell.w {
+            let wx=ox+if flip{cell.w-1-sx}else{sx};
+            let i=field.index(wx,oy+y).unwrap();
+            assert_eq!(field.raised[i],cell.at(sx,y).a,"raster mismatch at anchor{x} flipped{flip} source{sx},{y}");
+        }}
+    }}
+}
+
+/// Real crystal keys survive native base refinement; dimensions do not encode light identity.
+#[test]
+fn glasswater_native_crystal_keys_survive_collision_refinement() {
+    let (mut zone, region) = regions::build(ZoneId::Glasswater);
+    let crystals: Vec<_> = zone.props.iter().enumerate().filter(|(_, p)|
+        p.sheet == "glasswater_blocker" && p.alive && p.light.is_some()
+        && !p.collision_rects().is_empty()).map(|(i, _)| i).collect();
+    assert!(crystals.len() >= 6, "native crystals need explicit motivated light sources");
+    let before = Field::bake(&zone, region.as_ref(), geometry_key(&zone));
+    assert!(crystals.iter().any(|&i| zone.props[i].light.unwrap().3.abs() > 0.5),
+        "the native crest attachment must exercise a horizontal offset");
+    for &i in &crystals {
+        let p = &mut zone.props[i];
+        let (color, radius, _, ox, oy) = p.light.unwrap();
+        assert!(before.sources.iter().any(|s| (s.x - (p.x + ox)).abs() < 0.01
+            && (s.y - p.y).abs() < 0.01 && (s.z - (-oy).max(20.0)).abs() < 0.01
+            && s.radius == radius.max(56.0) && s.color == color),
+            "the native light must follow its actual crest, not the support anchor");
+        let (w, _) = p.footprint.unwrap();
+        p.footprint = Some((w, 11.0));
+    }
+    let after = Field::bake(&zone, region.as_ref(), geometry_key(&zone));
+    let sources = |f: &Field| f.sources.iter().map(|s| (s.x, s.y, s.z, s.radius, s.color)).collect::<Vec<_>>();
+    assert_eq!(sources(&before), sources(&after), "changing ground support must not remove a crystal key");
+}
+
 /// Cinder rims illuminate material inside the contour instead of weakening the outer ink edge.
 #[test]
 fn source_rim_preserves_outer_actor_contour() {
@@ -75,6 +120,7 @@ fn summit_collision_companions_do_not_add_planes() {
     let without = Field::bake(&zone, region.as_ref(), geometry_key(&zone));
     assert_eq!(with.light, without.light);
     assert_eq!(with.raised, without.raised);
+    assert_eq!(with.dark, without.dark, "physics-only support spans never stamp shadows into the sky");
 }
 
 /// Painted cave and arena terrain does not acquire a box plane from an invisible collision tile.
@@ -153,8 +199,8 @@ fn alpha_projection_and_planes_are_native_and_nonstacking() {
     let at = |x, y| (y * z.pw + x) as usize;
     assert!(field.raised[at(78, 58)]);
     assert!(!field.raised[at(80, 58)]);
-    assert!(field.dark[at(80, 61)] > 0);
-    assert_eq!(field.dark[at(82, 61)], 0);
+    assert!(field.dark[at(79, 62)] > 0);
+    assert_eq!(field.dark[at(80, 62)], 0);
     let first = field.dark.clone();
     field.sprite(&z, &mut planes, &cell, (2, 2), &p);
     assert_eq!(first, field.dark);
@@ -204,6 +250,7 @@ fn contacts_materials_emission_and_actor_readability() {
     });
     f.albedo[120 * W + 150] = rgb(0x7c9c95);
     f.emissive[120 * W + 150] = rgb(0xbaf5ec);
+    f.mark_actor(150, 120);
     let (art, emit) = (f.albedo.clone(), f.emissive.clone());
     apply(&z, &NoRegion, &mut f, 0);
     assert_eq!(art, f.albedo);

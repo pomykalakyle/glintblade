@@ -209,8 +209,15 @@ pub fn shed(fx: &mut Fx, s: Spr, wx: f32, wy: f32, ground: f32, n: usize) {
 /// Collapse into short-lived grains and a few coherent stone patches, preserving burst RNG draws.
 #[allow(clippy::too_many_arguments)]
 pub fn collapse(
-    fx: &mut Fx, s: Spr, wx: f32, wy: f32, flip: bool, ground: f32,
-    heart: (f32, f32), power: f32, glow: bool,
+    fx: &mut Fx,
+    s: Spr,
+    wx: f32,
+    wy: f32,
+    flip: bool,
+    ground: f32,
+    heart: (f32, f32),
+    power: f32,
+    glow: bool,
 ) {
     let start = fx.particles.list.len();
     burst(fx, s, wx, wy, flip, ground, heart, power, glow, 1);
@@ -218,7 +225,9 @@ pub fn collapse(
     let mut next = start;
     for y in 0..s.cell.h {
         for x in 0..s.cell.w {
-            if !s.cell.at(x, y).a { continue; }
+            if !s.cell.at(x, y).a {
+                continue;
+            }
             if next < fx.particles.list.len() {
                 indices[(y * s.cell.w + x) as usize] = Some(next);
                 let p = &mut fx.particles.list[next];
@@ -232,21 +241,33 @@ pub fn collapse(
     // Native source patches share one trajectory, including their landing and dark residue.
     for cy in (6..s.cell.h - 5).step_by(12) {
         for cx in (7..s.cell.w - 6).step_by(13) {
-            if crate::util::hash2(cx, cy, 91) > 0.36 { continue; }
+            if crate::util::hash2(cx, cy, 91) > 0.36 {
+                continue;
+            }
             let center = s.cell.at(cx, cy);
-            if !center.a || center.emit || center.c.luma() < 0.06 { continue; }
-            let Some(root) = indices[(cy * s.cell.w + cx) as usize] else { continue; };
+            if !center.a || center.emit || center.c.luma() < 0.06 {
+                continue;
+            }
+            let Some(root) = indices[(cy * s.cell.w + cx) as usize] else {
+                continue;
+            };
             let origin = fx.particles.list[root];
             let size = (crate::util::hash2(cx, cy, 92) * 3.0) as usize;
             let (rx, ry) = [(3i32, 2i32), (5, 3), (6, 5)][size.min(2)];
             for dy in -ry..=ry {
                 for dx in -rx..=rx {
                     // Chipped masonry planes in three sizes, rather than identical pebble lozenges.
-                    if (dx == rx && dy < -ry / 2) || (dx < -rx + 2 && dy == ry) { continue; }
+                    if (dx == rx && dy < -ry / 2) || (dx < -rx + 2 && dy == ry) {
+                        continue;
+                    }
                     let (x, y) = (cx + dx, cy + dy);
                     let source = s.cell.at(x, y);
-                    if !source.a || source.emit { continue; }
-                    let Some(i) = indices[(y * s.cell.w + x) as usize] else { continue; };
+                    if !source.a || source.emit {
+                        continue;
+                    }
+                    let Some(i) = indices[(y * s.cell.w + x) as usize] else {
+                        continue;
+                    };
                     let p = &mut fx.particles.list[i];
                     p.x = origin.x + (if flip { -dx } else { dx }) as f32;
                     p.y = origin.y + dy as f32;
@@ -301,7 +322,6 @@ pub fn core_shard(f: &mut Frame, x: f32, y: f32, t: u32) {
     f.put_glow(sx, sy + 7, PW);
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -314,17 +334,58 @@ mod tests {
         let s = art::spr(art::BODY, &["idle"], 0, true);
         let mut old = Fx::new(7);
         let mut new = Fx::new(7);
-        burst(&mut old, s, 300.0, 300.0, false, 300.0, (300.0, 240.0), 2.3, true, 1);
-        collapse(&mut new, s, 300.0, 300.0, false, 300.0, (300.0, 240.0), 2.3, true);
+        burst(
+            &mut old,
+            s,
+            300.0,
+            300.0,
+            false,
+            300.0,
+            (300.0, 240.0),
+            2.3,
+            true,
+            1,
+        );
+        collapse(
+            &mut new,
+            s,
+            300.0,
+            300.0,
+            false,
+            300.0,
+            (300.0, 240.0),
+            2.3,
+            true,
+        );
         assert_eq!(old.rng.next_u32(), new.rng.next_u32());
         assert_eq!(old.particles.list.len(), new.particles.list.len());
-        assert!(new.particles.list.iter().any(|p| p.settle && p.max_life == 150.0));
-        assert!(new.particles.list.iter().all(|p| p.settle || p.life <= 38.0));
+        assert!(
+            new.particles
+                .list
+                .iter()
+                .any(|p| p.settle && p.max_life == 150.0)
+        );
+        assert!(
+            new.particles
+                .list
+                .iter()
+                .all(|p| p.settle || p.life <= 38.0)
+        );
         let zone = Zone::new(ZoneId::Summit, 60, 40);
-        for _ in 0..40 { new.particles.update(&zone); }
+        for _ in 0..40 {
+            new.particles.update(&zone);
+        }
         assert!(new.particles.list.iter().all(|p| p.settle));
-        for _ in 40..90 { new.particles.update(&zone); }
-        assert!(!new.particles.debris.is_empty(), "coherent material must leave a quiet remnant");
-        assert_eq!((FIST_L_CRUMBLE, FIST_R_CRUMBLE, BURST, RISE, DONE), (112, 134, 206, 262, 336));
+        for _ in 40..90 {
+            new.particles.update(&zone);
+        }
+        assert!(
+            !new.particles.debris.is_empty(),
+            "coherent material must leave a quiet remnant"
+        );
+        assert_eq!(
+            (FIST_L_CRUMBLE, FIST_R_CRUMBLE, BURST, RISE, DONE),
+            (112, 134, 206, 262, 336)
+        );
     }
 }

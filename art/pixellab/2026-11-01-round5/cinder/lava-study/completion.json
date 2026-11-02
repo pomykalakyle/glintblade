@@ -1,0 +1,27 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "status: completed\nid: a1132c12-3fec-4d55-9048-11459cf87318\njob_id: a1132c12-3fec-4d55-9048-11459cf87318\nframes: 4\ntransparent: no — every pixel is opaque. If you asked for no_background, background removal did not find one; retry or describe the subject on a plain background.\nasset_id: b99676c9-5b09-513b-9e24-48b663e3405e\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ncharged: 10 generations\ndownload: https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=0 ... ?index=3"
+    }
+  ],
+  "structuredContent": {
+    "job_id": "a1132c12-3fec-4d55-9048-11459cf87318",
+    "status": "completed",
+    "frames": 4,
+    "download_url": "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=0",
+    "download_urls": [
+      "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=0",
+      "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=1",
+      "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=2",
+      "https://api.pixellab.ai/mcp/images/a1132c12-3fec-4d55-9048-11459cf87318/download?index=3"
+    ],
+    "asset": {
+      "id": "b99676c9-5b09-513b-9e24-48b663e3405e",
+      "type": "image",
+      "status": "saved"
+    },
+    "charged_generations": 10
+  },
+  "isError": false
+}

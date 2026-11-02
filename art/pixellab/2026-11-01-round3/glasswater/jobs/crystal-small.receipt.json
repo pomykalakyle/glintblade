@@ -1,0 +1,14 @@
+{
+  "_meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "id: f82bad91-6be8-41ac-b0e8-8b80150e917f\njob_id: f82bad91-6be8-41ac-b0e8-8b80150e917f\nmodel: pro\ndescription: Small grounded iris crystal cluster on a slate root, native 32x40 transparent sprite for 3/4 top-down pixel art action RPG. Two or three leaning angular prisms, asymmetrical readable silhouette no taller than 30px, broad quiet muted purple faces and one pale chisel facet with a tiny #cdc3db tip. Root centered x16,y37. Upper-left light. Slate stone at the base makes real contact with ground. Crisp connected pixel clusters, restrained dark slate and pale iris palette, no sparkles, no surrounding glow, no floor, no particles, no water, no isolated pixels, no smooth shading.\nsize: 32x40px\ntransparent: True\ncandidates: 49\nstyle_image: yes (outline, detail, shading)\npalette: 15 colours (Glasswater slate and pale iris)\nmax colours: 9 per image\nseed: 227\nasset_id: a32a4e5e-5119-5586-a6e2-79f64dad22e2\nasset_status: pending (saved when generation completes)\ncost: 15 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"f82bad91-6be8-41ac-b0e8-8b80150e917f\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/f82bad91-6be8-41ac-b0e8-8b80150e917f/download (423 + Retry-After until ready; ?index=N for the Nth of several images)",
+      "annotations": null,
+      "_meta": null
+    }
+  ],
+  "structuredContent": null,
+  "isError": false,
+  "resultType": "complete"
+}

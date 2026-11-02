@@ -1,28 +1,238 @@
 {
- "cell": [
-  64,
-  72
- ],
- "anchor": [
-  32,
-  69
- ],
- "anims": {
-  "arch_post": {
-   "row": 0,
-   "frames": 1,
-   "fps": 1,
-   "footprint": [
-    12,
-    6
-   ]
+  "cell": [
+    64,
+    72
+  ],
+  "anchor": [
+    32,
+    69
+  ],
+  "anims": {
+    "arch_post_left": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        18,
+        8
+      ],
+      "collision_rects": [
+        [
+          25,
+          59,
+          40,
+          61
+        ],
+        [
+          23,
+          61,
+          40,
+          62
+        ],
+        [
+          22,
+          62,
+          23,
+          63
+        ],
+        [
+          24,
+          62,
+          40,
+          63
+        ],
+        [
+          24,
+          63,
+          25,
+          64
+        ],
+        [
+          27,
+          63,
+          40,
+          65
+        ],
+        [
+          26,
+          65,
+          28,
+          66
+        ],
+        [
+          30,
+          65,
+          37,
+          66
+        ],
+        [
+          25,
+          66,
+          26,
+          67
+        ],
+        [
+          33,
+          66,
+          34,
+          67
+        ],
+        [
+          37,
+          66,
+          38,
+          67
+        ]
+      ]
+    },
+    "arch_post": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        18,
+        8
+      ],
+      "collision_rects": [
+        [
+          25,
+          59,
+          40,
+          61
+        ],
+        [
+          23,
+          61,
+          40,
+          62
+        ],
+        [
+          22,
+          62,
+          23,
+          63
+        ],
+        [
+          24,
+          62,
+          40,
+          63
+        ],
+        [
+          24,
+          63,
+          25,
+          64
+        ],
+        [
+          27,
+          63,
+          40,
+          65
+        ],
+        [
+          26,
+          65,
+          28,
+          66
+        ],
+        [
+          30,
+          65,
+          37,
+          66
+        ],
+        [
+          25,
+          66,
+          26,
+          67
+        ],
+        [
+          33,
+          66,
+          34,
+          67
+        ],
+        [
+          37,
+          66,
+          38,
+          67
+        ]
+      ]
+    },
+    "arch_span": {
+      "row": 1,
+      "frames": 1,
+      "fps": 1,
+      "layer": "canopy"
+    },
+    "arch_post_right": {
+      "row": 2,
+      "frames": 1,
+      "fps": 1,
+      "footprint": [
+        17,
+        8
+      ],
+      "collision_rects": [
+        [
+          25,
+          53,
+          42,
+          54
+        ],
+        [
+          25,
+          54,
+          41,
+          55
+        ],
+        [
+          25,
+          55,
+          42,
+          56
+        ],
+        [
+          25,
+          56,
+          41,
+          57
+        ],
+        [
+          26,
+          57,
+          42,
+          58
+        ],
+        [
+          27,
+          58,
+          41,
+          59
+        ],
+        [
+          29,
+          59,
+          38,
+          60
+        ],
+        [
+          35,
+          60,
+          36,
+          61
+        ],
+        [
+          38,
+          60,
+          39,
+          61
+        ]
+      ]
+    }
   },
-  "arch_span": {
-   "row": 1,
-   "frames": 1,
-   "fps": 1,
-   "layer": "canopy"
-  }
- },
- "notes": "Broken slotted water-channel lintel on paired narrow fins. Original opening, cell, layer and footprints retained."
+  "notes": "PixelLab native arch, exact visible source pixels split into supported piers and overhead passage. Original anchor and post world points retained; collision matches each actual opaque native foot, including the shorter right pier."
 }

@@ -1,0 +1,18 @@
+{
+  "cell": [
+    128,
+    128
+  ],
+  "anchor": [
+    0,
+    0
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1
+    }
+  },
+  "notes": "Native128px bedrock geometry, deliberately reduced to3 existing slate swatches after whole-zone overview rejected the high-contrast zebra repetition. Source retained; exact palette mapping documented in selection.json. No resampling, rotation or mirroring."
+}

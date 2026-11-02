@@ -12,7 +12,6 @@ only the outer X-style test wrapper is local in that mode.
 import argparse
 import asyncio
 import base64
-import hashlib
 import json
 import mimetypes
 import pathlib
@@ -66,6 +65,24 @@ async def main():
         browser = await pw.chromium.launch(headless=True, args=[
             '--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'])
         ctx = await browser.new_context(viewport={'width': 768, 'height': 520})
+        if args.public:
+            # A WASM response can exceed Chromium's inspector response cache.
+            # Hash a clone of the response the game actually consumes instead.
+            await ctx.add_init_script(r'''
+              window.publicWasmProofs = {};
+              const originalFetch = window.fetch;
+              window.fetch = async function(...args) {
+                const response = await originalFetch.apply(this,args);
+                if(response.url.startsWith('https://pomykalakyle.github.io/glintblade/') && /\.wasm(?:\?|$)/.test(response.url)) {
+                  const clone = response.clone();
+                  publicWasmProofs[response.url] = clone.arrayBuffer().then(async bytes => ({
+                    bytes:bytes.byteLength,
+                    sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('')
+                  }));
+                }
+                return response;
+              };
+            ''')
         await ctx.add_init_script('''
           window.actionSounds=[];window.trustedlog=[];
           const originalStart=AudioBufferSourceNode.prototype.start;
@@ -157,10 +174,11 @@ async def main():
                         'manifest_status': manifest_response.status, 'manifest': manifest}
             if wasm_responses:
                 wasm_response = wasm_responses[-1]
-                wasm_bytes = await wasm_response.body()
-                actual_hash = hashlib.sha256(wasm_bytes).hexdigest()
+                proof = await frame.evaluate('(url)=>window.publicWasmProofs[url]', wasm_response.url)
+                actual_hash = proof['sha256']
                 evidence.update({'wasm_url': wasm_response.url, 'wasm_status': wasm_response.status,
-                                 'wasm_bytes': len(wasm_bytes), 'wasm_sha256': actual_hash,
+                                 'wasm_bytes': proof['bytes'], 'wasm_sha256': actual_hash,
+                                 'wasm_hash_source': 'SHA256 of clone of actual browser fetch Response',
                                  'wasm_content_type': wasm_response.headers.get('content-type')})
                 report['checks'][label + '-public-wasm-hash-matches'] = wasm_response.status == 200 and actual_hash == digest
                 report['checks'][label + '-public-wasm-mime'] = 'application/wasm' in wasm_response.headers.get('content-type', '')

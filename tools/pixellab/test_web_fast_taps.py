@@ -4,6 +4,8 @@
 Run after assembling the browser build with prepare_web_build.py:
   uv run --offline --with playwright python tools/pixellab/test_web_fast_taps.py \
     --web-dir web --out out/pixellab/round13/fast-fixed
+Use --public --expected-build COMMIT to verify the deployed Pages engine instead.
+Only the outer X-style wrapper is local in public mode. No publishing.
 
 For the unmodified R12 WASM, --expect baseline accepts the reproduced input regression
 only when held Colemak N/E works and deterministic same-frame N/E taps fail.
@@ -41,6 +43,9 @@ SANDBOX = "allow-popups allow-same-origin allow-scripts allow-presentation"
 PARSER = argparse.ArgumentParser(description=__doc__)
 PARSER.add_argument("--web-dir", type=pathlib.Path, default=ROOT / "web")
 PARSER.add_argument("--wasm", type=pathlib.Path, help="Override only glintblade.wasm")
+PARSER.add_argument("--public", action="store_true",
+                    help="Use actual GitHub Pages resources; no local game asset interception")
+PARSER.add_argument("--expected-build", help="Require this exact published build label/commit")
 PARSER.add_argument("--out", type=pathlib.Path, required=True,
                     help="A fresh output directory; existing paths are refused")
 PARSER.add_argument("--expect", choices=("fixed", "baseline"), default="fixed")
@@ -56,9 +61,14 @@ PARSER.add_argument("--group", choices=("all", "qwerty", "firmware", "software")
 ARGS = PARSER.parse_args()
 WEB = ARGS.web_dir.resolve()
 OUT = ARGS.out.resolve()
-OUT.mkdir(parents=True, exist_ok=False)
 if ARGS.fast_repeats < 2 or ARGS.deterministic_repeats < 2 or ARGS.max_gap_ms <= 0:
     PARSER.error("Use at least two fast repeats and a positive max gap")
+if ARGS.public and ARGS.wasm:
+    PARSER.error("--public cannot override the deployed WASM with --wasm")
+if ARGS.expected_build and not ARGS.public:
+    PARSER.error("--expected-build requires --public")
+OUT.mkdir(parents=True, exist_ok=False)
+GAME_URL = BASE + ("?v=controls-r13" if ARGS.public else "")
 
 
 def sha(path: pathlib.Path) -> str:
@@ -82,13 +92,16 @@ ACTION_NAMES = {
     "dash": ["dash", "dash_2"],
 }
 REPORT = {
-    "expect": ARGS.expect, "web_dir": str(WEB),
-    "wasm": str(ARGS.wasm.resolve() if ARGS.wasm else WEB / "glintblade.wasm"),
+    "expect": ARGS.expect, "web_dir": None if ARGS.public else str(WEB),
+    "wasm": None if ARGS.public else str(ARGS.wasm.resolve() if ARGS.wasm else WEB / "glintblade.wasm"),
+    "public": ARGS.public, "url": GAME_URL, "expected_build": ARGS.expected_build,
     "inputs": {}, "action_wavs": {name: WAVS[name]
         for names in ACTION_NAMES.values() for name in names},
     "duration_tolerance_seconds": 0.0001,
     "duration_collisions": {}, "groups": [], "checks": {}, "errors": [],
-    "scope": "Headless Chromium, software WebGL; actual local WASM in X's "
+    "scope": "Headless Chromium, software WebGL; "
+             + ("actual public GitHub Pages resources" if ARGS.public else "actual local WASM")
+             + " in X's "
              "demonstrated iframe sandbox. No X post or desktop interaction. "
              "Required deterministic taps cancel the game RAF, freeze Date.now, "
              "deliver trusted down/up without a frame, optionally render at "
@@ -102,16 +115,38 @@ for action, names in ACTION_NAMES.items():
         REPORT["duration_collisions"][name] = [other for other, info in WAVS.items()
             if other not in names and
             abs(info["seconds"] - WAVS[name]["seconds"]) < 0.0001]
-for name in ("index.html", "player.js", "player.css", "mq_js_bundle.js"):
-    path = WEB / name
-    if path.exists():
-        REPORT["inputs"][name] = sha(path)
-REPORT["inputs"]["glintblade.wasm"] = sha(pathlib.Path(REPORT["wasm"]))
-manifest_path = WEB / "build-info.json"
-if manifest_path.exists():
-    REPORT["build_manifest"] = json.loads(manifest_path.read_text())
-    manifest_wasm = WEB / REPORT["build_manifest"]["wasm"]
-    REPORT["inputs"][manifest_wasm.name] = sha(manifest_wasm)
+if not ARGS.public:
+    for name in ("index.html", "player.js", "player.css", "mq_js_bundle.js"):
+        path = WEB / name
+        if path.exists():
+            REPORT["inputs"][name] = sha(path)
+    REPORT["inputs"]["glintblade.wasm"] = sha(pathlib.Path(REPORT["wasm"]))
+    manifest_path = WEB / "build-info.json"
+    if manifest_path.exists():
+        REPORT["build_manifest"] = json.loads(manifest_path.read_text())
+        manifest_wasm = WEB / REPORT["build_manifest"]["wasm"]
+        REPORT["inputs"][manifest_wasm.name] = sha(manifest_wasm)
+
+
+PUBLIC_PROOF_INIT = r"""
+window.publicWasmProofs = {};
+const originalFetch = window.fetch;
+window.fetch = async function(...args) {
+  const response = await originalFetch.apply(this,args);
+  if (response.url.startsWith('https://pomykalakyle.github.io/glintblade/') &&
+      /\.wasm(?:\?|$)/.test(response.url)) {
+    // Inspector response caches can evict the large WASM body. Hash a clone of
+    // the very response the game consumes, without issuing another fetch.
+    const clone = response.clone();
+    publicWasmProofs[response.url] = clone.arrayBuffer().then(async bytes => ({
+      bytes:bytes.byteLength,
+      sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))]
+        .map(value=>value.toString(16).padStart(2,'0')).join('')
+    }));
+  }
+  return response;
+};
+"""
 
 
 INIT = r"""
@@ -248,6 +283,8 @@ async def main() -> None:
             REPORT["groups"].append(group)
             ctx = await browser.new_context(
                 viewport={"width": 760, "height": 520}, device_scale_factor=1)
+            if ARGS.public:
+                await ctx.add_init_script(PUBLIC_PROOF_INIT)
             await ctx.add_init_script(INIT)
 
             async def route(request):
@@ -257,9 +294,12 @@ async def main() -> None:
                         '<meta name="viewport" content="width=device-width">'
                         '<style>body{margin:0;background:#111}iframe{border:0}</style>'
                         f'<iframe width="480" height="294" sandbox="{SANDBOX}" '
-                        f'allow="autoplay; fullscreen; web-share" src="{BASE}"></iframe>'))
+                        f'allow="autoplay; fullscreen; web-share" src="{GAME_URL}"></iframe>'))
                     return
                 if url.startswith(BASE):
+                    if ARGS.public:
+                        await request.continue_()
+                        return
                     relative = urllib.parse.unquote(
                         urllib.parse.urlsplit(url).path[len("/glintblade/"):])
                     asset = (WEB / (relative or "index.html")).resolve()
@@ -282,7 +322,10 @@ async def main() -> None:
 
             await ctx.route("**/*", route)
             page = await ctx.new_page()
+            responses = []
             page.on("pageerror", lambda error: REPORT["errors"].append(str(error)))
+            page.on("response", lambda response: responses.append(response)
+                    if response.url.startswith(BASE) else None)
             await page.goto(WRAPPER)
             game = page.frame_locator("iframe")
             start = time.monotonic()
@@ -293,6 +336,49 @@ async def main() -> None:
             await page.wait_for_timeout(2200)
             group["startup_seconds"] = round(time.monotonic() - start, 3)
             group["engine"] = await frame.evaluate(INSTALL_ENGINE_PROBE)
+
+            if ARGS.public:
+                manifests = [response for response in responses
+                    if urllib.parse.urlsplit(response.url).path.endswith("/build-info.json")]
+                REPORT["checks"][f"{group_name}:public-manifest-requested"] = bool(manifests)
+                if manifests:
+                    manifest_response = manifests[-1]
+                    manifest = json.loads(await manifest_response.body())
+                    digest = manifest.get("sha256", "")
+                    valid_digest = (isinstance(digest, str) and len(digest) == 64
+                                    and all(char in "0123456789abcdef" for char in digest))
+                    hashed_name = "glintblade." + (digest[:16] if valid_digest else "invalid") + ".wasm"
+                    group["public_manifest"] = manifest
+                    REPORT["build_manifest"] = manifest
+                    REPORT["checks"][f"{group_name}:public-manifest-valid"] = (
+                        manifest_response.status == 200 and manifest.get("schema") == 1
+                        and manifest.get("controls_revision") == 13 and valid_digest
+                        and manifest.get("wasm") == hashed_name)
+                    actual_build = await frame.evaluate("document.body.dataset.build")
+                    group["page_build"] = actual_build
+                    REPORT["checks"][f"{group_name}:public-build-agrees"] = manifest.get("build") == actual_build
+                    if ARGS.expected_build:
+                        REPORT["checks"][f"{group_name}:expected-public-build"] = manifest.get("build") == ARGS.expected_build
+                    wasm_url = BASE + hashed_name
+                    wasm_responses = [response for response in responses if response.url == wasm_url]
+                    REPORT["checks"][f"{group_name}:public-immutable-wasm-requested"] = bool(wasm_responses)
+                    if wasm_responses:
+                        wasm_response = wasm_responses[-1]
+                        proof = await frame.evaluate("(url)=>window.publicWasmProofs[url]", wasm_response.url)
+                        group["served_wasm"].append({
+                            "url": wasm_response.url, "status": wasm_response.status,
+                            "bytes": proof["bytes"], "sha256": proof["sha256"],
+                            "hash_source": "SHA256 of clone of actual browser fetch Response",
+                            "content_type": wasm_response.headers.get("content-type"),
+                        })
+                        REPORT["wasm"] = wasm_response.url
+                        REPORT["inputs"][hashed_name] = proof["sha256"]
+                        REPORT["checks"][f"{group_name}:public-wasm-hash-matches"] = (
+                            wasm_response.status == 200 and proof["sha256"] == digest)
+                        REPORT["checks"][f"{group_name}:public-wasm-mime"] = (
+                            "application/wasm" in wasm_response.headers.get("content-type", ""))
+                group["public_responses"] = [{"url": response.url, "status": response.status}
+                                             for response in responses]
 
             async def key(kind, code, letter):
                 event = {"type": kind, "code": code, "key": letter,
@@ -543,6 +629,7 @@ except BaseException as error:
     raise
 finally:
     REPORT["checks"]["no-runtime-errors"] = not REPORT["errors"]
+    REPORT["checks"]["no-run-exception"] = not REPORT.get("exception")
     REPORT["final_contract_pass"] = bool(REPORT["groups"]) and all(REPORT["checks"].values())
     evidence = []
     for group in REPORT["groups"]:

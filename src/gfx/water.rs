@@ -62,7 +62,8 @@ impl Frame {
                 let px = ox + if o.flip { cell.w - 1 - x } else { x } + shift;
                 let Some(i) = Self::idx(px, py) else { continue };
                 let a = opacity * self.water[i] as f32 / 255.0;
-                if a <= bayer4(px + self.cam_x, wy) {
+                if a <= bayer4(px + self.cam_x, wy) || self.actor_pixels[i]
+                    || (self.surface_lighting && self.surfaces[i].owner != 0) {
                     continue;
                 }
                 let mut c = o.silhouette.unwrap_or(p.c);
@@ -73,13 +74,69 @@ impl Frame {
                     c = cell.flash_color(x, y, c, o.flash);
                 }
                 c = c * self.look.water_tint;
+                let receiver = self.surfaces[i];
+                let actor = self.actor_pixels[i];
                 self.emissive[i] = Rgb::BLACK;
                 if (p.emit && o.silhouette.is_none()) || o.unlit || (o.silhouette.is_some() && o.silhouette_glow) {
                     self.put_glow(px, py, c.scale(o.emit_gain * 0.65));
                 } else {
                     self.put(px, py, c);
                 }
+                // A reflected image changes the water's color, not its geometry.
+                self.surfaces[i] = receiver;
+                self.actor_pixels[i] = actor;
             }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::gfx::frame::Surface;
+
+    #[test]
+    fn reflected_actors_and_emission_preserve_the_water_receiver() {
+        for glow in [false, true] {
+            let emits = if glow { vec!['a'] } else { Vec::new() };
+            let cell = Cell::from_ascii(&["a", "a"], &[('a', Rgb::WHITE)], &emits);
+            let mut f = Frame::new();
+            f.surface_lighting = true;
+            f.look.water_alpha = 1.0;
+            f.look.water_wave = 0.0;
+            f.look.water_depth_max = 8;
+            f.look.water_tint = Rgb::WHITE;
+            f.water_rect(15, 20, 12, 8, 1.0);
+            let receiver = Surface { normal: [0.1, 0.0, 0.995], height: 0.0, owner: 0, kind: 1 };
+            f.surfaces.fill(receiver);
+            f.reflect_sprite(&cell, (0, 1), 20, 20, &DrawOpts::default());
+            let i = 21 * W + 20;
+            assert!(f.albedo[i].luma() > 0.0 || f.emissive[i].luma() > 0.0);
+            assert_eq!(f.surfaces[i].normal, receiver.normal);
+            assert_eq!((f.surfaces[i].kind, f.surfaces[i].height), (1, 0.0));
+            assert!(!f.actor_pixels[i], "a reflection is still receiving water");
+        }
+    }
+
+    #[test]
+    fn a_reflection_cannot_paint_over_a_visible_actor_or_prop() {
+        let cell = Cell::from_ascii(&["a", "a"], &[('a', Rgb::WHITE)], &[]);
+        for actor in [false, true] {
+            let mut f = Frame::new();
+            f.surface_lighting = true;
+            f.look.water_alpha = 1.0;
+            f.look.water_wave = 0.0;
+            f.look.water_depth_max = 8;
+            f.water_rect(15, 20, 12, 8, 1.0);
+            let i = 21 * W + 20;
+            f.actor_pixels[i] = actor;
+            f.surfaces[i] = Surface { normal: [0.0, 1.0, 0.0], height: 8.0, owner: 3,
+                kind: if actor { 3 } else { 2 } };
+            f.albedo[i] = Rgb::new(0.8, 0.1, 0.1);
+            let old = f.albedo[i];
+            f.reflect_sprite(&cell, (0, 1), 20, 20, &DrawOpts::default());
+            assert_eq!(f.albedo[i], old);
+            assert_eq!(f.surfaces[i].owner, 3);
         }
     }
 }

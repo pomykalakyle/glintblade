@@ -5,8 +5,12 @@
 use super::art::{VIOLET, WATER};
 use super::paint::{DEEP, DEEP_WATER, Fields, PixMap, SHALLOW, deep_water_level};
 use super::{Decor, Kind};
-use crate::gfx::{Cell, Frame, H, Rgb, W, rgb};
+use crate::gfx::{Cell, Frame, H, Rgb, W, frame::Surface, rgb};
 use crate::util::{bayer4, hash2};
+
+mod idle;
+#[cfg(test)]
+mod surface_tests;
 
 /// Ripple grid cell size in world pixels. Heights are sampled bilinearly per pixel, so ring
 /// edges stay 1 px crisp even though the simulation runs at half resolution.
@@ -72,12 +76,15 @@ pub struct Water {
     source: Vec<Option<SourceCrest>>,
     /// Sparse horizontal surface catches, baked into the actual receiving water.
     currents: Vec<u8>,
+    idle: idle::Surface,
     mirrors: Vec<BankMirror>,
     gw: i32,
     gh: i32,
     cur: Vec<f32>,
     prev: Vec<f32>,
     wet: Vec<bool>,
+    /// Cardinal stencil links also test the pixel between the two sample centers.
+    links: Vec<u8>,
     active: Vec<usize>,
 }
 
@@ -266,7 +273,7 @@ impl Water {
         let mut wet = vec![false; (gw * gh) as usize];
         for gy in 0..gh {
             for gx in 0..gw {
-                let (x, y) = ((gx * CELL).min(pw - 1), (gy * CELL).min(ph - 1));
+                let (x, y) = ((gx * CELL + CELL / 2).min(pw - 1), (gy * CELL + CELL / 2).min(ph - 1));
                 wet[(gy * gw + gx) as usize] = bed[(y * pw + x) as usize] != 255;
             }
         }
@@ -283,6 +290,17 @@ impl Water {
                 }
             }
         }
+        let mut links = vec![0; wet.len()];
+        for &i in &active {
+            let (x, y) = (i as i32 % gw * CELL + CELL / 2, i as i32 / gw * CELL + CELL / 2);
+            for (offset, dx, dy, bit) in [(-1, -1, 0, 1), (1, 1, 0, 2), (-gw, 0, -1, 4), (gw, 0, 1, 8)] {
+                let j = (i as i32 + offset) as usize;
+                if wet[j] && bed[((y + dy) * pw + x + dx) as usize] != 255 {
+                    links[i] |= bit;
+                }
+            }
+        }
+        let idle = idle::Surface::new(pw, ph, &bed, &fl.d_land);
         Water {
             pw,
             ph,
@@ -292,12 +310,14 @@ impl Water {
             shore,
             source,
             currents,
+            idle,
             mirrors,
             gw,
             gh,
             cur: vec![0.0; (gw * gh) as usize],
             prev: vec![0.0; (gw * gh) as usize],
             wet,
+            links,
             active,
         }
     }
@@ -339,8 +359,8 @@ impl Water {
         for &i in &self.active {
             let c = self.cur[i];
             // Dry neighbours reflect the wave instead of draining the shoreline.
-            let n = |j: usize| if self.wet[j] { self.cur[j] } else { c };
-            let lap = n(i - 1) + n(i + 1) + n(i - gw) + n(i + gw) - 4.0 * c;
+            let n = |j: usize, bit| if self.links[i] & bit != 0 { self.cur[j] } else { c };
+            let lap = n(i - 1, 1) + n(i + 1, 2) + n(i - gw, 4) + n(i + gw, 8) - 4.0 * c;
             self.prev[i] = (2.0 * c - self.prev[i] + C2 * lap) * DAMP;
         }
         std::mem::swap(&mut self.cur, &mut self.prev);
@@ -359,9 +379,16 @@ impl Water {
         let ty = fy - y0 as f32;
         let i = (y0 * self.gw + x0) as usize;
         let g = self.gw as usize;
-        let a = self.cur[i] + (self.cur[i + 1] - self.cur[i]) * tx;
-        let b = self.cur[i + g] + (self.cur[i + g + 1] - self.cur[i + g]) * tx;
-        a + (b - a) * ty
+        let mut value = 0.0;
+        let mut weight = 0.0;
+        for (j, w) in [(i, (1.0-tx)*(1.0-ty)), (i+1, tx*(1.0-ty)),
+            (i+g, (1.0-tx)*ty), (i+g+1, tx*ty)] {
+            if self.wet[j] {
+                value += self.cur[j] * w;
+                weight += w;
+            }
+        }
+        if weight > 0.0001 { value / weight } else { 0.0 }
     }
 
     /// Surface slope toward the light (upper left) at a world pixel; > 0 = lit side of a ripple.
@@ -370,7 +397,9 @@ impl Water {
         let x = wx as f32 + 0.5;
         let y = wy as f32 + 0.5;
         let h0 = self.h(x, y);
-        (self.h(x + 1.0, y) - h0, self.h(x, y + 1.0) - h0)
+        let hx = if self.is_water(wx + 1, wy) { self.h(x + 1.0, y) } else { h0 };
+        let hy = if self.is_water(wx, wy + 1) { self.h(x, y + 1.0) } else { h0 };
+        (hx - h0, hy - h0)
     }
 
     /// Draw the water surface over the painted lakebed.
@@ -395,8 +424,8 @@ impl Water {
                 let (dx, dy) = self.slope(wx, wy);
                 let s = dx + dy;
                 // refraction: the bed wobbles under the ripples
-                let ox = (dx * 5.0).round().clamp(-2.0, 2.0) as i32;
-                let oy = (dy * 5.0).round().clamp(-2.0, 2.0) as i32;
+                let ox = (dx * 12.0).round().clamp(-2.0, 2.0) as i32;
+                let oy = (dy * 12.0).round().clamp(-2.0, 2.0) as i32;
                 let mut idx = if ox != 0 || oy != 0 {
                     let j = ((wy + oy).clamp(0, self.ph - 1) * self.pw
                         + (wx + ox).clamp(0, self.pw - 1)) as usize;
@@ -438,11 +467,11 @@ impl Water {
                     };
                 }
                 // ripple shading in crisp steps
-                let th = 0.085 + bayer4(wx, wy) * 0.008;
+                let th = 0.030 + bayer4(wx, wy) * 0.006;
                 let mut dark = false;
-                if s > th {
+                if !f.surface_lighting && s > th {
                     idx = (idx + 1).min(2);
-                } else if s < -th * 1.6 {
+                } else if !f.surface_lighting && s < -th * 1.6 {
                     idx = (idx - 1).max(0);
                     dark = true;
                 }
@@ -456,8 +485,26 @@ impl Water {
                 } else {
                     WATER[idx.clamp(0, 2) as usize]
                 };
+                let mut surface = surface.lerp(WATER[2], self.idle.accent(wx, wy, t) * 0.22);
+                // A thin moving catch makes a disturbance readable at native
+                // resolution. It follows the wave's zero crossing, without
+                // imposing a second painted light direction on its normal.
+                if f.surface_lighting && dx*dx + dy*dy > 0.028*0.028
+                    && self.h(wx as f32 + 0.5, wy as f32 + 0.5).abs() < 0.04 {
+                    surface = surface.lerp(if idx >= 2 { WATER[3] } else { WATER[2] }, 0.48);
+                }
                 let screen = sy as usize * W + sx as usize;
                 f.albedo[screen] = if glint { VIOLET[2] } else { surface };
+                if f.surface_lighting {
+                    // A water receiver stays at Z=0. Only its live ripple slope
+                    // changes facing; the actual ambient and occluded point lights
+                    // choose the bright side instead of a painted fixed light.
+                    let nx = (-dx * 1.4).clamp(-0.25, 0.25);
+                    let ny = (-dy * 1.4).clamp(-0.25, 0.25);
+                    let length = (nx*nx + ny*ny + 1.0).sqrt();
+                    f.surfaces[screen] = Surface { normal: [nx/length, ny/length, 1.0/length],
+                        height: 0.0, owner: 0, kind: 1 };
+                }
                 // Actors and gates share the real water plane. The landmarks use their
                 // column-specific reflection below, so region scenery opts out of this pass.
                 f.water[screen] = 255;
@@ -477,6 +524,7 @@ impl Water {
         x: f32,
         y: f32,
         flip: bool,
+        wobble_x: f32,
         emit_gain: f32,
         t: u64,
     ) {
@@ -487,6 +535,9 @@ impl Water {
         };
         let base_x = x.floor() as i32 - ax;
         let base_y = y.floor() as i32;
+        // A struck crystal moves above its fixed bank. Keep the mirror's source
+        // key and supporting rock in place; only its reflected sprite follows.
+        let sprite_offset = wobble_x.round() as i32;
         let tf = t as f32;
         let mirror = self
             .mirrors
@@ -505,7 +556,9 @@ impl Water {
                 let wob = if depth <= 2 {
                     0
                 } else {
-                    ((wy as f32 * 0.15 + tf * 0.025).sin() * 0.7).round() as i32
+                    let (rdx, _) = self.slope(wx, wy);
+                    ((wy as f32 * 0.15 + tf * 0.025).sin() * 0.7 + rdx * 6.0)
+                        .round() as i32
                 };
                 let (sx, sy) = (wx + wob - f.cam_x, wy - f.cam_y);
                 if self.is_water(wx + wob, wy)
@@ -521,7 +574,6 @@ impl Water {
             if hgt < 0 {
                 continue;
             }
-            let wy = base_y + hgt;
             // Broad unequal water intervals break the reflected vertical mass into a surface.
             let broken = if mirror.is_some() {
                 (9..=11).contains(&hgt)
@@ -534,19 +586,24 @@ impl Water {
             if broken {
                 continue;
             }
-            let (rdx, _) = self.slope(base_x + cell.w / 2, wy);
-            let wob = ((wy as f32 * 0.15 + tf * 0.025).sin() * 0.7 + rdx * 6.0).round() as i32;
             for cx in 0..cell.w {
                 let p = cell.px[(cy * cell.w + cx) as usize];
                 if !p.a {
                     continue;
                 }
                 let lx = if flip { cell.w - 1 - cx } else { cx };
-                let wx = base_x + lx + wob;
                 let line = mirror
                     .map(|m| m.lines[(base_x + lx - m.left) as usize])
                     .unwrap_or(base_y);
                 let wy = 2 * line - base_y + hgt;
+                let receiving_x = base_x + lx + sprite_offset;
+                // Raised island sources reflect much farther down than their
+                // original image row. Sample the water that actually receives
+                // this column, so a nearby wake distorts the visible reflection.
+                let (rdx, _) = self.slope(receiving_x, wy);
+                let wob = ((wy as f32 * 0.15 + tf * 0.025).sin() * 0.7 + rdx * 6.0)
+                    .round() as i32;
+                let wx = receiving_x + wob;
                 let sy = wy - f.cam_y;
                 if !(0..H as i32).contains(&sy) || !self.is_water(wx, wy) {
                     continue;
@@ -716,5 +773,143 @@ mod tests {
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod reflection_tests {
+    use super::*;
+    use crate::world::{Tile, Zone, ZoneId};
+
+    fn island_water() -> Water {
+        let mut zone = Zone::new(ZoneId::Glasswater, 8, 8);
+        zone.tiles.fill(Tile::Shallow);
+        let map = super::super::paint::classify(&zone);
+        let fields = super::super::paint::fields(&map);
+        zone.ground.fill(WATER[1]);
+        let mut water = Water::new(&map, &fields, &zone.ground, &[]);
+        // A small source stands 20px above the first receiving water row.
+        water.mirrors.push(BankMirror {
+            source: (64, 30),
+            left: 64,
+            lines: vec![50],
+            pixels: vec![(64, 50, 1), (64, 51, 1), (64, 52, 1), (64, 55, 1)],
+        });
+        water
+    }
+
+    fn glow_cell() -> Cell {
+        Cell::from_ascii(&["x"], &[('x', Rgb::WHITE)], &['x'])
+    }
+
+    fn draw(water: &Water, cell: &Cell, wobble: f32, camera: (i32, i32)) -> Frame {
+        let mut frame = Frame::new();
+        frame.cam_x = camera.0;
+        frame.cam_y = camera.1;
+        water.reflect(&mut frame, cell, (0, 0), 64.0, 30.0, false, wobble, 1.0, 0);
+        frame
+    }
+
+    fn glowing_world_pixels(frame: &Frame) -> Vec<(i32, i32)> {
+        frame
+            .emissive
+            .iter()
+            .enumerate()
+            .filter(|(_, color)| color.luma() > 0.0)
+            .map(|(i, _)| ((i % W) as i32 + frame.cam_x, (i / W) as i32 + frame.cam_y))
+            .collect()
+    }
+
+    #[test]
+    fn island_sprite_ripples_follow_receiving_water_instead_of_the_source_row() {
+        let mut water = island_water();
+        let cell = glow_cell();
+        let rest = glowing_world_pixels(&draw(&water, &cell, 0.0, (0, 0)));
+        assert_eq!(rest.len(), 1);
+        assert_eq!(rest[0].1, 70);
+
+        water.poke(66.0, 70.0, 4.0, 3.0);
+        assert!(water.slope(64, 70).0.abs() > 0.1);
+        let disturbed = glowing_world_pixels(&draw(&water, &cell, 0.0, (0, 0)));
+        assert_ne!(
+            disturbed, rest,
+            "a wake beneath the visible mirror did not move it"
+        );
+        assert_eq!(
+            disturbed,
+            glowing_world_pixels(&draw(&water, &cell, 0.0, (7, 9))),
+            "the same receiving water changed when the camera moved"
+        );
+
+        water.cur.fill(0.0);
+        water.prev.fill(0.0);
+        water.poke(66.0, 30.0, 4.0, 3.0);
+        assert!(water.slope(64, 30).0.abs() > 0.1);
+        assert_eq!(
+            rest,
+            glowing_world_pixels(&draw(&water, &cell, 0.0, (0, 0))),
+            "a remote ripple under the original source row distorted the raised mirror"
+        );
+    }
+
+    #[test]
+    fn reflected_bank_follows_local_wakes_while_its_contact_stays_attached() {
+        let mut water = island_water();
+        let empty = Cell::from_ascii(&["."], &[], &[]);
+        let rest = draw(&water, &empty, 0.0, (0, 0));
+        water.poke(66.0, 55.0, 4.0, 3.0);
+        let disturbed = draw(&water, &empty, 0.0, (0, 0));
+        for y in 50..=52 {
+            assert_eq!(rest.albedo[y * W + 64], WATER[1]);
+            assert_eq!(
+                disturbed.albedo[y * W + 64],
+                WATER[1],
+                "the supporting bank detached at its physical waterline"
+            );
+        }
+        assert_ne!(
+            &rest.albedo[55 * W..56 * W],
+            &disturbed.albedo[55 * W..56 * W],
+            "a wake beneath the reflected bank did not disturb its lower silhouette"
+        );
+        let displaced_x = (0..W)
+            .find(|&x| disturbed.albedo[55 * W + x] == WATER[1])
+            .expect("the lower reflected bank still has a receiving water pixel");
+        water.bed[55 * water.pw as usize + displaced_x] = 255;
+        let clipped = draw(&water, &empty, 0.0, (0, 0));
+        assert_eq!(
+            clipped.albedo[55 * W + displaced_x],
+            Rgb::BLACK,
+            "bank distortion painted over dry terrain"
+        );
+    }
+
+    #[test]
+    fn crystal_wobble_moves_its_reflection_without_moving_the_bank_or_painting_dry_land() {
+        let mut water = island_water();
+        let cell = glow_cell();
+        let rest = draw(&water, &cell, 0.0, (0, 0));
+        let origin = glowing_world_pixels(&rest)[0];
+        for wobble in [-1.0, 1.0] {
+            let shifted = draw(&water, &cell, wobble, (0, 0));
+            assert_eq!(
+                glowing_world_pixels(&shifted),
+                vec![(origin.0 + wobble as i32, origin.1)]
+            );
+            for y in 50..=55 {
+                assert_eq!(
+                    &rest.albedo[y * W..(y + 1) * W],
+                    &shifted.albedo[y * W..(y + 1) * W],
+                    "crystal wobble dragged its supporting bank"
+                );
+            }
+        }
+        let target = (origin.0 + 1, origin.1);
+        water.bed[(target.1 * water.pw + target.0) as usize] = 255;
+        let clipped = draw(&water, &cell, 1.0, (0, 0));
+        assert!(
+            glowing_world_pixels(&clipped).is_empty(),
+            "the shifted crystal reflection spilled onto a dry bank"
+        );
     }
 }

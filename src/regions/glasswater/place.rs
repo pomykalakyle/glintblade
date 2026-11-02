@@ -322,7 +322,7 @@ mod tests {
                 let map = super::super::paint::classify(&zone);
                 let fields = super::super::paint::fields(&map);
                 let water = super::super::water::Water::new(&map, &fields, &zone.ground, &decor);
-                let region = super::super::Glasswater { decor, water, life: Life::new(), player: (0.0, 0.0), t: 0 };
+                let region = super::super::Glasswater { decor, water, life: Life::new(), player: (0.0, 0.0), t: 0, water_movers: Vec::new(), water_hit_ids: Vec::new() };
                 let mut frame = Frame::new();
                 frame.surface_lighting = true;
                 region.draw_item(&zone, &mut frame, 0, 90);

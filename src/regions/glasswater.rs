@@ -14,7 +14,7 @@ mod paint;
 mod place;
 mod water;
 
-use crate::combat::{Hit, Team};
+use crate::combat::{Hit, Shape, Team};
 use crate::fx::Fx;
 use crate::gfx::{Cell, DrawOpts, Frame, Rgb, rgb};
 use crate::world::{LightOccluder, Prop, Region, RegionCtx, TILE, Tile, Zone, ZoneId};
@@ -156,7 +156,7 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     let water = water::Water::new(&m, &fl, &z.ground, &decor);
     let mut life = life::Life::new();
     place::drips(&mut life);
-    (z, Box::new(Glasswater { decor, water, life, player: (0.0, 0.0), t: 0 }))
+    (z, Box::new(Glasswater { decor, water, life, player: (0.0, 0.0), t: 0, water_movers: Vec::new(), water_hit_ids: Vec::new() }))
 }
 
 /// An invisible prop that only blocks movement (for code-drawn crystals and rocks).
@@ -168,26 +168,94 @@ pub fn blocker(z: &mut Zone, decor: &Decor, depth: i32) -> usize {
     z.props.len() - 1
 }
 
+#[derive(Clone, Copy)]
+struct WaterMover {
+    position: (f32, f32),
+    travel: f32,
+    wet: bool,
+}
+
 pub struct Glasswater {
     decor: Vec<Decor>,
     water: water::Water,
     life: life::Life,
     player: (f32, f32),
     t: u64,
+    water_movers: Vec<WaterMover>,
+    water_hit_ids: Vec<u32>,
+}
+
+impl Glasswater {
+    /// Contact spacing follows displacement, so pushing against a bank does not make waves.
+    fn wade(&mut self, zone: &Zone, movers: &[(f32, f32, f32)]) {
+        for (i, &(x, y, _speed)) in movers.iter().enumerate() {
+            let wet = zone.tile_at(x, y) == Tile::Shallow
+                && self.water.is_water(x.floor() as i32, y.floor() as i32);
+            let previous = self.water_movers.get(i).copied();
+            let mut track = previous.unwrap_or(WaterMover { position: (x, y), travel: 0.0, wet });
+            if let Some(previous) = previous {
+                let distance = (x - previous.position.0).hypot(y - previous.position.1);
+                // Discontinuous positions can be a respawn or an enemy removed from the list.
+                if distance > 12.0 || !wet {
+                    track.travel = 0.0;
+                } else if distance > 0.05 {
+                    track.travel += distance;
+                    if !previous.wet || track.travel >= 5.0 {
+                        let strength = 0.27 + distance.min(4.0) * 0.07;
+                        let radius = 2.8 + distance.min(4.0) * 0.10;
+                        self.water.poke(x, y, radius, strength);
+                        track.travel %= 5.0;
+                    }
+                }
+            }
+            track.position = (x, y);
+            track.wet = wet;
+            if let Some(slot) = self.water_movers.get_mut(i) { *slot = track; }
+            else { self.water_movers.push(track); }
+        }
+        self.water_movers.truncate(movers.len());
+    }
+
+    /// Project the combat shape (five pixels above the feet) onto the receiving water.
+    /// Sampling is bounded, clipped to actual wet pixels, and happens once per swing.
+    fn slash_water(&mut self, hit: &Hit) {
+        if self.water_hit_ids.contains(&hit.id) { return; }
+        let (x0, y0, x1, y1) = match hit.shape {
+            Shape::Circle { x, y, r } => (x - r, y - r, x + r, y + r),
+            Shape::Arc { x, y, r1, .. } => (x - r1, y - r1, x + r1, y + r1),
+            Shape::Capsule { x0, y0, x1, y1, r } =>
+                (x0.min(x1) - r, y0.min(y1) - r, x0.max(x1) + r, y0.max(y1) + r),
+        };
+        let nx = ((x1 - x0) / 5.0).ceil().clamp(1.0, 12.0) as usize;
+        let ny = ((y1 - y0) / 5.0).ceil().clamp(1.0, 12.0) as usize;
+        let mut contacts = Vec::new();
+        for gy in 0..ny {
+            let y = y0 + (gy as f32 + 0.5) * (y1 - y0) / ny as f32;
+            for gx in 0..nx {
+                let x = x0 + (gx as f32 + 0.5) * (x1 - x0) / nx as f32;
+                if hit.shape.touches(x, y, 0.0)
+                    && self.water.is_water(x.floor() as i32, (y + 5.0).floor() as i32) {
+                    contacts.push((x, y + 5.0));
+                }
+            }
+        }
+        let count = contacts.len().min(12);
+        if count == 0 { return; }
+        for i in 0..count {
+            let (x, y) = contacts[i * contacts.len() / count];
+            self.water.poke(x, y, if hit.heavy { 3.4 } else { 2.8 },
+                if hit.heavy { 0.42 } else { 0.30 });
+        }
+        self.water_hit_ids.push(hit.id);
+        if self.water_hit_ids.len() > 32 { self.water_hit_ids.remove(0); }
+    }
 }
 
 impl Region for Glasswater {
     fn update(&mut self, zone: &mut Zone, ctx: &RegionCtx, fx: &mut Fx) {
         self.t = ctx.t;
         self.player = ctx.player;
-        // wading: everything moving through water pushes rings out from its feet
-        for &(x, y, speed) in ctx.movers {
-            if zone.tile_at(x, y) == Tile::Shallow && speed > 0.15 && self.water.is_water(x as i32, y as i32) {
-                if ctx.t % 6 == 0 {
-                    self.water.poke(x, y, 2.5, 0.16 + speed.min(3.0) * 0.025);
-                }
-            }
-        }
+        self.wade(zone, ctx.movers);
         self.life.update(ctx, fx, &mut self.water);
         self.water.step(ctx.cam);
         for d in self.decor.iter_mut() {
@@ -201,6 +269,7 @@ impl Region for Glasswater {
         if hit.team != Team::Player {
             return;
         }
+        self.slash_water(hit);
         for d in self.decor.iter_mut() {
             if !d.alive || !matches!(d.kind, Kind::Crystal | Kind::Sprig) {
                 continue;
@@ -260,7 +329,7 @@ impl Region for Glasswater {
             if !f.visible(x, ry, w, h + 4.0 + (ry - d.y) * 2.0, 4.0) {
                 continue;
             }
-            self.water.reflect(f, &d.cell, d.anchor, d.x, d.y, d.flip, d.emit_gain(t), t);
+            self.water.reflect(f, &d.cell, d.anchor, d.x, d.y, d.flip, d.wobble_x(), d.emit_gain(t), t);
             let _ = y;
         }
     }
@@ -334,6 +403,80 @@ mod tests {
     use super::*;
     use std::collections::VecDeque;
 
+    fn interaction_fixture() -> (Zone, Glasswater) {
+        let mut zone = Zone::new(ZoneId::Glasswater, 16, 16);
+        zone.tiles.fill(Tile::Shallow);
+        for y in 0..zone.th { for x in 9..zone.tw { zone.set_tile(x, y, Tile::Wall); } }
+        let m = paint::classify(&zone);
+        zone.set_surface_tiles(m.cls.iter().map(|&c| match c {
+            paint::SHALLOW => Tile::Shallow,
+            paint::DEEP => Tile::Deep,
+            paint::FLOOR => Tile::Floor,
+            _ => Tile::Wall,
+        }).collect());
+        let fields = paint::fields(&m);
+        zone.ground.fill(art::WATER[1]);
+        let water = water::Water::new(&m, &fields, &zone.ground, &[]);
+        (zone, Glasswater { decor: Vec::new(), water, life: life::Life::new(),
+            player: (0.0, 0.0), t: 0, water_movers: Vec::new(), water_hit_ids: Vec::new() })
+    }
+
+    fn interaction_slopes(region: &Glasswater) -> Vec<(f32, f32)> {
+        (32..140).flat_map(|y| (32..140).map(move |x| region.water.slope(x, y))).collect()
+    }
+
+    /// Real walking produces a wake; continuing to press into the wall adds no phantom energy.
+    #[test]
+    fn water_contacts_follow_actual_player_motion_and_stop_at_collision() {
+        use crate::entities::{Player, player::PlayerCtx};
+        let (mut zone, mut moving) = interaction_fixture();
+        let (mut quiet_zone, mut quiet) = interaction_fixture();
+        let mut player = Player::new(80.0, 80.0);
+        let mut player_fx = Fx::new(5);
+        let mut fx = Fx::new(6);
+        let mut quiet_fx = Fx::new(6);
+        let input = crate::input::Input { mv: (1.0, 0.0), ..Default::default() };
+        let mut peak = 0.0f32;
+        for t in 1..=80 {
+            player.update(&input, &mut PlayerCtx { zone: &zone, fx: &mut player_fx, hits: &mut Vec::new() });
+            let movers = [(player.body.x, player.body.y, player.body.vx.hypot(player.body.vy))];
+            let ctx = RegionCtx { t, player: (player.body.x, player.body.y), movers: &movers, cam: (0, 0) };
+            moving.update(&mut zone, &ctx, &mut fx);
+            quiet.update(&mut quiet_zone, &ctx, &mut quiet_fx);
+            for (x, y) in interaction_slopes(&moving) { peak = peak.max(x.abs() + y.abs()); }
+        }
+        assert!(peak > 0.03, "walking failed to produce a readable water slope: {peak}");
+        let stopped = (player.body.x, player.body.y);
+        for t in 81..=140 {
+            player.update(&input, &mut PlayerCtx { zone: &zone, fx: &mut player_fx, hits: &mut Vec::new() });
+            let movers = [(player.body.x, player.body.y, player.body.vx.hypot(player.body.vy))];
+            moving.update(&mut zone, &RegionCtx { t, player: stopped, movers: &movers, cam: (0, 0) }, &mut fx);
+            quiet.update(&mut quiet_zone, &RegionCtx { t, player: stopped, movers: &[], cam: (0, 0) }, &mut quiet_fx);
+            assert_eq!((player.body.x, player.body.y), stopped, "player had not reached the bank");
+            assert!(player.body.vx > 1.0, "test must retain an attempted movement velocity");
+            assert_eq!(interaction_slopes(&moving), interaction_slopes(&quiet),
+                "collision-blocked motion injected a phantom wake");
+        }
+    }
+
+    /// A sword stirs actual receiving water once per hit; air, dry banks and enemies do not.
+    #[test]
+    fn sword_water_contacts_are_wet_clipped_and_once_per_hit() {
+        let (mut zone, mut region) = interaction_fixture();
+        let mut fx = Fx::new(7);
+        let hit = Hit::new(Shape::Circle { x: 80.0, y: 75.0, r: 12.0 }, Team::Player, 1, 91);
+        region.slash(&mut zone, &hit, &mut fx);
+        let first = interaction_slopes(&region);
+        assert!(first.iter().any(|&(x, y)| x.abs() + y.abs() > 0.03), "sword did not disturb the water");
+        for _ in 0..12 { region.slash(&mut zone, &hit, &mut fx); }
+        assert_eq!(interaction_slopes(&region), first, "active sword frames stacked the same wave");
+        region.slash(&mut zone,
+            &Hit::new(Shape::Circle { x: 80.0, y: 75.0, r: 12.0 }, Team::Enemy, 1, 92), &mut fx);
+        region.slash(&mut zone,
+            &Hit::new(Shape::Circle { x: 220.0, y: 175.0, r: 12.0 }, Team::Player, 1, 93), &mut fx);
+        assert_eq!(interaction_slopes(&region), first, "non-water contact injected a wave");
+    }
+
     /// A shattered native sprig disappears from the live light and shadow
     /// submissions in the same frame, including its optional collision proxy.
     #[test]
@@ -349,7 +492,7 @@ mod tests {
         let prop = blocker(&mut zone, &d, 4);
         d.prop = Some(prop);
         let water = water::Water::new(&m, &fields, &zone.ground, std::slice::from_ref(&d));
-        let mut region = Glasswater { decor: vec![d], water, life: life::Life::new(), player: (0.0, 0.0), t: 0 };
+        let mut region = Glasswater { decor: vec![d], water, life: life::Life::new(), player: (0.0, 0.0), t: 0, water_movers: Vec::new(), water_hit_ids: Vec::new() };
         let mut f = Frame::new();
         f.surface_lighting = true;
         region.light(&zone, &mut f, 0);

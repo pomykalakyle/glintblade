@@ -29,19 +29,25 @@ fn fractional_native_light_planes_match_the_drawn_sprite_raster() {
 }
 
 #[test]
-fn fallback_rock_relief_preserves_authored_heights_native_normals_and_sky() {
+fn cinder_uses_authored_relief_without_collision_box_geometry() {
     let mut zone = small(ZoneId::Cinder);
     zone.set_tile(4, 4, Tile::Wall);
     zone.set_tile(5, 5, Tile::Void);
     zone.gset_plane_surface(65, 65, [0.2, 0.3, 0.9], 7.0);
+    zone.gset_plane_surface(70, 70, [0.0, 0.0, 1.0], 8.0);
+    zone.gset_plane_surface(82, 82, [0.0, 1.0, 0.0], 0.0);
     zone.gset(81, 81, crate::world::HOLE);
     let field = Field::bake(&zone, &NoRegion, geometry_key(&zone));
     let at = |x, y| field.terrain[(y * zone.pw + x) as usize];
     assert_eq!(at(65, 65), zone.ground_surfaces[(65 * zone.pw + 65) as usize],
         "a retained native surface must not receive the fallback a second time");
-    assert_eq!(at(70, 70).height, 18, "wall detail cannot flatten its authored altitude");
-    assert_eq!(at(82, 82).height, 20, "opaque void-edge rock keeps its existing face height");
-    assert_ne!(at(70, 70).normal, at(71, 70).normal, "the opaque wall receives actual varying relief");
+    assert_eq!(at(70, 70).height, 8, "the painted eight-pixel masonry is not an inferred 18px wall");
+    assert_eq!(at(82, 82).height, 0, "hanging faces remain below the walkable datum");
+    assert!(at(82, 82).upright);
+    assert_eq!(at(71, 70), TerrainSurface::new([0.0, 0.0, 1.0], 0.0),
+        "collision alone cannot raise or tilt the default receiving plane");
+    assert_eq!(field.cold_form[(70 * zone.pw + 70) as usize], 255,
+        "a collision box cannot add a second broad-form shade over authored material");
     assert!(!at(81, 81).present(), "sky retains no geometry or texture");
 }
 
@@ -143,7 +149,7 @@ fn summit_collision_companions_do_not_add_planes() {
 /// Authored terrain does not acquire a box plane from an invisible collision tile.
 #[test]
 fn authored_terrain_ignores_collision_grid_planes() {
-    for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Summit] {
+    for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Cinder, ZoneId::Summit] {
         let mut zone = small(id);
         let before = Field::bake(&zone, &NoRegion, geometry_key(&zone));
         zone.set_tile(8, 7, Tile::Wall);
@@ -151,6 +157,7 @@ fn authored_terrain_ignores_collision_grid_planes() {
         assert_eq!(before.light, after.light);
         assert_eq!(before.raised, after.raised);
         assert_eq!(before.contact, after.contact);
+        assert_eq!(before.dark, after.dark);
         assert_eq!(before.terrain, after.terrain);
     }
 }

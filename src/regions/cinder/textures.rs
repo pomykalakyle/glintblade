@@ -336,8 +336,15 @@ fn cliff(z: &mut Zone, kinds: &Grid<u8>, s: &Sheet) {
                 let sy = face_top + yy - top;
                 let p = c.at(sx, sy);
                 if p.a {
+                    let retained = z.ground_surfaces[(yy * z.pw + x) as usize];
                     z.gset(x, yy, p.c);
-                    z.gset_surface(x, yy, c, sx, sy, yy >= top, if yy < top { 0.0 } else { (draw_end - yy).max(0) as f32 });
+                    // Source UVs retain the material normal; its painter owns the
+                    // macro altitude. Hanging island art is below the floor, while
+                    // an inaccessible mesa cap stays above its real visible face.
+                    let height = if k == K_ISLEFACE { 0.0 }
+                        else if yy < top { retained.height as f32 }
+                        else { (end - yy - 1).max(0) as f32 };
+                    z.gset_surface(x, yy, c, sx, sy, yy >= top, height);
                 } else if k == K_ISLEFACE && yy - top > depth * 2 / 3 {
                     z.gset(x, yy, HOLE);
                 } else if yy >= end {

@@ -173,6 +173,8 @@ fn band(x: i32, seed: u32) -> (i32, i32, i32) {
 
 /// Paint the island, cliffs, masonry, ash, and banks at native resolution.
 pub fn paint(z: &mut Zone) -> Painted {
+    z.terrain_volumes.clear();
+    z.ground_surfaces.fill(Default::default());
     let (tw, th) = map_size();
     assert_eq!((tw, th), (z.tw, z.th));
     let (pw, ph) = (z.pw, z.ph);
@@ -769,15 +771,72 @@ pub fn paint(z: &mut Zone) -> Painted {
 
     // Native material art overwrites this procedural geometry at exactly its copied
     // UVs. Flush workshop pigment preserves the substrate's native or authored normal.
+    raised_surfaces(z, &kind);
+    // Register the whole original solid cap before a decorative mineral sprite
+    // can replace part of its normal field. Its base remains solid underneath.
+    let caps: Vec<_> = z.ground_surfaces.iter().map(|s|
+        (s.height > 0 && !s.upright).then_some(s.height)).collect();
+    z.add_cap_volumes(&caps);
     super::normals::fill(z, &kind, &relief);
     super::textures::apply(z, &kind);
     super::normals::detail(z, &kind);
+    // Painted top planes belong to solid raised stone, not hollow sheets that
+    // a source below their cap height may shine through from the side.
+    let caps: Vec<_> = z.ground_surfaces.iter().enumerate().map(|(i, s)| {
+        let (x, y) = (i as i32 % z.pw, i as i32 / z.pw);
+        (kind.v[i] == K_DAIS && z.ground[i].r >= 0.0 && s.height > 0 && !s.upright
+            && z.tile_at(x as f32, y as f32) == Tile::Wall
+            // Broken shrine roofs overhang their native open interior in a
+            // few columns. Extrude only actual solid support, preserving the
+            // real opening rather than manufacturing an invisible obstruction.
+            && z.tile_at(x as f32, (y + s.height as i32) as f32) == Tile::Wall)
+            .then_some(s.height)
+    }).collect();
+    z.add_cap_volumes(&caps);
 
     Painted {
         kind,
         lava_full,
         lava_draw,
         fall,
+    }
+}
+
+/// Retain the same vertical runs used to paint the broken walls and basalt mesas.
+/// Tops sit above the walkable zero plane; their south faces descend to that plane.
+/// Island undersides and overhanging banks lie below it and use its unsigned lower
+/// limit, never a positive height that could occlude or receive light above a deck.
+fn raised_surfaces(z: &mut Zone, kinds: &Grid<u8>) {
+    for x in 0..z.pw {
+        let mut y = 0;
+        while y < z.ph {
+            let k = kinds.at(x, y);
+            let pair = match k {
+                K_ROCKTOP | K_ROCKFACE => Some((K_ROCKTOP, K_ROCKFACE)),
+                K_WALLTOP | K_WALLFACE => Some((K_WALLTOP, K_WALLFACE)),
+                _ => None,
+            };
+            let Some((top_kind, face_kind)) = pair else {
+                if matches!(k, K_ISLEFACE | K_BANK) && z.gget(x, y).r >= 0.0 {
+                    z.gset_plane_surface(x, y, [0.0, 1.0, 0.0], 0.0);
+                }
+                y += 1;
+                continue;
+            };
+            let start = y;
+            while y < z.ph && matches!(kinds.at(x, y), v if v == top_kind || v == face_kind) {
+                y += 1;
+            }
+            let end = y;
+            let lip = (start..end).find(|&yy| kinds.at(x, yy) == face_kind).unwrap_or(end);
+            let height = (end - lip) as f32;
+            for yy in start..end {
+                if z.gget(x, yy).r < 0.0 { continue; }
+                let top = kinds.at(x, yy) == top_kind;
+                z.gset_plane_surface(x, yy, if top { [0.0, 0.0, 1.0] } else { [0.0, 1.0, 0.0] },
+                    if top { height } else { (end - yy - 1).max(0) as f32 });
+            }
+        }
     }
 }
 
@@ -1197,5 +1256,74 @@ fn paint_details(
             gx += cell;
         }
         gy += cell;
+    }
+}
+
+#[cfg(test)]
+mod terrain_geometry_tests {
+    use super::*;
+
+    #[test]
+    fn finished_cinder_walls_have_real_altitudes_and_hanging_art_stays_below_floor() {
+        let (tw, th) = map_size();
+        let mut z = Zone::new(crate::world::ZoneId::Cinder, tw, th);
+        let painted = paint(&mut z);
+        eprintln!("Cinder terrain volumes: {}", z.terrain_volumes.len());
+        let (mut caps, mut faces, mut undersides, mut missing) = (0, 0, 0, 0);
+        for y in 0..z.ph {
+            for x in 0..z.pw {
+                let i = (y * z.pw + x) as usize;
+                if z.ground[i].r < 0.0 || matches!(painted.kind.at(x, y), K_LAVA | K_FALL) { continue; }
+                let s = z.ground_surfaces[i];
+                missing += usize::from(!s.present());
+                match painted.kind.at(x, y) {
+                    K_WALLTOP => {
+                        assert!(s.present() && !s.upright && s.height > 0,
+                            "real broken-wall cap missing at {x},{y}: {s:?}");
+                        caps += 1;
+                    }
+                    K_WALLFACE => {
+                        assert!(s.present() && s.upright, "real wall face missing at {x},{y}");
+                        faces += 1;
+                    }
+                    K_ISLEFACE | K_BANK | K_VOID => {
+                        assert_eq!(s.height, 0, "below-floor art became a raised caster at {x},{y}");
+                        assert!(s.present(), "below-floor art has no receiver at {x},{y}");
+                        undersides += 1;
+                    }
+                    _ => {}
+                }
+            }
+        }
+        assert_eq!(missing, 0, "every opaque dry terrain pixel needs retained geometry");
+        assert!(caps > 3000 && faces > 6000 && undersides > 30000,
+            "exercise real walls and outer cliffs: {caps}/{faces}/{undersides}");
+        for volume in &z.terrain_volumes {
+            for y in volume.min[1] as i32..volume.max[1] as i32 {
+                for x in volume.min[0] as i32..volume.max[0] as i32 {
+                    assert_eq!(z.tile_at(x as f32 + 0.5, y as f32 + 0.5), Tile::Wall,
+                        "solid cap mass has no real stone support at {x},{y}");
+                }
+            }
+        }
+        let at = |x, y| z.ground_surfaces[(y * z.pw + x) as usize];
+        assert!(at(480, 424).height > 0, "known source-ray blocker must survive into terrain occlusion");
+        let (geometry, volumes) = (z.ground_surfaces.clone(), z.terrain_volumes.clone());
+        paint(&mut z);
+        assert_eq!(z.ground_surfaces, geometry, "repainting cannot compound material normals");
+        assert_eq!(z.terrain_volumes, volumes, "repainting cannot retain stale or duplicate terrain masses");
+    }
+
+    #[test]
+    fn southern_edge_probe_reaches_the_actual_visible_boundary() {
+        let mut p = crate::play::Play::new(crate::world::ZoneId::Cinder,
+            &crate::play::PlayOpts { god: true, peaceful: true });
+        p.player.respawn(620.0, 760.0);
+        let mut fx = crate::fx::Fx::new(7);
+        let input = crate::input::Input { mv: (0.0, 1.0), ..Default::default() };
+        for _ in 0..180 { p.update(&input, &mut fx); }
+        let (x, y) = (p.player.body.x, p.player.body.y);
+        eprintln!("Cinder southern edge probe: {x},{y}");
+        assert!(!p.zone.blocked(x, y, 4.0) && p.zone.blocked(x, y + 1.0, 4.0));
     }
 }

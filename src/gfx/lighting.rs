@@ -618,7 +618,8 @@ impl Field {
         let mut planes = Planes::new(f.clip);
         let walls = f.clip.expand(24).clamp(z);
         // These regions paint curved, pixel-defined faces that deliberately differ from collision tiles.
-        let authored_terrain = matches!(z.id, ZoneId::Bloomwild | ZoneId::Glasswater | ZoneId::Summit);
+        let authored_terrain = matches!(z.id,
+            ZoneId::Bloomwild | ZoneId::Glasswater | ZoneId::Cinder | ZoneId::Summit);
         for y in walls.y0..walls.y1 {
             for x in walls.x0..walls.x1 {
                 let i = (y * z.pw + x) as usize;

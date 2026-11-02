@@ -27,15 +27,29 @@ pub(super) fn apply(zone: &mut Zone, map: &PixMap, fields: &Fields) {
             } else {
                 [0.0, 0.0, 1.0]
             };
-            let mut surface = TerrainSurface::new(
-                terrain_detail::normal(material, x, y, base),
-                source.height as f32,
-            );
+            let normal = if material == Material::Stone {
+                let (stone, mortar) = bridge_stone(x, y);
+                terrain_detail::masonry(x, y, base, stone, mortar)
+            } else { terrain_detail::normal(material, x, y, base) };
+            let mut surface = TerrainSurface::new(normal, source.height as f32);
             if source.present() { surface.upright = source.upright; }
             zone.ground_surfaces[i] = surface;
         }
     }
     zone.invalidate_lighting();
+}
+
+/// Same running bonds and nine-pixel landing blocks as paint::bridge.
+fn bridge_stone(x: i32, y: i32) -> (u32, bool) {
+    let (lx, ly) = (x - 47 * 16, y - 15 * 16);
+    if lx < 9 || lx >= 12 * 16 - 9 {
+        let row = ly.div_euclid(11);
+        return (crate::util::hash2(lx.div_euclid(9), row, 9421).to_bits(), ly.rem_euclid(11) == 10);
+    }
+    let row = ly.div_euclid(8);
+    let bond = lx + row * 11;
+    (crate::util::hash2(bond.div_euclid(23), row, 9422).to_bits(),
+        ly.rem_euclid(8) == 7 || bond.rem_euclid(23) == 22 || ly == 0 || ly == 29)
 }
 
 fn material_at(map: &PixMap, fields: &Fields, x: i32, y: i32) -> Option<Material> {
@@ -89,7 +103,8 @@ mod tests {
                 };
                 let n = zone.ground_surfaces[i].normal.map(|v| v as f32 / 127.0);
                 count[bucket] += 1;
-                if n[0].hypot(n[1]) > 0.06 {
+                let threshold = match bucket { 0 => 0.06, 1 => 0.025, _ => 0.015 };
+                if n[0].hypot(n[1]) > threshold {
                     relief[bucket] += 1;
                 }
                 // Two opposite physical light positions over the same rock
@@ -108,10 +123,12 @@ mod tests {
             );
             let rms = (response[bucket] / count[bucket] as f32).sqrt();
             assert!(
-                rms > 0.055,
+                rms > if bucket == 0 { 0.055 } else { 0.025 },
                 "material {bucket} has imperceptible directional response: {rms}"
             );
         }
+        assert!(response[1] / (count[1] as f32) < response[0] / (count[0] as f32) * 0.35,
+            "water-worn receiving banks must remain smoother than dry cave rock");
 
         let albedo = zone.ground.clone();
         let collision = zone.surface_tiles.clone();
@@ -145,6 +162,24 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[test]
+    fn actual_bridge_mortar_retains_its_authored_planes_after_material_wear() {
+        let (mut z, _) = super::super::build();
+        let map = paint::classify(&z);
+        let fields = paint::fields(&map);
+        paint::bridge(&mut z, &map);
+        let before = z.ground_surfaces.clone();
+        apply(&mut z, &map, &fields);
+        let mut mortar = 0;
+        for y in 242..269 { for x in 762..934 {
+            if !bridge_stone(x, y).1 { continue; }
+            let i = (y * z.pw + x) as usize;
+            assert_eq!(z.ground_surfaces[i], before[i], "wear crossed the authored deck mortar at {x},{y}");
+            mortar += 1;
+        }}
+        assert!(mortar > 500, "sample the physical bridge's horizontal and staggered joints");
     }
 
     #[test]

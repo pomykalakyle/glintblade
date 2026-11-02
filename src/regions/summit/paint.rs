@@ -47,15 +47,23 @@ fn in_rect(r: (i32, i32, i32, i32), x: i32, y: i32) -> bool {
 
 /// Paint all platform tops and undersides, then build the walkable collision grid.
 pub fn paint(z: &mut Zone) {
+    z.terrain_volumes.clear();
     let mut c = paint_geometry(z);
     walkable_surfaces(&mut c);
     material_surfaces(&mut c);
+    // The north dais and low bridge parapet have above-floor caps. Platform
+    // undersides remain below zero and cannot be extruded into floating walls.
+    let caps: Vec<_> = c.z.ground_surfaces.iter().enumerate().map(|(i, s)| {
+        (c.z.ground[i].r >= 0.0 && s.height > 0 && !s.upright).then_some(s.height)
+    }).collect();
+    c.z.add_cap_volumes(&caps);
 }
 
 /// Keep the authored color/collision pass independent of its final receiver metadata.
 fn paint_geometry(z: &mut Zone) -> Canvas<'_> {
     let (pw, ph) = (z.pw, z.ph);
     z.ground.fill(HOLE);
+    z.ground_surfaces.fill(Default::default());
     let mut lab = vec![0u8; (pw * ph) as usize];
     for y in 0..ph {
         for x in 0..pw {
@@ -108,6 +116,18 @@ fn paint_geometry(z: &mut Zone) -> Canvas<'_> {
         .map(|&l| if l != 0 { Tile::Floor } else { Tile::Void })
         .collect();
     c.z.set_surface_tiles(surface);
+    // The visible parapet rises from the first deck row. Its one-pixel solid
+    // footing shares the same world strip as the cap mass; Glint's feet stop
+    // against the stone instead of entering its base from the deck side.
+    for x in BRIDGE.0..BRIDGE.2 {
+        if c.lab(x, BRIDGE.1) == L_BRIDGE && c.lab(x, BRIDGE.1 - 1) == 0
+            && c.get(x, BRIDGE.1 - 1).r >= 0.0
+        {
+            let i = (BRIDGE.1 * c.z.pw + x) as usize;
+            c.z.surface_tiles.as_mut().unwrap()[i] = Tile::Wall;
+            c.z.gset_plane_surface(x, BRIDGE.1, [0.0, 1.0, 0.0], 0.0);
+        }
+    }
     c
 }
 
@@ -229,7 +249,10 @@ fn faces(c: &mut Canvas) {
                 c.set(x, yy, col);
                 let nx = platform_of(l).map_or(0.0, |e| ((x as f32 + 0.5 - e.cx) / e.rx).clamp(-0.98, 0.98));
                 let front = [nx, (1.0 - nx * nx).sqrt()];
-                let height = (hf + ud - v).max(0) as f32;
+                // Every platform top uses the walkable zero plane. This masonry
+                // and its hanging rock are below it, not raised caps above Glint.
+                // Retain the unsigned lower limit and the authored upright normal.
+                let height = 0.0;
                 c.z.gset_plane_surface(x, yy, if v == 0 { [0.0, 0.0, 1.0] } else { [front[0], front[1], 0.0] }, height);
                 if v >= 2 && v < hf {
                     if let Some(s) = sheet("summit_masonry") && let Some(a) = s.anim("wall") {
@@ -449,6 +472,7 @@ fn bridge_parapet(c: &mut Canvas) {
                 F2
             };
             c.set(x, y, col);
+            c.z.gset_plane_surface(x, y, if dy == 8 { [0.0, 0.0, 1.0] } else { [0.0, 1.0, 0.0] }, dy as f32);
         }
     }
     // the broken stub: a low jagged edge
@@ -467,6 +491,7 @@ fn bridge_parapet(c: &mut Canvas) {
                     F1
                 },
             );
+            c.z.gset_plane_surface(x, y, if dy == hgt { [0.0, 0.0, 1.0] } else { [0.0, 1.0, 0.0] }, dy as f32);
         }
     }
 }
@@ -692,6 +717,18 @@ fn seal(c: &mut Canvas) {
     };
     let (w, h) = (tw as i32 * s.cell_w, th as i32 * s.cell_h);
     let (x0, y0) = (ARENA.cx as i32 - w / 2, ARENA.cy as i32 - h / 2);
+    // The central diamond is a flush mineral inlay, not an open socket like
+    // the raised north dais. Keep its native outline, but give its interior a
+    // stone value and a broken one-pixel bevel that reads as shallow carving.
+    let inlay = |u: i32, v: i32| {
+        if !(32..65).contains(&u) || !(32..65).contains(&v) { return false; }
+        s.cells.get(ty as usize + (v / s.cell_h) as usize)
+            .and_then(|row| row.get(tx as usize + (u / s.cell_w) as usize))
+            .is_some_and(|cell| {
+                let p = cell.at(u % s.cell_w, v % s.cell_h);
+                p.a && p.c == F1
+            })
+    };
     for by in 0..th as usize {
         for bx in 0..tw as usize {
             let Some(cell) = s
@@ -706,8 +743,13 @@ fn seal(c: &mut Canvas) {
                     let px = cell.at(x, y);
                     let (wx, wy) = (x0 + bx as i32 * s.cell_w + x, y0 + by as i32 * s.cell_h + y);
                     if px.a && c.lab(wx, wy) == L_ARENA {
-                        c.set(wx, wy, px.c);
+                        let (u, v) = (bx as i32 * s.cell_w + x, by as i32 * s.cell_h + y);
+                        let mineral = inlay(u, v);
+                        let bevel = mineral && !inlay(u, v - 1) && (u + v).rem_euclid(7) != 0;
+                        c.set(wx, wy, if bevel { F3.lerp(F2, 0.55) }
+                            else if mineral { F1.lerp(F2, 0.58) } else { px.c });
                         c.z.gset_surface(wx, wy, cell, x, y, false, 0.0);
+                        if bevel { c.z.gset_plane_surface(wx, wy, [0.0, -0.20, 0.98], 0.0); }
                     }
                 }
             }
@@ -961,6 +1003,31 @@ fn stair(c: &mut Canvas) {
     }
 }
 
+/// Geometry of the native two-tier octagon. These profiles follow the artist's
+/// actual upper lips (upper tier row41, lower tier row53), not transparent canvas
+/// margins or the normal generator's smooth sphere. Both tiers are eight pixels
+/// high; each upright face descends to the support below it.
+fn dais_plane(cell: &crate::gfx::Cell, x: i32, y: i32) -> ([f32; 3], f32) {
+    let upper_lip = if x < 44 { 31 + (x - 28) * 10 / 16 }
+        else if x <= 78 { 41 } else { 41 - (x - 78) * 11 / 20 };
+    let side = |left: i32, right: i32| {
+        if x < left { [-0.60, 0.80, 0.0] }
+        else if x > right { [0.60, 0.80, 0.0] }
+        else { [0.0, 1.0, 0.0] }
+    };
+    if (28..99).contains(&x) && y <= upper_lip + 8 {
+        return if y <= upper_lip { ([0.0, 0.0, 1.0], 16.0) }
+            else { (side(44, 78), (16 - (y - upper_lip)) as f32) };
+    }
+    // The lower octagon's diagonal feet end at different native rows. Its
+    // top lip follows that exact silhouette, preserving the narrow side facets
+    // instead of extruding an enclosing ellipse over clear walkable corners.
+    let bottom = (0..cell.h).rev().find(|&yy| cell.at(x, yy).a).unwrap_or(y);
+    let lower_lip = bottom - 9;
+    if y <= lower_lip { return ([0.0, 0.0, 1.0], 8.0); }
+    (side(40, 83), (bottom - y).clamp(0, 8) as f32)
+}
+
 /// Two-tier round plinth under the Prism. Tops are shifted up by their height (3/4 view).
 fn dais(c: &mut Canvas) {
     if let Some(s) = sheet("summit_dais")
@@ -974,7 +1041,8 @@ fn dais(c: &mut Canvas) {
                 let p = cell.at(x, y);
                 if p.a && c.lab(wx, wy) == L_ARENA {
                     c.set(wx, wy, p.c);
-                    c.z.gset_surface(wx, wy, cell, x, y, true, (cell.h - y - 1).min(12).max(0) as f32);
+                    let (normal, height) = dais_plane(cell, x, y);
+                    c.z.gset_plane_surface(wx, wy, normal, height);
                 }
             }
         }
@@ -1392,7 +1460,10 @@ fn material_surfaces(c: &mut Canvas) {
                 continue;
             }
             let base = surface.normal.map(|v| v as f32 / 127.0);
-            let normal = terrain_detail::normal(Material::Stone, x, y, base);
+            let normal = floor_stone(c.lab[i], x, y).map_or_else(
+                || terrain_detail::normal(Material::Stone, x, y, base),
+                |(mortar, stone)| terrain_detail::masonry(x, y, base, stone, mortar),
+            );
             let mut detailed = TerrainSurface::new(normal, surface.height as f32);
             detailed.upright = surface.upright;
             c.z.ground_surfaces[i] = detailed;
@@ -1514,6 +1585,12 @@ mod walkable_normal_tests {
             if c.lab[i] == 0 || albedo[i].r < 0.0 || original.normal[2] <= 82 {
                 assert_eq!(after, original, "keep authored architecture at {i}");
             } else if original.normal == [0, 0, 127] {
+                if floor_stone(c.lab[i], (i as i32) % c.z.pw, (i as i32) / c.z.pw)
+                    .is_some_and(|(mortar, _)| mortar)
+                {
+                    assert_eq!(after, original, "wear crossed authored floor mortar at {i}");
+                    continue;
+                }
                 flat_native += 1;
                 enriched_native += usize::from(after.normal != original.normal);
             }
@@ -1540,7 +1617,7 @@ mod walkable_normal_tests {
             if s.height > 0 || s.normal[2] <= 82 { continue; }
             let n = s.normal.map(|v| v as f32 / 127.0);
             let lateral = n[0].hypot(n[1]);
-            tilted[l as usize] += usize::from(lateral > 0.05);
+            tilted[l as usize] += usize::from(lateral > 0.015);
             let left = (n[0] * -0.8 + n[1] * -0.35 + n[2] * 0.49).max(0.0);
             let right = (n[0] * 0.8 + n[1] * 0.35 + n[2] * 0.49).max(0.0);
             responses[l as usize].push((left - right).abs());
@@ -1553,10 +1630,12 @@ mod walkable_normal_tests {
             samples.sort_by(f32::total_cmp);
             let median = samples[samples.len() / 2];
             let p90 = samples[samples.len() * 9 / 10];
-            assert!(tilted[l as usize] * 100 > samples.len() * 75,
+            assert!(tilted[l as usize] * 100 > samples.len() * 70,
                 "{name} remains visibly flat over too much of its material");
-            assert!(median > 0.06 && p90 > 0.16,
+            assert!(median > 0.02 && p90 > 0.065,
                 "{name} needs visible lighting response, median={median}, p90={p90}");
+            assert!(median < 0.10,
+                "{name} lost its calm laid-stone finish, median={median}");
         }
     }
 }
@@ -1607,5 +1686,94 @@ mod bridge_support_tests {
                 "the spring at {x} must be seated in real platform masonry/rock, not hang below it"
             );
         }
+    }
+}
+
+#[cfg(test)]
+mod macro_geometry_tests {
+    use super::*;
+
+    #[test]
+    fn platform_undersides_cannot_become_raised_receivers_or_shadow_casters() {
+        let mut z = Zone::new(crate::world::ZoneId::Summit, super::super::TW, super::super::TH);
+        let c = paint_geometry(&mut z);
+        let mut hanging = 0;
+        for (i, &label) in c.lab.iter().enumerate() {
+            if label == 0 && c.z.ground[i].r >= 0.0 {
+                let s = c.z.ground_surfaces[i];
+                assert!(s.present(), "opaque hanging masonry missing geometry at {i}");
+                let (x, y) = (i as i32 % c.z.pw, i as i32 / c.z.pw);
+                if s.height > 0 {
+                    assert!((BRIDGE.0..BRIDGE.2).contains(&x) && (BRIDGE.1 - 8..BRIDGE.1).contains(&y),
+                        "only the actual raised parapet may rise above the floor outside platforms at {x},{y}");
+                    assert_eq!(s.height as i32, BRIDGE.1 - y, "parapet plane is deck-relative");
+                } else { hanging += 1; }
+            }
+        }
+        assert!(hanging > 50000, "exercise arena, terrace, landing and bridge foundations");
+        let s = c.z.ground_surfaces[(660 * c.z.pw + 600) as usize];
+        assert_eq!(s.height, 0, "reviewer's formerly h167 hanging-face counterexample");
+        assert!(s.upright, "clamping altitude cannot flatten the real carved front");
+    }
+
+    #[test]
+    fn native_dais_has_two_solid_horizontal_tiers_and_descending_fronts() {
+        let s = sheet("summit_dais").unwrap();
+        let a = s.anim("dais").unwrap();
+        let cell = s.cell(a, 0);
+        for (x, y, up, height) in [(64, 25, true, 16.0), (64, 45, false, 12.0),
+            (64, 51, true, 8.0), (64, 60, false, 2.0)]
+        {
+            assert!(cell.at(x, y).a);
+            let (normal, h) = dais_plane(cell, x, y);
+            assert_eq!(h, height, "tier altitude at native {x},{y}");
+            assert_eq!(normal[2] > 0.9, up, "tier orientation at native {x},{y}");
+        }
+        let (mut z, _) = super::super::build();
+        eprintln!("Summit terrain volumes: {}", z.terrain_volumes.len());
+        let (ax, ay) = s.anchor_of(a);
+        for volume in &z.terrain_volumes {
+            for y in volume.min[1] as i32..volume.max[1] as i32 {
+                for x in volume.min[0] as i32..volume.max[0] as i32 {
+                    assert!(z.blocked(x as f32 + 0.5, y as f32 + 0.5, 0.05),
+                        "dais cap mass covers visible walkable floor at {x},{y}");
+                }
+            }
+        }
+        assert!(z.blocked(DAIS.cx - ax as f32 + 64.5, DAIS.cy + 14.0 - ay as f32 + 25.5, 0.05),
+            "raised dais top cannot be crossed like the flush seal");
+        let (geometry, volumes) = (z.ground_surfaces.clone(), z.terrain_volumes.clone());
+        paint(&mut z);
+        assert_eq!(z.ground_surfaces, geometry, "repainting cannot compound material normals");
+        assert_eq!(z.terrain_volumes, volumes, "repainting cannot retain stale or duplicate terrain masses");
+    }
+
+    #[test]
+    fn central_inlay_is_walkable_flush_non_emissive_stone() {
+        let (z, _) = super::super::build();
+        for (start, delta) in [((688.0, 440.0), (64.0, 0.0)), ((720.0, 410.0), (0.0, 60.0))] {
+            let (x, y, hit) = z.move_box(start.0, start.1, 4.0, delta.0, delta.1);
+            assert!(!hit && (x - start.0 - delta.0).abs() < 0.1 && (y - start.1 - delta.1).abs() < 0.1,
+                "flush seal cannot add a physical obstruction");
+        }
+        let center = (440 * z.pw + 720) as usize;
+        assert_eq!(z.ground_surfaces[center].height, 0);
+        assert!(!z.ground_surfaces[center].upright);
+        assert!(z.ground[center].luma() > F1.luma() + 0.02,
+            "inlaid mineral must read lighter than the old hole-like fill");
+        assert_eq!(z.ground_emit[center], Rgb::BLACK);
+    }
+
+    #[test]
+    fn arena_southwest_edge_probe_reaches_the_actual_visible_boundary() {
+        let mut p = crate::play::Play::new(crate::world::ZoneId::Summit,
+            &crate::play::PlayOpts { god: true, peaceful: true });
+        p.player.respawn(600.0, 620.0);
+        let mut fx = crate::fx::Fx::new(7);
+        let input = crate::input::Input { mv: (0.0, 1.0), ..Default::default() };
+        for _ in 0..180 { p.update(&input, &mut fx); }
+        let (x, y) = (p.player.body.x, p.player.body.y);
+        eprintln!("Summit southern edge probe: {x},{y}");
+        assert!(!p.zone.blocked(x, y, 4.0) && p.zone.blocked(x, y + 1.0, 4.0));
     }
 }

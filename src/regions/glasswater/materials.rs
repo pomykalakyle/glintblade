@@ -54,13 +54,29 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
                 }
                 WALL_TOP => {
                     let (Some(ts), Some(ta)) = (top, top_anim) else { continue };
-                    if fl.d_open[i] < 4 || fl.d_open[i] > 20 { continue }
+                    // The actual cliff silhouette owns the broad cap. A hard
+                    // 4..20px atlas window made pale rectangular ribbons that
+                    // ended independently of the rock mass. Bed the native
+                    // facets into that cap, losing their contrast gradually
+                    // toward its quiet interior and its exposed lip.
+                    let mix = cap_material_mix(fl.d_open[i]);
+                    if mix <= 0.0 { continue }
                     let cell = ts.cell(ta, 0);
                     let p = cell.at(x.rem_euclid(cell.w), y.rem_euclid(cell.h));
                     if p.a {
-                        let gain = (z.ground[i].luma() / ROCK[2].luma()).clamp(0.72, 1.20);
-                        z.ground[i] = p.c.scale(gain);
+                        let base = z.ground[i];
+                        let surface = z.ground_surfaces[i];
+                        let gain = (base.luma() / ROCK[2].luma()).clamp(0.72, 1.20);
+                        z.ground[i] = base.lerp(p.c.scale(gain), mix);
                         z.gset_surface(x, y, cell, x.rem_euclid(cell.w), y.rem_euclid(cell.h), false, f32::from(m.span[i]));
+                        // Relief belongs to the same embedded material as its
+                        // colour; the quiet cap remains a horizontal mass.
+                        let native = z.ground_surfaces[i];
+                        let normal = std::array::from_fn(|axis| {
+                            (f32::from(surface.normal[axis]) * (1.0 - mix)
+                                + f32::from(native.normal[axis]) * mix) / 127.0
+                        });
+                        z.gset_plane_surface(x, y, normal, f32::from(m.span[i]));
                     }
                 }
                 FACE => {
@@ -93,6 +109,12 @@ pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
             }
         }
     }
+}
+
+fn cap_material_mix(distance: u8) -> f32 {
+    let lip = f32::from(distance.saturating_sub(3).min(4)) / 4.0;
+    let interior = 1.0 - f32::from(distance.saturating_sub(12).min(16)) / 16.0;
+    lip * interior * 0.5
 }
 
 

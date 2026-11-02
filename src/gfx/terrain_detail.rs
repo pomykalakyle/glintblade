@@ -23,9 +23,22 @@ pub(crate) fn normal(material: Material, x: i32, y: i32, base: [f32; 3]) -> [f32
     if material == Material::Water || base[2] <= 0.25 {
         return base;
     }
+    compose(base, slope(material, x as f32 + 0.5, y as f32 + 0.5))
+}
+
+/// Fine wear belongs to one laid stone, rather than a soft hill running across
+/// several blocks. The painter supplies its actual stone identity and mortar;
+/// neither albedo brightness nor atlas tile boundaries imply new geometry.
+pub(crate) fn masonry(x: i32, y: i32, base: [f32; 3], stone: u32, mortar: bool) -> [f32; 3] {
+    if mortar || base[2] <= 0.25 { return base; }
+    let offset = [hash2(stone as i32, 0, 9410) * 113.0,
+        hash2(stone as i32, 0, 9411) * 109.0];
+    compose(base, stone_slope(x as f32 + 0.5 + offset[0], y as f32 + 0.5 + offset[1]))
+}
+
+fn compose(base: [f32; 3], [dx, dy]: [f32; 2]) -> [f32; 3] {
     let length = base.iter().map(|v| v * v).sum::<f32>().sqrt();
     let n = if length > 0.001 { base.map(|v| v / length) } else { [0.0, 0.0, 1.0] };
-    let [dx, dy] = slope(material, x as f32 + 0.5, y as f32 + 0.5);
     // Preserve the silhouette-scale plane. Only its tangent frame receives the
     // material relief; strongly tilted native bevels get less added texture.
     let fade = ((n[2] - 0.25) * 2.0).clamp(0.0, 1.0);
@@ -56,6 +69,7 @@ fn field(x: f32, y: f32, axes: [f32; 4], seed: u32) -> (f32, [f32; 2]) {
 
 fn slope(material: Material, x: f32, y: f32) -> [f32; 2] {
     if material == Material::Grass { return grass_slope(x, y); }
+    if material == Material::Stone { return stone_slope(x, y); }
     let mut result = [0.0; 2];
     let mut add = |axes: [f32; 4], seed: u32, height: f32, ridged: bool| {
         let (value, gradient) = field(x, y, axes, seed);
@@ -71,23 +85,47 @@ fn slope(material: Material, x: f32, y: f32) -> [f32; 2] {
             add([1.0 / 14.0, -0.012, 0.02, 1.0 / 11.0], 9202, 1.00, false);
         }
         Material::Ash => {
-            add([1.0 / 5.2, 0.02, -0.015, 1.0 / 4.3], 9301, 1.55, false);
-            add([1.0 / 17.0, 0.0, 0.0, 1.0 / 13.0], 9302, 1.10, false);
+            // Loose ash reads as fine settled grains, below the rough basalt
+            // facets. Broad, tall mounds made it look like melted paving.
+            add([1.0 / 3.8, 0.02, -0.015, 1.0 / 3.4], 9301, 0.62, false);
+            add([1.0 / 17.0, 0.0, 0.0, 1.0 / 13.0], 9302, 0.42, false);
         }
-        Material::Stone => {
-            add([1.0 / 10.0, 0.013, -0.012, 1.0 / 8.0], 9401, 2.00, false);
-            add([1.0 / 3.7, -0.02, 0.02, 1.0 / 5.3], 9402, 0.44, false);
-        }
+        Material::Stone => unreachable!(),
         Material::Rock => {
             add([1.0 / 9.0, 0.023, -0.018, 1.0 / 6.5], 9501, 2.10, false);
             add([1.0 / 4.7, -0.035, 0.016, 1.0 / 8.0], 9502, 0.50, true);
         }
         Material::WetStone => {
-            add([1.0 / 11.0, 0.01, -0.014, 1.0 / 8.5], 9601, 2.15, false);
-            add([1.0 / 4.5, 0.016, 0.01, 1.0 / 6.0], 9602, 0.32, false);
+            // Water-worn stone has rounded low relief; it must not inherit the
+            // dry rock's equally steep facets or look rougher than the bank.
+            add([1.0 / 11.0, 0.01, -0.014, 1.0 / 8.5], 9601, 0.88, false);
+            add([1.0 / 4.5, 0.016, 0.01, 1.0 / 6.0], 9602, 0.14, false);
         }
         Material::Water => {}
     }
+    result
+}
+
+/// Quiet, finely worn masonry with occasional shallow rounded pores. There is
+/// no low-frequency displacement: the large plane and its joints remain the
+/// ones authored by the stone painter. Smooth compact pits avoid pixel glitter.
+fn stone_slope(x: f32, y: f32) -> [f32; 2] {
+    let (_, wear) = field(x, y, [1.0 / 3.7, 0.012, -0.018, 1.0 / 4.3], 9402);
+    let mut result = wear.map(|v| v * 0.26);
+    let (cx, cy) = ((x / 5.0).floor() as i32, (y / 5.0).floor() as i32);
+    for gy in cy - 1..=cy + 1 { for gx in cx - 1..=cx + 1 {
+        if hash2(gx, gy, 9440) > 0.42 { continue; }
+        let px = gx as f32 * 5.0 + 0.7 + hash2(gx, gy, 9441) * 3.6;
+        let py = gy as f32 * 5.0 + 0.7 + hash2(gx, gy, 9442) * 3.6;
+        let radius = 1.45 + hash2(gx, gy, 9443) * 0.45;
+        let (dx, dy) = (x - px, y - py);
+        let q = (dx * dx + dy * dy) / (radius * radius);
+        if q >= 1.0 { continue; }
+        let depth = 0.10 + hash2(gx, gy, 9444) * 0.06;
+        let gain = 4.0 * depth * (1.0 - q) / (radius * radius);
+        result[0] += gain * dx;
+        result[1] += gain * dy;
+    }}
     result
 }
 
@@ -150,14 +188,47 @@ mod tests {
             slopes.sort_by(f32::total_cmp);
             response.sort_by(f32::total_cmp);
             let size = slopes.len();
-            let covered = slopes.iter().filter(|&&s| s > 0.05).count();
+            // A worn floor and wet bank must remain quieter than turf or rough
+            // rock. Requiring every material to be equally bumpy hid that bug.
+            let (threshold, min_median, max_median, min_contrast) = match material {
+                Material::Stone => (0.01, 0.02, 0.08, 0.04),
+                Material::WetStone => (0.02, 0.03, 0.10, 0.06),
+                Material::Ash => (0.02, 0.04, 0.12, 0.08),
+                _ => (0.05, 0.10, 0.30, 0.12),
+            };
+            let covered = slopes.iter().filter(|&&s| s > threshold).count();
             let contrast = response[size * 95 / 100] - response[size * 5 / 100];
-            println!("MATERIAL_RELIEF {material:?}: median {:.4}, >.05 {:.2}%, dot response {:.4}, adjacent/distant {:.3}",
+            println!("MATERIAL_RELIEF {material:?}: median {:.4}, >{threshold} {:.2}%, dot response {:.4}, adjacent/distant {:.3}",
                 slopes[size / 2], covered as f32 * 100.0 / size as f32, contrast, neighbor/separated);
-            assert!(covered * 100 > size * 80 && slopes[size / 2] > 0.10, "{material:?} still shades flat");
-            assert!(contrast > 0.12, "{material:?} produces no visible incidence contrast");
+            assert!(covered * 100 > size * 80 && slopes[size / 2] > min_median, "{material:?} still shades flat");
+            assert!(slopes[size / 2] < max_median, "{material:?} lost its intended surface finish");
+            assert!(contrast > min_contrast, "{material:?} produces no visible incidence contrast");
             assert!(neighbor < separated * 0.75, "{material:?} became per-pixel random glitter");
         }
+    }
+
+    #[test]
+    fn laid_stone_has_no_cross_slab_hills_and_wet_stone_is_smoother_than_dry_rock() {
+        let mut energy = [0.0; 3];
+        for by in 0..8 { for bx in 0..8 {
+            let mut average = [0.0; 2];
+            for y in 0..16 { for x in 0..16 {
+                for (i, material) in [Material::Stone, Material::WetStone, Material::Rock].into_iter().enumerate() {
+                    let n = normal(material, bx * 16 + x, by * 16 + y, [0.0, 0.0, 1.0]);
+                    energy[i] += n[0] * n[0] + n[1] * n[1];
+                    if i == 0 { average[0] += n[0]; average[1] += n[1]; }
+                }
+            }}
+            assert!(average[0].hypot(average[1]) / 256.0 < 0.012,
+                "large normal lobes bend the masonry plane across slab boundaries: {average:?}");
+        }}
+        assert!(energy[1] < energy[2] * 0.25, "a wet bank is as jagged as dry rock: {energy:?}");
+        assert!(energy[0] < energy[2] * 0.20, "laid stone lost its quiet finish: {energy:?}");
+        let base = [0.25, -0.15, 0.9565563];
+        for y in 0..32 { for x in 0..48 {
+            assert_eq!(masonry(x, y, base, 17, true), base,
+                "material wear changed an authored mortar or bevel normal");
+        }}
     }
 
     #[test]

@@ -44,13 +44,51 @@ pub(super) fn apply(z: &mut Zone, m: &Map, mask: &[u8]) {
                 if matches!(mask[i], mat::CLIFF | mat::EDGE) { continue; }
                 UP
             };
-            let detail = terrain_detail::normal(material, x, y, base);
+            let detail = if material == Material::Stone {
+                stone(m, mask[i], x, y).map_or_else(
+                    || terrain_detail::normal(material, x, y, base),
+                    |(id, mortar)| terrain_detail::masonry(x, y, base, id, mortar),
+                )
+            } else {
+                terrain_detail::normal(material, x, y, base)
+            };
             let mut surface = TerrainSurface::new(detail, source.height as f32);
             if source.present() { surface.upright = source.upright; }
             z.ground_surfaces[i] = surface;
         }
     }
     z.invalidate_lighting();
+}
+
+/// These bonds are authored by the corresponding painters, not guessed from
+/// dark pixels in native artwork. Native multi-cell slab art keeps its own
+/// source planes, enriched only by the shared shallow stone wear.
+fn stone(m: &Map, material: u8, x: i32, y: i32) -> Option<(u32, bool)> {
+    let id = |col: i32, row: i32, salt: u32| {
+        hash2(col, row, salt).to_bits()
+    };
+    match material {
+        mat::PATH => {
+            let row = y.div_euclid(15);
+            let xx = x + row.rem_euclid(2) * 13;
+            Some((id(xx.div_euclid(27), row, 9418), false))
+        }
+        mat::SLAB if !matches!(m.at(x / 16, y / 16), K::Slab | K::Altar) => {
+            let (lx, ly) = (x.rem_euclid(16), y.rem_euclid(16));
+            Some((id(x.div_euclid(16), y.div_euclid(16), 9419),
+                lx == 0 || lx == 15 || ly == 0 || ly == 15))
+        }
+        mat::BRIDGE => {
+            let (bx, by) = [(41 * 16, 16 * 16), (49 * 16, 36 * 16)].into_iter()
+                .find(|&(bx, by)| (bx..bx + 112).contains(&x) && (by..by + 32).contains(&y))?;
+            let (lx, ly) = (x - bx, y - by);
+            let row = ly / 10;
+            let bond = lx + row * 17;
+            Some((id(bond.div_euclid(35), by + row, 9420),
+                bond.rem_euclid(35) == 0 || ly == 12 || ly == 22 || ly == 0 || ly == 29))
+        }
+        _ => None,
+    }
 }
 
 fn material(mask: &[u8], pw: i32, ph: i32, x: i32, y: i32) -> Option<Material> {
@@ -159,6 +197,10 @@ mod tests {
             assert_eq!(at(bx + 20, by + 1).normal, [0, 127, 0], "north curb's exposed front faces south");
             assert_eq!(at(bx + 20, by + 31).normal, [0, 127, 0], "bridge front faces south");
             assert!(at(bx + 20, by + 8).normal[2] > 100, "walkable deck faces upward");
+            for y in [by + 12, by + 22] { for x in bx + 3..bx + 109 {
+                assert_eq!(at(x, y).normal, [0, 0, 127],
+                    "stone wear crossed the bridge's horizontal mortar at {x},{y}");
+            }}
         }
     }
 

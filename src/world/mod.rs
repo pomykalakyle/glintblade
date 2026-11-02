@@ -249,6 +249,54 @@ impl Zone {
         self.ground_surfaces[(y * self.pw + x) as usize] = surface;
         self.invalidate_lighting();
     }
+    /// Extrude only painter-selected cap pixels into solid terrain. The mask is
+    /// in native projected coordinates; a cap at screen Y and altitude H occupies
+    /// world Y+H and the vertical interval 0..H. Equal-height runs are coalesced
+    /// into rectangles without bridging gaps, changing collision, or inventing
+    /// a volume beneath hanging art that has no above-floor cap.
+    pub(crate) fn add_cap_volumes(&mut self, caps: &[Option<u8>]) {
+        use std::collections::BTreeMap;
+        assert_eq!(caps.len(), self.ground.len());
+        let mut rows: BTreeMap<(u8, i32), Vec<(i32, i32)>> = BTreeMap::new();
+        for y in 0..self.ph {
+            let mut x = 0;
+            while x < self.pw {
+                let Some(height) = caps[(y * self.pw + x) as usize].filter(|&h| h > 0) else {
+                    x += 1;
+                    continue;
+                };
+                let x0 = x;
+                x += 1;
+                while x < self.pw && caps[(y * self.pw + x) as usize] == Some(height) { x += 1; }
+                rows.entry((height, y + height as i32)).or_default().push((x0, x));
+            }
+        }
+        let mut active: BTreeMap<(u8, i32, i32), (i32, i32)> = BTreeMap::new();
+        let mut previous = None;
+        let mut volumes = Vec::new();
+        let emit = |((h, x0, x1), (y0, y1))| TerrainVolume {
+            min: [x0 as f32, y0 as f32, 0.0],
+            max: [x1 as f32, y1 as f32, h as f32],
+        };
+        for ((h, y), spans) in rows {
+            if previous != Some((h, y - 1)) { volumes.extend(std::mem::take(&mut active).into_iter().map(emit)); }
+            let mut next = BTreeMap::new();
+            for (x0, x1) in spans {
+                let key = (h, x0, x1);
+                let (y0, _) = active.remove(&key).unwrap_or((y, y));
+                next.insert(key, (y0, y + 1));
+            }
+            volumes.extend(active.into_iter().map(emit));
+            active = next;
+            previous = Some((h, y));
+        }
+        volumes.extend(active.into_iter().map(emit));
+        if !volumes.is_empty() {
+            self.terrain_volumes.extend(volumes);
+            self.invalidate_lighting();
+        }
+    }
+
     /// Rotate an upright material's front axis around a curved authored wall.
     /// `front` is its horizontal world-space outward normal, never an RGB gradient.
     pub fn gorient_surface(&mut self, x: i32, y: i32, front: [f32; 2]) {
@@ -542,5 +590,47 @@ mod surface_tests {
         assert_eq!(zone.tile_at(-0.01, 50.0), Tile::Void);
         assert!(!zone.blocked(108.0, 50.0, 4.0));
         assert!(zone.blocked(108.01, 50.0, 4.0));
+    }
+}
+
+#[cfg(test)]
+mod cap_volume_tests {
+    use super::*;
+    use std::collections::BTreeSet;
+
+    #[test]
+    fn cap_extrusion_preserves_exact_native_gaps_and_projected_altitudes() {
+        let mut z = Zone::new(ZoneId::Cinder, 1, 1);
+        let mut caps = vec![None; z.ground.len()];
+        for y in 2..7 {
+            for x in 2..9 { caps[(y * z.pw + x) as usize] = Some(8); }
+        }
+        // A one-pixel native opening must remain a full vertical opening.
+        for y in 2..7 { caps[(y * z.pw + 5) as usize] = None; }
+        // A second tier shares screen space with the first tier's world footprint.
+        for y in 0..3 {
+            for x in 11..14 { caps[(y * z.pw + x) as usize] = Some(12); }
+        }
+        let (ground, tiles) = (z.ground.clone(), z.tiles.clone());
+        z.add_cap_volumes(&caps);
+        assert_eq!(z.terrain_volumes.len(), 3, "coalesce actual solid rectangles across native rows");
+        let mut expected = BTreeSet::new();
+        for (i, h) in caps.iter().enumerate() {
+            if let Some(h) = h {
+                let (x, y) = (i as i32 % z.pw, i as i32 / z.pw + *h as i32);
+                for height in 0..*h as i32 { expected.insert((x, y, height)); }
+            }
+        }
+        let mut actual = BTreeSet::new();
+        for v in &z.terrain_volumes {
+            for x in v.min[0] as i32..v.max[0] as i32 {
+                for y in v.min[1] as i32..v.max[1] as i32 {
+                    for height in v.min[2] as i32..v.max[2] as i32 { actual.insert((x, y, height)); }
+                }
+            }
+        }
+        assert_eq!(actual, expected, "merging cannot create material across a hole or below the wrong projection");
+        assert_eq!(z.ground, ground);
+        assert_eq!(z.tiles, tiles);
     }
 }

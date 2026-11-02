@@ -39,6 +39,9 @@ pub struct Decor {
     pub anchor: (i32, i32),
     pub x: f32,
     pub y: f32,
+    /// Height of the supporting cap above the cave floor. X/Y keep the
+    /// authored projected pose; lighting and native caster geometry use this Z.
+    pub elevation: f32,
     pub flip: bool,
     pub kind: Kind,
     /// (color, radius, intensity, height of the light above the base)
@@ -59,7 +62,7 @@ pub struct Decor {
 
 impl Decor {
     pub fn new(cell: Cell, anchor: (i32, i32), x: f32, y: f32, kind: Kind) -> Decor {
-        Decor { cell, anchor, x, y, flip: false, kind, light: None, light_offset_x: 0.0, phase: (x * 0.37 + y * 0.11) % TAU, alive: true, flash: 0.0, wobble: 0.0, ring: 0.0, prop: None, mirror: None }
+        Decor { cell, anchor, x, y, elevation: 0.0, flip: false, kind, light: None, light_offset_x: 0.0, phase: (x * 0.37 + y * 0.11) % TAU, alive: true, flash: 0.0, wobble: 0.0, ring: 0.0, prop: None, mirror: None }
     }
     pub fn bounds(&self) -> (f32, f32, f32, f32) {
         let ax = if self.flip { self.cell.w - 1 - self.anchor.0 } else { self.anchor.0 };
@@ -74,7 +77,9 @@ impl Decor {
                 Kind::Mushroom => 0.0,
                 _ => 0.94 + 0.06 * (t as f32 * 0.013 + self.phase).sin(),
             };
-            PointLight { x: self.x + self.wobble_x() + self.light_offset_x, y: self.y - height, height, radius: radius * (1.0 + self.ring * 0.25),
+            PointLight { x: (self.x + self.wobble_x()).floor() + self.light_offset_x,
+                y: self.y.floor() - height, height: height + self.elevation,
+                radius: radius * (1.0 + self.ring * 0.25),
                 color, intensity: intensity * breathe + self.ring * 0.6 }
         })
     }
@@ -352,7 +357,7 @@ impl Region for Glasswater {
             return;
         };
         let wob = d.wobble_x();
-        let o = DrawOpts { flip: d.flip, flash: d.flash, emit_gain: d.emit_gain(t), ..Default::default() };
+        let o = DrawOpts { flip: d.flip, elevation: d.elevation, flash: d.flash, emit_gain: d.emit_gain(t), ..Default::default() };
         let reflecting = f.water_any;
         f.water_any = false; // Already reflected once on the actual receiving bank above.
         f.sprite_w(&d.cell, d.anchor, d.x + wob, d.y, &o);
@@ -378,16 +383,14 @@ impl Region for Glasswater {
                     // shadowed side remain visible as Glint walks around them.
                     // Tall landmark crests need a little more power to keep
                     // their floor reception readable across the real height.
-                    let landmark_gain = if p.height > 40.0 { 1.22 } else { 1.0 };
+                    let landmark_gain = if p.height - d.elevation > 40.0 { 1.22 } else { 1.0 };
                     (p.radius * 1.12, p.intensity * 2.15 * landmark_gain)
                 } else if f.surface_lighting && d.kind == Kind::Sprig {
                     // Breaking a small crystal extinguishes a visible local
                     // source, not merely a handful of glowing sprite pixels.
                     (p.radius.max(30.0), p.intensity * 4.0)
                 } else { (p.radius, p.intensity) };
-                let (x, ground_y) = if f.surface_lighting {
-                    ((d.x + d.wobble_x()).floor() + d.light_offset_x, d.y.floor())
-                } else { (p.x, d.y) };
+                let (x, ground_y) = (p.x, d.y.floor() + d.elevation);
                 f.add_light_3d_w(x, ground_y, p.height, radius, p.color, intensity);
             }
         }

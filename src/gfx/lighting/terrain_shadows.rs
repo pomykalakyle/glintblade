@@ -20,6 +20,7 @@ const CACHE_BLOCK: i32 = 32;
 const UNKNOWN: u8 = 128;
 
 pub(super) struct Geometry {
+    volumes: super::terrain_volumes::Index,
     cols: usize,
     blocks: Vec<u8>,
     occupied_prefix: Vec<u32>,
@@ -96,7 +97,8 @@ impl Geometry {
             }
             HeightLevel { size, cols: level_cols, maxima }
         }).collect();
-        Self { cols, blocks, occupied_prefix, coarse, cache: RefCell::new(Vec::new()), recent: RefCell::new(Vec::new()),
+        Self { volumes: super::terrain_volumes::Index::new(&zone.terrain_volumes),
+            cols, blocks, occupied_prefix, coarse, cache: RefCell::new(Vec::new()), recent: RefCell::new(Vec::new()),
             #[cfg(test)] stats: RefCell::new(CacheStats::default()) }
     }
 
@@ -179,7 +181,7 @@ fn blocked(zone: &Zone, geometry: &Geometry, receiver: [f32; 3], own_terrain: bo
     let direction = [f64::from(light.x) - f64::from(receiver[0]),
         f64::from(light.y) + f64::from(light.height) - f64::from(receiver[1]) - f64::from(receiver[2]),
         f64::from(light.height) - f64::from(receiver[2])];
-    if super::terrain_volumes::any(&zone.terrain_volumes, receiver.map(f64::from), direction, 1.0, own_terrain) { return true; }
+    if geometry.volumes.any(receiver.map(f64::from), direction, 1.0, own_terrain) { return true; }
     if !geometry.occupied_rect(zone,
         receiver[0].min(light.x).floor() as i32, receiver[1].min(light.y).floor() as i32,
         receiver[0].max(light.x).floor() as i32, receiver[1].max(light.y).floor() as i32) { return false; }

@@ -301,11 +301,12 @@ impl Region for Bloom {
         self.life.update(zone, &self.mat, ctx);
     }
 
-    fn slash(&mut self, _zone: &mut Zone, hit: &Hit, fx: &mut Fx) {
+    fn slash(&mut self, zone: &mut Zone, hit: &Hit, fx: &mut Fx) {
         if hit.team != Team::Player {
             return;
         }
         self.grass.slash(hit, fx);
+        self.life.slash(zone, &self.mat, hit);
     }
 
     fn draw_backdrop(&self, zone: &Zone, f: &mut Frame, t: u64) {

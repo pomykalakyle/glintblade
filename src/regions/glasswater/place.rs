@@ -42,6 +42,26 @@ struct P<'a> {
     d: &'a mut Vec<Decor>,
 }
 
+/// A native foot wholly resting on raised horizontal caps must clear their
+/// highest support altitude. A nearby wall cannot lift a prop rooted on ordinary floor.
+fn support_elevation(z: &Zone, prop: &crate::world::Prop) -> f32 {
+    let Some([left, top, right, bottom]) = prop.collision_bounds() else { return 0.0 };
+    let mut highest = 0;
+    let mut found = false;
+    for y in top.floor() as i32..bottom.ceil() as i32 {
+        for x in left.floor() as i32..right.ceil() as i32 {
+            if !prop.blocks(x as f32 + 0.5, y as f32 + 0.5, 0.01, 0.01) { continue; }
+            if x < 0 || y < 0 || x >= z.pw || y >= z.ph { return 0.0; }
+            let surface = z.ground_surfaces[(y * z.pw + x) as usize];
+            if z.tile_at(x as f32 + 0.5, y as f32 + 0.5) != Tile::Wall
+                || !surface.present() || surface.upright || surface.height == 0 { return 0.0; }
+            highest = highest.max(surface.height);
+            found = true;
+        }
+    }
+    if found { f32::from(highest) } else { 0.0 }
+}
+
 impl P<'_> {
     fn check(&self, tx: f32, ty: f32, what: &str) {
         let t = self.z.tile_at(tx * T, ty * T - 1.0);
@@ -68,6 +88,7 @@ impl P<'_> {
             d.light = Some((VIOLET_LIGHT, radius, intensity, height));
         }
         d.prop = Some(blocker(self.z, &d, 8));
+        d.elevation = support_elevation(self.z, &self.z.props[d.prop.unwrap()]);
         // Static reception follows this actual crystal's crest, independently of the
         // support shape. The live animated light remains owned by Decor::light.
         self.z.props[d.prop.unwrap()].light = d.light.map(|(color, radius, _, height)|
@@ -149,7 +170,8 @@ pub fn populate(z: &mut Zone, decor: &mut Vec<Decor>, _m: &PixMap) {
     p.sprig(15.4, 25.7, 10, true, 21);
 
     // --- Lake chamber
-    let island = p.crystal(32.5, 25.3, 52, false, 31, false);
+    // Seat the full native foot on the raised cap, clear of its front face.
+    let island = p.crystal(32.5, 24.925, 52, false, 31, false);
     p.d[island].mirror = Some(27.1 * T);
     p.crystal(22.2, 19.7, 34, true, 32, true);
     p.crystal(43.0, 25.9, 30, false, 33, false);
@@ -223,6 +245,109 @@ pub fn drips(life: &mut Life) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// Check the completed native scene, rather than only each prop's anchor.
+    /// A wide foot can hang into deep water while its anchor is on the bank.
+    #[test]
+    fn every_structural_foot_is_seated_on_actual_terrain() {
+        let (z, _) = super::super::build();
+        let terrain = super::super::paint::classify(&z);
+        let mut tested = 0;
+        for p in &z.props {
+            let Some([left, top, right, bottom]) = p.collision_bounds() else { continue };
+            for y in top.floor() as i32..bottom.ceil() as i32 {
+                for x in left.floor() as i32..right.ceil() as i32 {
+                    if !p.blocks(x as f32 + 0.5, y as f32 + 0.5, 0.01, 0.01) { continue; }
+                    tested += 1;
+                    assert!(matches!(z.tile_at(x as f32 + 0.5, y as f32 + 0.5),
+                        Tile::Floor | Tile::Shallow | Tile::Wall),
+                        "{}:{} has an unsupported structural foot at {x},{y}", p.sheet, p.anim);
+                    if (p.x - 520.0).abs() < 0.1 {
+                        assert_eq!(terrain.at(x, y), super::super::paint::WALL_TOP,
+                            "the main-lake crystal must rest on its island cap, not its vertical face at {x},{y}");
+                    }
+                }
+            }
+        }
+        assert!(tested > 1_000, "exercise the full native scenery, not an empty fixture");
+    }
+
+    /// The island's crystal keeps its native projected pose while its source,
+    /// receiving pixels and entire native caster stand on the same raised cap.
+    #[test]
+    fn raised_crystal_attaches_its_light_and_native_caster_to_actual_cap_height() {
+        let (mut z, _) = super::super::build();
+        let m = super::super::paint::classify(&z);
+        let fields = super::super::paint::fields(&m);
+        z.props.clear();
+        let mut decor = Vec::new();
+        populate(&mut z, &mut decor, &m);
+        let id = decor.iter().position(|d| d.mirror.is_some()).unwrap();
+        let elevation = decor[id].elevation;
+        assert_eq!(elevation, 30.0, "the real foot spans the island's 26px and 30px caps");
+        assert!(decor.iter().enumerate().all(|(i, d)| i == id || d.elevation == 0.0),
+            "a neighboring cliff must not lift ordinary floor-rooted crystals");
+        let water = super::super::water::Water::new(&m, &fields, &z.ground, &decor);
+        let mut region = super::super::Glasswater { decor, water, life: Life::new(),
+            player: (0.0, 0.0), t: 0, water_movers: Vec::new(), water_hit_ids: Vec::new() };
+        let frame = || {
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, Rgb::WHITE);
+            f.surface_lighting = true;
+            f.cam_x = 336;
+            f.cam_y = 290;
+            f
+        };
+        region.decor[id].elevation = 0.0;
+        let flat_source = region.decor[id].point_light(90).unwrap();
+        let mut flat = frame();
+        region.draw_item(&z, &mut flat, id as u32, 90);
+        region.decor[id].elevation = elevation;
+        let source = region.decor[id].point_light(90).unwrap();
+        let mut raised = frame();
+        region.draw_item(&z, &mut raised, id as u32, 90);
+        assert_eq!(raised.albedo, flat.albedo, "support altitude cannot move or repaint native pixels");
+        assert_eq!(raised.emissive, flat.emissive, "the painted crest keeps its exact projected pose");
+        let mut received = 0;
+        for (a, b) in raised.surfaces.iter().zip(&flat.surfaces) {
+            if b.owner == 0 { continue; }
+            received += 1;
+            assert_eq!((a.owner, a.kind, a.normal), (b.owner, b.kind, b.normal));
+            assert_eq!(a.height, b.height + elevation);
+        }
+        assert!(received > 100);
+        let (a, b) = (&raised.surface_casters[0], &flat.surface_casters[0]);
+        assert_eq!(a.base, b.base + elevation);
+        assert_eq!(a.min_height, elevation);
+        for (a, b) in a.foot.iter().zip(&*b.foot) {
+            for axis in 0..2 { assert_eq!(a[axis], b[axis] + elevation); }
+        }
+        let d = &region.decor[id];
+        let prop = &z.props[d.prop.unwrap()];
+        let [left, top, right, bottom] = prop.collision_bounds().unwrap();
+        let mut feet = 0;
+        for y in top.floor() as i32..bottom.ceil() as i32 {
+            for x in left.floor() as i32..right.ceil() as i32 {
+                if !prop.blocks(x as f32 + 0.5, y as f32 + 0.5, 0.01, 0.01) { continue; }
+                let rendered = raised.surfaces[(y - raised.cam_y) as usize * W + (x - raised.cam_x) as usize];
+                let cap = z.ground_surfaces[(y * z.pw + x) as usize];
+                assert!(rendered.owner > 0 && rendered.height >= f32::from(cap.height),
+                    "native foot embedded below its cap at {x},{y}");
+                feet += 1;
+            }
+        }
+        assert_eq!(feet, 194);
+        assert_eq!((source.x, source.y), (flat_source.x, flat_source.y));
+        assert_eq!(source.height, flat_source.height + elevation);
+        region.light(&z, &mut raised, 90);
+        let live = raised.point_lights.iter().find(|p| p.x == source.x && p.y == source.y).unwrap();
+        assert_eq!(live.height, source.height);
+        assert_eq!(live.y + live.height, d.y.floor() + elevation);
+        let mut occluders = Vec::new();
+        region.light_occluders(90, &mut occluders);
+        let own = occluders[id].own_light.unwrap();
+        assert_eq!((own.x, own.y, own.height), (live.x, live.y, live.height));
+    }
     use crate::gfx::{Cell, DrawOpts, Frame, W, H};
     use crate::world::{Region, ZoneId};
 

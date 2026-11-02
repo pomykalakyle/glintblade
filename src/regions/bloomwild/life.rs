@@ -1,7 +1,8 @@
 //! Water stays within the hazard bed, breaks over stone lips and falls toward the cloud sea.
 
 use super::{Map, mat, pal};
-use crate::gfx::{Frame, H, Rgb, W, rgb};
+use crate::combat::{Hit, Shape, Team};
+use crate::gfx::{Frame, H, Rgb, W, frame::Surface, rgb};
 use crate::util::hash2;
 use crate::world::{RegionCtx, Zone};
 
@@ -17,6 +18,9 @@ const RIVER: [Rgb; 5] = [
 
 pub struct Life {
     wakes: Vec<Wake>,
+    movers: Vec<WaterMover>,
+    hit_ids: Vec<u32>,
+    t: u64,
     outlet: bool,
 }
 
@@ -24,6 +28,14 @@ struct Wake {
     x: i32,
     y: i32,
     born: u64,
+    sword: bool,
+}
+
+#[derive(Clone, Copy)]
+struct WaterMover {
+    position: (f32, f32),
+    travel: f32,
+    wet: bool,
 }
 
 /// Shape a continuous spill into unequal hanging strands, then lose it in the cloud shelf.
@@ -41,6 +53,9 @@ impl Life {
         if !outlet {
             return Self {
                 wakes: Vec::new(),
+                movers: Vec::new(),
+                hit_ids: Vec::new(),
+                t: 0,
                 outlet,
             };
         }
@@ -80,6 +95,9 @@ impl Life {
         }
         Self {
             wakes: Vec::new(),
+            movers: Vec::new(),
+            hit_ids: Vec::new(),
+            t: 0,
             outlet,
         }
     }
@@ -87,24 +105,71 @@ impl Life {
     /// Feet disturb the same shallow surface that movement uses. This bounded pool
     /// does not emit ambient particles or leave rings behind on bridges and dry banks.
     pub fn update(&mut self, z: &Zone, mask: &[u8], ctx: &RegionCtx) {
+        self.t = ctx.t;
         self.wakes
             .retain(|wake| ctx.t.saturating_sub(wake.born) < 30);
-        if !ctx.t.is_multiple_of(8) {
-            return;
+        for (i, &(x, y, _speed)) in ctx.movers.iter().enumerate() {
+            let (ix, iy) = (x.floor() as i32, y.floor() as i32);
+            let wet = at(z, mask, ix, iy) == mat::SHALLOW;
+            let previous = self.movers.get(i).copied();
+            let mut track = previous.unwrap_or(WaterMover { position: (x, y), travel: 0.0, wet });
+            if let Some(previous) = previous {
+                let distance = (x - previous.position.0).hypot(y - previous.position.1);
+                // Enemy-list changes and respawns must not leave a wake across the map.
+                if distance > 12.0 || !wet {
+                    track.travel = 0.0;
+                } else if distance > 0.05 {
+                    track.travel += distance;
+                    if !previous.wet || track.travel >= 5.0 {
+                        self.wake(ix, iy, false);
+                        track.travel %= 5.0;
+                    }
+                }
+            }
+            track.position = (x, y);
+            track.wet = wet;
+            if let Some(slot) = self.movers.get_mut(i) { *slot = track; }
+            else { self.movers.push(track); }
         }
-        for &(x, y, speed) in ctx.movers {
-            let (x, y) = (x.floor() as i32, y.floor() as i32);
-            if speed < 0.15 || x < 0 || y < 0 || x >= z.pw || y >= z.ph {
-                continue;
+        self.movers.truncate(ctx.movers.len());
+    }
+
+    fn wake(&mut self, x: i32, y: i32, sword: bool) {
+        if self.wakes.len() == 48 { self.wakes.remove(0); }
+        self.wakes.push(Wake { x, y, born: self.t, sword });
+    }
+
+    /// Sample the actual sword footprint at water level, once per attack. The
+    /// combat plane is five pixels above the soles, as in Glasswater's contacts.
+    pub fn slash(&mut self, z: &Zone, mask: &[u8], hit: &Hit) {
+        if hit.team != Team::Player || self.hit_ids.contains(&hit.id) { return; }
+        let (x0, y0, x1, y1) = match hit.shape {
+            Shape::Circle { x, y, r } => (x-r, y-r, x+r, y+r),
+            Shape::Arc { x, y, r1, .. } => (x-r1, y-r1, x+r1, y+r1),
+            Shape::Capsule { x0, y0, x1, y1, r } =>
+                (x0.min(x1)-r, y0.min(y1)-r, x0.max(x1)+r, y0.max(y1)+r),
+        };
+        let nx = ((x1-x0)/5.0).ceil().clamp(1.0, 12.0) as usize;
+        let ny = ((y1-y0)/5.0).ceil().clamp(1.0, 12.0) as usize;
+        let mut contacts = Vec::new();
+        for gy in 0..ny {
+            let y = y0 + (gy as f32 + 0.5) * (y1-y0) / ny as f32;
+            for gx in 0..nx {
+                let x = x0 + (gx as f32 + 0.5) * (x1-x0) / nx as f32;
+                let (ix, iy) = (x.floor() as i32, (y+5.0).floor() as i32);
+                if hit.shape.touches(x, y, 0.0) && horizontal(at(z, mask, ix, iy)) {
+                    contacts.push((ix, iy));
+                }
             }
-            if mask[(y * z.pw + x) as usize] != mat::SHALLOW {
-                continue;
-            }
-            if self.wakes.len() == 48 {
-                self.wakes.remove(0);
-            }
-            self.wakes.push(Wake { x, y, born: ctx.t });
         }
+        let count = contacts.len().min(6);
+        if count == 0 { return; }
+        for i in 0..count {
+            let (x, y) = contacts[i * contacts.len() / count];
+            self.wake(x, y, true);
+        }
+        self.hit_ids.push(hit.id);
+        if self.hit_ids.len() > 32 { self.hit_ids.remove(0); }
     }
 
     /// The near side of the surface sits in front of the hero's soles while wading.
@@ -137,12 +202,20 @@ impl Life {
             } else {
                 RIVER[1]
             };
-            f.put(x + dx - f.cam_x, yy - f.cam_y, c);
+            // This overlay crosses the hero's soles after the actor pass. It
+            // changes the contact color, while retaining actor/receiver geometry.
+            if let Some(i) = Frame::idx(x + dx - f.cam_x, yy - f.cam_y) {
+                f.albedo[i] = c;
+            }
         }
     }
 
     /// Animate coherent currents, source-bound impact rings and downward ribbons.
     pub fn draw_water(&self, z: &Zone, mask: &[u8], f: &mut Frame, t: u64) {
+        f.look.water_alpha = 0.45;
+        f.look.water_depth_max = 10;
+        f.look.water_wave = 1.0;
+        f.look.water_tint = Rgb::new(0.62, 0.78, 0.83);
         for sy in 0..H as i32 {
             let y = sy + f.cam_y;
             if y < 0 || y >= z.ph {
@@ -164,6 +237,19 @@ impl Life {
                 };
                 if let Some(c) = c {
                     f.put(sx, sy, c);
+                    if horizontal(g) {
+                        let i = sy as usize * W + sx as usize;
+                        f.surfaces[i] = water_surface(z, x, y, t);
+                        f.mark_water(sx, sy, if g == mat::DEEP { 0.65 } else { 0.45 });
+                    } else {
+                        let i = sy as usize * W + sx as usize;
+                        // The terrace curtain shares its neighboring cliff's
+                        // 352px ground base. The southern spill hangs below the
+                        // island, so its unsigned lower height stays clamped.
+                        f.surfaces[i] = Surface { normal: [0.0, 1.0, 0.0],
+                            height: if g == mat::FALLS { (352-y).clamp(0, 32) as f32 } else { 0.0 },
+                            owner: 0, kind: 5 };
+                    }
                 }
             }
         }
@@ -207,7 +293,7 @@ impl Life {
                     if x < 0 || y < 0 || x >= z.pw || y >= z.ph {
                         continue;
                     }
-                    if !matches!(mask[(y * z.pw + x) as usize], mat::SHALLOW | mat::DEEP) {
+                    if !horizontal(mask[(y * z.pw + x) as usize]) {
                         continue;
                     }
                     let ellipse = dx * dx * ry * ry + dy * dy * rx * rx;
@@ -219,8 +305,23 @@ impl Life {
                     if age > 16 && (dx + dy).rem_euclid(3) == 0 {
                         continue;
                     }
-                    let color = if dy <= 0 { RIVER[2] } else { RIVER[1] };
-                    f.put(x - f.cam_x, y - f.cam_y, color);
+                    if !wet_segment(z, mask, (wake.x, wake.y), (x, y)) {
+                        continue;
+                    }
+                    let color = if dy <= 0 {
+                        if wake.sword && age < 10 { RIVER[3] } else { RIVER[2] }
+                    } else { RIVER[1] };
+                    let (sx, sy) = (x - f.cam_x, y - f.cam_y);
+                    if let Some(i) = Frame::idx(sx, sy) {
+                        f.albedo[i] = color;
+                        // A crest tilts the receiving plane, rather than becoming
+                        // unlit ink or inheriting a nearby bank's wall normal.
+                        let mut n = f.surfaces[i].normal;
+                        n[0] += dx.signum() as f32 * 0.08;
+                        n[1] += dy.signum() as f32 * 0.10;
+                        let inv = (n[0]*n[0]+n[1]*n[1]+n[2]*n[2]).sqrt().recip();
+                        f.surfaces[i].normal = n.map(|v| v * inv);
+                    }
                 }
             }
         }
@@ -231,7 +332,7 @@ impl Life {
             for x in bx..bx + 112 {
                 for dy in 0..6 {
                     let y = by + 32 + dy;
-                    if !mat::water(mask[(y * z.pw + x) as usize]) {
+                    if !mat::water(at(z, mask, x, y)) {
                         continue;
                     }
                     let from_mid = (x - (bx + 56)).abs();
@@ -246,11 +347,56 @@ impl Life {
                     } else {
                         pal::STONE[1]
                     };
-                    f.put(x - f.cam_x, y - f.cam_y, c);
+                    let (sx, sy) = (x - f.cam_x, y - f.cam_y);
+                    f.put(sx, sy, c);
+                    if let Some(i) = Frame::idx(sx, sy) {
+                        // This hanging masonry replaces the receiving water. It
+                        // cannot also accept the hero's reflected silhouette.
+                        f.mark_water(sx, sy, 0.0);
+                        f.surfaces[i] = Surface { normal: [0.0, 1.0, 0.0],
+                            // The face hangs below the zero-height bridge deck;
+                            // unsigned terrain heights clamp its lower extent.
+                            height: 0.0, owner: 0, kind: 5 };
+                    }
                 }
             }
         }
     }
+}
+
+#[inline]
+fn horizontal(g: u8) -> bool { matches!(g, mat::SHALLOW | mat::DEEP) }
+
+#[inline]
+fn at(z: &Zone, mask: &[u8], x: i32, y: i32) -> u8 {
+    if x >= 0 && y >= 0 && x < z.pw && y < z.ph {
+        mask[(y * z.pw + x) as usize]
+    } else { mat::VOID }
+}
+
+/// A dry bank between two nearby wet pixels stops a crest, including narrow
+/// strips inside a connected meander. Destination-only clipping is insufficient.
+fn wet_segment(z: &Zone, mask: &[u8], a: (i32, i32), b: (i32, i32)) -> bool {
+    let dx = b.0 - a.0;
+    let dy = b.1 - a.1;
+    let steps = dx.abs().max(dy.abs());
+    if steps == 0 { return horizontal(at(z, mask, a.0, a.1)); }
+    (0..=steps).all(|i| horizontal(at(z, mask,
+        a.0 + (dx * i).div_euclid(steps), a.1 + (dy * i).div_euclid(steps))))
+}
+
+/// Quiet, world-anchored current tilts catch the same sun as the banks. Integer
+/// triangle phases avoid per-pixel trigonometry and shimmer from random noise.
+fn water_surface(z: &Zone, x: i32, y: i32, t: u64) -> Surface {
+    let triangle = |v: i32, period: i32| {
+        ((v.rem_euclid(period) * 2 - period).abs() as f32 / period as f32 - 0.5) * 2.0
+    };
+    let nx = triangle(x + y * 2 - (t / 4) as i32, 83) * 0.035;
+    let ny = triangle(x * 2 - y - (t / 7) as i32, 109) * 0.026;
+    let inv = (nx * nx + ny * ny + 1.0).sqrt().recip();
+    Surface { normal: [nx * inv, ny * inv, inv],
+        height: z.ground_surfaces[(y * z.pw + x) as usize].height as f32,
+        owner: 0, kind: 1 }
 }
 
 /// Cool connected water holds the volume; narrow unequal strands carry the light.
@@ -334,8 +480,10 @@ fn surface(z: &Zone, mask: &[u8], x: i32, y: i32, t: u64, g: u8) -> crate::gfx::
     // Depth classification comes from the same native mask used by movement. Surface
     // shading may vary within a shelf, but never depicts shallow ground as deep water.
     let bank = !wet(x - 2, y) || !wet(x + 2, y) || !wet(x, y - 2);
-    let mut c = if bank || g == mat::DEEP {
+    let mut c = if g == mat::DEEP {
         RIVER[0]
+    } else if bank {
+        RIVER[0].lerp(RIVER[1], 0.45)
     } else {
         RIVER[1]
     };
@@ -516,17 +664,12 @@ mod tests {
             marks: vec![],
         };
         let mut mask = vec![mat::GRASS; (z.pw * z.ph) as usize];
-        mask[10 * z.pw as usize + 10] = mat::SHALLOW;
-        mask[10 * z.pw as usize + 12] = mat::DEEP;
-        mask[10 * z.pw as usize + 14] = mat::BRIDGE;
+        for x in 4..18 { mask[10 * z.pw as usize + x] = mat::SHALLOW; }
+        mask[10 * z.pw as usize + 20] = mat::DEEP;
+        mask[10 * z.pw as usize + 24] = mat::BRIDGE;
         let mut life = Life::build(&m, &mut mask, &mut z);
-        let movers = [
-            (10.0, 10.0, 1.0),
-            (12.0, 10.0, 1.0),
-            (14.0, 10.0, 1.0),
-            (16.0, 10.0, 1.0),
-        ];
-        for t in 0..512 {
+        for t in 0..120 {
+            let movers = [(5.0, 10.0, 2.0)];
             life.update(
                 &z,
                 &mask,
@@ -538,9 +681,15 @@ mod tests {
                 },
             );
         }
-        assert!(!life.wakes.is_empty());
-        assert!(life.wakes.len() <= 4);
-        assert!(life.wakes.iter().all(|w| w.x == 10 && w.y == 10));
+        assert!(life.wakes.is_empty(), "a wall push is not a water contact");
+        for t in 120..130 {
+            let movers = [(6.0 + (t-120) as f32, 10.0, 1.0),
+                (20.0, 10.0, 2.0), (24.0, 10.0, 2.0), (28.0, 10.0, 2.0)];
+            life.update(&z, &mask, &RegionCtx { t, player: (movers[0].0, 10.0),
+                movers: &movers, cam: (0, 0) });
+        }
+        assert_eq!(life.wakes.len(), 2, "walking makes displacement-spaced contacts");
+        assert!(life.wakes.iter().all(|w| at(&z, &mask, w.x, w.y) == mat::SHALLOW));
         life.update(
             &z,
             &mask,
@@ -555,6 +704,141 @@ mod tests {
             life.wakes.is_empty(),
             "old foot contacts decay when the water is left alone"
         );
+    }
+
+    #[test]
+    fn sword_contacts_are_projected_once_and_do_not_disturb_dry_or_enemy_hits() {
+        let (mut z, mut mask, mut life) = test_pool();
+        for y in 0..z.ph { for x in 16..z.pw {
+            mask[(y * z.pw + x) as usize] = mat::GRASS;
+        } }
+        let hit = Hit::new(Shape::Circle { x: 14.0, y: 10.0, r: 9.0 }, Team::Player, 1, 9);
+        life.slash(&mut z, &mask, &hit);
+        assert!(!life.wakes.is_empty());
+        assert!(life.wakes.iter().all(|w| w.x < 16 && w.sword && w.y >= 6));
+        let count = life.wakes.len();
+        life.slash(&mut z, &mask, &hit);
+        assert_eq!(life.wakes.len(), count, "active attack frames must not multiply contacts");
+        let mut enemy = hit;
+        enemy.id += 1; enemy.team = Team::Enemy;
+        life.slash(&mut z, &mask, &enemy);
+        assert_eq!(life.wakes.len(), count);
+        let dry = Hit::new(Shape::Circle { x: 28.0, y: 10.0, r: 3.0 }, Team::Player, 1, 12);
+        life.slash(&mut z, &mask, &dry);
+        assert_eq!(life.wakes.len(), count, "dry sword swings do not splash nearby water");
+    }
+
+    fn test_pool() -> (Zone, Vec<u8>, Life) {
+        let mut z = Zone::new(crate::world::ZoneId::Bloomwild, 2, 2);
+        let m = Map { tw: 2, th: 2, k: vec![super::super::K::Grass; 4],
+            level: vec![0; 4], marks: vec![] };
+        let mut mask = vec![mat::SHALLOW; (z.pw * z.ph) as usize];
+        let life = Life::build(&m, &mut mask, &mut z);
+        (z, mask, life)
+    }
+
+    #[test]
+    fn dry_strips_stop_wakes_and_reflections_keep_live_receiver_geometry() {
+        let (z, mut mask, mut life) = test_pool();
+        for y in 0..z.ph { mask[(y * z.pw + 16) as usize] = mat::GRASS; }
+        life.wake(13, 14, true);
+        let mut quiet = Frame::new();
+        let mut disturbed = Frame::new();
+        quiet.surface_lighting = true;
+        disturbed.surface_lighting = true;
+        Life { wakes: Vec::new(), movers: Vec::new(), hit_ids: Vec::new(), t: 0,
+            outlet: false }.draw_water(&z, &mask, &mut quiet, 24);
+        life.draw_water(&z, &mask, &mut disturbed, 24);
+        let mut changed = 0;
+        for y in 0..z.ph { for x in 0..z.pw {
+            let i = y as usize * W + x as usize;
+            if x >= 16 {
+                assert_eq!(disturbed.albedo[i], quiet.albedo[i], "crest crossed dry strip");
+                assert_eq!(disturbed.surfaces[i].normal, quiet.surfaces[i].normal);
+            } else if disturbed.albedo[i] != quiet.albedo[i] { changed += 1; }
+            if horizontal(at(&z, &mask, x, y)) {
+                let s = disturbed.surfaces[i];
+                assert_eq!((s.owner, s.kind), (0, 1));
+                assert!((s.normal.iter().map(|v| v*v).sum::<f32>() - 1.0).abs() < 0.0001);
+                assert!(disturbed.water[i] > 0);
+            } else { assert_eq!(disturbed.water[i], 0); }
+        } }
+        assert!(changed > 0, "the splash must remain visible on its own side");
+    }
+
+    #[test]
+    fn wading_overlay_keeps_actor_and_receiver_metadata() {
+        let (z, mask, life) = test_pool();
+        let mut f = Frame::new();
+        let receiver = Surface { normal: [0.0, 1.0, 0.0], height: 3.0, owner: 7, kind: 3 };
+        f.surfaces.fill(receiver);
+        f.actor_pixels.fill(true);
+        life.draw_foot_contact(&z, &mask, &mut f, (14.0, 14.0), 0);
+        let i = 14 * W + 14;
+        assert_eq!(f.surfaces[i].normal, receiver.normal);
+        assert_eq!((f.surfaces[i].height, f.surfaces[i].owner, f.surfaces[i].kind), (3.0, 7, 3));
+        assert!(f.actor_pixels[i]);
+        assert!(f.albedo[i].luma() > 0.0);
+    }
+
+    #[test]
+    fn arches_are_masonry_receivers_and_every_other_pool_pixel_keeps_live_water() {
+        let m = Map::parse();
+        let mut z = Zone::new(crate::world::ZoneId::Bloomwild, m.tw, m.th);
+        let mut mask = super::super::paint::paint(&mut z, &m);
+        let life = Life::build(&m, &mut mask, &mut z);
+        let mut wet = 0;
+        let mut stone = 0;
+        for (cx, cy) in [(520, 96), (520, 280), (650, 440), (650, 600)] {
+            let mut f = Frame::new();
+            f.cam_x = cx; f.cam_y = cy;
+            life.draw_water(&z, &mask, &mut f, 90);
+            for sy in 0..H as i32 { for sx in 0..W as i32 {
+                let (x, y) = (sx + cx, sy + cy);
+                let i = sy as usize * W + sx as usize;
+                if !horizontal(at(&z, &mask, x, y)) { continue; }
+                if f.surfaces[i].kind == 5 {
+                    stone += 1;
+                    assert_eq!(f.water[i], 0, "the bridge's face is not reflective water");
+                    assert_eq!(f.surfaces[i].normal, [0.0, 1.0, 0.0]);
+                    assert_eq!(f.surfaces[i].height, 0.0, "underside cannot rise above its zero-height deck");
+                } else {
+                    wet += 1;
+                    assert_eq!(f.surfaces[i].kind, 1, "missing water surface {x},{y}");
+                    assert!(f.water[i] > 0);
+                    assert_eq!(f.surfaces[i].height, z.ground_surfaces[(y*z.pw+x) as usize].height as f32);
+                }
+            } }
+        }
+        assert!(wet > 10_000 && stone > 100);
+    }
+
+    #[test]
+    fn falling_curtains_use_vertical_receivers_at_the_actual_terrace_base() {
+        let m = Map::parse();
+        let mut z = Zone::new(crate::world::ZoneId::Bloomwild, m.tw, m.th);
+        let mut mask = super::super::paint::paint(&mut z, &m);
+        let life = Life::build(&m, &mut mask, &mut z);
+        let mut f = Frame::new();
+        f.cam_x = 600; f.cam_y = 290;
+        life.draw_water(&z, &mask, &mut f, 90);
+        let mut pixels = 0;
+        for y in 320..352 { for x in 688..736 {
+            if at(&z, &mask, x, y) != mat::FALLS { continue; }
+            let i = (y-f.cam_y) as usize * W + (x-f.cam_x) as usize;
+            assert_eq!(f.surfaces[i].normal, [0.0, 1.0, 0.0]);
+            assert_eq!(f.surfaces[i].kind, 5);
+            assert_eq!(f.surfaces[i].height + y as f32, 352.0);
+            assert_eq!(f.water[i], 0, "a falling curtain cannot receive a horizontal mirror");
+            pixels += 1;
+        } }
+        assert!(pixels > 1000);
+        f.cam_x = 730; f.cam_y = 700;
+        life.draw_water(&z, &mask, &mut f, 90);
+        let i = (760-f.cam_y) as usize * W + (840-f.cam_x) as usize;
+        assert_eq!((f.surfaces[i].kind, f.surfaces[i].height), (5, 0.0),
+            "the below-island outlet cannot be raised above the terrain datum");
+        assert_eq!(f.water[i], 0);
     }
 
     /// Water keeps its exact native coordinates and depth while the dry coast

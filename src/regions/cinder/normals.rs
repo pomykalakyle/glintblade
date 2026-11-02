@@ -39,15 +39,26 @@ pub(super) fn detail(z: &mut Zone, kind: &Grid<u8>) {
             } else {
                 fallback
             };
-            let mut detailed = TerrainSurface::new(
-                terrain_detail::normal(material, x, y, base),
-                surface.height as f32,
-            );
+            let normal = if kind.at(x, y) == super::paint::K_PAVE {
+                paving_normal(x, y, base)
+            } else { terrain_detail::normal(material, x, y, base) };
+            let mut detailed = TerrainSurface::new(normal, surface.height as f32);
             if surface.present() { detailed.upright = surface.upright; }
             z.ground_surfaces[i] = detailed;
         }
     }
     z.invalidate_lighting();
+}
+
+/// The exact 32x24 running bond used by paint_paving. Recessed grout and
+/// authored cracks keep their existing source geometry, without new pores.
+fn paving_normal(x: i32, y: i32, base: [f32; 3]) -> [f32; 3] {
+    let row = y.div_euclid(24);
+    let xx = x + row.rem_euclid(2) * 16;
+    let (lx, ly) = (xx.rem_euclid(32), y.rem_euclid(24));
+    let mortar = (ly == 23 && lx > 5) || (lx == 31 && ly > 7);
+    let stone = crate::util::hash2(xx.div_euclid(32), row, 9423).to_bits();
+    terrain_detail::masonry(x, y, base, stone, mortar)
 }
 
 fn material(kind: u8) -> Option<(Material, [f32; 3])> {
@@ -174,12 +185,7 @@ mod tests {
                     {
                         let base = TerrainSurface::new([nx, -ny, nz], 0.0);
                         TerrainSurface::new(
-                            terrain_detail::normal(
-                                Material::Stone,
-                                x,
-                                y,
-                                base.normal.map(|n| n as f32 / 127.0),
-                            ),
+                            paving_normal(x, y, base.normal.map(|n| n as f32 / 127.0)),
                             0.0,
                         )
                     },
@@ -269,15 +275,20 @@ mod tests {
             assert!(slopes.len() > 100, "real material {k} missing");
             slopes.sort_by(f32::total_cmp);
             let median = slopes[slopes.len() / 2];
-            let visible = slopes.iter().filter(|&&s| s > 0.06).count() as f32 / slopes.len() as f32;
+            let laid_stone = matches!(k, K_PAVE | K_DECK | K_DAIS);
+            let threshold = if laid_stone { 0.015 } else { 0.06 };
+            let visible = slopes.iter().filter(|&&s| s > threshold).count() as f32 / slopes.len() as f32;
             println!(
                 "Cinder material {k}: pixels {}, median lateral {median:.4}, visibly tilted {visible:.3}",
                 slopes.len()
             );
             assert!(
-                median > 0.065 && visible > 0.52,
+                median > if laid_stone { 0.02 } else { 0.065 } && visible > 0.52,
                 "material {k} still has visually flat interiors: median {median:.4}, visible {visible:.3}"
             );
+            if laid_stone {
+                assert!(median < 0.09, "worn stone became as rough as ash or grass: {median}");
+            }
             medians.push(median);
         }
         assert!(

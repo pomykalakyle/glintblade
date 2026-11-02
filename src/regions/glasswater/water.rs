@@ -713,7 +713,7 @@ mod tests {
         super::super::place::populate(&mut z, &mut decor, &m);
         let water = Water::new(&m, &fl, &z.ground, &decor);
         let mirror = &water.mirrors[0];
-        assert_eq!(mirror.source, (520, 404));
+        assert_eq!(mirror.source, (520, 398));
         for x in 504..=536 {
             let line = mirror.lines[(x - mirror.left) as usize];
             assert!(

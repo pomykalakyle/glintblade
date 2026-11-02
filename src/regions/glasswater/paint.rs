@@ -452,6 +452,14 @@ pub fn fields(m: &PixMap) -> Fields {
 
 /// Paint `z.ground` from the pixel map.
 pub fn paint(z: &mut Zone, m: &PixMap, fl: &Fields) {
+    // Painted wall caps represent solid rock down to the walkable datum.
+    // Their top and front sheets alone leave the interior empty: a low ray
+    // entering from the north can otherwise pass through the entire mass.
+    let cap: Vec<_> = m.cls.iter().zip(&m.span)
+        .map(|(&kind, &height)| (kind == WALL_TOP && height > 0).then_some(height))
+        .collect();
+    z.terrain_volumes.clear();
+    z.add_cap_volumes(&cap);
     let (w, h) = (m.w, m.h);
     let ramps: [[Rgb; 6]; 4] = [floor_ramp(0), floor_ramp(1), floor_ramp(2), floor_ramp(3)];
     // terrace map, smoothed so no level forms a sliver
@@ -843,6 +851,59 @@ mod normal_tests {
     use super::*;
     use crate::gfx::lighting::TerrainSurface;
     use crate::world::ZoneId;
+
+    /// An actual accessible receiver west of the bridge was lit through the
+    /// middle of the 30px-high wall to its east. Top/front sheets do not close
+    /// that mass; the cap extrusion must, while retaining open and above-cap rays.
+    #[test]
+    fn raised_rock_is_solid_to_low_light_without_sealing_open_floor_or_its_top() {
+        use crate::gfx::{Frame, Rgb, W, lighting, surface};
+        let (mut z, region) = super::super::build();
+        assert!(!z.blocked(644.0, 248.0, 4.0));
+        assert!(!z.blocked(731.0, 248.0, 4.0));
+        assert!(!z.blocked(731.0, 260.0, 4.0), "the projected emitter at Y248/Z12 stands on accessible ground Y260");
+        assert!(!z.blocked(620.0, 248.0, 4.0), "the open-floor control is an accessible source position");
+        assert!(z.terrain_volumes.len() > 100, "exercise the native cliff masses");
+        let areas: Vec<_> = z.terrain_volumes.iter()
+            .map(|v| (v.max[0] - v.min[0]) * (v.max[1] - v.min[1])).collect();
+        eprintln!("Glasswater solid caps: {} rectangles, mean area {:.2}px, max area {:.0}px",
+            areas.len(), areas.iter().sum::<f32>() / areas.len() as f32,
+            areas.iter().copied().fold(0.0, f32::max));
+        let response = |z: &Zone, target: (i32, i32), source: (f32, f32, f32)| {
+            let mut f = Frame::new();
+            f.cam_x = 480;
+            f.cam_y = 160;
+            f.begin(Rgb::BLACK, Rgb::BLACK);
+            f.surface_lighting = true;
+            lighting::prepare(z, region.as_ref());
+            let index = ((target.1 - f.cam_y) as usize) * W + (target.0 - f.cam_x) as usize;
+            // Isolate world geometry from both microscopic incidence and
+            // viewport surface shadows. A wall must also occlude when its
+            // relevant cap pixels lie outside the rendered viewport.
+            let height = z.ground_surfaces[(target.1 * z.pw + target.0) as usize].height;
+            f.surfaces[index] = crate::gfx::frame::Surface {
+                normal: [0.0, 0.0, 1.0], height: f32::from(height), owner: 0,
+                kind: if height > 0 { 2 } else { 1 },
+            };
+            f.point_lights.push(crate::gfx::frame::PointLight {
+                x: source.0, y: source.1, height: source.2, radius: 140.0,
+                color: Rgb::WHITE, intensity: 1.0,
+            });
+            surface::apply_world(z, &mut f);
+            f.light[index].r
+        };
+        assert_eq!(response(&z, (644, 248), (731.0, 248.0, 12.0)), 0.0,
+            "the source reaches floor through solid raised rock");
+        assert!(response(&z, (644, 248), (620.0, 236.0, 12.0)) > 0.1,
+            "the mass must not seal adjacent open floor");
+        assert!(response(&z, (680, 218), (680.5, 248.5, 50.0)) > 0.1,
+            "a source above the cap must still light its top");
+        z.terrain_volumes.clear();
+        z.invalidate_lighting();
+        let sheets = response(&z, (644, 248), (731.0, 248.0, 12.0));
+        assert!(sheets > 0.03,
+            "this regression must exercise the empty-interior failure of native sheets alone: {sheets}");
+    }
 
     #[test]
     fn raised_wall_caps_and_faces_share_their_authored_altitude() {

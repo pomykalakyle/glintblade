@@ -1,13 +1,14 @@
 //! Native PixelLab mineral surfaces, clipped to the existing physical material masks.
-//! Lava, banks, bridges, stair treads, collision and combat lanes keep their authored pixels.
+//! Lava, banks, bridges and stair treads keep their authored pixels. Raised shrine
+//! masonry shares its native silhouette with collision around a clear processional lane.
 
 use super::field::Grid;
 use super::paint::{K_ISLEFACE, K_PAVE, K_ROCKFACE};
 use crate::gfx::{Sheet, sheet};
 use crate::util::hash2;
-use crate::world::{HOLE, Zone};
+use crate::world::{HOLE, Tile, Zone};
 
-/// The new art is an optional albedo layer; every cell stays on its native integer grid.
+/// Every material and masonry cell stays on its native integer grid.
 pub fn apply(z: &mut Zone, kinds: &Grid<u8>) {
     if let Some(s) = sheet("cinder_floor") {
         floor(z, kinds, s);
@@ -350,24 +351,40 @@ fn cliff(z: &mut Zone, kinds: &Grid<u8>, s: &Sheet) {
     }
 }
 
-/// A native ceremonial inlay sits inside the real raised caldera platform. Its outer masonry,
-/// stairs, lava skirt and playable approach keep their original geometry.
+/// Broken ceremonial masonry frames a clear north-south route through the shrine.
+/// The native raised stone is solid; its two open ends expose the original dais
+/// paving so the approach to the shard and onward gate agrees with the artwork.
 fn shrine(z: &mut Zone, kinds: &Grid<u8>, s: &Sheet) {
     let Some(c) = s.cells.first().and_then(|r| r.first()) else {
         return;
     };
     let (ox, oy) = (1144 - s.anchor.0, 182 - s.anchor.1);
+    let stone = |x, y| {
+        let p = c.at(x, y);
+        p.a && p.c != crate::gfx::rgb(0x101017)
+    };
+    // A 24-pixel causeway keeps the shard and gate on the same visible floor.
+    // Neither source albedo nor its normal may cover this opening.
+    let lane = 1132..1156;
+    let bottom: Vec<_> = (0..c.w)
+        .map(|x| (0..c.h).rev().find(|&y| stone(x, y)))
+        .collect();
     for y in 0..c.h {
         for x in 0..c.w {
             let (wx, wy) = (ox + x, oy + y);
-            if kinds.at(wx, wy) != super::paint::K_DAIS {
+            if lane.contains(&wx) || kinds.at(wx, wy) != super::paint::K_DAIS {
                 continue;
             }
             let p = c.at(x, y);
             // The generator's staging fill is not a hole in the walkable dais.
-            if p.a && p.c != crate::gfx::rgb(0x101017) {
+            if stone(x, y) {
                 z.gset(wx, wy, p.c);
-                z.gset_surface(wx, wy, c, x, y, false, 0.0);
+                let from_bottom = bottom[x as usize].unwrap() - y;
+                let upright = from_bottom < 8;
+                z.gset_surface(wx, wy, c, x, y, upright, from_bottom.min(8) as f32);
+                if let Some(tiles) = z.surface_tiles.as_mut() {
+                    tiles[(wy * z.pw + wx) as usize] = Tile::Wall;
+                }
             }
         }
     }
@@ -416,6 +433,60 @@ mod tests {
     use crate::gfx::{Cell, Px, Rgb};
     use crate::world::ZoneId;
     use std::collections::HashMap;
+
+    #[test]
+    fn broken_shrine_masonry_is_solid_around_an_untouched_floor_causeway() {
+        let s = sheet("cinder_shrine").expect("embedded native shrine artwork");
+        let c = &s.cells[0][0];
+        let (ox, oy) = (1144 - s.anchor.0, 182 - s.anchor.1);
+        let mut z = Zone::new(ZoneId::Cinder, 88, 16);
+        let base = Rgb::new(0.1, 0.2, 0.3);
+        z.ground.fill(base);
+        z.set_surface_tiles(vec![Tile::Floor; z.ground.len()]);
+        z.fill_walkable_surfaces(|_, _| ([0.0, 0.0, 1.0], 0.0));
+        let floor = z.ground_surfaces[0];
+        let mut kinds = Grid::new(z.pw, z.ph, K_DAIS);
+        // Even native stone cannot replace the actual lava next to the platform.
+        kinds.set(ox + 13, oy + 42, K_LAVA);
+        shrine(&mut z, &kinds, s);
+
+        let mut walls = 0;
+        let mut open_stone = 0;
+        let mut roofs = 0;
+        let mut faces = 0;
+        for y in 0..c.h {
+            for x in 0..c.w {
+                let (wx, wy) = (ox + x, oy + y);
+                let i = (wy * z.pw + wx) as usize;
+                let p = c.at(x, y);
+                let stone = p.a && p.c != crate::gfx::rgb(0x101017);
+                if stone && !(1132..1156).contains(&wx) && kinds.at(wx, wy) == K_DAIS {
+                    walls += 1;
+                    assert_eq!(z.ground[i], p.c, "native stone changed at {wx},{wy}");
+                    assert_eq!(z.tile_at(wx as f32, wy as f32), Tile::Wall,
+                        "raised stone is passable at {wx},{wy}");
+                    let bottom = (0..c.h).rev().find(|&sy| {
+                        let p = c.at(x, sy);
+                        p.a && p.c != crate::gfx::rgb(0x101017)
+                    }).unwrap();
+                    let from_bottom = bottom - y;
+                    let surface = z.ground_surfaces[i];
+                    assert_eq!(surface.height, from_bottom.min(8) as u8);
+                    assert_eq!(surface.upright, from_bottom < 8);
+                    if surface.upright { faces += 1; } else { roofs += 1; }
+                } else {
+                    if stone && (1132..1156).contains(&wx) { open_stone += 1; }
+                    assert_eq!(z.ground[i], base, "protected floor changed at {wx},{wy}");
+                    assert_eq!(z.ground_surfaces[i], floor,
+                        "protected floor normal changed at {wx},{wy}");
+                    assert_eq!(z.tile_at(wx as f32, wy as f32), Tile::Floor,
+                        "shrine sealed its floor opening at {wx},{wy}");
+                }
+            }
+        }
+        assert!(walls > 2000 && open_stone > 400, "exercise real shrine and both openings");
+        assert!(roofs > 1500 && faces > 300, "raised masonry needs roof and front planes");
+    }
 
     /// Cover the most dangerous integration boundary: decorative native faces may extend into
     /// backdrop but cannot cover a flowing lavafall, a bank, bridge or usable path.

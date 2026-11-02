@@ -115,7 +115,7 @@ mod tests {
             let mut count = 0;
             let mut tilted = 0;
             for (i, &k) in painted.kind.v.iter().enumerate() {
-                if k != kind {
+                if k != kind || z.tile_at((i as i32 % z.pw) as f32, (i as i32 / z.pw) as f32) != Tile::Floor {
                     continue;
                 }
                 let surface = z.ground_surfaces[i];
@@ -252,7 +252,9 @@ mod tests {
                 .iter()
                 .enumerate()
                 .filter_map(|(i, &actual)| {
-                    if actual != k || z.ground[i].r < 0.0 {
+                    if actual != k || z.ground[i].r < 0.0
+                        || z.tile_at((i as i32 % z.pw) as f32, (i as i32 / z.pw) as f32) != Tile::Floor
+                    {
                         return None;
                     }
                     let [nx, ny, nz] = z.ground_surfaces[i].normal.map(|n| n as f32 / 127.0);

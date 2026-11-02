@@ -232,6 +232,40 @@ mod tests {
         }
     }
 
+    #[test]
+    fn shrine_rim_stops_sideways_movement_and_keeps_its_center_passage_open() {
+        for (direction, minimum, maximum) in [
+            ((1.0, 0.0), 1145.0, 1152.0),
+            ((-1.0, 0.0), 1136.0, 1143.0),
+        ] {
+            let mut play = crate::play::Play::new(ZoneId::Cinder,
+                &crate::play::PlayOpts { god: true, peaceful: true });
+            play.player.body.x = 1144.0;
+            play.player.body.y = 210.0;
+            let mut fx = crate::fx::Fx::new(7);
+            let input = crate::input::Input { mv: direction, ..Default::default() };
+            for _ in 0..90 { play.update(&input, &mut fx); }
+            let feet = &play.player.body;
+            assert!((minimum..=maximum).contains(&feet.x),
+                "feet crossed the raised shrine rim from its center passage: {},{}", feet.x, feet.y);
+            assert!((feet.y - 210.0).abs() < 0.01);
+            assert!(!play.zone.blocked(feet.x, feet.y, feet.r));
+            assert!(play.zone.blocked(feet.x + direction.0 * 2.0, feet.y, feet.r),
+                "movement stopped before reaching actual masonry");
+        }
+
+        let mut play = crate::play::Play::new(ZoneId::Cinder,
+            &crate::play::PlayOpts { god: true, peaceful: true });
+        play.player.body.x = 1144.0;
+        play.player.body.y = 196.0;
+        let mut fx = crate::fx::Fx::new(7);
+        let input = crate::input::Input { mv: (0.0, 1.0), ..Default::default() };
+        for _ in 0..60 { play.update(&input, &mut fx); }
+        assert!(play.player.body.y > 250.0,
+            "the visible opening must connect the shrine center back to its stairs");
+        assert!((play.player.body.x - 1144.0).abs() < 0.01);
+    }
+
     /// Traverse actual feet-box collision from entry to every encounter, shard, and gate.
     #[test]
     fn processional_route_is_traversable() {

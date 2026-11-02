@@ -4,7 +4,8 @@ use super::{K, Map, mat, pal};
 use crate::combat::Hit;
 use crate::fx::{Fx, Particle};
 use crate::gfx::{Frame, Rgb, sheet};
-use crate::util::hash2;
+use crate::gfx::sprite::SpriteFocus;
+use crate::util::{bayer4, hash2};
 use crate::world::{RegionCtx, Zone};
 use std::f32::consts::TAU;
 
@@ -94,7 +95,12 @@ impl NativeGrass {
 /// Keep the exact accepted leaf pixel and its rooted height together. Raw put()
 /// clears previous surface metadata, so a grass pixel must restore its own
 /// normal after replacing the ground. It remains an unowned scenery receiver.
-fn put_leaf(f: &mut Frame, x: i32, y: i32, color: Rgb, normal: [f32; 3], kind: u8, root_y: i32) {
+#[allow(clippy::too_many_arguments)]
+fn put_leaf(f: &mut Frame, x: i32, y: i32, color: Rgb, normal: [f32; 3], kind: u8, root_y: i32, reveal: Option<SpriteFocus>) {
+    let (wx, wy) = (x + f.cam_x, y + f.cam_y);
+    if reveal.is_some_and(|focus| focus.covers(wx, wy)) && bayer4(wx, wy) >= 0.25 {
+        return;
+    }
     f.put(x, y, color);
     if f.surface_lighting && let Some(i) = Frame::idx(x, y) {
         f.surfaces[i] = crate::gfx::frame::Surface {
@@ -106,8 +112,8 @@ fn put_leaf(f: &mut Frame, x: i32, y: i32, color: Rgb, normal: [f32; 3], kind: u
     }
 }
 
-fn leaf_line(f: &mut Frame, from: (i32, i32), to: (i32, i32), color: Rgb, normal: [f32; 3], root_y: i32) {
-    Frame::line_with(from.0, from.1, to.0, to.1, |x, y| put_leaf(f, x, y, color, normal, 2, root_y));
+fn leaf_line(f: &mut Frame, from: (i32, i32), to: (i32, i32), color: Rgb, normal: [f32; 3], root_y: i32, reveal: Option<SpriteFocus>) {
+    Frame::line_with(from.0, from.1, to.0, to.1, |x, y| put_leaf(f, x, y, color, normal, 2, root_y, reveal));
 }
 
 impl Grass {
@@ -252,12 +258,18 @@ impl Grass {
 
     /// Draw five tapered blades with a common low-amplitude wind wave.
     pub fn draw(&self, f: &mut Frame, id: u32, t: u64) {
+        self.draw_revealed(f, id, t, None);
+    }
+
+    /// Keep foreground leaves porous only over the current hero silhouette.
+    pub fn draw_revealed(&self, f: &mut Frame, id: u32, t: u64, reveal: Option<SpriteFocus>) {
         if id >> 24 != ID {
             return;
         }
         let Some(tuft) = self.tufts.get((id & 0xff_ffff) as usize) else {
             return;
         };
+        let reveal = reveal.filter(|focus| tuft.y as f32 > focus.ground_y);
         let (x, y) = (tuft.x - f.cam_x, tuft.y - f.cam_y);
         if let Some(native) = &self.native {
             let variant = (hash2(tuft.x, tuft.y, 537) * native.frames.len() as f32) as usize % native.frames.len();
@@ -268,7 +280,7 @@ impl Grass {
                 // Root pixels never move; upper leaf clusters move by a whole native pixel.
                 let shift = if leaf.y < ay - 4 { sway } else { 0 };
                 put_leaf(f, x + leaf.x - ax + shift, y + leaf.y - ay,
-                    leaf.color, leaf.normal, leaf.kind, tuft.y);
+                    leaf.color, leaf.normal, leaf.kind, tuft.y, reveal);
             }
             return;
         }
@@ -278,7 +290,7 @@ impl Grass {
         let base = if tuft.quiet { ramp[1] } else { ramp[0] };
         let height = if tuft.quiet { (tuft.h / 2).max(4) } else { tuft.h };
         for py in y - 1..=y {
-            for px in x - 3..=x + 3 { put_leaf(f, px, py, base, [0.0, 0.0, 1.0], 2, tuft.y); }
+            for px in x - 3..=x + 3 { put_leaf(f, px, py, base, [0.0, 0.0, 1.0], 2, tuft.y, reveal); }
         }
         for blade in 0i32..5 {
             if tuft.quiet && (blade == 0 || blade == 4) {
@@ -293,11 +305,11 @@ impl Grass {
             let ny = lean as f32 * 0.05;
             let scale = (nx * nx + ny * ny + 1.0).sqrt().recip();
             let normal = [-nx * scale, -ny * scale, scale];
-            leaf_line(f, (root, y), (root + lean / 3, y - h / 2), base, normal, tuft.y);
-            leaf_line(f, (root + 1, y - 1), (root + lean / 3 + 1, y - h / 2), ramp[1], normal, tuft.y);
-            leaf_line(f, (root + lean / 3, y - h / 2), (top, tip), ramp[2], normal, tuft.y);
+            leaf_line(f, (root, y), (root + lean / 3, y - h / 2), base, normal, tuft.y, reveal);
+            leaf_line(f, (root + 1, y - 1), (root + lean / 3 + 1, y - h / 2), ramp[1], normal, tuft.y, reveal);
+            leaf_line(f, (root + lean / 3, y - h / 2), (top, tip), ramp[2], normal, tuft.y, reveal);
             if blade % 2 == 0 && !tuft.quiet {
-                leaf_line(f, (top, tip), (top + lean.signum(), tip - 2), ramp[3], normal, tuft.y);
+                leaf_line(f, (top, tip), (top + lean.signum(), tip - 2), ramp[3], normal, tuft.y, reveal);
             }
         }
     }
@@ -323,6 +335,90 @@ mod tests {
         frame.surface_lighting = physical;
         grass.draw(&mut frame, ID << 24, 61);
         frame
+    }
+
+    fn hero_frame(focus: SpriteFocus, physical: bool, camera: (i32, i32)) -> Frame {
+        let mut f = Frame::new();
+        f.cam_x = camera.0;
+        f.cam_y = camera.1;
+        f.begin(Rgb::BLACK, Rgb::WHITE);
+        f.surface_lighting = physical;
+        f.sprite_w(focus.cell, focus.anchor, focus.x, focus.y,
+            &crate::gfx::DrawOpts { actor: true, flip: focus.flip, ..Default::default() });
+        f
+    }
+
+    fn check_reveal(base: &Frame, opaque: &Frame, revealed: &Frame, focus: SpriteFocus, minimum: usize) {
+        let mut hidden = 0;
+        let mut recovered = 0;
+        for i in 0..base.albedo.len() {
+            if base.actor_pixels[i] && !opaque.actor_pixels[i] {
+                hidden += 1;
+                if revealed.actor_pixels[i] {
+                    recovered += 1;
+                    assert_eq!(revealed.albedo[i], base.albedo[i]);
+                    assert_eq!(revealed.emissive[i], base.emissive[i]);
+                    assert_eq!(revealed.surfaces[i].normal, base.surfaces[i].normal);
+                    assert_eq!(revealed.surfaces[i].height, base.surfaces[i].height);
+                    assert_eq!(revealed.surfaces[i].owner, base.surfaces[i].owner);
+                    assert_eq!(revealed.surfaces[i].kind, base.surfaces[i].kind);
+                }
+            }
+            let (wx, wy) = (i as i32 % crate::gfx::W as i32 + base.cam_x,
+                i as i32 / crate::gfx::W as i32 + base.cam_y);
+            if !focus.covers(wx, wy) {
+                assert_eq!(revealed.albedo[i], opaque.albedo[i], "grass outside Glint must remain opaque");
+                assert_eq!(revealed.surfaces[i].normal, opaque.surfaces[i].normal);
+                assert_eq!(revealed.surfaces[i].height, opaque.surfaces[i].height);
+                assert_eq!(revealed.surfaces[i].owner, opaque.surfaces[i].owner);
+                assert_eq!(revealed.surfaces[i].kind, opaque.surfaces[i].kind);
+            }
+        }
+        assert!(hidden >= minimum, "fixture must exercise actual foreground leaves: {hidden}");
+        assert!(recovered * 3 >= hidden * 2, "grass must retain >=2/3 of the hidden hero: {recovered}/{hidden}");
+    }
+
+    #[test]
+    fn foreground_native_and_procedural_grass_reveal_color_and_actor_surfaces_together() {
+        let hero = sheet("hero").unwrap();
+        let anim = hero.anim("idle_down").unwrap();
+        let focus = SpriteFocus { cell: hero.cell(anim, 0), anchor: hero.anchor_of(anim),
+            flip: false, x: 100.0, y: 76.0, ground_y: 76.0 };
+        for native in [false, true] { for physical in [false, true] {
+            let grass = one_tuft(native);
+            let base = hero_frame(focus, physical, (7, 9));
+            let mut opaque = hero_frame(focus, physical, (7, 9));
+            let mut revealed = hero_frame(focus, physical, (7, 9));
+            grass.draw(&mut opaque, ID << 24, 61);
+            grass.draw_revealed(&mut revealed, ID << 24, 61, Some(focus));
+            check_reveal(&base, &opaque, &revealed, focus, 12);
+
+            let mut background = hero_frame(focus, physical, (7, 9));
+            grass.draw_revealed(&mut background, ID << 24, 61,
+                Some(SpriteFocus { ground_y: 81.0, ..focus }));
+            assert_eq!(background.albedo, opaque.albedo, "grass behind the hero must keep its ordinary rendering");
+        }}
+    }
+
+    #[test]
+    fn legal_meadow_probe_reveals_native_grass_through_the_region_hook() {
+        let (zone, region) = super::super::build();
+        let hero = sheet("hero").unwrap();
+        let anim = hero.anim("idle_down").unwrap();
+        let focus = SpriteFocus { cell: hero.cell(anim, 0), anchor: hero.anchor_of(anim),
+            flip: false, x: 500.0, y: 624.0, ground_y: 624.0 };
+        assert!(!zone.blocked(focus.x, focus.ground_y, 4.0), "probe needs legal hero ground");
+        let base = hero_frame(focus, true, (307, 517));
+        let mut opaque = hero_frame(focus, true, (307, 517));
+        let mut revealed = hero_frame(focus, true, (307, 517));
+        let mut items = Vec::new();
+        region.sorted_items(&zone, &opaque, &mut items);
+        for (y, id) in items {
+            if y <= focus.ground_y { continue; }
+            region.draw_item(&zone, &mut opaque, id, 90);
+            region.draw_item_revealed(&zone, &mut revealed, id, 90, Some(focus));
+        }
+        check_reveal(&base, &opaque, &revealed, focus, 100);
     }
 
     #[test]

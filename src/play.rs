@@ -459,12 +459,10 @@ impl Play {
             _ => {}
         };
         let sprite_focus = if self.hide_player { None } else {
-            self.player.current_cell().map(|(cell, anchor, flip)| crate::gfx::sprite::SpriteFocus {
-                cell, anchor, flip, x: self.player.body.x, y: self.player.body.y - self.player.body.z,
-                ground_y: self.player.body.y,
-            })
+            self.player.foreground_focus()
         };
-        render_world_focused(&self.zone, self.region.as_ref(), fx, f, t, &ext, &mut draw, Some((self.player.body.x, self.player.body.y)), sprite_focus);
+        let focus = sprite_focus.map(|focus| (focus.x, focus.ground_y));
+        render_world_focused(&self.zone, self.region.as_ref(), fx, f, t, &ext, &mut draw, focus, sprite_focus);
         if !self.hide_player && self.player.alive() && self.boss_awake && let Some(b) = &self.boss {
             b.draw_attack_cues(f);
         }
@@ -490,6 +488,9 @@ impl Play {
 
     fn draw_gate(&self, f: &mut Frame, t: u64) {
         let Some((x, y)) = self.zone.gate else { return };
+        let reveal = if !self.hide_player && y > self.player.body.y {
+            self.player.foreground_focus()
+        } else { None };
         let anim = match self.gate {
             Gate::Closed => "closed",
             Gate::Opening(_) => "opening",
@@ -500,19 +501,31 @@ impl Play {
             _ => t as u32,
         };
         if sheet("gate").and_then(|s| s.anim(anim)).is_some() {
-            f.anim_w("gate", anim, ticks, x, y, &DrawOpts::default());
+            f.anim_w("gate", anim, ticks, x, y, &DrawOpts { reveal,
+                shadow_alpha: reveal.map(|_| 1.0), ..Default::default() });
             return;
         }
         let (sx, sy) = (f.sx(x), f.sy(y));
         let stone = rgb(0xc2c1b3);
-        f.rect(sx - 14, sy - 30, 4, 30, stone);
-        f.rect(sx + 10, sy - 30, 4, 30, stone);
-        f.rect(sx - 14, sy - 34, 28, 4, stone);
+        let (cam_x, cam_y) = (f.cam_x, f.cam_y);
+        let visible = |px, py| {
+            let (wx, wy) = (px + cam_x, py + cam_y);
+            reveal.is_none_or(|focus| !focus.covers(wx, wy) || 0.25 > crate::util::bayer4(wx, wy))
+        };
+        // Keep the no-asset fallback on the same presentation mask as the native gate.
+        for (rx, ry, w, h) in [(sx - 14, sy - 30, 4, 30), (sx + 10, sy - 30, 4, 30), (sx - 14, sy - 34, 28, 4)] {
+            for py in ry..ry + h { for px in rx..rx + w {
+                if visible(px, py) { f.put(px, py, stone); }
+            } }
+        }
         if self.gate != Gate::Closed {
             for dy in 0..26 {
                 for dx in -9..10 {
                     let w = ((dy as f32 * 0.4 + t as f32 * 0.1).sin() * 0.5 + 0.5) * 0.6 + 0.2;
-                    f.put_glow(sx + dx, sy - 29 + dy, rgb(0xb7add0).scale(w));
+                    let (px, py) = (sx + dx, sy - 29 + dy);
+                    if visible(px, py) {
+                        f.put_glow(px, py, rgb(0xb7add0).scale(w));
+                    }
                 }
             }
         }
@@ -541,6 +554,54 @@ mod tests {
     use crate::tools::parse_script;
     use std::cell::Cell;
     use std::rc::Rc;
+
+    #[test]
+    fn every_exit_gate_reveals_glint_in_closed_opening_and_open_states() {
+        for (id, (x, y)) in [(ZoneId::Bloomwild, (400.0, 52.0)),
+            (ZoneId::Glasswater, (1296.0, 580.0)), (ZoneId::Cinder, (1136.0, 68.0))] {
+            let mut play = Play::new(id, &PlayOpts { god: true, peaceful: true });
+            assert!(!play.zone.blocked(x, y, play.player.body.r), "{id:?} gate probe must be legal");
+            play.player = Player::new(x, y);
+            let (cell, anchor, flip) = play.player.current_cell().unwrap();
+            let focus = crate::gfx::sprite::SpriteFocus { cell, anchor, flip,
+                x, y, ground_y: y };
+            for state in [Gate::Closed, Gate::Opening(20), Gate::Open] {
+                play.gate = state;
+                let before = || {
+                    let mut f = Frame::new();
+                    f.cam_x = x as i32 - 160; f.cam_y = y as i32 - 120;
+                    f.begin(Rgb::BLACK, Rgb::WHITE);
+                    f.surface_lighting = true;
+                    f.sprite_w(cell, anchor, x, y, &DrawOpts { actor: true, ..Default::default() });
+                    f
+                };
+                let hero = before();
+                let mut opaque = before(); let mut revealed = before();
+                play.hide_player = true;
+                play.draw_gate(&mut opaque, 90);
+                play.hide_player = false;
+                play.draw_gate(&mut revealed, 90);
+                let mut hidden = 0; let mut recovered = 0;
+                for py in 0..H { for px in 0..W {
+                    let i = py * W + px;
+                    if hero.actor_pixels[i] && !opaque.actor_pixels[i] {
+                        hidden += 1;
+                        recovered += usize::from(revealed.actor_pixels[i]);
+                    }
+                    if !focus.covers(px as i32 + hero.cam_x, py as i32 + hero.cam_y) {
+                        assert_eq!(opaque.albedo[i], revealed.albedo[i]);
+                        assert_eq!(opaque.emissive[i], revealed.emissive[i]);
+                    }
+                } }
+                assert!(hidden > 30, "{id:?} {state:?} must cover real hero pixels: {hidden}");
+                assert!(recovered * 3 >= hidden * 2, "{id:?} {state:?}: {recovered}/{hidden} restored");
+                assert_eq!(opaque.surface_casters.len(), revealed.surface_casters.len());
+                for (a, b) in opaque.surface_casters.iter().zip(&revealed.surface_casters) {
+                    assert_eq!(a.opacity, b.opacity, "gate reveal must preserve physical opacity");
+                }
+            }
+        }
+    }
 
     /// Reach legal ground behind the foreground tree using ordinary movement. The old
     /// direct rightward leg stopped at the entry pier once its native base became solid.

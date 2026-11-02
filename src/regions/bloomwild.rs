@@ -326,10 +326,19 @@ impl Region for Bloom {
         self.grass.draw(f, id, t);
     }
 
+    fn draw_item_revealed(&self, _zone: &Zone, f: &mut Frame, id: u32, t: u64, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
+        self.grass.draw_revealed(f, id, t, reveal);
+    }
+
     /// Draw the separated tree crowns and arch span with accurate player occlusion.
     fn draw_overlay(&self, zone: &Zone, f: &mut Frame, t: u64) {
         self.life.draw_foot_contact(zone, &self.mat, f, self.player, t);
-        ruins::draw_canopies(&self.canopies, f, self.player, t);
+        ruins::draw_canopies(&self.canopies, f, Some(self.player), t, None);
+    }
+
+    fn draw_overlay_revealed(&self, zone: &Zone, f: &mut Frame, t: u64, focus: Option<(f32, f32)>, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
+        self.life.draw_foot_contact(zone, &self.mat, f, self.player, t);
+        ruins::draw_canopies(&self.canopies, f, focus, t, reveal);
     }
 
     /// Keep magical point lights restrained against full daylight rather than bleaching the stone.

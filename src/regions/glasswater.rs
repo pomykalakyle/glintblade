@@ -352,12 +352,18 @@ impl Region for Glasswater {
         }
     }
 
-    fn draw_item(&self, _zone: &Zone, f: &mut Frame, id: u32, t: u64) {
+    fn draw_item(&self, zone: &Zone, f: &mut Frame, id: u32, t: u64) {
+        self.draw_item_revealed(zone, f, id, t, None);
+    }
+
+    fn draw_item_revealed(&self, _zone: &Zone, f: &mut Frame, id: u32, t: u64,
+        reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         let Some(d) = self.decor.get(id as usize) else {
             return;
         };
         let wob = d.wobble_x();
-        let o = DrawOpts { flip: d.flip, elevation: d.elevation, flash: d.flash, emit_gain: d.emit_gain(t), ..Default::default() };
+        let o = DrawOpts { flip: d.flip, elevation: d.elevation, flash: d.flash,
+            emit_gain: d.emit_gain(t), reveal, shadow_alpha: reveal.map(|_| 1.0), ..Default::default() };
         let reflecting = f.water_any;
         f.water_any = false; // Already reflected once on the actual receiving bank above.
         f.sprite_w(&d.cell, d.anchor, d.x + wob, d.y, &o);
@@ -404,7 +410,100 @@ impl Region for Glasswater {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::gfx::sprite::SpriteFocus;
     use std::collections::VecDeque;
+
+    /// Exercise the region's public drawing path with the real current hero body,
+    /// including a scrolled camera and receiving water underneath the foreground.
+    fn assert_local_item_reveal(zone: &Zone, region: &dyn Region, id: u32, focus: SpriteFocus) {
+        let scene = || {
+            let mut f = Frame::new();
+            f.begin(rgb(0x193d27), Rgb::WHITE);
+            f.surface_lighting = true;
+            f.cam_x = focus.x.floor() as i32 - crate::gfx::W as i32 / 2;
+            f.cam_y = focus.y.floor() as i32 - crate::gfx::H as i32 / 2;
+            f.sprite_w(focus.cell, focus.anchor, focus.x, focus.y,
+                &DrawOpts { actor: true, flip: focus.flip, ground_y: Some(focus.ground_y), ..Default::default() });
+            // Region decor already has its reflection drawn on the receiving bank.
+            f.water.fill(192);
+            f.water_any = true;
+            f
+        };
+        let hero = scene();
+        let mut opaque = scene();
+        region.draw_item(zone, &mut opaque, id, 17);
+        let mut revealed = scene();
+        region.draw_item_revealed(zone, &mut revealed, id, 17, Some(focus));
+        let caster = opaque.surface_casters.last().expect("real foreground caster");
+        let decor_bottom = caster.y as i32 - caster.anchor.1 + caster.h;
+        let mut hidden = 0;
+        let mut restored = 0;
+        for i in 0..hero.albedo.len() {
+            let same_pixel = |a: &Frame, b: &Frame| a.albedo[i] == b.albedo[i] && a.emissive[i] == b.emissive[i];
+            if hero.actor_pixels[i] && !same_pixel(&opaque, &hero) {
+                hidden += 1;
+                restored += same_pixel(&revealed, &hero) as usize;
+            }
+            let wx = (i % crate::gfx::W) as i32 + hero.cam_x;
+            let wy = (i / crate::gfx::W) as i32 + hero.cam_y;
+            if !focus.covers(wx, wy) {
+                assert!(same_pixel(&revealed, &opaque), "decor {id} faded outside the hero at {wx},{wy}");
+            }
+            if wy >= decor_bottom {
+                assert!(same_pixel(&opaque, &hero), "decor {id} submitted a duplicate reflection at {wx},{wy}");
+            }
+        }
+        assert!(hidden > 10, "decor {id} did not meaningfully hide the hero: {hidden}");
+        assert!(restored * 2 > hidden, "decor {id} restored only {restored}/{hidden} hidden hero pixels");
+        assert!(revealed.water_any, "decor draw lost the receiving-water flag");
+        assert_eq!(revealed.water, opaque.water, "reveal changed the receiving-water mask");
+        assert_eq!(revealed.surface_casters.len(), opaque.surface_casters.len());
+        for (a, b) in revealed.surface_casters.iter().zip(&opaque.surface_casters) {
+            assert_eq!((a.w, a.h, a.anchor, a.x, a.y, a.base, a.flip, a.opacity, a.min_height),
+                (b.w, b.h, b.anchor, b.x, b.y, b.base, b.flip, b.opacity, b.min_height),
+                "visibility aid changed the physical shadow caster");
+            assert_eq!(a.foot.as_ref(), b.foot.as_ref());
+            assert!(std::sync::Arc::ptr_eq(&a.pixels, &b.pixels));
+        }
+    }
+
+    #[test]
+    fn reachable_waterworks_crystal_and_fungi_reveal_the_real_hero_locally() {
+        let (zone, region) = build();
+        for (id, x, y) in [(27, 1364.0, 104.0), (26, 1280.0, 296.0), (3, 56.0, 456.0)] {
+            let player = crate::entities::Player::new(x, y);
+            let (cell, anchor, flip) = player.current_cell().expect("real hero pose");
+            let focus = SpriteFocus { cell, anchor, flip, x, y, ground_y: y };
+            let mut sorted = Vec::new();
+            let frame = Frame::new();
+            region.sorted_items(&zone, &Frame { surface_lighting: true, ..frame }, &mut sorted);
+            assert!(sorted.iter().any(|&(sort_y, item)| item == id && sort_y > y),
+                "probe must be behind real foreground scenery");
+            assert_local_item_reveal(&zone, region.as_ref(), id, focus);
+        }
+    }
+
+    #[test]
+    fn flipped_wobbling_emissive_decor_keeps_its_physical_shadow() {
+        let (zone, mut region) = interaction_fixture();
+        let (cell, anchor) = art::crystal_cluster(4, &art::VIOLET, 48);
+        let mut decor = Decor::new(cell, anchor, 96.0, 110.0, Kind::Crystal);
+        decor.elevation = 7.0;
+        decor.wobble = 5.0;
+        decor.flash = 0.6;
+        decor.ring = 0.8;
+        decor.light = Some((art::VIOLET[4], 70.0, 0.8, 30.0));
+        assert_ne!(decor.wobble_x(), 0.0, "fixture must visibly move");
+        assert!(decor.cell.px.iter().any(|p| p.a && p.emit), "fixture needs real emissive ink");
+        region.decor.push(decor);
+        for flip in [false, true] {
+            region.decor[0].flip = flip;
+            let player = crate::entities::Player::new(96.0, 100.0);
+            let (cell, anchor, _) = player.current_cell().expect("real hero pose");
+            let focus = SpriteFocus { cell, anchor, flip, x: 96.0, y: 100.0, ground_y: 100.0 };
+            assert_local_item_reveal(&zone, &region, 0, focus);
+        }
+    }
 
     fn interaction_fixture() -> (Zone, Glasswater) {
         let mut zone = Zone::new(ZoneId::Glasswater, 16, 16);

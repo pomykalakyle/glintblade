@@ -1119,6 +1119,15 @@ impl Player {
         self.pose().map(|p| (p.cell, p.anchor, p.flip))
     }
 
+    /// Foreground reveal follows the visible body, including death and respawn poses.
+    /// Once the death burst removes that body, scenery must become opaque again.
+    pub fn foreground_focus(&self) -> Option<crate::gfx::sprite::SpriteFocus> {
+        if matches!(self.state, State::Dead { .. }) && self.burst { return None; }
+        self.current_cell().map(|(cell, anchor, flip)| crate::gfx::sprite::SpriteFocus {
+            cell, anchor, flip, x: self.body.x, y: self.body.y - self.body.z, ground_y: self.body.y,
+        })
+    }
+
     /// World position (x, ground y, height) of the blade tip.
     fn blade_tip(&self) -> (f32, f32, f32) {
         let (dx, dy) = self.pose().and_then(|p| pose_point(&p, "blade_tip")).unwrap_or(match self.dir {
@@ -2320,11 +2329,16 @@ mod tests {
             let mut seen = vec![0; anim.frames];
             for _ in 0..p.death_burst_at() {
                 assert!(!p.burst);
+                assert!(p.foreground_focus().is_some(), "visible death frames still need foreground reveal");
                 seen[p.pose().unwrap().frame] += 1;
                 tick(&mut p, &zone, &mut fx, &mut input, Raw::default());
             }
             assert!(seen.iter().zip(&anim.durations).all(|(shown, duration)| shown >= duration));
             assert!(p.burst && p.scarf_free);
+            assert!(p.foreground_focus().is_none(), "the burst must not leave an invisible reveal pose");
+            p.respawn(100.0, 100.0);
+            let focus = p.foreground_focus().expect("the airborne respawn body needs reveal again");
+            assert_eq!((focus.x, focus.y, focus.ground_y), (100.0, 100.0 - p.body.z, 100.0));
         }
     }
 

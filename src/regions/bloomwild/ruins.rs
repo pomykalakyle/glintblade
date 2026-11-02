@@ -336,12 +336,17 @@ fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
 }
 
 /// Fade a canopy only when its painted leaves actually cover Glint, rather than its empty cell.
-pub fn draw_canopies(canopies: &[Prop], f: &mut crate::gfx::Frame, player: (f32, f32), t: u64) {
+pub fn draw_canopies(canopies: &[Prop], f: &mut crate::gfx::Frame, player: Option<(f32, f32)>, t: u64, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
     for p in canopies {
+        if !p.alive { continue; }
         let Some((x, y, w, h)) = p.bounds() else {
             continue;
         };
         if !f.surface_lighting && !f.visible(x, y, w, h, 4.0) {
+            continue;
+        }
+        if reveal.is_some() {
+            p.draw_revealed(f, t, 1.0, reveal);
             continue;
         }
         let Some(s) = p.sheet() else {
@@ -351,12 +356,14 @@ pub fn draw_canopies(canopies: &[Prop], f: &mut crate::gfx::Frame, player: (f32,
             continue;
         };
         let cell = s.cell(anim, anim.frame_at(t as u32 + p.t0, true));
-        let under = [(-3.0, -12.0), (3.0, -12.0), (0.0, -8.0)]
+        let under = player.is_some_and(|player| [(-3.0, -12.0), (3.0, -12.0), (0.0, -8.0)]
             .iter()
             .any(|&(dx, dy)| {
-                cell.at((player.0 + dx - x) as i32, (player.1 + dy - y) as i32)
+                let source_x = (player.0 + dx).floor() as i32 - x.floor() as i32;
+                cell.at(if p.flip { cell.w - 1 - source_x } else { source_x },
+                    (player.1 + dy).floor() as i32 - y.floor() as i32)
                     .a
-            });
+            }));
         p.draw(f, t, if under { 0.35 } else { 1.0 });
     }
 }

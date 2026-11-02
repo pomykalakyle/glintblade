@@ -493,18 +493,16 @@ impl Region for Summit {
         }
     }
 
-    fn draw_item(&self, _zone: &Zone, f: &mut Frame, id: u32, t: u64) {
+    fn draw_item(&self, zone: &Zone, f: &mut Frame, id: u32, t: u64) {
+        self.draw_item_revealed(zone, f, id, t, None);
+    }
+
+    fn draw_item_revealed(&self, _zone: &Zone, f: &mut Frame, id: u32, t: u64, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         let Some(it) = self.items.get(id as usize) else {
             return;
         };
         let (sx, sy) = (f.sx(it.x), f.sy(it.y));
-        match it.kind {
-            ItemKind::Brazier => art::draw_brazier(f, sx, sy, t, it.seed),
-            ItemKind::Banner(flip) => art::draw_banner(f, sx, sy, 0, it.seed, flip),
-            ItemKind::Post => art::draw_post(f, sx, sy, it.seed),
-            ItemKind::Pillar(v) => art::draw_pillar(f, sx, sy, v),
-            ItemKind::Monolith(v) => art::draw_monolith(f, sx, sy, v),
-        }
+        art::draw_item(f, sx, sy, it.kind, t, it.seed, reveal);
     }
 
     fn light(&self, zone: &Zone, f: &mut Frame, t: u64) {

@@ -481,10 +481,20 @@ pub trait Region {
     /// Y-sorted region items on screen: push (sort_y, id).
     fn sorted_items(&self, _zone: &Zone, _f: &Frame, _out: &mut Vec<(f32, u32)>) {}
     fn draw_item(&self, _zone: &Zone, _f: &mut Frame, _id: u32, _t: u64) {}
+    /// Foreground scenery uses the same local hero reveal as ordinary props.
+    /// The renderer only supplies a pose when this item sorts after the hero.
+    fn draw_item_revealed(&self, zone: &Zone, f: &mut Frame, id: u32, t: u64, _reveal: Option<crate::gfx::sprite::SpriteFocus>) {
+        self.draw_item(zone, f, id, t);
+    }
     /// Expose region-owned rendered cells; physical solidity does not decide light occlusion.
     fn light_occluders<'a>(&'a self, _t: u64, _out: &mut Vec<LightOccluder<'a>>) {}
     /// After characters and canopies: falling petals, embers, fog, god rays.
     fn draw_overlay(&self, _zone: &Zone, _f: &mut Frame, _t: u64) {}
+    /// Overhead architecture may reveal the current pose; atmospheric overlays keep
+    /// their usual drawing path. No focus means there is no hero to reveal.
+    fn draw_overlay_revealed(&self, zone: &Zone, f: &mut Frame, t: u64, _focus: Option<(f32, f32)>, _reveal: Option<crate::gfx::sprite::SpriteFocus>) {
+        self.draw_overlay(zone, f, t);
+    }
     /// After ambient and point lights are in `f.light`: cloud shadows, light shafts, darkness.
     fn light(&self, _zone: &Zone, _f: &mut Frame, _t: u64) {}
     /// Background seen beyond the map edge / in void tiles, drawn before the ground

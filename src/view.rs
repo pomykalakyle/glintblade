@@ -70,14 +70,15 @@ pub fn render_world_focused(
     items.extend(ritems.into_iter().map(|(y, id)| (y, Item::Region(id))));
     items.extend(ext.iter().map(|&(y, id)| (y, Item::Ext(id))));
     items.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
-    for (_, it) in items {
+    for (sort_y, it) in items {
         match it {
             Item::Prop(i) => {
                 let p = &zone.props[i];
-                let reveal = sprite_focus.filter(|focus| p.sheet == "bloomwild_trees" && p.sort_y() > focus.ground_y);
+                let reveal = sprite_focus.filter(|focus| sort_y > focus.ground_y);
                 p.draw_revealed(f, t, 1.0, reveal);
             }
-            Item::Region(id) => region.draw_item(zone, f, id, t),
+            Item::Region(id) => region.draw_item_revealed(zone, f, id, t,
+                sprite_focus.filter(|focus| sort_y > focus.ground_y)),
             Item::Ext(id) => draw_ext(f, id),
         }
     }
@@ -89,11 +90,11 @@ pub fn render_world_focused(
             continue;
         }
         let behind = focus.map(|(fx_, fy)| fx_ > x + 2.0 && fx_ < x + w - 2.0 && fy - 8.0 > y && fy - 8.0 < y + h).unwrap_or(false);
-        p.draw(f, t, if behind { 0.35 } else { 1.0 });
+        p.draw_revealed(f, t, if sprite_focus.is_none() && behind { 0.35 } else { 1.0 }, sprite_focus);
     }
 
     fx.particles.draw(f);
-    region.draw_overlay(zone, f, t);
+    region.draw_overlay_revealed(zone, f, t, focus, sprite_focus);
 
     for l in &zone.lights {
         f.add_light_w(l.x, l.y, l.radius, l.color, l.intensity);
@@ -111,3 +112,6 @@ pub fn render_world_focused(
     crate::gfx::lighting_hook::apply(zone, region, f, t);
     post::compose(f, &zone.grade);
 }
+
+#[cfg(test)]
+mod tests;

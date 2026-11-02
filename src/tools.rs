@@ -81,10 +81,8 @@ pub fn zoneview(args: &[String]) {
             frame.cam_y = cam.1;
             let ext = if hero { vec![(player.body.y, 0u32)] } else { vec![] };
             let pl = &player;
-            let focus = if hero { player.current_cell().map(|(cell, anchor, flip)| crate::gfx::sprite::SpriteFocus {
-                cell, anchor, flip, x: player.body.x, y: player.body.y - player.body.z, ground_y: player.body.y,
-            }) } else { None };
-            render_world_focused(&zone, region.as_ref(), &fx, &mut frame, t, &ext, &mut |f, _| pl.draw(f), Some(pos), focus);
+            let focus = if hero { player.foreground_focus() } else { None };
+            render_world_focused(&zone, region.as_ref(), &fx, &mut frame, t, &ext, &mut |f, _| pl.draw(f), hero.then_some(pos), focus);
             post::finish(&mut frame, &zone.grade);
             let img = post::composite_scaled(&frame, scale);
             let path = out.join(format!("{}_t{:05}.png", zone_name, t));

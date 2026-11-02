@@ -1,28 +1,26 @@
 {
-  "full_source_rgba_identity": true,
-  "binary_alpha": [
-    0,
-    255
+  "source": "art/pixellab/2026-11-02-round13/altar/correction/shallow/raw-21.png",
+  "source_sha256": "e5ba78f93133daee637d7259c2b3ae868246a886a615486f9ae08b5fd097e859",
+  "albedo_sha256": "e8d60eadbdd44685be3aafbd5a1efab0abb85fd3ac9cc251d35708d1d7a37117",
+  "normal_sha256": "05085953f29222327b2812882fc4283ca55f68fed74c33afee1eb1e1bf4de32d",
+  "native_size": [
+    72,
+    32
   ],
-  "normal_alpha_exact": true,
-  "normal_plane_pixels": {
-    "(128, 128, 255)": 1660,
-    "(54, 201, 201)": 80,
-    "(128, 218, 218)": 100,
-    "(201, 201, 201)": 80,
-    "(201, 54, 201)": 82,
-    "(54, 54, 201)": 87,
-    "(37, 128, 218)": 60,
-    "(218, 128, 218)": 60,
-    "(37, 37, 128)": 48,
-    "(218, 37, 128)": 48,
-    "(128, 37, 218)": 108,
-    "(128, 0, 128)": 104
-  },
-  "isolated_reproduction_byte_identical": true,
-  "exports": {
-    "assets/sprites/bloomwild_altar.png": "dc4193b01da4920a957f4cc4be9056175ae52353c9e73975a4fffa7a8b2fd420",
-    "assets/sprites/bloomwild_altar.json": "92fffb5d23a0d087abf28079c7474a3ee579122e1a6203b7a5aaa97306bee899",
-    "assets/normals/bloomwild_altar.png": "85c8c66a5936d9b09adc7cab2f96bd3da7248c41d978e0943943a81261a51cc3"
-  }
+  "anchor": [
+    36,
+    16
+  ],
+  "bbox": [
+    4,
+    2,
+    68,
+    31
+  ],
+  "opaque_pixels": 1612,
+  "clipped_opaque_source_pixels": 0,
+  "color_count": 12,
+  "native_pixel_identity": true,
+  "normal_alpha_matches_albedo": true,
+  "physics": "Original mat::SLAB, no collider; flush world+Z floor normals, every terrain height is zero"
 }

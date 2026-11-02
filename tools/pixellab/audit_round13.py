@@ -29,9 +29,7 @@ SCHEMA = "glintblade.round13.audit.v1"
 REGIONS = {"bloomwild", "glasswater", "cinder", "summit"}
 SHARD_REGIONS = REGIONS - {"summit"}
 STRICT_SHEETS = ["round13_landmarks*", "bloomwild_altar", "warden_body"]
-NORMAL_SHEETS = ["round13_landmarks_garden", "round13_landmarks_distributor",
-                 "round13_landmarks_press", "round13_landmarks_summit",
-                 "bloomwild_altar", "warden_body"]
+NORMAL_SHEETS = ["round13_landmarks_distributor", "bloomwild_altar", "warden_body"]
 ROUND13_SHEETS = NORMAL_SHEETS
 REQUIRED_MILESTONES = [*(f"{r}_shard" for r in sorted(SHARD_REGIONS)),
                        "warden_awake", "phase_2_damage", "phase_3_damage",
@@ -42,7 +40,8 @@ REVIEW_GATES = [
     "Foreground reveal must be exercised with Glint behind each new solid, stacked props and grouped vegetation, including dash/airborne/mirrored poses.",
     "Sky-shadow/receiver correctness needs the renderer exclusion tests and actual edge/bridge/sky frames; composited PNGs do not expose receiver masks.",
     "Warden heart/neck/crystal attachment, anatomy and later-phase readability require assembled poses and actual active attacks; fixed atlas coordinates alone are insufficient.",
-    "The full-source altar extends 4px farther south than its predecessor; all opaque terrain pixels need dry SLAB receiver material and zero terrain height in the finished region.",
+    "The altar must read as a flush floor inlay: foreshortened stone planes, no depicted unsupported riser, dry SLAB receivers and zero terrain height.",
+    "Named visible roof/front/side faces must have corresponding world-space normal directions under controlled lights; alpha parity and unit vectors do not establish geometric correctness.",
     "A source snapshot and a binary hash do not prove that binary was built from those inputs; preserve a controlled build receipt.",
 ]
 
@@ -187,9 +186,9 @@ def audit_sheet(png: Path, normal_dir: Path, strict: bool, require_normal: bool,
         if missing:
             issue(issues, "error", "warden_pose_keys", subject, missing)
     if subject == "bloomwild_altar":
-        if [cw, ch] != [72, 56] or anchor != [36, 25]:
+        if [cw, ch] != [72, 32] or anchor != [36, 16]:
             issue(issues, "error", "altar_native_canvas", subject, {"cell": [cw,ch], "anchor": anchor})
-        result["altar_approved_source_bbox_exclusive"] = [6,4,66,54]
+        result["altar_source_bbox_exclusive"] = list(image.getbbox()) if image.getbbox() else None
     result["frames"] = frames = []
     referenced = set()
     for name, anim in sorted(anims.items()):
@@ -253,9 +252,10 @@ def audit_sheet(png: Path, normal_dir: Path, strict: bool, require_normal: bool,
                     if changed:
                         issue(issues, "error", "warden_attachment_band_drift", label,
                               {"frame": index, "reference": reference_name, "changed_pixels": changed})
-            if subject == "bloomwild_altar" and list(bbox) != [6,4,66,54]:
+            if subject == "bloomwild_altar" and list(bbox) != meta.get("native_source_bbox"):
                 issue(issues, "error", "altar_complete_source_bounds", label,
-                      {"actual": list(bbox), "approved": [6,4,66,54], "reason": "Approved source8 must stay complete and uncut"})
+                      {"actual": list(bbox), "approved": meta.get("native_source_bbox"),
+                       "reason": "The selected native inlay must stay complete and uncut"})
             support_pixels, transparent_support = set(), set()
             for rect in rects:
                 if (not isinstance(rect, list) or len(rect) != 4 or any(type(n) is not int for n in rect)
@@ -546,7 +546,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--strict-sheet", action="append", default=[], help="Additional fnmatch pattern for >=1px transparent gutters")
     parser.add_argument("--require-normal", action="append", default=[])
-    parser.add_argument("--require-round13", action="store_true", help="Require the assembled pass's six expected atlas families")
+    parser.add_argument("--require-round13", action="store_true", help="Require the three retained and corrected atlas families")
     parser.add_argument("--baseline-only", action="store_true", help="Audit an older frozen snapshot without requiring new assets or missing unfrozen normals")
     parser.add_argument("--capture-manifest", type=Path, action="append", default=[])
     parser.add_argument("--baseline-capture-manifest", type=Path, action="append", default=[])

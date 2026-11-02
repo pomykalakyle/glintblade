@@ -1,0 +1,124 @@
+{
+  "native_sha256": "ed952fceae19dfe28e3cc76dd71f03908edd6c39221aac3829c2541f670a82a2",
+  "wasm_sha256": "a380957cb532ef2e52591ba0e51f5fe8bc93fe471f1284b2da0b95bf89dcc0fd",
+  "embedded_assets": 378,
+  "embedded_normals": 81,
+  "all_embedded_bytes_match": true,
+  "delta_from_motion_reviewed_release": "src/view/tests.rs only; no production/art changes",
+  "six_accepted_scene_pixel_parity": [
+    {
+      "scene": "garden",
+      "command": [
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/glintblade",
+        "zoneview",
+        "bloomwild",
+        "--at",
+        "335,666",
+        "--warm",
+        "90",
+        "--no-hero",
+        "--scale",
+        "1",
+        "--out",
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/capture-parity/garden"
+      ],
+      "png_sha256": "6367a90f5fc9eaabfc85be9f705966a7ca1df9143686f323122932a4f998c8d3",
+      "matches_reviewed_release_final": true
+    },
+    {
+      "scene": "distributor",
+      "command": [
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/glintblade",
+        "zoneview",
+        "glasswater",
+        "--at",
+        "1304,198",
+        "--warm",
+        "90",
+        "--no-hero",
+        "--scale",
+        "1",
+        "--out",
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/capture-parity/distributor"
+      ],
+      "png_sha256": "8376f90066e4beb36a39d561ac742f9d5d2acbd1aa3bf7d7ca8200a065b54076",
+      "matches_reviewed_release_final": true
+    },
+    {
+      "scene": "press",
+      "command": [
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/glintblade",
+        "zoneview",
+        "cinder",
+        "--at",
+        "600,650",
+        "--warm",
+        "90",
+        "--no-hero",
+        "--scale",
+        "1",
+        "--out",
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/capture-parity/press"
+      ],
+      "png_sha256": "0ed6b1f4856e89284fa77867127bbf1ff9e6750f94460eb29a3048333161eda7",
+      "matches_reviewed_release_final": true
+    },
+    {
+      "scene": "summit",
+      "command": [
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/glintblade",
+        "zoneview",
+        "summit",
+        "--at",
+        "720,234",
+        "--warm",
+        "90",
+        "--no-hero",
+        "--scale",
+        "1",
+        "--out",
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/capture-parity/summit"
+      ],
+      "png_sha256": "e51c3cf8db2af76e12d8f16cc18a56708b81da9c127411d5d66defe6e57911f7",
+      "matches_reviewed_release_final": true
+    },
+    {
+      "scene": "altar",
+      "command": [
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/glintblade",
+        "zoneview",
+        "bloomwild",
+        "--at",
+        "408,210",
+        "--warm",
+        "90",
+        "--no-hero",
+        "--scale",
+        "1",
+        "--out",
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/capture-parity/altar"
+      ],
+      "png_sha256": "7ae4ea3b2c7260a8c07d7c2ea6ba033b7874d63d50bca227f50f5ae53bdcdbee",
+      "matches_reviewed_release_final": true
+    },
+    {
+      "scene": "meadow",
+      "command": [
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/glintblade",
+        "zoneview",
+        "bloomwild",
+        "--at",
+        "465,650",
+        "--warm",
+        "90",
+        "--no-hero",
+        "--scale",
+        "1",
+        "--out",
+        "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-validated/capture-parity/meadow"
+      ],
+      "png_sha256": "759341ec1429429a85ab2d2938d04927385111e35be6af5c11a31476b993651b",
+      "matches_reviewed_release_final": true
+    }
+  ]
+}

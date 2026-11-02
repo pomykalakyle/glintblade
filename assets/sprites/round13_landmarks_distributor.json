@@ -148,7 +148,7 @@
     }
   },
   "background": false,
-  "notes": "Native PixelLab Pro RGB; documented aperture alpha repair with identically masked normals. Readable header cistern, repeated actual outlets and broken chute establish a distribution machine. The original generator left the arched empty space opaque: exact source-row alpha spans remove that false background and its matching normal coverage. No RGB pixels move or change. Native feet and outlet lie on the right cave bank. The lowest ten occupied source rows define the same native support band used by the physical shadow caster.",
+  "notes": "Native PixelLab Pro RGB; documented aperture alpha repair with identically masked normals. Provisionally retained after the perspective/contact re-audit: visible cistern top, western ends, brick facades and separated block feet fit the oblique cave camera. Original generated normal data is historical input only; explicit native geometric plane normals replace its nearly flat south-facing bump field. The documented aperture alpha repair, native RGB pixels, anchor and support/collision band remain exact. Runtime lighting and physical shadow require separate controlled-light review.",
   "provenance": {
     "source": "originals/distributor-0.png",
     "source_sha256": "0cb184d16fdb3ae6f34c4520dece41d16cfe167ecbb39218bc9c64d2738905c0",
@@ -250,6 +250,11 @@
         106
       ]
     ],
-    "archive": "art/pixellab/2026-11-02-round13/landmarks/"
+    "archive": "art/pixellab/2026-11-02-round13/landmarks/",
+    "normal_method": "authored native geometric planes, upright R/B/G world X/Y/Z",
+    "normal_planes": "normal-planes/distributor.json",
+    "normal_planes_sha256": "30a664c16ed5bd7b4fa6c2d3367a6d67770bdbe717f71fff7af1a6f809ffe5bf",
+    "historical_generated_normal": "normals/distributor.png",
+    "historical_generated_normal_sha256": "7c9e9b19902b86673773102a156f749dbbb7433128c0a22156d0ae5b5548d5d3"
   }
 }

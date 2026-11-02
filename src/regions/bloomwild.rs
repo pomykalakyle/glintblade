@@ -16,6 +16,7 @@ mod life;
 mod map;
 mod normals;
 mod paint;
+mod paving;
 mod pal;
 mod ruins;
 mod sky;

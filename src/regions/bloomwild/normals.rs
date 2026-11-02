@@ -1,26 +1,19 @@
 //! Complete geometric receivers, then enrich their material planes once at load.
 //! Relief follows world-space turf and stone, never color or baked illumination.
 
-use super::{K, Map, mat};
+use super::{Map, mat, paving};
 use crate::gfx::{lighting::TerrainSurface, terrain_detail::{self, Material}};
 use crate::util::hash2;
 use crate::world::Zone;
 
 const UP: [f32; 3] = [0.0, 0.0, 1.0];
 
-pub(super) fn apply(z: &mut Zone, m: &Map, mask: &[u8]) {
+pub(super) fn apply(z: &mut Zone, _m: &Map, mask: &[u8]) {
     let pw = z.pw;
     z.fill_walkable_surfaces(|x, y| {
         let normal = match mask[(y * pw + x) as usize] {
-            mat::PATH => path(x, y),
+            mat::PATH | mat::SLAB => paving::sample(x, y).normal,
             mat::BRIDGE => bridge(x, y),
-            // Slab fringes outside a source slab tile are painted as 16px inset
-            // stones by slabs(). Interior source cells retain their exact atlas UV.
-            mat::SLAB if !matches!(m.at(x / 16, y / 16), K::Slab | K::Altar) => {
-                let (lx, ly) = (x.rem_euclid(16), y.rem_euclid(16));
-                if lx == 0 || lx == 15 || ly == 0 || ly == 15 { UP }
-                else { bevel(lx == 1, lx == 14, ly == 1, ly == 14) }
-            }
             // Macro geometry stays independent of the material relief below.
             _ => UP,
         };
@@ -45,7 +38,7 @@ pub(super) fn apply(z: &mut Zone, m: &Map, mask: &[u8]) {
                 UP
             };
             let detail = if material == Material::Stone {
-                stone(m, mask[i], x, y).map_or_else(
+                stone(mask[i], x, y).map_or_else(
                     || terrain_detail::normal(material, x, y, base),
                     |(id, mortar)| terrain_detail::masonry(x, y, base, id, mortar),
                 )
@@ -61,28 +54,22 @@ pub(super) fn apply(z: &mut Zone, m: &Map, mask: &[u8]) {
 }
 
 /// These bonds are authored by the corresponding painters, not guessed from
-/// dark pixels in native artwork. Native multi-cell slab art keeps its own
-/// source planes, enriched only by the shared shallow stone wear.
-fn stone(m: &Map, material: u8, x: i32, y: i32) -> Option<(u32, bool)> {
+/// dark pixels in native artwork. Paving and its tapered bridge contacts use
+/// exactly the rectangles and joints that produced their visible colors.
+fn stone(material: u8, x: i32, y: i32) -> Option<(u32, bool)> {
     let id = |col: i32, row: i32, salt: u32| {
         hash2(col, row, salt).to_bits()
     };
     match material {
-        mat::PATH => {
-            let row = y.div_euclid(15);
-            let xx = x + row.rem_euclid(2) * 13;
-            Some((id(xx.div_euclid(27), row, 9418), false))
-        }
-        mat::SLAB if !matches!(m.at(x / 16, y / 16), K::Slab | K::Altar) => {
-            let (lx, ly) = (x.rem_euclid(16), y.rem_euclid(16));
-            Some((id(x.div_euclid(16), y.div_euclid(16), 9419),
-                lx == 0 || lx == 15 || ly == 0 || ly == 15))
+        mat::PATH | mat::SLAB | mat::GRASS if material != mat::GRASS || paving::bridge_approach(x, y) => {
+            let s = paving::sample(x, y);
+            Some((s.id, s.mortar))
         }
         mat::BRIDGE => {
             let (bx, by) = [(41 * 16, 16 * 16), (49 * 16, 36 * 16)].into_iter()
                 .find(|&(bx, by)| (bx..bx + 112).contains(&x) && (by..by + 32).contains(&y))?;
             let (lx, ly) = (x - bx, y - by);
-            let row = ly / 10;
+            let row = if ly < 12 { 0 } else if ly < 22 { 1 } else { 2 };
             let bond = lx + row * 17;
             Some((id(bond.div_euclid(35), by + row, 9420),
                 bond.rem_euclid(35) == 0 || ly == 12 || ly == 22 || ly == 0 || ly == 29))
@@ -92,6 +79,8 @@ fn stone(m: &Map, material: u8, x: i32, y: i32) -> Option<(u32, bool)> {
 }
 
 fn material(mask: &[u8], pw: i32, ph: i32, x: i32, y: i32) -> Option<Material> {
+    if matches!(mask[(y * pw + x) as usize], mat::GRASS | mat::PATH | mat::SLAB)
+        && paving::bridge_approach(x, y) { return Some(Material::Stone); }
     Some(match mask[(y * pw + x) as usize] {
         mat::GRASS => {
             // Same authored pool-coping and broken outlet stones as banks().
@@ -106,7 +95,7 @@ fn material(mask: &[u8], pw: i32, ph: i32, x: i32, y: i32) -> Option<Material> {
             });
             if near_water { Material::WetStone } else { Material::Grass }
         }
-        mat::PATH => if path_stone(x, y) { Material::Stone } else { Material::Earth },
+        mat::PATH => Material::Stone,
         mat::SLAB | mat::BRIDGE | mat::STAIRS => Material::Stone,
         mat::CLIFF | mat::EDGE => Material::Rock,
         mat::DIRT | mat::BANK => Material::Earth,
@@ -119,24 +108,6 @@ fn bevel(left: bool, right: bool, back: bool, front: bool) -> [f32; 3] {
      (i32::from(front) - i32::from(back)) as f32 * 0.4, 1.0]
 }
 
-/// Same staggered 27x15 stepping stones and chipped corners as paint::trails.
-fn path(x: i32, y: i32) -> [f32; 3] {
-    let row = y.div_euclid(15);
-    let xx = x + row.rem_euclid(2) * 13;
-    let (lx, ly) = (xx.rem_euclid(27), y.rem_euclid(15));
-    if !path_stone(x, y) { return UP; }
-    bevel(lx == 3, lx == 26, ly == 3, ly == 14)
-}
-
-fn path_stone(x: i32, y: i32) -> bool {
-    let row = y.div_euclid(15);
-    let xx = x + row.rem_euclid(2) * 13;
-    let (bx, by) = (xx.div_euclid(27), row);
-    let (lx, ly) = (xx.rem_euclid(27), y.rem_euclid(15));
-    let chipped = hash2(bx, by, 113) > 0.6 && lx + ly < 5;
-    lx > 2 && ly > 2 && !chipped && hash2(bx, by, 110) > 0.1
-}
-
 /// bridge_decks paints two 112x32 decks, with 35px bonds and seams at rows 12/22.
 fn bridge(x: i32, y: i32) -> [f32; 3] {
     let Some((bx, by)) = [(41 * 16, 16 * 16), (49 * 16, 36 * 16)].into_iter()
@@ -145,7 +116,7 @@ fn bridge(x: i32, y: i32) -> [f32; 3] {
     let (lx, ly) = (x - bx, y - by);
     if ly > 29 { return [0.0, 1.0, 0.0]; }
     if ly < 3 { return if ly == 0 { UP } else { [0.0, 1.0, 0.0] }; }
-    let joint = (lx + ly / 10 * 17).rem_euclid(35);
+    let joint = paving::bridge_joint(lx, ly);
     if joint == 0 || ly == 12 || ly == 22 { return UP; }
     bevel(joint == 1, joint == 34, ly == 13 || ly == 23, ly == 11 || ly == 21 || ly == 29)
 }
@@ -154,6 +125,57 @@ fn bridge(x: i32, y: i32) -> [f32; 3] {
 mod tests {
     use super::*;
     use crate::world::ZoneId;
+
+    #[test]
+    fn final_bridge_aprons_replace_grass_and_earth_relief_with_the_visible_stone() {
+        let map = Map::parse();
+        let mut z = Zone::new(ZoneId::Bloomwild, map.tw, map.th);
+        let mask = super::super::paint::paint(&mut z, &map);
+        z.set_surface_tiles(super::super::paint::physical_surface(&z, &mask));
+        // Upper/lower crossings, both turf and path sides. The old upper east
+        // sample landed in a missing stepping-stone row and received earth.
+        let probes = [(655, 270), (768, 270), (783, 590), (896, 590)];
+        for (x, y) in probes {
+            let i = (y * z.pw + x) as usize;
+            let s = paving::sample(x, y);
+            assert!(paving::bridge_approach(x, y));
+            assert_eq!(z.ground[i], s.color, "actual final apron pixel at {x},{y}");
+            assert_eq!(z.ground_surfaces[i], TerrainSurface::new(s.normal, 0.0));
+            assert_eq!(material(&mask, z.pw, z.ph, x, y), Some(Material::Stone));
+        }
+        apply(&mut z, &map, &mask);
+        for (x, y) in probes {
+            let s = paving::sample(x, y);
+            let base = TerrainSurface::new(s.normal, 0.0).normal.map(|v| v as f32 / 127.0);
+            let expected = TerrainSurface::new(terrain_detail::masonry(x, y, base, s.id, s.mortar), 0.0);
+            assert_eq!(z.ground_surfaces[(y * z.pw + x) as usize], expected,
+                "the final receiver must follow the actual limestone at {x},{y}");
+        }
+    }
+
+    #[test]
+    fn upper_bridge_has_a_continuous_paved_approach_to_the_altar() {
+        let map = Map::parse();
+        let mut z = Zone::new(ZoneId::Bloomwild, map.tw, map.th);
+        let mask = super::super::paint::paint(&mut z, &map);
+        let start = (176 * z.pw + 408) as usize;
+        let end = (272 * z.pw + 712) as usize;
+        let mut seen = vec![false; mask.len()];
+        let mut queue = std::collections::VecDeque::from([start]);
+        seen[start] = true;
+        while let Some(i) = queue.pop_front() {
+            let (x, y) = (i as i32 % z.pw, i as i32 / z.pw);
+            for (xx, yy) in [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)] {
+                if xx < 0 || yy < 0 || xx >= z.pw || yy >= z.ph { continue; }
+                let j = (yy * z.pw + xx) as usize;
+                if !seen[j] && matches!(mask[j], mat::SLAB | mat::PATH | mat::BRIDGE) {
+                    seen[j] = true;
+                    queue.push_back(j);
+                }
+            }
+        }
+        assert!(seen[end], "bridge route should not stop in the grass before the altar");
+    }
 
     #[test]
     fn material_relief_covers_the_route_without_changing_art_collision_or_macrofaces() {

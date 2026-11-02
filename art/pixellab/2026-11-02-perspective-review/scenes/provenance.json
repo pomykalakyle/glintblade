@@ -1,0 +1,212 @@
+{
+  "before_commit": "8894b0bb720e5f052ab64549333bba97290a1213",
+  "after_native_sha256": "a1d066d0822ce5776341c05fd14807aba85f8bdfc4daadfc2cf24b984a1aa8a6",
+  "comparison": "Matched 384x216 native game frames at warm tick 90, no hero; same camera per pair. Ordinary ambient lighting; no exposure adjustment.",
+  "pairs": [
+    {
+      "scene": "garden",
+      "before_source": "/home/krp/Projects/glintblade/out/beauty-pass-2026-11-02/review-final/captures/after/garden/bloomwild_t00090.png",
+      "after_source": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/garden/bloomwild_t00090.png",
+      "corrected_capture": {
+        "name": "garden",
+        "file": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/garden/bloomwild_t00090.png",
+        "sha256": "6367a90f5fc9eaabfc85be9f705966a7ca1df9143686f323122932a4f998c8d3",
+        "command": [
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-final/glintblade",
+          "zoneview",
+          "bloomwild",
+          "--at",
+          "335,666",
+          "--warm",
+          "90",
+          "--no-hero",
+          "--scale",
+          "1",
+          "--out",
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/garden"
+        ],
+        "matches_prepressfix_static_view": true
+      },
+      "before": {
+        "path": "scenes/garden-before.png",
+        "sha256": "13da0ee8d592a452377b81d57518537e6bf891fbd8fbe46a91a270a8e4c8eb9d"
+      },
+      "after": {
+        "path": "scenes/garden-after.png",
+        "sha256": "6367a90f5fc9eaabfc85be9f705966a7ca1df9143686f323122932a4f998c8d3"
+      }
+    },
+    {
+      "scene": "distributor",
+      "before_source": "/home/krp/Projects/glintblade/out/beauty-pass-2026-11-02/review-final/captures/after/distributor/glasswater_t00090.png",
+      "after_source": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/distributor/glasswater_t00090.png",
+      "corrected_capture": {
+        "name": "distributor",
+        "file": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/distributor/glasswater_t00090.png",
+        "sha256": "8376f90066e4beb36a39d561ac742f9d5d2acbd1aa3bf7d7ca8200a065b54076",
+        "command": [
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-final/glintblade",
+          "zoneview",
+          "glasswater",
+          "--at",
+          "1304,198",
+          "--warm",
+          "90",
+          "--no-hero",
+          "--scale",
+          "1",
+          "--out",
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/distributor"
+        ],
+        "matches_prepressfix_static_view": true
+      },
+      "before": {
+        "path": "scenes/distributor-before.png",
+        "sha256": "784fa103bd2773688325928f4b1884c360e955e629c8d065c91a99064304918e"
+      },
+      "after": {
+        "path": "scenes/distributor-after.png",
+        "sha256": "8376f90066e4beb36a39d561ac742f9d5d2acbd1aa3bf7d7ca8200a065b54076"
+      }
+    },
+    {
+      "scene": "press",
+      "before_source": "/home/krp/Projects/glintblade/out/beauty-pass-2026-11-02/review-final/captures/after/press/cinder_t00090.png",
+      "after_source": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/press/cinder_t00090.png",
+      "corrected_capture": {
+        "name": "press",
+        "file": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/press/cinder_t00090.png",
+        "sha256": "0ed6b1f4856e89284fa77867127bbf1ff9e6750f94460eb29a3048333161eda7",
+        "command": [
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-final/glintblade",
+          "zoneview",
+          "cinder",
+          "--at",
+          "600,650",
+          "--warm",
+          "90",
+          "--no-hero",
+          "--scale",
+          "1",
+          "--out",
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/press"
+        ],
+        "matches_prepressfix_static_view": true
+      },
+      "before": {
+        "path": "scenes/press-before.png",
+        "sha256": "85807746ab80bfa72473e06f86f222f02175331f59cf221c3e9b14c36dcc0c81"
+      },
+      "after": {
+        "path": "scenes/press-after.png",
+        "sha256": "0ed6b1f4856e89284fa77867127bbf1ff9e6750f94460eb29a3048333161eda7"
+      }
+    },
+    {
+      "scene": "summit",
+      "before_source": "/home/krp/Projects/glintblade/out/beauty-pass-2026-11-02/review-final/captures/after/summit/summit_t00090.png",
+      "after_source": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/summit/summit_t00090.png",
+      "corrected_capture": {
+        "name": "summit",
+        "file": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/summit/summit_t00090.png",
+        "sha256": "e51c3cf8db2af76e12d8f16cc18a56708b81da9c127411d5d66defe6e57911f7",
+        "command": [
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-final/glintblade",
+          "zoneview",
+          "summit",
+          "--at",
+          "720,234",
+          "--warm",
+          "90",
+          "--no-hero",
+          "--scale",
+          "1",
+          "--out",
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/summit"
+        ],
+        "matches_prepressfix_static_view": true
+      },
+      "before": {
+        "path": "scenes/summit-before.png",
+        "sha256": "4e7cdd4d3b71c4aa182e35b78bce2a6c7b9a3079a418115dd8ead4608ac68880"
+      },
+      "after": {
+        "path": "scenes/summit-after.png",
+        "sha256": "e51c3cf8db2af76e12d8f16cc18a56708b81da9c127411d5d66defe6e57911f7"
+      }
+    },
+    {
+      "scene": "altar",
+      "before_source": "/home/krp/Projects/glintblade/out/beauty-pass-2026-11-02/review-final/captures/after/altar/bloomwild_t00090.png",
+      "after_source": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/altar/bloomwild_t00090.png",
+      "corrected_capture": {
+        "name": "altar",
+        "file": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/altar/bloomwild_t00090.png",
+        "sha256": "7ae4ea3b2c7260a8c07d7c2ea6ba033b7874d63d50bca227f50f5ae53bdcdbee",
+        "command": [
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-final/glintblade",
+          "zoneview",
+          "bloomwild",
+          "--at",
+          "408,210",
+          "--warm",
+          "90",
+          "--no-hero",
+          "--scale",
+          "1",
+          "--out",
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/altar"
+        ],
+        "matches_prepressfix_static_view": true
+      },
+      "before": {
+        "path": "scenes/altar-before.png",
+        "sha256": "8d2c9c2ca0fdc1faf48b248a7ca536e3b51b2999933d3af3e0e5233d2a17bc11"
+      },
+      "after": {
+        "path": "scenes/altar-after.png",
+        "sha256": "7ae4ea3b2c7260a8c07d7c2ea6ba033b7874d63d50bca227f50f5ae53bdcdbee"
+      }
+    },
+    {
+      "scene": "meadow",
+      "before_source": "/home/krp/Projects/glintblade/out/beauty-pass-2026-11-02/review-final/captures/after/meadow/bloomwild_t00090.png",
+      "after_source": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/meadow/bloomwild_t00090.png",
+      "corrected_capture": {
+        "name": "meadow",
+        "file": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/meadow/bloomwild_t00090.png",
+        "sha256": "759341ec1429429a85ab2d2938d04927385111e35be6af5c11a31476b993651b",
+        "command": [
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/release-final/glintblade",
+          "zoneview",
+          "bloomwild",
+          "--at",
+          "465,650",
+          "--warm",
+          "90",
+          "--no-hero",
+          "--scale",
+          "1",
+          "--out",
+          "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/current/meadow"
+        ],
+        "matches_prepressfix_static_view": true
+      },
+      "before": {
+        "path": "scenes/meadow-before.png",
+        "sha256": "35c16498978d21825e6a927bccfc4dfd40515f2d704b5dc6185b7e4316d97195"
+      },
+      "after": {
+        "path": "scenes/meadow-after.png",
+        "sha256": "759341ec1429429a85ab2d2938d04927385111e35be6af5c11a31476b993651b"
+      }
+    }
+  ],
+  "technical_light_plate": {
+    "path": "scenes/distributor-directional-lights.png",
+    "sha256": "d5e36a8544e37ed65d0525f0f31b06ca87c118933496be12b63b7a030ab075d4",
+    "scope": "Actual engine lighting on frozen source pixels. Rows old gray/new gray/old albedo/new albedo; columns north/east/south/west/up."
+  },
+  "publication_native_sha256": "ed952fceae19dfe28e3cc76dd71f03908edd6c39221aac3829c2541f670a82a2",
+  "final_relation": "All six publication-renderer PNGs match these reviewed frames byte-for-byte. Only cfg(test) reveal assertions changed after motion signoff."
+}

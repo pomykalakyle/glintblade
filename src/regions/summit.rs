@@ -150,7 +150,6 @@ pub fn build() -> (Zone, Box<dyn Region>) {
 
     paint::paint(&mut z);
     let items = place_items(&mut z);
-    art::place_waterworks_frame(&mut z);
 
     let hole: Vec<bool> = z.ground.iter().map(|g| g.r < 0.0).collect();
     let region = Summit { items, sky: sky::Sky::new(z.pw, z.ph), hole, pw: z.pw, ph: z.ph };

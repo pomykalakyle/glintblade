@@ -1,0 +1,1621 @@
+{
+  "version": 1,
+  "cell": [
+    160,
+    128
+  ],
+  "source": "originals/distributor-0.png",
+  "source_sha256": "0cb184d16fdb3ae6f34c4520dece41d16cfe167ecbb39218bc9c64d2738905c0",
+  "coordinate_frame": "World X east/right, Y south, Z up. Upright image channels are R=world X, G=world Z, B=world Y; vectors are encoded as (n+1)*127.5.",
+  "construction": "Explicit native polygons follow cistern, masonry, cap, buttress and channel geometry. South facades form the initial semantic layer; later named returns and exposed top planes replace it. No albedo-to-height inference, generic bump conversion or global Z correction is used. Full broad-plane directions are authored independently of baked brightness. The historical generated normals are retained unmodified as rejected normal input.",
+  "limitations": "Pixel art does not recover a unique metric 3D model. These are face-direction normals, not a per-pixel height reconstruction; the caster/support stays independently authored. Separate controlled-light and actual-context review is required.",
+  "planes": [
+    {
+      "name": "south_masonry_facades",
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            159,
+            0
+          ],
+          [
+            159,
+            127
+          ],
+          [
+            0,
+            127
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "cistern_west_end",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            47,
+            20
+          ],
+          [
+            61,
+            28
+          ],
+          [
+            61,
+            46
+          ],
+          [
+            53,
+            42
+          ],
+          [
+            48,
+            35
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "western_arch_pier_side",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            53,
+            43
+          ],
+          [
+            60,
+            47
+          ],
+          [
+            60,
+            103
+          ],
+          [
+            57,
+            107
+          ],
+          [
+            53,
+            104
+          ],
+          [
+            52,
+            98
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_support_west_side",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            31,
+            52
+          ],
+          [
+            39,
+            57
+          ],
+          [
+            39,
+            99
+          ],
+          [
+            35,
+            102
+          ],
+          [
+            31,
+            99
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "cistern_open_floor_and_top_rim",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            49,
+            20
+          ],
+          [
+            73,
+            16
+          ],
+          [
+            76,
+            19
+          ],
+          [
+            78,
+            15
+          ],
+          [
+            95,
+            13
+          ],
+          [
+            101,
+            14
+          ],
+          [
+            107,
+            18
+          ],
+          [
+            106,
+            20
+          ],
+          [
+            103,
+            20
+          ],
+          [
+            83,
+            23
+          ],
+          [
+            63,
+            27
+          ],
+          [
+            58,
+            26
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "cistern_projecting_cornice_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            60,
+            43
+          ],
+          [
+            108,
+            36
+          ],
+          [
+            112,
+            37
+          ],
+          [
+            113,
+            39
+          ],
+          [
+            64,
+            46
+          ],
+          [
+            60,
+            45
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_channel_outer_west_face",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            13,
+            31
+          ],
+          [
+            39,
+            45
+          ],
+          [
+            40,
+            53
+          ],
+          [
+            32,
+            50
+          ],
+          [
+            13,
+            39
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_channel_inner_east_face",
+      "world_normal": [
+        1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            28,
+            30
+          ],
+          [
+            50,
+            42
+          ],
+          [
+            46,
+            43
+          ],
+          [
+            31,
+            35
+          ],
+          [
+            31,
+            39
+          ],
+          [
+            28,
+            37
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_far_rim_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            27,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            51,
+            40
+          ],
+          [
+            51,
+            42
+          ],
+          [
+            48,
+            42
+          ],
+          [
+            28,
+            30
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_channel_floor",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            30,
+            34
+          ],
+          [
+            32,
+            34
+          ],
+          [
+            47,
+            41
+          ],
+          [
+            49,
+            42
+          ],
+          [
+            46,
+            44
+          ],
+          [
+            41,
+            44
+          ],
+          [
+            34,
+            40
+          ],
+          [
+            30,
+            39
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_near_rim_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            13,
+            30
+          ],
+          [
+            15,
+            30
+          ],
+          [
+            39,
+            43
+          ],
+          [
+            40,
+            45
+          ],
+          [
+            37,
+            44
+          ],
+          [
+            13,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_bowl_upper_bevel",
+      "world_normal": [
+        0,
+        0.6,
+        0.8
+      ],
+      "polygons": [
+        [
+          [
+            38,
+            45
+          ],
+          [
+            45,
+            45
+          ],
+          [
+            49,
+            44
+          ],
+          [
+            51,
+            41
+          ],
+          [
+            53,
+            42
+          ],
+          [
+            52,
+            47
+          ],
+          [
+            48,
+            51
+          ],
+          [
+            44,
+            52
+          ],
+          [
+            40,
+            49
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_foot_west_side",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            29,
+            98
+          ],
+          [
+            34,
+            101
+          ],
+          [
+            39,
+            103
+          ],
+          [
+            39,
+            109
+          ],
+          [
+            34,
+            107
+          ],
+          [
+            31,
+            104
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "feeder_foot_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            30,
+            98
+          ],
+          [
+            33,
+            97
+          ],
+          [
+            39,
+            99
+          ],
+          [
+            49,
+            98
+          ],
+          [
+            52,
+            100
+          ],
+          [
+            48,
+            102
+          ],
+          [
+            39,
+            104
+          ],
+          [
+            34,
+            102
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "arch_left_foot_west_side",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            53,
+            101
+          ],
+          [
+            57,
+            103
+          ],
+          [
+            61,
+            105
+          ],
+          [
+            61,
+            113
+          ],
+          [
+            57,
+            112
+          ],
+          [
+            54,
+            109
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "arch_left_foot_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            54,
+            101
+          ],
+          [
+            58,
+            101
+          ],
+          [
+            62,
+            103
+          ],
+          [
+            72,
+            101
+          ],
+          [
+            77,
+            103
+          ],
+          [
+            78,
+            105
+          ],
+          [
+            63,
+            108
+          ],
+          [
+            59,
+            106
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "arch_right_inner_west_face",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            98,
+            78
+          ],
+          [
+            100,
+            79
+          ],
+          [
+            100,
+            99
+          ],
+          [
+            98,
+            101
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "arch_left_inner_east_face",
+      "world_normal": [
+        1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            77,
+            79
+          ],
+          [
+            79,
+            78
+          ],
+          [
+            79,
+            97
+          ],
+          [
+            77,
+            98
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "broken_buttress_west_side",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            110,
+            59
+          ],
+          [
+            116,
+            62
+          ],
+          [
+            117,
+            68
+          ],
+          [
+            120,
+            71
+          ],
+          [
+            121,
+            78
+          ],
+          [
+            124,
+            82
+          ],
+          [
+            126,
+            89
+          ],
+          [
+            126,
+            97
+          ],
+          [
+            120,
+            98
+          ],
+          [
+            114,
+            94
+          ],
+          [
+            110,
+            86
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "broken_buttress_high_cap",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            111,
+            58
+          ],
+          [
+            115,
+            56
+          ],
+          [
+            118,
+            56
+          ],
+          [
+            121,
+            58
+          ],
+          [
+            119,
+            60
+          ],
+          [
+            114,
+            60
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "broken_buttress_second_cap",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            117,
+            63
+          ],
+          [
+            121,
+            62
+          ],
+          [
+            124,
+            63
+          ],
+          [
+            126,
+            66
+          ],
+          [
+            125,
+            67
+          ],
+          [
+            121,
+            66
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "broken_buttress_third_cap",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            121,
+            70
+          ],
+          [
+            125,
+            69
+          ],
+          [
+            129,
+            71
+          ],
+          [
+            129,
+            73
+          ],
+          [
+            125,
+            73
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "broken_buttress_fourth_cap",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            125,
+            77
+          ],
+          [
+            130,
+            75
+          ],
+          [
+            133,
+            77
+          ],
+          [
+            134,
+            80
+          ],
+          [
+            129,
+            80
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "broken_buttress_low_cap",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            129,
+            85
+          ],
+          [
+            133,
+            83
+          ],
+          [
+            136,
+            85
+          ],
+          [
+            136,
+            87
+          ],
+          [
+            132,
+            88
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "arch_right_foot_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            108,
+            95
+          ],
+          [
+            111,
+            94
+          ],
+          [
+            115,
+            96
+          ],
+          [
+            120,
+            98
+          ],
+          [
+            121,
+            100
+          ],
+          [
+            117,
+            101
+          ],
+          [
+            111,
+            99
+          ],
+          [
+            108,
+            99
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "chute_west_side",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            121,
+            94
+          ],
+          [
+            125,
+            96
+          ],
+          [
+            125,
+            101
+          ],
+          [
+            131,
+            105
+          ],
+          [
+            132,
+            109
+          ],
+          [
+            128,
+            106
+          ],
+          [
+            122,
+            101
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "chute_channel_bed",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            123,
+            94
+          ],
+          [
+            125,
+            94
+          ],
+          [
+            143,
+            104
+          ],
+          [
+            143,
+            107
+          ],
+          [
+            141,
+            107
+          ],
+          [
+            136,
+            104
+          ],
+          [
+            129,
+            100
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "chute_far_rim_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            126,
+            91
+          ],
+          [
+            128,
+            92
+          ],
+          [
+            146,
+            102
+          ],
+          [
+            146,
+            104
+          ],
+          [
+            143,
+            103
+          ],
+          [
+            127,
+            94
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "chute_near_rim_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            121,
+            94
+          ],
+          [
+            123,
+            94
+          ],
+          [
+            139,
+            104
+          ],
+          [
+            139,
+            106
+          ],
+          [
+            137,
+            106
+          ],
+          [
+            121,
+            96
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "chute_end_rim_top",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            138,
+            107
+          ],
+          [
+            141,
+            107
+          ],
+          [
+            145,
+            105
+          ],
+          [
+            146,
+            105
+          ],
+          [
+            146,
+            107
+          ],
+          [
+            142,
+            109
+          ],
+          [
+            139,
+            109
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "outlet_1_western_return",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            66,
+            49
+          ],
+          [
+            68,
+            50
+          ],
+          [
+            68,
+            55
+          ],
+          [
+            71,
+            58
+          ],
+          [
+            71,
+            60
+          ],
+          [
+            68,
+            59
+          ],
+          [
+            66,
+            55
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "outlet_1_bottom_rim",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            71,
+            59
+          ],
+          [
+            74,
+            60
+          ],
+          [
+            77,
+            59
+          ],
+          [
+            78,
+            57
+          ],
+          [
+            79,
+            58
+          ],
+          [
+            78,
+            61
+          ],
+          [
+            74,
+            62
+          ],
+          [
+            71,
+            61
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "outlet_2_western_return",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            81,
+            47
+          ],
+          [
+            83,
+            48
+          ],
+          [
+            83,
+            53
+          ],
+          [
+            86,
+            56
+          ],
+          [
+            86,
+            58
+          ],
+          [
+            83,
+            57
+          ],
+          [
+            81,
+            53
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "outlet_2_bottom_rim",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            86,
+            57
+          ],
+          [
+            89,
+            58
+          ],
+          [
+            92,
+            57
+          ],
+          [
+            93,
+            55
+          ],
+          [
+            94,
+            56
+          ],
+          [
+            93,
+            59
+          ],
+          [
+            89,
+            60
+          ],
+          [
+            86,
+            59
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "outlet_3_western_return",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            100,
+            45
+          ],
+          [
+            102,
+            46
+          ],
+          [
+            102,
+            51
+          ],
+          [
+            105,
+            54
+          ],
+          [
+            105,
+            56
+          ],
+          [
+            102,
+            55
+          ],
+          [
+            100,
+            51
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "outlet_3_bottom_rim",
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "polygons": [
+        [
+          [
+            105,
+            55
+          ],
+          [
+            108,
+            56
+          ],
+          [
+            111,
+            55
+          ],
+          [
+            112,
+            53
+          ],
+          [
+            113,
+            54
+          ],
+          [
+            112,
+            57
+          ],
+          [
+            108,
+            58
+          ],
+          [
+            105,
+            57
+          ]
+        ]
+      ]
+    }
+  ],
+  "acceptance_samples": [
+    {
+      "name": "cistern top floor",
+      "xy": [
+        79,
+        19
+      ],
+      "plane": "cistern_open_floor_and_top_rim",
+      "expected_world_normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "cistern south facade",
+      "xy": [
+        90,
+        32
+      ],
+      "plane": "south_masonry_facades",
+      "expected_world_normal": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "cistern west end",
+      "xy": [
+        54,
+        35
+      ],
+      "plane": "cistern_west_end",
+      "expected_world_normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "western feeder pier front",
+      "xy": [
+        47,
+        71
+      ],
+      "plane": "south_masonry_facades",
+      "expected_world_normal": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "western feeder pier side",
+      "xy": [
+        35,
+        71
+      ],
+      "plane": "feeder_support_west_side",
+      "expected_world_normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "arch south pier",
+      "xy": [
+        69,
+        87
+      ],
+      "plane": "south_masonry_facades",
+      "expected_world_normal": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "arch west side",
+      "xy": [
+        56,
+        82
+      ],
+      "plane": "western_arch_pier_side",
+      "expected_world_normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "feeder floor",
+      "xy": [
+        40,
+        41
+      ],
+      "plane": "feeder_channel_floor",
+      "expected_world_normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "feeder foot top",
+      "xy": [
+        44,
+        100
+      ],
+      "plane": "feeder_foot_top",
+      "expected_world_normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "arch foot top",
+      "xy": [
+        67,
+        105
+      ],
+      "plane": "arch_left_foot_top",
+      "expected_world_normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "broken buttress top",
+      "xy": [
+        116,
+        58
+      ],
+      "plane": "broken_buttress_high_cap",
+      "expected_world_normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "broken buttress side",
+      "xy": [
+        115,
+        85
+      ],
+      "plane": "broken_buttress_west_side",
+      "expected_world_normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "broken buttress front",
+      "xy": [
+        129,
+        82
+      ],
+      "plane": "south_masonry_facades",
+      "expected_world_normal": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "chute bed",
+      "xy": [
+        138,
+        103
+      ],
+      "plane": "chute_channel_bed",
+      "expected_world_normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "chute outer west wall",
+      "xy": [
+        129,
+        105
+      ],
+      "plane": "chute_west_side",
+      "expected_world_normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "feeder outer west wall",
+      "xy": [
+        23,
+        41
+      ],
+      "plane": "feeder_channel_outer_west_face",
+      "expected_world_normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "feeder inner east wall",
+      "xy": [
+        29,
+        34
+      ],
+      "plane": "feeder_channel_inner_east_face",
+      "expected_world_normal": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

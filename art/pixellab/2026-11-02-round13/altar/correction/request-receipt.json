@@ -1,0 +1,25 @@
+{
+  "request": {
+    "description": "A flush ancient limestone floor inlay for an oblique top-down pixel art action RPG. It is a flat octagonal arrangement of a few broad irregular stone slabs embedded into the plaza floor, NOT a raised platform. Native canvas72x56, the complete inlay silhouette is about64pixels wide and30pixels deep, centered on pixel36,25, its long east-west axis horizontal and the north-south ground axis foreshortened by onehalf to match the reference pillar cap. No standing face, no vertical south wall, no dark front skirt, no pedestal thickness, no cast shadow or surrounding ground. Restrained worn dusty gray-green limestone matches the reference architecture; chipped clean edges, calm large clusters, thin irregular grout and weathering. Small empty Prism mortise at exactcenter36,25: one understated recessed diamond opening about8pixelswide and4pixelshigh, projected in the same groundplane as the slab joints. Its longhorizontal axis matches the floor perspective. Soft muted natural stone, quiet inlaid border made by slab joints rather than a black closed badge outline. Transparent margin on all4sides. Crisp native pixels, no glow/runes/gem/rings/metal/scifi/highcontrast rim. This must visibly lie flat along the floor of the supplied pillar's camera view.",
+    "width": 72,
+    "height": 56,
+    "no_background": true,
+    "max_colors": 12,
+    "reference_images": [
+      {
+        "path": "../style-native-pillar.png",
+        "usage": "Match ONLY the broad limestone plane shading, exact native pixel density and foreshortened oblique camera of the visible top cap. Make a flush floor inlay, not this upright pillar."
+      }
+    ],
+    "seed": 133842
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: fca7913a-9c84-4761-85c1-1ab0bf9d33ce\njob_id: fca7913a-9c84-4761-85c1-1ab0bf9d33ce\nmodel: pro\ndescription: A flush ancient limestone floor inlay for an oblique top-down pixel art action RPG. It is a flat octagonal arrangement of a few broad irregular stone slabs embedded into the plaza floor, NOT a raised platform. Native canvas72x56, the complete inlay silhouette is about64pixels wide and30pixels deep, centered on pixel36,25, its long east-west axis horizontal and the north-south ground axis foreshortened by onehalf to match the reference pillar cap. No standing face, no vertical south wall, no dark front skirt, no pedestal thickness, no cast shadow or surrounding ground. Restrained worn dusty gray-green limestone matches the reference architecture; chipped clean edges, calm large clusters, thin irregular grout and weathering. Small empty Prism mortise at exactcenter36,25: one understated recessed diamond opening about8pixelswide and4pixelshigh, projected in the same groundplane as the slab joints. Its longhorizontal axis matches the floor perspective. Soft muted natural stone, quiet inlaid border made by slab joints rather than a black closed badge outline. Transparent margin on all4sides. Crisp native pixels, no glow/runes/gem/rings/metal/scifi/highcontrast rim. This must visibly lie flat along the floor of the supplied pillar's camera view.\nsize: 72x56px\ntransparent: True\ncandidates: 16\nreferences: 1\nmax colours: 12 per image\nseed: 133842\nasset_id: 6546544d-dcf7-5c1c-b260-ee91b62b53db\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"fca7913a-9c84-4761-85c1-1ab0bf9d33ce\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/fca7913a-9c84-4761-85c1-1ab0bf9d33ce/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -5,16 +5,6 @@ use super::{ItemKind, pal::*};
 use crate::gfx::{Frame, Rgb};
 use crate::gfx::sprite::SpriteFocus;
 
-/// A conduit frame around the socket recalls the garden's abandoned machinery.
-/// Native independent feet stand outside the fighting lane; one visible prop
-/// supplies normals and shadows without an invisible shadowing proxy.
-pub fn place_waterworks_frame(z: &mut crate::world::Zone) {
-    if crate::gfx::sheet("round13_landmarks_summit").is_some_and(|s| s.has("body")) {
-        z.props.push(crate::world::Prop::new(
-            "round13_landmarks_summit", "body", 720.0, 294.0));
-    }
-}
-
 /// The fallback follows the same local, world-anchored reveal as native props.
 /// Ground shadows remain physical; only solid scenery pixels become porous.
 struct Ink<'a> {

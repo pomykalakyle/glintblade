@@ -1,5 +1,12 @@
 # November 2 beauty pass
 
+The initial visual acceptance below was superseded by Kyle's physical-sanity review.
+Three landmark integrations were rejected, semantic normals repaired, and the raised-looking
+altar replaced with a genuinely foreshortened flush inlay. The original sources remain for
+provenance. See [the correction record](../2026-11-02-perspective-review/README.md) for current
+selection and validation. PNG alpha, vector length and collision parity did not establish
+correct face directions or convincing floor perspective.
+
 Four waterworks landmarks, a sculptural Warden with 75 logical poses, a native stone altar,
 and eleven connected Bloomwild planting beds. PixelLab originals, requests, selections and
 normal maps are retained in `landmarks/`, `warden/` and `altar/`. `vegetation/` reuses the

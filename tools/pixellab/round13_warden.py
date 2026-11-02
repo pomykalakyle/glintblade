@@ -7,7 +7,6 @@ PixelLab sources and raw normal receipts live beside the registration recipe.
 from __future__ import annotations
 
 import argparse
-from collections import deque
 import hashlib
 import json
 import math
@@ -132,48 +131,48 @@ def alpha_like(normal: Image.Image, art: Image.Image) -> Image.Image:
     return out
 
 
-def planar_normal(art: Image.Image, normal: Image.Image) -> Image.Image:
-    """A connected constant-color stone face is planar, its contour still beveled.
+def encode_world_normal(vector: list[float]) -> tuple[int, int, int, int]:
+    """Upright sprites decode PNG tangent XYZ to world X,Y,Z as X,Z,Y.
 
-    Average only generated normal vectors, not albedo brightness. This keeps
-    the PixelLab volume and prevents broad architectural faces rounding like
-    soft clay. Disconnected equal shades remain independent stone pieces.
+    In particular a vertical front is (128,128,255), not a blue/green
+    gradient towards the foot. A roof is (128,255,128).
     """
-    out = alpha_like(normal, art)
-    seen = set()
-    for y in range(112):
-        for x in range(120):
-            if (x, y) in seen or not art.getpixel((x, y))[3]:
-                continue
-            color = art.getpixel((x, y))
-            todo = deque([(x, y)])
-            patch = []
-            seen.add((x, y))
-            while todo:
-                xx, yy = todo.popleft()
-                patch.append((xx, yy))
-                for nx, ny in ((xx-1, yy), (xx+1, yy), (xx, yy-1), (xx, yy+1)):
-                    if 0 <= nx < 120 and 0 <= ny < 112 and (nx, ny) not in seen and art.getpixel((nx, ny)) == color:
-                        seen.add((nx, ny))
-                        todo.append((nx, ny))
-            if len(patch) < 8:
-                continue
-            vector = [sum(normal.getpixel(p)[k]/127.5-1 for p in patch)/len(patch) for k in range(3)]
-            length = math.sqrt(sum(v*v for v in vector)) or 1
-            encoded = tuple(round((v/length+1)*127.5) for v in vector)
-            for xx, yy in patch:
-                if all(0 <= nx < 120 and 0 <= ny < 112 and art.getpixel((nx, ny))[3]
-                       for nx, ny in ((xx-1, yy), (xx+1, yy), (xx, yy-1), (xx, yy+1))):
-                    out.putpixel((xx, yy), (*encoded, 255))
-    return out
+    length = math.sqrt(sum(v*v for v in vector))
+    assert length > 0
+    x, y, z = (v/length for v in vector)
+    return (*(round((v+1)*127.5) for v in (x, z, y)), 255)
+
+
+def semantic_normal(art: Image.Image, pose: str) -> Image.Image:
+    """Native geometric planes, authored against the registered albedo faces.
+
+    Shade/color patches and the silhouette do not infer geometry. Every opaque
+    pixel starts on the explicit vertical front/back-wall plane. Native polygon
+    masks then describe caps, exposed roofs, and architectural side returns.
+    The original generated normal maps remain archived evidence only: their
+    whole-body rounded volume gave the upright pier fronts downward normals.
+    """
+    spec = json.loads((ARCHIVE / "semantic-planes.json").read_text())
+    out = Image.new("RGBA", CELL, encode_world_normal(spec["default"]["world_normal"]))
+    draw = ImageDraw.Draw(out)
+    for face in spec["common"] + spec["poses"][pose]:
+        draw.polygon([tuple(p) for p in face["polygon"]],
+                     fill=encode_world_normal(spec["vectors"][face["plane"]]))
+    return alpha_like(out, art)
 
 
 def stabilize(art: Image.Image, normal: Image.Image, base: Image.Image, base_n: Image.Image) -> Image.Image:
-    """Unchanged native 3x3 stone patches keep exactly the same geometry."""
+    """Keep the registered rigid attachments and piers geometrically fixed.
+
+    A brace can expose a different face with the same slate color. Equality of
+    a 3x3 albedo patch inside an articulated part does not establish equality
+    of its plane; only the explicitly fixed native assembly shares geometry.
+    """
     out = normal.copy()
     for y in range(1, 111):
         for x in range(1, 119):
-            if art.getpixel((x, y))[3] and all(
+            fixed = y < 30 or y >= 81 or x in (35, 84)
+            if fixed and art.getpixel((x, y))[3] and all(
                     art.getpixel((x+dx, y+dy)) == base.getpixel((x+dx, y+dy))
                     for dy in (-1, 0, 1) for dx in (-1, 0, 1)):
                 out.putpixel((x, y), base_n.getpixel((x, y)))
@@ -188,7 +187,7 @@ def prepare() -> None:
 
 def build(out: Path, normals_out: Path, review: Path | None = None) -> dict:
     bases = registered()
-    normal_bases = {name: planar_normal(im, rgba(ARCHIVE / f"raw-normal-{name}.png"))
+    normal_bases = {name: semantic_normal(im, name)
                     for name, im in bases.items()}
     for name in ("brace", "opening"):
         normal_bases[name] = stabilize(bases[name], normal_bases[name], bases["awake"], normal_bases["awake"])
@@ -250,6 +249,9 @@ def build(out: Path, normals_out: Path, review: Path | None = None) -> dict:
               "physical_rows": list(physical_names), "static_aliases": aliases,
               "physical_cells_before": 187, "physical_cells_after": 102,
               "normal_alpha_mismatches": 0, "pose_frames": audit,
+              "normal_geometry": {"source": "semantic-planes.json", "sha256": sha(ARCHIVE / "semantic-planes.json"),
+                                  "method": "authored native structural face polygons in world X,Y,Z; PNG tangent X,Z,Y",
+                                  "generated_normal_maps": "archived only; not used by exporter"},
               "registration": {"base": "raw-design-b.png", "footer_source_rows": [82, 111],
                                "footer_offset": [0, -1], "fixed_upper_rows": [0, 29],
                                "brace_native_regions": [[1,31,39,81],[82,31,119,81],[39,63,82,81]],
@@ -313,11 +315,11 @@ def review_sheet(rows, dest: Path) -> None:
     assembly.resize((assembly.width*3, assembly.height*3), Image.Resampling.NEAREST).save(dest / "assembled-keys-3x.png")
     # Diagnostic only: fixed directional sources show whether broad stone faces
     # respond coherently. The root's actual game captures own final lighting QA.
-    lighting = Image.new("RGBA", (120*3, 140*3), (26, 26, 34, 255))
+    lighting = Image.new("RGBA", (120*4, 140*3), (26, 26, 34, 255))
     normal_by_name = {name: maps for name, _, maps in rows}
     for row, name in enumerate(("awake", "brace", "opening")):
         art, normal = by_name[name][0], normal_by_name[name][0]
-        for col, light in enumerate(((-.7,.5,.6),(.7,.5,.6),(0,-.4,.9))):
+        for col, light in enumerate(((-.8,.6,.3),(.8,.6,.3),(0,1,.25),(0,0,1))):
             lit = art.copy()
             ln = math.sqrt(sum(v*v for v in light))
             for yy in range(112):
@@ -325,7 +327,8 @@ def review_sheet(rows, dest: Path) -> None:
                     pixel = art.getpixel((xx, yy))
                     if not pixel[3]:
                         continue
-                    vector = [v/127.5-1 for v in normal.getpixel((xx, yy))[:3]]
+                    tangent = [v/127.5-1 for v in normal.getpixel((xx, yy))[:3]]
+                    vector = [tangent[0], tangent[2], tangent[1]]
                     length = math.sqrt(sum(v*v for v in vector)) or 1
                     gain = .4+.72*max(0, sum(vector[i]*light[i]/(length*ln) for i in range(3)))
                     lit.putpixel((xx, yy), (*(min(255, round(c*gain)) for c in pixel[:3]), 255))

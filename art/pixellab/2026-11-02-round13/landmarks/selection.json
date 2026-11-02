@@ -2,7 +2,7 @@
   "generation_budget": 100,
   "generations_used": 80.4,
   "credit_purchases": false,
-  "selection_method": "Every candidate inspected with view_image at its native size. RGB pixels remain unchanged; the cave's mis-segmented opaque through-arch is removed by literal native alpha spans in both albedo and normals.",
+  "selection_method": "Native source art and exact-camera runtime before/after comparisons, followed by independent skeptical perspective, contact, normal-direction and shadow audits. Only the distributor remains provisionally active; source preservation and alpha parity alone are not visual acceptance.",
   "assets": {
     "garden": {
       "source": "originals/garden-1.png",
@@ -20,7 +20,9 @@
         335,
         710
       ],
-      "selection_note": "One tall distributor tower and three open arches replace the opening's isolated fins. The lower ten occupied rows supply exact separated stone feet. Complete source margins remain intact."
+      "selection_note": "One tall distributor tower and three open arches replace the opening's isolated fins. The lower ten occupied rows supply exact separated stone feet. Complete source margins remain intact.",
+      "active": false,
+      "rejection_reason": "Rejected after the perspective/contact re-audit: flat pale masonry is weaker than the previous arch and the left tower overhangs the retained foundation by 13 native pixels. Runtime restores the previous integrated arch."
     },
     "distributor": {
       "source": "originals/distributor-0.png",
@@ -136,7 +138,9 @@
           106
         ]
       ],
-      "selection_note": "Readable header cistern, repeated actual outlets and broken chute establish a distribution machine. The original generator left the arched empty space opaque: exact source-row alpha spans remove that false background and its matching normal coverage. No RGB pixels move or change. Native feet and outlet lie on the right cave bank. The lowest ten occupied source rows define the same native support band used by the physical shadow caster."
+      "selection_note": "Provisionally retained after the perspective/contact re-audit: visible cistern top, western ends, brick facades and separated block feet fit the oblique cave camera. Original generated normal data is historical input only; explicit native geometric plane normals replace its nearly flat south-facing bump field. The documented aperture alpha repair, native RGB pixels, anchor and support/collision band remain exact. Runtime lighting and physical shadow require separate controlled-light review.",
+      "active": true,
+      "normal_planes": "normal-planes/distributor.json"
     },
     "press": {
       "source": "originals/press-2.png",
@@ -154,7 +158,9 @@
         600,
         718
       ],
-      "selection_note": "Suspended squared stamping ram, failed right gantry and open anvil bed identify an actual broken foundry press. Stands on the lower workshop beyond the canal; combat court and bridge mouths stay clear. The lowest ten occupied source rows define the same native support band used by the physical shadow caster."
+      "selection_note": "Suspended squared stamping ram, failed right gantry and open anvil bed identify an actual broken foundry press. Stands on the lower workshop beyond the canal; combat court and bridge mouths stay clear. The lowest ten occupied source rows define the same native support band used by the physical shadow caster.",
+      "active": false,
+      "rejection_reason": "Rejected after actual native before/after review: approximately 2.24 times the previous width and 1.99 times its height, with broad near-frontal machinery planes and an incompatible shallow bed. Runtime restores the previous press."
     },
     "summit": {
       "source": "originals/summit-0.png",
@@ -172,11 +178,16 @@
         720,
         294
       ],
-      "selection_note": "Quiet open slotted-fin frame and snapped conduit lintel repeat the garden's engineering language around the empty prism socket. Its two independent feet rest on clear arena floor at284..294, entirely beyond the native raised dais's front edge276; the socket remains visible through the central opening."
+      "selection_note": "Quiet open slotted-fin frame and snapped conduit lintel repeat the garden's engineering language around the empty prism socket. Its two independent feet rest on clear arena floor at284..294, entirely beyond the native raised dais's front edge276; the socket remains visible through the central opening.",
+      "active": false,
+      "rejection_reason": "Rejected after actual native before/after review: frontal lintel and shallow rectangular feet disagree with the oblique dais and pylons. Runtime removes this added frame."
     }
   },
   "rejections": {
     "vista-0": "Clipped tallest tower and broad staging-edge occupancy. Retained original and black/cloud review composites; never used in game.",
-    "vista2-0": "Rejected after actual title, scrolling entry and full-map audits exposed hard rectangular tableland ends. Original retained for provenance; no exported atlas or runtime use."
+    "vista2-0": "Rejected after actual title, scrolling entry and full-map audits exposed hard rectangular tableland ends. Original retained for provenance; no exported atlas or runtime use.",
+    "garden": "Rejected after the perspective/contact re-audit: flat pale masonry is weaker than the previous arch and the left tower overhangs the retained foundation by 13 native pixels. Runtime restores the previous integrated arch.",
+    "press": "Rejected after actual native before/after review: approximately 2.24 times the previous width and 1.99 times its height, with broad near-frontal machinery planes and an incompatible shallow bed. Runtime restores the previous press.",
+    "summit": "Rejected after actual native before/after review: frontal lintel and shallow rectangular feet disagree with the oblique dais and pylons. Runtime removes this added frame."
   }
 }

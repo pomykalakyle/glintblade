@@ -1,0 +1,87 @@
+{
+  "job": "fca7913a-9c84-4761-85c1-1ab0bf9d33ce",
+  "cost_generations": 10,
+  "purchases": false,
+  "files": [
+    {
+      "index": 0,
+      "path": "raw-00.png",
+      "sha256": "951701855e4c5edbc6e1204537b0d1fa232eff331e94d2cc94344cd588210bd5"
+    },
+    {
+      "index": 1,
+      "path": "raw-01.png",
+      "sha256": "3f7ceb8d576951c0c18a90dd076e75169c0bb9916a8994a1d8cb2fa4e009efac"
+    },
+    {
+      "index": 2,
+      "path": "raw-02.png",
+      "sha256": "d3e4f5ff58ee7cd0970832c4439b7f573d6f81c8639dc9936c1c0a28579e86f0"
+    },
+    {
+      "index": 3,
+      "path": "raw-03.png",
+      "sha256": "8193209d1932509c35dbe115658e29351928ca85dae1afade76f376509c15d4b"
+    },
+    {
+      "index": 4,
+      "path": "raw-04.png",
+      "sha256": "40b7f70087fab52ffb93aaf07308fae561de5138ecba2a3b10f186e18c5e3c0f"
+    },
+    {
+      "index": 5,
+      "path": "raw-05.png",
+      "sha256": "1cde08a3e944c64779ce4497c3a49a361a52d49208d917da070f5c286ebfd6f3"
+    },
+    {
+      "index": 6,
+      "path": "raw-06.png",
+      "sha256": "9c6777284804bbee0976302660c72b4ae75c09b1324ebdf6d0f63fd57879b46b"
+    },
+    {
+      "index": 7,
+      "path": "raw-07.png",
+      "sha256": "68f971a1bb967ed172141829dd76d673ac68574f0440606d151fcd653d552319"
+    },
+    {
+      "index": 8,
+      "path": "raw-08.png",
+      "sha256": "0f7782d8e6474f518e05e88a4aad3fac04b92856dc7934810ab3be7160d615f6"
+    },
+    {
+      "index": 9,
+      "path": "raw-09.png",
+      "sha256": "171c2da8c5a48121ebc0add3ee4b57b918499b9fae848c19d2f571e42bf3f3f4"
+    },
+    {
+      "index": 10,
+      "path": "raw-10.png",
+      "sha256": "093ef677e7c19d54820e6e483a4288205ecba0a3eabd7964d1c8ec87767bb3bf"
+    },
+    {
+      "index": 11,
+      "path": "raw-11.png",
+      "sha256": "48aa1a956b1895f857e8ef3459616b0ea0dff655dd48a3edf7a1f0f6ef9dfa59"
+    },
+    {
+      "index": 12,
+      "path": "raw-12.png",
+      "sha256": "2d3d391bba671f78f2a1f282d94d1bfa0d2842d36d2af8dfc615bc5e8dad1da4"
+    },
+    {
+      "index": 13,
+      "path": "raw-13.png",
+      "sha256": "bd92813febc0e62c8db27b81a7afc7af0e35a1594157a52027e2a4eccd989ca0"
+    },
+    {
+      "index": 14,
+      "path": "raw-14.png",
+      "sha256": "0ea80dbb5967af0f58a5bef64c3d1fd7fde78c71623993023e8e4100f283e191"
+    },
+    {
+      "index": 15,
+      "path": "raw-15.png",
+      "sha256": "5fa08bb93ef7eafd006800359e584ffdf04bb93ee3933a67849f1c2dd2cf85fb"
+    }
+  ]
+}

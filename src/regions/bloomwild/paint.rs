@@ -1,34 +1,16 @@
 //! Cached terrain: quiet meadow fields, laid limestone, cut banks and a layered island face.
 
-use super::{K, Map, mat, pal};
-use crate::gfx::{Cell, sheet};
+use super::{K, Map, mat, pal, paving};
+use crate::gfx::sheet;
+#[cfg(test)]
+use crate::gfx::Cell;
 use crate::util::hash2;
 use crate::world::{HOLE, Zone};
 
 pub const ALTAR: (f32, f32) = (408.0, 176.0);
 
-/// Copy a named terrain cell into the cached ground without resampling its pixels.
-fn tile(z: &mut Zone, name: &str, x: i32, y: i32) {
-    let Some(s) = sheet("bloomwild_tiles") else {
-        return;
-    };
-    let Some(at) = s.json.get("tiles").and_then(|v| v.get(name)) else {
-        return;
-    };
-    let (Some(cx), Some(cy)) = (at[0].as_u64(), at[1].as_u64()) else {
-        return;
-    };
-    let Some(c) = s
-        .cells
-        .get(cy as usize)
-        .and_then(|row| row.get(cx as usize))
-    else {
-        return;
-    };
-    blit(z, c, x, y);
-}
-
 /// Blit opaque sprite pixels into the ground cache.
+#[cfg(test)]
 fn blit(z: &mut Zone, c: &Cell, x: i32, y: i32) {
     for py in 0..c.h {
         for px in 0..c.w {
@@ -138,9 +120,8 @@ pub fn paint(z: &mut Zone, m: &Map) -> Vec<u8> {
     }
     landing_fields(z, &mask);
     garden_fields(z, &mask);
-    slabs(z, m, &mask);
+    slabs(z, &mask);
     trails(z, &mask);
-    weathering(z, &mask);
     round_coast(z, m, &mut mask);
     cliffs(z, m, &mut mask);
     if let Some(s) = sheet("bloomwild_terrace") {
@@ -904,8 +885,7 @@ fn bridge_decks(z: &mut Zone, mask: &[u8]) {
                     continue;
                 }
                 let (lx, ly) = (x - bx, y - by);
-                let row = ly / 10;
-                let joint = (lx + row * 17).rem_euclid(35);
+                let joint = paving::bridge_joint(lx, ly);
                 let edge = lx < 14 || lx >= 98;
                 let c = if ly == 0 {
                     pal::STONE[5]
@@ -941,16 +921,10 @@ fn bridge_decks(z: &mut Zone, mask: &[u8]) {
                     if !matches!(mask[i], mat::GRASS | mat::PATH | mat::SLAB) {
                         continue;
                     }
-                    if d < 3 || hash2(x / 3, y / 4, 736) > d as f32 / 11.0 {
-                        z.gset(
-                            x,
-                            y,
-                            if ly == 3 + d / 3 {
-                                pal::STONE[3]
-                            } else {
-                                pal::STONE[4]
-                            },
-                        );
+                    if paving::bridge_approach(x, y) {
+                        let stone = paving::sample(x, y);
+                        z.gset(x, y, stone.color);
+                        z.gset_plane_surface(x, y, stone.normal, 0.0);
                     }
                 }
             }
@@ -980,7 +954,8 @@ fn material_variants(w: usize, h: usize, frames: usize, salt: u32) -> Vec<usize>
     chosen
 }
 
-/// Stamp transparent or opaque native 32px material modules, clipped to their physical floor.
+/// Stamp native 32px meadow modules, clipped to their physical floor. The laid
+/// limestone keeps its complete connected bond instead of isolated atlas patches.
 /// Each anim can set `coverage: 0..1` to leave quiet gaps; source transparency leaves individual
 /// pixels of the previous floor intact. Colors are copied exactly, without filtering or blending.
 fn material_art(z: &mut Zone, mask: &[u8], s: &crate::gfx::Sheet) {
@@ -997,8 +972,6 @@ fn material_art(z: &mut Zone, mask: &[u8], s: &crate::gfx::Sheet) {
     let meadow_light = preserve_fields.then(|| meadow_illumination(z, mask));
     for (name, material, salt) in [
         ("grass", mat::GRASS, 181),
-        ("slab", mat::SLAB, 182),
-        ("path", mat::PATH, 183),
     ] {
         let Some(anim) = s.anim(name) else { continue };
         let coverage = anim
@@ -1624,126 +1597,24 @@ fn opening_steps(z: &mut Zone, mask: &mut [u8]) {
     }
 }
 
-/// Pack the plaza and temple with the artist's large multi-tile limestone blocks.
-fn slabs(z: &mut Zone, m: &Map, mask: &[u8]) {
-    let mut occupied = vec![false; (m.tw * m.th) as usize];
-    for ty in 0..m.th {
-        for tx in 0..m.tw {
-            let idx = (ty * m.tw + tx) as usize;
-            if occupied[idx] || !matches!(m.at(tx, ty), K::Slab | K::Altar) {
-                continue;
-            }
-            let variants = [
-                ('a', 3, 3),
-                ('b', 3, 3),
-                ('c', 3, 3),
-                ('d', 3, 2),
-                ('e', 3, 2),
-                ('f', 2, 3),
-                ('g', 2, 3),
-                ('h', 2, 2),
-                ('i', 2, 2),
-            ];
-            let start = (hash2(tx, ty, 4) * 9.0) as usize;
-            let choice = (0..9)
-                .map(|i| variants[(i + start) % 9])
-                .find(|&(_, w, h)| {
-                    (ty..ty + h).all(|y| {
-                        (tx..tx + w).all(|x| {
-                            x < m.tw
-                                && y < m.th
-                                && !occupied[(y * m.tw + x) as usize]
-                                && matches!(m.at(x, y), K::Slab | K::Altar)
-                        })
-                    })
-                });
-            if let Some((name, w, h)) = choice {
-                for dy in 0..h {
-                    for dx in 0..w {
-                        tile(
-                            z,
-                            &format!("slab_{name}_{dx}{dy}"),
-                            (tx + dx) * 16,
-                            (ty + dy) * 16,
-                        );
-                        occupied[((ty + dy) * m.tw + tx + dx) as usize] = true;
-                    }
-                }
-            } else {
-                let variant = (hash2(tx, ty, 8) * 8.0) as u8;
-                tile(z, &format!("ruin_{variant}"), tx * 16, ty * 16);
-                occupied[idx] = true;
-            }
-        }
-    }
-    // The small fringe cells are eroded edges, not cut square tile silhouettes.
-    for y in 0..z.ph {
-        for x in 0..z.pw {
-            let i = (y * z.pw + x) as usize;
-            if mask[i] == mat::SLAB && !matches!(m.at(x / 16, y / 16), K::Slab | K::Altar) {
-                let inset = (x % 16).min(15 - x % 16).min((y % 16).min(15 - y % 16));
-                z.gset(
-                    x,
-                    y,
-                    if inset < 1 {
-                        pal::STONE[2]
-                    } else {
-                        pal::STONE[3]
-                    },
-                );
-            }
-        }
-    }
+/// Plaza courses meet continuously; a texture-module boundary is not a joint.
+fn slabs(z: &mut Zone, mask: &[u8]) {
+    laid_stone(z, mask, mat::SLAB);
 }
 
-/// Lay staggered stepping stones through the route, with broken corners and worn seams.
+/// The route uses the plaza's same shallow limestone flags, with narrow earth
+/// seams instead of a checkerboard of bright stones and missing 27px cells.
 fn trails(z: &mut Zone, mask: &[u8]) {
-    for y in 0..z.ph {
-        for x in 0..z.pw {
-            if mask[(y * z.pw + x) as usize] != mat::PATH {
-                continue;
-            }
-            let row = y.div_euclid(15);
-            let xx = x + (row % 2) * 13;
-            let (bx, by) = (xx.div_euclid(27), row);
-            let (lx, ly) = (xx.rem_euclid(27), y.rem_euclid(15));
-            let chipped = hash2(bx, by, 113) > 0.6 && lx + ly < 5;
-            if lx > 2 && ly > 2 && !chipped && hash2(bx, by, 110) > 0.1 {
-                let c = if ly == 3 && lx < 15 && hash2(bx, by, 118) > 0.6 {
-                    pal::STONE[4]
-                } else if (ly == 14 || lx == 26) && hash2(bx, by, 116) > 0.65 {
-                    pal::STONE[2]
-                } else {
-                    pal::STONE[3]
-                };
-                z.gset(x, y, c);
-            }
-        }
-    }
+    laid_stone(z, mask, mat::PATH);
 }
 
-/// Break a few slabs and grow moss from their seams, keeping large floor fields quiet.
-fn weathering(z: &mut Zone, mask: &[u8]) {
-    for gy in 1..z.ph / 37 {
-        for gx in 1..z.pw / 41 {
-            if hash2(gx, gy, 160) < 0.88 {
-                continue;
-            }
-            let x = gx * 41 + (hash2(gx, gy, 161) * 18.0) as i32;
-            let y = gy * 37 + (hash2(gx, gy, 162) * 16.0) as i32;
-            if !matches!(mask[(y * z.pw + x) as usize], mat::SLAB | mat::PATH) {
-                continue;
-            }
-            for step in 0..9 {
-                let xx = x + step / 3;
-                let yy = y + step;
-                if matches!(mask[(yy * z.pw + xx) as usize], mat::SLAB | mat::PATH) {
-                    z.gset(xx, yy, pal::STONE[2]);
-                    if step > 4 {
-                        z.gset(xx - 1, yy, pal::GRASS[1]);
-                    }
-                }
-            }
+fn laid_stone(z: &mut Zone, mask: &[u8], material: u8) {
+    for y in 0..z.ph {
+        for x in 0..z.pw {
+            if mask[(y * z.pw + x) as usize] != material { continue; }
+            let stone = paving::sample(x, y);
+            z.gset(x, y, stone.color);
+            z.gset_plane_surface(x, y, stone.normal, 0.0);
         }
     }
 }
@@ -2090,8 +1961,7 @@ fn details(z: &mut Zone, mask: &[u8]) {
     }
 }
 
-/// A low, weathered stone seat for the Prism. Native art and its authored stone
-/// planes replace the old compass, while the map still owns the walkable floor.
+/// A flush stone inlay for the Prism, sharing the plaza's walkable ground plane.
 fn altar(z: &mut Zone) {
     let (cx, cy) = (ALTAR.0 as i32, ALTAR.1 as i32);
     if let Some(s) = sheet("bloomwild_altar") {
@@ -2103,9 +1973,8 @@ fn altar(z: &mut Zone) {
                     let (dx, dy) = (px - anchor.0, py - anchor.1);
                     let p = cell.at(px, py);
                     if !p.a { continue; }
-                    // The complete native lower face sits on the existing slab;
-                    // it is painted below the shared walkable plane, with no
-                    // terrain volume, collider or raised actor support.
+                    // Source art depicts a floor inlay, with no vertical skirt
+                    // implying a raised plinth or unsupported hanging face.
                     z.gset(cx + dx, cy + dy, p.c);
                     z.gset_surface(cx + dx, cy + dy, cell, px, py, false, 0.0);
                 }
@@ -2114,51 +1983,24 @@ fn altar(z: &mut Zone) {
         }
     }
     // Minimal fallback for builds that intentionally omit the optional sheet.
-    for y in -24i32..=25 {
+    for y in -15i32..=15 {
         for x in -32i32..=32 {
             let d = x
                 .abs()
-                .max(y.abs() + 8)
-                .max((x.abs() + y.abs() + 8) * 2 / 3);
+                .max(y.abs() * 2 + 2)
+                .max((x.abs() + y.abs() * 2) * 2 / 3);
             if d > 32 {
                 continue;
             }
-            let c = if y > 19 || d > 29 {
-                pal::STONE[2]
-            } else if d > 26 {
-                pal::STONE[5]
-            } else {
-                pal::STONE[3]
-            };
+            let c = if d > 29 { pal::STONE[4] } else { pal::STONE[3] };
             z.gset(cx + x, cy + y, c);
-            let normal = if y > 19 {
-                [0.0, 1.0, 0.0]
-            } else if d > 26 {
-                let diagonal = (x.abs() + y.abs() + 8) * 2 / 3;
-                let normal = if x.abs() >= (y.abs() + 8).max(diagonal) {
-                    [x.signum() as f32, 0.0, 1.0]
-                } else if y.abs() + 8 >= diagonal {
-                    [0.0, y.signum() as f32, 1.0]
-                } else {
-                    [x.signum() as f32, y.signum() as f32, 1.0]
-                };
-                normal
-            } else {
-                [0.0, 0.0, 1.0]
-            };
-            // The walkable top and its actors share the zero-height ground plane.
-            // Its painted front hangs below that plane, like the island underside.
-            z.gset_plane_surface(cx + x, cy + y, normal, 0.0);
+            z.gset_plane_surface(cx + x, cy + y, [0.0, 0.0, 1.0], 0.0);
         }
     }
-    for y in -15i32..=15 {
-        for x in -20i32..=20 {
-            let d = x.abs() + y.abs() * 4 / 3;
-            if (18..=20).contains(&d) {
-                z.gset(cx + x, cy + y - 2, pal::STONE[1]);
-            }
-            if d < 5 {
-                z.gset(cx + x, cy + y - 2, pal::STONE[5]);
+    for y in -2i32..=2 {
+        for x in -4i32..=4 {
+            if x.abs() + y.abs() * 2 <= 4 {
+                z.gset(cx + x, cy + y, pal::STONE[1]);
             }
         }
     }
@@ -2171,7 +2013,7 @@ mod material_tests {
     use crate::world::ZoneId;
 
     #[test]
-    fn floor_blits_keep_exact_native_normals_and_plinth_owns_its_final_geometry() {
+    fn floor_blits_and_flush_inlay_use_consistent_ground_normals() {
         let mut z = Zone::new(ZoneId::Bloomwild, 30, 20);
         let mut cell = Cell::from_ascii(&["aa"], &[('a', pal::STONE[3])], &[]);
         cell.surface = vec![
@@ -2220,8 +2062,8 @@ mod material_tests {
                 assert_eq!(expected.height, 0, "walkable stone and actors share the zero-height plane");
             }
         }
-        assert!(native_pixels > 1200 && top_pixels > 800 && wall_pixels > 30,
-            "exercise the quiet top, chipped bevel and visible shallow front");
+        assert!(native_pixels > 1000 && top_pixels == native_pixels && wall_pixels == 0,
+            "a flush walkable inlay has upward-facing stone, with no depicted vertical riser");
         assert_eq!(physical_surface(&z, &mask), movement_before,
             "native altar cannot add walls, lift actors or introduce invisible barriers");
     }
@@ -2838,7 +2680,8 @@ mod material_tests {
         mask[20 * 64 + 20] = mat::DEEP;
         material_art(&mut z, &mask, &s);
         assert_eq!(z.ground[8 * 64 + 8], Rgb::from_u8([255, 0, 0]));
-        assert_eq!(z.ground[10 * 64 + 10], Rgb::from_u8([0, 0, 255]));
+        assert_eq!(z.ground[10 * 64 + 10], original,
+            "independent texture patches must not sever the laid paving");
         assert_eq!(
             z.ground[15 * 64 + 15],
             original,
@@ -2860,8 +2703,8 @@ mod material_tests {
         assert_eq!(z.ground[8 * 64 + 8], Rgb::from_u8([255, 0, 0]).scale(42.0 / 48.0));
         assert_eq!(
             z.ground[10 * 64 + 10],
-            Rgb::from_u8([0, 0, 255]),
-            "field lighting applies to grass, not stone"
+            original,
+            "meadow texture and field lighting preserve the laid paving"
         );
         assert_eq!(
             z.ground[15 * 64 + 15],

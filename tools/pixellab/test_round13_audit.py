@@ -169,10 +169,12 @@ class AuditContracts(unittest.TestCase):
         self.assertIn("warden_foot_anchor",self.codes(issues))
 
     def test_altar_rejects_clipping_the_approved_complete_source(self):
-        art = Image.new("RGBA",(72,56))
+        art = Image.new("RGBA",(72,32))
         art.putpixel((6,4),(100,100,100,255))
-        art.putpixel((65,52),(100,100,100,255))
-        path, _, _ = self.export("bloomwild_altar",art=art,cell=(72,56),anchor=(36,25))
+        art.putpixel((65,27),(100,100,100,255))
+        meta = {"cell":[72,32],"anchor":[36,16],"native_source_bbox":[6,4,66,29],
+                "anims":{"body":{"row":0,"frames":1,"fps":1}}}
+        path, _, _ = self.export("bloomwild_altar",art=art,meta=meta)
         _, issues = self.inspect(path)
         self.assertIn("altar_complete_source_bounds",self.codes(issues))
 

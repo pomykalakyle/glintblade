@@ -1,0 +1,70 @@
+{
+  "scope": "Bloomwild connected stone paving and paths; other region routes independently inspected",
+  "baseline": "out/pixellab/world/altar-paths-before/manifest.json",
+  "candidate": "/home/krp/.t3/scratch/2026-11-02-in-the-altar-area-in-8cb5c430/audit/candidate3/glintblade",
+  "candidate_sha256": "b772cd5fe0d745d25010c1c571508ffa810b39a943cac92cdf9ee80d48f32c61",
+  "source_sha256": {
+    "src/regions/bloomwild/paving.rs": "70c4b84bc334490fad8addc77758ccc264fa270738214f22bb32d95ac0b1752a",
+    "src/regions/bloomwild/normals.rs": "1447f546f145ec8d88f805c58d6b5730eebdd4a03a5c589106770a42d542a1da",
+    "src/regions/bloomwild/map.rs": "37988fec407c807e4b3019ec795268710e025a116a70c81e789ba361f527dfdf",
+    "examples/paving_audit.rs": "221c905752d26717468fc8360778ecd426c0519aaf845fcc9f171b77059f38d9"
+  },
+  "fixed": [
+    "Independent 32px slab modules severed grout lines",
+    "Thick gutters and missing whole stepping stones on routes",
+    "Unpaved gap between upper bridge and altar plaza",
+    "Stone bridge aprons retained turf or earth receiver normals",
+    "Bridge vertical bonds changed at10/20 before horizontal joints at12/22"
+  ],
+  "rejected_candidates": {
+    "candidate1": "Horizontal courses read as wall masonry; excessively bright lips",
+    "candidate2": "Greedy packing formed tall vertical filler strips"
+  },
+  "accepted_candidate": "Mixed rectangular flags; seam-continuation penalty; narrow quiet joints; shallow bevels; sparse attached corner wear",
+  "reviewers": {
+    "path_audit": "40 native region views +4overviews before; all6candidate3 path views native and3x accepted",
+    "paving_sanity": "All6candidate3 views native and3x; code/normal/bridge bond accepted"
+  },
+  "normal_audit": "/home/krp/.t3/scratch/2026-11-02-in-the-altar-area-in-8cb5c430/audit/lighting-final/report.json",
+  "normal_checks": [
+    "Actual final renderer normal and albedo buffers inspected",
+    "Finite unit-length scene receivers",
+    "Five phases over36-second sun cycle at5views",
+    "Dry-floor normal/height stable overcomplete cycle; animatedwater excluded"
+  ],
+  "pending": null,
+  "final_snapshot": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/candidate-final/source",
+  "final_binary_sha256": "aa1dea6bfb1f3e951a1f448008dec8d3617fcb826d4ebd6c16a574a6b81fd11b",
+  "frozen_inputs_verified": 482,
+  "rust_suite": {
+    "passed": 378,
+    "failed": 3,
+    "ignored": 7,
+    "failures": "The same3 pre-existing6/8ms rendering-budget gates; all functional tests pass",
+    "log": "/home/krp/.t3/scratch/2026-11-02-in-the-altar-area-in-8cb5c430/audit/combined-rust-tests.log"
+  },
+  "actual_input_tour": {
+    "scene": "victory",
+    "victory_ready": true,
+    "ticks": 14914,
+    "frames": 165,
+    "regions": 4,
+    "shards": 3,
+    "all_warden_phases": true,
+    "invulnerable": true,
+    "report": "/home/krp/.t3/scratch/2026-11-02-in-the-altar-area-in-8cb5c430/audit/combined-tour.json"
+  },
+  "final_normal_audit": "/home/krp/.t3/scratch/2026-11-02-in-the-altar-area-in-8cb5c430/audit/integrated-lighting/report.json",
+  "final_visual_review": "Independent reviewer approved all6 native384 views and3x altar on exactfrozenbinary, including flushinlay andnaturally grounded shadows",
+  "entry_motion": "/home/krp/.t3/scratch/2026-11-02-in-the-altar-area-in-8cb5c430/audit/entry-motion.json",
+  "release_coordination": "Combined native/WASM build and publication owned by parallel Visual Polish thread; paving thread has no remaining productionhold",
+  "limits": "Scripted invulnerable tour establishes route/combat/ending coverage, not human difficulty or audio balance",
+  "evidence_png_sha256": {
+    "altar-before.png": "102a1885a6cdfa7f1a875fee6551d2914eaeec925627d71d9031953a8feb1b56",
+    "altar-after.png": "0ef3750ea8227f8d2befc32e2b17b630826a45b5b7b7a4434495638356360421",
+    "upper-bridge-before.png": "99277d21c764f614c017b5f053d22e07ee192ac5fee7c97daafd625cc6009074",
+    "upper-bridge-after.png": "46456b587e052c05e77ac79f947fc6f8843cd00235f3409dbd0cba9ed2a8f91b",
+    "entry-before.png": "35ddbf2194ea3b90c0ab00d6efb935e542b325782c9f451ec2291d5f09a607bb",
+    "entry-after.png": "517a72acd3ba035310b0b903421984395435f0401be496d598fde011785be0e4"
+  }
+}

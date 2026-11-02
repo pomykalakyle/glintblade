@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-02",
+  "status": "accepted; existing rendering-budget failures explicitly recorded",
+  "problem": "Prior contract checks did not establish physical projection, semantic normals or artistic improvement. User criticism triggered fresh skeptical independent audits.",
+  "base_commit": "8894b0bb720e5f052ab64549333bba97290a1213",
+  "decisions": [
+    {
+      "object": "Garden landmark",
+      "action": "Restore original native split arch",
+      "reason": "flat replacement and tower overhang did not fit retained plinth"
+    },
+    {
+      "object": "Giant press",
+      "action": "Restore original small press",
+      "reason": "new press about twice the width/height dominated canal and read weakly on floor"
+    },
+    {
+      "object": "Summit frame",
+      "action": "Remove redundant addition",
+      "reason": "competed with dais and pylons; weak foot projection"
+    },
+    {
+      "object": "Cave distributor",
+      "action": "Retain source albedo; author roof, wall and side normals",
+      "reason": "old map had no up-facing caps despite visible source geometry",
+      "ambient_gain": "subtle"
+    },
+    {
+      "object": "Warden",
+      "action": "Retain albedo/poses; author structural normals across poses/folds",
+      "reason": "broad front stone faces inherited downward generated gradients"
+    },
+    {
+      "object": "Altar",
+      "action": "Native 72x32 flush inlay, 64x29 opaque floor footprint, all world+Z",
+      "reason": "old 72x56 badge depicted a vertical riser on zero-height terrain"
+    },
+    {
+      "object": "Paving and aprons",
+      "action": "Shared world-coordinate connected bond; match normal/material geometry; join dry-ground path",
+      "reason": "independent 32px slab patches severed joints; apron receivers were stale grass/Earth"
+    },
+    {
+      "object": "Restored small press reveal",
+      "action": "Coherent proximity fade scoped to cinder_foundry/broken_press",
+      "reason": "fresh true-input reviewer caught detached crown/base remnants during shared context reveal",
+      "physical_caster": "full opacity; unchanged source pixels"
+    },
+    {
+      "object": "Sapling/meadow",
+      "action": "Retain in this correction",
+      "reason": "no confirmed rooting/normal error; planting density remains a style tradeoff"
+    }
+  ],
+  "normal_root_cause": {
+    "rejected_or_repaired_landmark_maps": 4,
+    "opaque_pixels_world_z_over_half": 0,
+    "old_max_world_z_range": [
+      0.247,
+      0.278
+    ],
+    "contrast": "Accepted nearby column caps reach world Z .812-.896. Alpha/unit-vector tests did not detect wrong-facing semantic surfaces."
+  },
+  "artifacts": {
+    "glintblade": "ed952fceae19dfe28e3cc76dd71f03908edd6c39221aac3829c2541f670a82a2",
+    "libglintblade.rlib": "db41c385669bb7d06022514eae802b7e928ba558de168239b55e6e8c394e897b",
+    "glintblade.wasm": "a380957cb532ef2e52591ba0e51f5fe8bc93fe471f1284b2da0b95bf89dcc0fd"
+  },
+  "frozen_inputs": 482,
+  "source_manifest": "validation/frozen-source.json",
+  "embedded_assets": 378,
+  "embedded_normal_families": 81,
+  "checks": {
+    "rust_functional_final": {
+      "passed": 380,
+      "failed": 0,
+      "ignored": 7,
+      "existing_performance_tests_excluded": 3,
+      "log": "validation/functional-final.log"
+    },
+    "full_suite_before_narrow_press_fix": {
+      "passed": 378,
+      "failed": 3,
+      "ignored": 7,
+      "only_failures": [
+        "actual_sword_break_full_render_timing",
+        "full_game_release_timing",
+        "signature_live_game_stays_inside_eight_millisecond_budget"
+      ],
+      "budgets_relaxed": false,
+      "log": "validation/full-suite-before-press-fix.log"
+    },
+    "python": {
+      "round13_regressions": 28,
+      "source_freeze_tests": 2,
+      "all_pass": true,
+      "invalid_harness_attempt": "Initial bare system Python lacked PIL. Re-ran with uv --with pillow; invalid diagnostic retained at release-validated/python-tests-invalid-env.log outside repository."
+    },
+    "offline_export": {
+      "regenerated_files_byte_identical": 106,
+      "sprite_sheets": 96,
+      "normal_pairs": 81,
+      "rejected_exports_resurrected": 0,
+      "report": "reviews/offline-export.md"
+    },
+    "runtime_volume": {
+      "warden_nonempty_cells": 70,
+      "light_directions": 5,
+      "physical_cells_checked": 102,
+      "source_opaque_uv_pixels_checked": 591878,
+      "albedo_alpha_emit_mismatches": 0,
+      "report": "reviews/corrected-volume-light.md"
+    },
+    "paving_and_altar_sun_cycle": {
+      "actual_normal_albedo_buffers": true,
+      "scene_captures": 25,
+      "scenes": 5,
+      "sun_phases": 5,
+      "full_seconds": 36,
+      "normal_geometry_pass": true,
+      "receipt": "../2026-11-02-paving/audit.json"
+    },
+    "true_input_campaign": {
+      "native_sha256": "aa1dea6bfb1f3e951a1f448008dec8d3617fcb826d4ebd6c16a574a6b81fd11b",
+      "ticks": 14914,
+      "regions": 4,
+      "shards": 3,
+      "all_boss_phases": true,
+      "victory_ready": true,
+      "invulnerable": true,
+      "frames": 165,
+      "scope": "Combined art/paving before press-specific draw-only refinement. Gameplay/collision/route inputs unchanged in publication build."
+    },
+    "press_final_motion": {
+      "native_sha256": "a1d066d0822ce5776341c05fd14807aba85f8bdfc4daadfc2cf24b984a1aa8a6",
+      "native_frames": 162,
+      "critical_3x_frames": 42,
+      "distant_nohero_controls": 3,
+      "remaining_p1_p2": 0,
+      "report": "reviews/press-motion.md",
+      "final_binary_relation": "Only test assertions differ; production code/assets unchanged."
+    },
+    "browser": {
+      "wasm_sha256": "a380957cb532ef2e52591ba0e51f5fe8bc93fe471f1284b2da0b95bf89dcc0fd",
+      "assertions_passed": 59,
+      "failed": 0,
+      "page_errors": 0,
+      "report": "validation/web-summary.json"
+    },
+    "six_final_static_scene_parity": true
+  },
+  "limits": [
+    "Sampled projection/contact/lighting/motion correctness, not universal aesthetic agreement or every possible frame.",
+    "Cave ambient improvement is subtle.",
+    "Invulnerable replay verifies reachability/encounter coverage, not normal-player difficulty.",
+    "Three existing rendering-budget failures remain.",
+    "Earlier round13 receipts and docs/media videos predate this correction."
+  ],
+  "interactive_comparison": "/home/krp/Projects/glintblade/out/perspective-reaudit-2026-11-02/presentation/before-after.html",
+  "evidence_sha256": {
+    "reviews/corrected-volume-light.md": "c0c049c5e475308741d2a04d320f5cad60f4ee2aae42c1a0d06e506da137ecd3",
+    "reviews/offline-export.md": "1cd3f53eaaf8bc181309594cc64c56ea91653a763121f295fc75ccd27a66a384",
+    "reviews/original-normal-defects.md": "0e62b72d8495706c0487a79e84d24f3c6d90ec6e4b3551379d991b32828ab4d1",
+    "reviews/press-code.md": "59affa6b7fa4cb4bc6ed3e4e3ba9b65ebca9bf4642aeae67bd5e5c5f592c31d4",
+    "reviews/press-motion.md": "4865467e672f8eb9e571930a338ed20fb321e05e078b723a38386426b26cd9e2",
+    "reviews/projection-reference.md": "78a5ca91387fba57f6bd00aa79385a6a4a103a8423803a853be27603d0dc99ba",
+    "scenes/altar-after.png": "7ae4ea3b2c7260a8c07d7c2ea6ba033b7874d63d50bca227f50f5ae53bdcdbee",
+    "scenes/altar-before.png": "8d2c9c2ca0fdc1faf48b248a7ca536e3b51b2999933d3af3e0e5233d2a17bc11",
+    "scenes/distributor-after.png": "8376f90066e4beb36a39d561ac742f9d5d2acbd1aa3bf7d7ca8200a065b54076",
+    "scenes/distributor-before.png": "784fa103bd2773688325928f4b1884c360e955e629c8d065c91a99064304918e",
+    "scenes/distributor-directional-lights.png": "d5e36a8544e37ed65d0525f0f31b06ca87c118933496be12b63b7a030ab075d4",
+    "scenes/garden-after.png": "6367a90f5fc9eaabfc85be9f705966a7ca1df9143686f323122932a4f998c8d3",
+    "scenes/garden-before.png": "13da0ee8d592a452377b81d57518537e6bf891fbd8fbe46a91a270a8e4c8eb9d",
+    "scenes/meadow-after.png": "759341ec1429429a85ab2d2938d04927385111e35be6af5c11a31476b993651b",
+    "scenes/meadow-before.png": "35c16498978d21825e6a927bccfc4dfd40515f2d704b5dc6185b7e4316d97195",
+    "scenes/press-after.png": "0ed6b1f4856e89284fa77867127bbf1ff9e6750f94460eb29a3048333161eda7",
+    "scenes/press-before.png": "85807746ab80bfa72473e06f86f222f02175331f59cf221c3e9b14c36dcc0c81",
+    "scenes/provenance.json": "aad49ce8b9ad59a35f06f5461ca6dc73dd3f28bc7577a4f71f283a30f37dd964",
+    "scenes/summit-after.png": "e51c3cf8db2af76e12d8f16cc18a56708b81da9c127411d5d66defe6e57911f7",
+    "scenes/summit-before.png": "4e7cdd4d3b71c4aa182e35b78bce2a6c7b9a3079a418115dd8ead4608ac68880",
+    "validation/freeze-tests.log": "cc4ce8d54ec0f6a2d972abf34157488e5e132e9d71efaebb422979f2bf3356f8",
+    "validation/frozen-source.json": "dc3bcf4793c482cf869840fa0154a01adec2330f8388e26d76f4203cdfcff818",
+    "validation/full-suite-before-press-fix.log": "88fc4e3a2e682acb9d8b85452b65faae7ee1c766bf8dd37e998c1649b4e8b3d7",
+    "validation/functional-final.log": "6af3ed3b389d698a641655d7953f17f294934b6bcbb2c90af7e28aa87626fcf9",
+    "validation/python-tests.log": "71605891f9aaae101e88f902878c48a27fcc1ee9c5e8bed94352afdaf89cbc65",
+    "validation/runtime-parity.json": "c0b81df317b87841061ecd64aa2a2bc0d97102a429758643b4e98765cff935e5",
+    "validation/web-summary.json": "621ff78e0930169e9cc381d08843c84d64870f1be37e4ed86bc275f09709aaa1"
+  }
+}

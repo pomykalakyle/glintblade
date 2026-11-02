@@ -1,0 +1,386 @@
+{
+  "generated_normal_geometry_rejected": "whole-body pillow gradients do not describe structural stone planes",
+  "albedo_png_sha256": "3aa738b3d94e77fd0e21c4b89d39fe38c86aed3b170fdb11eb4fb135c7387f77",
+  "metadata_json_sha256": "3694d1c24c90f81b8ff8d2073dda56e684f23ee7026a009d863c12648f9e5410",
+  "old_normal_sha256": "8500ef3ec65d6b5c7c13c1541fa93d2f1720f6f6fa6d7a8b6006854d6b21804d",
+  "new_normal_sha256": "5295ab5d98af51751279e95ad6f7bb9a24a51e0aa2eb60a9295add91db408e10",
+  "semantic_data_sha256": "88c0eb0f89a954e7041f494a4ab17d527c2002e86b0362390bc6187c7fb24641",
+  "changed_pixels": 591878,
+  "alpha_mismatch_count": 0,
+  "face_samples": [
+    {
+      "label": "left tower broad wall",
+      "xy": [
+        22,
+        28
+      ],
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.090334,
+        0.891554,
+        0.443813
+      ],
+      "new_world": [
+        0.003922,
+        0.999985,
+        0.003922
+      ]
+    },
+    {
+      "label": "lintel vertical front under roof",
+      "xy": [
+        60,
+        28
+      ],
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.035344,
+        0.899299,
+        0.435905
+      ],
+      "new_world": [
+        0.003922,
+        0.999985,
+        0.003922
+      ]
+    },
+    {
+      "label": "left low pier front",
+      "xy": [
+        34,
+        105
+      ],
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.129529,
+        0.639796,
+        -0.75755
+      ],
+      "new_world": [
+        0.003922,
+        0.999985,
+        0.003922
+      ]
+    },
+    {
+      "label": "reported left foot front",
+      "xy": [
+        45,
+        103
+      ],
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.160703,
+        0.795675,
+        -0.584017
+      ],
+      "new_world": [
+        0.003922,
+        0.999985,
+        0.003922
+      ]
+    },
+    {
+      "label": "reported right pier front",
+      "xy": [
+        78,
+        93
+      ],
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.175917,
+        0.887403,
+        -0.42611
+      ],
+      "new_world": [
+        0.003922,
+        0.999985,
+        0.003922
+      ]
+    },
+    {
+      "label": "right low pier front",
+      "xy": [
+        79,
+        105
+      ],
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.066584,
+        0.677588,
+        -0.732422
+      ],
+      "new_world": [
+        0.003922,
+        0.999985,
+        0.003922
+      ]
+    },
+    {
+      "label": "left tower cap",
+      "xy": [
+        24,
+        5
+      ],
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        0.066633,
+        0.701605,
+        0.709444
+      ],
+      "new_world": [
+        0.003922,
+        0.003922,
+        0.999985
+      ]
+    },
+    {
+      "label": "right tower cap",
+      "xy": [
+        90,
+        16
+      ],
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        0.059092,
+        0.673651,
+        0.736683
+      ],
+      "new_world": [
+        0.003922,
+        0.003922,
+        0.999985
+      ]
+    },
+    {
+      "label": "left tower east return",
+      "xy": [
+        33,
+        18
+      ],
+      "world_normal": [
+        0.8,
+        0.6,
+        0
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        0.551341,
+        0.739032,
+        0.387112
+      ],
+      "new_world": [
+        0.801399,
+        0.598117,
+        0.003909
+      ]
+    },
+    {
+      "label": "right buttress east return",
+      "xy": [
+        101,
+        57
+      ],
+      "world_normal": [
+        0.8,
+        0.6,
+        0
+      ],
+      "poses": [
+        "awake",
+        "opening"
+      ],
+      "old_world": [
+        0.520473,
+        0.81006,
+        -0.27002
+      ],
+      "new_world": [
+        0.801399,
+        0.598117,
+        0.003909
+      ]
+    },
+    {
+      "label": "left pier roof",
+      "xy": [
+        35,
+        87
+      ],
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.3475,
+        0.839466,
+        -0.417781
+      ],
+      "new_world": [
+        0.003922,
+        0.003922,
+        0.999985
+      ]
+    },
+    {
+      "label": "right pier roof",
+      "xy": [
+        79,
+        88
+      ],
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "poses": [
+        "awake",
+        "brace",
+        "opening"
+      ],
+      "old_world": [
+        -0.097821,
+        0.833438,
+        -0.543887
+      ],
+      "new_world": [
+        0.003922,
+        0.003922,
+        0.999985
+      ]
+    },
+    {
+      "label": "closed sill roof",
+      "xy": [
+        60,
+        68
+      ],
+      "world_normal": [
+        0,
+        0,
+        1
+      ],
+      "poses": [
+        "awake",
+        "brace"
+      ],
+      "old_world": [
+        0.176555,
+        0.914161,
+        -0.36488
+      ],
+      "new_world": [
+        0.003922,
+        0.003922,
+        0.999985
+      ]
+    }
+  ],
+  "tests": "6 geometric semantic/lighting/fold/alpha/export tests PASS",
+  "controlled_lights_world": [
+    [
+      -0.8,
+      0.6,
+      0.3
+    ],
+    [
+      0.8,
+      0.6,
+      0.3
+    ],
+    [
+      0,
+      1,
+      0.25
+    ],
+    [
+      0,
+      0,
+      1
+    ]
+  ],
+  "review_limit": "Offline Lambert/normal diagnostic only. Root owns rebuilt actual game directional-light and contact shadow review.",
+  "production_normal_sha256": "5295ab5d98af51751279e95ad6f7bb9a24a51e0aa2eb60a9295add91db408e10"
+}

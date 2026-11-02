@@ -24,7 +24,7 @@ fn place(
 /// Bed a real native foot into its material. The narrow, broken contact follows
 /// opaque support columns; it cannot become an oval decal hanging over the sky.
 fn bake_base_contact(z: &mut Zone, mask: &[u8], p: &Prop) {
-    if !matches!(p.sheet, "bloomwild_trees" | "bloomwild_sapling" | "bloomwild_ruins" | "bloomwild_arch" | "bloomwild_aqueduct" | "round13_landmarks_garden") {
+    if !matches!(p.sheet, "bloomwild_trees" | "bloomwild_sapling" | "bloomwild_ruins" | "bloomwild_arch" | "bloomwild_aqueduct") {
         return;
     }
     let Some(s) = p.sheet() else { return };
@@ -288,12 +288,7 @@ fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
     // Leave daylight between the fins even with the artist's wider upper masses.
     // A shorter surviving pier and low channel make a single broken waterworks mass.
     let aqueduct = crate::gfx::sheet("bloomwild_aqueduct").is_some_and(|s| s.has("left_pier") && s.has("right_pier") && s.has("canopy"));
-    if crate::gfx::sheet("round13_landmarks_garden").is_some_and(|s| s.has("body")) {
-        // One native distributor and open conduits form a single landmark.
-        // Exact separated foot spans leave the main arch passable; native
-        // foreground reveal keeps Glint readable behind the elevated trough.
-        place(z, mask, "round13_landmarks_garden", "body", 335.0, 710.0, 0, 0);
-    } else if aqueduct {
+    if aqueduct {
         // Native source anchor is (64,83); pier anchors follow each actual foot rather than
         // blocking the arch's empty center with one broad rectangular collision footprint.
         let body = Prop::new("bloomwild_aqueduct", "body", 335.0, 710.0);

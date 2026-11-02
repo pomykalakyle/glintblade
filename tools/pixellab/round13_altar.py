@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Rebuild Bloomwild's native PixelLab altar and authored stone normals offline.
+"""Rebuild Bloomwild's native PixelLab floor inlay and floor normals offline.
 
 No image transforms or palette remaps are used: every exported opaque albedo
-pixel is the identical source coordinate, including the complete lower footing.
+pixel is the identical source coordinate. Its shallow native canvas establishes
+the oblique floor proportions without compressing or resampling an upright design.
 Explicit native polygons describe stone planes in world
 right/south/up axes; normal RGB encodes OpenGL right/up/toward-viewer.
 """
@@ -19,8 +20,8 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "art/pixellab/2026-11-02-round13/altar"
 NAME = "bloomwild_altar"
-SIZE = (72, 56)
-ANCHOR = (36, 25)
+SIZE = (72, 32)
+ANCHOR = (36, 16)
 
 
 def sha(path: Path) -> str:
@@ -70,16 +71,17 @@ def build(out: Path, normals_out: Path) -> dict:
     data = {
         "cell": list(SIZE),
         "anchor": list(ANCHOR),
+        "native_source_bbox": list(bbox),
         "emissive": [],
         "anims": {"body": {"row": 0, "frames": 1, "fps": 1}},
         "notes": (
-            "Bespoke PixelLab native low limestone altar. Terrain-only; all painted "
+            "Bespoke PixelLab native flush limestone floor inlay. Terrain-only; all painted "
             "surfaces stay at height zero and retain the original walkable mask "
             "and Prism position (408,176). Albedo pixels are copied unchanged at "
-            "the exact source UV. Its complete footing reaches four native pixels "
-            "south of the old painted plinth, on the existing dry slab. Stone top, "
-            "shallow bevel and south face use explicitly "
-            "authored native world planes, not albedo-derived relief. No collider, "
+            "the exact source UV. The native72x32 canvas gives the same shallow "
+            "floor projection as surrounding stonework. No depicted vertical "
+            "riser or hanging skirt. Every normal faces world+Z, consistent "
+            "with the flush walkable plane. No collider, "
             "glow, transform, resizing or resampling. Archived source, prompt, "
             "selection and receipts: art/pixellab/2026-11-02-round13/altar."
         ),
@@ -98,7 +100,7 @@ def build(out: Path, normals_out: Path) -> dict:
         "color_count": len({p[:3] for count, p in image.getcolors(SIZE[0] * SIZE[1]) if p[3]}),
         "native_pixel_identity": True,
         "normal_alpha_matches_albedo": True,
-        "physics": "Original mat::SLAB, no collider; every terrain height is zero",
+        "physics": "Original mat::SLAB, no collider; flush world+Z floor normals, every terrain height is zero",
     }
 
 

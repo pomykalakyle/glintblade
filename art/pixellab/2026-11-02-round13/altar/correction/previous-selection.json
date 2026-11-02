@@ -1,0 +1,465 @@
+{
+  "source": "raw-08.png",
+  "source_sha256": "b716cb82b418271289d2f1d147f19ca6b3eb275ed955a958fbb9d4a95fdd103e",
+  "candidate_index": 8,
+  "job_id": "77e3f9ce-a67e-4416-83b2-0428216836fe",
+  "asset_id": "b3ee98ed-2ea7-5ed8-9289-e81b746d3123",
+  "cost_included_generations": 10,
+  "registration": {
+    "canvas": [
+      72,
+      56
+    ],
+    "anchor": [
+      36,
+      25
+    ],
+    "world": [
+      408,
+      176
+    ],
+    "opaque_bbox": [
+      6,
+      4,
+      66,
+      54
+    ],
+    "mortise_center": [
+      35.5,
+      24.5
+    ],
+    "notes": "Complete native footing preserved; the southern face reaches worldy204, four pixels beyond old painted silhouette. Every receiving pixel remains existing dry SLAB/height0. No collision, shard-coordinate or gameplay change."
+  },
+  "selection_rationale": "Candidate8 best joins weathered block structure, small empty Prism mortise and calm large stone faces. Broad seams and the broken northwest/south block joints explain construction; no glossy trim, noisy moss carpet, glitter, glow, rune ring or sci-fi badge. All16 candidate outputs were inspected as a native contact sheet; finalists0/1/8 reviewed at integer zoom.0/1 put the mortise too far north,1 has a more mottled northwest lip.3/13 are too uniform;2/14 use radial crack webs;4/9/10 are noisy;6/11 dismantle the platform;7 is overly concentric.",
+  "normal_notes": "Authored semantic world planes for visible stone top, rim bevels, low hanging south face and mortise lip. Default top is world+Z. Explicit polygons override planes; albedo cracks are surface marks, not inferred height. OpenGL PNG stores right,-south,up. All painter heights remain0; no elevated blocker/shadow volume.",
+  "planes": [
+    {
+      "name": "north bevel",
+      "polygon": [
+        [
+          22,
+          5
+        ],
+        [
+          49,
+          5
+        ],
+        [
+          48,
+          8
+        ],
+        [
+          23,
+          8
+        ]
+      ],
+      "world_normal": [
+        0,
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "northwest bevel",
+      "polygon": [
+        [
+          7,
+          19
+        ],
+        [
+          22,
+          5
+        ],
+        [
+          23,
+          8
+        ],
+        [
+          10,
+          20
+        ]
+      ],
+      "world_normal": [
+        -1,
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "northeast bevel",
+      "polygon": [
+        [
+          49,
+          5
+        ],
+        [
+          64,
+          19
+        ],
+        [
+          61,
+          20
+        ],
+        [
+          48,
+          8
+        ]
+      ],
+      "world_normal": [
+        1,
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "west bevel",
+      "polygon": [
+        [
+          7,
+          19
+        ],
+        [
+          10,
+          20
+        ],
+        [
+          10,
+          34
+        ],
+        [
+          7,
+          35
+        ]
+      ],
+      "world_normal": [
+        -1,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "east bevel",
+      "polygon": [
+        [
+          61,
+          20
+        ],
+        [
+          64,
+          19
+        ],
+        [
+          64,
+          35
+        ],
+        [
+          61,
+          34
+        ]
+      ],
+      "world_normal": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "southwest face",
+      "polygon": [
+        [
+          7,
+          35
+        ],
+        [
+          22,
+          49
+        ],
+        [
+          23,
+          53
+        ],
+        [
+          7,
+          38
+        ]
+      ],
+      "world_normal": [
+        -1,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "southeast face",
+      "polygon": [
+        [
+          49,
+          49
+        ],
+        [
+          64,
+          35
+        ],
+        [
+          64,
+          38
+        ],
+        [
+          48,
+          53
+        ]
+      ],
+      "world_normal": [
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "south face",
+      "polygon": [
+        [
+          22,
+          49
+        ],
+        [
+          49,
+          49
+        ],
+        [
+          48,
+          53
+        ],
+        [
+          23,
+          53
+        ]
+      ],
+      "world_normal": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "southwest bevel",
+      "polygon": [
+        [
+          10,
+          34
+        ],
+        [
+          23,
+          46
+        ],
+        [
+          22,
+          49
+        ],
+        [
+          7,
+          35
+        ]
+      ],
+      "world_normal": [
+        -1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "southeast bevel",
+      "polygon": [
+        [
+          48,
+          46
+        ],
+        [
+          61,
+          34
+        ],
+        [
+          64,
+          35
+        ],
+        [
+          49,
+          49
+        ]
+      ],
+      "world_normal": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "south bevel",
+      "polygon": [
+        [
+          23,
+          46
+        ],
+        [
+          48,
+          46
+        ],
+        [
+          49,
+          49
+        ],
+        [
+          22,
+          49
+        ]
+      ],
+      "world_normal": [
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "mortise northwest lip",
+      "polygon": [
+        [
+          29,
+          23
+        ],
+        [
+          35,
+          17
+        ],
+        [
+          36,
+          19
+        ],
+        [
+          31,
+          24
+        ]
+      ],
+      "world_normal": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "mortise northeast lip",
+      "polygon": [
+        [
+          36,
+          17
+        ],
+        [
+          42,
+          23
+        ],
+        [
+          40,
+          24
+        ],
+        [
+          35,
+          19
+        ]
+      ],
+      "world_normal": [
+        -1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "mortise southwest lip",
+      "polygon": [
+        [
+          29,
+          25
+        ],
+        [
+          35,
+          31
+        ],
+        [
+          36,
+          29
+        ],
+        [
+          31,
+          24
+        ]
+      ],
+      "world_normal": [
+        1,
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "mortise southeast lip",
+      "polygon": [
+        [
+          36,
+          31
+        ],
+        [
+          42,
+          25
+        ],
+        [
+          40,
+          24
+        ],
+        [
+          35,
+          29
+        ]
+      ],
+      "world_normal": [
+        -1,
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "mortise quiet recess floor",
+      "polygon": [
+        [
+          35,
+          20
+        ],
+        [
+          40,
+          24
+        ],
+        [
+          40,
+          25
+        ],
+        [
+          36,
+          29
+        ],
+        [
+          35,
+          29
+        ],
+        [
+          31,
+          25
+        ],
+        [
+          31,
+          24
+        ]
+      ],
+      "world_normal": [
+        0,
+        0,
+        1
+      ]
+    }
+  ]
+}

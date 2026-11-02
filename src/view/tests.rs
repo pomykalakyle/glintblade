@@ -98,6 +98,10 @@ fn assert_local_reveal(opaque: &Frame, revealed: &Frame, pose: SpriteFocus, labe
     }
     assert!(hidden > 40, "{label}: fixture must actually obscure the hero, got {hidden}");
     assert!(recovered > 25 && changed >= recovered, "{label}: no useful foreground reveal");
+    assert_physical_casters_unchanged(opaque, revealed, label);
+}
+
+fn assert_physical_casters_unchanged(opaque: &Frame, revealed: &Frame, label: &str) {
     assert_eq!(opaque.surface_casters.len(), revealed.surface_casters.len(), "{label}: caster removed");
     for (before, after) in opaque.surface_casters.iter().zip(&revealed.surface_casters) {
         assert_eq!(before.opacity, after.opacity, "{label}: visibility fade weakened physical shadow");
@@ -128,7 +132,16 @@ fn foreground_native_scenery_reveals_the_hero_in_every_land_region() {
         let zone = fixture(id, vec![prop]);
         let opaque = render(&zone, &NoRegion, Some(pose), None, None, (0, 0));
         let revealed = render(&zone, &NoRegion, Some(pose), Some(pose), None, (0, 0));
-        assert_local_reveal(&opaque, &revealed, pose, &format!("{sheet}/{anim}"));
+        if sheet == "cinder_foundry" && anim == "broken_press" {
+            // The small machine clears as one shape, including its crown
+            // outside the common opening. Its physical cast stays present.
+            let without = render(&fixture(id, Vec::new()), &NoRegion,
+                Some(pose), Some(pose), None, (0, 0));
+            assert_eq!(revealed.albedo, without.albedo, "no detached press pieces");
+            assert_physical_casters_unchanged(&opaque, &revealed, "coherent small press");
+        } else {
+            assert_local_reveal(&opaque, &revealed, pose, &format!("{sheet}/{anim}"));
+        }
     }
 }
 
@@ -309,12 +322,18 @@ fn stacked_scenery_keeps_one_world_aligned_reveal_through_camera_facing_and_airb
         Prop::new("cinder_foundry", "press", 180.0, 170.0),
         Prop::new("cinder_foundry", "broken_press", 182.0, 174.0).flipped(true),
     ]);
+    let ordinary = fixture(ZoneId::Cinder, vec![zone.props[0].clone()]);
     for flip in [false, true] {
         for elevation in [0.0, 12.0] {
             let pose = SpriteFocus { flip, y: 152.0 - elevation, ..hero(177.75, 152.0) };
             let opaque = render(&zone, &NoRegion, Some(pose), None, None, (0, 0));
             let revealed = render(&zone, &NoRegion, Some(pose), Some(pose), None, (0, 0));
-            assert_local_reveal(&opaque, &revealed, pose, "stacked foundry sprites");
+            let ordinary_opaque = render(&ordinary, &NoRegion, Some(pose), None, None, (0, 0));
+            let ordinary_revealed = render(&ordinary, &NoRegion, Some(pose), Some(pose), None, (0, 0));
+            assert_local_reveal(&ordinary_opaque, &ordinary_revealed, pose, "underlying foundry sprite");
+            assert_eq!(revealed.albedo, ordinary_revealed.albedo,
+                "the coherent small press must clear without changing the underlying world dither");
+            assert_physical_casters_unchanged(&opaque, &revealed, "stacked foundry sprites");
             let shifted = render(&zone, &NoRegion, Some(pose), Some(pose), None, (7, 5));
             for y in 70..185 {
                 for x in 125..235 {

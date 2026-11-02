@@ -1,0 +1,18 @@
+{
+  "request": {
+    "width": 72,
+    "height": 32,
+    "max_colors": 12,
+    "seed": 133843,
+    "purpose": "Native shallow floor-plane constraint; previous72x56 replacementbatch explicitly rejected"
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: d181c884-2d25-473d-975f-983af6431be8\njob_id: d181c884-2d25-473d-975f-983af6431be8\nmodel: pro\ndescription: Native72x32 pixel sprite: a FLUSH limestone floor mosaic in an oblique top-down RPG, lying horizontally on the ground. Show ONE wide low octagonal stone arrangement, about64pixelswide by24pixelsdeep, quiet pale dusty sage-gray stone and thin irregular joints. Entire shape insidecanvas, horizontal longaxis, visibly foreshortened groundplane. Three to six broad weathered limestone blocks form a single unobtrusive floor inlay. Same sparse-pixel stonework as old ruined garden paths. Centeratpixel36,16 has a tiny EMPTYdarkPrismmortise, a flat diamond8pixelswide by3pixelsdeep. No raised platform, verticalwalls, frontface, thickness, black outline, hangingedge or castshadow. Its outsideedge lies flush with the surrounding floor; slategray thin joints, restrained chipped corners and small wear marks, neutral stone without baked dramatic side-light. Transparentbackground, clear gutter aroundallpixels. Camera35degreesabovehorizontal, the stone shape is twice aswide asdeep. Crisp1pixelclusters, only12mutedstonecolors. An architectural floor feature, not a medallion or uprightbadge.\nsize: 72x32px\ntransparent: True\ncandidates: 25\nmax colours: 12 per image\nseed: 133843\nasset_id: e535d195-f471-5875-b344-7b1da3f5a619\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"d181c884-2d25-473d-975f-983af6431be8\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/d181c884-2d25-473d-975f-983af6431be8/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

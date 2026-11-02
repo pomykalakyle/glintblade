@@ -1,0 +1,1199 @@
+{
+  "checks": {
+    "autoplay_ignored": true,
+    "geometry_desktop-cached-480x360_scene_present": true,
+    "geometry_desktop-cached-480x360_aspect_16_9": true,
+    "geometry_desktop-cached-480x360_centered": true,
+    "geometry_desktop-cached-480x360_opposite_edges_filled": true,
+    "geometry_desktop-cached-480x360_inside_viewport": true,
+    "geometry_desktop-cached-480x360_footer_separate": true,
+    "geometry_desktop-cached-480x360_touch_separate": true,
+    "geometry_desktop-cached-480x360_touch_visible_as_expected": true,
+    "geometry_desktop-cached-480x360_six_health_marks_visible": true,
+    "geometry_desktop-cached-480x360_right_shard_and_counter_visible": true,
+    "geometry_desktop-fresh-480x294_scene_present": true,
+    "geometry_desktop-fresh-480x294_aspect_16_9": true,
+    "geometry_desktop-fresh-480x294_centered": true,
+    "geometry_desktop-fresh-480x294_opposite_edges_filled": true,
+    "geometry_desktop-fresh-480x294_inside_viewport": true,
+    "geometry_desktop-fresh-480x294_footer_separate": true,
+    "geometry_desktop-fresh-480x294_touch_separate": true,
+    "geometry_desktop-fresh-480x294_touch_visible_as_expected": true,
+    "geometry_desktop-fresh-480x294_six_health_marks_visible": true,
+    "geometry_desktop-fresh-480x294_right_shard_and_counter_visible": true,
+    "geometry_desktop-wide-1280x744_scene_present": true,
+    "geometry_desktop-wide-1280x744_aspect_16_9": true,
+    "geometry_desktop-wide-1280x744_centered": true,
+    "geometry_desktop-wide-1280x744_opposite_edges_filled": true,
+    "geometry_desktop-wide-1280x744_inside_viewport": true,
+    "geometry_desktop-wide-1280x744_footer_separate": true,
+    "geometry_desktop-wide-1280x744_touch_separate": true,
+    "geometry_desktop-wide-1280x744_touch_visible_as_expected": true,
+    "geometry_desktop-wide-1280x744_six_health_marks_visible": true,
+    "geometry_desktop-wide-1280x744_right_shard_and_counter_visible": true,
+    "geometry_desktop-tall-500x900_scene_present": true,
+    "geometry_desktop-tall-500x900_aspect_16_9": true,
+    "geometry_desktop-tall-500x900_centered": true,
+    "geometry_desktop-tall-500x900_opposite_edges_filled": true,
+    "geometry_desktop-tall-500x900_inside_viewport": true,
+    "geometry_desktop-tall-500x900_footer_separate": true,
+    "geometry_desktop-tall-500x900_touch_separate": true,
+    "geometry_desktop-tall-500x900_touch_visible_as_expected": true,
+    "geometry_desktop-tall-500x900_six_health_marks_visible": true,
+    "geometry_desktop-tall-500x900_right_shard_and_counter_visible": true,
+    "fullscreen_request_not_fatal": true,
+    "fullscreen_actual_canvas": true,
+    "geometry_desktop-fullscreen_scene_present": true,
+    "geometry_desktop-fullscreen_aspect_16_9": true,
+    "geometry_desktop-fullscreen_centered": true,
+    "geometry_desktop-fullscreen_opposite_edges_filled": true,
+    "geometry_desktop-fullscreen_inside_viewport": true,
+    "geometry_desktop-fullscreen_footer_separate": true,
+    "geometry_desktop-fullscreen_touch_separate": true,
+    "geometry_desktop-fullscreen_touch_visible_as_expected": true,
+    "geometry_desktop-fullscreen_six_health_marks_visible": true,
+    "geometry_desktop-fullscreen_right_shard_and_counter_visible": true,
+    "denied_fullscreen_not_fatal": true,
+    "wasd_j_k_delivered": true,
+    "touch_controls_visible": true,
+    "geometry_mobile-proportional-390x239_scene_present": true,
+    "geometry_mobile-proportional-390x239_aspect_16_9": true,
+    "geometry_mobile-proportional-390x239_centered": true,
+    "geometry_mobile-proportional-390x239_opposite_edges_filled": true,
+    "geometry_mobile-proportional-390x239_inside_viewport": true,
+    "geometry_mobile-proportional-390x239_footer_separate": true,
+    "geometry_mobile-proportional-390x239_touch_separate": true,
+    "geometry_mobile-proportional-390x239_touch_visible_as_expected": true,
+    "geometry_mobile-proportional-390x239_six_health_marks_visible": true,
+    "geometry_mobile-proportional-390x239_right_shard_and_counter_visible": true,
+    "geometry_mobile-fresh-390x294_scene_present": true,
+    "geometry_mobile-fresh-390x294_aspect_16_9": true,
+    "geometry_mobile-fresh-390x294_centered": true,
+    "geometry_mobile-fresh-390x294_opposite_edges_filled": true,
+    "geometry_mobile-fresh-390x294_inside_viewport": true,
+    "geometry_mobile-fresh-390x294_footer_separate": true,
+    "geometry_mobile-fresh-390x294_touch_separate": true,
+    "geometry_mobile-fresh-390x294_touch_visible_as_expected": true,
+    "geometry_mobile-fresh-390x294_six_health_marks_visible": true,
+    "geometry_mobile-fresh-390x294_right_shard_and_counter_visible": true,
+    "geometry_mobile-cached-390x360_scene_present": true,
+    "geometry_mobile-cached-390x360_aspect_16_9": true,
+    "geometry_mobile-cached-390x360_centered": true,
+    "geometry_mobile-cached-390x360_opposite_edges_filled": true,
+    "geometry_mobile-cached-390x360_inside_viewport": true,
+    "geometry_mobile-cached-390x360_footer_separate": true,
+    "geometry_mobile-cached-390x360_touch_separate": true,
+    "geometry_mobile-cached-390x360_touch_visible_as_expected": true,
+    "geometry_mobile-cached-390x360_six_health_marks_visible": true,
+    "geometry_mobile-cached-390x360_right_shard_and_counter_visible": true,
+    "geometry_mobile-portrait-390x700_scene_present": true,
+    "geometry_mobile-portrait-390x700_aspect_16_9": true,
+    "geometry_mobile-portrait-390x700_centered": true,
+    "geometry_mobile-portrait-390x700_opposite_edges_filled": true,
+    "geometry_mobile-portrait-390x700_inside_viewport": true,
+    "geometry_mobile-portrait-390x700_footer_separate": true,
+    "geometry_mobile-portrait-390x700_touch_separate": true,
+    "geometry_mobile-portrait-390x700_touch_visible_as_expected": true,
+    "geometry_mobile-portrait-390x700_six_health_marks_visible": true,
+    "geometry_mobile-portrait-390x700_right_shard_and_counter_visible": true,
+    "physical_up_preserves_touch_hold": true,
+    "touch_releases_key": true,
+    "touch_attack_dash_delivered": true,
+    "blur_releases_touch": true,
+    "geometry_hidpi-cached-480x360_scene_present": true,
+    "geometry_hidpi-cached-480x360_aspect_16_9": true,
+    "geometry_hidpi-cached-480x360_centered": true,
+    "geometry_hidpi-cached-480x360_opposite_edges_filled": true,
+    "geometry_hidpi-cached-480x360_inside_viewport": true,
+    "geometry_hidpi-cached-480x360_footer_separate": true,
+    "geometry_hidpi-cached-480x360_touch_separate": true,
+    "geometry_hidpi-cached-480x360_touch_visible_as_expected": true,
+    "geometry_hidpi-cached-480x360_six_health_marks_visible": true,
+    "geometry_hidpi-cached-480x360_right_shard_and_counter_visible": true,
+    "geometry_hidpi-fresh-480x294_scene_present": true,
+    "geometry_hidpi-fresh-480x294_aspect_16_9": true,
+    "geometry_hidpi-fresh-480x294_centered": true,
+    "geometry_hidpi-fresh-480x294_opposite_edges_filled": true,
+    "geometry_hidpi-fresh-480x294_inside_viewport": true,
+    "geometry_hidpi-fresh-480x294_footer_separate": true,
+    "geometry_hidpi-fresh-480x294_touch_separate": true,
+    "geometry_hidpi-fresh-480x294_touch_visible_as_expected": true,
+    "geometry_hidpi-fresh-480x294_six_health_marks_visible": true,
+    "geometry_hidpi-fresh-480x294_right_shard_and_counter_visible": true,
+    "hidpi_buffer_matches_device_pixels": true,
+    "download_error_has_retry": true,
+    "download_error_has_fullpage": true
+  },
+  "console": [
+    {
+      "type": "warning",
+      "text": "Unrecognized feature: 'web-share'."
+    },
+    {
+      "type": "warning",
+      "text": "Allow attribute will take precedence over 'allowfullscreen'."
+    },
+    {
+      "type": "log",
+      "text": "Plugin sapp_jsutils is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "Plugin quad_net is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "fix"
+    },
+    {
+      "type": "warning",
+      "text": "Unrecognized feature: 'web-share'."
+    },
+    {
+      "type": "warning",
+      "text": "Allow attribute will take precedence over 'allowfullscreen'."
+    },
+    {
+      "type": "log",
+      "text": "Plugin sapp_jsutils is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "Plugin quad_net is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "fix"
+    },
+    {
+      "type": "warning",
+      "text": "Unrecognized feature: 'web-share'."
+    },
+    {
+      "type": "warning",
+      "text": "Allow attribute will take precedence over 'allowfullscreen'."
+    },
+    {
+      "type": "log",
+      "text": "Plugin sapp_jsutils is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "Plugin quad_net is present in JS bundle, but is not used in the rust code."
+    },
+    {
+      "type": "log",
+      "text": "fix"
+    },
+    {
+      "type": "warning",
+      "text": "Unrecognized feature: 'web-share'."
+    },
+    {
+      "type": "warning",
+      "text": "Allow attribute will take precedence over 'allowfullscreen'."
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "type": "error",
+      "text": "GLINTBLADE player: Error: Download failed: 503\n    at fetchGame (https://pomykalakyle.github.io/glintblade/player.js?v=web-fit-r10:94:29)\n    at async HTMLButtonElement.start (https://pomykalakyle.github.io/glintblade/player.js?v=web-fit-r10:129:21)"
+    }
+  ],
+  "errors": [],
+  "geometry": [
+    {
+      "buffer": [
+        480,
+        336
+      ],
+      "bbox": [
+        0,
+        33,
+        480,
+        303
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 480,
+        "height": 336
+      },
+      "scene": {
+        "x": 0,
+        "y": 33,
+        "width": 480,
+        "height": 270
+      },
+      "hearts": [
+        33,
+        33,
+        33,
+        33,
+        33,
+        33
+      ],
+      "shard": {
+        "purple": 22,
+        "bone": 21
+      },
+      "footer": {
+        "x": 0,
+        "y": 336,
+        "width": 480,
+        "height": 24
+      },
+      "controls": [],
+      "viewport": [
+        480,
+        360
+      ],
+      "dpr": 1,
+      "touchPadding": "0px",
+      "fullscreen": false,
+      "name": "desktop-cached-480x360",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        480,
+        270
+      ],
+      "bbox": [
+        0,
+        0,
+        480,
+        270
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 480,
+        "height": 270
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 480,
+        "height": 270
+      },
+      "hearts": [
+        33,
+        33,
+        33,
+        33,
+        33,
+        33
+      ],
+      "shard": {
+        "purple": 22,
+        "bone": 21
+      },
+      "footer": {
+        "x": 0,
+        "y": 270,
+        "width": 480,
+        "height": 24
+      },
+      "controls": [],
+      "viewport": [
+        480,
+        294
+      ],
+      "dpr": 1,
+      "touchPadding": "0px",
+      "fullscreen": false,
+      "name": "desktop-fresh-480x294",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        1280,
+        720
+      ],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "hearts": [
+        242,
+        256,
+        252,
+        242,
+        256,
+        252
+      ],
+      "shard": {
+        "purple": 191,
+        "bone": 144
+      },
+      "footer": {
+        "x": 0,
+        "y": 720,
+        "width": 1280,
+        "height": 24
+      },
+      "controls": [],
+      "viewport": [
+        1280,
+        744
+      ],
+      "dpr": 1,
+      "touchPadding": "0px",
+      "fullscreen": false,
+      "name": "desktop-wide-1280x744",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        500,
+        876
+      ],
+      "bbox": [
+        0,
+        297,
+        500,
+        579
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 500,
+        "height": 876
+      },
+      "scene": {
+        "x": 0,
+        "y": 297,
+        "width": 500,
+        "height": 282
+      },
+      "hearts": [
+        42,
+        37,
+        41,
+        37,
+        41,
+        35
+      ],
+      "shard": {
+        "purple": 28,
+        "bone": 32
+      },
+      "footer": {
+        "x": 0,
+        "y": 876,
+        "width": 500,
+        "height": 24
+      },
+      "controls": [],
+      "viewport": [
+        500,
+        900
+      ],
+      "dpr": 1,
+      "touchPadding": "0px",
+      "fullscreen": false,
+      "name": "desktop-tall-500x900",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        500,
+        700
+      ],
+      "bbox": [
+        0,
+        209,
+        500,
+        491
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 500,
+        "height": 700
+      },
+      "scene": {
+        "x": 0,
+        "y": 209,
+        "width": 500,
+        "height": 282
+      },
+      "hearts": [
+        42,
+        37,
+        41,
+        37,
+        41,
+        35
+      ],
+      "shard": {
+        "purple": 28,
+        "bone": 36
+      },
+      "footer": null,
+      "controls": [],
+      "viewport": [
+        500,
+        700
+      ],
+      "dpr": 1,
+      "touchPadding": "0px",
+      "fullscreen": true,
+      "name": "desktop-fullscreen",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        390,
+        151
+      ],
+      "bbox": [
+        60,
+        0,
+        329,
+        151
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 151
+      },
+      "scene": {
+        "x": 60,
+        "y": 0,
+        "width": 269,
+        "height": 151
+      },
+      "hearts": [
+        8,
+        11,
+        9,
+        11,
+        9,
+        8
+      ],
+      "shard": {
+        "purple": 9,
+        "bone": 8
+      },
+      "footer": {
+        "x": 0,
+        "y": 215,
+        "width": 390,
+        "height": 24
+      },
+      "controls": [
+        {
+          "code": "ArrowUp",
+          "x": 101.5,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "ArrowLeft",
+          "x": 8,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "ArrowDown",
+          "x": 54.75,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "ArrowRight",
+          "x": 148.25,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "Escape",
+          "x": 199,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "Enter",
+          "x": 245.75,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "KeyX",
+          "x": 292.5,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "KeyC",
+          "x": 339.25,
+          "y": 163,
+          "width": 42.75,
+          "height": 44
+        }
+      ],
+      "viewport": [
+        390,
+        239
+      ],
+      "dpr": 1,
+      "touchPadding": "64px",
+      "fullscreen": false,
+      "name": "mobile-proportional-390x239",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        390,
+        206
+      ],
+      "bbox": [
+        11,
+        0,
+        378,
+        206
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 206
+      },
+      "scene": {
+        "x": 11,
+        "y": 0,
+        "width": 367,
+        "height": 206
+      },
+      "hearts": [
+        14,
+        18,
+        18,
+        14,
+        18,
+        18
+      ],
+      "shard": {
+        "purple": 16,
+        "bone": 12
+      },
+      "footer": {
+        "x": 0,
+        "y": 270,
+        "width": 390,
+        "height": 24
+      },
+      "controls": [
+        {
+          "code": "ArrowUp",
+          "x": 101.5,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "ArrowLeft",
+          "x": 8,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "ArrowDown",
+          "x": 54.75,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "ArrowRight",
+          "x": 148.25,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "Escape",
+          "x": 199,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "Enter",
+          "x": 245.75,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "KeyX",
+          "x": 292.5,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        },
+        {
+          "code": "KeyC",
+          "x": 339.25,
+          "y": 218,
+          "width": 42.75,
+          "height": 44
+        }
+      ],
+      "viewport": [
+        390,
+        294
+      ],
+      "dpr": 1,
+      "touchPadding": "64px",
+      "fullscreen": false,
+      "name": "mobile-fresh-390x294",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        390,
+        232
+      ],
+      "bbox": [
+        0,
+        6,
+        390,
+        226
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 232
+      },
+      "scene": {
+        "x": 0,
+        "y": 6,
+        "width": 390,
+        "height": 220
+      },
+      "hearts": [
+        22,
+        22,
+        22,
+        22,
+        22,
+        22
+      ],
+      "shard": {
+        "purple": 17,
+        "bone": 14
+      },
+      "footer": {
+        "x": 0,
+        "y": 336,
+        "width": 390,
+        "height": 24
+      },
+      "controls": [
+        {
+          "code": "ArrowUp",
+          "x": 52,
+          "y": 242,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "ArrowLeft",
+          "x": 8,
+          "y": 286,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "ArrowDown",
+          "x": 52,
+          "y": 286,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "ArrowRight",
+          "x": 96,
+          "y": 286,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "Escape",
+          "x": 277,
+          "y": 239,
+          "width": 50,
+          "height": 42
+        },
+        {
+          "code": "Enter",
+          "x": 332,
+          "y": 239,
+          "width": 50,
+          "height": 42
+        },
+        {
+          "code": "KeyX",
+          "x": 277,
+          "y": 286,
+          "width": 50,
+          "height": 42
+        },
+        {
+          "code": "KeyC",
+          "x": 332,
+          "y": 286,
+          "width": 50,
+          "height": 42
+        }
+      ],
+      "viewport": [
+        390,
+        360
+      ],
+      "dpr": 1,
+      "touchPadding": "104px",
+      "fullscreen": false,
+      "name": "mobile-cached-390x360",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        390,
+        572
+      ],
+      "bbox": [
+        0,
+        176,
+        390,
+        396
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 572
+      },
+      "scene": {
+        "x": 0,
+        "y": 176,
+        "width": 390,
+        "height": 220
+      },
+      "hearts": [
+        22,
+        22,
+        22,
+        22,
+        22,
+        22
+      ],
+      "shard": {
+        "purple": 17,
+        "bone": 14
+      },
+      "footer": {
+        "x": 0,
+        "y": 676,
+        "width": 390,
+        "height": 24
+      },
+      "controls": [
+        {
+          "code": "ArrowUp",
+          "x": 52,
+          "y": 582,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "ArrowLeft",
+          "x": 8,
+          "y": 626,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "ArrowDown",
+          "x": 52,
+          "y": 626,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "ArrowRight",
+          "x": 96,
+          "y": 626,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "code": "Escape",
+          "x": 277,
+          "y": 579,
+          "width": 50,
+          "height": 42
+        },
+        {
+          "code": "Enter",
+          "x": 332,
+          "y": 579,
+          "width": 50,
+          "height": 42
+        },
+        {
+          "code": "KeyX",
+          "x": 277,
+          "y": 626,
+          "width": 50,
+          "height": 42
+        },
+        {
+          "code": "KeyC",
+          "x": 332,
+          "y": 626,
+          "width": 50,
+          "height": 42
+        }
+      ],
+      "viewport": [
+        390,
+        700
+      ],
+      "dpr": 1,
+      "touchPadding": "104px",
+      "fullscreen": false,
+      "name": "mobile-portrait-390x700",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        960,
+        672
+      ],
+      "bbox": [
+        0,
+        66,
+        960,
+        606
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 480,
+        "height": 336
+      },
+      "scene": {
+        "x": 0,
+        "y": 33,
+        "width": 480,
+        "height": 270
+      },
+      "hearts": [
+        137,
+        137,
+        137,
+        137,
+        137,
+        137
+      ],
+      "shard": {
+        "purple": 111,
+        "bone": 94
+      },
+      "footer": {
+        "x": 0,
+        "y": 336,
+        "width": 480,
+        "height": 24
+      },
+      "controls": [],
+      "viewport": [
+        480,
+        360
+      ],
+      "dpr": 2,
+      "touchPadding": "0px",
+      "fullscreen": false,
+      "name": "hidpi-cached-480x360",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    },
+    {
+      "buffer": [
+        960,
+        540
+      ],
+      "bbox": [
+        0,
+        0,
+        960,
+        540
+      ],
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 480,
+        "height": 270
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 480,
+        "height": 270
+      },
+      "hearts": [
+        137,
+        137,
+        137,
+        137,
+        137,
+        137
+      ],
+      "shard": {
+        "purple": 111,
+        "bone": 94
+      },
+      "footer": {
+        "x": 0,
+        "y": 270,
+        "width": 480,
+        "height": 24
+      },
+      "controls": [],
+      "viewport": [
+        480,
+        294
+      ],
+      "dpr": 2,
+      "touchPadding": "0px",
+      "fullscreen": false,
+      "name": "hidpi-fresh-480x294",
+      "checks": {
+        "scene_present": true,
+        "aspect_16_9": true,
+        "centered": true,
+        "opposite_edges_filled": true,
+        "inside_viewport": true,
+        "footer_separate": true,
+        "touch_separate": true,
+        "touch_visible_as_expected": true,
+        "six_health_marks_visible": true,
+        "right_shard_and_counter_visible": true
+      }
+    }
+  ],
+  "startup_seconds": 3.975,
+  "runtime": {
+    "version": 2,
+    "canvas": [
+      480,
+      336
+    ],
+    "body": [
+      480,
+      360
+    ],
+    "focus": "glcanvas"
+  },
+  "keyboard_events": [
+    [
+      "down",
+      257,
+      0,
+      false
+    ],
+    [
+      "up",
+      257,
+      0
+    ],
+    [
+      "down",
+      68,
+      0,
+      false
+    ],
+    [
+      "up",
+      68,
+      0
+    ],
+    [
+      "down",
+      74,
+      0,
+      false
+    ],
+    [
+      "up",
+      74,
+      0
+    ],
+    [
+      "down",
+      75,
+      0,
+      false
+    ],
+    [
+      "up",
+      75,
+      0
+    ],
+    [
+      "down",
+      70,
+      0,
+      false
+    ],
+    [
+      "up",
+      70,
+      0
+    ]
+  ],
+  "frame_cpu_ms": {
+    "count": 792,
+    "mean": 14.503535353475147,
+    "max": 190.5
+  }
+}

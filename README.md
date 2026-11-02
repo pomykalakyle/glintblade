@@ -117,11 +117,11 @@ cargo run --release
 | Pause | Esc or P |
 | Fullscreen | F |
 
-If your keyboard types Colemak-DH on its own (a firmware layout), press Tab on the title or pause screen, or run `cargo run --release -- --colemak`, to keep the usual physical keys. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
+For Colemak-DH, press Tab on the title or pause screen: W/A/R/S move, N slashes and E dashes. The browser follows typed letters with both software and firmware layouts. The desktop option is `cargo run --release -- --colemak`. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
 
 ## How it was made
 
-- Rust with [macroquad](https://github.com/not-fl3/macroquad) for the window, input and audio. The game draws into a 384x216 software framebuffer and scales it up by whole pixels.
+- Rust with [macroquad](https://github.com/not-fl3/macroquad) for the window, input and audio. The game draws into a 384x216 software framebuffer. The desktop scales by whole pixels; the browser fits the available space with nearest filtering and preserves the picture's proportions.
 - The scripts the agents wrote to draw the art are in `tools/`.
 - The four-region PixelLab source export is reproducible without API calls: `uv run --with pillow python tools/pixellab/build_assets.py`. Whole-game native studies use `python3 tools/pixellab/capture_world.py --tag <new-name>` after a release build; `tools/pixellab/record.py` records actual gameplay at 60fps.
 - Lighting, cast shadows and glow are computed on the pixel grid.

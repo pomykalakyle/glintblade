@@ -1,0 +1,17 @@
+{
+  "browser_checks_passed": 123,
+  "geometry_cases": 11,
+  "colemak_checks_passed": 19,
+  "all_passed": true,
+  "native_build": "passed",
+  "native_title_matches_round9": true,
+  "wasm_build": "passed",
+  "source_manifest_sha256": "e30d5e72ad75d3b56baa74aaaf317893015e0f255bcec0ef2d5a17e688020083",
+  "local_wasm_sha256": "05e2cb9b45686258b0850d194c81a14422a21e1eb551200c0c60ba1778e22a56",
+  "web_files": {
+    "index.html": "3957247f3251ed6ef18137a6278d097b5f464ccd12a8b208af55560f587d546b",
+    "player.css": "9450447fd5a57f921ff41fb3876d04db1daafded04bfbbe45a7cee5301678e0c",
+    "player.js": "c8f7eb17714fd80a8f7b745d063789a4aed992957c20cb036d146d32881de9fd"
+  },
+  "scope": "Isolated Chromium using local build files in an X-style cross-origin sandbox; actual GPU output measured for scene fit and HUD preservation; trusted CDP code/key mismatches for Colemak. No claim about all X clients or native keyboard hardware."
+}

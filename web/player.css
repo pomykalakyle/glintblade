@@ -21,8 +21,9 @@ progress { display: block; margin: 8px auto; width: min(240px, 90%); height: 7px
 .instructions { color: #d6dfcb; }
 details { color: #82998d; font-size: 10px; }
 summary { cursor: pointer; }
-footer { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px max(8px, env(safe-area-inset-right)) 5px max(8px, env(safe-area-inset-left)); color: #8a9b8e; font-size: 10px; background: #10151c; }
+footer { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px max(8px, env(safe-area-inset-right)) 5px max(8px, env(safe-area-inset-left)); color: #8a9b8e; font-size: 10px; line-height: 14px; background: #10151c; }
 .links { display: flex; gap: 14px; white-space: nowrap; }
+#hint { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 a { color: #91bdba; text-decoration: none; }
 a:hover { text-decoration: underline; }
 #touch { display: none; position: absolute; left: max(8px, env(safe-area-inset-left)); right: max(8px, env(safe-area-inset-right)); bottom: max(8px, env(safe-area-inset-bottom)); justify-content: space-between; align-items: end; pointer-events: none; user-select: none; -webkit-user-select: none; }
@@ -35,3 +36,10 @@ a:hover { text-decoration: underline; }
 @media (pointer: coarse), (hover: none) { #player { padding-bottom: 104px; } #touch:not([hidden]) { display: flex; } #hint { display: none; } footer { justify-content: center; } }
 @media (max-width: 520px) { #hint { display: none; } footer { justify-content: center; } }
 @media (max-height: 330px) { #start { padding: 8px; } h1 { font-size: 24px; } .tagline, details { display: none; } p { margin: 5px 0; } #touch button { min-height: 36px; } .dpad { grid-template-rows: repeat(2, 36px); } }
+@media (max-height: 330px) and (pointer: coarse), (max-height: 330px) and (hover: none) {
+  #player { padding-bottom: 64px; }
+  #touch { gap: 8px; }
+  .dpad, .actions { flex: 1; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: 44px; gap: 4px; }
+  #touch button { min-width: 0; min-height: 44px; padding: 3px; }
+  .left { grid-column: 1; grid-row: 1; }.down { grid-column: 2; grid-row: 1; }.up { grid-column: 3; grid-row: 1; }.right { grid-column: 4; grid-row: 1; }
+}

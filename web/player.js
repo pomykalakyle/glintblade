@@ -13,9 +13,10 @@
   let timeout;
   let download;
   const pointers = new Map();
-  const physicalKeys = new Set();
+  const physicalCodes = new Map();
+  const physicalKeys = new Map();
   const touchKeys = new Map();
-  const keyNames = { KeyX: 'x', KeyC: 'c' };
+  const keyNames = { Semicolon: ';', Space: ' ' };
 
   function armStartupWatchdog() {
     clearTimeout(timeout);
@@ -52,6 +53,13 @@
     touch.hidden = false;
     play.disabled = false;
     setState('ready', 'Ready');
+    // The canvas can change size without a window resize (touch dock, footer,
+    // embedding layout). Keep Macroquad's backing buffer in sync with CSS.
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(() => {
+        if (state === 'ready') resize(gameCanvas, wasm_exports.resize);
+      }).observe(gameCanvas);
+    }
     gameCanvas.focus({ preventScroll: true });
   }
   function watchFirstDraw() {
@@ -82,7 +90,7 @@
   }
   async function fetchGame() {
     download = new AbortController();
-    const response = await fetch('glintblade.wasm?v=pixellab-r9', { signal: download.signal });
+    const response = await fetch('glintblade.wasm?v=web-fit-r10', { signal: download.signal });
     if (!response.ok) throw new Error(`Download failed: ${response.status}`);
     const total = Number(response.headers.get('content-length')) || 0;
     if (!response.body) return response.arrayBuffer();
@@ -136,8 +144,28 @@
     } catch (error) { fail(error); }
   }
 
-  function sendKey(type, code) {
-    gameCanvas.dispatchEvent(new KeyboardEvent(type, { code, key: keyNames[code] || code, bubbles: true, cancelable: true }));
+  function logicalCode(event) {
+    // Macroquad reads code, which follows physical positions under a software
+    // layout. Follow the displayed letters for both software and firmware
+    // Colemak-DH, while leaving arrows, Tab and other non-letter keys intact.
+    if (/^[a-z]$/i.test(event.key)) return `Key${event.key.toUpperCase()}`;
+    if (event.key === ';' || event.key === ':') return 'Semicolon';
+    return event.code;
+  }
+  function sendKey(type, code, source = {}, repeat = source.repeat || false) {
+    return gameCanvas.dispatchEvent(new KeyboardEvent(type, {
+      code,
+      key: source.key || keyNames[code] || (/^Key[A-Z]$/.test(code) ? code.slice(3).toLowerCase() : code),
+      repeat,
+      ctrlKey: source.ctrlKey || false,
+      shiftKey: source.shiftKey || false,
+      altKey: source.altKey || false,
+      metaKey: source.metaKey || false,
+      location: source.location || 0,
+      isComposing: source.isComposing || false,
+      bubbles: true,
+      cancelable: true,
+    }));
   }
   function releasePointer(id, immediate = false) {
     const entry = pointers.get(id);
@@ -161,7 +189,8 @@
   }
   function releaseAll() {
     for (const id of Array.from(pointers.keys())) releasePointer(id, true);
-    for (const code of physicalKeys) sendKey('keyup', code);
+    for (const code of physicalKeys.keys()) sendKey('keyup', code);
+    physicalCodes.clear();
     physicalKeys.clear();
   }
   play.addEventListener('click', start);
@@ -187,15 +216,35 @@
     button.addEventListener('contextmenu', event => event.preventDefault());
   }
   gameCanvas.addEventListener('keydown', event => {
-    if (event.isTrusted) physicalKeys.add(event.code);
-  });
-  gameCanvas.addEventListener('keyup', event => {
-    if (event.isTrusted) {
-      physicalKeys.delete(event.code);
-      // The touch is still holding this key. Do not let Macroquad release it
-      // when the physical keyboard is released first.
-      if (touchKeys.has(event.code)) event.stopImmediatePropagation();
+    if (!event.isTrusted) return;
+    const source = event.code || event.key;
+    // Repeats and release keep the original logical key even if Shift or the
+    // operating-system layout changes while the physical key is still held.
+    const held = physicalCodes.has(source);
+    const code = held ? physicalCodes.get(source) : logicalCode(event);
+    const alreadyDown = physicalKeys.has(code) || touchKeys.has(code);
+    if (!held) {
+      physicalCodes.set(source, code);
+      physicalKeys.set(code, (physicalKeys.get(code) || 0) + 1);
     }
+    event.stopImmediatePropagation();
+    // An overlapping keyboard/touch press is a repeat, not a second action.
+    // Propagate only the runtime's own default cancellation to the real event,
+    // so unrelated browser shortcuts retain their normal behavior.
+    if (!sendKey('keydown', code, event, event.repeat || held || alreadyDown)) event.preventDefault();
+  }, true);
+  gameCanvas.addEventListener('keyup', event => {
+    if (!event.isTrusted) return;
+    event.stopImmediatePropagation();
+    const source = event.code || event.key;
+    const code = physicalCodes.get(source);
+    if (code === undefined) return;
+    physicalCodes.delete(source);
+    const count = (physicalKeys.get(code) || 1) - 1;
+    if (count) physicalKeys.set(code, count);
+    else physicalKeys.delete(code);
+    // A second physical key or a touch can still be holding the logical key.
+    if (!count && !touchKeys.has(code) && !sendKey('keyup', code, event)) event.preventDefault();
   }, true);
   gameCanvas.addEventListener('blur', releaseAll);
   window.addEventListener('blur', releaseAll);

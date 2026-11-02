@@ -257,10 +257,11 @@ pub async fn run(opts: Options) {
 
         clear_background(Color::from_rgba(4, 3, 10, 255));
         let (sw, sh) = (screen_width(), screen_height());
-        let mut scale = (sw / W as f32).min(sh / H as f32);
-        if scale >= 1.0 {
-            scale = scale.floor();
-        }
+        let scale = (sw / W as f32).min(sh / H as f32);
+        // Browser cards rarely match an integer multiple of the native picture.
+        // Fit their full width/height; nearest filtering keeps the pixels sharp.
+        #[cfg(not(target_arch = "wasm32"))]
+        let scale = if scale >= 1.0 { scale.floor() } else { scale };
         let (dw, dh) = (W as f32 * scale, H as f32 * scale);
         let (dx, dy) = (((sw - dw) / 2.0).floor(), ((sh - dh) / 2.0).floor());
         material.set_texture("Bloom", bloom.clone());

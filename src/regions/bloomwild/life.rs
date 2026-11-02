@@ -172,9 +172,9 @@ impl Life {
         if self.hit_ids.len() > 32 { self.hit_ids.remove(0); }
     }
 
-    /// The near side of the surface sits in front of the hero's soles while wading.
-    /// This stays at the foot contact, so dry bridge decks and the full body silhouette
-    /// remain clear; the larger wake rings are drawn underneath the actor.
+    /// A thin surface contact follows the actual visible native soles. It never
+    /// paints over the body: foreground props, glowing blades and airborne poses
+    /// must keep the exact pixels produced by the sorted actor pass.
     pub fn draw_foot_contact(
         &self,
         z: &Zone,
@@ -184,36 +184,59 @@ impl Life {
         t: u64,
     ) {
         let (x, y) = (player.0.floor() as i32, player.1.floor() as i32);
-        if x < 4
-            || y < 1
-            || x + 4 >= z.pw
-            || y + 1 >= z.ph
-            || mask[(y * z.pw + x) as usize] != mat::SHALLOW
-        {
+        if at(z, mask, x, y) != mat::SHALLOW {
             return;
         }
-        for dx in -4_i32..=4 {
-            let yy = y + i32::from(dx.abs() > 2);
-            if mask[(yy * z.pw + x + dx) as usize] != mat::SHALLOW {
+        let support_height = z.ground_surfaces[(y * z.pw + x) as usize].height as f32;
+        let Some(caster) = f.surface_casters.iter().rev().find(|caster| {
+            caster.x == x as f32 && caster.base == y as f32
+                && caster.min_height <= 0.01 && caster.y == y as f32
+                && (-4..=4).any(|dx| {
+                    (0..caster.h).any(|source_y| Frame::idx(x + dx - f.cam_x,
+                        y - caster.anchor.1 + source_y - f.cam_y)
+                        .is_some_and(|i| f.actor_pixels[i] && f.surfaces[i].owner == caster.owner))
+                })
+        }) else { return };
+        for source_x in (caster.anchor.0 - 4).max(0)..=(caster.anchor.0 + 4).min(caster.w - 1) {
+            let Some(span) = caster.foot.get(source_x as usize) else { continue };
+            let sole_y = span[1].ceil() as i32 - 1;
+            let source_y = sole_y - (caster.y as i32 - caster.anchor.1);
+            if !(0..caster.h).contains(&source_y) { continue; }
+            // The shadow profile fills transparent columns by interpolation.
+            // Only real non-emitting source pixels can supply a water contact.
+            let native = caster.pixels[(source_y * caster.w + source_x) as usize];
+            if !native.a || native.emit { continue; }
+            let sole_x = x + if caster.flip { caster.anchor.0 - source_x }
+                else { source_x - caster.anchor.0 };
+            let Some(sole) = Frame::idx(sole_x - f.cam_x, sole_y - f.cam_y) else { continue };
+            if !f.actor_pixels[sole] || f.surfaces[sole].owner != caster.owner
+                || f.emissive[sole].max_c() > 0.0 {
                 continue;
             }
-            let c = if (dx + (t / 9) as i32).rem_euclid(5) == 0 {
+            let contact_y = sole_y + 1;
+            if at(z, mask, sole_x, contact_y) != mat::SHALLOW { continue; }
+            let Some(contact) = Frame::idx(sole_x - f.cam_x, contact_y - f.cam_y) else { continue };
+            let receiver = f.surfaces[contact];
+            if f.actor_pixels[contact] || receiver.owner != 0 || receiver.kind != 1
+                || f.water[contact] == 0 || f.emissive[contact].max_c() > 0.0
+                || (receiver.height - support_height).abs() > 0.01 {
+                continue;
+            }
+            let c = if (sole_x + (t / 9) as i32).rem_euclid(5) == 0 {
                 RIVER[2]
             } else {
                 RIVER[1]
             };
-            // This overlay crosses the hero's soles after the actor pass. It
-            // changes the contact color, while retaining actor/receiver geometry.
-            if let Some(i) = Frame::idx(x + dx - f.cam_x, yy - f.cam_y) {
-                f.albedo[i] = c;
-            }
+            // Keep the receiving water's live normal, height, reflection mask
+            // and emission; a contact only adds restrained surface contrast.
+            f.albedo[contact] = f.albedo[contact].lerp(c, 0.60);
         }
     }
 
     /// Animate coherent currents, source-bound impact rings and downward ribbons.
     pub fn draw_water(&self, z: &Zone, mask: &[u8], f: &mut Frame, t: u64) {
         f.look.water_alpha = 0.45;
-        f.look.water_depth_max = 10;
+        f.look.water_depth_max = 24;
         f.look.water_wave = 1.0;
         f.look.water_tint = Rgb::new(0.62, 0.78, 0.83);
         for sy in 0..H as i32 {
@@ -767,18 +790,139 @@ mod tests {
     }
 
     #[test]
-    fn wading_overlay_keeps_actor_and_receiver_metadata() {
-        let (z, mask, life) = test_pool();
+    fn native_contacts_preserve_every_hero_pose_and_glowing_blade() {
+        use crate::gfx::{DrawOpts, sheet};
+        let mut z = Zone::new(crate::world::ZoneId::Bloomwild, 10, 10);
+        let m = Map { tw: 10, th: 10, k: vec![super::super::K::Shallow; 100],
+            level: vec![0; 100], marks: vec![] };
+        let mut mask = vec![mat::SHALLOW; (z.pw * z.ph) as usize];
+        let life = Life::build(&m, &mut mask, &mut z);
+        let sheet = sheet("hero").unwrap();
+        let (mut cases, mut grounded_contacts, mut protected_emitting) = (0, 0, 0);
+        for anim in sheet.anims.values() { for frame in 0..anim.frames { for flip in [false, true] {
+            for elevation in [0.0, 6.0] {
+                let mut f = Frame::new();
+                f.surface_lighting = true;
+                life.draw_water(&z, &mask, &mut f, 0);
+                f.sprite(sheet.cell(anim, frame), sheet.anchor_of(anim), 80, 80 - elevation as i32,
+                    &DrawOpts { actor: true, flip, elevation, ground_y: Some(80.0),
+                        foot_depth: 4, foot_half_w: 4.0, ..Default::default() });
+                let before = f.albedo.clone();
+                let emission = f.emissive.clone();
+                let actor = f.actor_pixels.clone();
+                let surfaces = f.surfaces.clone();
+                let water = f.water.clone();
+                life.draw_foot_contact(&z, &mask, &mut f, (80.0, 80.0), 0);
+                let mut changed = 0;
+                for i in 0..W * H {
+                    if actor[i] || surfaces[i].owner != 0 || emission[i].max_c() > 0.0 {
+                        assert_eq!(before[i], f.albedo[i],
+                            "contact painted {} frame {frame} flip {flip} elevation {elevation}", anim.name);
+                        protected_emitting += usize::from(emission[i].max_c() > 0.0);
+                    }
+                    if before[i] != f.albedo[i] {
+                        assert!(!actor[i] && surfaces[i].owner == 0 && surfaces[i].kind == 1 && water[i] > 0,
+                            "contact must stay on exposed horizontal water");
+                        changed += 1;
+                    }
+                    assert_eq!(f.emissive[i], emission[i]);
+                    assert_eq!(f.actor_pixels[i], actor[i]);
+                    assert_eq!(f.surfaces[i].normal, surfaces[i].normal);
+                    assert_eq!((f.surfaces[i].height, f.surfaces[i].kind, f.surfaces[i].owner),
+                        (surfaces[i].height, surfaces[i].kind, surfaces[i].owner));
+                    assert_eq!(f.water[i], water[i]);
+                }
+                if elevation > 0.0 { assert_eq!(changed, 0, "airborne actors do not touch water"); }
+                else { grounded_contacts += changed; }
+                cases += 1;
+            }
+        } } }
+        assert!(cases >= 800 && protected_emitting > 1000, "exercise the complete authored hero atlas");
+        assert!(grounded_contacts > 100, "native feet still make a visible surface contact");
+    }
+
+    #[test]
+    fn native_contact_rejects_foreground_props_dry_crossings_and_other_heights() {
+        use crate::gfx::{DrawOpts, sheet};
+        // A full-size pool keeps every native pixel available to the check.
+        let mut z = Zone::new(crate::world::ZoneId::Bloomwild, 10, 10);
+        let m = Map { tw: 10, th: 10, k: vec![super::super::K::Shallow; 100],
+            level: vec![0; 100], marks: vec![] };
+        let mut mask = vec![mat::SHALLOW; (z.pw * z.ph) as usize];
+        let life = Life::build(&m, &mut mask, &mut z);
+        let hero = sheet("hero").unwrap();
+        let idle = hero.anim("idle_down").unwrap();
         let mut f = Frame::new();
-        let receiver = Surface { normal: [0.0, 1.0, 0.0], height: 3.0, owner: 7, kind: 3 };
-        f.surfaces.fill(receiver);
-        f.actor_pixels.fill(true);
-        life.draw_foot_contact(&z, &mask, &mut f, (14.0, 14.0), 0);
-        let i = 14 * W + 14;
-        assert_eq!(f.surfaces[i].normal, receiver.normal);
-        assert_eq!((f.surfaces[i].height, f.surfaces[i].owner, f.surfaces[i].kind), (3.0, 7, 3));
-        assert!(f.actor_pixels[i]);
-        assert!(f.albedo[i].luma() > 0.0);
+        f.surface_lighting = true;
+        life.draw_water(&z, &mask, &mut f, 0);
+        f.sprite(hero.cell(idle, 0), hero.anchor_of(idle), 80, 80,
+            &DrawOpts { actor: true, foot_depth: 4, foot_half_w: 4.0,
+                ground_y: Some(80.0), ..Default::default() });
+        let base = f.albedo.clone();
+        life.draw_foot_contact(&z, &mask, &mut f, (80.0, 80.0), 0);
+        let contacts: Vec<_> = (0..W*H).filter(|&i| base[i] != f.albedo[i]).collect();
+        assert!(!contacts.is_empty(), "actual idle soles must reach the water");
+        f.albedo.copy_from_slice(&base);
+        for &i in &contacts { f.surfaces[i].height = 8.0; }
+        life.draw_foot_contact(&z, &mask, &mut f, (80.0, 80.0), 0);
+        assert!(f.albedo == base, "a different elevation cannot receive the contact");
+        for &i in &contacts { f.surfaces[i].height = 0.0; }
+        mask[(80 * z.pw + 80) as usize] = mat::BRIDGE;
+        life.draw_foot_contact(&z, &mask, &mut f, (80.0, 80.0), 0);
+        assert!(f.albedo == base, "water behind a dry bridge does not wet the hero");
+        mask[(80 * z.pw + 80) as usize] = mat::SHALLOW;
+        let occluder = crate::gfx::Cell::from_ascii(&["xxxxxxxxxxxxx"], &[('x', rgb(0x684e35))], &[]);
+        // Opaque foreground scenery covers every eligible contact, and part of
+        // the native soles. Its registered owner must win over the water pass.
+        let top = contacts.iter().map(|i| (i / W) as i32).min().unwrap();
+        let bottom = contacts.iter().map(|i| (i / W) as i32).max().unwrap();
+        for yy in top..=bottom { f.sprite(&occluder, (6, 0), 80, yy, &DrawOpts::default()); }
+        let foreground = f.albedo.clone();
+        life.draw_foot_contact(&z, &mask, &mut f, (80.0, 80.0), 0);
+        assert!(f.albedo == foreground, "foreground owner must survive the contact pass");
+    }
+
+    #[test]
+    fn legal_shallow_native_prop_regression_keeps_owned_pixels_intact() {
+        use crate::{entities::Player, fx::Fx, world::{RegionCtx, Tile}};
+        let (mut z, mut region) = crate::regions::bloomwild::build();
+        let mut fx = Fx::new(7);
+        let mut protected = 0;
+        for (x, y) in [(780, 188), (784, 184)] {
+            assert_eq!(z.tile_at(x as f32, y as f32), Tile::Shallow);
+            assert!(!z.blocked(x as f32, y as f32, 4.0));
+            let pos = (x as f32, y as f32);
+            let cam = (x - 192, y - 108);
+            region.update(&mut z, &RegionCtx { t: 360, player: pos,
+                movers: &[(pos.0, pos.1, 0.0)], cam }, &mut fx);
+            let player = Player::new(pos.0, pos.1);
+            let mut f = Frame::new();
+            f.cam_x = cam.0; f.cam_y = cam.1;
+            f.begin(z.bg, z.ambient); f.surface_lighting = true;
+            z.draw_ground(&mut f); region.draw_ground(&z, &mut f, 360);
+            let mut items: Vec<_> = z.props.iter().enumerate().filter(|(_, p)| p.alive && !p.canopy)
+                .map(|(i, p)| (p.sort_y(), 0, i as u32)).collect();
+            let mut regional = Vec::new(); region.sorted_items(&z, &f, &mut regional);
+            items.extend(regional.into_iter().map(|(y, id)| (y, 1, id)));
+            items.push((pos.1, 2, 0)); items.sort_by(|a, b| a.0.total_cmp(&b.0));
+            for (_, kind, i) in items { match kind {
+                0 => z.props[i as usize].draw(&mut f, 360, 1.0),
+                1 => region.draw_item(&z, &mut f, i, 360),
+                _ => player.draw(&mut f),
+            } }
+            let before = f.albedo.clone();
+            let surfaces = f.surfaces.clone();
+            let actor = f.actor_pixels.clone();
+            region.draw_overlay(&z, &mut f, 360);
+            for yy in y..=y+8 { for xx in x-4..=x+4 {
+                let i = (yy - cam.1) as usize * W + (xx - cam.0) as usize;
+                if surfaces[i].owner != 0 && !actor[i] {
+                    assert_eq!(f.albedo[i], before[i], "native prop paint at {xx},{yy}");
+                    protected += 1;
+                }
+            } }
+        }
+        assert!(protected >= 6, "exercise the audited native prop overlap, not an empty scene");
     }
 
     #[test]

@@ -319,8 +319,8 @@ impl Region for Glasswater {
 
     fn draw_ground(&self, _zone: &Zone, f: &mut Frame, t: u64) {
         f.look.light_dither = 0.25;
-        f.look.water_alpha = 1.0;
-        f.look.water_depth_max = 8;
+        f.look.water_alpha = 0.50;
+        f.look.water_depth_max = 24;
         f.look.water_tint = Rgb::new(0.48, 0.62, 0.72);
         f.look.water_wave = 0.6;
         self.water.draw(f, t);

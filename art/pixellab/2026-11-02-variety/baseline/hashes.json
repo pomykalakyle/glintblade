@@ -1,0 +1,8 @@
+{
+  "sprites/bloomwild_grass.png": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6",
+  "sprites/bloomwild_grass.json": "eccff529de47964daac29fb735d7642fba266a7f04e1131bd00bf1d9096d88ff",
+  "sprites/bloomwild_ruins.png": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+  "sprites/bloomwild_ruins.json": "386810b1e2da52b1c3478e050073ec0e4179aedd7c53224e1531081c5eae7d79",
+  "normals/bloomwild_grass.png": "afe0f9d75bf12c50fc6ae2242a78175a7bf7efba798297ea6fe033956e9d8b18",
+  "normals/bloomwild_ruins.png": "76389849d795a9a83cb540d3dd8315a304cfd8639ed6b9c561837a97fa93869a"
+}

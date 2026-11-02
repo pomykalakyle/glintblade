@@ -8,6 +8,7 @@ import sys
 from PIL import Image
 
 import anims
+import eightway
 from pix import scale, on_ground, hex_rgb, PAL, EMISSIVE_CHARS
 from rig import frame, CELL, ANCHOR
 
@@ -59,6 +60,17 @@ def collect():
             out.append(("death_left", [r[0] for r in res], [r[1] for r in res], durs))
     for base in APPENDED:
         out.extend(directional_rows(base))
+    # Preserve all 39 approved rows exactly; new anatomy is appended only.
+    for base in DIRECTIONAL + APPENDED:
+        for d in eightway.DIAGONALS:
+            specs, durs = eightway.diagonal(base, d)
+            res = [frame(s) for s in specs]
+            out.append((f"{base}_{d}", [r[0] for r in res], [r[1] for r in res], durs))
+    for base in ("collapse", "spin", "fall", "land"):
+        for d in eightway.DIRECTIONS:
+            specs, durs = getattr(eightway, base)(d)
+            res = [frame(s) for s in specs]
+            out.append((f"{base}_{d}", [r[0] for r in res], [r[1] for r in res], durs))
     return out
 
 
@@ -78,6 +90,11 @@ def check(rows):
 
 def main():
     """Export the hero sheet, manifest and source previews from authored grids."""
+    global SPRITES, PREVIEWS
+    if "--output" in sys.argv:
+        output = os.path.abspath(sys.argv[sys.argv.index("--output") + 1])
+        SPRITES = os.path.join(output, "sprites")
+        PREVIEWS = os.path.join(output, "previews")
     rows = collect()
     problems, used = check(rows)
     for p in problems:
@@ -141,6 +158,7 @@ def main():
             "loop": name.split("_")[0] in LOOPING,
             "scarf_anchor": [m["knot"] for m in metas],
             "blade_tip": [m["tip"] for m in metas],
+            "support_spans": [m["support_spans"] for m in metas],
         }
         meta["anims"][name] = a
     os.makedirs(SPRITES, exist_ok=True)
@@ -161,7 +179,7 @@ def label_free_strip(frames, ground, k, pad=1):
     return scale(im, k)
 
 
-def save_gif(rgb_frames, durs, path):
+def save_gif(rgb_frames, durs, path, *, exact_ticks=False):
     """Write an animated GIF with one exact shared palette (the art has far fewer than 256
     colors, so nothing is quantized away and colors can't shift between frames)."""
     colors = []
@@ -176,7 +194,16 @@ def save_gif(rgb_frames, durs, path):
     flat = [v for c in colors for v in c]
     pal.putpalette(flat + [0] * (768 - len(flat)))
     ims = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in rgb_frames]
-    ms = [max(20, round(t * 1000 / 60 / 10) * 10) for t in durs]
+    if exact_ticks:
+        # GIF clocks use10ms quanta. Round cumulative edges so a60Hz sweep
+        # alternates20/10/20ms rather than slowing every tick to20ms.
+        edges, total = [0], 0
+        for t in durs:
+            total += t
+            edges.append(round(total * 1000 / 60 / 10) * 10)
+        ms = [max(10, b - a) for a, b in zip(edges, edges[1:])]
+    else:
+        ms = [max(20, round(t * 1000 / 60 / 10) * 10) for t in durs]
     ims[0].save(path, save_all=True, append_images=ims[1:], duration=ms, loop=0, disposal=1, optimize=False)
 
 

@@ -46,6 +46,7 @@ pub fn render_world_focused(
     f.t = t;
     f.begin(zone.bg, zone.ambient);
     f.surface_lighting = !crate::gfx::lighting::legacy_mode();
+    f.capture_reflection_sources = f.surface_lighting && zone.id == crate::world::ZoneId::Glasswater;
     f.normal_sun = zone.id == crate::world::ZoneId::Bloomwild;
     region.draw_backdrop(zone, f, t);
     zone.draw_ground(f);
@@ -111,6 +112,7 @@ pub fn render_world_focused(
     region.light(zone, f, t);
     crate::gfx::lighting_hook::apply(zone, region, f, t);
     post::compose(f, &zone.grade);
+    crate::gfx::reflection::apply(Some(zone), f, &zone.grade);
 }
 
 #[cfg(test)]

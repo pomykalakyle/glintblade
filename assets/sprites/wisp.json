@@ -1,67 +1,463 @@
 {
- "cell": [
-  16,
-  24
- ],
- "anchor": [
-  8,
-  15
- ],
- "emissive": [
-  "#796c91",
-  "#a195b8",
-  "#cdc3db",
-  "#e2d8e9"
- ],
- "anims": {
-  "idle": {
-   "row": 0,
-   "frames": 6,
-   "durations": [
-    6,
-    6,
-    6,
-    6,
-    4,
-    6
-   ],
-   "fps": 10.59,
-   "loop": true
-  },
-  "windup": {
-   "row": 1,
-   "frames": 6,
-   "durations": [
-    6,
-    6,
-    6,
-    6,
-    7,
-    7
-   ],
-   "fps": 9.47
-  },
-  "attack": {
-   "row": 2,
-   "frames": 4,
-   "durations": [
-    4,
-    6,
+  "cell": [
+    16,
+    24
+  ],
+  "anchor": [
     8,
-    14
-   ],
-   "fps": 7.5
+    15
+  ],
+  "emissive": [
+    "#796c91",
+    "#a195b8",
+    "#cdc3db",
+    "#e2d8e9"
+  ],
+  "anims": {
+    "idle": {
+      "row": 0,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup": {
+      "row": 1,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack": {
+      "row": 2,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt": {
+      "row": 3,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_up": {
+      "row": 4,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_up": {
+      "row": 5,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_up": {
+      "row": 6,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_up": {
+      "row": 7,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_up_right": {
+      "row": 8,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_up_right": {
+      "row": 9,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_up_right": {
+      "row": 10,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_up_right": {
+      "row": 11,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_right": {
+      "row": 12,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_right": {
+      "row": 13,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_right": {
+      "row": 14,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_right": {
+      "row": 15,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_down_right": {
+      "row": 16,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_down_right": {
+      "row": 17,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_down_right": {
+      "row": 18,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_down_right": {
+      "row": 19,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_down": {
+      "row": 20,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_down": {
+      "row": 21,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_down": {
+      "row": 22,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_down": {
+      "row": 23,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_down_left": {
+      "row": 24,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_down_left": {
+      "row": 25,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_down_left": {
+      "row": 26,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_down_left": {
+      "row": 27,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_left": {
+      "row": 28,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_left": {
+      "row": 29,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_left": {
+      "row": 30,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_left": {
+      "row": 31,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    },
+    "idle_up_left": {
+      "row": 32,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup_up_left": {
+      "row": 33,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack_up_left": {
+      "row": 34,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt_up_left": {
+      "row": 35,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    }
   },
-  "hurt": {
-   "row": 3,
-   "frames": 2,
-   "durations": [
-    5,
-    7
-   ],
-   "fps": 10.0
+  "colors_used": 6,
+  "notes": "Glasswater wisp: a pale iris flame spirit about 12x12 (flame tips to base), with a 4 px curling tail below the anchor. The anchor is the flame's base: wisp.rs draws it at the hover height and draws the shadow and the flickering pale iris light itself, so the sheet has no shadow and no painted glow. Non-directional anims named for wisp.rs: idle (flicker loop with a blink), windup (the flame pulls in tall and narrow, the core goes chalk-bright around a face gap that stays dark; stretched over the 38-tick windup), attack (32-tick recoil: burst then cool), hurt (12 ticks: the flame gutters). Flame ramp from palettes_v2.json crystal_violet plus fx.prism #e2d8e9 for the compact core; the darkest step #4d4866 is the rim and is not emissive; the single face gap uses the region outline and never smiles. Eight-way extension: native projected articulated anatomy, unchanged original rows, exact original per-state pose timing and anchors. Source receipts and reproducible geometry tools: art/eightway/glasswater and tools/eightway/glasswater.py.",
+  "eightway": {
+    "order": [
+      "up",
+      "up_right",
+      "right",
+      "down_right",
+      "down",
+      "down_left",
+      "left",
+      "up_left"
+    ],
+    "native_anatomy": true,
+    "preserved_source_rows": 4,
+    "normal_source": "native articulated geometry; exact same raster as albedo; legacy-first exact-art canonical fields",
+    "directionless_effects": [
+      "death particles",
+      "floating tail",
+      "projectile continuous heading"
+    ]
   }
- },
- "colors_used": 6,
- "notes": "Glasswater wisp: a pale iris flame spirit about 12x12 (flame tips to base), with a 4 px curling tail below the anchor. The anchor is the flame's base: wisp.rs draws it at the hover height and draws the shadow and the flickering pale iris light itself, so the sheet has no shadow and no painted glow. Non-directional anims named for wisp.rs: idle (flicker loop with a blink), windup (the flame pulls in tall and narrow, the core goes chalk-bright around a face gap that stays dark; stretched over the 38-tick windup), attack (32-tick recoil: burst then cool), hurt (12 ticks: the flame gutters). Flame ramp from palettes_v2.json crystal_violet plus fx.prism #e2d8e9 for the compact core; the darkest step #4d4866 is the rim and is not emissive; the single face gap uses the region outline and never smiles."
 }

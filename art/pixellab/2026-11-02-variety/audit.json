@@ -1,0 +1,75 @@
+{
+  "status": "COMPLETE",
+  "completed_at_utc": "2026-11-02T21:13:03.090009+00:00",
+  "request": "More visual diversity for the same three most-repeated Bloomwild objects, preserving shading and functionality.",
+  "families": {
+    "leaf_fans": {
+      "before": 8,
+      "after": 18,
+      "placements": 368,
+      "nearby_duplicate_pairs_before": 158,
+      "nearby_duplicate_pairs_after": 0,
+      "neighborhood_px": [
+        24,
+        12
+      ]
+    },
+    "short_broken_columns": {
+      "before": 1,
+      "after": 5,
+      "placements": 11
+    },
+    "low_walls": {
+      "before": 1,
+      "after": 6,
+      "placements": 11
+    }
+  },
+  "assets": {
+    "sprites/bloomwild_grass.png": "7fd1123d61bf4ac74155cf1a5345b11346d42854f8bbf6d08246821d62e05cff",
+    "sprites/bloomwild_grass.json": "2fc5facf92be7a09687d34639f0191ac906cd6f2c362545711ef9d489f15b5d7",
+    "sprites/bloomwild_ruins.png": "1983d91a9a7bdded46f314b6d39d2fd9e7ba4045538198623ef9e45c0fd5060e",
+    "sprites/bloomwild_ruins.json": "10a552ddaf2582ff8cef5408068b1e7039e60c11f79d02747ce61ac1045ca630",
+    "normals/bloomwild_grass.png": "90f1ed272981b952653bedb708730c752d0ed9fe49663dca310ef04b7594e8e5",
+    "normals/bloomwild_ruins.png": "7d1c935a27c728255655538bb878d8d42394322f26dcd20a543546de5b8223a7"
+  },
+  "retention": {
+    "all_original_albedo_bytes": true,
+    "existing_placement_and_collision": true,
+    "other_legacy_normal_bytes": true,
+    "targeted_original_foot_normal_texels_corrected": 454,
+    "shared_foot_profiles": 2
+  },
+  "verification": {
+    "exporter_tests_passed": 15,
+    "bloomwild_functional_tests_passed": 53,
+    "prop_tests_passed": 10,
+    "native_release_build": "PASS",
+    "wasm_release_build": "PASS",
+    "native_visual_captures_reviewed": 20,
+    "sunlight_phases_reviewed": 4,
+    "new_upper_face_samples": 125,
+    "shared_foot_samples": 33,
+    "gameplay_original_vs_variety_reports": "EXACT MATCH, same frozen code and210tick movement/slash script",
+    "performance_gate": {
+      "status": "KNOWN FAILURE UNDER PARALLEL LOAD",
+      "name": "regions::bloomwild::life::tests::signature_live_game_stays_inside_eight_millisecond_budget",
+      "mean_ms": 9.42,
+      "budget_ms": 8,
+      "scope": "combined-project render budget, not resolved by this variety pass"
+    }
+  },
+  "evidence": {
+    "visual": "out/bloomwild-variety-2026-11-02/final-visual-review-v2.json",
+    "contracts": "out/bloomwild-variety-2026-11-02/final-contract-review-v2.json",
+    "lighting": "out/bloomwild-variety-2026-11-02/review-lighting/final-normal-review-v2.json",
+    "movement": "out/bloomwild-variety-2026-11-02/final-v2-motion/control-comparison.json",
+    "export": "art/pixellab/2026-11-02-variety/export-audit.json",
+    "display": "out/bloomwild-variety-2026-11-02/result.html"
+  },
+  "scope_limits": [
+    "Original short-column/low-wall upper normal fields retain baseline response; new upper fields and targeted shared feet were corrected.",
+    "No entire-project green-suite claim; broader actor, Warden, Summit and reflection verification remains with their implementation owners.",
+    "No full exporter, publishing, commit or unrelated asset writes."
+  ]
+}

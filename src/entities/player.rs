@@ -191,7 +191,7 @@ const SCARF_SEG: f32 = 1.45;
 pub struct Player {
     pub body: Body,
     pub state: State,
-    /// Four-way facing for the sprite (the attack aim in `body.face` is eight-way).
+    /// Eight-way visual facing; `body.face` retains the precise gameplay aim.
     pub dir: Dir,
     /// Ticks in the current animation.
     pub anim_t: u32,
@@ -316,8 +316,7 @@ impl Player {
         self.anim_t = 0;
     }
 
-    /// Face along a vector: eight-way aim, four-way sprite with hysteresis on diagonals, so
-    /// running diagonally doesn't flicker between sprites.
+    /// Keep the exact aim while selecting one of eight stable visual sectors.
     fn face_to(&mut self, x: f32, y: f32) {
         if x == 0.0 && y == 0.0 {
             return;
@@ -688,7 +687,7 @@ impl Player {
         self.set_state(State::Spin { t: 0 });
         self.swing_id = fx.hit_id();
         self.swing_angle = self.body.face.1.atan2(self.body.face.0);
-        // The directionless spin is authored clockwise for every starting facing.
+        // Each starting facing has its own clockwise native pose sequence.
         self.spin_dir = 1.0;
         self.full_t = 0;
         self.body.iframes = self.body.iframes.max(SPIN_WINDUP + SPIN_ACTIVE + 3);
@@ -747,9 +746,7 @@ impl Player {
         self.body.vy = 0.0;
         let burst_at = self.death_burst_at();
         if !self.burst && t + 1 >= burst_at {
-            if let Some(p) = self.pose() {
-                fx.particles.burst_cell(&mut fx.rng, p.cell, p.anchor, p.flip, self.body.x, self.body.y, 1.15, 520.0);
-            }
+            self.burst_death_pose(fx);
             self.burst = true;
             self.scarf_free = true;
             // the loose scarf gets a little upward flick before it drifts down
@@ -775,9 +772,28 @@ impl Player {
         self.ghosts.retain(|g| g.age < if g.dash { DASH_GHOST_LIFE } else { GHOST_LIFE });
     }
 
+    fn burst_death_pose(&self, fx: &mut Fx) {
+        let Some(p) = self.pose() else { return };
+        // New anatomical silhouettes must not perturb the shared random
+        // stream. Advance it through the exact original front-death
+        // implementation while visible debris uses the current pose.
+        let reference_rng = sheet("hero").and_then(|s| {
+            let a = s.anims.get("death")?;
+            let old = s.cell(a, a.frames.saturating_sub(1));
+            let mut reference = Fx::new(0);
+            reference.rng = fx.rng.clone();
+            reference.particles.burst_cell(&mut reference.rng, old, s.anchor_of(a), false, self.body.x, self.body.y, 1.15, 520.0);
+            Some(reference.rng)
+        });
+        fx.particles.burst_cell(&mut fx.rng, p.cell, p.anchor, p.flip, self.body.x, self.body.y, 1.15, 520.0);
+        if let Some(rng) = reference_rng {
+            fx.rng = rng;
+        }
+    }
+
     /// Ticks into death when the body bursts: after the death anim if the sheet has one.
     fn death_burst_at(&self) -> u32 {
-        sheet("hero").and_then(|s| s.dir_anim("death", self.dir)).map(|(a, _)| a.total_ticks() + 8).unwrap_or(30).max(12)
+        sheet("hero").and_then(|s| s.dir_anim("collapse", self.dir).or_else(|| s.dir_anim("death", self.dir))).map(|(a, _)| a.total_ticks() + 8).unwrap_or(30).max(12)
     }
 
     /// Called by the scene when an enemy hit touches us. Returns true if it landed.
@@ -876,14 +892,12 @@ impl Player {
             Dir::Up => (0.0, -10.0),
             Dir::Right => (-2.0, -10.0),
             Dir::Left => (2.0, -10.0),
+            Dir::UpRight | Dir::DownRight => (-2.0, -10.0),
+            Dir::UpLeft | Dir::DownLeft => (2.0, -10.0),
         });
         // A screen offset can't tell height from depth; treat it as height, and tuck the root
         // a pixel behind the body so the tail starts at the nape.
-        let back = match self.dir {
-            Dir::Down => -1.0,
-            Dir::Up => 1.0,
-            _ => 0.0,
-        };
+        let back = -self.dir.vec().1;
         (self.body.x + dx, self.body.y + back, (-dy).max(2.0) + self.body.z)
     }
 
@@ -911,8 +925,8 @@ impl Player {
         // it "behind" in depth would project it straight up on screen and read as an antenna.)
         let gust = 0.8 + 0.2 * (t * 0.011).sin() * (t * 0.029 + 1.3).sin();
         let breeze = match self.dir {
-            Dir::Right => -0.3,
-            Dir::Left => 0.3,
+            Dir::Right | Dir::UpRight | Dir::DownRight => -0.3,
+            Dir::Left | Dir::UpLeft | Dir::DownLeft => 0.3,
             _ => 0.26,
         };
         let air = (breeze * gust, 0.0, 0.05);
@@ -944,7 +958,7 @@ impl Player {
                 vy += (ay - p.y) * 0.016;
                 // Ease back to a short hanging ribbon after a turn, rather than letting
                 // inertia fold the tip into a loop across the cloak.
-                let side = if self.dir == Dir::Right { -1.0 } else { 1.0 };
+                let side = if self.dir.vec().0 > 0.2 { -1.0 } else { 1.0 };
                 let rest_x = ax + side * i as f32 * 0.7;
                 let rest_z = (az - i as f32 * 1.2).max(0.0);
                 vx += (rest_x - p.x) * 0.025 * settle;
@@ -1060,9 +1074,10 @@ impl Player {
             }
             State::Dash { t } => ("dash", t, false),
             State::Charge { .. } => (if self.moving { "charge_walk" } else { "charge" }, self.anim_t, true),
+            State::Spin { t } if t <= SPIN_WINDUP => ("charge", self.anim_t, true),
             State::Spin { t } => ("spin", t.saturating_sub(1 + SPIN_WINDUP), false),
             State::Hurt { t } => ("hurt", t, false),
-            State::Dead { t } => ("death", t, false),
+            State::Dead { t } => ("collapse", t, false),
             State::Respawn { t } => {
                 if self.land_t > 0 {
                     ("land", self.land_t, false)
@@ -1104,7 +1119,7 @@ impl Player {
                 if let Some((a, flip)) = s.dir_anim(n, self.dir) {
                     // Mirroring a directionless rotation reverses its authored turn and
                     // disconnects the blade (and its metadata) from the clockwise smear.
-                    let flip = flip && a.name != "spin";
+                    let flip = flip && !a.name.starts_with("spin");
                     let f = a.frame_at(ticks, looping);
                     return Some(Pose { cell: s.cell(a, f), anchor: s.anchor_of(a), flip, anim: Some(a), frame: f });
                 }
@@ -1135,6 +1150,10 @@ impl Player {
             Dir::Up => (6.0, -4.0),
             Dir::Right => (8.0, -3.0),
             Dir::Left => (-8.0, -3.0),
+            Dir::UpRight => (8.0, -6.0),
+            Dir::UpLeft => (-8.0, -6.0),
+            Dir::DownRight => (6.0, 2.0),
+            Dir::DownLeft => (-6.0, 2.0),
         });
         // Keep the projection exact even when the drawn blade extends below the feet.
         (self.body.x + dx, self.body.y + dy.max(0.0), (-dy).max(0.0) + self.body.z)
@@ -1202,11 +1221,11 @@ impl Player {
             f.sprite_w(g.cell, g.anchor, g.x, g.y, &o);
         }
         let attack_dir = pick_dir(self.dir, self.swing_angle.cos(), self.swing_angle.sin());
-        let smear_behind = matches!(self.state, State::Attack { .. }) && attack_dir == Dir::Up;
+        let smear_behind = matches!(self.state, State::Attack { .. }) && attack_dir.vec().1 < -0.2;
         if smear_behind {
             self.draw_slash(f);
         }
-        let scarf_front = self.dir == Dir::Up;
+        let scarf_front = self.dir.vec().1 < -0.2;
         if !scarf_front {
             self.draw_scarf(f);
         }
@@ -1214,7 +1233,7 @@ impl Player {
         if let Some(p) = self.pose() {
             let tint = if self.heal_t > 0 { Some((HEAL, self.heal_t as f32 / 24.0 * 0.4)) } else { None };
             let flash = if matches!(self.state, State::Dead { t } if t < 6) { 1.0 } else { self.body.flash };
-            let o = DrawOpts { actor: true, foot_depth: 4, foot_half_w: self.body.r, ground_y: Some(self.body.y.floor()), elevation: self.body.z, flip: p.flip, flash, alpha: if blink { 0.5 } else { 1.0 }, shadow_alpha: blink.then_some(1.0), tint, ..Default::default() };
+            let o = DrawOpts { actor: true, native_support: pose_support(&p), foot_depth: 4, foot_half_w: self.body.r, ground_y: Some(self.body.y.floor()), elevation: self.body.z, flip: p.flip, flash, alpha: if blink { 0.5 } else { 1.0 }, shadow_alpha: blink.then_some(1.0), tint, ..Default::default() };
             f.sprite_w(p.cell, p.anchor, self.body.x, self.body.y - z, &o);
         }
         if scarf_front {
@@ -1476,11 +1495,12 @@ impl Player {
                 if k >= SPIN_ACTIVE + fade_ticks {
                     return;
                 }
-                // The directionless spin sheet starts facing down and turns by an eighth
-                // every two ticks. Keep it unmirrored, even when the charge faced left.
+                // Match the actual held native blade key, including its starting
+                // diagonal and the final held follow-through. During the fade
+                // the trail stays at the last active pose rather than drifting.
                 let turns = TAU;
                 let prog = (k as f32 / SPIN_ACTIVE as f32).min(1.0);
-                let head = PI * 0.5 + self.spin_dir * prog * turns;
+                let (radius, head) = self.spin_smear_head(k);
                 let mut len = (prog * turns).clamp(PI * 0.25, PI * 1.35);
                 let mut w = 9.0;
                 let mut age = 0;
@@ -1490,9 +1510,22 @@ impl Player {
                     w *= 1.0 - d * 0.75;
                     age = 1 + (d * 2.5) as u8;
                 }
-                draw_crescent(f, cx, cy, SPIN_RADIUS - 2.0, head - self.spin_dir * len, self.spin_dir * len, w.max(1.0), age.min(3));
+                draw_crescent(f, cx, cy, radius, head - self.spin_dir * len, self.spin_dir * len, w.max(1.0), age.min(3));
             }
             _ => {}
+        }
+    }
+
+    fn spin_smear_head(&self, ticks: u32) -> (f32, f32) {
+        let tip = self.pose_at("spin", ticks.min(SPIN_ACTIVE.saturating_sub(1)), false)
+            .and_then(|p| pose_point(&p, "blade_tip"));
+        if let Some((dx, dy)) = tip {
+            let x = dx - self.body.face.0 * 2.0;
+            let y = (dy + 6.0) / SMEAR_SQUASH;
+            (x.hypot(y), y.atan2(x))
+        } else {
+            let d = self.dir.vec();
+            (SPIN_RADIUS - 2.0, d.1.atan2(d.0) + self.spin_dir * ticks as f32 / SPIN_ACTIVE as f32 * TAU)
         }
     }
 
@@ -1587,18 +1620,9 @@ impl Player {
 
 // ------------------------------------------------------------------------------------ helpers
 
-/// Four-way sprite direction from a vector, keeping the current one on near-diagonals.
+/// Eight visual sectors with hysteresis; zero input preserves the held idle facing.
 fn pick_dir(cur: Dir, x: f32, y: f32) -> Dir {
-    let (ax, ay) = (x.abs(), y.abs());
-    let h = if x > 0.0 { Dir::Right } else { Dir::Left };
-    let v = if y > 0.0 { Dir::Down } else { Dir::Up };
-    if ax > ay * 1.3 {
-        return h;
-    }
-    if ay > ax * 1.3 {
-        return v;
-    }
-    if cur == h || cur == v { cur } else { h }
+    cur.stable_from_vec(x, y)
 }
 
 /// Which way the forehand sweeps for a facing (+1 = clockwise on screen), matching the hero
@@ -1606,7 +1630,7 @@ fn pick_dir(cur: Dir, x: f32, y: f32) -> Dir {
 /// front, to the left), attack2 is the backhand. Left is the mirrored right.
 fn hand_for(dir: Dir) -> f32 {
     match dir {
-        Dir::Left => -1.0,
+        Dir::Left | Dir::UpLeft | Dir::DownLeft => -1.0,
         _ => 1.0,
     }
 }
@@ -1623,6 +1647,7 @@ fn fallbacks(name: &str) -> &'static [&'static str] {
         "spin" => &["spin", "attack3", "attack1", "idle"],
         "hurt" => &["hurt", "idle"],
         "death" => &["death", "hurt", "idle"],
+        "collapse" => &["collapse", "death", "hurt", "idle"],
         "fall" => &["fall", "hurt", "dash", "idle"],
         "land" => &["land", "charge", "idle"],
         _ => &["idle"],
@@ -1634,6 +1659,41 @@ fn pose_point(p: &Pose, key: &str) -> Option<(f32, f32)> {
     let (px, py) = p.anim?.point(key, p.frame)?;
     let dx = if p.flip { p.anchor.0 - px } else { px - p.anchor.0 };
     Some((dx as f32, (py - p.anchor.1) as f32))
+}
+
+/// The rig's body-only native column spans exclude the complete held blade,
+/// including its dark non-emissive face and hilt. Cache once per sheet frame.
+fn pose_support(p: &Pose) -> Option<&'static [[i32; 2]]> {
+    type Supports = std::collections::HashMap<(usize, usize), Vec<[i32; 2]>>;
+    static SUPPORTS: OnceLock<Supports> = OnceLock::new();
+    let a = p.anim?;
+    SUPPORTS.get_or_init(|| {
+        let mut supports = Supports::new();
+        if let Some(s) = sheet("hero") {
+            for a in s.anims.values() {
+                let Some(frames) = a.json.get("support_spans").and_then(|v| v.as_array()) else { continue };
+                for (frame, columns) in frames.iter().enumerate().take(a.frames) {
+                    let Some(columns) = columns.as_array().filter(|c| c.len() == s.cell_w as usize) else { continue };
+                    let spans = columns.iter().map(|v| {
+                        v.as_array().and_then(|span| {
+                            let lo = span.first()?.as_i64()? as i32;
+                            let hi = span.get(1)?.as_i64()? as i32;
+                            (lo >= 0 && hi > lo && hi <= s.cell_h).then_some([lo, hi])
+                        }).unwrap_or([-1, -1])
+                    }).collect();
+                    supports.insert((a.row, frame), spans);
+                }
+            }
+        }
+        supports
+    }).get(&(a.row, p.frame)).map(Vec::as_slice)
+}
+
+/// The same anatomical support used by the live player, exposed to the frozen
+/// native-frame audit renderer without changing player state or animation time.
+pub(crate) fn audit_support(anim: &'static Anim, frame: usize) -> Option<&'static [[i32; 2]]> {
+    let s = sheet("hero")?;
+    pose_support(&Pose { cell: s.cell(anim, frame), anchor: s.anchor_of(anim), flip: false, anim: Some(anim), frame })
 }
 
 /// The blade's connected emissive component excludes disconnected eye pixels. Cache callers
@@ -1946,6 +2006,130 @@ mod tests {
     use super::*;
     use crate::input::Raw;
 
+    #[test]
+    fn every_visual_state_has_native_eight_direction_frames() {
+        let s = sheet("hero").expect("required hero atlas");
+        for base in ["idle", "run", "attack1", "attack2", "attack3", "dash", "charge", "charge_walk", "hurt", "collapse", "spin", "fall", "land"] {
+            for dir in Dir::ALL {
+                let expected = format!("{base}_{}", dir.suffix());
+                let exact = s.anims.get(&expected).unwrap_or_else(|| panic!("missing native hero row: {expected}"));
+                let (resolved, flip) = s.dir_anim(base, dir).unwrap();
+                assert_eq!(resolved.name, exact.name, "silent directional fallback");
+                assert!(!flip, "hero rows contain their own upper-left relighting");
+                assert_eq!(exact.durations.len(), exact.frames);
+                for frame in 0..exact.frames {
+                    let cell = s.cell(exact, frame);
+                    assert!(cell.px.iter().any(|p| p.a));
+                    assert!(cell.surface.iter().zip(&cell.px).all(|(n, p)| n.a == p.a));
+                    assert!(exact.point("scarf_anchor", frame).is_some());
+                    assert!(exact.point("blade_tip", frame).is_some());
+                    let p = Pose { cell, anchor: s.anchor_of(exact), flip: false, anim: Some(exact), frame };
+                    assert_eq!(pose_support(&p).map(|v| v.len()), Some(cell.w as usize));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn eightway_native_soles_exclude_low_dark_blade_faces() {
+        let s = sheet("hero").unwrap();
+        let mut crossing_blades = 0;
+        for dir in Dir::ALL {
+            for base in ["idle", "run", "attack1", "attack2", "attack3", "dash", "charge", "charge_walk", "hurt", "collapse", "spin", "fall", "land"] {
+                let (a, _) = s.dir_anim(base, dir).unwrap();
+                for frame in 0..a.frames {
+                    let p = Pose { cell: s.cell(a, frame), anchor: s.anchor_of(a), flip: false, anim: Some(a), frame };
+                    let support = pose_support(&p).expect("every hero frame needs anatomical support");
+                    let opts = DrawOpts { actor: true, native_support: Some(support), foot_half_w: 4.0, foot_depth: 4, ..Default::default() };
+                    let profile = crate::gfx::sprite::native_support_profile(p.cell, p.anchor, p.anchor.1, &opts).unwrap();
+                    assert_eq!(profile.len(), p.cell.w as usize);
+                    assert!(profile.iter().all(|s| s[0].is_finite() && s[1] > s[0] && s[1] - s[0] <= 4.0));
+                    let body_bottom = support[(p.anchor.0 - 4) as usize..=(p.anchor.0 + 4) as usize]
+                        .iter().filter(|s| s[0] >= 0).map(|s| s[1]).max().unwrap();
+                    let actual_bottom = ((p.anchor.1 - 14)..=(p.anchor.1 + 8)).rev().find(|&y| {
+                        ((p.anchor.0 - 4)..=(p.anchor.0 + 4)).any(|x| {
+                            let px = p.cell.at(x, y);
+                            px.a && !px.emit
+                        })
+                    }).unwrap() + 1;
+                    assert_eq!(profile.iter().map(|s| s[1] as i32).max(), Some(body_bottom));
+                    if actual_bottom > body_bottom {
+                        crossing_blades += 1;
+                        assert!(profile.iter().all(|s| s[1] < actual_bottom as f32), "blade moved {base}_{dir:?} frame{frame} sole");
+                    }
+                }
+            }
+        }
+        assert!(crossing_blades >= 6, "must exercise low non-emissive blade edges");
+    }
+
+    #[test]
+    fn diagonal_idle_hysteresis_keeps_precise_attack_aim() {
+        let mut p = Player::new(100.0, 100.0);
+        p.face_to(1.0, -1.0);
+        assert_eq!(p.dir, Dir::UpRight);
+        p.face_to(0.0, 0.0);
+        assert_eq!(p.dir, Dir::UpRight);
+        // A 23-degree boundary wobble is retained inside the3degree dead band.
+        for degrees in [23.0_f32, 24.0, 23.0, 22.0, 24.0] {
+            let radians = -degrees.to_radians();
+            p.face_to(radians.cos(), radians.sin());
+            assert_eq!(p.dir, Dir::UpRight);
+            assert!((p.body.face.1.atan2(p.body.face.0) - radians).abs() < 0.00001);
+        }
+        p.face_to(1.0, 0.0);
+        assert_eq!(p.dir, Dir::Right);
+        let mut fx = Fx::new(7);
+        p.start_attack(1, (0.56, -0.83), &mut fx);
+        assert_eq!(p.dir, Dir::UpRight);
+        assert!((p.swing_angle - (-0.83_f32).atan2(0.56)).abs() < 0.00001);
+    }
+
+    #[test]
+    fn eightway_death_debris_preserves_legacy_random_stream() {
+        let s = sheet("hero").unwrap();
+        let legacy = s.anims.get("death").unwrap();
+        for dir in Dir::ALL {
+            for crowded in [false, true] {
+                let mut p = Player::new(100.0, 100.0);
+                p.face_to(dir.vec().0, dir.vec().1);
+                p.state = State::Dead { t: p.death_burst_at() };
+                let mut current = Fx::new(17);
+                let mut original = Fx::new(17);
+                if crowded {
+                    for _ in 0..20_000 {
+                        current.particles.add(Particle::new(0.0, 0.0));
+                        original.particles.add(Particle::new(0.0, 0.0));
+                    }
+                }
+                original.particles.burst_cell(&mut original.rng, s.cell(legacy, legacy.frames - 1), s.anchor_of(legacy), false, p.body.x, p.body.y, 1.15, 520.0);
+                p.burst_death_pose(&mut current);
+                for _ in 0..16 {
+                    assert_eq!(current.rng.next_u32(), original.rng.next_u32(), "death RNG drift {dir:?}, crowded={crowded}");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn spin_trail_meets_eightway_native_blade_keys() {
+        let mut fx = Fx::new(7);
+        for dir in Dir::ALL {
+            let mut p = Player::new(100.0, 100.0);
+            p.face_to(dir.vec().0, dir.vec().1);
+            p.start_spin(&mut fx);
+            for k in 0..SPIN_ACTIVE {
+                p.state = State::Spin { t: k + 1 + SPIN_WINDUP };
+                let (radius, a) = p.spin_smear_head(k);
+                let (x, y, z) = p.blade_tip();
+                let (cx, cy) = (p.body.x + p.body.face.0 * 2.0, p.body.y - 6.0);
+                assert!((cx + radius * a.cos() - x).abs() < 0.001);
+                assert!((cy + radius * SMEAR_SQUASH * a.sin() - (y - z)).abs() < 0.001);
+            }
+            assert_eq!(p.spin_smear_head(SPIN_ACTIVE + 7), p.spin_smear_head(SPIN_ACTIVE - 1));
+        }
+    }
+
     /// Advance the real player and effects for one tick in a collision-enabled zone.
     fn tick(p: &mut Player, zone: &Zone, fx: &mut Fx, input: &mut Input, raw: Raw) -> Vec<Hit> {
         input.step(raw);
@@ -1998,7 +2182,7 @@ mod tests {
     #[test]
     fn dash_echoes_leave_a_short_separated_tail() {
         let zone = Zone::new(ZoneId::Bloomwild, 40, 40);
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             let mut p = Player::new(300.0, 300.0);
             let mut fx = Fx::new(1);
             let mut input = Input::default();
@@ -2216,7 +2400,7 @@ mod tests {
     #[test]
     fn combo_smears_follow_blade_handedness() {
         let mut fx = Fx::new(1);
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             for stage in 1..=3 {
                 let mut p = Player::new(100.0, 100.0);
                 let (x, y) = dir.vec();
@@ -2244,7 +2428,7 @@ mod tests {
     #[test]
     fn combo_smear_heads_follow_held_strike_frames() {
         let mut fx = Fx::new(1);
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             for stage in 1..=3 {
                 let mut p = Player::new(100.0, 100.0);
                 let (x, y) = dir.vec();
@@ -2296,7 +2480,7 @@ mod tests {
     #[test]
     fn spin_stays_unmirrored_in_every_facing() {
         let mut fx = Fx::new(1);
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             let mut p = Player::new(100.0, 100.0);
             let (x, y) = dir.vec();
             p.face_to(x, y);
@@ -2317,7 +2501,7 @@ mod tests {
     #[test]
     fn death_finishes_every_pose_before_bursting() {
         let zone = Zone::new(ZoneId::Bloomwild, 20, 20);
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             let mut p = Player::new(100.0, 100.0);
             let (x, y) = dir.vec();
             p.face_to(x, y);
@@ -2346,7 +2530,7 @@ mod tests {
     #[test]
     fn scarf_settles_in_every_facing() {
         let zone = Zone::new(ZoneId::Bloomwild, 40, 40);
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             let mut p = Player::new(300.0, 300.0);
             let mut fx = Fx::new(1);
             let mut input = Input::default();
@@ -2354,7 +2538,7 @@ mod tests {
                 let raw = if t < 30 { Raw { mv: dir.vec(), dash: t == 20, ..Default::default() } } else { Raw::default() };
                 tick(&mut p, &zone, &mut fx, &mut input, raw);
                 if t > 140 {
-                    let side = if dir == Dir::Right { -1.0 } else { 1.0 };
+                    let side = if dir.vec().0 > 0.2 { -1.0 } else { 1.0 };
                     for w in p.scarf.windows(2) {
                         assert!((w[1].x - w[0].x) * side > -0.1, "{dir:?} scarf folded back");
                         assert!(w[1].y * 0.5 - w[1].z > w[0].y * 0.5 - w[0].z, "{dir:?} scarf curled upward");
@@ -2423,7 +2607,7 @@ mod tests {
     #[test]
     fn blade_light_matches_live_sprite_anchors() {
         let mut p = Player::new(100.0, 100.0);
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             p.dir = dir;
             let pose = p.pose().expect("hero pose");
             let (dx, dy) = pose_point(&pose, "blade_tip").expect("hero blade_tip metadata");
@@ -2462,7 +2646,7 @@ mod tests {
         let mut p = Player::new(192.35, 108.7);
         p.body.z = 7.25;
         let mut sources = std::collections::HashSet::new();
-        for dir in [Dir::Down, Dir::Up, Dir::Right, Dir::Left] {
+        for dir in Dir::ALL {
             p.dir = dir;
             for moving in [false, true] {
                 p.moving = moving;

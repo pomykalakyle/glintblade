@@ -177,7 +177,7 @@ fn cell_after(origin: f64, delta: f64, step: i32, t: f64) -> i32 {
 
 /// Receiver -> source traversal. Only a terrain receiver's own contiguous
 /// cap/front sheet is exempt; actors and separate sprite surfaces are not.
-fn blocked(zone: &Zone, geometry: &Geometry, receiver: [f32; 3], own_terrain: bool, light: PointLight) -> bool {
+pub(super) fn blocked(zone: &Zone, geometry: &Geometry, receiver: [f32; 3], own_terrain: bool, light: PointLight) -> bool {
     let direction = [f64::from(light.x) - f64::from(receiver[0]),
         f64::from(light.y) + f64::from(light.height) - f64::from(receiver[1]) - f64::from(receiver[2]),
         f64::from(light.height) - f64::from(receiver[2])];
@@ -885,12 +885,13 @@ mod tests {
             player.draw(&mut frame);
             boss.draw(&mut frame);
             saw_raised_native_actor |= frame.surfaces.iter().any(|s| s.owner != 0 && s.height > 16.0);
-            // Shoulder-height beam sources include the real 112px altitude and
-            // 152px radius, source motion, offscreen approaches, and lower
-            // heart/fist-height lighting. All actors retain their native poses.
+            // Representative high/low sources, source motion and offscreen
+            // approaches. The last low source grazes the authored north dais;
+            // its floor receiver remains outside the towering native actor.
             for (x, y, h) in [(bx - 37.5, by - 105.5, 112.0), (bx + 37.5, by - 105.5, 112.0),
                 (bx + 108.125, by - 35.875, 112.0), (bx - 104.875, by + 81.125, 112.0),
-                (bx + 0.5, by + 1.25, 36.0), (bx - 52.25, by + 42.75, 20.0)] {
+                (bx + 0.5, by + 1.25, 36.0), (bx - 52.25, by + 42.75, 20.0),
+                (bx + 0.5, by - 121.5, 20.0)] {
                 let mut source = light(x, y, h);
                 source.radius = 152.0;
                 let mut seed = vec![255; W * H];

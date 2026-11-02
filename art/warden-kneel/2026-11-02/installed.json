@@ -1,0 +1,17 @@
+{
+  "installed_at": "2026-11-02T21:35:31.484046+00:00",
+  "files": {
+    "sprites/warden_body.png": {
+      "before": "7deb854660fee2c74ca628f24ed7996c6af6ddc33b363ed2f2f4b947dfd40197",
+      "after": "af1a5c7184995cf21b686b7d25ce9b2bf2a336cb8c8244715f446d25c038871f"
+    },
+    "sprites/warden_body.json": {
+      "before": "55a1263217092444a975d3b2df295bffb58aee0eba508b4c0775806095c82620",
+      "after": "4e11b7fe76b5f993bd02a71bd6aa09e11749f523eef669cb1f03910475d6882a"
+    },
+    "normals/warden_body.png": {
+      "before": "59dcbab6d0f537706903e2b316f620fe4e0c02615004178d8960ce456343cc68",
+      "after": "d8e76236ede5f11bdee0d8085463e19b88d3c063ad42b13ad30291f6d9b2f5ba"
+    }
+  }
+}

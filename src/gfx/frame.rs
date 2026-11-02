@@ -201,6 +201,8 @@ pub struct SurfaceCaster {
     /// Native foot-depth intervals, indexed by unmirrored source X.
     pub foot: std::sync::Arc<[[f32; 2]]>,
     pub min_height: f32,
+    /// Opt-in, albedo-tinted reflection strength; zero retains the matte response.
+    pub reflectivity: f32,
 }
 
 pub struct Frame {
@@ -225,6 +227,10 @@ pub struct Frame {
     pub point_lights: Vec<PointLight>,
     pub surfaces: Vec<Surface>,
     pub surface_casters: Vec<SurfaceCaster>,
+    /// Retain nearby native scene art for one-bounce crystal reflections.
+    pub(crate) reflection_sources: Vec<super::reflection::Source>,
+    pub(crate) capture_reflection_sources: bool,
+    pub(crate) reflection_lights: Vec<PointLight>,
     pub surface_lighting: bool,
     /// Only the garden has a directional daylight key.
     pub normal_sun: bool,
@@ -266,6 +272,9 @@ impl Frame {
             point_lights: Vec::new(),
             surfaces: vec![Surface::default(); W * H],
             surface_casters: Vec::new(),
+            reflection_sources: Vec::new(),
+            capture_reflection_sources: false,
+            reflection_lights: Vec::new(),
             surface_lighting: false,
             normal_sun: false,
             actor_pixels: vec![false; W * H],
@@ -285,6 +294,9 @@ impl Frame {
         self.point_lights.clear();
         self.surfaces.fill(Surface::default());
         self.surface_casters.clear();
+        self.reflection_sources.clear();
+        self.capture_reflection_sources = false;
+        self.reflection_lights.clear();
         self.surface_lighting = false;
         self.normal_sun = false;
         self.actor_pixels.fill(false);
@@ -390,6 +402,7 @@ impl Frame {
         if radius <= 0.5 || intensity <= 0.0 {
             return;
         }
+        self.retain_reflection_light(x, y, radius, color, intensity);
         let c = color.scale(intensity);
         let x0 = ((x - radius).floor() as i32).max(0);
         let x1 = ((x + radius).ceil() as i32).min(WI - 1);
@@ -427,6 +440,7 @@ impl Frame {
         let y = wy - self.cam_y as f32;
         let ry = if self.surface_lighting { radius * std::f32::consts::SQRT_2 } else { radius };
         if x + radius < 0.0 || y + ry < 0.0 || x - radius > W as f32 || y - ry > H as f32 {
+            self.retain_reflection_light(x, y, radius, color, intensity);
             return;
         }
         self.add_light(x, y, radius, color, intensity);
@@ -435,8 +449,20 @@ impl Frame {
     /// A point source at (world X, ground Y, height); projection stays Y-height.
     pub fn add_light_3d_w(&mut self, wx: f32, ground_y: f32, height: f32, radius: f32, color: Rgb, intensity: f32) {
         let before = self.point_lights.len();
+        let reflected_before = self.reflection_lights.len();
         self.add_light_w(wx, ground_y - height, radius, color, intensity);
         if self.point_lights.len() > before { self.point_lights.last_mut().unwrap().height = height; }
+        if self.reflection_lights.len() > reflected_before { self.reflection_lights.last_mut().unwrap().height = height; }
+    }
+
+    fn retain_reflection_light(&mut self, x: f32, y: f32, radius: f32, color: Rgb, intensity: f32) {
+        if self.capture_reflection_sources && radius > 0.5 && intensity > 0.0
+            && self.visible(x + self.cam_x as f32 - radius, y + self.cam_y as f32 - radius,
+                radius * 2.0, radius * 2.0, 160.0)
+        {
+            self.reflection_lights.push(PointLight { x: x + self.cam_x as f32, y: y + self.cam_y as f32,
+                radius, color, intensity, height: 18.0 });
+        }
     }
 
     /// Multiply the light at a pixel (cloud shadows, darkness pockets).

@@ -1,0 +1,45 @@
+{
+  "request": {
+    "description": "Native32x16 pixel-art sprite of the SAME low sage-green lanceolate-leaf ground cover as the reference, a variation with five broad spear-shaped leaves spread in a very open low star, distinct gaps between leaf blades. Match the same plant species, crisp native one-pixel drawing, restrained sage/slate/ivory leaves, selective dark edges and upper-left shading. It lies LOW across the ground, wider than tall. Transparent background, no ground shadow, dirt, flower, fern, pot or other object. WHOLE plant inside the canvas with1pixel clear margin on every side; root centered at(16,14). Do not crop leaf tips. Low oblique top-down view matching reference.",
+    "width": 32,
+    "height": 16,
+    "no_background": true,
+    "seed": 73401,
+    "style_image": {
+      "reference": "references/leaves-shallow.png"
+    },
+    "style_options": {
+      "color_palette": true,
+      "detail": true,
+      "outline": true,
+      "shading": true
+    }
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"background_job_id\": \"3215c22c-80b4-45c9-93cb-1db15fbf6b08\",\n  \"image_id\": \"67e4c7e5-330f-55c5-86d4-6ab433936832\",\n  \"status\": \"processing\",\n  \"source_image_id\": \"67e4c7e5-330f-55c5-86d4-6ab433936832\",\n  \"job_id\": \"3215c22c-80b4-45c9-93cb-1db15fbf6b08\",\n  \"description\": \"Native32x16 pixel-art sprite of the SAME low sage-green lanceolate-leaf ground cover as the reference, a variation with five broad spear-shaped leaves spread in a very open low star, distinct gaps between leaf blades. Match the same plant species, crisp native one-pixel drawing, restrained sage/slate/ivory leaves, selective dark edges and upper-left shading. It lies LOW across the ground, wider than tall. Transparent background, no ground shadow, dirt, flower, fern, pot or other object. WHOLE plant inside the canvas with1pixel clear margin on every side; root centered at(16,14). Do not crop leaf tips. Low oblique top-down view matching reference.\",\n  \"seed\": 73401,\n  \"image_size\": {\n    \"width\": 32,\n    \"height\": 16\n  },\n  \"output_count\": 1,\n  \"estimated_generations\": 5,\n  \"pricing_provisional\": true,\n  \"poll_tool\": \"get_image\",\n  \"download_path\": \"/mcp/images/3215c22c-80b4-45c9-93cb-1db15fbf6b08/download\"\n}\nPoll get_image(job_id=\"3215c22c-80b4-45c9-93cb-1db15fbf6b08\"). The source_image_id is usable after completion; it is an image ID, not a character/object ID. Actual usage is reported on completion. cancel_job(job_id=...) cancels unfinished work."
+      }
+    ],
+    "structuredContent": {
+      "background_job_id": "3215c22c-80b4-45c9-93cb-1db15fbf6b08",
+      "image_id": "67e4c7e5-330f-55c5-86d4-6ab433936832",
+      "status": "processing",
+      "source_image_id": "67e4c7e5-330f-55c5-86d4-6ab433936832",
+      "job_id": "3215c22c-80b4-45c9-93cb-1db15fbf6b08",
+      "description": "Native32x16 pixel-art sprite of the SAME low sage-green lanceolate-leaf ground cover as the reference, a variation with five broad spear-shaped leaves spread in a very open low star, distinct gaps between leaf blades. Match the same plant species, crisp native one-pixel drawing, restrained sage/slate/ivory leaves, selective dark edges and upper-left shading. It lies LOW across the ground, wider than tall. Transparent background, no ground shadow, dirt, flower, fern, pot or other object. WHOLE plant inside the canvas with1pixel clear margin on every side; root centered at(16,14). Do not crop leaf tips. Low oblique top-down view matching reference.",
+      "seed": 73401,
+      "image_size": {
+        "width": 32,
+        "height": 16
+      },
+      "output_count": 1,
+      "estimated_generations": 5,
+      "pricing_provisional": true,
+      "poll_tool": "get_image",
+      "download_path": "/mcp/images/3215c22c-80b4-45c9-93cb-1db15fbf6b08/download"
+    },
+    "isError": false
+  }
+}

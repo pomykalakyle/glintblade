@@ -1,0 +1,12 @@
+{
+  "background_job_id": "0667379e-8b70-4f6a-92d1-43f0b398f635",
+  "object_id": "0ace9bfa-9a57-4f3c-90d0-07e426215ca1",
+  "status": "processing",
+  "first_direction_generated": false,
+  "estimated_generations": 1,
+  "job_id": "0667379e-8b70-4f6a-92d1-43f0b398f635",
+  "n_directions": 8,
+  "poll_tool": "get_object",
+  "status_path": "/v2/background-jobs/0667379e-8b70-4f6a-92d1-43f0b398f635",
+  "download_path": "/mcp/objects/0ace9bfa-9a57-4f3c-90d0-07e426215ca1/download"
+}

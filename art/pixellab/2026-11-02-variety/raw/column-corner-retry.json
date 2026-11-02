@@ -1,0 +1,19 @@
+{
+  "request": {
+    "description": "Create a different silhouette of the SAME short ruined limestone column on its stepped square plinth. A taller broken rear-right corner remains above a low diagonal fracture; a broad triangular front chip exposes the inner stone. Keep its exact native pixel density, oblique top-down projection, weathered pale gray limestone and muted moss, light from upper-left. PRESERVE original stepped plinth and support pixels in rows40..53 unchanged. Only change the short shaft above that, fractured upper edge, stone joints and cracks. Transparent48x56 canvas; clear margins, two clear bottom gutter rows; no detached rubble, plant or cast shadow. Same scale and same object. This is a LOW STUMP: keep the highest opaque stone below y=17 on the 48x56 canvas, roughly matching the reference's short height. Do not grow a tall pillar.",
+    "width": 48,
+    "height": 56,
+    "no_background": true,
+    "seed": 73112,
+    "reference": "references/column.png"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: ad8fce27-441d-429f-a098-b81778733869\njob_id: ad8fce27-441d-429f-a098-b81778733869\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Create a different silhouette of the SAME short ruined limestone column on its stepped square plinth. A taller broken rear-right corner remains above a low diagonal fracture; a broad triangular front chip exposes the inner stone. Keep its exact native pixel density, oblique top-down projection, weathered pale gray limestone and muted moss, light from upper-left. PRESERVE original stepped plinth and support pixels in rows40..53 unchanged. Only change the short shaft above that, fractured upper edge, stone joints and cracks. Transparent48x56 canvas; clear margins, two clear bottom gutter rows; no detached rubble, plant or cast shadow. Same scale and same object. This is a LOW STUMP: keep the highest opaque stone below y=17 on the 48x56 canvas, roughly matching the reference's short height. Do not grow a tall pillar.\nseed: 73112\nasset_id: 95da34d7-8318-554c-9ab1-fd22051e30c6\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"ad8fce27-441d-429f-a098-b81778733869\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ad8fce27-441d-429f-a098-b81778733869/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,196 @@
+{
+ "cell": [
+  32,
+  32
+ ],
+ "anchor": [
+  16,
+  29
+ ],
+ "emissive": [],
+ "anims": {
+  "idle_right": {
+   "row": 0,
+   "frames": 4,
+   "fps": 6,
+   "durations": [
+    12,
+    8,
+    16,
+    8
+   ]
+  },
+  "move_right": {
+   "row": 1,
+   "frames": 4,
+   "fps": 10,
+   "durations": [
+    6,
+    5,
+    6,
+    5
+   ],
+   "notes": "skittering crawl; one cycle moves about 6 px"
+  },
+  "windup_right": {
+   "row": 2,
+   "frames": 5,
+   "fps": 12,
+   "durations": [
+    5,
+    6,
+    6,
+    5,
+    6
+   ],
+   "notes": "telegraph: dips, then rears up on its hind legs with a matte split seed cocked over its head; mask tips and thorns bristle. 28 ticks; hold the last frame if longer"
+  },
+  "attack_right": {
+   "row": 3,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    3,
+    5,
+    8,
+    6
+   ],
+   "release_frame": 1,
+   "release_offset": [
+    9,
+    -9
+   ],
+   "notes": "seed is in the hand through frame 0 (end of the sweep); spawn the projectile on release_frame at release_offset (cell px from the anchor, screen space; mirror x for left)"
+  },
+  "hurt_right": {
+   "row": 4,
+   "frames": 2,
+   "fps": 10,
+   "durations": [
+    6,
+    8
+   ]
+  },
+  "idle_down": {
+   "row": 5,
+   "frames": 4,
+   "fps": 6,
+   "durations": [
+    12,
+    8,
+    16,
+    8
+   ]
+  },
+  "move_down": {
+   "row": 6,
+   "frames": 4,
+   "fps": 10,
+   "durations": [
+    6,
+    5,
+    6,
+    5
+   ]
+  },
+  "windup_down": {
+   "row": 7,
+   "frames": 5,
+   "fps": 12,
+   "durations": [
+    5,
+    6,
+    6,
+    5,
+    6
+   ]
+  },
+  "attack_down": {
+   "row": 8,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    3,
+    5,
+    8,
+    6
+   ],
+   "release_frame": 1,
+   "release_offset": [
+    3,
+    -1
+   ],
+   "notes": "seed is in the hand through frame 0; spawn the projectile on release_frame at release_offset (cell px from the anchor, screen space)"
+  },
+  "hurt_down": {
+   "row": 9,
+   "frames": 2,
+   "fps": 10,
+   "durations": [
+    6,
+    8
+   ]
+  },
+  "idle_up": {
+   "row": 10,
+   "frames": 4,
+   "fps": 6,
+   "durations": [
+    12,
+    8,
+    16,
+    8
+   ]
+  },
+  "move_up": {
+   "row": 11,
+   "frames": 4,
+   "fps": 10,
+   "durations": [
+    6,
+    5,
+    6,
+    5
+   ]
+  },
+  "windup_up": {
+   "row": 12,
+   "frames": 5,
+   "fps": 12,
+   "durations": [
+    5,
+    6,
+    6,
+    5,
+    6
+   ]
+  },
+  "attack_up": {
+   "row": 13,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    3,
+    5,
+    8,
+    6
+   ],
+   "release_frame": 1,
+   "release_offset": [
+    1,
+    -21
+   ],
+   "notes": "seed is in the hand through frame 0; spawn the projectile on release_frame at release_offset (cell px from the anchor, screen space)"
+  },
+  "hurt_up": {
+   "row": 14,
+   "frames": 2,
+   "fps": 10,
+   "durations": [
+    6,
+    8
+   ]
+  }
+ },
+ "notes": "Style v2: long split seed-husk mask, sage thorn canes and sparse dried-rose tips. Mask sockets and held seed are matte, without glow. The arched torso and bent arm masses keep open gaps. Reviewed crawl, overhead throw, held seed through frame 0, release offsets and timings retained. Cell and anchor retained; _right mirrors for left."
+}

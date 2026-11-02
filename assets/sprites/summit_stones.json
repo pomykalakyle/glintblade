@@ -113,7 +113,229 @@
           100
         ]
       ],
-      "support_first_row": 79
+      "support_first_row": 79,
+      "bottom_outline_repair": [
+        {
+          "xy": [
+            23,
+            99
+          ],
+          "face_source": [
+            23,
+            98
+          ]
+        },
+        {
+          "xy": [
+            24,
+            99
+          ],
+          "face_source": [
+            24,
+            98
+          ]
+        },
+        {
+          "xy": [
+            25,
+            99
+          ],
+          "face_source": [
+            25,
+            98
+          ]
+        },
+        {
+          "xy": [
+            26,
+            98
+          ],
+          "face_source": [
+            26,
+            97
+          ]
+        },
+        {
+          "xy": [
+            27,
+            98
+          ],
+          "face_source": [
+            27,
+            97
+          ]
+        },
+        {
+          "xy": [
+            28,
+            97
+          ],
+          "face_source": [
+            28,
+            96
+          ]
+        },
+        {
+          "xy": [
+            29,
+            97
+          ],
+          "face_source": [
+            29,
+            96
+          ]
+        },
+        {
+          "xy": [
+            30,
+            96
+          ],
+          "face_source": [
+            30,
+            95
+          ]
+        },
+        {
+          "xy": [
+            31,
+            96
+          ],
+          "face_source": [
+            31,
+            95
+          ]
+        },
+        {
+          "xy": [
+            32,
+            95
+          ],
+          "face_source": [
+            32,
+            94
+          ]
+        },
+        {
+          "xy": [
+            39,
+            97
+          ],
+          "face_source": [
+            39,
+            96
+          ]
+        },
+        {
+          "xy": [
+            40,
+            97
+          ],
+          "face_source": [
+            40,
+            96
+          ]
+        },
+        {
+          "xy": [
+            41,
+            96
+          ],
+          "face_source": [
+            41,
+            95
+          ]
+        },
+        {
+          "xy": [
+            42,
+            96
+          ],
+          "face_source": [
+            42,
+            95
+          ]
+        },
+        {
+          "xy": [
+            43,
+            95
+          ],
+          "face_source": [
+            43,
+            94
+          ]
+        },
+        {
+          "xy": [
+            44,
+            95
+          ],
+          "face_source": [
+            44,
+            94
+          ]
+        },
+        {
+          "xy": [
+            45,
+            94
+          ],
+          "face_source": [
+            45,
+            93
+          ]
+        },
+        {
+          "xy": [
+            46,
+            94
+          ],
+          "face_source": [
+            46,
+            93
+          ]
+        },
+        {
+          "xy": [
+            47,
+            93
+          ],
+          "face_source": [
+            47,
+            92
+          ]
+        },
+        {
+          "xy": [
+            48,
+            93
+          ],
+          "face_source": [
+            48,
+            92
+          ]
+        },
+        {
+          "xy": [
+            49,
+            92
+          ],
+          "face_source": [
+            49,
+            91
+          ]
+        },
+        {
+          "xy": [
+            50,
+            92
+          ],
+          "face_source": [
+            50,
+            91
+          ]
+        }
+      ]
     },
     "monolith_1": {
       "row": 1,
@@ -249,8 +471,414 @@
           102
         ]
       ],
-      "support_first_row": 76
+      "support_first_row": 76,
+      "bottom_outline_repair": [
+        {
+          "xy": [
+            11,
+            95
+          ],
+          "face_source": [
+            11,
+            94
+          ]
+        },
+        {
+          "xy": [
+            12,
+            95
+          ],
+          "face_source": [
+            12,
+            94
+          ]
+        },
+        {
+          "xy": [
+            13,
+            96
+          ],
+          "face_source": [
+            13,
+            95
+          ]
+        },
+        {
+          "xy": [
+            14,
+            97
+          ],
+          "face_source": [
+            14,
+            96
+          ]
+        },
+        {
+          "xy": [
+            15,
+            97
+          ],
+          "face_source": [
+            15,
+            96
+          ]
+        },
+        {
+          "xy": [
+            16,
+            98
+          ],
+          "face_source": [
+            16,
+            97
+          ]
+        },
+        {
+          "xy": [
+            17,
+            98
+          ],
+          "face_source": [
+            17,
+            97
+          ]
+        },
+        {
+          "xy": [
+            18,
+            99
+          ],
+          "face_source": [
+            18,
+            98
+          ]
+        },
+        {
+          "xy": [
+            19,
+            99
+          ],
+          "face_source": [
+            19,
+            98
+          ]
+        },
+        {
+          "xy": [
+            20,
+            100
+          ],
+          "face_source": [
+            20,
+            99
+          ]
+        },
+        {
+          "xy": [
+            21,
+            100
+          ],
+          "face_source": [
+            21,
+            99
+          ]
+        },
+        {
+          "xy": [
+            22,
+            101
+          ],
+          "face_source": [
+            22,
+            100
+          ]
+        },
+        {
+          "xy": [
+            23,
+            101
+          ],
+          "face_source": [
+            23,
+            100
+          ]
+        },
+        {
+          "xy": [
+            24,
+            100
+          ],
+          "face_source": [
+            24,
+            99
+          ]
+        },
+        {
+          "xy": [
+            25,
+            100
+          ],
+          "face_source": [
+            25,
+            99
+          ]
+        },
+        {
+          "xy": [
+            26,
+            99
+          ],
+          "face_source": [
+            26,
+            98
+          ]
+        },
+        {
+          "xy": [
+            27,
+            99
+          ],
+          "face_source": [
+            27,
+            98
+          ]
+        },
+        {
+          "xy": [
+            28,
+            98
+          ],
+          "face_source": [
+            28,
+            97
+          ]
+        },
+        {
+          "xy": [
+            29,
+            98
+          ],
+          "face_source": [
+            29,
+            97
+          ]
+        },
+        {
+          "xy": [
+            30,
+            97
+          ],
+          "face_source": [
+            30,
+            96
+          ]
+        },
+        {
+          "xy": [
+            31,
+            97
+          ],
+          "face_source": [
+            31,
+            96
+          ]
+        },
+        {
+          "xy": [
+            32,
+            96
+          ],
+          "face_source": [
+            32,
+            95
+          ]
+        },
+        {
+          "xy": [
+            33,
+            96
+          ],
+          "face_source": [
+            33,
+            95
+          ]
+        },
+        {
+          "xy": [
+            34,
+            95
+          ],
+          "face_source": [
+            34,
+            94
+          ]
+        },
+        {
+          "xy": [
+            37,
+            90
+          ],
+          "face_source": [
+            37,
+            82
+          ]
+        },
+        {
+          "xy": [
+            38,
+            92
+          ],
+          "face_source": [
+            38,
+            91
+          ]
+        },
+        {
+          "xy": [
+            39,
+            92
+          ],
+          "face_source": [
+            39,
+            91
+          ]
+        },
+        {
+          "xy": [
+            40,
+            93
+          ],
+          "face_source": [
+            40,
+            92
+          ]
+        },
+        {
+          "xy": [
+            41,
+            93
+          ],
+          "face_source": [
+            41,
+            92
+          ]
+        },
+        {
+          "xy": [
+            42,
+            92
+          ],
+          "face_source": [
+            42,
+            91
+          ]
+        },
+        {
+          "xy": [
+            43,
+            92
+          ],
+          "face_source": [
+            43,
+            91
+          ]
+        },
+        {
+          "xy": [
+            44,
+            91
+          ],
+          "face_source": [
+            44,
+            90
+          ]
+        },
+        {
+          "xy": [
+            45,
+            91
+          ],
+          "face_source": [
+            45,
+            90
+          ]
+        },
+        {
+          "xy": [
+            46,
+            90
+          ],
+          "face_source": [
+            46,
+            89
+          ]
+        },
+        {
+          "xy": [
+            47,
+            90
+          ],
+          "face_source": [
+            47,
+            89
+          ]
+        },
+        {
+          "xy": [
+            48,
+            89
+          ],
+          "face_source": [
+            48,
+            88
+          ]
+        },
+        {
+          "xy": [
+            49,
+            89
+          ],
+          "face_source": [
+            49,
+            88
+          ]
+        },
+        {
+          "xy": [
+            50,
+            88
+          ],
+          "face_source": [
+            50,
+            87
+          ]
+        },
+        {
+          "xy": [
+            51,
+            87
+          ],
+          "face_source": [
+            51,
+            86
+          ]
+        },
+        {
+          "xy": [
+            52,
+            87
+          ],
+          "face_source": [
+            52,
+            86
+          ]
+        }
+      ]
     }
   },
-  "notes": "Fractured slotted engineering piers replace geometric placeholders. Source-specific native foot anchors and exact opaque base collision rectangles, including asymmetric footings and gaps. Native source pixels only; no resampling, mirroring or recoloring. Rebuild: tools/pixellab/build_summit.py. Receipts: art/pixellab/2026-11-01-round3/summit/."
+  "notes": "Original native PixelLab volumetric shafts, bases, silhouette, anchors, collision; upper normals retained.  Only the lowest ground-facing dark outline is replaced by neighboring stone-face colors. Top and side outlines retained. Physical cap/return normals replace the old downward-rounded base normals. No added base, paving patch or AO border. Rebuild: tools/pixellab/summit_columns.py.",
+  "provenance": {
+    "archive": "art/pixellab/2026-11-02-summit-columns",
+    "recipe_sha256": "6c4bed59629d2adf5ee7eda5921937000c8490b2d71460c1d0e8728946219a1f"
+  }
 }

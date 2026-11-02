@@ -1,0 +1,69 @@
+{
+  "cell": [
+    16,
+    24
+  ],
+  "anchor": [
+    8,
+    15
+  ],
+  "emissive": [
+    "#796c91",
+    "#a195b8",
+    "#cdc3db",
+    "#e2d8e9"
+  ],
+  "anims": {
+    "idle": {
+      "row": 0,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "fps": 10.59,
+      "loop": true
+    },
+    "windup": {
+      "row": 1,
+      "frames": 6,
+      "durations": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        7
+      ],
+      "fps": 9.47
+    },
+    "attack": {
+      "row": 2,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        14
+      ],
+      "fps": 7.5
+    },
+    "hurt": {
+      "row": 3,
+      "frames": 2,
+      "durations": [
+        5,
+        7
+      ],
+      "fps": 10.0
+    }
+  },
+  "colors_used": 6,
+  "notes": "Round 6 full-animation native PixelLab alternate skin. Moon moth: paired broad angular wings that fold tightly around its charging heart. All original animation rows/counts/durations, cell/anchor, behavior and exact authored combat cue positions retained. See art/pixellab/2026-11-01-round6/enemies/fire-spirit for raw generation, prompts, receipts and native assembly recipe.",
+  "variant_source": "wisp",
+  "variant_design": "Moon moth: paired broad angular wings that fold tightly around its charging heart."
+}

@@ -1,0 +1,22 @@
+{
+  "sources": {
+    "art/pixellab/2026-11-02-ravine/raw/candidate-0.png": "b831d1d4ff257de6b86156d70726f52e555f50e5153fb80b44d48fc95573dd49",
+    "art/pixellab/2026-11-02-ravine/raw/candidate-3.png": "76ba4ee8d1620a5dae772e2bfc0e7f9312a23e92b94d2565ae8b94d7c6139340",
+    "art/pixellab/2026-11-02-ravine/raw/normal-pro.png": "ca5f50540fd7389e13e02d46d34657b3459ec92053c7150fa44fea88f159be64"
+  },
+  "outputs": {
+    "/home/krp/.t3/scratch/2026-11-02-improve-glasswater-cavern-and-ravine-c04975f8/audit/staging/sprites/glasswater_ravine.png": "1a691dc8861bc4c00fde2bfafb66271c34be4e01a80b117cacb9ac82781cefcf",
+    "/home/krp/.t3/scratch/2026-11-02-improve-glasswater-cavern-and-ravine-c04975f8/audit/staging/sprites/glasswater_ravine.json": "b272ae3351c95a55e4f9b348241694dc7c3694743ef603441fda98b7a4c06a1a",
+    "/home/krp/.t3/scratch/2026-11-02-improve-glasswater-cavern-and-ravine-c04975f8/audit/staging/normals/glasswater_ravine.png": "198414086aff4f83cda94e85aa45418381d303918b8c28e4412f3d705982ef45"
+  },
+  "dimensions": [
+    256,
+    128
+  ],
+  "frames": 2,
+  "alpha_values": [
+    255
+  ],
+  "source_pixels_unchanged": true,
+  "normal_maximum_tilt_degrees": 24.017
+}

@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 52859e69-2252-496d-ae7e-1823ea7eaf41\njob_id: 52859e69-2252-496d-ae7e-1823ea7eaf41\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Make a variation of this SAME low ruined pale limestone block wall. Give its upper course a broad irregular V-shaped collapsed notch and change the arrangement of the exposed chipped blocks, so its silhouette and broken edges are clearly different. Keep the same overall wall length, thick block size, restrained pale gray/beige stone and dusty moss palette, shallow oblique top-down view, upper-left light, crisp single native pixels, and grounded bottom course. Preserve the bottom support rows45..52, foot baseline y52, all artwork inside x3..44,y18..52 of this48x56 canvas. Transparent background, no cast shadow, no arch, pillar, plants or added props. It remains the same kind of low wall.\nseed: 73031\nasset_id: bb8e2fb1-ea3d-50d3-b2d0-9f5c7f6a8352\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"52859e69-2252-496d-ae7e-1823ea7eaf41\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/52859e69-2252-496d-ae7e-1823ea7eaf41/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    }
+  ],
+  "isError": false
+}

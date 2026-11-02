@@ -369,6 +369,9 @@ pub fn paint(z: &mut Zone) -> Painted {
         }
     }
 
+    // Volcanic plates share one color/relief field across the natural substrate.
+    let crust = super::geology::paint(&mut px, &kind, &lava_dist, &rock_dist);
+
     // ------------------------------------------------------------ paths: lighter worn ash
     let path_f = soften(&path.to_f32(), 6);
     for y in 0..ph {
@@ -378,7 +381,7 @@ pub fn paint(z: &mut Zone) -> Painted {
                 continue;
             }
             let center = path_f.v[i] > 0.8 + c.wob.v[i] * 0.3;
-            px.v[i] = p(RA, if center { 3 } else { 2 });
+            px.v[i] = crust.path(x, y, center);
             kind.v[i] = K_PATH;
             relief.v[i] *= 0.55;
         }
@@ -777,9 +780,9 @@ pub fn paint(z: &mut Zone) -> Painted {
     let caps: Vec<_> = z.ground_surfaces.iter().map(|s|
         (s.height > 0 && !s.upright).then_some(s.height)).collect();
     z.add_cap_volumes(&caps);
-    super::normals::fill(z, &kind, &relief);
+    super::normals::fill(z, &kind, &relief, Some(&crust));
     super::textures::apply(z, &kind);
-    super::normals::detail(z, &kind);
+    super::normals::detail_with_crust(z, &kind, Some(&crust));
     // Painted top planes belong to solid raised stone, not hollow sheets that
     // a source below their cap height may shine through from the side.
     let caps: Vec<_> = z.ground_surfaces.iter().enumerate().map(|(i, s)| {
@@ -1222,41 +1225,8 @@ fn paint_details(
         }
         gy += cell;
     }
-    // cracks in ash: short branching dark lines with a lit lower lip
-    let cell = 40;
-    let mut gy = 0;
-    while gy < ph {
-        let mut gx = 0;
-        while gx < pw {
-            if hash2(gx, gy, 131) < 0.45 {
-                let mut x = gx + (hash2(gx, gy, 132) * cell as f32) as i32;
-                let mut y = gy + (hash2(gx, gy, 133) * cell as f32) as i32;
-                let len = 5 + (hash2(gx, gy, 134) * 9.0) as i32;
-                let mut dir = if hash2(gx, gy, 135) < 0.5 { 1 } else { -1 };
-                for s in 0..len {
-                    let i = (y.clamp(0, ph - 1) * pw + x.clamp(0, pw - 1)) as usize;
-                    if !(0..pw).contains(&x) || !(0..ph).contains(&y) || kind.v[i] != K_ASH {
-                        break;
-                    }
-                    let q = px.v[i];
-                    if q.r == RA {
-                        px.v[i] = p(RA, (q.l - 1).max(0));
-                        relief.v[i] = -0.30;
-                    }
-                    x += dir;
-                    if hash2(x, y + s, 136) < 0.45 {
-                        y += 1;
-                    }
-                    if hash2(x, y, 137) < 0.12 {
-                        dir = -dir;
-                        y += 1;
-                    }
-                }
-            }
-            gx += cell;
-        }
-        gy += cell;
-    }
+    // The finished material pass owns a few connected cooling faults instead
+    // of scattering short unrelated cracks throughout every ash field.
 }
 
 #[cfg(test)]

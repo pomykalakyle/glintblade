@@ -1,0 +1,11 @@
+{
+  "image": "normals/leaves-input.png",
+  "kind": "object",
+  "mode": "pro",
+  "convention": "opengl",
+  "strength": 0.65,
+  "outline_rounding": 0.7,
+  "part_shapes": 0.9,
+  "surface_detail": 0.1,
+  "detail_softness": 1
+}

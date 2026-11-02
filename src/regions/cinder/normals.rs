@@ -8,8 +8,21 @@ use crate::gfx::terrain_detail::{self, Material};
 use crate::world::{TILE, Zone};
 
 /// Turn the authored relief into floor normals, retaining every native atlas sample.
-pub(super) fn fill(z: &mut Zone, kind: &Grid<u8>, relief: &Grid<f32>) {
-    z.fill_walkable_surfaces(|x, y| (sample(kind, relief, x, y), 0.0));
+pub(super) fn fill(
+    z: &mut Zone,
+    kind: &Grid<u8>,
+    relief: &Grid<f32>,
+    crust: Option<&super::geology::Crust>,
+) {
+    z.fill_walkable_surfaces(|x, y| {
+        let mut normal = sample(kind, relief, x, y);
+        if let Some(crust) = crust {
+            let slope = crust.normal(kind, x, y);
+            normal[0] += slope[0];
+            normal[1] += slope[1];
+        }
+        (normal, 0.0)
+    });
 }
 
 /// Add material-scale relief after every native overlay has installed its own
@@ -17,7 +30,16 @@ pub(super) fn fill(z: &mut Zone, kind: &Grid<u8>, relief: &Grid<f32>) {
 /// interiors smooth; this final pass retains their macroplanes and adds the
 /// ash grains, scorched blades, worn earth or stone facets at world coordinates.
 /// Native altitude is copied verbatim: detail cannot become a new shadow caster.
+#[cfg(test)]
 pub(super) fn detail(z: &mut Zone, kind: &Grid<u8>) {
+    detail_with_crust(z, kind, None);
+}
+
+pub(super) fn detail_with_crust(
+    z: &mut Zone,
+    kind: &Grid<u8>,
+    crust: Option<&super::geology::Crust>,
+) {
     for y in 0..z.ph {
         for x in 0..z.pw {
             let i = (y * z.pw + x) as usize;
@@ -39,11 +61,17 @@ pub(super) fn detail(z: &mut Zone, kind: &Grid<u8>) {
             } else {
                 fallback
             };
-            let normal = if kind.at(x, y) == super::paint::K_PAVE {
+            let normal = if super::geology::dry(kind.at(x, y)) && crust.is_some() {
+                crust.unwrap().finish_normal(x, y, base)
+            } else if kind.at(x, y) == super::paint::K_PAVE {
                 paving_normal(x, y, base)
-            } else { terrain_detail::normal(material, x, y, base) };
+            } else {
+                terrain_detail::normal(material, x, y, base)
+            };
             let mut detailed = TerrainSurface::new(normal, surface.height as f32);
-            if surface.present() { detailed.upright = surface.upright; }
+            if surface.present() {
+                detailed.upright = surface.upright;
+            }
             z.ground_surfaces[i] = detailed;
         }
     }
@@ -67,8 +95,8 @@ fn material(kind: u8) -> Option<(Material, [f32; 3])> {
     let front = [0.0, 1.0, 0.0];
     Some(match kind {
         K_ASH => (Material::Ash, up),
-        K_GRASS => (Material::Grass, up),
-        K_PATH => (Material::Earth, up),
+        K_GRASS => (Material::Ash, up),
+        K_PATH => (Material::Ash, up),
         K_PAVE | K_DECK | K_DAIS | K_WALLTOP => (Material::Stone, up),
         K_ROCKTOP => (Material::Rock, up),
         K_ROCKFACE | K_WALLFACE | K_ISLEFACE | K_BANK => (Material::Rock, front),
@@ -126,7 +154,9 @@ mod tests {
             let mut count = 0;
             let mut tilted = 0;
             for (i, &k) in painted.kind.v.iter().enumerate() {
-                if k != kind || z.tile_at((i as i32 % z.pw) as f32, (i as i32 / z.pw) as f32) != Tile::Floor {
+                if k != kind
+                    || z.tile_at((i as i32 % z.pw) as f32, (i as i32 / z.pw) as f32) != Tile::Floor
+                {
                     continue;
                 }
                 let surface = z.ground_surfaces[i];
@@ -234,7 +264,7 @@ mod tests {
         z.set_surface_tiles(tiles);
         let albedo = z.ground.clone();
         let collision = z.surface_tiles.clone();
-        fill(&mut z, &kind, &relief);
+        fill(&mut z, &kind, &relief, None);
         assert!(z.ground_surfaces[(10 * z.pw + 15) as usize].normal[0] < -30);
         assert!(z.ground_surfaces[(10 * z.pw + 17) as usize].normal[0] > 30);
         assert_eq!(z.ground_surfaces[(8 * z.pw + 8) as usize], native);
@@ -258,8 +288,10 @@ mod tests {
                 .iter()
                 .enumerate()
                 .filter_map(|(i, &actual)| {
-                    if actual != k || z.ground[i].r < 0.0
-                        || z.tile_at((i as i32 % z.pw) as f32, (i as i32 / z.pw) as f32) != Tile::Floor
+                    if actual != k
+                        || z.ground[i].r < 0.0
+                        || z.tile_at((i as i32 % z.pw) as f32, (i as i32 / z.pw) as f32)
+                            != Tile::Floor
                     {
                         return None;
                     }
@@ -277,7 +309,8 @@ mod tests {
             let median = slopes[slopes.len() / 2];
             let laid_stone = matches!(k, K_PAVE | K_DECK | K_DAIS);
             let threshold = if laid_stone { 0.015 } else { 0.06 };
-            let visible = slopes.iter().filter(|&&s| s > threshold).count() as f32 / slopes.len() as f32;
+            let visible =
+                slopes.iter().filter(|&&s| s > threshold).count() as f32 / slopes.len() as f32;
             println!(
                 "Cinder material {k}: pixels {}, median lateral {median:.4}, visibly tilted {visible:.3}",
                 slopes.len()
@@ -287,7 +320,10 @@ mod tests {
                 "material {k} still has visually flat interiors: median {median:.4}, visible {visible:.3}"
             );
             if laid_stone {
-                assert!(median < 0.09, "worn stone became as rough as ash or grass: {median}");
+                assert!(
+                    median < 0.09,
+                    "worn stone became as rough as ash or grass: {median}"
+                );
             }
             medians.push(median);
         }

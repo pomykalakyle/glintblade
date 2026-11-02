@@ -1,0 +1,8 @@
+{
+  "description": "Create a different silhouette of this SAME tiny low lanceolate-leaf ground clump for a top-down pixel-art garden. Change the fan into two separated small leaf rosettes with fewer longer pointed leaves and visible gaps. Keep the exact restrained slate-green, sage and ivory palette, crisp native one-pixel art and upper-left lighting of the reference. It must still look like the same species and size of low plant, NOT a new shrub, flower or fern. Transparent background, no cast shadow or soil. Place all opaque artwork within x=2..29 and y=15..28 of this 32x32 canvas; root at (16,28), clear empty upper half. No enlargement or blurring.",
+  "width": 32,
+  "height": 32,
+  "no_background": true,
+  "seed": 73011,
+  "reference": "references/leaves.png"
+}

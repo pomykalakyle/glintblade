@@ -1,0 +1,37 @@
+{
+  "scope": "Ember hound and spitting totem; all three appearances",
+  "source_sha256": {
+    "src/entities/enemies/ember_hound.rs": "d55b32f579b31f9fd0cd579d7743f2a869b4cce94cd1f7267a02de4a11b04d69",
+    "src/entities/enemies/spitting_totem.rs": "1b09f0ed9f0ffecd00ecb0c7dca47249ea80ecd80c172348065fe99dd7faa979",
+    "tools/eightway/cinder.py": "f59527dcf8b69fd000089326186e0cf699fb95c4d6dda6e06ab3733a72d14c30"
+  },
+  "frozen_source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/cinder/frozen-v3",
+  "candidate_assets": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/cinder/assets-v3",
+  "rust_tests": {
+    "profile": "release",
+    "filter": "entities::enemies:: --skip sproutling --skip thorn_imp --skip crystal_beetle --skip wisp --skip basic",
+    "threads": 1,
+    "passed": 12,
+    "failed": 0,
+    "ignored": 0,
+    "conditions": [
+      "All eight directions and animation frames have authored lookups and native normal masks",
+      "Fractional airborne hound light remains on real emissive native ink",
+      "Full native paw/plinth support; collision radius unchanged",
+      "Exact old mirrored cardinal reference cell retained for death random stream",
+      "Afterimages retain selected diagonal pose; idle direction and muzzle attachment remain stable",
+      "Totem fixed physical launch source, exact marked landing, slash cancellation and death cleanup",
+      "Lunge aim lock and interrupt combat timings retained",
+      "All skin pose clocks, metadata and authored combat emission invariant"
+    ]
+  },
+  "export_rebuild": "All18scopedfilesbyte-exact",
+  "global_native_and_wasm": "Coordinator final integration gate",
+  "independent_review": {
+    "direction_contract": "PASS: all six appearances and every actual idle/move/windup/attack/hurt frame from assets-v3; all prior identity and volume blockers resolved. Frozen crops: lanes/contract/review/cinder-v3-allframes.",
+    "coverage_audit": "PASS selected corrected jasper movement, ivory attacks, copper idle/hurt and ceramic attacks.",
+    "normals_contact_source": "Historical sprite/normal rows unchanged; dimensions, alpha, normalized front-facing vectors, native paw/plinth silhouette supports pass. Full-width native supports approved.",
+    "matched_runtime_lighting": "Coordinator final integrated capture gate"
+  },
+  "installed": "All18activeassetsmatchstagedv3byte-exact; root coordinated installation."
+}

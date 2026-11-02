@@ -1,0 +1,372 @@
+{
+  "source_sha256": "e88da5e5a0597e11ede263c439d57cbf227f3a0bbaca5b773f4438a369c0ad29",
+  "planes": [
+    {
+      "name": "left-course-upright-front",
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            7,
+            45
+          ],
+          [
+            6,
+            46
+          ],
+          [
+            7,
+            47
+          ],
+          [
+            7,
+            48
+          ],
+          [
+            7,
+            49
+          ],
+          [
+            8,
+            50
+          ],
+          [
+            9,
+            50
+          ],
+          [
+            10,
+            49
+          ],
+          [
+            13,
+            48
+          ],
+          [
+            15,
+            47
+          ],
+          [
+            15,
+            46
+          ],
+          [
+            15,
+            45
+          ]
+        ]
+      ],
+      "samples": [
+        {
+          "xy": [
+            10,
+            46
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "xy": [
+            9,
+            49
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "xy": [
+            8,
+            50
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "left-course-dark-end",
+      "world_normal": [
+        -1,
+        0,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            3,
+            45
+          ],
+          [
+            3,
+            46
+          ],
+          [
+            3,
+            47
+          ],
+          [
+            3,
+            48
+          ],
+          [
+            3,
+            49
+          ],
+          [
+            4,
+            50
+          ],
+          [
+            6,
+            50
+          ],
+          [
+            6,
+            49
+          ],
+          [
+            6,
+            48
+          ],
+          [
+            6,
+            47
+          ],
+          [
+            5,
+            46
+          ],
+          [
+            5,
+            45
+          ]
+        ]
+      ],
+      "samples": [
+        {
+          "xy": [
+            4,
+            46
+          ],
+          "expected_world_normal": [
+            -1,
+            0,
+            0
+          ]
+        },
+        {
+          "xy": [
+            5,
+            49
+          ],
+          "expected_world_normal": [
+            -1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "central-course-upright-front",
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            21,
+            45
+          ],
+          [
+            20,
+            46
+          ],
+          [
+            17,
+            47
+          ],
+          [
+            19,
+            48
+          ],
+          [
+            21,
+            49
+          ],
+          [
+            22,
+            49
+          ],
+          [
+            25,
+            48
+          ],
+          [
+            25,
+            47
+          ],
+          [
+            28,
+            46
+          ],
+          [
+            28,
+            45
+          ]
+        ]
+      ],
+      "samples": [
+        {
+          "xy": [
+            24,
+            46
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "xy": [
+            21,
+            48
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "xy": [
+            22,
+            49
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "right-central-course-upright-front",
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            30,
+            45
+          ],
+          [
+            31,
+            46
+          ],
+          [
+            31,
+            47
+          ],
+          [
+            33,
+            47
+          ],
+          [
+            36,
+            46
+          ],
+          [
+            37,
+            45
+          ]
+        ]
+      ],
+      "samples": [
+        {
+          "xy": [
+            34,
+            46
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "xy": [
+            33,
+            45
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rightmost-course-upright-front",
+      "world_normal": [
+        0,
+        1,
+        0
+      ],
+      "polygons": [
+        [
+          [
+            40,
+            45
+          ],
+          [
+            41,
+            46
+          ],
+          [
+            44,
+            46
+          ],
+          [
+            44,
+            45
+          ]
+        ]
+      ],
+      "samples": [
+        {
+          "xy": [
+            42,
+            46
+          ],
+          "expected_world_normal": [
+            0,
+            1,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

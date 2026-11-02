@@ -1,0 +1,19 @@
+{
+  "request": {
+    "description": "Create a different silhouette of the SAME low broken pale limestone block wall. A stepped collapsed upper silhouette falls from three irregular blocks high on the left to a single low course on the right. Match native one-pixel edges, existing block size, length and thickness, shallow oblique top-down projection, muted pale gray/beige and moss palette, upper-left lighting. PRESERVE bottom support course rows45..52 unchanged, all opaque art inside x3..44,y18..52 on a transparent48x56 canvas. No cast shadow, pillar, arch or added props. Same object and scale, different broken outline and block arrangement.",
+    "width": 48,
+    "height": 56,
+    "no_background": true,
+    "seed": 73115,
+    "reference": "references/wall.png"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 29c12ac5-1fcf-4205-baae-d3a6eaf12021\njob_id: 29c12ac5-1fcf-4205-baae-d3a6eaf12021\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Create a different silhouette of the SAME low broken pale limestone block wall. A stepped collapsed upper silhouette falls from three irregular blocks high on the left to a single low course on the right. Match native one-pixel edges, existing block size, length and thickness, shallow oblique top-down projection, muted pale gray/beige and moss palette, upper-left lighting. PRESERVE bottom support course rows45..52 unchanged, all opaque art inside x3..44,y18..52 on a transparent48x56 canvas. No cast shadow, pillar, arch or added props. Same object and scale, different broken outline and block arrangement.\nseed: 73115\nasset_id: d55bbdf2-3452-5a02-b2d1-0babf8589f3c\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"29c12ac5-1fcf-4205-baae-d3a6eaf12021\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/29c12ac5-1fcf-4205-baae-d3a6eaf12021/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

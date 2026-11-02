@@ -1,0 +1,249 @@
+{
+  "columns": 8,
+  "cell": [
+    24,
+    24
+  ],
+  "frames": [
+    {
+      "animation": "idle_up_right",
+      "frame": 0,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 1,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 2,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 3,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 4,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 5,
+      "row": 15
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 0,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 1,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 2,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 3,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 4,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 5,
+      "row": 16
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 0,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 1,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 2,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 3,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 4,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 5,
+      "row": 17
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 0,
+      "row": 18
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 1,
+      "row": 18
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 2,
+      "row": 18
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 3,
+      "row": 18
+    },
+    {
+      "animation": "hurt_up_right",
+      "frame": 0,
+      "row": 19
+    },
+    {
+      "animation": "hurt_up_right",
+      "frame": 1,
+      "row": 19
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 0,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 1,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 2,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 3,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 4,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 5,
+      "row": 20
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 0,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 1,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 2,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 3,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 4,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 5,
+      "row": 21
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 0,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 1,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 2,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 3,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 4,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 5,
+      "row": 22
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 0,
+      "row": 23
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 1,
+      "row": 23
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 2,
+      "row": 23
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 3,
+      "row": 23
+    },
+    {
+      "animation": "hurt_down_right",
+      "frame": 0,
+      "row": 24
+    },
+    {
+      "animation": "hurt_down_right",
+      "frame": 1,
+      "row": 24
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-11-02T20:45:32.419769+00:00",
+  "baseline_commit": "cb8db521a725cd6fe54f96b820161ae3acbae047",
+  "scope": "Warden cohesion only. Existing concurrent regional/global renderer work is preserved.",
+  "changes": [
+    "Map exact legacy stone colors to the current torso slate family, keeping all prism colors, emission, masks and contours.",
+    "Author architectural head/hand/crystal-sill front, roof and side normals through every native pose.",
+    "Retain one torso assembly during attacks; two native sluice leaves slide into fixed jambs as the heart emerges.",
+    "Carry fractures with gate leaves and native knee folds; tuck the lower apron progressively instead of leaving a detached slab/cap.",
+    "Keep legacy material and pose keys for alternative non-slate body overrides."
+  ],
+  "source_sha256": {
+    "src/entities/boss.rs": "0070fbe6681021d7d3b3a92a7bb67cc314ae54427fcda0cc1f73ffc7048cddde",
+    "src/entities/boss/art.rs": "1e6e96f6ea0b366640cf4dcaa30f645421d0aac57ad416e053fb8aad8c49d04e",
+    "src/entities/boss/material.rs": "d9102fa7c1dbbf85215980bb2cea7bd60603189d3c74ec72b26e79517128dcee",
+    "src/entities/boss/pose.rs": "afecadf72f7f4678ce6c3dfd32c467a45ee009c9dd67a65fc5762e2d62ab30b1",
+    "src/entities/boss/cohesion_audit.rs": "95cd355279d1d5e7e4c08d40211072fa2de762be20ac1dbc7a7f02066773775e"
+  },
+  "unchanged_warden_asset_sha256": {
+    "assets/sprites/warden_body.json": "3694d1c24c90f81b8ff8d2073dda56e684f23ee7026a009d863c12648f9e5410",
+    "assets/sprites/warden_body.png": "3aa738b3d94e77fd0e21c4b89d39fe38c86aed3b170fdb11eb4fb135c7387f77",
+    "assets/sprites/warden_crystal.json": "b9dab10f1b526804ab62d26695fb328c5a801283775b888dc4489dac0a3ed765",
+    "assets/sprites/warden_crystal.png": "825025989ec7fd779a2d0dfc5435d4299fc11cb81265dd5bf07d13671db49dc1",
+    "assets/sprites/warden_fist.json": "531d0fa2380e7357fd26563ea443c769f18a62004a9995ef1dd5287e7c393ac3",
+    "assets/sprites/warden_fist.png": "25c9f7299eddd133a1078e4ea6bed3be91b94b774e26513cbdc4445096da85c5",
+    "assets/sprites/warden_head.json": "a8609a3c1b72593f04a2b76f6f3a6de55082c1f1ffbe3b04e6180f71a0c3dd3f",
+    "assets/sprites/warden_head.png": "fe67c789cedacff81a295c4ed6a62a23410bcc73535c12a229b7fc26f997a281",
+    "assets/sprites/warden_heart.json": "b85fe61029f0363b0c8632d69aaf3e037c291daea611118cf78dcc44ac4d8214",
+    "assets/sprites/warden_heart.png": "dd26d82dc88a064b2438e9a65420d2b9bc382cdc012a85366c987682c2629642",
+    "assets/sprites/warden_layout.json": "e85f68f2230775dd437435bfdcdd86b8f2e3a4db5ef50d45aabf996b15122937",
+    "assets/normals/warden_body.png": "5295ab5d98af51751279e95ad6f7bb9a24a51e0aa2eb60a9295add91db408e10",
+    "assets/normals/warden_crystal.png": "7e2c11d875e0aedce727bc348ca17cdf4f9eb1e9dc5094017555644d9d9dbecb",
+    "assets/normals/warden_fist.png": "39e79ea8e33257c9cbef9a7264980339983b9d13cf8e194e3808dadda54396b8",
+    "assets/normals/warden_head.png": "29686a253ddec920746d5aa78bdefa4ba92b831ac84c6224ec482b1135d802ed",
+    "assets/normals/warden_heart.png": "e35e5a25e5c7f28d36b4badf41ee9e0dc8f487c1de7db908bb649c8cb410f9d3"
+  },
+  "validation": {
+    "warden_functional_tests": 34,
+    "manual_capture_test": "passed; 268 final native poses",
+    "combined_release_lib_tests": {
+      "passed": 394,
+      "failed": 0,
+      "ignored": 7,
+      "performance_gates_filtered": 4,
+      "log": "out/warden-cohesion/functional-combined-final.log"
+    },
+    "excluded_performance_tests": [
+      "full_game_release_timing",
+      "actual_sword_break_full_render_timing",
+      "cinder_signature_render_timing",
+      "signature_live_game_stays_inside_eight_millisecond_budget"
+    ],
+    "builds": {
+      "glintblade-final-v3": {
+        "sha256": "b4015946eaa105a6e0724c823167bcdf9a464cad1155fb07ac3eaf8564507665",
+        "bytes": 26015248
+      },
+      "glintblade-final-v3.wasm": {
+        "sha256": "c49821f8a0b5ed6161496252b1d781a2fd65bf7cfad29244a17a3d21c82b1aad",
+        "bytes": 23285746
+      }
+    },
+    "exact_current_baseline_replay": {
+      "entire_report_equal": true,
+      "trace_samples": 227,
+      "milestones": {
+        "phase_2_damage": 1184,
+        "phase_2_heart_open": 1532,
+        "phase_3_damage": 2698,
+        "victory": 3407,
+        "warden_awake": 1,
+        "warden_dying": 3024
+      },
+      "victory_ready_tick": 3906,
+      "input": "real-input invulnerable Warden pilot; seed7; no injected damage"
+    },
+    "pose_invariants": {
+      "native_resolution": [
+        384,
+        216
+      ],
+      "captures": 268,
+      "all_surface_lit": true,
+      "all_native_feet_ground_error_px": 0,
+      "all_heart_and_fist_positions_equal_to_baseline": true
+    },
+    "fresh_visual_reviews": [
+      "out/warden-cohesion/reviews/stills-v3.md",
+      "out/warden-cohesion/reviews/motion-v3.md",
+      "out/warden-cohesion/reviews/material-v1.md"
+    ],
+    "review_fixes": [
+      "Folded apron slab and white T cap removed; final still and motion audits pass.",
+      "Closed-thumb roof normal spill corrected; exact roof/front samples pass."
+    ],
+    "commands": [
+      "GLINT_ASSETS=\"$PWD/assets\" cargo test --release --lib entities::boss",
+      "GLINT_ASSETS=\"$PWD/assets\" GLINT_WARDEN_AUDIT=/tmp/warden-audit-new cargo test --release --lib capture_warden_cohesion -- --ignored --nocapture --test-threads=1",
+      "GLINT_ASSETS=\"$PWD/assets\" cargo build --release",
+      "GLINT_ASSETS=\"$PWD/assets\" cargo build --release --target wasm32-unknown-unknown"
+    ]
+  },
+  "evidence": {
+    "accepted_baseline": "out/warden-cohesion/baseline-current",
+    "accepted_final": "out/warden-cohesion/poses-v3",
+    "comparison": "out/warden-cohesion/comparison.html",
+    "historical_only": "out/warden-cohesion/before-fight used an older shared-target asset snapshot and is excluded from acceptance comparisons."
+  },
+  "publication": "Local source and frozen native/WASM artifacts only; no shared web packaging, publishing or README change."
+}

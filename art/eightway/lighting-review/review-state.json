@@ -1,0 +1,145 @@
+{
+  "scope": "Independent read-only normals, contact and native-lighting audit. No runtime or asset writes.",
+  "baseline": {
+    "asset_root": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/baseline",
+    "atlases": 19,
+    "authored_frames": 1133,
+    "data_errors": 0
+  },
+  "runtime_contract": {
+    "normal_coordinate_system": "PNG OpenGL tangent X right, Y image up, Z toward viewer. Upright world normal is [PNG.X, PNG.Z, PNG.Y].",
+    "mirror": "DrawOpts.flip negates world normal X exactly once. Source columns remain unmirrored for support lookup; sprite raster mirrors both source and anchor.",
+    "masks": "Albedo alpha is authoritative. Sprite surfaces and caster masks use the exact accepted native pose and emission mask.",
+    "support": "Per-column native support registered before normal-height stamping. Hero body-only authored spans radius4/depth4; Sprout4/3; Imp4.5/3; Beetle fullwidth/8; Wisp4.5/2; Hound fullwidth/4; Totem fullwidth/5. Collision radii unchanged.",
+    "afterimages": "Silhouette/ghost sprites do not register normal receivers or opaque surface casters. They retain captured cell, anchor and flip.",
+    "sorting": "World actors sort by unchanged feet Y. Foreground reveal is pose-relative; physical shadow opacity remains separate from visual reveal.",
+    "motivated_lights": "Blade, crest, flame, ember and mouth sample actual live emissive native pixels; no invented body lantern."
+  },
+  "review_findings_sent": [
+    {
+      "id": "L01",
+      "finding": "GLINT_SPRITES candidate overrides load normals from embedded assets. New atlas dimensions can silently force fallback normals.",
+      "resolution": "Compile frozen production harness with GLINT_ASSETS set to the full matched candidate or installed asset root."
+    },
+    {
+      "id": "L02",
+      "finding": "Wisp originally hardcoded Dir::Down and omitted flip for draw/death.",
+      "resolution": "Fixed: all-eight visual facing and mirror propagate through draw/death, while historical gameplay Body::face remains unchanged; final correction has 1,920/1,920 byte-identical Wisp runtime PNGs."
+    },
+    {
+      "id": "L03",
+      "finding": "Totem fixed maw overlay and hound Left/Right eye metadata must follow diagonal native pose without changing gameplay launch offsets.",
+      "resolution": "Fixed and reviewed: native diagonal maw/eye emitters follow actual pose without changing gameplay launch offsets."
+    },
+    {
+      "id": "L04",
+      "finding": "Legacy hero unsuffixed death plus death_left interacts with strict diagonal lookup.",
+      "resolution": "Fixed: eight-way collapse rows; original unsuffixed receipt rows retained exactly."
+    },
+    {
+      "id": "L05",
+      "finding": "12 appended duplicate-art hero poses had newly generated normals causing landing/collapse discontinuity.",
+      "resolution": "Fixed: exporter reuses exact legacy normal field for all appended identical poses;83 duplicates pass."
+    },
+    {
+      "id": "L06",
+      "finding": "Nonemissive blade shadow #429aa9 crossed native body-center sole selection during diagonal attack/spin/hurt.",
+      "resolution": "Fixed:107 hero rows now exportbody-only support_spans; production Frame registers these beforestamping normal heights and cast shadows. Sourcefixtures corrected+6/+7 to+1."
+    },
+    {
+      "id": "L07",
+      "finding": "Glasswater geometric normal orientation used a camera basis inconsistent with its native projection.",
+      "resolution": "Fixed and independently validated: beetle nY+.4*nZ and Wisp nY+.55*nZ have no backfacing visible pixels across720 new frames."
+    },
+    {
+      "id": "L08",
+      "finding": "Wisp recoil revision repeated identical albedo with four differing shaded normal fields.",
+      "resolution": "Fixed: legacy-first canonical normal reuse; v5 zero duplicate drift, albedo preserved from v4."
+    },
+    {
+      "id": "L09",
+      "finding": "Unarmed hound/totem support was restricted to center radius and omitted outer native paws/plinth.",
+      "resolution": "Fixed and reviewed: scoped foot_full_width=true grounds outer native paws/plinths with unchanged collision radii; native support tests pass."
+    }
+  ],
+  "pending": null,
+  "tool": "tools/eightway/lighting_review.py",
+  "hero_source_audit": {
+    "frames": 562,
+    "rows": 107,
+    "native_support_frames": 562,
+    "exact_duplicate_normal_checks": 83,
+    "data_errors": 0,
+    "old39albedo_and_normal_rows_bitexact": true,
+    "artifact": "hero-source-audit.json",
+    "native_support_regressions": [
+      {
+        "animation": "attack1_down_right/down_left",
+        "frame": 3,
+        "old_heuristic_bottom_from_anchor": 6,
+        "native_body_bottom_from_anchor": 1
+      },
+      {
+        "animation": "attack3_down_right/down_left",
+        "frame": 4,
+        "old_heuristic_bottom_from_anchor": 7,
+        "native_body_bottom_from_anchor": 1
+      },
+      {
+        "animation": "spin_up_right",
+        "frame": 3,
+        "old_heuristic_bottom_from_anchor": 6,
+        "native_body_bottom_from_anchor": 1
+      },
+      {
+        "animation": "hurt_down_left",
+        "frame": 1,
+        "old_heuristic_bottom_from_anchor": 4,
+        "native_body_bottom_from_anchor": 1
+      }
+    ]
+  },
+  "source_pixels_reviewed": {
+    "hero": {
+      "all_directions": 8,
+      "all_applicable_bases": [
+        "idle",
+        "run",
+        "attack1",
+        "attack2",
+        "attack3",
+        "dash",
+        "charge",
+        "charge_walk",
+        "hurt",
+        "collapse",
+        "spin",
+        "fall",
+        "land"
+      ],
+      "views": [
+        "native all-frame boards",
+        "nearest-neighbor4x all-frame boards",
+        "native source/normal board"
+      ],
+      "finding": "No additional body/grip silhouette blocker after contact and normal continuity fixes."
+    },
+    "botanical": {
+      "looks": 6,
+      "review": "All native and nearest-enlarged applicable frames plus actual production four-region keys, home-region full matrices, moving sword light and live AI/combat/death."
+    }
+  },
+  "source_gate_summary": "source-gates.json",
+  "all_source_atlases_passed": 19,
+  "all_source_authored_frames": 3391,
+  "status": "PASS: source gates and final independent production-light/contact pixel review complete.",
+  "final_review": "final-review.json",
+  "final_render_evidence": {
+    "passed": true,
+    "report": "final-review.json",
+    "reviewed_visual_binary_sha256": "2f20f1f3cfbb03818bbde1fa4e974168ba9f5310c82cc1d773679b643573dbfd",
+    "corrected_wisp_binary_sha256": "55817b5b6cd496e88b752fdae341f2bf355af9ab1f0e3d7281106c2fc6975738",
+    "wisp_byte_identical_frames": 1920,
+    "unresolved_blockers": 0
+  }
+}

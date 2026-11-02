@@ -96,6 +96,12 @@ def main():
     selection = json.loads((ARCHIVE / "selection.json").read_text())
     for key, spec in selection["assets"].items():
         name = "round13_landmarks_" + key
+        if key == "distributor":
+            # Keep the original study/normal correction as historical evidence;
+            # the accepted square-on native replacement has its own recipe.
+            from distributor_rework import export
+            export(args.out, normal_out)
+            continue
         if not spec.get("active", True):
             # A full offline rebuild must not resurrect a rejected atlas. Only
             # this exporter's exact known outputs in the requested dirs change.

@@ -63,6 +63,7 @@ def support_rects(image, first_row):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--out', type=Path, default=ROOT / 'assets/sprites')
+    p.add_argument('--normals-out', type=Path)
     a = p.parse_args()
     out = a.out.resolve()
     out.mkdir(parents=True, exist_ok=True)
@@ -125,6 +126,10 @@ def main():
                 'native_pixel_policy': 'No resampling, mirroring or recoloring during packing. Region applies the existing lighting model.',
                 'source_sha256': hashes}
     (SOURCES / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    # The scoped contact-ink correction preserves native volume and support;
+    # rebuild its albedo and geometric base normals together.
+    from summit_columns import export as export_columns
+    export_columns(out, a.normals_out)
     print('Exported six native Summit sheets to', out)
 
 

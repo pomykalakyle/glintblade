@@ -1,0 +1,959 @@
+{
+  "audio_events": [
+    {
+      "music": "",
+      "tick": 1
+    },
+    {
+      "sound": "boss_roar",
+      "tick": 1,
+      "volume": 1.0
+    },
+    {
+      "music": "warden",
+      "tick": 2
+    },
+    {
+      "sound": "ui_move",
+      "tick": 26,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 32,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 38,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 44,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 50,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 56,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 62,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 68,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 74,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "ui_move",
+      "tick": 80,
+      "volume": 0.30000001192092896
+    },
+    {
+      "sound": "boss_telegraph",
+      "tick": 258,
+      "volume": 0.800000011920929
+    },
+    {
+      "sound": "boss_slam",
+      "tick": 281,
+      "volume": 1.0
+    },
+    {
+      "sound": "player_hurt",
+      "tick": 281,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 322,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 337,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 353,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_3",
+      "tick": 369,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_crack",
+      "tick": 374,
+      "volume": 0.25
+    },
+    {
+      "sound": "step_stone_2",
+      "tick": 385,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_telegraph",
+      "tick": 387,
+      "volume": 0.800000011920929
+    },
+    {
+      "sound": "step_stone_2",
+      "tick": 401,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_slam",
+      "tick": 410,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_3",
+      "tick": 421,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_2",
+      "tick": 437,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_3",
+      "tick": 453,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 469,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 485,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_crack",
+      "tick": 500,
+      "volume": 0.25
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 501,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_2",
+      "tick": 517,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 533,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_telegraph",
+      "tick": 536,
+      "volume": 0.8999999761581421
+    },
+    {
+      "sound": "step_stone_2",
+      "tick": 549,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_2",
+      "tick": 565,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_slam",
+      "tick": 566,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_slam",
+      "tick": 566,
+      "volume": 1.0
+    },
+    {
+      "sound": "boss_shockwave",
+      "tick": 567,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_3",
+      "tick": 587,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_3",
+      "tick": 603,
+      "volume": 1.0
+    },
+    {
+      "sound": "step_stone_1",
+      "tick": 619,
+      "volume": 1.0
+    }
+  ],
+  "capture_fps": null,
+  "end_pos": [
+    585.0,
+    325.8175964355469
+  ],
+  "enemies_defeated": 0,
+  "every": 0,
+  "frames": 7,
+  "from": 1,
+  "god": true,
+  "milestones": {
+    "warden_awake": 1
+  },
+  "pilot": null,
+  "pilot_delay": 0,
+  "scale": 1,
+  "scene": "play",
+  "seed": 7,
+  "simulation_hz": 60,
+  "start_pos": [
+    600.0,
+    300.0
+  ],
+  "ticks": 630,
+  "trace": [
+    {
+      "boss_hp": 60,
+      "cam": [
+        449,
+        169
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 15,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        454,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 30,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 45,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 60,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 75,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 90,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 105,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 120,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 135,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 150,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 165,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 180,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 195,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 210,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 225,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 240,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 255,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 270,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        457,
+        164
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 5,
+      "pos": [
+        600.0,
+        300.0
+      ],
+      "shard_taken": false,
+      "tick": 285,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        166
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        318.151611328125
+      ],
+      "shard_taken": false,
+      "tick": 300,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        600.0,
+        319.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 315,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        462,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        612.1339111328125,
+        319.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 330,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        482,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        634.5883178710938,
+        319.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 345,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        502,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        657.0883178710938,
+        319.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 360,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        519,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        679.5883178710938,
+        319.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 375,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        534,
+        167
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        702.0883178710938,
+        319.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 390,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        535,
+        171
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        704.9943237304688,
+        339.4997863769531
+      ],
+      "shard_taken": false,
+      "tick": 405,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        530,
+        178
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        705.0,
+        355.994140625
+      ],
+      "shard_taken": false,
+      "tick": 420,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        525,
+        200
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        705.0,
+        378.4941101074219
+      ],
+      "shard_taken": false,
+      "tick": 435,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        523,
+        223
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        705.0,
+        400.9941101074219
+      ],
+      "shard_taken": false,
+      "tick": 450,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        521,
+        245
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        705.0,
+        423.4941101074219
+      ],
+      "shard_taken": false,
+      "tick": 465,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        513,
+        256
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        692.8660888671875,
+        433.8601989746094
+      ],
+      "shard_taken": false,
+      "tick": 480,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        493,
+        256
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        670.4116821289062,
+        433.9057922363281
+      ],
+      "shard_taken": false,
+      "tick": 495,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        473,
+        256
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        647.9116821289062,
+        433.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 510,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        456,
+        256
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        625.4116821289062,
+        433.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 525,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        441,
+        256
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        602.9116821289062,
+        433.9058532714844
+      ],
+      "shard_taken": false,
+      "tick": 540,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        428,
+        251
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        585.3645629882812,
+        428.95294189453125
+      ],
+      "shard_taken": false,
+      "tick": 555,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        431,
+        234
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        585.00244140625,
+        411.3151550292969
+      ],
+      "shard_taken": false,
+      "tick": 570,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        437,
+        215
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        585.0,
+        393.3175964355469
+      ],
+      "shard_taken": false,
+      "tick": 585,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        441,
+        193
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        585.0,
+        370.8175964355469
+      ],
+      "shard_taken": false,
+      "tick": 600,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        444,
+        170
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        585.0,
+        348.3175964355469
+      ],
+      "shard_taken": false,
+      "tick": 615,
+      "zone": "summit"
+    },
+    {
+      "boss_hp": 60,
+      "cam": [
+        445,
+        155
+      ],
+      "deaths": 0,
+      "enemies_alive": 0,
+      "hp": 6,
+      "pos": [
+        585.0,
+        325.8175964355469
+      ],
+      "shard_taken": false,
+      "tick": 630,
+      "zone": "summit"
+    }
+  ],
+  "victory_ready": false,
+  "visited_zones": []
+}

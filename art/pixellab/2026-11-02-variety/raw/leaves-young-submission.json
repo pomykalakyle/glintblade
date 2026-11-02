@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "id: bb734a85-a7c5-4798-aaaa-475387a16a82\njob_id: bb734a85-a7c5-4798-aaaa-475387a16a82\nmode: text\nframes: 1\nsize: 32x32px\ntransparent: True\nedit: Create a different silhouette of the SAME tiny low lanceolate-leaf ground clump. Make a younger sparse clump with only five short lanceolate leaves around one visible small rooted center. Match the exact muted sage, slate-green and ivory palette, small native one-pixel edges and upper-left shading of the reference. This remains the same species and size of low plant: no flowers, fern, bush, soil or cast shadow. Transparent32x32 canvas; all opaque art inside x2..29,y15..28; rooted center at16,28. Empty upper half. No scaling, enlarged pixel blocks or blur.\nseed: 73104\nasset_id: f9cab5e9-c75d-5f68-8f3b-045627db58f8\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"bb734a85-a7c5-4798-aaaa-475387a16a82\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/bb734a85-a7c5-4798-aaaa-475387a16a82/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    }
+  ],
+  "isError": false
+}

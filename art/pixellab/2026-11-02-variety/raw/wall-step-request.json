@@ -1,0 +1,8 @@
+{
+  "description": "Create a different silhouette of the SAME low broken pale limestone block wall. A stepped collapsed upper silhouette falls from three irregular blocks high on the left to a single low course on the right. Match native one-pixel edges, existing block size, length and thickness, shallow oblique top-down projection, muted pale gray/beige and moss palette, upper-left lighting. PRESERVE bottom support course rows45..52 unchanged, all opaque art inside x3..44,y18..52 on a transparent48x56 canvas. No cast shadow, pillar, arch or added props. Same object and scale, different broken outline and block arrangement.",
+  "width": 48,
+  "height": 56,
+  "no_background": true,
+  "seed": 73115,
+  "reference": "references/wall.png"
+}

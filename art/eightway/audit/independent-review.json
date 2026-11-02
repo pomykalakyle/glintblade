@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "reviewer": "coverage_audit",
+  "status": "coverage_and_motion_audit_complete",
+  "findings": [
+    {
+      "id": "sproutling-oatcap-identity",
+      "severity": "blocker",
+      "original": "New v1 diagonal crown introduced tall green prongs and lost the original broad low oatcap fungus identity.",
+      "resolution": "Author replaced the diagonal anatomy with broad low dustyrose cap, dark gill line and ivory lichen. Independent enlarged movement-frame reinspection confirms the cap remains recognizable across all four diagonals.",
+      "state": "repaired_and_reinspected",
+      "before": "lanes/audit/botanical-static-v1/sproutling_v1/move-4x.png",
+      "after": "lanes/audit/botanical-static-v2/sproutling_v1/move-4x.png"
+    },
+    {
+      "id": "hound-jasper-volume",
+      "severity": "blocker",
+      "original": "New diagonal jasper glassback narrowed the rounded native plate into a long horn, causing a major volume and appearance pop.",
+      "resolution": "Author carried native PixelLab shoulder/head anatomy and a broad rigid rounded jasper plate into all diagonal frames. Independent trial and full movement-frame reinspection confirms the dome volume remains through NE/E/SE turns.",
+      "state": "repaired_and_reinspected",
+      "after": "art/eightway/cinder/evidence/ember_hound_v2-move-3x.png"
+    },
+    {
+      "id": "totem-copper-furnace-volume",
+      "severity": "blocker",
+      "original": "New copper furnace side/diagonal body became a narrow plain post, losing bulbous shoulders, twin flues and native furnace identity.",
+      "resolution": "Author replaced the flattened body with native three-quarter stepped shoulders, flues and furnace side box around the immutable outlet pivot. Independent idle/hurt all-frame review confirms coherent rigid volume.",
+      "state": "repaired_and_reinspected",
+      "after": "art/eightway/cinder/evidence/spitting_totem_v1-idle-3x.png"
+    },
+    {
+      "id": "native-hero-low-blade-support",
+      "severity": "blocker",
+      "original": "A nonemissive blade edge crossing below the feet could be inferred as a sole and lower actor support by6-7native pixels.",
+      "resolution": "Root and hero author introduced rig-authored body-only per-column support and pass it into production Player and raw diagnostic draws. Independent normals reviewer confirms562frames,83identical-art normal comparisons and39original rows.",
+      "state": "repaired_and_source_verified",
+      "evidence": "art/eightway/lighting-review/hero-source-audit.json"
+    },
+    {
+      "id": "actual-fixture-transition-gaps",
+      "severity": "coverage_gap",
+      "original": "Initial player fixture kept charge stationary, lacked180degree reversal and nonlethal-only hurt could not show collapse/respawn.",
+      "resolution": "Added separate player-transitions mode using production input, lethal hit/death clock and checkpoint respawn. Raw direction rows already cover all13bases.",
+      "state": "rendered_and_verified"
+    },
+    {
+      "id": "raw-world-floor-coverage",
+      "severity": "coverage_gap",
+      "original": "A wide eight-column grid at the real entry spans some backdrop/ledge cells, preventing complete foot-contact conclusions for those columns.",
+      "resolution": "Retained actual-region source evidence and added separate full receiving-floor matrix with original regional ambient/fill/grade and production lights/cast/contact. Actual Player/Enemy paths remain separate.",
+      "state": "rendered_and_verified"
+    },
+    {
+      "id": "moving-blade-light-all-appearances",
+      "severity": "coverage_gap",
+      "original": "Fixed regional diagnostic sources alone do not show all appearances responding to an actual moving sword source.",
+      "resolution": "Added sword-sweep with real Player input/update/draw circling each of18enemy appearances in all4regional settings; native idle/move/attack rotate through8directions; record actual moving point-light positions and receptor normals.",
+      "state": "rendered_and_verified"
+    },
+    {
+      "id": "initial-up-dash-camera",
+      "severity": "fixture_limit",
+      "original": "Initial fixed-camera player run lets UP dash/hurt exit viewport for15frames each in Bloomwild and Cinder; native source poses remain valid.",
+      "resolution": "Owner labels those30frames explicitly. New transitions mode follows the real body and retains all poses in view.",
+      "state": "rendered_and_verified"
+    },
+    {
+      "id": "static-gif-clock",
+      "severity": "audit_fixture_bug",
+      "original": "A constant17ms GIF delay was floored to10ms by the GIF centisecond format. Source animation clocks and production60fps motion captures were unaffected.",
+      "resolution": "With coordinator approval, corrected the exporter to use20/10/20ms error diffusion, regenerated all212GIFs under a fresh immutable tag, and independently decoded every file to verify its total duration.",
+      "state": "repaired_and_verified"
+    }
+  ],
+  "direct_reviewed_evidence": [
+    "lanes/hero/evidence/run_all_frames_4x.png",
+    "lanes/hero/evidence/attack1_all_frames_4x.png",
+    "lanes/hero/runtime-review/northeast_turn_stop_3x.png",
+    "lanes/hero/runtime-review/northeast_combat_3x.png",
+    "lanes/audit/botanical-static-v1/sproutling/move-4x.png",
+    "lanes/audit/botanical-static-v1/sproutling_v2/move-4x.png",
+    "lanes/audit/botanical-static-v1/thorn_imp/move-4x.png",
+    "lanes/audit/botanical-static-v1/thorn_imp_v2/windup-4x.png",
+    "art/eightway/cinder/evidence/ember_hound_v1-attack-3x.png",
+    "art/eightway/cinder/evidence/ember_hound_v2-move-3x.png",
+    "art/eightway/cinder/evidence/spitting_totem_v1-idle-3x.png",
+    "art/eightway/cinder/evidence/spitting_totem_v1-hurt-3x.png",
+    "art/eightway/cinder/evidence/spitting_totem_v2-attack-3x.png",
+    "final/audit/review/hero-glasswater-transitions-2x.png",
+    "final/audit/review/sproutling_v1-runtime-3x.png",
+    "final/audit/review/thorn_imp_v2-runtime-3x.png",
+    "final/audit/review/wisp_v1-runtime-3x.png",
+    "final/audit/review/ember_hound_v2-runtime-3x.png",
+    "final/audit/review/spitting_totem_v1-runtime-3x.png",
+    "final/audit/matrix/matrix/glasswater/crystal_beetle_v1/attack-frames-00.png",
+    "final/audit/matrix/matrix/cinder/ember_hound_v2/move-frames-00.png",
+    "final/audit/sword/sword-sweep/glasswater/wisp_v1/frame-048.png"
+  ],
+  "parallel_independent_reviews": {
+    "direction_contract": "Complete: all19appearances, all native directions and applicable animation frames independently reviewed; earlier anatomy/volume blockers repaired and accepted.",
+    "normals_contact_review": "Source gate complete. Peer remains active for final direct runtime lighting/contact pixel sign-off; root owns that aggregate report."
+  },
+  "final_reports": {
+    "summary": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/audit-summary.json",
+    "native_and_animation_gallery": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/static-corrected/index.html",
+    "actual_motion_gallery": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/combined/index.html",
+    "complete_pose_render_coverage": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/combined/render-coverage.json"
+  }
+}

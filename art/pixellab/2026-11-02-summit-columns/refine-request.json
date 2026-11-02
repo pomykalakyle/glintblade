@@ -1,0 +1,7 @@
+{
+  "description": "Refine ONLY the bottom footing of these SAME slotted stone piers. Preserve all upper76rows exactly. The current footing still looks like a raised tray or block sitting on the floor. Make it sit embedded INTO the surrounding paving. Keep the broad native stone top plane but make the visible vertical front faces ONLY THREE PIXELS TALL, not the current8to12pixels. Convert the upper part of each thick front face into horizontal top-facing masonry, retaining the same final bottom row. Use the muted blue-gray floor stone ramp #46526a for most of the bearing top, #2b3548for narrow frontfaces and #64738a for a few short bevel/chip accents. Remove the continuous bright edge rail and thick enclosed black foot outline; use a fine selective dark setting joint only along the actual floor contact. The shafts grow directly from the shared bearing course with no black separator seam. Preserve broken slotted shafts, sparse cracks and engineering-ruin character. No decorative pedestal, rubble, ground patch, extra ornaments, floor island or castshadow. Transparent native64x112 with margins, no scaling. The essential change is much SHALLOWER and lower-contrast footings that belong to the blue-gray stone paving.",
+  "width": 64,
+  "height": 112,
+  "no_background": true,
+  "seed": 811903
+}

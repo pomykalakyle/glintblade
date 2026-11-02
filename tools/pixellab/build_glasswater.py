@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path
 from PIL import Image
+from scenery_other_contacts import correct as correct_contacts
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCES = ROOT / 'art/pixellab/2026-11-01-round3/glasswater'
@@ -24,6 +25,9 @@ def pack(out, name, files, size, anchor, anim='body', notes=''):
     atlas = Image.new('RGBA', (size[0] * len(files), size[1]))
     for i, path in enumerate(files):
         atlas.paste(load(path, size), (i * size[0], 0))
+    # Reviewed ground-facing RGB only; native alpha, metadata, emitters and
+    # normal atlases remain paired with the original solid source geometry.
+    atlas, _ = correct_contacts(name, atlas)
     atlas.save(out / (name + '.png'))
     data = {'cell': size, 'anchor': anchor,
             'anims': {anim: {'row': 0, 'frames': len(files), 'fps': 1}},

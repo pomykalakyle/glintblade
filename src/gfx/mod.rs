@@ -5,6 +5,7 @@ pub mod light;
 pub mod lighting_hook;
 pub mod lighting;
 pub mod post;
+pub(crate) mod reflection;
 pub mod sprite;
 pub mod surface;
 pub(crate) mod terrain_detail;

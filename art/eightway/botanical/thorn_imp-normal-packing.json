@@ -1,0 +1,379 @@
+{
+  "columns": 8,
+  "cell": [
+    32,
+    32
+  ],
+  "frames": [
+    {
+      "animation": "idle_up_right",
+      "frame": 0,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 1,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 2,
+      "row": 15
+    },
+    {
+      "animation": "idle_up_right",
+      "frame": 3,
+      "row": 15
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 0,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 1,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 2,
+      "row": 16
+    },
+    {
+      "animation": "move_up_right",
+      "frame": 3,
+      "row": 16
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 0,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 1,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 2,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 3,
+      "row": 17
+    },
+    {
+      "animation": "windup_up_right",
+      "frame": 4,
+      "row": 17
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 0,
+      "row": 18
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 1,
+      "row": 18
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 2,
+      "row": 18
+    },
+    {
+      "animation": "attack_up_right",
+      "frame": 3,
+      "row": 18
+    },
+    {
+      "animation": "hurt_up_right",
+      "frame": 0,
+      "row": 19
+    },
+    {
+      "animation": "hurt_up_right",
+      "frame": 1,
+      "row": 19
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 0,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 1,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 2,
+      "row": 20
+    },
+    {
+      "animation": "idle_down_right",
+      "frame": 3,
+      "row": 20
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 0,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 1,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 2,
+      "row": 21
+    },
+    {
+      "animation": "move_down_right",
+      "frame": 3,
+      "row": 21
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 0,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 1,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 2,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 3,
+      "row": 22
+    },
+    {
+      "animation": "windup_down_right",
+      "frame": 4,
+      "row": 22
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 0,
+      "row": 23
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 1,
+      "row": 23
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 2,
+      "row": 23
+    },
+    {
+      "animation": "attack_down_right",
+      "frame": 3,
+      "row": 23
+    },
+    {
+      "animation": "hurt_down_right",
+      "frame": 0,
+      "row": 24
+    },
+    {
+      "animation": "hurt_down_right",
+      "frame": 1,
+      "row": 24
+    },
+    {
+      "animation": "windup_down_left",
+      "frame": 0,
+      "row": 27
+    },
+    {
+      "animation": "windup_down_left",
+      "frame": 1,
+      "row": 27
+    },
+    {
+      "animation": "windup_down_left",
+      "frame": 2,
+      "row": 27
+    },
+    {
+      "animation": "windup_down_left",
+      "frame": 3,
+      "row": 27
+    },
+    {
+      "animation": "windup_down_left",
+      "frame": 4,
+      "row": 27
+    },
+    {
+      "animation": "attack_down_left",
+      "frame": 0,
+      "row": 28
+    },
+    {
+      "animation": "attack_down_left",
+      "frame": 1,
+      "row": 28
+    },
+    {
+      "animation": "attack_down_left",
+      "frame": 2,
+      "row": 28
+    },
+    {
+      "animation": "attack_down_left",
+      "frame": 3,
+      "row": 28
+    },
+    {
+      "animation": "windup_up_left",
+      "frame": 0,
+      "row": 32
+    },
+    {
+      "animation": "windup_up_left",
+      "frame": 1,
+      "row": 32
+    },
+    {
+      "animation": "windup_up_left",
+      "frame": 2,
+      "row": 32
+    },
+    {
+      "animation": "windup_up_left",
+      "frame": 3,
+      "row": 32
+    },
+    {
+      "animation": "windup_up_left",
+      "frame": 4,
+      "row": 32
+    },
+    {
+      "animation": "attack_up_left",
+      "frame": 0,
+      "row": 33
+    },
+    {
+      "animation": "attack_up_left",
+      "frame": 1,
+      "row": 33
+    },
+    {
+      "animation": "attack_up_left",
+      "frame": 2,
+      "row": 33
+    },
+    {
+      "animation": "attack_up_left",
+      "frame": 3,
+      "row": 33
+    },
+    {
+      "animation": "windup_side_up_right",
+      "frame": 0,
+      "row": 35
+    },
+    {
+      "animation": "windup_side_up_right",
+      "frame": 1,
+      "row": 35
+    },
+    {
+      "animation": "windup_side_up_right",
+      "frame": 2,
+      "row": 35
+    },
+    {
+      "animation": "windup_side_up_right",
+      "frame": 3,
+      "row": 35
+    },
+    {
+      "animation": "windup_side_up_right",
+      "frame": 4,
+      "row": 35
+    },
+    {
+      "animation": "attack_side_up_right",
+      "frame": 0,
+      "row": 36
+    },
+    {
+      "animation": "attack_side_up_right",
+      "frame": 1,
+      "row": 36
+    },
+    {
+      "animation": "attack_side_up_right",
+      "frame": 2,
+      "row": 36
+    },
+    {
+      "animation": "attack_side_up_right",
+      "frame": 3,
+      "row": 36
+    },
+    {
+      "animation": "windup_side_down_right",
+      "frame": 0,
+      "row": 37
+    },
+    {
+      "animation": "windup_side_down_right",
+      "frame": 1,
+      "row": 37
+    },
+    {
+      "animation": "windup_side_down_right",
+      "frame": 2,
+      "row": 37
+    },
+    {
+      "animation": "windup_side_down_right",
+      "frame": 3,
+      "row": 37
+    },
+    {
+      "animation": "windup_side_down_right",
+      "frame": 4,
+      "row": 37
+    },
+    {
+      "animation": "attack_side_down_right",
+      "frame": 0,
+      "row": 38
+    },
+    {
+      "animation": "attack_side_down_right",
+      "frame": 1,
+      "row": 38
+    },
+    {
+      "animation": "attack_side_down_right",
+      "frame": 2,
+      "row": 38
+    },
+    {
+      "animation": "attack_side_down_right",
+      "frame": 3,
+      "row": 38
+    }
+  ]
+}

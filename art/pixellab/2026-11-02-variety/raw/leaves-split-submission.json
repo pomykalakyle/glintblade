@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "id: bc2fd50a-4180-4cbf-a446-4bb3316d495a\njob_id: bc2fd50a-4180-4cbf-a446-4bb3316d495a\nmode: text\nframes: 1\nsize: 32x32px\ntransparent: True\nedit: Create a different silhouette of the SAME tiny low lanceolate-leaf ground clump. Make two unequal leaf fans, one larger on the right and one smaller on the left, separated by a shallow V-shaped gap. Match the exact muted sage, slate-green and ivory palette, small native one-pixel edges and upper-left shading of the reference. This remains the same species and size of low plant: no flowers, fern, bush, soil or cast shadow. Transparent32x32 canvas; all opaque art inside x2..29,y15..28; rooted center at16,28. Empty upper half. No scaling, enlarged pixel blocks or blur.\nseed: 73106\nasset_id: 3d1c5af8-50de-54fa-8de1-b1b06265a165\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"bc2fd50a-4180-4cbf-a446-4bb3316d495a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/bc2fd50a-4180-4cbf-a446-4bb3316d495a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    }
+  ],
+  "isError": false
+}

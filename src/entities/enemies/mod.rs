@@ -192,7 +192,7 @@ impl Enemy {
             player: ctx.player, player_alive: ctx.player_alive, zone: ctx.zone,
             fx: &mut reference, hits: &mut hits, projectiles: &mut projectiles, t: ctx.t,
         };
-        variation::with_skin(0, || self.death_effect(&mut reference_ctx));
+        variation::with_reference_pose(|| variation::with_skin(0, || self.death_effect(&mut reference_ctx)));
         self.death_effect(ctx);
         ctx.fx.rng = reference.rng;
     }

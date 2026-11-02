@@ -1,0 +1,23 @@
+{
+  "result": "all18scopedfilesbyte-exact",
+  "files": {
+    "normals/ember_hound.png": "affcf56b9192fa307f8255dbc7e6bb3b9c1438c5e87a534bccdf60c6e21956f5",
+    "normals/ember_hound_v1.png": "ec6d06e8a9e369f7a573e93737156008a51bbd08d7d9d737a524cbdf49438caa",
+    "normals/ember_hound_v2.png": "16f08c9c8ce0f25331e5c84de94c0b7d5fcc18bb2d69b07dcc5e0d2083b372f2",
+    "normals/spitting_totem.png": "6ef3cc198525a3d2d1fdec353cf26b61ac7b448887fde30feda541affedbd82f",
+    "normals/spitting_totem_v1.png": "d69f5fe8f6e9248683e9790aaa3e60956f85cecdf5afa9ce99d32d59c692aa15",
+    "normals/spitting_totem_v2.png": "752f709a322671f802d5333ef040357b9edffd226a16030293547735bde39328",
+    "sprites/ember_hound.json": "a6e0b475d04b4172e65422775f5e4d3b164b872a83b4b53e025cceca906345df",
+    "sprites/ember_hound.png": "a2a1f1663736e7707b8c7986d8fda5a90dfb6711ff83aa09964e2774cd9b8b92",
+    "sprites/ember_hound_v1.json": "d6d4f139d674ebe0d1d81bed8bd44cfac827eb7a0dda6fe1e69bc87ff17986db",
+    "sprites/ember_hound_v1.png": "7ae2d63655301b2b2274a324775f37b0f8b624d1f26e0cd09a0ed60244692563",
+    "sprites/ember_hound_v2.json": "84be97c16b3671f1d419150267037f19eedd16c0bebf5dd43ee8a46d6c1e6624",
+    "sprites/ember_hound_v2.png": "641268d22ed1abc5fe245fee41f7c4c4a904fc89a45f040052f224dd39a67f85",
+    "sprites/spitting_totem.json": "0a2656109069e9e4db13ccd224c6edc52b6796ec67036d3037b4997c6204e85a",
+    "sprites/spitting_totem.png": "def47b1f1ad424befdd75fcaabcc07375d862747d83340cb772bd477cdf1f280",
+    "sprites/spitting_totem_v1.json": "4c5793ee1900442970402acad06c9d311a6af2e1897a3e698c6522897b841a60",
+    "sprites/spitting_totem_v1.png": "ceafbbff640d6f81099b5e326f4097d7670d2ae17a7840c1edecfc4cd1fddeed",
+    "sprites/spitting_totem_v2.json": "a96d264e56559c7e68c1bf0817c3d3fdffad2d494b83c5e7ff6a6b71da3a4a19",
+    "sprites/spitting_totem_v2.png": "57e485dc9bafd4a043847330c085b809ebad2e02b0c413a97817deb1c2a095d9"
+  }
+}

@@ -23,7 +23,6 @@ pub fn apply(z: &mut Zone, kinds: &Grid<u8>) {
         mineral(z, kinds, s);
     }
     workyards(z, kinds);
-    cooled_flows(z, kinds);
 }
 
 /// The surviving presses belong to work floors, rather than standing as isolated ornaments.
@@ -184,53 +183,6 @@ fn press_material_accents(z: &mut Zone, kinds: &Grid<u8>) {
                     O3
                 };
                 z.gset(x, y, c.lerp(ink, if copper { 0.61 } else { 0.48 }));
-            }
-        }
-    }
-}
-
-/// A few large cooling fans tell the old lava's direction across the ash. These are shallow
-/// sediment bands, not rocks: only dry ash receives them, with long clean intervals between.
-fn cooled_flows(z: &mut Zone, kinds: &Grid<u8>) {
-    use super::art::{A1, A3};
-    for (cx, cy, length, bend, flip) in [
-        (845, 335, 126, 10, false),
-        (267, 659, 72, 14, true),
-        (1038, 441, 88, 8, false),
-    ] {
-        for band in 0..3 {
-            let span = length - band * 18;
-            for x in -span / 2..=span / 2 {
-                // Broad, stepped curves share a geological direction; no random speckles.
-                let t = x as f32 / (length as f32 * 0.5);
-                let curve = (t * t * bend as f32) as i32;
-                let yy = cy + band * 5 + if flip { -curve } else { curve };
-                for dy in 0..3 {
-                    let (wx, wy) = (cx + x, yy + dy);
-                    if !kinds.inside(wx, wy) || kinds.at(wx, wy) != super::paint::K_ASH {
-                        continue;
-                    }
-                    // Keep a little air around every end. The seam is part of an old cooled
-                    // sheet, with a subdued lower lip instead of an emissive orange stripe.
-                    if x.abs() > span / 2 - 3 && dy != 1 {
-                        continue;
-                    }
-                    let c = z.gget(wx, wy);
-                    z.gset(
-                        wx,
-                        wy,
-                        c.lerp(
-                            if dy == 2 { A3 } else { A1 },
-                            if dy == 2 { 0.19 } else { 0.30 },
-                        ),
-                    );
-                    // A shallow cooled seam and its lower lip follow this exact
-                    // painted curve; broad ash shading never enters the geometry.
-                    let slope = 2.0 * t * bend as f32 / (length as f32 * 0.5)
-                        * if flip { -1.0 } else { 1.0 };
-                    let ny = if dy == 0 { 0.20 } else if dy == 2 { -0.20 } else { 0.0 };
-                    z.gset_plane_surface(wx, wy, [-slope * ny, ny, 0.98], 0.0);
-                }
             }
         }
     }

@@ -1,0 +1,65 @@
+{
+  "cell": [
+    40,
+    56
+  ],
+  "anchor": [
+    20,
+    52
+  ],
+  "emissive": [
+    "#e2d8e9"
+  ],
+  "anims": {
+    "clenched": {
+      "row": 0,
+      "frames": 4,
+      "fps": 3.0,
+      "durations": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "loop": true
+    },
+    "open": {
+      "row": 1,
+      "frames": 4,
+      "fps": 3.0,
+      "durations": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "loop": true
+    },
+    "open_lit": {
+      "row": 2,
+      "frames": 4,
+      "fps": 8.57,
+      "durations": [
+        8,
+        6,
+        6,
+        8
+      ],
+      "loop": true
+    },
+    "slam": {
+      "row": 3,
+      "frames": 5,
+      "fps": 4.76,
+      "durations": [
+        8,
+        26,
+        3,
+        12,
+        14
+      ],
+      "loop": false
+    }
+  },
+  "notes": "Floating sluice counterweight hand: wrist cuff (the crystal seat), a weight block with a lifting slot, a hooked thumb (toward the body) and two curled clamp fingers. Drawn as the screen-right hand; mirror it for the left. Anchor = bottom centre of the clamp (the slam contact point). clenched / open: hovering bob (open = the clamp spread flat on the floor, used kneeling and dormant). open_lit: the lifting slot fills with iris light (charging the beam). slam: 0 rise (lifted 9, slot starting to fill), 1 wind-up hold (lifted 23 and stretched 3, slot blazing = the telegraph), 2 falling (lifted 3, stretched 5, streaks), 3 impact squash 6 px, clamp pressed flat, with stone chips (spawn the shockwave here), 4 recover. The lifts are baked in and cancelled by the runtime; keep the fist anchor on the slam target for the whole anim."
+}

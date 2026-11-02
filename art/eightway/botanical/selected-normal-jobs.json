@@ -1,0 +1,69 @@
+{
+  "selection": "authored native anatomical diagonals; six complete PixelLab OpenGL normal bakes",
+  "parameters": {
+    "mode": "lite",
+    "kind": "character",
+    "convention": "opengl",
+    "strength": 0.65,
+    "outline_rounding": 0.7,
+    "part_shapes": 0.9,
+    "surface_detail": 0.1,
+    "detail_softness": 1
+  },
+  "jobs": {
+    "sproutling": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 67b536f9-de1f-40d3-930c-9a392ad28103\njob_id: 67b536f9-de1f-40d3-930c-9a392ad28103\nsource: 192x144px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 6c854c21-4ba7-51b4-bb93-1e62944c51a0\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"67b536f9-de1f-40d3-930c-9a392ad28103\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/67b536f9-de1f-40d3-930c-9a392ad28103/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "sproutling_v1": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 62b565a9-9843-42bd-84c9-03d68d6b4ac3\njob_id: 62b565a9-9843-42bd-84c9-03d68d6b4ac3\nsource: 192x144px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 605980b1-12e3-5652-a897-437eac85fd70\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"62b565a9-9843-42bd-84c9-03d68d6b4ac3\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/62b565a9-9843-42bd-84c9-03d68d6b4ac3/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "sproutling_v2": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 11ef42c3-0576-4a60-bbf0-2c78b0f37605\njob_id: 11ef42c3-0576-4a60-bbf0-2c78b0f37605\nsource: 192x144px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 8669e40e-eccd-59e0-8dfb-e07f8755029b\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"11ef42c3-0576-4a60-bbf0-2c78b0f37605\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/11ef42c3-0576-4a60-bbf0-2c78b0f37605/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "thorn_imp": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: d5153566-5cd7-4434-a7f7-0a98072fc58a\njob_id: d5153566-5cd7-4434-a7f7-0a98072fc58a\nsource: 256x320px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 4cc4003a-a95b-5e89-8c40-241b3a1affba\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"d5153566-5cd7-4434-a7f7-0a98072fc58a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/d5153566-5cd7-4434-a7f7-0a98072fc58a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "thorn_imp_v1": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 22ca2743-90db-4952-b043-75e02500179a\njob_id: 22ca2743-90db-4952-b043-75e02500179a\nsource: 256x320px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 9f1585a4-921f-5545-887f-2011e7a2eebd\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"22ca2743-90db-4952-b043-75e02500179a\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/22ca2743-90db-4952-b043-75e02500179a/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    },
+    "thorn_imp_v2": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: f136df1b-0417-428b-b4ef-9989fac2b175\njob_id: f136df1b-0417-428b-b4ef-9989fac2b175\nsource: 256x320px\nconvention: opengl (green up)\nkind: character\nlook: strength 0.65, outline_rounding 0.7, part_shapes 0.9, surface_detail 0.1, detail_softness 1; the rest where the kind puts them\nasset_id: 83d19e7e-b502-55e9-9035-327d1c60e9b1\nasset_status: pending (saved to the gallery when it completes)\nmode: lite\ncost: 0.1 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"f136df1b-0417-428b-b4ef-9989fac2b175\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/f136df1b-0417-428b-b4ef-9989fac2b175/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+        }
+      ],
+      "isError": false
+    }
+  }
+}

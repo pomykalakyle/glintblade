@@ -586,7 +586,7 @@ impl Beam {
                 // The prism sits over 100px above the floor; a 24px source could only light
                 // its own crown. Keep its actual altitude and let the charge reach the body.
                 f.add_light_3d_w(ox, oy + height, height,
-                    (height + 40.0).clamp(72.0, 152.0), PW, 0.12 + 0.7 * ramp);
+                    (height + 40.0).max(72.0), PW, 0.12 + 0.7 * ramp);
             } else {
                 f.add_light_3d_w(ox, oy+height, height, 12.0 + k * 12.0, PW, 0.18 + k * 0.18);
             }
@@ -648,7 +648,7 @@ impl Beam {
                 (1.0 - (self.t - fire_end) as f32 / BEAM_FADE as f32).max(0.0)
             };
             let rise = ((self.t - self.charge + 1) as f32 / 4.0).min(1.0);
-            let radius = (height + 40.0).clamp(72.0, 152.0);
+            let radius = (height + 40.0).max(72.0);
             // Three coherent sources replace eight nearly invisible pearls. Every source
             // remains on the actual moving beam at its real prism altitude. The origin is
             // strongest; the two distant contributions remain restrained and fade together.

@@ -1,0 +1,17 @@
+{
+  "recipe": "tools/eightway/cinder.py",
+  "historical_receipts": "source/{sprites,normals}",
+  "PixelLab": [
+    {"design": "ivory hound", "object": "dfc1c39a-0e98-44d9-9334-4e9d831b02ab", "job": "1f4795ef-e52e-4fa5-b656-7416208da9a3", "native_output": [40,40], "estimated_subscription_generations": 1},
+    {"design": "jasper hound", "object": "0ace9bfa-9a57-4f3c-90d0-07e426215ca1", "job": "0667379e-8b70-4f6a-92d1-43f0b398f635", "native_output": [40,40], "estimated_subscription_generations": 1},
+    {"design": "twin-flue copper furnace", "object": "82166e83-3471-4d81-a87f-51dcae6ce40a", "job": "4ec71d5c-0f99-4c28-9bf8-b64eeaadcbf1", "native_output": [36,36], "estimated_subscription_generations": 1},
+    {"design": "ceramic kiln", "object": "5ec61935-ab6e-4450-9068-e315991a6e46", "job": "79beb217-e927-4f1d-a7c4-5533ce4097c0", "native_output": [36,36], "estimated_subscription_generations": 1}
+  ],
+  "hound_registration": "Square padding removed by native integer registration. Excess distal leg rows shortened at the shin joints; head and defining shoulder material cutouts retain their native pixel dimensions. Dorsal obsidian plates are explicitly authored. Body, near/far legs and head remain separate native animation pieces.",
+  "hound_animations": "Idle breath, alternating independent leg chains, crouch/compression, airborne extended leg chains, recoil/hurt. Shoulder plates remain rigid through every frame. Afterimages retain actual source cell and direction. Death uses selected facing and appearance.",
+  "totem_registration": "Square transparent padding cropped; upper furnace shortened only at a belly seam, then native lower plinth retained. Basalt fin has authored quarter-view sideplanes and a real continuous aperture. Copper retains broad twin flues and shoulders; ceramic retains its enclosing arch and cavity.",
+  "totem_fixed_parts": "A stationary furnace has a fixed native firing pivot. The historical central outlet/backplate and original lob launch stay fixed; upper vanes/vent shell face the aim. All new animation rows preserve the original charge/recoil durations. The plinth remains anchored.",
+  "normals": "Historical normal rows unchanged. Native geometric part-volume normals on the exact new albedo grid, with signed X side planes and matched alpha; no albedo brightness interpreted as height. Explicit left original side rows use reflected red vectors.",
+  "rejected_trial": "Initial parametric three-dimensional rig was rejected in direct independent review: ivory armor/jasper shells narrowed and furnace variants lost their characteristic broad shoulders. New source-native turns replace it.",
+  "gameplay": "Body face, velocity, normalization, lunge aim, hit capsules, lock timing, projectile launch and trajectories unchanged. Shared simulation death random stream uses historical cardinal reference poses, while actual visible debris uses new facing."
+}

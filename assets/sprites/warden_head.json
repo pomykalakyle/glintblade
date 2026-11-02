@@ -1,11 +1,11 @@
 {
   "cell": [
-    44,
-    44
+    64,
+    64
   ],
   "anchor": [
-    22,
-    41
+    32,
+    61
   ],
   "emissive": [
     "#e2d8e9"
@@ -50,5 +50,6 @@
       "loop": false
     }
   },
-  "notes": "A heavy level lintel over a dark recess with one narrow iris slit in a black socket; the slit's ends dip and the iris is a low dome resting on the lower lid, watching the ground in front. Anchor = the neck point (bottom centre). idle: the eye watches: a short heavy blink, open, a slow glance left, back. flare: the slit fills and blazes (telegraph before an attack). roar: dip with the eye squinted, lift 2/3/3/3 with a 1 px rumble as it snaps open, settle; the lintel lifts one more pixel at the peak so the slit opens taller. The lift is baked into the frames (peak 3 px), so the body's dark neck notch shows under the head."
+  "notes": "Upper eye recess of one carved facade: heavy inward-stepped overhanging brow, deep slit and straight stone cheek planes continuing past the open lower sprite boundary into chest pilasters. No neck, chin wedge, bottom outline, flange or collar shelf. Static stone silhouette in every animation; inset glass widens through flare/roar. Original frame durations. Native13-slate+4-prism palette. Only PW emits. Normals are explicit front/top/chamfer planes in PNG XZY world encoding.",
+  "integrated_head": true
 }

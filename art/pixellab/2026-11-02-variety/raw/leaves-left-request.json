@@ -1,0 +1,8 @@
+{
+  "description": "Create a different silhouette of the SAME tiny low lanceolate-leaf ground clump. Make an asymmetric left-heavy fan of seven pointed leaves, with an exposed small root on the right. Match the exact muted sage, slate-green and ivory palette, small native one-pixel edges and upper-left shading of the reference. This remains the same species and size of low plant: no flowers, fern, bush, soil or cast shadow. Transparent32x32 canvas; all opaque art inside x2..29,y15..28; rooted center at16,28. Empty upper half. No scaling, enlarged pixel blocks or blur.",
+  "width": 32,
+  "height": 32,
+  "no_background": true,
+  "seed": 73101,
+  "reference": "references/leaves.png"
+}

@@ -1,0 +1,8 @@
+{
+  "description": "Make a native pixel-art variation of this SAME short broken limestone column on its stepped square plinth. Change the broken shaft into an asymmetric jagged split with one taller left remnant and a deep diagonal missing chunk on the right. Keep the same weathered pale gray limestone, muted moss, exact oblique top-down projection, crisp pixel size, scale and upper-left light. Keep the entire bottom stepped plinth and its support pixels unchanged, especially rows40..53; the object must still finish at y53 with two transparent bottom gutter rows. Alter only the upper broken stone silhouette and cracks; avoid adding glowing bits, rubble heaps or new objects. 48x56 transparent canvas with generous clear margins, native one-pixel edges.",
+  "width": 48,
+  "height": 56,
+  "no_background": true,
+  "seed": 73021,
+  "reference": "references/column.png"
+}

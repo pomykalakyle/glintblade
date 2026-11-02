@@ -1,0 +1,440 @@
+{
+  "schema": 1,
+  "passed": true,
+  "reviewer": "Independent normals_contact_review native agent; read-only runtime and assets.",
+  "completed_utc": "2026-11-02T21:23:15.539359+00:00",
+  "verdict": "No unresolved native-normal, light registration, contact/support, cast-shadow, attachment or transition blocker in the inspected final evidence.",
+  "scope": {
+    "actor_appearances": 19,
+    "enemy_archetypes": 6,
+    "enemy_appearances": 18,
+    "directions": 8,
+    "regions": [
+      "bloomwild",
+      "glasswater",
+      "cinder",
+      "summit"
+    ]
+  },
+  "source_gate": {
+    "atlases": 19,
+    "authored_source_frames": 3391,
+    "legacy_source_frames": 1133,
+    "new_source_frames": 2258,
+    "errors": 0,
+    "legacy_albedo_and_normal_rectangles_changed_pixels": 0,
+    "integrated_assets": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/source-v1/assets",
+    "data_checks": [
+      "Exact sprite/normal alpha, dimensions and binary alpha",
+      "Unit encoded normals within 2%",
+      "Mirrored nonemissive normal X sign",
+      "Exact-art held-pose normal continuity",
+      "Strict eight-way row coverage without cardinal fallback",
+      "Original source rectangles retained exactly",
+      "All 562 hero frames have valid body-only support spans before held blade/hilt",
+      "Glasswater visible geometry faces the exact .4 beetle/.55 Wisp projection basis"
+    ],
+    "report": {
+      "path": "/home/krp/Projects/glintblade/art/eightway/lighting-review/source-gates.json",
+      "sha256": "6435e54d0edc0ef76e0c7131a7184cd9e7b9003213e971e3ccc59841c36a93c7"
+    },
+    "detailed_report": {
+      "path": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/integrated-final/source-normal-contact-audit.json",
+      "sha256": "2f96040adedb4d13941dcf18c8448b95c9fcf91a1ae2bc9e4e492d5b124d0da8"
+    },
+    "tool": {
+      "path": "/home/krp/Projects/glintblade/tools/eightway/lighting_review.py",
+      "sha256": "dbdc716e16894339b1703c1e72a98cea419a3262bc34aa635a91f433c53ac864"
+    }
+  },
+  "direct_pixel_review": [
+    {
+      "evidence": "All 19 actor native and nearest-neighbor enlarged all-frame source boards",
+      "coverage": "Every authored applicable frame; 13 hero animation bases and all six enemy families/three appearances. Includes conditional Imp diagonal side-hand rows.",
+      "result": "PASS"
+    },
+    {
+      "evidence": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/final-lit-boards",
+      "coverage": "All 18 enemy appearance home-region full all-frame boards viewed at nearest 2x. Six four-region family key boards cover all appearances, four diagonals and idle/windup/attack/hurt; all 488 matrix pages repacked in 76 native/2x boards.",
+      "result": "PASS: normal response, native silhouettes, full-width paws/plinths, contact and intentional hover."
+    },
+    {
+      "evidence": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/final-sword-boards",
+      "coverage": "All 18 appearances, each in all four region profiles; native temporal strips select all eight direction/phase steps from each moving production blade group.",
+      "result": "PASS: moving illumination follows actual native receivers; no reversed mirrored normals, disconnected foot shadow or phantom light."
+    },
+    {
+      "evidence": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/review",
+      "coverage": "Actual AI/update/draw 60fps combat/hurt/death filmstrips for the first 12 enemy appearances and final hero transitions across all four regions.",
+      "result": "PASS: contact, hover, damage flash, attachment, death/debris and foreground reveal."
+    },
+    {
+      "evidence": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/final-live-boards",
+      "coverage": "All six Cinder appearance combat/hurt/death strips plus all three Hound actual phase onset/mid/end sheets (Prowl/Crouch/Lunge/Skid/Recover/Stagger where observed).",
+      "result": "PASS: outer paws/plinth contact, leap/support semantics, native eye/maw light and death disappearance."
+    },
+    {
+      "evidence": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/hero/runtime-review",
+      "coverage": "Hero northeast walk/stop/east turn/NE return; combo/charge/spin/dash/hurt; all-direction selected action grids in four regions.",
+      "result": "PASS: weapon grip/scarf continuity, support, normal registration, source motion and stable turn/stop."
+    },
+    {
+      "evidence": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/review/hero-{region}-transitions-2x.png",
+      "coverage": "Directly viewed final Bloomwild, Glasswater, Cinder and Summit NE camera-follow transition boards including charge-walk, reversal, death and respawn. Machine receipts cover all 32 direction/region cases.",
+      "result": "PASS: no newly observed attachment/contact/shadow blocker; final camera-follow supplement has zero offscreen non-dead frames."
+    }
+  ],
+  "automated_render_evidence": {
+    "structural_and_motion_gates_passed": true,
+    "required_state_direction_entries": 824,
+    "required_native_pose_frames": 3520,
+    "capture_counts": {
+      "grounded_matrix_pages": 488,
+      "actual_enemy_60fps": 11520,
+      "camera_follow_player_transitions_60fps": 14080,
+      "actual_moving_sword_source_30fps": 3456,
+      "previous_player_60fps": 7040,
+      "previous_hero_actual_region_pages": 104
+    },
+    "joined_capture_pages_and_frames": 36688,
+    "motion_clips": 154,
+    "missing_render_poses": 0,
+    "invalid_normal_frames": 0,
+    "sword_groups": 72,
+    "minimum_unique_sword_light_positions_per_group": 47,
+    "fully_hidden_sword_receptors": 0,
+    "actual_enemy_directions_per_appearance": 8,
+    "offscreen_nondead_transition_frames": 0,
+    "independent_live_manifest_scan": "11,520 live Enemy records had zero invalid visible actor normals; 378 post-death records had zero visible actor receivers.",
+    "coverage_report": {
+      "path": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/combined/render-coverage.json",
+      "sha256": "1ed33eabe27d9552cd43ab26c79b9c97546fe54fe33dd8bbb9d8578600e9dc8c"
+    },
+    "summary_report": {
+      "path": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/audit-summary.json",
+      "sha256": "7197b44f7090a42d98c47ed5b227c43d41e250d0a22e9c787ec2b04e2fa6618c"
+    },
+    "motion_gallery": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/audit/combined/index.html"
+  },
+  "snapshot_lineage": {
+    "reviewed_visual_binary": {
+      "path": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/glintblade",
+      "sha256": "2f20f1f3cfbb03818bbde1fa4e974168ba9f5310c82cc1d773679b643573dbfd"
+    },
+    "corrected_wisp_binary": {
+      "path": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/glintblade-actorfix",
+      "sha256": "55817b5b6cd496e88b752fdae341f2bf355af9ab1f0e3d7281106c2fc6975738"
+    },
+    "corrected_wisp_delta": "Wisp visual direction no longer mutates historical gameplay Body::face; atlas pixels and real rendered frame bytes unchanged.",
+    "wisp_equivalence": {
+      "passed": true,
+      "compared_pngs": 1920,
+      "missing_pngs": 0,
+      "different_pngs": 0,
+      "receipt": {
+        "path": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/wisp-parity/visual-equivalence.json",
+        "sha256": "03f440ae29a6b151cb565f43f32a5d6cfb2518dc532d4ac045a4dc683ff60382"
+      }
+    },
+    "final_source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/final/source-v2",
+    "actor_asset_files_compared_v1_v2": 57,
+    "changed_actor_asset_files_v1_v2": 0,
+    "asset_equivalence": [
+      {
+        "file": "sprites/hero.png",
+        "identical": true,
+        "sha256": "d29ab2642ff91dd235f8d206a66b6e5e23142cc04ee78b659b946c5688789f3b"
+      },
+      {
+        "file": "sprites/hero.json",
+        "identical": true,
+        "sha256": "debf7e3b0806e454091d35c4865b9b2e14676099ec3073ffab46aa5598759ec9"
+      },
+      {
+        "file": "normals/hero.png",
+        "identical": true,
+        "sha256": "286acf89d6efff869788fd5d93eae8403c2c1df11dc49c6dfb7050e10bb911e0"
+      },
+      {
+        "file": "sprites/sproutling.png",
+        "identical": true,
+        "sha256": "e0e45cbeff5edd51777e76d515f45bd97331c9eed4092bc56e513e6fc9f11a4d"
+      },
+      {
+        "file": "sprites/sproutling.json",
+        "identical": true,
+        "sha256": "0dd758dd39b198ac20cb6ec921c6dcdde145b86fd3c73a4e28285ed08888315e"
+      },
+      {
+        "file": "normals/sproutling.png",
+        "identical": true,
+        "sha256": "afcbeb791be71b74de755a1c1535516bc0c101e3dba13b35c32a535500a5d9d2"
+      },
+      {
+        "file": "sprites/sproutling_v1.png",
+        "identical": true,
+        "sha256": "6921722d5f5042e06dbdd71897ef8bb674a80199dbd602c722e0efa0daadfed5"
+      },
+      {
+        "file": "sprites/sproutling_v1.json",
+        "identical": true,
+        "sha256": "e3f1a3121587b1121331ec714c7d27980f211f95e20b7f8facb56dca6a555bb0"
+      },
+      {
+        "file": "normals/sproutling_v1.png",
+        "identical": true,
+        "sha256": "d9cfc29f154a043194f60444e5d0e8a7bec9b894021eee5b2c341f3292e342c5"
+      },
+      {
+        "file": "sprites/sproutling_v2.png",
+        "identical": true,
+        "sha256": "9ae48c03fad0c7000f8ed6194308df1ff97a48c5b16726075c6c6169e766bd6a"
+      },
+      {
+        "file": "sprites/sproutling_v2.json",
+        "identical": true,
+        "sha256": "12e52f64e6e21b3c66ab66058b3e1a73ef81d0c32287ed219abae2a736bc7bc8"
+      },
+      {
+        "file": "normals/sproutling_v2.png",
+        "identical": true,
+        "sha256": "9740e5cce5028a37ef7c5fb1e33f064d69dc9d86ca2cba0bf4ec89d0f08310dc"
+      },
+      {
+        "file": "sprites/thorn_imp.png",
+        "identical": true,
+        "sha256": "9200ccad9ef8260a0fff119da744b2573aad3cc060fd749cd30c38c69bc3900c"
+      },
+      {
+        "file": "sprites/thorn_imp.json",
+        "identical": true,
+        "sha256": "507206cdede582ac2fb595373d22ec52bbeac0e58d68740d222324124216ee6a"
+      },
+      {
+        "file": "normals/thorn_imp.png",
+        "identical": true,
+        "sha256": "374fa68ffac0a7124f87e9ff87e0cdf9efd8fdc846a35a68fdcab6b912915f96"
+      },
+      {
+        "file": "sprites/thorn_imp_v1.png",
+        "identical": true,
+        "sha256": "874f139511a7e94f4b6900970379450c1094c650dd0962e711da793f4930bf22"
+      },
+      {
+        "file": "sprites/thorn_imp_v1.json",
+        "identical": true,
+        "sha256": "7b55fdf321cfc192d07839637baeaca6194ebe758a6a67c6bda8025f73d233c7"
+      },
+      {
+        "file": "normals/thorn_imp_v1.png",
+        "identical": true,
+        "sha256": "61cafebca8afd3dba260dd648fe856bb668f3e03ae24364424bd341f5309726e"
+      },
+      {
+        "file": "sprites/thorn_imp_v2.png",
+        "identical": true,
+        "sha256": "e8fea83ec0542525bdb3690a39a95954d17f03732d4cd4cb64a63ae6ae865fe5"
+      },
+      {
+        "file": "sprites/thorn_imp_v2.json",
+        "identical": true,
+        "sha256": "7de9fb050c89392695f78a57610e3307fa7640b93c681babacb600effc8d6735"
+      },
+      {
+        "file": "normals/thorn_imp_v2.png",
+        "identical": true,
+        "sha256": "19cc4f09aa2c2ea1018cec8404f2642bca03b5f8d16ec00da0783205fce0f5c7"
+      },
+      {
+        "file": "sprites/ember_hound.png",
+        "identical": true,
+        "sha256": "a2a1f1663736e7707b8c7986d8fda5a90dfb6711ff83aa09964e2774cd9b8b92"
+      },
+      {
+        "file": "sprites/ember_hound.json",
+        "identical": true,
+        "sha256": "a6e0b475d04b4172e65422775f5e4d3b164b872a83b4b53e025cceca906345df"
+      },
+      {
+        "file": "normals/ember_hound.png",
+        "identical": true,
+        "sha256": "affcf56b9192fa307f8255dbc7e6bb3b9c1438c5e87a534bccdf60c6e21956f5"
+      },
+      {
+        "file": "sprites/ember_hound_v1.png",
+        "identical": true,
+        "sha256": "7ae2d63655301b2b2274a324775f37b0f8b624d1f26e0cd09a0ed60244692563"
+      },
+      {
+        "file": "sprites/ember_hound_v1.json",
+        "identical": true,
+        "sha256": "d6d4f139d674ebe0d1d81bed8bd44cfac827eb7a0dda6fe1e69bc87ff17986db"
+      },
+      {
+        "file": "normals/ember_hound_v1.png",
+        "identical": true,
+        "sha256": "ec6d06e8a9e369f7a573e93737156008a51bbd08d7d9d737a524cbdf49438caa"
+      },
+      {
+        "file": "sprites/ember_hound_v2.png",
+        "identical": true,
+        "sha256": "641268d22ed1abc5fe245fee41f7c4c4a904fc89a45f040052f224dd39a67f85"
+      },
+      {
+        "file": "sprites/ember_hound_v2.json",
+        "identical": true,
+        "sha256": "84be97c16b3671f1d419150267037f19eedd16c0bebf5dd43ee8a46d6c1e6624"
+      },
+      {
+        "file": "normals/ember_hound_v2.png",
+        "identical": true,
+        "sha256": "16f08c9c8ce0f25331e5c84de94c0b7d5fcc18bb2d69b07dcc5e0d2083b372f2"
+      },
+      {
+        "file": "sprites/spitting_totem.png",
+        "identical": true,
+        "sha256": "def47b1f1ad424befdd75fcaabcc07375d862747d83340cb772bd477cdf1f280"
+      },
+      {
+        "file": "sprites/spitting_totem.json",
+        "identical": true,
+        "sha256": "0a2656109069e9e4db13ccd224c6edc52b6796ec67036d3037b4997c6204e85a"
+      },
+      {
+        "file": "normals/spitting_totem.png",
+        "identical": true,
+        "sha256": "6ef3cc198525a3d2d1fdec353cf26b61ac7b448887fde30feda541affedbd82f"
+      },
+      {
+        "file": "sprites/spitting_totem_v1.png",
+        "identical": true,
+        "sha256": "ceafbbff640d6f81099b5e326f4097d7670d2ae17a7840c1edecfc4cd1fddeed"
+      },
+      {
+        "file": "sprites/spitting_totem_v1.json",
+        "identical": true,
+        "sha256": "4c5793ee1900442970402acad06c9d311a6af2e1897a3e698c6522897b841a60"
+      },
+      {
+        "file": "normals/spitting_totem_v1.png",
+        "identical": true,
+        "sha256": "d69f5fe8f6e9248683e9790aaa3e60956f85cecdf5afa9ce99d32d59c692aa15"
+      },
+      {
+        "file": "sprites/spitting_totem_v2.png",
+        "identical": true,
+        "sha256": "57e485dc9bafd4a043847330c085b809ebad2e02b0c413a97817deb1c2a095d9"
+      },
+      {
+        "file": "sprites/spitting_totem_v2.json",
+        "identical": true,
+        "sha256": "a96d264e56559c7e68c1bf0817c3d3fdffad2d494b83c5e7ff6a6b71da3a4a19"
+      },
+      {
+        "file": "normals/spitting_totem_v2.png",
+        "identical": true,
+        "sha256": "752f709a322671f802d5333ef040357b9edffd226a16030293547735bde39328"
+      },
+      {
+        "file": "sprites/crystal_beetle.png",
+        "identical": true,
+        "sha256": "52385a5a21c29e79e879c0883bfc7efa4059c9d217c64aef3fcfb62c20438dcb"
+      },
+      {
+        "file": "sprites/crystal_beetle.json",
+        "identical": true,
+        "sha256": "48da1515e16004688d6aec35a00d3def681484028e6d02b9d4521047b9bf448a"
+      },
+      {
+        "file": "normals/crystal_beetle.png",
+        "identical": true,
+        "sha256": "d828ba9d50b306823bbe51663c93484d20fecb25fe228f7385f12a005a5ba74a"
+      },
+      {
+        "file": "sprites/crystal_beetle_v1.png",
+        "identical": true,
+        "sha256": "9faa05dced594caae00f55404789b13540e056137095124c0638ef3e5c4f293b"
+      },
+      {
+        "file": "sprites/crystal_beetle_v1.json",
+        "identical": true,
+        "sha256": "91f996031759e0436d05cd9d859fd190f284234cdf62e714f5f91c700fb7820d"
+      },
+      {
+        "file": "normals/crystal_beetle_v1.png",
+        "identical": true,
+        "sha256": "74c05cf2d709d701727ecddcbdc4ff91aa1265b3eb6249d983e70e442cf4f59e"
+      },
+      {
+        "file": "sprites/crystal_beetle_v2.png",
+        "identical": true,
+        "sha256": "d4b86b2f96afb0a39793e3566fe185fe6a94eba728adc0fe83fcb9813c2ed470"
+      },
+      {
+        "file": "sprites/crystal_beetle_v2.json",
+        "identical": true,
+        "sha256": "74071128ebfb2b1f6092b9e0856ed1b2a784ee4b965100b6a0d265bc34ec526e"
+      },
+      {
+        "file": "normals/crystal_beetle_v2.png",
+        "identical": true,
+        "sha256": "8744919e221bfe57171a78bbda5bce3e0a3b82040351fad143cfd0042cc5f4d0"
+      },
+      {
+        "file": "sprites/wisp.png",
+        "identical": true,
+        "sha256": "3a2f58468e2b7d21af471f116446951f2395891d8028e28ce07edcdbed11aeaa"
+      },
+      {
+        "file": "sprites/wisp.json",
+        "identical": true,
+        "sha256": "bdf5eea00ed22e9b630e1e58fd5acb8b1f371495dc87cd46c8743dec086cec7d"
+      },
+      {
+        "file": "normals/wisp.png",
+        "identical": true,
+        "sha256": "ac6948e0a3a72f52c4eca2524382696ddf6cda364f37e5dcafb980838b420e98"
+      },
+      {
+        "file": "sprites/wisp_v1.png",
+        "identical": true,
+        "sha256": "ae1f9d81f03078264d9359ac506011cc9b0e0b81d61e4be66a4e9db9b7654e62"
+      },
+      {
+        "file": "sprites/wisp_v1.json",
+        "identical": true,
+        "sha256": "2bbd2cdad62c62c3aedb86192eff2dceecd1eea0a63becbccf26fa60318ec8a7"
+      },
+      {
+        "file": "normals/wisp_v1.png",
+        "identical": true,
+        "sha256": "c0df11d209d809c49cff64f883fbbd4eca8e0ac7bcfa57ed4fc826fd5cb718e6"
+      },
+      {
+        "file": "sprites/wisp_v2.png",
+        "identical": true,
+        "sha256": "28f243bc455b94c2d818e648c9ea5018f0050aed63b5763b9e58386564b4ec0b"
+      },
+      {
+        "file": "sprites/wisp_v2.json",
+        "identical": true,
+        "sha256": "c7c16433f21999df3e0048fd3f641ab90a8cdc3236fbc3f26c4beea0abfdad07"
+      },
+      {
+        "file": "normals/wisp_v2.png",
+        "identical": true,
+        "sha256": "c5f0b714b256d93b0bb4a7db6fce2243fe9ffa661db70bf72c07ae9b5f75ec91"
+      }
+    ],
+    "conclusion": "V1 direct-pixel approval carries across the Wisp gameplay-facing correction: all three Wisp runtime sequences are byte-identical and all 57 actor atlas/normal/metadata files are independently byte-identical in final source-v2."
+  },
+  "review_limits": [
+    "Direct all-frame source and home-region matrix review plus representative temporal strips; the reviewer did not manually watch every pixel of all 36,688 captures. Full machine frame coverage and motion clips remain linked.",
+    "Grounded matrix and moving-sword sheets are diagnostic receiving floors with region-matched lighting/grade and motivated sources; actual world/AI occlusion and motion are checked separately in runtime evidence.",
+    "The initial fixed-camera hero sequence had 30 offscreen non-dead frames. The final 14,080-frame camera-follow transition supplement covers 32 direction/region cases, including charge-walk/death/respawn, with zero offscreen non-dead frames.",
+    "Foreground trees/cliffs legitimately hide actors in some actual live frames; visible-receiver caster metadata is not a physical caster classification.",
+    "Ivory Hound actual route did not enter Skid. Source all-frame matrices and scoped runtime tests cover its row; the review does not claim actual AI Skid observation for that appearance.",
+    "Continuous projectiles/effects retain continuous direction. Death debris, radial effects, stable fixtures/boss parts and intentional nondirectional states do not require duplicated eight-way rows. This audit does not replace the coordinator gameplay-equivalence/build proofs."
+  ],
+  "unresolved_blockers": []
+}

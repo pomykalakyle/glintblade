@@ -328,6 +328,29 @@ impl Play {
         for p in self.zone.props.iter_mut() {
             p.tick();
         }
+        self.update_camera();
+    }
+
+    /// Give the first lake landmark space during traversal, releasing it before combat.
+    fn scenery_camera_bias(&self) -> f32 {
+        if self.id != ZoneId::Glasswater || self.free_camera || self.boss_awake || !self.player.alive() {
+            return 0.0;
+        }
+        let (px, py) = (self.player.body.x, self.player.body.y);
+        let bias = regions::glasswater::lake_camera_bias(px, py);
+        if bias == 0.0 { return 0.0; }
+        // Enemies awaken at 150px. Restore normal follow before that range, even
+        // for sleeping enemies; incoming shots retain the same safety reserve.
+        let nearest = self.enemies.iter().filter(|e| e.body.alive)
+            .map(|e| e.body.dist_to(px, py))
+            .chain(self.projectiles.iter().filter(|p| p.alive && p.team == Team::Enemy)
+                .map(|p| (p.x - px).hypot(p.y - py)))
+            .fold(f32::INFINITY, f32::min);
+        let clear = ((nearest - 160.0) / 48.0).clamp(0.0, 1.0);
+        bias * clear * clear * (3.0 - 2.0 * clear)
+    }
+
+    fn update_camera(&mut self) {
         let speed = (self.player.body.vx.powi(2) + self.player.body.vy.powi(2)).sqrt();
         // Nearby, frame both Glint and the Warden (its head stands far above its feet).
         let (mut tx, mut ty) = (self.player.body.x, self.player.body.y);
@@ -346,7 +369,11 @@ impl Play {
                 if near >= 0.99 { boss_top = Some(top); }
             }
         }
-        self.cam.follow(tx, ty, self.player.body.face, speed);
+        let scenery_bias = self.scenery_camera_bias();
+        self.cam.follow(tx + scenery_bias, ty, self.player.body.face, speed);
+        if scenery_bias > 0.0 {
+            self.cam.keep_visible(self.player.body.x, self.player.body.y - self.player.body.z);
+        }
         if let Some(top) = boss_top {
             // Correct look-ahead/smoothing only when the assembly fits above Glint's safe anchor.
             let highest_center = top + crate::gfx::H as f32 / 2.0 - 16.0;
@@ -573,6 +600,116 @@ mod tests {
     use crate::tools::parse_script;
     use std::cell::Cell;
     use std::rc::Rc;
+
+    #[test]
+    fn lake_landmark_framing_keeps_glint_and_crystal_in_the_native_view() {
+        let mut play = Play::new(ZoneId::Glasswater, &PlayOpts { god: true, peaceful: false });
+        play.player = Player::new(300.0, 416.0);
+        assert!(!play.zone.blocked(300.0, 416.0, play.player.body.r));
+        assert_eq!(play.scenery_camera_bias(), 64.0, "the actual sleeping lake enemies must permit the reveal");
+        play.cam.snap(300.0, 416.0);
+        let mut ordinary = Camera::new(300.0, 416.0);
+        for _ in 0..120 {
+            play.update_camera();
+            ordinary.follow(300.0, 416.0, play.player.body.face, 0.0);
+        }
+        assert!((play.cam.x - ordinary.x - 64.0).abs() < 0.001);
+        assert_eq!(play.cam.y, ordinary.y, "landmark framing cannot change the weapon/HUD margin");
+        for trauma in [0.0, 0.8, 1.0] { for t in 0..120 {
+            let (cx, cy) = play.cam.view(play.zone.pw, play.zone.ph, trauma, t);
+            let (hero_x, hero_y) = (300.0 - cx as f32, 416.0 - cy as f32);
+            assert!((32.0..=352.0).contains(&hero_x));
+            assert!((48.0..=178.0).contains(&hero_y));
+            assert!(hero_y + 16.0 < 194.0, "downward sword must clear the HUD");
+            // The authored main crystal and the receiving water below its island.
+            assert!((24.0..=360.0).contains(&(520.0 - cx as f32)));
+            assert!((24.0..=192.0).contains(&(398.8 - cy as f32)));
+            assert!((24.0..=204.0).contains(&(488.0 - cy as f32)));
+        }}
+    }
+
+    #[test]
+    fn lake_camera_eases_through_approach_and_releases_on_both_exits() {
+        let mut play = Play::new(ZoneId::Glasswater, &PlayOpts { god: true, peaceful: true });
+        play.player = Player::new(180.0, 416.0);
+        play.cam.snap(180.0, 408.0);
+        for direction in [1.0, -1.0] {
+            let start = if direction > 0.0 { 180.0 } else { 512.0 };
+            let mut last = play.cam.x;
+            for step in 0..=166 {
+                play.player.body.x = start + direction * step as f32 * 2.0;
+                play.player.body.vx = direction * 2.0;
+                play.player.body.face = (direction, 0.0);
+                play.update_camera();
+                assert!((play.cam.x - last).abs() < 5.2, "no camera step at an authored boundary");
+                last = play.cam.x;
+                let (cx, _) = play.cam.view(play.zone.pw, play.zone.ph, 0.0, 0);
+                assert!((32.0..=352.0).contains(&(play.player.body.x - cx as f32)));
+            }
+            play.player.body.vx = 0.0;
+            for _ in 0..240 { play.update_camera(); }
+            assert!((play.cam.x - play.player.body.x).abs() < 0.01, "ordinary follow must recover after either exit");
+        }
+        // Every spatial edge starts and finishes without a jump in its target.
+        for &(x, y, dx, dy) in &[(208.0, 416.0, 0.01, 0.0), (480.0, 416.0, -0.01, 0.0),
+            (300.0, 336.0, 0.0, 0.01), (300.0, 496.0, 0.0, -0.01)]
+        {
+            assert_eq!(regions::glasswater::lake_camera_bias(x, y), 0.0);
+            assert!(regions::glasswater::lake_camera_bias(x + dx, y + dy) < 0.001);
+        }
+    }
+
+    #[test]
+    fn lake_camera_restores_combat_framing_before_enemy_awakening_and_incoming_shots() {
+        use crate::entities::EnemyKind;
+        let mut play = Play::new(ZoneId::Glasswater, &PlayOpts { god: true, peaceful: true });
+        play.player = Player::new(300.0, 416.0);
+        play.cam.snap(364.0, 408.0);
+        play.enemies.push(Enemy::spawn(EnemyKind::CrystalBeetle, 148.0, 416.0));
+        assert_eq!(play.scenery_camera_bias(), 0.0, "sleeping enemies must release it before the 150px awakening range");
+        let before = play.cam.x;
+        play.update_camera();
+        assert!(play.cam.x < before && play.cam.x > 300.0, "combat release must ease instead of snapping");
+        for _ in 0..120 { play.update_camera(); }
+        assert!((play.cam.x - 300.0).abs() < 0.001);
+        play.enemies[0].body.alive = false;
+        assert_eq!(play.scenery_camera_bias(), 64.0);
+        let mut fx = Fx::new(7);
+        play.projectiles.push(Projectile::new(148.0, 416.0, 1.0, 0.0, &mut fx));
+        assert_eq!(play.scenery_camera_bias(), 0.0, "a projectile outliving its shooter still owns the view");
+        let mut previous = 0.0;
+        for distance in 160..=208 {
+            play.projectiles[0].x = 300.0 - distance as f32;
+            let bias = play.scenery_camera_bias();
+            assert!(bias >= previous && bias - previous <= 2.01);
+            previous = bias;
+        }
+        assert_eq!(previous, 64.0);
+        play.projectiles[0].alive = false;
+        assert_eq!(play.scenery_camera_bias(), 64.0);
+    }
+
+    #[test]
+    fn landmark_camera_leaves_other_regions_and_outside_the_approach_unchanged() {
+        for (id, pos) in [(ZoneId::Bloomwild, (300.0, 416.0)), (ZoneId::Cinder, (300.0, 416.0)),
+            (ZoneId::Summit, (300.0, 416.0)), (ZoneId::Glasswater, (180.0, 416.0)),
+            (ZoneId::Glasswater, (512.0, 416.0)), (ZoneId::Glasswater, (300.0, 320.0)),
+            (ZoneId::Glasswater, (300.0, 512.0))]
+        {
+            let mut play = Play::new(id, &PlayOpts { god: true, peaceful: true });
+            play.player = Player::new(pos.0, pos.1);
+            play.player.body.vx = 1.5;
+            play.player.body.face = (-1.0, 0.0);
+            play.cam.snap(pos.0 - 10.0, pos.1 + 10.0);
+            let mut ordinary = Camera::new(pos.0 - 10.0, pos.1 + 10.0);
+            for t in 0..90 {
+                play.update_camera();
+                ordinary.follow(pos.0, pos.1, (-1.0, 0.0), 1.5);
+                assert_eq!(play.cam.view(play.zone.pw, play.zone.ph, 0.8, t),
+                    ordinary.view(play.zone.pw, play.zone.ph, 0.8, t), "{id:?} at {pos:?}");
+            }
+        }
+    }
 
     #[test]
     fn every_exit_gate_reveals_glint_and_surroundings_in_all_states() {

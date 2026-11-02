@@ -1,0 +1,314 @@
+{
+  "columns": 5,
+  "tile": [
+    40,
+    40
+  ],
+  "padding": 4,
+  "frames": [
+    {
+      "anim": "idle",
+      "frame": 0,
+      "source_box": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "packed_box": [
+        4,
+        4,
+        36,
+        36
+      ]
+    },
+    {
+      "anim": "idle",
+      "frame": 1,
+      "source_box": [
+        32,
+        0,
+        64,
+        32
+      ],
+      "packed_box": [
+        44,
+        4,
+        76,
+        36
+      ]
+    },
+    {
+      "anim": "idle",
+      "frame": 2,
+      "source_box": [
+        64,
+        0,
+        96,
+        32
+      ],
+      "packed_box": [
+        84,
+        4,
+        116,
+        36
+      ]
+    },
+    {
+      "anim": "idle",
+      "frame": 3,
+      "source_box": [
+        96,
+        0,
+        128,
+        32
+      ],
+      "packed_box": [
+        124,
+        4,
+        156,
+        36
+      ]
+    },
+    {
+      "anim": "move",
+      "frame": 0,
+      "source_box": [
+        0,
+        32,
+        32,
+        64
+      ],
+      "packed_box": [
+        164,
+        4,
+        196,
+        36
+      ]
+    },
+    {
+      "anim": "move",
+      "frame": 1,
+      "source_box": [
+        32,
+        32,
+        64,
+        64
+      ],
+      "packed_box": [
+        4,
+        44,
+        36,
+        76
+      ]
+    },
+    {
+      "anim": "move",
+      "frame": 2,
+      "source_box": [
+        64,
+        32,
+        96,
+        64
+      ],
+      "packed_box": [
+        44,
+        44,
+        76,
+        76
+      ]
+    },
+    {
+      "anim": "move",
+      "frame": 3,
+      "source_box": [
+        96,
+        32,
+        128,
+        64
+      ],
+      "packed_box": [
+        84,
+        44,
+        116,
+        76
+      ]
+    },
+    {
+      "anim": "windup",
+      "frame": 0,
+      "source_box": [
+        0,
+        64,
+        32,
+        96
+      ],
+      "packed_box": [
+        124,
+        44,
+        156,
+        76
+      ]
+    },
+    {
+      "anim": "windup",
+      "frame": 1,
+      "source_box": [
+        32,
+        64,
+        64,
+        96
+      ],
+      "packed_box": [
+        164,
+        44,
+        196,
+        76
+      ]
+    },
+    {
+      "anim": "windup",
+      "frame": 2,
+      "source_box": [
+        64,
+        64,
+        96,
+        96
+      ],
+      "packed_box": [
+        4,
+        84,
+        36,
+        116
+      ]
+    },
+    {
+      "anim": "windup",
+      "frame": 3,
+      "source_box": [
+        96,
+        64,
+        128,
+        96
+      ],
+      "packed_box": [
+        44,
+        84,
+        76,
+        116
+      ]
+    },
+    {
+      "anim": "windup",
+      "frame": 4,
+      "source_box": [
+        128,
+        64,
+        160,
+        96
+      ],
+      "packed_box": [
+        84,
+        84,
+        116,
+        116
+      ]
+    },
+    {
+      "anim": "attack",
+      "frame": 0,
+      "source_box": [
+        0,
+        96,
+        32,
+        128
+      ],
+      "packed_box": [
+        124,
+        84,
+        156,
+        116
+      ]
+    },
+    {
+      "anim": "attack",
+      "frame": 1,
+      "source_box": [
+        32,
+        96,
+        64,
+        128
+      ],
+      "packed_box": [
+        164,
+        84,
+        196,
+        116
+      ]
+    },
+    {
+      "anim": "attack",
+      "frame": 2,
+      "source_box": [
+        64,
+        96,
+        96,
+        128
+      ],
+      "packed_box": [
+        4,
+        124,
+        36,
+        156
+      ]
+    },
+    {
+      "anim": "attack",
+      "frame": 3,
+      "source_box": [
+        96,
+        96,
+        128,
+        128
+      ],
+      "packed_box": [
+        44,
+        124,
+        76,
+        156
+      ]
+    },
+    {
+      "anim": "hurt",
+      "frame": 0,
+      "source_box": [
+        0,
+        128,
+        32,
+        160
+      ],
+      "packed_box": [
+        84,
+        124,
+        116,
+        156
+      ]
+    },
+    {
+      "anim": "hurt",
+      "frame": 1,
+      "source_box": [
+        32,
+        128,
+        64,
+        160
+      ],
+      "packed_box": [
+        124,
+        124,
+        156,
+        156
+      ]
+    }
+  ]
+}

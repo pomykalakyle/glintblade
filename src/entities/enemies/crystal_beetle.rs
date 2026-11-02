@@ -92,6 +92,8 @@ pub struct State {
     pub daze_len: u32,
     pub moving: bool,
     pub walk_t: u32,
+    /// Visual sector only; armor, turning and charge keep their continuous heading.
+    visual_dir: Dir,
     seed: u32,
     appearance: u8,
 }
@@ -135,12 +137,14 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         daze_len: DAZE,
         moving: false,
         walk_t: 0,
+        visual_dir: Dir::Left,
         seed,
         appearance: super::variation::appearance(x, y),
     };
     s.cooldown = 30 + (s.vary(1) * 50.0) as u32;
     let mut b = Body::new(x, y, R, HP);
     b.face = s.facing();
+    s.visual_dir = s.visual_dir.stable_from_vec(b.face.0, b.face.1);
     (b, s)
 }
 
@@ -185,6 +189,7 @@ pub fn update(b: &mut Body, s: &mut State, ctx: &mut EnemyCtx) {
         }
     }
     b.face = s.facing();
+    s.visual_dir = s.visual_dir.stable_from_vec(b.face.0, b.face.1);
 }
 
 /// Approach slowly and choose a clear charge lane.
@@ -628,15 +633,13 @@ fn anim_for(b: &Body, s: &State, t: u32) -> (&'static [&'static str], u32, bool)
 
 /// The cell showing right now (sheet if it exists, else the built-in fallback).
 fn current_cell(b: &Body, s: &State, t: u32) -> (&'static Cell, (i32, i32), bool) {
-    let side = if b.face.0 < 0.0 { Dir::Left } else { Dir::Right };
+    let dir = if super::variation::reference_pose() {
+        super::variation::legacy_dir(b.face.0, b.face.1)
+    } else {
+        s.visual_dir.stable_from_vec(b.face.0, b.face.1)
+    };
     if let Some(sh) = sheet(SHEET) {
         let (names, ticks, looping) = anim_for(b, s, t);
-        // Up/down poses only if the sheet has them; otherwise a side view facing the right way.
-        let dir = if sh.anims.keys().any(|k| k.ends_with("_down")) {
-            Dir::from_vec(b.face.0, b.face.1)
-        } else {
-            side
-        };
         if let Some((a, flip)) = names.iter().find_map(|n| sh.dir_anim(n, dir)) {
             let looping = a.json.get("loop").and_then(|v| v.as_bool()).unwrap_or(looping);
             // The windup is stretched over the whole plant so its last (crouched) frame lands
@@ -645,8 +648,13 @@ fn current_cell(b: &Body, s: &State, t: u32) -> (&'static Cell, (i32, i32), bool
             return (super::variation::cell(SHEET, sh.cell(a, a.frame_at(ticks, looping)), s.appearance), sh.anchor_of(a), flip);
         }
     }
-    let (cell, flip) = fallback(Dir::from_vec(b.face.0, b.face.1));
+    let (cell, flip) = fallback(dir);
     (cell, (cell.w / 2, cell.h - 1), flip)
+}
+
+/// Audit the actual selected geometry without duplicating animation selection.
+pub(crate) fn audit_pose(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool) {
+    current_cell(b, s, t as u32)
 }
 
 /// Render the sprite, its crystal light, and its current telegraph.
@@ -656,12 +664,13 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     }
     f.shadow(f.sx(b.x), f.sy(b.y), 9, 2, 0.45);
 
-    // Body motion layered on the sprite: walk bob, aim tremble and pull-back, dazed wobble.
+    // Walk rows already bob the shell above planted native feet. Additional
+    // whole-cell walk bob would lift those feet away from the contact shadow.
+    // Aim tremble/pull-back and dazed wobble remain intentional whole-body motion.
     let (mut ox, mut oy) = (0.0f32, 0.0f32);
     let mut glow = 1.0;
     let mut light = 0.3;
     match s.mode {
-        Mode::Stalk if s.moving => oy = -(((s.walk_t / 7) % 2) as f32),
         Mode::Plant => {
             let k = (s.mode_t as f32 / (AIM + LOCK) as f32).min(1.0);
             glow = 1.0 + 0.35 * k;
@@ -825,7 +834,7 @@ fn draw_dizzy(b: &Body, s: &State, f: &mut Frame) {
 
 /// Built-in frames used until `crystal_beetle.png` exists (the Glasswater artist's WIP design).
 fn fallback(dir: Dir) -> (&'static Cell, bool) {
-    static CELLS: OnceLock<[Cell; 3]> = OnceLock::new();
+    static CELLS: OnceLock<[Cell; 5]> = OnceLock::new();
     let cells = CELLS.get_or_init(|| {
         let pal = [
             ('O', rgb(0x222d3d)),
@@ -921,13 +930,57 @@ fn fallback(dir: Dir) -> (&'static Cell, bool) {
             &pal,
             &em,
         );
-        [right, down, up]
+        // Native diagonal silhouettes have a pitched head and distinct near/far
+        // legs. These only serve builds that intentionally omit artist sheets.
+        let down_right = Cell::from_ascii(&[
+            "........O................",
+            ".......OeO...............",
+            "....O..OedO..............",
+            "...OeO.OedcO.............",
+            "...OedOOedcO.............",
+            "....OedObdcO...O.........",
+            "...OO4bObbbOO.OeO........",
+            "..O4555544443OOedO.......",
+            ".O455554444333ObdcO......",
+            "O45554444433322O4dcO.....",
+            "O344444443332211O33mO....",
+            ".O33344333322211O322O....",
+            "..O22222221111OOO11OO....",
+            "..OO11111111OO.O.OOO.O...",
+            "...OOOOOOOOO...O.....O...",
+            "..O...O.....O...O.....O..",
+            ".O.....O.....O...........",
+        ], &pal, &em);
+        let up_right = Cell::from_ascii(&[
+            "..........O..............",
+            ".........OeO.............",
+            ".....O...OedO............",
+            "....OeO..OedcO.....OO....",
+            "....OedOOObdcO....OedO...",
+            "...OOedO4bbbbOO..O4dcO...",
+            "..O455554444433OO3m2O....",
+            ".O455554444433322O22O....",
+            "O45554442443332211OO.....",
+            "O344444424333222111O.....",
+            ".O3334442333222111O......",
+            "..O2222222221111OO.......",
+            "...O11111111111OO........",
+            "...OOOOOOOOOOOO.O........",
+            "..O...O....O.....O.......",
+            ".O.....O....O.....O......",
+            ".............O...........",
+        ], &pal, &em);
+        [right, down, up, down_right, up_right]
     });
     match dir {
         Dir::Right => (&cells[0], false),
         Dir::Left => (&cells[0], true),
         Dir::Down => (&cells[1], false),
         Dir::Up => (&cells[2], false),
+        Dir::DownRight => (&cells[3], false),
+        Dir::DownLeft => (&cells[3], true),
+        Dir::UpRight => (&cells[4], false),
+        Dir::UpLeft => (&cells[4], true),
     }
 }
 
@@ -936,6 +989,65 @@ mod tests {
     use super::*;
     use crate::entities::enemies::{Brain, Enemy, EnemyKind};
     use crate::world::{Tile, ZoneId};
+
+    #[test]
+    fn native_eightway_states_cover_every_appearance_without_cardinal_substitution() {
+        let sh = sheet(SHEET).unwrap();
+        for dir in Dir::ALL {
+            let (x, y) = dir.vec();
+            for (mode, moving, base) in [
+                (Mode::Stalk, false, "idle"), (Mode::Stalk, true, "move"),
+                (Mode::Plant, false, "windup"), (Mode::Charge, false, "attack"),
+                (Mode::Skid, false, "attack"), (Mode::Dazed, false, "dazed"),
+                (Mode::Recover, false, "idle"),
+            ] {
+                let (mut b, mut s) = spawn(100.0, 100.0);
+                b.face = (x, y); s.visual_dir = dir; s.mode = mode; s.moving = moving;
+                let (a, flip) = sh.dir_anim(base, dir).expect("complete native pose");
+                assert!(a.name.ends_with(dir.suffix()) || (dir == Dir::Left && flip));
+                for appearance in 0..3 {
+                    s.appearance = appearance;
+                    let (cell, anchor, actual_flip) = current_cell(&b, &s, 0);
+                    assert!(std::ptr::eq(cell, super::super::variation::cell(SHEET, sh.cell(a, 0), appearance)));
+                    assert_eq!((anchor, actual_flip), (sh.anchor_of(a), flip));
+                    assert!(!cell.is_empty());
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn visual_sector_stability_never_changes_continuous_armor_or_charge_heading() {
+        let (mut b, mut s) = spawn(100.0, 100.0);
+        s.visual_dir = Dir::UpRight;
+        s.ang = -0.38;
+        b.face = s.facing();
+        s.dir = (0.932_327, -0.361_615);
+        let (angle, face, charge) = (s.ang, b.face, s.dir);
+        let _ = current_cell(&b, &s, 10);
+        assert_eq!((s.ang, b.face, s.dir), (angle, face, charge));
+        assert_eq!(s.visual_dir.stable_from_vec(b.face.0, b.face.1), Dir::UpRight);
+    }
+
+    #[test]
+    fn authored_walk_keeps_native_feet_on_the_ground_in_every_sector() {
+        for dir in Dir::ALL {
+            let (mut b, mut s) = spawn(192.73, 120.81);
+            b.face = dir.vec(); s.visual_dir = dir; s.moving = true;
+            for appearance in 0..3 {
+                s.appearance = appearance;
+                for tick in 0..32 {
+                    s.walk_t = tick;
+                    let mut f = Frame::new();
+                    f.surface_lighting = true;
+                    draw(&b, &s, &mut f);
+                    let caster = &f.surface_casters[0];
+                    assert_eq!(caster.y, b.y.floor(), "{dir:?} look{appearance} tick{tick}: extra bob lifted native soles");
+                    assert_eq!(caster.min_height, 0.0);
+                }
+            }
+        }
+    }
 
     #[test]
     fn crest_light_matches_current_native_cap_under_mirroring() {

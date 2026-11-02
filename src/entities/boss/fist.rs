@@ -263,9 +263,11 @@ impl Fist {
         let s = self.sgn();
         let (bx, by) = c.base;
         let tempo = c.tempo;
+        let reach = ((-super::art::layout().crystals[0].1 - 100).max(0) as f32) * 0.5;
+        let resting_span = (c.rest.0 - bx).abs();
         match self.st {
             St::Dormant => {
-                self.x = bx + s * 54.0;
+                self.x = bx + s * (resting_span + 9.0);
                 self.y = by + 8.0;
                 self.z = 0.0;
             }
@@ -369,7 +371,7 @@ impl Fist {
             }
             St::Raise(t) => {
                 let len = 36;
-                let goal = (bx + s * 30.0, by - 2.0, 118.0);
+                let goal = (bx + s * 30.0, by - 2.0, 118.0 + reach);
                 let k = ease_in_out((t + 1) as f32 / len as f32);
                 self.tween(goal, k);
                 // markers where both fists will land
@@ -386,7 +388,7 @@ impl Fist {
             }
             St::Overhead(t) => {
                 self.jit = if (t / 2) % 2 == 0 { 1 } else { -1 };
-                self.z = 118.0 + ((t as f32) / tempo.overhead as f32) * 8.0;
+                self.z = 118.0 + reach + ((t as f32) / tempo.overhead as f32) * 8.0;
                 let (lx, ly) = (bx + s * 24.0, by + 30.0);
                 marker(
                     c.fx,
@@ -502,7 +504,7 @@ impl Fist {
                 }
             }
             St::Sky(t) => {
-                let goal = (bx + s * 34.0, by - 4.0, 132.0);
+                let goal = (bx + s * 34.0, by - 4.0, 132.0 + reach);
                 let k = ease_out_cubic(((t + 1) as f32 / 26.0).min(1.0));
                 self.tween(goal, k);
                 if t > 26 {
@@ -515,13 +517,14 @@ impl Fist {
                 }
             }
             St::Limp(t) => {
-                let len = 14;
-                let goal = (bx + s * 56.0, by + 10.0, 0.0);
+                let len = super::kneel::HAND_DROP_TICKS;
                 let k = ((t + 1) as f32 / len as f32).min(1.0);
-                self.x = self.from.0 + (goal.0 - self.from.0) * ease_out_cubic(k);
-                self.y = self.from.1 + (goal.1 - self.from.1) * ease_out_cubic(k);
-                self.z = self.from.2 * (1.0 - k * k);
-                if t + 1 == len {
+                // Losing power removes lift. A spent grounded fist keeps its
+                // contact instead of skating across the floor to a side pose.
+                self.x = self.from.0;
+                self.y = self.from.1;
+                self.z = self.from.2.max(0.0) * (1.0 - k * k);
+                if t + 1 == len && self.from.2 > 0.5 {
                     c.fx.sound_vol("boss_slam", 0.45);
                     c.fx.shake(0.2);
                     rubble(c.fx, self.x, self.y, 12, 1.2);
@@ -530,7 +533,8 @@ impl Fist {
                 self.st = St::Limp(t + 1);
             }
             St::Throes(t) => {
-                let goal = (bx + s * 62.0, by - 6.0, 66.0 + (t as f32 * 0.3).sin() * 4.0);
+                let goal = (bx + s * (resting_span + 17.0), by - 6.0,
+                    66.0 + reach + (t as f32 * 0.3).sin() * 4.0);
                 let k = ease_out_cubic(((t + 1) as f32 / 24.0).min(1.0));
                 self.tween(goal, k);
                 self.jit = if (t / 2) % 2 == 0 { 1 } else { -1 };

@@ -1,0 +1,785 @@
+{
+  "scope": "Independent actor source normal/contact gate and direct native/integer-enlarged source pixel review. Final production enemy lighting/motion review remains separate.",
+  "atlases": 19,
+  "authored_frames": 3391,
+  "baseline_authored_frames": 1133,
+  "added_authored_frames": 2258,
+  "data_errors": 0,
+  "records": [
+    {
+      "sheet": "hero",
+      "authored_frames": 562,
+      "size": [
+        384,
+        5136
+      ],
+      "cell": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        33
+      ],
+      "hashes": {
+        "albedo": "d29ab2642ff91dd235f8d206a66b6e5e23142cc04ee78b659b946c5688789f3b",
+        "normal": "286acf89d6efff869788fd5d93eae8403c2c1df11dc49c6dfb7050e10bb911e0",
+        "metadata": "debf7e3b0806e454091d35c4865b9b2e14676099ec3073ffab46aa5598759ec9"
+      },
+      "normal_vector_lengths": [
+        0.9939068555831909,
+        1.006209135055542
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 83,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          384,
+          1872
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/hero-final-source/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "sproutling",
+      "authored_frames": 168,
+      "size": [
+        144,
+        840
+      ],
+      "cell": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        21
+      ],
+      "hashes": {
+        "albedo": "e0e45cbeff5edd51777e76d515f45bd97331c9eed4092bc56e513e6fc9f11a4d",
+        "normal": "afcbeb791be71b74de755a1c1535516bc0c101e3dba13b35c32a535500a5d9d2",
+        "metadata": "0dd758dd39b198ac20cb6ec921c6dcdde145b86fd3c73a4e28285ed08888315e"
+      },
+      "normal_vector_lengths": [
+        0.9940925240516663,
+        1.0063313245773315
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 69,
+      "shaded_mirrored_pose_checks": 2,
+      "old_rectangle": {
+        "previous_size": [
+          144,
+          360
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/botanical-final/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "sproutling_v1",
+      "authored_frames": 168,
+      "size": [
+        144,
+        840
+      ],
+      "cell": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        21
+      ],
+      "hashes": {
+        "albedo": "6921722d5f5042e06dbdd71897ef8bb674a80199dbd602c722e0efa0daadfed5",
+        "normal": "d9cfc29f154a043194f60444e5d0e8a7bec9b894021eee5b2c341f3292e342c5",
+        "metadata": "e3f1a3121587b1121331ec714c7d27980f211f95e20b7f8facb56dca6a555bb0"
+      },
+      "normal_vector_lengths": [
+        0.9940924644470215,
+        1.006086826324463
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 52,
+      "shaded_mirrored_pose_checks": 2,
+      "old_rectangle": {
+        "previous_size": [
+          144,
+          360
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/botanical-final/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "sproutling_v2",
+      "authored_frames": 168,
+      "size": [
+        144,
+        840
+      ],
+      "cell": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        21
+      ],
+      "hashes": {
+        "albedo": "9ae48c03fad0c7000f8ed6194308df1ff97a48c5b16726075c6c6169e766bd6a",
+        "normal": "9740e5cce5028a37ef7c5fb1e33f064d69dc9d86ca2cba0bf4ec89d0f08310dc",
+        "metadata": "12e52f64e6e21b3c66ab66058b3e1a73ef81d0c32287ed219abae2a736bc7bc8"
+      },
+      "normal_vector_lengths": [
+        0.9939069151878357,
+        1.006086826324463
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 44,
+      "shaded_mirrored_pose_checks": 2,
+      "old_rectangle": {
+        "previous_size": [
+          144,
+          360
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/botanical-final/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "thorn_imp",
+      "authored_frames": 169,
+      "size": [
+        160,
+        1376
+      ],
+      "cell": [
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        29
+      ],
+      "hashes": {
+        "albedo": "9200ccad9ef8260a0fff119da744b2573aad3cc060fd749cd30c38c69bc3900c",
+        "normal": "374fa68ffac0a7124f87e9ff87e0cdf9efd8fdc846a35a68fdcab6b912915f96",
+        "metadata": "507206cdede582ac2fb595373d22ec52bbeac0e58d68740d222324124216ee6a"
+      },
+      "normal_vector_lengths": [
+        0.9939687848091125,
+        1.006209135055542
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 43,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          160,
+          480
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/botanical-final/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "thorn_imp_v1",
+      "authored_frames": 169,
+      "size": [
+        160,
+        1376
+      ],
+      "cell": [
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        29
+      ],
+      "hashes": {
+        "albedo": "874f139511a7e94f4b6900970379450c1094c650dd0962e711da793f4930bf22",
+        "normal": "61cafebca8afd3dba260dd648fe856bb668f3e03ae24364424bd341f5309726e",
+        "metadata": "7b55fdf321cfc192d07839637baeaca6194ebe758a6a67c6bda8025f73d233c7"
+      },
+      "normal_vector_lengths": [
+        0.9939069151878357,
+        1.006086826324463
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 28,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          160,
+          480
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/botanical-final/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "thorn_imp_v2",
+      "authored_frames": 169,
+      "size": [
+        160,
+        1376
+      ],
+      "cell": [
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        29
+      ],
+      "hashes": {
+        "albedo": "e8fea83ec0542525bdb3690a39a95954d17f03732d4cd4cb64a63ae6ae865fe5",
+        "normal": "19cc4f09aa2c2ea1018cec8404f2642bca03b5f8d16ec00da0783205fce0f5c7",
+        "metadata": "7de9fb050c89392695f78a57610e3307fa7640b93c681babacb600effc8d6735"
+      },
+      "normal_vector_lengths": [
+        0.9937830567359924,
+        1.0063925981521606
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 28,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          160,
+          480
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/botanical-final/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "ember_hound",
+      "authored_frames": 156,
+      "size": [
+        240,
+        960
+      ],
+      "cell": [
+        40,
+        24
+      ],
+      "anchor": [
+        20,
+        20
+      ],
+      "hashes": {
+        "albedo": "a2a1f1663736e7707b8c7986d8fda5a90dfb6711ff83aa09964e2774cd9b8b92",
+        "normal": "affcf56b9192fa307f8255dbc7e6bb3b9c1438c5e87a534bccdf60c6e21956f5",
+        "metadata": "a6e0b475d04b4172e65422775f5e4d3b164b872a83b4b53e025cceca906345df"
+      },
+      "normal_vector_lengths": [
+        0.9939068555831909,
+        1.0057810544967651
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 44,
+      "shaded_mirrored_pose_checks": 19,
+      "old_rectangle": {
+        "previous_size": [
+          240,
+          360
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/cinder-v3/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "ember_hound_v1",
+      "authored_frames": 156,
+      "size": [
+        240,
+        960
+      ],
+      "cell": [
+        40,
+        24
+      ],
+      "anchor": [
+        20,
+        20
+      ],
+      "hashes": {
+        "albedo": "7ae2d63655301b2b2274a324775f37b0f8b624d1f26e0cd09a0ed60244692563",
+        "normal": "ec6d06e8a9e369f7a573e93737156008a51bbd08d7d9d737a524cbdf49438caa",
+        "metadata": "d6d4f139d674ebe0d1d81bed8bd44cfac827eb7a0dda6fe1e69bc87ff17986db"
+      },
+      "normal_vector_lengths": [
+        0.98457932472229,
+        1.006209135055542
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 25,
+      "shaded_mirrored_pose_checks": 20,
+      "old_rectangle": {
+        "previous_size": [
+          240,
+          360
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/cinder-v3/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "ember_hound_v2",
+      "authored_frames": 156,
+      "size": [
+        240,
+        960
+      ],
+      "cell": [
+        40,
+        24
+      ],
+      "anchor": [
+        20,
+        20
+      ],
+      "hashes": {
+        "albedo": "641268d22ed1abc5fe245fee41f7c4c4a904fc89a45f040052f224dd39a67f85",
+        "normal": "16f08c9c8ce0f25331e5c84de94c0b7d5fcc18bb2d69b07dcc5e0d2083b372f2",
+        "metadata": "84be97c16b3671f1d419150267037f19eedd16c0bebf5dd43ee8a46d6c1e6624"
+      },
+      "normal_vector_lengths": [
+        0.98457932472229,
+        1.006086826324463
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 24,
+      "shaded_mirrored_pose_checks": 20,
+      "old_rectangle": {
+        "previous_size": [
+          240,
+          360
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/cinder-v3/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "spitting_totem",
+      "authored_frames": 120,
+      "size": [
+        140,
+        1152
+      ],
+      "cell": [
+        28,
+        36
+      ],
+      "anchor": [
+        14,
+        33
+      ],
+      "hashes": {
+        "albedo": "def47b1f1ad424befdd75fcaabcc07375d862747d83340cb772bd477cdf1f280",
+        "normal": "6ef3cc198525a3d2d1fdec353cf26b61ac7b448887fde30feda541affedbd82f",
+        "metadata": "0a2656109069e9e4db13ccd224c6edc52b6796ec67036d3037b4997c6204e85a"
+      },
+      "normal_vector_lengths": [
+        0.9940925240516663,
+        1.0057810544967651
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 50,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          140,
+          288
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/cinder-v3/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "spitting_totem_v1",
+      "authored_frames": 120,
+      "size": [
+        140,
+        1152
+      ],
+      "cell": [
+        28,
+        36
+      ],
+      "anchor": [
+        14,
+        33
+      ],
+      "hashes": {
+        "albedo": "ceafbbff640d6f81099b5e326f4097d7670d2ae17a7840c1edecfc4cd1fddeed",
+        "normal": "d69f5fe8f6e9248683e9790aaa3e60956f85cecdf5afa9ce99d32d59c692aa15",
+        "metadata": "4c5793ee1900442970402acad06c9d311a6af2e1897a3e698c6522897b841a60"
+      },
+      "normal_vector_lengths": [
+        0.98457932472229,
+        1.0061479806900024
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 6,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          140,
+          288
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/cinder-v3/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "spitting_totem_v2",
+      "authored_frames": 120,
+      "size": [
+        140,
+        1152
+      ],
+      "cell": [
+        28,
+        36
+      ],
+      "anchor": [
+        14,
+        33
+      ],
+      "hashes": {
+        "albedo": "57e485dc9bafd4a043847330c085b809ebad2e02b0c413a97817deb1c2a095d9",
+        "normal": "752f709a322671f802d5333ef040357b9edffd226a16030293547735bde39328",
+        "metadata": "a96d264e56559c7e68c1bf0817c3d3fdffad2d494b83c5e7ff6a6b71da3a4a19"
+      },
+      "normal_vector_lengths": [
+        0.98457932472229,
+        1.0061479806900024
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 0,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          140,
+          288
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": null,
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/cinder-v3/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "crystal_beetle",
+      "authored_frames": 168,
+      "size": [
+        192,
+        1092
+      ],
+      "cell": [
+        32,
+        26
+      ],
+      "anchor": [
+        16,
+        20
+      ],
+      "hashes": {
+        "albedo": "52385a5a21c29e79e879c0883bfc7efa4059c9d217c64aef3fcfb62c20438dcb",
+        "normal": "d828ba9d50b306823bbe51663c93484d20fecb25fe228f7385f12a005a5ba74a",
+        "metadata": "48da1515e16004688d6aec35a00d3def681484028e6d02b9d4521047b9bf448a"
+      },
+      "normal_vector_lengths": [
+        0.9937211871147156,
+        1.0060256719589233
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 49,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          192,
+          468
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": {
+        "projection": "screenY=0.4*Y-Z",
+        "min_encoded_camera_dot": 0.008627474308013916,
+        "backfacing_pixels_beyond_quantization": 0
+      },
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/glasswater-v5/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "crystal_beetle_v1",
+      "authored_frames": 168,
+      "size": [
+        192,
+        1092
+      ],
+      "cell": [
+        32,
+        26
+      ],
+      "anchor": [
+        16,
+        20
+      ],
+      "hashes": {
+        "albedo": "9faa05dced594caae00f55404789b13540e056137095124c0638ef3e5c4f293b",
+        "normal": "74c05cf2d709d701727ecddcbdc4ff91aa1265b3eb6249d983e70e442cf4f59e",
+        "metadata": "91f996031759e0436d05cd9d859fd190f284234cdf62e714f5f91c700fb7820d"
+      },
+      "normal_vector_lengths": [
+        0.9938449859619141,
+        1.0062702894210815
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 48,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          192,
+          468
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": {
+        "projection": "screenY=0.4*Y-Z",
+        "min_encoded_camera_dot": 0.008627474308013916,
+        "backfacing_pixels_beyond_quantization": 0
+      },
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/glasswater-v5/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "crystal_beetle_v2",
+      "authored_frames": 168,
+      "size": [
+        192,
+        1092
+      ],
+      "cell": [
+        32,
+        26
+      ],
+      "anchor": [
+        16,
+        20
+      ],
+      "hashes": {
+        "albedo": "d4b86b2f96afb0a39793e3566fe185fe6a94eba728adc0fe83fcb9813c2ed470",
+        "normal": "8744919e221bfe57171a78bbda5bce3e0a3b82040351fad143cfd0042cc5f4d0",
+        "metadata": "74071128ebfb2b1f6092b9e0856ed1b2a784ee4b965100b6a0d265bc34ec526e"
+      },
+      "normal_vector_lengths": [
+        0.9935354590415955,
+        1.0064536333084106
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 48,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          192,
+          468
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": {
+        "projection": "screenY=0.4*Y-Z",
+        "min_encoded_camera_dot": 0.04313728213310242,
+        "backfacing_pixels_beyond_quantization": 0
+      },
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/glasswater-v5/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "wisp",
+      "authored_frames": 162,
+      "size": [
+        96,
+        864
+      ],
+      "cell": [
+        16,
+        24
+      ],
+      "anchor": [
+        8,
+        15
+      ],
+      "hashes": {
+        "albedo": "3a2f58468e2b7d21af471f116446951f2395891d8028e28ce07edcdbed11aeaa",
+        "normal": "ac6948e0a3a72f52c4eca2524382696ddf6cda364f37e5dcafb980838b420e98",
+        "metadata": "bdf5eea00ed22e9b630e1e58fd5acb8b1f371495dc87cd46c8743dec086cec7d"
+      },
+      "normal_vector_lengths": [
+        0.9944637417793274,
+        1.0059034824371338
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 53,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          96,
+          96
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": {
+        "projection": "screenY=0.55*Y-Z",
+        "min_encoded_camera_dot": 0.003333359956741333,
+        "backfacing_pixels_beyond_quantization": 0
+      },
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/glasswater-v5/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "wisp_v1",
+      "authored_frames": 162,
+      "size": [
+        96,
+        864
+      ],
+      "cell": [
+        16,
+        24
+      ],
+      "anchor": [
+        8,
+        15
+      ],
+      "hashes": {
+        "albedo": "ae1f9d81f03078264d9359ac506011cc9b0e0b81d61e4be66a4e9db9b7654e62",
+        "normal": "c0df11d209d809c49cff64f883fbbd4eca8e0ac7bcfa57ed4fc826fd5cb718e6",
+        "metadata": "2bbd2cdad62c62c3aedb86192eff2dceecd1eea0a63becbccf26fa60318ec8a7"
+      },
+      "normal_vector_lengths": [
+        0.9939069151878357,
+        1.0054141283035278
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 40,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          96,
+          96
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": {
+        "projection": "screenY=0.55*Y-Z",
+        "min_encoded_camera_dot": 0.022156894207000732,
+        "backfacing_pixels_beyond_quantization": 0
+      },
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/glasswater-v5/source-normal-contact-audit.json"
+    },
+    {
+      "sheet": "wisp_v2",
+      "authored_frames": 162,
+      "size": [
+        96,
+        864
+      ],
+      "cell": [
+        16,
+        24
+      ],
+      "anchor": [
+        8,
+        15
+      ],
+      "hashes": {
+        "albedo": "28f243bc455b94c2d818e648c9ea5018f0050aed63b5763b9e58386564b4ec0b",
+        "normal": "c5f0b714b256d93b0bb4a7db6fce2243fe9ffa661db70bf72c07ae9b5f75ec91",
+        "metadata": "c7c16433f21999df3e0048fd3f641ab90a8cdc3236fbc3f26c4beea0abfdad07"
+      },
+      "normal_vector_lengths": [
+        0.9940925240516663,
+        1.0059033632278442
+      ],
+      "alpha_mismatches": 0,
+      "duplicate_pose_checks": 73,
+      "shaded_mirrored_pose_checks": 0,
+      "old_rectangle": {
+        "previous_size": [
+          96,
+          96
+        ],
+        "changed_albedo_pixels_in_old_rectangle": 0,
+        "changed_normal_pixels_in_old_rectangle": 0
+      },
+      "geometry_view_basis": {
+        "projection": "screenY=0.55*Y-Z",
+        "min_encoded_camera_dot": 0.046470627188682556,
+        "backfacing_pixels_beyond_quantization": 0
+      },
+      "data_errors": [],
+      "detailed_audit": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/lighting/glasswater-v5/source-normal-contact-audit.json"
+    }
+  ],
+  "intentional_coverage_semantics": [
+    "Glint legacy death/death_left rows are historical receipts; runtime uses eight-way collapse.",
+    "Imp windup_side and attack_side are conditional four-diagonal hand variants preserving existing launch sites; cardinal throws use standard rows.",
+    "Projected native Glasswater geometry can have negative world Y/PNG blue; validity uses its actual camera basis instead of flattening the normal."
+  ],
+  "inspection": [
+    "All 19 atlases: native and nearest-neighbor enlarged all-frame source boards.",
+    "Hero: actual production eight-direction selected action boards in Bloomwild, Glasswater, Cinder and Summit, plus NE walk/stop/turn and combat progression."
+  ],
+  "tool": "tools/eightway/lighting_review.py"
+}

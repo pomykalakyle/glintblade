@@ -1,0 +1,140 @@
+{
+  "completed_at": "2026-11-02T21:40:16.975356+00:00",
+  "status": "implemented-installed-verified",
+  "request": "Audit and improve the vulnerable kneel / heart opening; final death excluded.",
+  "audit_findings": [
+    "Whole rigid piers translated opposite the upper body, producing a telescope rather than a knee bend.",
+    "Splay moved planted feet outward at depth8/16.",
+    "Grounded spent fists slid across the floor and emitted false landing impacts.",
+    "Body impact sound/effects happened one update after the final pose and inside the empty arch.",
+    "Missed-window and phase-clear recovery used different curves and released hands before extension finished."
+  ],
+  "implementation": {
+    "standing_height_px": 164,
+    "settled_drop_px": 24,
+    "impact_drop_px": 26,
+    "native_body_poses": 108,
+    "pose_depths": 27,
+    "body_cell": [
+      144,
+      160
+    ],
+    "anchor": [
+      72,
+      157
+    ],
+    "upper_art_unchanged_rows": [
+      0,
+      112
+    ],
+    "fixed_sole_source_rows": [
+      152,
+      157
+    ],
+    "feet": "Same native X and world Y through every fold; new knee/thigh/shin planes change the supporting silhouette.",
+    "load_order": "Airborne hands lose lift straight down and land3stagger updates before body contact. Grounded hands retain their actual contact and emit no new landing. Body impact and hitstop occur on the first maximum-compression pose, followed by2pxrecoil/settlement.",
+    "recovery": "Both outcomes use one20update extension curve; hands return only after the body is upright.",
+    "heart_rules": "Destination, damage rules and vulnerability interval unchanged. Real-update tests check firstModeStagger30 through38+phaseWindow+5 for all3phases.",
+    "materials": "New leg planes have matched native geometric normals and albedo masks; authored head and upper structure stay rigidly joined.",
+    "fractures": "Sole fractures retain native registration. Turned knee faces hide old standing-plane fractures rather than projecting them onto new faces."
+  },
+  "visual_coverage": {
+    "focused_wall_frames": 510,
+    "general_fight_states": 536,
+    "normal_game_camera_cases": 148,
+    "fitting_cases": 37,
+    "bad_ground_contacts": 0,
+    "bad_hero_or_blade_views": 0,
+    "bad_fitting_crowns": 0,
+    "false_phase_clear_landings": 0,
+    "focused_manifest": "/home/krp/Projects/glintblade/out/warden-kneel/poses-v2/manifest.json",
+    "whole_manifest": "/home/krp/Projects/glintblade/out/warden-kneel/final-poses/manifest.json",
+    "baseline_manifest": "/home/krp/Projects/glintblade/out/warden-kneel/poses-before/manifest.json",
+    "comparison": "/home/krp/Projects/glintblade/out/warden-kneel/comparison.html",
+    "actual_motion": "/home/krp/Projects/glintblade/out/warden-kneel/actual-kneel-and-recovery.mp4",
+    "motion_fps": 30,
+    "simulation_hz": 60,
+    "baseline": "Private frozen original Warden source/assets built with the same renderer and focused capture driver. Controlled initial states; motion always uses normal Play updates.",
+    "corrected_fixture": "Independent review found synthetic phase-clear captures had skipped fist settling. Both drivers now advance naturally toStagger50 before applying phase-clear damage state; fresh510frame capture confirms no false impacts.",
+    "review": "/home/krp/Projects/glintblade/art/warden-kneel/2026-11-02/independent-review.json"
+  },
+  "verification": {
+    "functional": {
+      "passed": 457,
+      "failed": 0,
+      "ignored": 8,
+      "filtered_performance_gates": 4
+    },
+    "functional_log": "/home/krp/Projects/glintblade/out/warden-kneel/final-functional.log",
+    "focused_boss_tests": {
+      "passed": 47,
+      "ignored": 4,
+      "log": "/home/krp/Projects/glintblade/out/warden-kneel/final-boss-tests.log"
+    },
+    "exporter_tests": {
+      "passed": 7,
+      "log": "/home/krp/Projects/glintblade/out/warden-kneel/exporter-tests.log"
+    },
+    "native_build": "/home/krp/Projects/glintblade/out/warden-kneel/final-native.log",
+    "wasm_build": "/home/krp/Projects/glintblade/out/warden-kneel/final-wasm.log",
+    "whole_capture": "/home/krp/Projects/glintblade/out/warden-kneel/final-capture.log",
+    "real_fight": {
+      "victory_ready": true,
+      "ticks": 4003,
+      "milestones": {
+        "phase_2_damage": 1168,
+        "phase_2_heart_open": 1519,
+        "phase_3_damage": 2786,
+        "victory": 3504,
+        "warden_awake": 1,
+        "warden_dying": 3121
+      },
+      "report": "/home/krp/Projects/glintblade/out/warden-kneel/final-pilot/report.json",
+      "god_mode_for_coverage": true,
+      "injected_boss_damage": false,
+      "current_assets_trace_audio_equal_to_motion_capture": true
+    },
+    "excluded_timing_gates": [
+      "full_game_release_timing",
+      "actual_sword_break_full_render_timing",
+      "cinder_signature_render_timing",
+      "signature_live_game_stays_inside_eight_millisecond_budget"
+    ],
+    "earlier_external_failure": "Two Summit support tests failed against its temporary rejected atlas; latest stable six-file Summit installation resolved the mismatch. Final full functional result above uses the stable assets.",
+    "scoped_diff_check": "pass"
+  },
+  "installed_files": {
+    "sprites/warden_body.png": {
+      "before": "7deb854660fee2c74ca628f24ed7996c6af6ddc33b363ed2f2f4b947dfd40197",
+      "after": "af1a5c7184995cf21b686b7d25ce9b2bf2a336cb8c8244715f446d25c038871f"
+    },
+    "sprites/warden_body.json": {
+      "before": "55a1263217092444a975d3b2df295bffb58aee0eba508b4c0775806095c82620",
+      "after": "4e11b7fe76b5f993bd02a71bd6aa09e11749f523eef669cb1f03910475d6882a"
+    },
+    "normals/warden_body.png": {
+      "before": "59dcbab6d0f537706903e2b316f620fe4e0c02615004178d8960ce456343cc68",
+      "after": "d8e76236ede5f11bdee0d8085463e19b88d3c063ad42b13ad30291f6d9b2f5ba"
+    }
+  },
+  "installation_receipt": "/home/krp/Projects/glintblade/art/warden-kneel/2026-11-02/installed.json",
+  "asset_snapshot": "/home/krp/Projects/glintblade/out/warden-kneel/final-assets-sha256.json",
+  "source_sha256": {
+    "src/entities/boss.rs": "fc3a52b03afb09e7ceddc54f9cdbefd6d471fb94c73d465a93ed5a06cba8a636",
+    "src/entities/boss/pose.rs": "96d20036bbf11c049078c9a49e8199bcf2a82174a368a8b5558d7277328c82c3",
+    "src/entities/boss/art.rs": "6cb2259898791d60cff1860d61766a850ef192bcc6b001d33c6f82f91f291c41",
+    "src/entities/boss/fist.rs": "aeb5c132f5a8eb3298e608d9188b7bbf887e1090399b13dd7e4ecc77ecf5bd8c",
+    "src/entities/boss/kneel.rs": "b3fe5cdef37b787957fe044f07b0012507228e819d7c272e35572bc0b2475a96",
+    "src/entities/boss/kneel_tests.rs": "4d55a87b8f499c199c0780d6f578e4c833a2b772f8ee74e17369ec29ecad9814",
+    "src/entities/boss/cohesion_audit.rs": "3224f2b95a4c73e835e2347036cf716d78d1ba27bc6c4ec227e6d2d52e1af6bf",
+    "src/entities/boss/tests.rs": "2cc286abc26c3d5e93aab0805ec716adbb60c300984ba0901d64c8c0eee4d2b6",
+    "tools/warden/towering.py": "ff298e88e78881bb916f1784b1094bcc807d03de984d141c6c68e53b17dabce6",
+    "tools/warden/test_towering.py": "1c06333d2061b46ebc550c6b1675c0b2a229349a2568d053d849fd95c1d23ffc"
+  },
+  "frozen_binaries": {
+    "glintblade-final": "545dd4b8aa4c93cc35fbf70a3445b62883d83f8212dc16776e62ec7a97854b2c",
+    "glintblade-final.wasm": "0f5d81326a2d04034debfd55d71913797b77d2ecab6cc55f672220fb185345b4"
+  },
+  "remaining_warden_findings": [],
+  "publishing": "Local source/assets only; no shared web build, README or publishing changes."
+}

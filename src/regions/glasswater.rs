@@ -12,6 +12,7 @@ mod materials;
 mod normals;
 mod paint;
 mod place;
+mod ravine;
 mod water;
 
 use crate::combat::{Hit, Shape, Team};
@@ -22,6 +23,18 @@ use crate::gfx::frame::PointLight;
 use std::f32::consts::TAU;
 
 const MAP: &str = include_str!("glasswater/map.txt");
+
+/// The west approach reveals the lake crystal at (520, 398.8) and its reflection.
+/// Fade across the approach's edges; the rest of the cave keeps ordinary follow.
+pub(crate) fn lake_camera_bias(x: f32, y: f32) -> f32 {
+    let ease = |v: f32| {
+        let v = v.clamp(0.0, 1.0);
+        v * v * (3.0 - 2.0 * v)
+    };
+    let horizontal = ease((x - 208.0) / 64.0) * (1.0 - ease((x - 384.0) / 96.0));
+    let vertical = ease((y - 336.0) / 48.0) * (1.0 - ease((y - 448.0) / 48.0));
+    64.0 * horizontal * vertical
+}
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Kind {
@@ -130,6 +143,8 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     paint::details(&mut z, &m, &fl);
     materials::paint(&mut z, &m, &fl);
     paint::bridge(&mut z, &m);
+    ravine::paint_near(&mut z, &m);
+    ravine::paint_rim(&mut z, &m, &fl);
 
     // Low, cool slate ambient leaves the crystals and blade to carve out the cave. The grade
     // stays near neutral; the palette carries the mood.
@@ -160,6 +175,7 @@ pub fn build() -> (Zone, Box<dyn Region>) {
     normals::apply(&mut z, &m, &fl);
     let water = water::Water::new(&m, &fl, &z.ground, &decor);
     let mut life = life::Life::new();
+    life.prepare_abyss(&z, &m);
     place::drips(&mut life);
     (z, Box::new(Glasswater { decor, water, life, player: (0.0, 0.0), t: 0, water_movers: Vec::new(), water_hit_ids: Vec::new() }))
 }
@@ -364,6 +380,7 @@ impl Region for Glasswater {
         let wob = d.wobble_x();
         let depth = d.prop.and_then(|id| zone.props.get(id)).map_or(d.y, Prop::sort_y);
         let o = DrawOpts { flip: d.flip, elevation: d.elevation, flash: d.flash,
+            reflectivity: if matches!(d.kind, Kind::Crystal | Kind::Sprig) { 0.22 } else { 0.0 },
             emit_gain: d.emit_gain(t), reveal, reveal_depth: Some(depth), shadow_alpha: reveal.map(|_| 1.0), ..Default::default() };
         let reflecting = f.water_any;
         f.water_any = false; // Already reflected once on the actual receiving bank above.
@@ -404,7 +421,7 @@ impl Region for Glasswater {
     }
 
     fn draw_backdrop(&self, zone: &Zone, f: &mut Frame, _t: u64) {
-        life::draw_abyss(zone, f);
+        self.life.draw_abyss(zone, f);
     }
 }
 

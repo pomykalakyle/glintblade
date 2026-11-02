@@ -1,0 +1,19 @@
+{
+  "request": {
+    "description": "Create a different silhouette of the SAME low broken pale limestone block wall. The middle has two slightly shifted chipped blocks with staggered joints; the broken upper outline rises toward the right. Match native one-pixel edges, existing block size, length and thickness, shallow oblique top-down projection, muted pale gray/beige and moss palette, upper-left lighting. PRESERVE bottom support course rows45..52 unchanged, all opaque art inside x3..44,y18..52 on a transparent48x56 canvas. No cast shadow, pillar, arch or added props. Same object and scale, different broken outline and block arrangement.",
+    "width": 48,
+    "height": 56,
+    "no_background": true,
+    "seed": 73117,
+    "reference": "references/wall.png"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 729d3991-1788-4c6f-982c-d7a69f6b45e0\njob_id: 729d3991-1788-4c6f-982c-d7a69f6b45e0\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Create a different silhouette of the SAME low broken pale limestone block wall. The middle has two slightly shifted chipped blocks with staggered joints; the broken upper outline rises toward the right. Match native one-pixel edges, existing block size, length and thickness, shallow oblique top-down projection, muted pale gray/beige and moss palette, upper-left lighting. PRESERVE bottom support course rows45..52 unchanged, all opaque art inside x3..44,y18..52 on a transparent48x56 canvas. No cast shadow, pillar, arch or added props. Same object and scale, different broken outline and block arrangement.\nseed: 73117\nasset_id: 86c79b18-84a6-51e8-9c90-948fe387b279\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"729d3991-1788-4c6f-982c-d7a69f6b45e0\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/729d3991-1788-4c6f-982c-d7a69f6b45e0/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

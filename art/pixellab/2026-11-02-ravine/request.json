@@ -1,0 +1,31 @@
+{
+  "request": {
+    "description": "Native pixel art material for a deep slate cavern ravine wall, seamless-looking full-canvas upright rock face with NO top cap, NO floor, NO ground, NO scenery, NO props. Broad unequal angular slate plates descending vertically, two or three long irregular geological fracture seams and occasional broken bedding ledges. Solid large calm shadow planes, clean designed pixel clusters, sparse small chips, no speckle, no outlines, no dither, no glow. Cool dusty blue slate with deep blue-black crevices; restrained abandoned waterworks cave aesthetic, upper-left key light. Cliff face alone fills canvas all the way to every edge. Match native rock scale of reference, about 20 to 45 pixels across each major slab. Avoid masonry bricks or repeated thin ribs; this is fractured natural slate.",
+    "width": 128,
+    "height": 128,
+    "no_background": false,
+    "max_colors": 9,
+    "palette": [
+      "#151f2c",
+      "#1d2b3b",
+      "#253444",
+      "#2e4051",
+      "#3b4e60",
+      "#4c6070",
+      "#617383",
+      "#728695",
+      "#8697a3"
+    ],
+    "seed": 762341,
+    "reference_image_path": "assets/sprites/glasswater_walls.png"
+  },
+  "submit": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 01b8b641-76e1-49d2-a6d9-642276148af6\njob_id: 01b8b641-76e1-49d2-a6d9-642276148af6\nmodel: pro\ndescription: Native pixel art material for a deep slate cavern ravine wall, seamless-looking full-canvas upright rock face with NO top cap, NO floor, NO ground, NO scenery, NO props. Broad unequal angular slate plates descending vertically, two or three long irregular geological fracture seams and occasional broken bedding ledges. Solid large calm shadow planes, clean designed pixel clusters, sparse small chips, no speckle, no outlines, no dither, no glow. Cool dusty blue slate with deep blue-black crevices; restrained abandoned waterworks cave aesthetic, upper-left key light. Cliff face alone fills canvas all the way to every edge. Match native rock scale of reference, about 20 to 45 pixels across each major slab. Avoid masonry bricks or repeated thin ribs; this is fractured natural slate.\nsize: 128x128px\ntransparent: False\ncandidates: 4\nreferences: 1\npalette: 9 colours\nmax colours: 9 per image\nseed: 762341\nasset_id: 95400471-3eef-5124-ad4c-37d903647dec\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"01b8b641-76e1-49d2-a6d9-642276148af6\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/01b8b641-76e1-49d2-a6d9-642276148af6/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

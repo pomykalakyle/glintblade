@@ -1,0 +1,532 @@
+[
+  {
+    "name": "leaves-arched",
+    "raw": "raw/leaves-arched.png",
+    "raw_size": [
+      32,
+      32
+    ],
+    "raw_sha256": "0389e1cd797520c1b6e7096d34cef1f9bfd7fadd8e7459c57e348f19af475f2e",
+    "translation": [
+      0,
+      0
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-arched.png",
+    "selected_sha256": "90bb0b3ef043e8b6eb936eee7aabf6181ae445fdddaea98a916120f63cd73977",
+    "normal_group": "leaves",
+    "normal_rect": [
+      0,
+      0,
+      32,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-split",
+    "raw": "raw/leaves-split.png",
+    "raw_size": [
+      32,
+      32
+    ],
+    "raw_sha256": "d8eb0bf1cbbc86c92f66b1397f165b67a15769b9fbdc8a4ba56809e9b481f7a8",
+    "translation": [
+      0,
+      -1
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-split.png",
+    "selected_sha256": "23d6b6bc8a6fdb225cf79d17a939e5af17033fc7646b2a9eed4ebe7d8f95cd4e",
+    "normal_group": "leaves",
+    "normal_rect": [
+      32,
+      0,
+      64,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-triple",
+    "raw": "raw/leaves-triple.png",
+    "raw_size": [
+      32,
+      32
+    ],
+    "raw_sha256": "2d41642ffefc6f2f8c5c78959a25eb0634c29d33c65c718f543b84ae76b67328",
+    "translation": [
+      0,
+      0
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-triple.png",
+    "selected_sha256": "7d0036c368b5ee71aef66cc20a312faa83be3b813fc25da1310567c6e928005e",
+    "normal_group": "leaves",
+    "normal_rect": [
+      64,
+      0,
+      96,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-shallow-curl",
+    "raw": "raw/leaves-shallow-curl.png",
+    "raw_size": [
+      32,
+      16
+    ],
+    "raw_sha256": "8860f3e46863b9eb83b28af59a08130f204efa185b260703256f263a7b664cf0",
+    "translation": [
+      0,
+      14
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-shallow-curl.png",
+    "selected_sha256": "d9bd0351899b9e1482a7fa25ed4925cc0cf7be05cf126f0ad4fb5a07e60a7640",
+    "normal_group": "leaves",
+    "normal_rect": [
+      96,
+      0,
+      128,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-shallow-five",
+    "raw": "raw/leaves-shallow-five.png",
+    "raw_size": [
+      32,
+      16
+    ],
+    "raw_sha256": "ea17b550d702b89601d7874d0c7316863c1c02ba9ac7d2ce249b74ac511a4d1d",
+    "translation": [
+      0,
+      14
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-shallow-five.png",
+    "selected_sha256": "326165e53c9d59ecb4516d6f7e2e0e82c6bf74fc0c34dc042904a601521c2b48",
+    "normal_group": "leaves",
+    "normal_rect": [
+      128,
+      0,
+      160,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-shallow-left",
+    "raw": "raw/leaves-shallow-left.png",
+    "raw_size": [
+      32,
+      16
+    ],
+    "raw_sha256": "86cd31f68580673ba0671a8d377fd274d246bf8cc4938af919d9850dbb832b04",
+    "translation": [
+      0,
+      14
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-shallow-left.png",
+    "selected_sha256": "4caf5e339f5644aa65ba758272abf6518778bc34a6b14dc649cfc4e0a56a95c7",
+    "normal_group": "leaves",
+    "normal_rect": [
+      160,
+      0,
+      192,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-shallow-pair",
+    "raw": "raw/leaves-shallow-pair.png",
+    "raw_size": [
+      32,
+      16
+    ],
+    "raw_sha256": "39aad7ec1f846ab19b99c947277d476917a72c9a2d258b8c9b7d30bea255dd40",
+    "translation": [
+      0,
+      14
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-shallow-pair.png",
+    "selected_sha256": "c198f555fc606ca672d347846ba3e7997c143f29d7bd187cd314481a66d8a75a",
+    "normal_group": "leaves",
+    "normal_rect": [
+      192,
+      0,
+      224,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-shallow-right",
+    "raw": "raw/leaves-shallow-right.png",
+    "raw_size": [
+      32,
+      16
+    ],
+    "raw_sha256": "b3217ecd3809535734e3bec97049603ceca62bf56140ecb4ce28f847c15a44da",
+    "translation": [
+      0,
+      14
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-shallow-right.png",
+    "selected_sha256": "11e342961ff7991f4a29aec0023603bb0011189262388950c92b7d7552e4f85b",
+    "normal_group": "leaves",
+    "normal_rect": [
+      224,
+      0,
+      256,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-shallow-spread",
+    "raw": "raw/leaves-shallow-spread.png",
+    "raw_size": [
+      32,
+      16
+    ],
+    "raw_sha256": "10527cb8a22ca9b79328e80f4af5f7a35615eff9b84f54b05d38dfec4a9e933e",
+    "translation": [
+      0,
+      14
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-shallow-spread.png",
+    "selected_sha256": "a3542db36ac7dcdd17f3ee88640b52050e476f6c85f616f41ecfc6b8679e6ad7",
+    "normal_group": "leaves",
+    "normal_rect": [
+      256,
+      0,
+      288,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "leaves-shallow-young",
+    "raw": "raw/leaves-shallow-young.png",
+    "raw_size": [
+      32,
+      16
+    ],
+    "raw_sha256": "5cc15055be4bcb7e3af4c23a4825f8dd7d50db73f2cc2ffdf2b35c4b40ec94a9",
+    "translation": [
+      0,
+      14
+    ],
+    "preserve_from_row": null,
+    "selected": "selected/leaves-shallow-young.png",
+    "selected_sha256": "c2af316fd326bee73c72dc3a00deb0e6f0b828b05e302596f78d1775b415877a",
+    "normal_group": "leaves",
+    "normal_rect": [
+      288,
+      0,
+      320,
+      32
+    ],
+    "native_pixel_registration_only": true,
+    "generated_normal_source": "normals/leaves-folds-output.png",
+    "generated_normal_sha256": "4b8335c7dd0b475fe651e0b0ef8cd9be010db811c5adf4cf2eebf60ea7772a3a"
+  },
+  {
+    "name": "pillar_broken_short_b",
+    "raw": "raw/column-scallop.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "e4e2b574bdaa8a5e92146065f1a1b1e2cd75cd61162fc70d59b4f5ab78dfb58a",
+    "translation": [
+      0,
+      7
+    ],
+    "preserve_from_row": 40,
+    "selected": "selected/column-scallop.png",
+    "selected_sha256": "6724c7107c8bcab218fe18ed1a95150bcaa8a204a4ef667be5ad07ffb263e438",
+    "normal_group": "stone",
+    "normal_rect": [
+      0,
+      0,
+      48,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/column-scallop.json",
+    "normal_planes_sha256": "d0b4402e7271fadcec1f2d661472799146913d3889d3167a5268f43688d131e8",
+    "shared_foot_normal_planes": "normal-planes/column-foot.json",
+    "shared_foot_normal_planes_sha256": "8847285c29e3884bef4a09df4a51f210c183fe01f26f9b3f64e104c01c1effa7",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "pillar_broken_short_c",
+    "raw": "raw/column-corner.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "0117a19b96ec08f8ca77a9c4a2b622c817b79e84f14a3df175cb222e8e848181",
+    "translation": [
+      0,
+      0
+    ],
+    "preserve_from_row": 40,
+    "selected": "selected/column-corner.png",
+    "selected_sha256": "2eef6542b83b4b26b24bc570ff655b152aaca2f2b6bfea460b67ee517b1c49ab",
+    "normal_group": "stone",
+    "normal_rect": [
+      48,
+      0,
+      96,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/column-corner.json",
+    "normal_planes_sha256": "88b172e2a5259dd6caadd4585d692b2371e7b2cf0d84fafd91696b05de328b2d",
+    "shared_foot_normal_planes": "normal-planes/column-foot.json",
+    "shared_foot_normal_planes_sha256": "8847285c29e3884bef4a09df4a51f210c183fe01f26f9b3f64e104c01c1effa7",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "pillar_broken_short_d",
+    "raw": "raw/column-hollow.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "80b2a6358c4680abfca1404e3ccf2e7b51d8340cdfb09c568d7ac64cb880a4d4",
+    "translation": [
+      0,
+      -2
+    ],
+    "preserve_from_row": 40,
+    "selected": "selected/column-hollow.png",
+    "selected_sha256": "eb1a518ad1571f65063e0fb2f41cdf29f1f562468c6ad36109f6632c492e34cd",
+    "normal_group": "stone",
+    "normal_rect": [
+      96,
+      0,
+      144,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/column-hollow.json",
+    "normal_planes_sha256": "ce3f40b9b33f2b06f4685245c368a520006972757db9b724dfa26bb3b5914ada",
+    "shared_foot_normal_planes": "normal-planes/column-foot.json",
+    "shared_foot_normal_planes_sha256": "8847285c29e3884bef4a09df4a51f210c183fe01f26f9b3f64e104c01c1effa7",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "pillar_broken_short_e",
+    "raw": "raw/column-slant.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "b4fe916d4375bdff723fb0becd1b41fde20180ca95d7d2b5c23df7a5ae1b40d6",
+    "translation": [
+      0,
+      0
+    ],
+    "preserve_from_row": 40,
+    "selected": "selected/column-slant.png",
+    "selected_sha256": "340db03373d399536814557f61363afe8aedd1de9161b7df0a6694d8f0f42d6d",
+    "normal_group": "stone",
+    "normal_rect": [
+      144,
+      0,
+      192,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/column-slant.json",
+    "normal_planes_sha256": "71dc5e95872348c2f26a25d8dab7f7cbbab6ee051c80b71eeefc781c84b10a2d",
+    "shared_foot_normal_planes": "normal-planes/column-foot.json",
+    "shared_foot_normal_planes_sha256": "8847285c29e3884bef4a09df4a51f210c183fe01f26f9b3f64e104c01c1effa7",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "wall_low_b",
+    "raw": "raw/wall-notch.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "f70958f84439b1c9f8e3d2b748eca2cc902bb4fa9b8c411144acf853cf502b73",
+    "translation": [
+      0,
+      0
+    ],
+    "preserve_from_row": 45,
+    "selected": "selected/wall-notch.png",
+    "selected_sha256": "7519b4f5943468bb2fc93a8b315602f0e3ec2e58555c0c34dc8b2ba95ddbc440",
+    "normal_group": "stone",
+    "normal_rect": [
+      192,
+      0,
+      240,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/wall-notch.json",
+    "normal_planes_sha256": "231b3c8c2da5abdb1598241754136ad758f5751b51ae922e072669eb7799c58c",
+    "shared_foot_normal_planes": "normal-planes/wall-foot.json",
+    "shared_foot_normal_planes_sha256": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "wall_low_c",
+    "raw": "raw/wall-step.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "27e627630b0ede7e1c5ce1b4474f70ecd326d4251dd6e341977ff2731c4d8909",
+    "translation": [
+      0,
+      0
+    ],
+    "preserve_from_row": 45,
+    "selected": "selected/wall-step.png",
+    "selected_sha256": "1bcb79226a6cf8646dad2bebde827592ac7be5b38be131ba9e9b1aa5c597008d",
+    "normal_group": "stone",
+    "normal_rect": [
+      240,
+      0,
+      288,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/wall-step.json",
+    "normal_planes_sha256": "e19d3d42ad0071595f6a02fd128ba5d43c9c522a20bd61843f700806be6bafcd",
+    "shared_foot_normal_planes": "normal-planes/wall-foot.json",
+    "shared_foot_normal_planes_sha256": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "wall_low_d",
+    "raw": "raw/wall-gap.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "b6f1a220fae885e9c50f495834d2b5d3f91f9e8a7d077f2ad2874904448ad400",
+    "translation": [
+      0,
+      8
+    ],
+    "preserve_from_row": 45,
+    "selected": "selected/wall-gap.png",
+    "selected_sha256": "473eec90abe09e716ad28bd585e4694901cb8794e74b8114efbb156b68a4665a",
+    "normal_group": "stone",
+    "normal_rect": [
+      288,
+      0,
+      336,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/wall-gap.json",
+    "normal_planes_sha256": "376d953c6d83ea145a3cbfb850937f0fdd6ec8abe90bb6d75d1fbe5a5bb33564",
+    "shared_foot_normal_planes": "normal-planes/wall-foot.json",
+    "shared_foot_normal_planes_sha256": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "wall_low_e",
+    "raw": "raw/wall-lean.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "bbfcb87113a3956a4b973b9702867a9da6a91458ca1b98eb9b0c7a25f4ab4026",
+    "translation": [
+      0,
+      6
+    ],
+    "preserve_from_row": 45,
+    "selected": "selected/wall-lean.png",
+    "selected_sha256": "46eaf7f09d2b84a56d4711e470ff425b542865b1403144aaba4e044382170d08",
+    "normal_group": "stone",
+    "normal_rect": [
+      336,
+      0,
+      384,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/wall-lean.json",
+    "normal_planes_sha256": "b0a552d0240ec591afcb714f02cf7784a4b2c8e0e7a7800c2d81c9990f0110c3",
+    "shared_foot_normal_planes": "normal-planes/wall-foot.json",
+    "shared_foot_normal_planes_sha256": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  },
+  {
+    "name": "wall_low_f",
+    "raw": "raw/wall-sag.png",
+    "raw_size": [
+      48,
+      56
+    ],
+    "raw_sha256": "aa986774257ff2284fa19c91c0f0659e7c8f370d78f44bdf420ec2521a721518",
+    "translation": [
+      0,
+      0
+    ],
+    "preserve_from_row": 45,
+    "selected": "selected/wall-sag.png",
+    "selected_sha256": "2d63a4c5420056b5eb94912498391c33fa50daf6f834b5e1e4aa4729cecbb528",
+    "normal_group": "stone",
+    "normal_rect": [
+      384,
+      0,
+      432,
+      56
+    ],
+    "native_pixel_registration_only": true,
+    "normal_planes": "normal-planes/wall-sag.json",
+    "normal_planes_sha256": "198bb37a6a13aa2ed7541220891fa0ab83d1fe357d367eed7d38515c2fef33e7",
+    "shared_foot_normal_planes": "normal-planes/wall-foot.json",
+    "shared_foot_normal_planes_sha256": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+    "generated_normal_source": "normals/stone-output.png",
+    "generated_normal_sha256": "de275e28ac86d2b934f411e14cca8f11a7b0e03bbbb8123d711a32d994b67d49"
+  }
+]

@@ -1,193 +1,431 @@
 {
- "cell": [
-  32,
-  26
- ],
- "anchor": [
-  16,
-  20
- ],
- "emissive": [
-  "#796c91",
-  "#a195b8",
-  "#cdc3db",
-  "#e2d8e9"
- ],
- "anims": {
-  "idle_right": {
-   "row": 0,
-   "frames": 4,
-   "fps": 4
+  "cell": [
+    32,
+    26
+  ],
+  "anchor": [
+    16,
+    20
+  ],
+  "emissive": [
+    "#796c91",
+    "#a195b8",
+    "#cdc3db",
+    "#e2d8e9"
+  ],
+  "anims": {
+    "idle_right": {
+      "row": 0,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_right": {
+      "row": 1,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_right": {
+      "row": 2,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_right": {
+      "row": 3,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_right": {
+      "row": 4,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_right": {
+      "row": 5,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_down": {
+      "row": 6,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_down": {
+      "row": 7,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_down": {
+      "row": 8,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_down": {
+      "row": 9,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_down": {
+      "row": 10,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_down": {
+      "row": 11,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_up": {
+      "row": 12,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_up": {
+      "row": 13,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_up": {
+      "row": 14,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_up": {
+      "row": 15,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_up": {
+      "row": 16,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_up": {
+      "row": 17,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_up_right": {
+      "row": 18,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_up_right": {
+      "row": 19,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_up_right": {
+      "row": 20,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_up_right": {
+      "row": 21,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_up_right": {
+      "row": 22,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_up_right": {
+      "row": 23,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_down_right": {
+      "row": 24,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_down_right": {
+      "row": 25,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_down_right": {
+      "row": 26,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_down_right": {
+      "row": 27,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_down_right": {
+      "row": 28,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_down_right": {
+      "row": 29,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_down_left": {
+      "row": 30,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_down_left": {
+      "row": 31,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_down_left": {
+      "row": 32,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_down_left": {
+      "row": 33,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_down_left": {
+      "row": 34,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_down_left": {
+      "row": 35,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    },
+    "idle_up_left": {
+      "row": 36,
+      "frames": 4,
+      "fps": 4
+    },
+    "move_up_left": {
+      "row": 37,
+      "frames": 4,
+      "fps": 8
+    },
+    "windup_up_left": {
+      "row": 38,
+      "frames": 6,
+      "durations": [
+        7,
+        6,
+        5,
+        5,
+        5,
+        6
+      ],
+      "fps": 10.59
+    },
+    "attack_up_left": {
+      "row": 39,
+      "frames": 4,
+      "durations": [
+        3,
+        5,
+        3,
+        5
+      ],
+      "fps": 15.0
+    },
+    "hurt_up_left": {
+      "row": 40,
+      "frames": 2,
+      "durations": [
+        6,
+        8
+      ],
+      "fps": 8.57
+    },
+    "dazed_up_left": {
+      "row": 41,
+      "frames": 4,
+      "durations": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "fps": 7.5,
+      "loop": true
+    }
   },
-  "move_right": {
-   "row": 1,
-   "frames": 4,
-   "fps": 8
+  "light": {
+    "color": "#cdc3db",
+    "radius": 30,
+    "offset": [
+      -2,
+      -12
+    ]
   },
-  "windup_right": {
-   "row": 2,
-   "frames": 6,
-   "durations": [
-    7,
-    6,
-    5,
-    5,
-    5,
-    6
-   ],
-   "fps": 10.59
-  },
-  "attack_right": {
-   "row": 3,
-   "frames": 4,
-   "durations": [
-    3,
-    5,
-    3,
-    5
-   ],
-   "fps": 15.0
-  },
-  "hurt_right": {
-   "row": 4,
-   "frames": 2,
-   "durations": [
-    6,
-    8
-   ],
-   "fps": 8.57
-  },
-  "dazed_right": {
-   "row": 5,
-   "frames": 4,
-   "durations": [
-    8,
-    8,
-    8,
-    8
-   ],
-   "fps": 7.5,
-   "loop": true
-  },
-  "idle_down": {
-   "row": 6,
-   "frames": 4,
-   "fps": 4
-  },
-  "move_down": {
-   "row": 7,
-   "frames": 4,
-   "fps": 8
-  },
-  "windup_down": {
-   "row": 8,
-   "frames": 6,
-   "durations": [
-    7,
-    6,
-    5,
-    5,
-    5,
-    6
-   ],
-   "fps": 10.59
-  },
-  "attack_down": {
-   "row": 9,
-   "frames": 4,
-   "durations": [
-    3,
-    5,
-    3,
-    5
-   ],
-   "fps": 15.0
-  },
-  "hurt_down": {
-   "row": 10,
-   "frames": 2,
-   "durations": [
-    6,
-    8
-   ],
-   "fps": 8.57
-  },
-  "dazed_down": {
-   "row": 11,
-   "frames": 4,
-   "durations": [
-    8,
-    8,
-    8,
-    8
-   ],
-   "fps": 7.5,
-   "loop": true
-  },
-  "idle_up": {
-   "row": 12,
-   "frames": 4,
-   "fps": 4
-  },
-  "move_up": {
-   "row": 13,
-   "frames": 4,
-   "fps": 8
-  },
-  "windup_up": {
-   "row": 14,
-   "frames": 6,
-   "durations": [
-    7,
-    6,
-    5,
-    5,
-    5,
-    6
-   ],
-   "fps": 10.59
-  },
-  "attack_up": {
-   "row": 15,
-   "frames": 4,
-   "durations": [
-    3,
-    5,
-    3,
-    5
-   ],
-   "fps": 15.0
-  },
-  "hurt_up": {
-   "row": 16,
-   "frames": 2,
-   "durations": [
-    6,
-    8
-   ],
-   "fps": 8.57
-  },
-  "dazed_up": {
-   "row": 17,
-   "frames": 4,
-   "durations": [
-    8,
-    8,
-    8,
-    8
-   ],
-   "fps": 7.5,
-   "loop": true
+  "colors_used": 11,
+  "notes": "Style v2 Glasswater beetle: slate shell and legs, pale iris crystal crest and eyes. Approved silhouettes and all pose durations are preserved, including the braced rear windup. Matte shell uses Glasswater rock/wall ramps; crest uses crystal_violet, with #e2d8e9 from fx.prism only at charge tips and eye flares. Cyan is reserved for Glint. Crystal faces and eyes retain their emissive roles; the shell, roots and legs stay matte. Feet stay on the anchor row; _right is mirrored for left. Eight-way extension: native projected articulated anatomy, unchanged original rows, exact original per-state pose timing and anchors. Source receipts and reproducible geometry tools: art/eightway/glasswater and tools/eightway/glasswater.py.",
+  "eightway": {
+    "order": [
+      "up",
+      "up_right",
+      "right",
+      "down_right",
+      "down",
+      "down_left",
+      "left",
+      "up_left"
+    ],
+    "native_anatomy": true,
+    "preserved_source_rows": 18,
+    "normal_source": "native articulated geometry; exact same raster as albedo; legacy-first exact-art canonical fields",
+    "directionless_effects": [
+      "crystal debris physics"
+    ]
   }
- },
- "light": {
-  "color": "#cdc3db",
-  "radius": 30,
-  "offset": [
-   -2,
-   -12
-  ]
- },
- "colors_used": 11,
- "notes": "Style v2 Glasswater beetle: slate shell and legs, pale iris crystal crest and eyes. Approved silhouettes and all pose durations are preserved, including the braced rear windup. Matte shell uses Glasswater rock/wall ramps; crest uses crystal_violet, with #e2d8e9 from fx.prism only at charge tips and eye flares. Cyan is reserved for Glint. Crystal faces and eyes retain their emissive roles; the shell, roots and legs stay matte. Feet stay on the anchor row; _right is mirrored for left."
 }

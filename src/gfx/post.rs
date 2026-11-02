@@ -111,6 +111,20 @@ pub fn compose(frame: &mut Frame, g: &Grade) {
     else { compose_pixels::<false>(frame, g); }
 }
 
+/// Grade reflected scene radiance exactly once, after its material blend in HDR.
+pub(crate) fn reflected_pixel(mut c: Rgb, g: &Grade, hot_white: f32) -> [u8; 4] {
+    if g.contrast != 1.0 || g.saturation != 1.0 || g.lift != Rgb::BLACK || g.gain != Rgb::WHITE {
+        if g.contrast != 1.0 {
+            c = Rgb::new((c.r - 0.5) * g.contrast + 0.5, (c.g - 0.5) * g.contrast + 0.5, (c.b - 0.5) * g.contrast + 0.5);
+        }
+        let lum = clamp01(c.luma());
+        c = c * Rgb::WHITE.lerp(g.gain, lum) + g.lift.scale((1.0 - lum).powi(2));
+        if g.saturation != 1.0 { c = Rgb::gray(c.luma()).lerp(c, g.saturation); }
+    }
+    let u = palette_u8(fit(c, hot_white));
+    [u[0], u[1], u[2], 255]
+}
+
 fn compose_pixels<const SHADED: bool>(frame: &mut Frame, g: &Grade) {
     let look = frame.look;
     let steps = if frame.surface_lighting { g.light_steps.max(32.0) } else { g.light_steps.max(0.0) };

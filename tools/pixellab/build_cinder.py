@@ -1,4 +1,6 @@
-"""Pack native PixelLab sources for Cinder. No generation, scaling or palette changes.
+"""Pack native PixelLab sources for Cinder. No generation or scaling.
+
+Only the authored ground-contact ink on markers/presses/short stumps is retouched.
 
 uv run --with pillow python tools/pixellab/build_cinder.py
 """
@@ -8,6 +10,7 @@ from pathlib import Path
 from PIL import Image
 from native_collision import add_collision
 from lava_quilt import build as build_lava_quilt
+from cinder_contacts import apply_contact_ink
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / 'art/pixellab/2026-11-01-round3/cinder'
@@ -25,6 +28,8 @@ def save(out, name, images, cell, anchor, *, anims=None, extra=None, rows=False)
     for i, im in enumerate(images):
         assert im.size == (cw, ch), (name, im.size, cell)
         atlas.paste(im, (0, i*ch) if rows else (i*cw, 0))
+    if name == 'cinder_foundry':
+        atlas = apply_contact_ink(name, atlas)
     atlas.save(out / f'{name}.png')
     data = dict(cell=cell, anchor=anchor, anims=anims or {'body':dict(row=0, frames=len(images), fps=1)},
                 notes='Native PixelLab source pixels. No scaling, interpolation, palette substitution or mirroring. '
@@ -56,6 +61,7 @@ def main():
                 add_collision(anims[anim], target, 8)
             atlas=Image.new('RGBA',(spec['cell'][0],spec['cell'][1]*len(images)))
             for i,im in enumerate(images):atlas.paste(im,(0,i*spec['cell'][1]))
+            atlas = apply_contact_ink(name, atlas)
             atlas.save(out/f'{name}.png')
             (out/f'{name}.json').write_text(json.dumps(dict(cell=spec['cell'],anchor=spec['anchor'],anims=anims,
                  notes='PixelLab native foundry markers; collision follows the exact opaque structural base on the unchanged source grid.'),indent=2)+'\n')
@@ -77,7 +83,10 @@ def main():
                           8 if depths is None else depths[anim_name])
         data['notes'] += ' Structural base collision follows the exact native opaque rows.'
         (out/f'{name}.json').write_text(json.dumps(data,indent=2)+'\n')
-        (out/f'{name}.png').write_bytes((legacy/f'{name}.png').read_bytes())
+        if name == 'cinder_pillars':
+            apply_contact_ink(name, atlas).save(out/f'{name}.png')
+        else:
+            (out/f'{name}.png').write_bytes((legacy/f'{name}.png').read_bytes())
     lava = ROOT / 'art/pixellab/2026-11-01-round5/cinder/lava-study'
     selection = json.loads((lava/'selection.json').read_text())
     molten, audit = build_lava_quilt(lava)

@@ -193,6 +193,7 @@ pub fn register(
         opacity,
         foot: foot_profile(cell, anchor, sy + f.cam_y, elevation.max(0.0), None),
         min_height: elevation.max(0.0),
+        reflectivity: 0.0,
     });
     owner
 }
@@ -475,7 +476,8 @@ fn apply_points(zone: Option<&crate::world::Zone>, f: &mut Frame) {
                         continue;
                     }
                     let inv_d = 1.0 / d2.sqrt().max(1.0);
-                    let response = point_response(s, [dx, dy, dz], inv_d, soften);
+                    let mut response = point_response(s, [dx, dy, dz], inv_d, soften);
+                    response += point_reflection(f, s, [dx, dy, dz]);
                     let strength =
                         light.intensity * a * a * response * visibility[i] as f32 / 255.0;
                     f.light[i] += light.color.scale(strength);
@@ -504,6 +506,28 @@ fn point_response(surface: Surface, direction: [f32; 3], inverse_distance: f32, 
     } else {
         0.12 + 1.25 * diffuse
     }
+}
+
+/// Broad, quiet Blinn reflection for explicitly opted-in scenery. The fixed
+/// orthographic view points south/up (screen_y = Y-Z), so camera scrolling cannot
+/// make a static face sparkle. Source motion, normals and visibility supply all
+/// variation; the existing light pass tints this with albedo and source color.
+fn point_reflection(f: &Frame, surface: Surface, direction: [f32; 3]) -> f32 {
+    if surface.kind != 2 || surface.owner == 0 { return 0.0; }
+    let Some(caster) = f.surface_casters.get(surface.owner as usize - 1) else { return 0.0 };
+    if caster.reflectivity <= 0.0 { return 0.0; }
+    // Diffuse clamps distance to one pixel; a reflection still needs a unit
+    // direction beside an emissive crest, including subpixel source distances.
+    let distance = direction.iter().map(|d| d * d).sum::<f32>().sqrt();
+    if distance <= 0.001 { return 0.0; }
+    let light = direction.map(|d| d / distance);
+    let facing = surface.normal.iter().zip(light).map(|(n, l)| n * l).sum::<f32>().clamp(0.0, 1.0);
+    if facing <= 0.0 { return 0.0; }
+    let view = std::f32::consts::FRAC_1_SQRT_2;
+    let half = [light[0], light[1] + view, light[2] + view];
+    let length = half.iter().map(|v| v * v).sum::<f32>().sqrt().max(0.001);
+    let dot = (surface.normal.iter().zip(half).map(|(n, h)| n * h).sum::<f32>() / length).clamp(0.0, 1.0);
+    caster.reflectivity * facing * dot.powi(16)
 }
 
 #[cfg(test)]
@@ -552,13 +576,18 @@ fn apply_points_rectangle(zone: Option<&crate::world::Zone>, f: &mut Frame) {
                     continue;
                 }
                 let inv_d = 1.0 / d2.sqrt().max(1.0);
-                let response = point_response(s, [dx, dy, dz], inv_d, soften);
+                let mut response = point_response(s, [dx, dy, dz], inv_d, soften);
+                response += point_reflection(f, s, [dx, dy, dz]);
                 let strength = light.intensity * a * a * response * visibility[i] as f32 / 255.0;
                 f.light[i] += light.color.scale(strength);
             }
         }
     }
 }
+
+#[cfg(test)]
+#[path = "surface_reflection_tests.rs"]
+mod reflection_tests;
 
 #[cfg(test)]
 mod tests {
@@ -746,6 +775,7 @@ mod tests {
                     &super::super::sprite::DrawOpts {
                         flip,
                         alpha: opacity,
+                        reflectivity: 0.22,
                         ..Default::default()
                     },
                 );

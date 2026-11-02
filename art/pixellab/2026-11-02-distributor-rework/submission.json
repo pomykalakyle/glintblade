@@ -1,0 +1,30 @@
+{
+  "request": {
+    "description": "GLINTBLADE The Long Quiet. Native 1:1 pixel art environment sprite of ONE broken ancient slate water distributor, for a TOP DOWN RPG cave with screen-horizontal east-west floor lines and screen-vertical north-south floor lines. Camera looks DOWN at about 45 degrees. FRONT ELEVATION ALIGNED TO SCREEN: broad front wall edges perfectly horizontal, all uprights perfectly vertical. Depth recedes STRAIGHT UP screen, NOT diagonally sideways; NOT isometric, NOT a side view. A low broad open-topped rectangular HEADER CISTERN supported on TWO substantial separated rectangular masonry piers, a generous central walk-through inspection arch, one broken open U shaped feeder trough sticking straight LEFT, a short broken outlet ending at left footing. Show a DEEP VISIBLE TOP INTERIOR of the rectangular cistern, a clear thick near rim and rear rim, and broad flat horizontal TOPS OF THE TWO FOOTINGS, each footing about18 pixels deep on the floor, front faces shallow about4px. Upright wall height about55 pixels, total ruin about85 pixels tall and120 pixels wide; feet visibly squarely planted at a common horizontal floor baseline. Left buttress intact, right buttress fractured low. Calm massive slate blockwork, broad planar faces, a few readable running-bond joints and restrained chipped corners, no repeated tiny noisy bricks, no ornamental castle or runes. Same stone as the cave: dark blue slate shadow, muted grey blue midtones, pale grey edge highlights, one small desaturated mineral stain. Consistent upper left light. Hard opaque or transparent pixels only, generous 8px transparent canvas margins. Isolated native sprite on TRANSPARENCY. No ground or pedestal slab connecting the feet, no ground shadow, no glow, no water spray, no colored lights, no perspective converging lines, no diagonal isometric roof, no floating fragments, no outlines or anti-alias.",
+    "width": 144,
+    "height": 112,
+    "no_background": true,
+    "palette": [
+      "#1c2838",
+      "#222d3d",
+      "#364657",
+      "#4c6070",
+      "#627582",
+      "#73858b",
+      "#929797",
+      "#a6b4ad",
+      "#424956"
+    ],
+    "max_colors": 9,
+    "palette_name": "Glasswater muted slate"
+  },
+  "receipt": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: fed220e6-acee-42e2-86ce-f2f1e07a9e56\njob_id: fed220e6-acee-42e2-86ce-f2f1e07a9e56\nmodel: pro\ndescription: GLINTBLADE The Long Quiet. Native 1:1 pixel art environment sprite of ONE broken ancient slate water distributor, for a TOP DOWN RPG cave with screen-horizontal east-west floor lines and screen-vertical north-south floor lines. Camera looks DOWN at about 45 degrees. FRONT ELEVATION ALIGNED TO SCREEN: broad front wall edges perfectly horizontal, all uprights perfectly vertical. Depth recedes STRAIGHT UP screen, NOT diagonally sideways; NOT isometric, NOT a side view. A low broad open-topped rectangular HEADER CISTERN supported on TWO substantial separated rectangular masonry piers, a generous central walk-through inspection arch, one broken open U shaped feeder trough sticking straight LEFT, a short broken outlet ending at left footing. Show a DEEP VISIBLE TOP INTERIOR of the rectangular cistern, a clear thick near rim and rear rim, and broad flat horizontal TOPS OF THE TWO FOOTINGS, each footing about18 pixels deep on the floor, front faces shallow about4px. Upright wall height about55 pixels, total ruin about85 pixels tall and120 pixels wide; feet visibly squarely planted at a common horizontal floor baseline. Left buttress intact, right buttress fractured low. Calm massive slate blockwork, broad planar faces, a few readable running-bond joints and restrained chipped corners, no repeated tiny noisy bricks, no ornamental castle or runes. Same stone as the cave: dark blue slate shadow, muted grey blue midtones, pale grey edge highlights, one small desaturated mineral stain. Consistent upper left light. Hard opaque or transparent pixels only, generous 8px transparent canvas margins. Isolated native sprite on TRANSPARENCY. No ground or pedestal slab connecting the feet, no ground shadow, no glow, no water spray, no colored lights, no perspective converging lines, no diagonal isometric roof, no floating fragments, no outlines or anti-alias.\nsize: 144x112px\ntransparent: True\ncandidates: 4\npalette: 9 colours (Glasswater muted slate)\nmax colours: 9 per image\nasset_id: c814ebd3-bea3-57d0-9916-9f7d6cb025a8\nasset_status: pending (saved when generation completes)\ncost: 10 generations\nstatus: processing (~1-10 min)\n\nhint: get_image(job_id=\"fed220e6-acee-42e2-86ce-f2f1e07a9e56\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/fed220e6-acee-42e2-86ce-f2f1e07a9e56/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -128,6 +128,10 @@ def main():
     for script in ['round13_landmarks.py', 'round13_altar.py', 'round13_warden.py', 'audit_sapling.py']:
         subprocess.run([sys.executable, str(TOOLS / script), '--out', str(out),
                         '--normals-out', str(normals_out)], check=True)
+    subprocess.run([sys.executable, str(TOOLS.parent / 'warden/towering.py'), '--out', str(out),
+                    '--normals-out', str(normals_out)], check=True)
+    subprocess.run([sys.executable, str(TOOLS / 'bloomwild_variety.py'), '--out', str(out),
+                    '--normals-out', str(normals_out)], check=True)
     print('Exported the selected native environment sheets for all four regions:', out)
 
 

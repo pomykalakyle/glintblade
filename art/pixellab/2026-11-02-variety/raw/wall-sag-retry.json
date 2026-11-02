@@ -1,0 +1,19 @@
+{
+  "request": {
+    "description": "Create a different silhouette of the SAME low broken pale limestone block wall. A low sagging wall remnant has one broad surviving capstone on the left and a jagged missing corner on the right; varied visible block joints. Match native one-pixel edges, existing block size, length and thickness, shallow oblique top-down projection, muted pale gray/beige and moss palette, upper-left lighting. PRESERVE bottom support course rows45..52 unchanged, all opaque art inside x3..44,y18..52 on a transparent48x56 canvas. No cast shadow, pillar, arch or added props. Same object and scale, different broken outline and block arrangement.",
+    "width": 48,
+    "height": 56,
+    "no_background": true,
+    "seed": 73118,
+    "reference": "references/wall.png"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 2c969bc4-7cab-4281-9e28-434a8cb7a385\njob_id: 2c969bc4-7cab-4281-9e28-434a8cb7a385\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Create a different silhouette of the SAME low broken pale limestone block wall. A low sagging wall remnant has one broad surviving capstone on the left and a jagged missing corner on the right; varied visible block joints. Match native one-pixel edges, existing block size, length and thickness, shallow oblique top-down projection, muted pale gray/beige and moss palette, upper-left lighting. PRESERVE bottom support course rows45..52 unchanged, all opaque art inside x3..44,y18..52 on a transparent48x56 canvas. No cast shadow, pillar, arch or added props. Same object and scale, different broken outline and block arrangement.\nseed: 73118\nasset_id: bbf1e8c5-9cb2-5d07-b786-6b84a992bbdd\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"2c969bc4-7cab-4281-9e28-434a8cb7a385\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/2c969bc4-7cab-4281-9e28-434a8cb7a385/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

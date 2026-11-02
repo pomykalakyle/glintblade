@@ -1,0 +1,882 @@
+{
+  "generator": "PixelLab edits a8209e74-3343-4a80-af6d-70754e074bc8 +9d8f9186-8878-4a26-900f-7de17705e736, original upper76rows restored; explicit native shallow bearing-course repair",
+  "normal_generator": "PixelLab Pro OpenGL723289bb-a2ff-4125-837a-c8b24143071a, broad bearing top/front geometric planes authored explicitly",
+  "variants": {
+    "4": {
+      "image": "selected/pier-4.png",
+      "normal": "normals/pier-4.png",
+      "image_sha256": "0cc48ca3bbba25337a34e397983600c53cb3e4e9b5f064d9f9054aadac977ee7",
+      "normal_sha256": "154799e76dca88d84e59d361c5fd72b4006ee4ec1fd2d962db3bf05f8cd4c3af",
+      "replace_from_row": 76,
+      "support_first_row": 79,
+      "planes": [],
+      "bearing_course": {
+        "polygon": [
+          [
+            9,
+            83
+          ],
+          [
+            19,
+            79
+          ],
+          [
+            29,
+            84
+          ],
+          [
+            48,
+            79
+          ],
+          [
+            60,
+            85
+          ],
+          [
+            60,
+            89
+          ],
+          [
+            34,
+            101
+          ],
+          [
+            9,
+            88
+          ]
+        ],
+        "front_depth": 3,
+        "split_x": 34,
+        "top_color": "64738a",
+        "front_color": "46526a",
+        "chip_color": "94a1ae",
+        "bevel_segments": [
+          [
+            14,
+            15
+          ],
+          [
+            43,
+            44
+          ]
+        ],
+        "joints": [
+          [
+            [
+              34,
+              96
+            ],
+            [
+              32,
+              86
+            ]
+          ]
+        ],
+        "joint_color": "46526a"
+      },
+      "samples": [
+        {
+          "face": "top",
+          "xy": [
+            19,
+            79
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            33,
+            84
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            22,
+            87
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            39,
+            90
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            9,
+            86
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            14,
+            90
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            22,
+            93
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            26,
+            97
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            60,
+            86
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            58,
+            90
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            51,
+            93
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            44,
+            96
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        }
+      ]
+    },
+    "2": {
+      "image": "selected/pier-2.png",
+      "normal": "normals/pier-2.png",
+      "image_sha256": "aff690c267845d950820c175d5e39206b0d1f7c024d32e164eb1764f817cb97e",
+      "normal_sha256": "c2afaec20b1f677338c16d356f2b91ee7db32f585018d73f79a1d37418e69474",
+      "replace_from_row": 76,
+      "support_first_row": 79,
+      "planes": [],
+      "bearing_course": {
+        "polygon": [
+          [
+            8,
+            82
+          ],
+          [
+            18,
+            79
+          ],
+          [
+            27,
+            82
+          ],
+          [
+            48,
+            80
+          ],
+          [
+            56,
+            84
+          ],
+          [
+            56,
+            87
+          ],
+          [
+            33,
+            99
+          ],
+          [
+            8,
+            87
+          ]
+        ],
+        "front_depth": 3,
+        "split_x": 33,
+        "top_color": "64738a",
+        "front_color": "46526a",
+        "chip_color": "94a1ae",
+        "bevel_segments": [
+          [
+            14,
+            15
+          ],
+          [
+            43,
+            44
+          ]
+        ],
+        "joints": [
+          [
+            [
+              33,
+              96
+            ],
+            [
+              31,
+              86
+            ]
+          ]
+        ],
+        "joint_color": "46526a"
+      },
+      "samples": [
+        {
+          "face": "top",
+          "xy": [
+            18,
+            79
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            39,
+            83
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            15,
+            86
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            22,
+            89
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            8,
+            84
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            13,
+            89
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            18,
+            92
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            25,
+            95
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            55,
+            85
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            54,
+            88
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            48,
+            91
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            36,
+            95
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        }
+      ]
+    },
+    "1": {
+      "image": "selected/pier-1.png",
+      "normal": "normals/pier-1.png",
+      "image_sha256": "775a7f7682964690edb2c9da934bae02e92556b5a420bf86428bc70e425b26c1",
+      "normal_sha256": "d6d96afa14da4f842189a9affbb932b6b11a881113ce040561e3448b721d3851",
+      "replace_from_row": 76,
+      "support_first_row": 79,
+      "planes": [],
+      "bearing_course": {
+        "polygon": [
+          [
+            9,
+            84
+          ],
+          [
+            20,
+            80
+          ],
+          [
+            29,
+            85
+          ],
+          [
+            46,
+            79
+          ],
+          [
+            58,
+            82
+          ],
+          [
+            58,
+            87
+          ],
+          [
+            30,
+            101
+          ],
+          [
+            9,
+            89
+          ]
+        ],
+        "front_depth": 3,
+        "split_x": 30,
+        "top_color": "64738a",
+        "front_color": "46526a",
+        "chip_color": "94a1ae",
+        "bevel_segments": [
+          [
+            14,
+            15
+          ],
+          [
+            43,
+            44
+          ]
+        ],
+        "joints": [
+          [
+            [
+              30,
+              96
+            ],
+            [
+              28,
+              86
+            ]
+          ]
+        ],
+        "joint_color": "46526a"
+      },
+      "samples": [
+        {
+          "face": "top",
+          "xy": [
+            46,
+            79
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            37,
+            84
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            19,
+            87
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            33,
+            90
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            9,
+            87
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            13,
+            91
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            18,
+            94
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            23,
+            97
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            57,
+            85
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            52,
+            89
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            41,
+            93
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            38,
+            96
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        }
+      ]
+    },
+    "3": {
+      "image": "selected/pier-3.png",
+      "normal": "normals/pier-3.png",
+      "image_sha256": "0d82e2b38e22f46e450910ad76ba2e1a0b1901a9450d6f5f9e46d69754084508",
+      "normal_sha256": "cd17592eb4690974558c36f56c2afcf7b3da2653a39dcc9e221adabc15371485",
+      "replace_from_row": 76,
+      "support_first_row": 84,
+      "planes": [],
+      "bearing_course": {
+        "polygon": [
+          [
+            8,
+            91
+          ],
+          [
+            18,
+            87
+          ],
+          [
+            27,
+            92
+          ],
+          [
+            48,
+            81
+          ],
+          [
+            58,
+            85
+          ],
+          [
+            58,
+            89
+          ],
+          [
+            28,
+            104
+          ],
+          [
+            8,
+            96
+          ]
+        ],
+        "front_depth": 3,
+        "split_x": 28,
+        "top_color": "64738a",
+        "front_color": "46526a",
+        "chip_color": "94a1ae",
+        "bevel_segments": [
+          [
+            14,
+            15
+          ],
+          [
+            43,
+            44
+          ]
+        ],
+        "joints": [
+          [
+            [
+              28,
+              100
+            ],
+            [
+              26,
+              91
+            ]
+          ]
+        ],
+        "joint_color": "46526a"
+      },
+      "samples": [
+        {
+          "face": "top",
+          "xy": [
+            48,
+            81
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            43,
+            88
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            41,
+            91
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "top",
+          "xy": [
+            32,
+            94
+          ],
+          "world_normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            8,
+            94
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            15,
+            96
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            20,
+            98
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "left",
+          "xy": [
+            25,
+            100
+          ],
+          "world_normal": [
+            -0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            58,
+            86
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            49,
+            91
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            47,
+            94
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        },
+        {
+          "face": "right",
+          "xy": [
+            37,
+            98
+          ],
+          "world_normal": [
+            0.4472135954999579,
+            0.8944271909999159,
+            0
+          ]
+        }
+      ]
+    }
+  }
+}

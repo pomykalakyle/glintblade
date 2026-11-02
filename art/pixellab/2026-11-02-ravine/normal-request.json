@@ -1,0 +1,21 @@
+{
+  "request": {
+    "image": "selected.png (exact native candidate0+3 atlas)",
+    "kind": "side",
+    "convention": "opengl",
+    "mode": "pro",
+    "outline_rounding": 0,
+    "part_shapes": 0.2,
+    "surface_detail": 0.45,
+    "strength": 0.65
+  },
+  "submit": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: c97a5aef-8a5d-4fbf-9745-45a9006b6ea9\njob_id: c97a5aef-8a5d-4fbf-9745-45a9006b6ea9\nsource: 256x128px\nconvention: opengl (green up)\nkind: side\nlook: strength 0.65, outline_rounding 0, part_shapes 0.2, surface_detail 0.45; the rest where the kind puts them\nasset_id: 700466c7-8294-5fb8-a541-49d5fd3faf44\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"c97a5aef-8a5d-4fbf-9745-45a9006b6ea9\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/c97a5aef-8a5d-4fbf-9745-45a9006b6ea9/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

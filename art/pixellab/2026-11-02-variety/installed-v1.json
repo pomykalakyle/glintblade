@@ -1,0 +1,12 @@
+{
+  "files": {
+    "sprites/bloomwild_grass.png": "7fd1123d61bf4ac74155cf1a5345b11346d42854f8bbf6d08246821d62e05cff",
+    "sprites/bloomwild_grass.json": "2fc5facf92be7a09687d34639f0191ac906cd6f2c362545711ef9d489f15b5d7",
+    "sprites/bloomwild_ruins.png": "1983d91a9a7bdded46f314b6d39d2fd9e7ba4045538198623ef9e45c0fd5060e",
+    "sprites/bloomwild_ruins.json": "db6829b22cbb77fb4523632018d35d08ef8e107ac0f648162aca0343866b3220",
+    "normals/bloomwild_grass.png": "90f1ed272981b952653bedb708730c752d0ed9fe49663dca310ef04b7594e8e5",
+    "normals/bloomwild_ruins.png": "9cf69948caf2a2ee944aaf0c6c7bdecb3a242a88345a1d1c78e9fdecc7885ed0"
+  },
+  "matched_staged_output": true,
+  "old_active_assets_matched_baseline": true
+}

@@ -1,14 +1,154 @@
 {
   "cell": [
-    120,
-    112
+    144,
+    160
   ],
   "anchor": [
-    60,
-    109
+    72,
+    157
   ],
   "emissive": [],
   "anims": {
+    "awake_fold": {
+      "row": 0,
+      "frames": 27,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "opening_fold": {
+      "row": 1,
+      "frames": 27,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "damaged_fold": {
+      "row": 2,
+      "frames": 27,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "damaged_opening_fold": {
+      "row": 3,
+      "frames": 27,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
     "idle": {
       "row": 0,
       "frames": 1,
@@ -27,6 +167,15 @@
       ],
       "loop": false
     },
+    "brace": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
     "damaged": {
       "row": 2,
       "frames": 1,
@@ -36,17 +185,8 @@
       ],
       "loop": false
     },
-    "brace": {
-      "row": 4,
-      "frames": 1,
-      "fps": 1.0,
-      "durations": [
-        60
-      ],
-      "loop": false
-    },
     "damaged_brace": {
-      "row": 5,
+      "row": 2,
       "frames": 1,
       "fps": 1.0,
       "durations": [
@@ -71,107 +211,32 @@
         60
       ],
       "loop": false
-    },
-    "awake_fold": {
-      "row": 0,
-      "frames": 17,
-      "fps": 1.0,
-      "durations": [
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60
-      ],
-      "loop": false
-    },
-    "opening_fold": {
-      "row": 1,
-      "frames": 17,
-      "fps": 1.0,
-      "durations": [
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60
-      ],
-      "loop": false
-    },
-    "damaged_fold": {
-      "row": 2,
-      "frames": 17,
-      "fps": 1.0,
-      "durations": [
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60
-      ],
-      "loop": false
-    },
-    "damaged_opening_fold": {
-      "row": 3,
-      "frames": 17,
-      "fps": 1.0,
-      "durations": [
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60,
-        60
-      ],
-      "loop": false
     }
   },
-  "notes": "Sculptural Weir Keeper. PixelLab B's thick planar towers, projecting buttresses, recessed valve and native culvert piers. Brace and opening are separately generated native structural keys. The top30 rows, collar and crystal seats never animate; the valve center stays (60,49). *_fold frame index is the existing body_dy rounded to 0..16, not elapsed time: two rigid culvert piers fold up and splay by 0..2 native pixels while the upper torso follows its original combat path. Every normal follows the same native part remapping. Anchor, collision, heart windows, and head/fist animation are unchanged. 13 native slate shades; no torso emission. Empty atlas cells are intentional."
+  "sculpture": {
+    "schema": 2,
+    "gate": [
+      52,
+      67,
+      92,
+      96
+    ],
+    "pier_top": 129,
+    "pier_bottom": 158,
+    "center": 72,
+    "apron": [
+      61,
+      114,
+      82,
+      129
+    ],
+    "fixed_upper_rows": 46,
+    "integrated_head": true,
+    "articulated_legs": true,
+    "joint_top": 113,
+    "sole_top": 152,
+    "kneel_depth": 24,
+    "fold_max": 26
+  },
+  "notes": "Towering native-pixel sculpture: native PixelLab crowns, recessed chest and complete culvert feet joined by explicit tall stone planes. Hood cheeks continue as chest pilasters beside the heart to y95, without a closed head rim or collar shelf. Sloped shoulder buttresses join the hood; outer counterforts have projecting elbows and raked forearms. Top113 rows remain rigid. Valve center (72,80). Fold index0..26 equals body_dy. A native faceted thigh bends outward into a broad knee and raked shin; its plane tilts upward as the joint folds. Settled kneel24, impact26. Native sole rows152..157 translate Y only by depth, preserving every foot pixel and worldX/Y. No foot splay, albedo scaling or resampling; only PW glass emits."
 }

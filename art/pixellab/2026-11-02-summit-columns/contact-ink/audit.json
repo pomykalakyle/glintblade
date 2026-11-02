@@ -1,0 +1,67 @@
+{
+  "status": "complete",
+  "date_utc": "2026-11-02T21:42:01.815317+00:00",
+  "direction": "Kyle clarified: original solid volume; remove ground-facing ink while retaining top and side outlines.",
+  "implementation": [
+    "Restored original alpha, volumetric shafts/base art, anchors, collision and support.",
+    "Changed179 actual contact ink texels across five native cells by extending the same column material; dark filled shadow faces retained.",
+    "Corrected3732 normal texels on existing base caps/returns; all179 repaired contact-edge texels had downward-facing source normals. Original upper maps unchanged.",
+    "Discarded flat/common/splayed replacement bases, floor socket/joint experiments, and custom Summit contact AO. No production Summit Rust diff remains."
+  ],
+  "scope": [
+    "assets/sprites/summit_pillars.png",
+    "assets/sprites/summit_pillars.json",
+    "assets/normals/summit_pillars.png",
+    "assets/sprites/summit_stones.png",
+    "assets/sprites/summit_stones.json",
+    "assets/normals/summit_stones.png",
+    "tools/pixellab/summit_columns.py",
+    "tools/pixellab/test_summit_columns.py",
+    "tools/pixellab/build_summit.py"
+  ],
+  "verification": {
+    "exporter_tests": 5,
+    "summit_rust_tests": 17,
+    "release_functional_tests": {
+      "passed": 457,
+      "failed": 0,
+      "ignored": 9,
+      "performance_filtered": 3
+    },
+    "native_build": "passed",
+    "wasm_build": "passed; two unrelated existing dead-code warnings",
+    "scoped_rebuild": "all six installed hashes reproduced exactly",
+    "matching_comparisons": "original, rejected and corrected use same frozen source; only six Summit files differ",
+    "native_stills": "seven matched views plus whole-region overviews; all five native variants represented",
+    "normal_diagnostics": "white albedo; one isolated top/front/left/right light per asset,20renders per snapshot",
+    "movement": {
+      "arrival-motion": {
+        "report_byte_identical": true,
+        "frames_each": 40
+      },
+      "west-motion": {
+        "report_byte_identical": true,
+        "frames_each": 50
+      },
+      "warden": {
+        "report_byte_identical": true,
+        "frames_each": 7
+      }
+    },
+    "foreground": "native actual hero/blade views and motion inspected; original collision/support alpha exact"
+  },
+  "evidence": {
+    "comparison": "comparison.html",
+    "pixel_invariants": "pixel-audit.json",
+    "installation": "../installed.json",
+    "source_asset_manifests": "snapshots.json",
+    "independent_review": "independent-review.txt",
+    "all_capture_outputs": "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/v4"
+  },
+  "limits": [
+    "Visual review supports the clarified contact-ink direction; Kyle has not yet approved this version.",
+    "Changes from original art are deliberately modest; restoring volume from the rejected flat pass is the larger visible difference.",
+    "Legacy upper shaft normals retained; plane correction is scoped to existing bases."
+  ],
+  "unrelated_work": "No actor, Warden, Glasswater, Cinder, Bloomwild, shared graphics, README, web package, or publishing edits."
+}

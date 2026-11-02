@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from PIL import Image
 from native_collision import add_collision
+from bloomwild_structure_contacts import correct_atlas
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCES = ROOT / 'art/pixellab/2026-11-01-round3/bloomwild'
@@ -55,6 +56,7 @@ def main():
         add_collision(anim, image, 10 if name.startswith('pillar') else 8)
         metadata['anims'][name] = anim
         atlas.paste(image, (0, row * 56))
+    atlas, _, _ = correct_atlas(atlas, metadata, 'bloomwild_ruins')
     atlas.save(a.out / 'bloomwild_ruins.png')
     metadata['notes'] = ('PixelLab native structure family: ' + '; '.join(selection['notes'] + repairs['notes'])
                          + '; exact opaque native base collision spans.')

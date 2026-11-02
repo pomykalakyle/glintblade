@@ -1,0 +1,114 @@
+{
+  "actor": "Glint",
+  "date": "2026-11-02",
+  "source_kind": "authored native1x character grids and perpart rig; no rotated/resampled bitmaps",
+  "generation_services": [],
+  "atlas": {
+    "cell": [
+      48,
+      48
+    ],
+    "anchor": [
+      24,
+      33
+    ],
+    "rows": 107,
+    "preserved_legacy_rows": 39,
+    "directional_states": 13,
+    "state_direction_entries": 104,
+    "colors": 16
+  },
+  "directions": [
+    "up",
+    "up_right",
+    "right",
+    "down_right",
+    "down",
+    "down_left",
+    "left",
+    "up_left"
+  ],
+  "new_anatomy": [
+    "south-east three-quarter hood/face/cloak/nape",
+    "north-east three-quarter hood/face/back/nape",
+    "native diagonal foreshortened boots and ground-plane stride trajectories",
+    "native arm/grip/blade paths for all combo/charge/dash/hurt states",
+    "west poses mirrored and relit; blade redrawn on native grid"
+  ],
+  "preserved_gameplay": [
+    "body.face continuous normalized aim",
+    "attack reach, arc, damage, active ticks, lunge and knockback",
+    "movement speeds/normalization, collision and dash timings",
+    "run contacts and all prior animation durations",
+    "death64tick sequence and burst72tick timing",
+    "legacydeath RNG stream through actual old burst implementation",
+    "bindings and controls"
+  ],
+  "normal_strategy": "old39rows exact; appended native hood/cloak/boot/sleeve/prism volumes; exactart duplicates reuse exactnormal field",
+  "contact_strategy": "support_spans perframe48columns null or [lo,hi_exclusive] from bodybeforeblade/hilt; central4px footdepth, existing width; darkblade edge cannot become sole",
+  "intentional_directionless": [
+    "ground charge ring",
+    "spin shockwave",
+    "particles and glints",
+    "legacy unsuffixed spin/death compatibility rows retained but unused by liveplayer"
+  ],
+  "reproduce": [
+    "uv run --no-project --with pillow --with numpy python3 tools/hero/export_eightway.py --stage /private/hero --baseline art/eightway/hero/baseline"
+  ],
+  "artifact_root": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/hero",
+  "coverage": "coverage.json",
+  "reviews": {
+    "author": "viewed all13 native/enlarged animation boards; matching anatomy, readable grip/weapon arcs, stable anchor, native feet and full collapse/spin/fall/land",
+    "independent_direction_contract": "all13 allframe boards reviewed, no silhouette/grip blocker; NE/E transition coherent",
+    "independent_normals_contact": "PASS562frames,83duplicateartchecks0normaldrift,39oldrowsbitexact;allbody-supportspansvalid;knownblade-as-solecasesfixed",
+    "independent_runtime_direction": "PASS sampledNEturn/stop/combat and all8direction/stateboards acrossall4regions; no nape/scarfdetachment, supportjump, gripseparation orbladetrail/lightmisregistration"
+  },
+  "source_sha256": {
+    "source/anims.py": "94a8c9f78afd95db07921581bbf3c66189e2754f31ab49762ecb139578e08446",
+    "source/blade.py": "4c4313b3054d47bfbf2512423bdbb5e76b63e1d4e83b0d9fb1dbd826bf086946",
+    "source/build.py": "0bf56dc6b7b5ca1f9a3ac82f0230b09c9ca6324d307359c9abc6c0b6ac8725a2",
+    "source/eightway.py": "9857afdcedec16c5bdac4408affc7b8837c2a22a024be2552ffc25267d725c3f",
+    "source/export_eightway.py": "a9eb96e033a3b4316efb73eadd5b5061b483b3b0a3599bf6e3d17ec85e4f871d",
+    "source/native_normals.py": "e7f173474e7553107d51cd8354180ba08591ab62d652cc6c71bda955de3fd164",
+    "source/parts.py": "532451dbfe05fba3474bbb90273f20c293131a3f1b2486a612a48f603f1bf13d",
+    "source/pix.py": "3918361e5c04eb8826bf20ad45840043083b80d3a1c575548810a92f76d8c309",
+    "source/rig.py": "5e33e2ea734d35cc097a957f16388021dedc239e02b2d75a9938d943f9798076",
+    "source/runtime_review.py": "3d318bd92fd6df726a57f779475a41c39f10b2e5f02bc5b6f8cc9229781524b9",
+    "source/xf.py": "d29ec4215443295f4fc567513cecc10e19d7c1b34857001da878156add18b798"
+  },
+  "baseline_sha256": {
+    "baseline/assets/normals/hero.png": "eb3ad3527e2da24babe6ae358c461c9e15efafcaedabd09fab17cfa87025f2ff",
+    "baseline/assets/sprites/hero.json": "14ce2d1020533c0ab898c195f75bff98c96b344120217c1d3ffdc62400e921c6",
+    "baseline/assets/sprites/hero.png": "270909213ca4d4a327e09abf437ec975ed7976b609f37f3bc12fa78fdcc2eecb",
+    "baseline/player.rs": "3cd89ffcc0a0155e5451a5220002a53e257572846f3b97e5759d8b3ad843a607"
+  },
+  "verification": {
+    "player_tests": 27,
+    "failed": 0,
+    "coverage_entries": 104,
+    "native_frames": 562,
+    "native_support_frames": "all13states x8directions allframes",
+    "runtime_captures": 7040,
+    "runtime_fps": 60,
+    "regions": 4,
+    "runtime_pngs": "all384x216 native",
+    "runtime_clips": "losslessRGB with3xintegernearest enlargement before60fpsencode",
+    "visible_runtime_actor_frames": 7010,
+    "fixed_camera_actor_outside_viewport_frames": 30
+  },
+  "runtime_evidence": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/hero/runtime-review/review.json",
+  "remaining_runtime_supplement": [
+    "chargewalking",
+    "180degree reversal",
+    "lethalcollapse/debris",
+    "respawnfall/land"
+  ],
+  "active_assets": {
+    "assets/sprites/hero.png": "d29ab2642ff91dd235f8d206a66b6e5e23142cc04ee78b659b946c5688789f3b",
+    "assets/sprites/hero.json": "debf7e3b0806e454091d35c4865b9b2e14676099ec3073ffab46aa5598759ec9",
+    "assets/normals/hero.png": "286acf89d6efff869788fd5d93eae8403c2c1df11dc49c6dfb7050e10bb911e0"
+  },
+  "frozen_renderer_sha256": "4023d097154e01749d4a1ccf798ca550a5168e96d4e529195644ce20236ba5eb",
+  "frozen_inputs": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/hero/frozen-inputs.json",
+  "runtime_camera_staging_limit": "30northdash/hurt frames outsidefixedstartcamera inBloomwild/Cinder; transitioncamera-follow supplementrequested"
+}

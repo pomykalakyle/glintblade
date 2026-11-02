@@ -1,0 +1,33 @@
+{
+  "installed_at": "2026-11-02T21:12:23.825128+00:00",
+  "files": {
+    "sprites/warden_body.png": {
+      "before": "3aa738b3d94e77fd0e21c4b89d39fe38c86aed3b170fdb11eb4fb135c7387f77",
+      "after": "7deb854660fee2c74ca628f24ed7996c6af6ddc33b363ed2f2f4b947dfd40197"
+    },
+    "sprites/warden_body.json": {
+      "before": "3694d1c24c90f81b8ff8d2073dda56e684f23ee7026a009d863c12648f9e5410",
+      "after": "55a1263217092444a975d3b2df295bffb58aee0eba508b4c0775806095c82620"
+    },
+    "sprites/warden_head.png": {
+      "before": "fe67c789cedacff81a295c4ed6a62a23410bcc73535c12a229b7fc26f997a281",
+      "after": "f7a4a7fe66d80da5331189792d705692e8dbc810f167295a300b61d03da89e74"
+    },
+    "sprites/warden_head.json": {
+      "before": "a8609a3c1b72593f04a2b76f6f3a6de55082c1f1ffbe3b04e6180f71a0c3dd3f",
+      "after": "3a3efe53c3d791d41fdc553750ae3aefaa0d97ac8e42c7e3af0d641096a50847"
+    },
+    "sprites/warden_layout.json": {
+      "before": "e85f68f2230775dd437435bfdcdd86b8f2e3a4db5ef50d45aabf996b15122937",
+      "after": "001db9676ab7a00775d8cae7a652ba4973b909a499c264c8a88fb7859058fe01"
+    },
+    "normals/warden_body.png": {
+      "before": "5295ab5d98af51751279e95ad6f7bb9a24a51e0aa2eb60a9295add91db408e10",
+      "after": "59dcbab6d0f537706903e2b316f620fe4e0c02615004178d8960ce456343cc68"
+    },
+    "normals/warden_head.png": {
+      "before": "29686a253ddec920746d5aa78bdefa4ba92b831ac84c6224ec482b1135d802ed",
+      "after": "1d65cc9f6b75fe6e786e9da3e597657cbd29810dd13c1b21818fc4d88d3f26ee"
+    }
+  }
+}

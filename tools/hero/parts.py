@@ -97,5 +97,60 @@ BODY_U = {
 """),
 }
 
-HOOD = {"down": HOOD_D, "right": HOOD_R, "up": HOOD_U}
-BODY = {"down": BODY_D, "right": BODY_R, "up": BODY_U}
+# Three-quarter views are separate native drawings: the south-east hood exposes the
+# front aperture and an unequal pair of eyes; the north-east view shows the broad
+# back plane and only the far edge of the face. The nape and hem turn with them.
+# West diagonals use rig.frame's native mirrored blade and upper-left relighting.
+HOOD_DR = {
+    "n": (0, """
+.....5544.......
+...55444443.....
+..55444443332...
+..544444vv3322..
+..5444vvvvv32...
+...443vevvev2...
+...433vvvvv21...
+....33vvvv21....
+"""),
+}
+BODY_DR = {
+    "stand": (8, """
+...44tTTttSs....
+..444tSSSSs21...
+..544433332221..
+.4544433332221..
+.4444333332221..
+.444333.332221..
+..4433.2.32221..
+...43....221....
+"""),
+}
+HOOD_UR = {
+    "n": (0, """
+.....5544.......
+...55444443.....
+..55444444332...
+.254444443332v..
+.2.444443332vvv.
+...444433332vev.
+...44433332vvv..
+....443332vv....
+"""),
+}
+BODY_UR = {
+    "stand": (8, """
+...44TTttSs.....
+..444SSSSss21...
+..544433332221..
+.4544333332221..
+.4443333333221..
+.443333.333221..
+..4433.2.32221..
+...43....221....
+"""),
+}
+
+HOOD = {"down": HOOD_D, "right": HOOD_R, "up": HOOD_U,
+        "down_right": HOOD_DR, "up_right": HOOD_UR}
+BODY = {"down": BODY_D, "right": BODY_R, "up": BODY_U,
+        "down_right": BODY_DR, "up_right": BODY_UR}

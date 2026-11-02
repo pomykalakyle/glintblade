@@ -1,5 +1,5 @@
 {
-  "notes": "Offsets are [dx, dy] from the body anchor (the Warden's ground position, body pixel (60, 109)) to each part's own anchor. Mirrored parts are flipped horizontally around their anchor (anchor x becomes cell_w - 1 - x). Draw in draw_order (back to front). The fists float: move them freely during attacks (a slam lands where the fist anchor is). Assembled height: about 120 px from the crystal tips to the feet, 114 px to the top of the hood.",
+  "notes": "Offsets from native body anchor (72,157). Towering sculpture about170px high. Head cheek planes cross the sprite boundary directly into y53..95 chest pilasters; no collar shelf. Crystal seats fixed at +/-48,-148. No head lift/bob independent of torso. Native complete pier feet cancel body_dy through fold remapping.",
   "body": {
     "sheet": "warden_body",
     "offset": [
@@ -11,16 +11,16 @@
     "crystal_left": {
       "sheet": "warden_crystal",
       "offset": [
-        -36,
-        -100
+        -48,
+        -148
       ],
       "mirror": false
     },
     "crystal_right": {
       "sheet": "warden_crystal",
       "offset": [
-        36,
-        -100
+        48,
+        -148
       ],
       "mirror": true
     },
@@ -28,7 +28,7 @@
       "sheet": "warden_head",
       "offset": [
         0,
-        -75
+        -106
       ],
       "mirror": false
     },
@@ -36,14 +36,14 @@
       "sheet": "warden_heart",
       "offset": [
         0,
-        -60
+        -77
       ],
       "mirror": false
     },
     "fist_left": {
       "sheet": "warden_fist",
       "offset": [
-        -45,
+        -57,
         -11
       ],
       "mirror": true
@@ -51,7 +51,7 @@
     "fist_right": {
       "sheet": "warden_fist",
       "offset": [
-        45,
+        57,
         -11
       ],
       "mirror": false
@@ -70,21 +70,21 @@
     "notes": "Suggested vulnerable circles, [dx, dy, r] from the body anchor.",
     "heart": [
       0,
-      -60,
+      -77,
       9
     ],
     "crystal_left": [
-      -35,
-      -110,
+      -47,
+      -158,
       7
     ],
     "crystal_right": [
-      35,
-      -110,
+      47,
+      -158,
       7
     ]
   },
   "bob": {
-    "notes": "Suggested idle breathing: body, head, heart and crystals rise 1 px together every ~1 s; fists bob on their own (baked in)."
+    "notes": "Body, integrated head, heart and crystals form one rigid upper assembly; no independent stone-head breath/lift. Fists keep original animation and combat timing."
   }
 }

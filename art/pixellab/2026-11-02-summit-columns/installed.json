@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-02T21:37:29.727472+00:00",
+  "method": "Original volume + ground-contact ink correction; geometric base normals",
+  "files": {
+    "sprites/summit_pillars.png": {
+      "before": "2821cb71c27489492c05b90dfa199afb357568f290bba6aef88de1a11fb2efc1",
+      "after": "1c47be7524d5304d7614bbcf45fd3e5f7d38059f3c12772b30b7e48e7115dcb9"
+    },
+    "sprites/summit_pillars.json": {
+      "before": "5ef128f19228a6647b5214a2b6f46093f344890cd2201fe097abef2ac6fe6217",
+      "after": "5ee86c3d38b014570bcde7a5bbbc41408d61bea1e8ddf8b641d4ab712757c064"
+    },
+    "sprites/summit_stones.png": {
+      "before": "02d437fa08bcc95c68880f881ccefc4237eeb20e6d8818d2f365fce51b959a06",
+      "after": "2fd36561a1177e1a2d2de1d57bc914eef69d6bfc976a3ee8dd4b2c3f7ce97fd1"
+    },
+    "sprites/summit_stones.json": {
+      "before": "6199000562727b510cce4b9fb033afbf83d91bc9be49a00c5519b06a51c938e7",
+      "after": "8fd12d74649557cd7e9f83f10092ca88ee4c1cc74fa694667a508328cb36e3c1"
+    },
+    "normals/summit_pillars.png": {
+      "before": "0b0b22d8a0dafae9d6b6e681d06db806b58eb6f906f9c03666209dd47f9cbe46",
+      "after": "53fde9b5f73c048e277394134bc8d3aa5b2435eb62c6ca1cceba81b18dd88e27"
+    },
+    "normals/summit_stones.png": {
+      "before": "e02c9b3c0e2ae1574e88af12d90957d1c9b5cd520988176e489bece12ed12fb7",
+      "after": "16585742f483a3e93f5b77b76878a5f2f2faf6d7d2993f3725b5622cd2172019"
+    }
+  },
+  "unrelated_assets_unchanged": true
+}

@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "id: b855cb58-e429-4955-9800-bca3d394adbf\njob_id: b855cb58-e429-4955-9800-bca3d394adbf\nsource: 432x56px\nconvention: opengl (green up)\nkind: object\nlook: strength 0.65, outline_rounding 0.2, part_shapes 0.55, surface_detail 0.04, detail_softness 1; the rest where the kind puts them\nasset_id: fc2a12db-cdf6-502c-8465-d48161e1dc57\nasset_status: pending (saved to the gallery when it completes)\nmode: pro\ncost: 0.5 generations\nstatus: processing (~15-60s)\n\nhint: get_image(job_id=\"b855cb58-e429-4955-9800-bca3d394adbf\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/b855cb58-e429-4955-9800-bca3d394adbf/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    }
+  ],
+  "isError": false
+}

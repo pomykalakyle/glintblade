@@ -756,8 +756,12 @@ impl Field {
             }
             if let Some([x0, y0, x1, y1]) = p.collision_bounds() {
                 let (w, d) = (x1 - x0, y1 - y0);
+                // Authored ground-contact ink can be removed without baking
+                // another uniform underline over the same native contour.
+                let no_contact = p.sheet().and_then(|s| s.anim(&p.anim))
+                    .is_some_and(|a| a.json["contact"].as_str() == Some("none"));
                 // The painted dais has its own stone faces; its collision proxy is not an oval prop.
-                if !(z.id == ZoneId::Summit && p.sheet == "__summit_blocker" && w > 80.0) {
+                if !no_contact && !(z.id == ZoneId::Summit && p.sheet == "__summit_blocker" && w > 80.0) {
                     f.contact(((x0 + x1) * 0.5).round() as i32, y1.round() as i32, w, d);
                 }
             }
@@ -934,6 +938,26 @@ pub(crate) fn point_visibility_world(zone: &Zone, f: &Frame, light: super::frame
     visibility
 }
 
+/// Reuse the native terrain segment test for secondary reflection/light rays.
+pub(crate) fn reflection_blocked(zone: &Zone, receiver: [f32; 3], target: [f32; 3]) -> bool {
+    let light = super::frame::PointLight { x: target[0], y: target[1] - target[2], height: target[2],
+        radius: 1.0, intensity: 0.0, color: Rgb::BLACK };
+    // Terrain's segment convention stores the receiver's projected Y.
+    let receiver = [receiver[0], receiver[1] - receiver[2], receiver[2]];
+    zone.lighting.borrow().as_ref().is_some_and(|field|
+        terrain_shadows::blocked(zone, &field.terrain_shadow, receiver, false, light))
+}
+
+pub(crate) fn reflection_fill(zone: &Zone, point: [f32; 3], actor: bool) -> Rgb {
+    let x = point[0].floor() as i32;
+    let y = (point[1] - point[2]).floor() as i32;
+    let mut fill = zone.lighting.borrow().as_ref().filter(|_| x >= 0 && y >= 0 && x < zone.pw && y < zone.ph)
+        .map_or(zone.ambient, |field| field.cold_light(zone.id, (y * zone.pw + x) as usize, actor));
+    if zone.id != ZoneId::Bloomwild { fill = fill.scale(0.82); }
+    if actor { fill = Rgb::new(fill.r.max(0.42), fill.g.max(0.46), fill.b.max(0.57)); }
+    fill
+}
+
 /// Bake on first use; later frames only sample static light and project moving body casters.
 pub fn apply(zone: &Zone, region: &dyn Region, f: &mut Frame, t: u64) {
     prepare(zone, region);
@@ -1080,6 +1104,9 @@ fn character_shadow(f: &Frame, mask: &mut [u8], c: Caster, dir: (f32, f32)) {
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod native_contacts_tests;
 
 #[cfg(test)]
 mod retained_surface_tests {

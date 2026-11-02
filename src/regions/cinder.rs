@@ -2,6 +2,7 @@
 
 mod art;
 mod field;
+mod geology;
 mod heat;
 mod lava;
 mod map;

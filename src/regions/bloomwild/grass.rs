@@ -20,6 +20,7 @@ struct Tuft {
     bend: f32,
     cut: bool,
     quiet: bool,
+    native_variant: usize,
 }
 
 pub struct Grass {
@@ -45,6 +46,7 @@ impl NativeGrass {
     fn load() -> Option<Self> {
         let s = sheet("bloomwild_grass").filter(|s| (s.cell_w, s.cell_h) == (32, 32))?;
         let anim = s.anim("body")?;
+        if anim.frames == 0 { return None; }
         let frames = (0..anim.frames).map(|i| {
             let cell = s.cell(anim, i);
             let mut pixels = Vec::new();
@@ -70,6 +72,31 @@ impl NativeGrass {
         }).collect();
         Some(Self { anchor: s.anchor_of(anim), frames })
     }
+}
+
+/// Keep recognizable leaf silhouettes apart and spread use across the whole atlas.
+/// Assignment happens only at planting time, so cutting or bending a neighbor can
+/// never change a surviving tuft's sprite. A small optional atlas may run out of
+/// unoccupied variants; then choose the fewest nearby repeats before balancing.
+fn native_variants(tufts: &[Tuft], frames: usize) -> Vec<usize> {
+    let mut variants = Vec::with_capacity(tufts.len());
+    let mut uses = vec![0; frames];
+    let mut nearby = vec![0; frames];
+    for (i, tuft) in tufts.iter().enumerate() {
+        nearby.fill(0);
+        for (other, &variant) in tufts[..i].iter().zip(&variants) {
+            if (tuft.x - other.x).abs() <= 24 && (tuft.y - other.y).abs() <= 12 {
+                nearby[variant] += 1;
+            }
+        }
+        let preferred = (hash2(tuft.x, tuft.y, 537) * frames as f32) as usize % frames;
+        let variant = (0..frames).min_by_key(|&v| (
+            nearby[v], uses[v], (v + frames - preferred) % frames,
+        )).unwrap();
+        variants.push(variant);
+        uses[variant] += 1;
+    }
+    variants
 }
 
 /// Keep the exact accepted leaf pixel and its rooted height together. Raw put()
@@ -165,7 +192,14 @@ impl Grass {
                     bend: 0.0,
                     cut: false,
                     quiet: edge,
+                    native_variant: 0,
                 });
+            }
+        }
+        if let Some(native) = &native {
+            let variants = native_variants(&tufts, native.frames.len());
+            for (tuft, variant) in tufts.iter_mut().zip(variants) {
+                tuft.native_variant = variant;
             }
         }
         Self { tufts, native }
@@ -272,11 +306,10 @@ impl Grass {
         };
         let (x, y) = (tuft.x - f.cam_x, tuft.y - f.cam_y);
         if let Some(native) = &self.native {
-            let variant = (hash2(tuft.x, tuft.y, 537) * native.frames.len() as f32) as usize % native.frames.len();
             let (ax, ay) = native.anchor;
             let wave = (t as f32 * 0.033 + tuft.phase).sin();
             let sway = (wave * 0.7 + tuft.bend * 0.4).round() as i32;
-            for leaf in &native.frames[variant] {
+            for leaf in &native.frames[tuft.native_variant] {
                 // Root pixels never move; upper leaf clusters move by a whole native pixel.
                 let shift = if leaf.y < ay - 4 { sway } else { 0 };
                 put_leaf(f, x + leaf.x - ax + shift, y + leaf.y - ay,
@@ -320,6 +353,39 @@ mod tests {
     use super::*;
 
     #[test]
+    fn expanded_native_atlases_balance_the_authored_beds_without_nearby_repeats() {
+        let map = super::super::Map::parse();
+        let mut zone = Zone::new(crate::world::ZoneId::Bloomwild, map.tw, map.th);
+        let mask = super::super::paint::paint(&mut zone, &map);
+        zone.set_surface_tiles(super::super::paint::physical_surface(&zone, &mask));
+        super::super::ruins::build(&mut zone, &map, &mask);
+        let grass = Grass::build(&map, &mask, &zone);
+        assert!(grass.tufts.len() > 300, "exercise the full authored planting");
+        let native = grass.native.as_ref().unwrap();
+        assert_eq!(grass.tufts.iter().map(|t| t.native_variant).collect::<Vec<_>>(),
+            native_variants(&grass.tufts, native.frames.len()));
+
+        for frames in [12, 16, 20, 24, 32] {
+            let variants = native_variants(&grass.tufts, frames);
+            assert_eq!(variants, native_variants(&grass.tufts, frames),
+                "rebuilding the same garden must preserve its silhouettes");
+            let mut uses = vec![0; frames];
+            for (i, (tuft, &variant)) in grass.tufts.iter().zip(&variants).enumerate() {
+                uses[variant] += 1;
+                for (other, &other_variant) in grass.tufts[..i].iter().zip(&variants) {
+                    if (tuft.x - other.x).abs() <= 24 && (tuft.y - other.y).abs() <= 12 {
+                        assert_ne!(variant, other_variant,
+                            "{frames}-frame atlas repeated at {},{} and {},{}",
+                            tuft.x, tuft.y, other.x, other.y);
+                    }
+                }
+            }
+            assert!(uses.iter().max().unwrap() - uses.iter().min().unwrap() <= 1,
+                "every native source should share the planting evenly: {uses:?}");
+        }
+    }
+
+    #[test]
     fn authored_beds_keep_live_leaf_fans_off_routes_and_expose_native_tree_roots() {
         let map = super::super::Map::parse();
         let mut zone = Zone::new(crate::world::ZoneId::Bloomwild, map.tw, map.th);
@@ -359,6 +425,8 @@ mod tests {
             let data = serde_json::json!({
                 "native_grid": [zone.pw, zone.ph],
                 "roots": grass.tufts.iter().map(|t| [t.x, t.y]).collect::<Vec<_>>(),
+                "native_variants": grass.tufts.iter().map(|t| t.native_variant).collect::<Vec<_>>(),
+                "native_frame_count": native.frames.len(),
                 "tree_support": zone.props.iter().filter(|p| p.sheet == "bloomwild_trees")
                     .filter_map(|p| p.collision_bounds()).collect::<Vec<_>>(),
                 "notes": "Exact runtime grass bases after terrain, stone-route, solid-prop and exposed-tree-root checks. Native source pixels, normals, sort keys and gameplay unchanged."
@@ -403,11 +471,15 @@ mod tests {
     }
 
     fn one_tuft(native: bool) -> Grass {
-        Grass {
+        let mut grass = Grass {
             tufts: vec![Tuft { x: 100, y: 80, h: 11, teal: false, phase: 0.3,
-                bend: 1.25, cut: false, quiet: false }],
+                bend: 1.25, cut: false, quiet: false, native_variant: 0 }],
             native: native.then(|| NativeGrass::load().expect("actual native Bloomwild grass asset")),
+        };
+        if let Some(native) = &grass.native {
+            grass.tufts[0].native_variant = native_variants(&grass.tufts, native.frames.len())[0];
         }
+        grass
     }
 
     fn draw(grass: &Grass, physical: bool) -> Frame {
@@ -540,33 +612,36 @@ mod tests {
 
     #[test]
     fn native_leaf_normals_follow_actual_pixels_sway_and_world_roots() {
-        let grass = one_tuft(true);
-        let physical = draw(&grass, true);
-        let legacy = draw(&grass, false);
-        assert_eq!(physical.albedo, legacy.albedo, "lighting metadata must preserve every authored color and accepted alpha pixel");
-        assert!(legacy.surfaces.iter().all(|s| s.kind == 0));
-        let native = grass.native.as_ref().unwrap();
-        let tuft = &grass.tufts[0];
-        let variant = (hash2(tuft.x, tuft.y, 537) * native.frames.len() as f32) as usize % native.frames.len();
-        let (ax, ay) = native.anchor;
-        let sway = ((61.0_f32 * 0.033 + tuft.phase).sin() * 0.7 + tuft.bend * 0.4).round() as i32;
-        let source = sheet("bloomwild_grass").unwrap();
-        let cell = source.cell(source.anim("body").unwrap(), variant);
-        for leaf in &native.frames[variant] {
-            let shift = if leaf.y < ay - 4 { sway } else { 0 };
-            let px = tuft.x - physical.cam_x + leaf.x - ax + shift;
-            let py = tuft.y - physical.cam_y + leaf.y - ay;
-            let i = Frame::idx(px, py).unwrap();
-            let surface = physical.surfaces[i];
-            assert_eq!(physical.albedo[i], cell.at(leaf.x, leaf.y).c);
-            assert_eq!(surface.normal, cell.surface[(leaf.y * cell.w + leaf.x) as usize].floor());
-            assert_eq!(surface.height, (ay - leaf.y).max(0) as f32);
-            assert!(matches!(surface.kind, 2 | 4), "opaque leaves must remain live sunlight receivers");
-            assert_eq!(surface.owner, 0);
-            assert!(!physical.actor_pixels[i]);
+        let mut grass = one_tuft(true);
+        let frame_count = grass.native.as_ref().unwrap().frames.len();
+        for variant in 0..frame_count {
+            grass.tufts[0].native_variant = variant;
+            let physical = draw(&grass, true);
+            let legacy = draw(&grass, false);
+            assert_eq!(physical.albedo, legacy.albedo, "lighting metadata must preserve every authored color and accepted alpha pixel");
+            assert!(legacy.surfaces.iter().all(|s| s.kind == 0));
+            let native = grass.native.as_ref().unwrap();
+            let tuft = &grass.tufts[0];
+            let (ax, ay) = native.anchor;
+            let sway = ((61.0_f32 * 0.033 + tuft.phase).sin() * 0.7 + tuft.bend * 0.4).round() as i32;
+            let source = sheet("bloomwild_grass").unwrap();
+            let cell = source.cell(source.anim("body").unwrap(), variant);
+            for leaf in &native.frames[variant] {
+                let shift = if leaf.y < ay - 4 { sway } else { 0 };
+                let px = tuft.x - physical.cam_x + leaf.x - ax + shift;
+                let py = tuft.y - physical.cam_y + leaf.y - ay;
+                let i = Frame::idx(px, py).unwrap();
+                let surface = physical.surfaces[i];
+                assert_eq!(physical.albedo[i], cell.at(leaf.x, leaf.y).c);
+                assert_eq!(surface.normal, cell.surface[(leaf.y * cell.w + leaf.x) as usize].floor());
+                assert_eq!(surface.height, (ay - leaf.y).max(0) as f32);
+                assert!(matches!(surface.kind, 2 | 4), "opaque leaves must remain live sunlight receivers");
+                assert_eq!(surface.owner, 0);
+                assert!(!physical.actor_pixels[i]);
+            }
+            assert_eq!(physical.surfaces.iter().filter(|s| s.kind != 0).count(), native.frames[variant].len(),
+                "transparent padding cannot gain phantom receiving pixels");
         }
-        assert_eq!(physical.surfaces.iter().filter(|s| s.kind != 0).count(), native.frames[variant].len(),
-            "transparent padding cannot gain phantom receiving pixels");
     }
 
     #[test]

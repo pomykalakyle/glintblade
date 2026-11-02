@@ -3,6 +3,7 @@ pub mod assets;
 pub mod camera;
 pub mod combat;
 pub mod entities;
+pub mod eightway_audit;
 pub mod fx;
 pub mod game;
 pub mod gfx;

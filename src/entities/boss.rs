@@ -31,6 +31,9 @@ mod art;
 mod death;
 mod fist;
 mod hazards;
+mod kneel;
+mod material;
+mod pose;
 
 use super::Body;
 use super::enemies::EnemyCtx;
@@ -48,7 +51,7 @@ pub const MAX_HP: i32 = 60;
 /// Each phase is this much of the bar.
 const PHASE_HP: i32 = 20;
 /// How far the body sinks when it kneels (px).
-const KNEEL: f32 = 16.0;
+fn kneel_depth() -> f32 { pose::rig().kneel_depth as f32 }
 const INTRO: u32 = 172;
 const TRANSITION: u32 = 156;
 const ROUSE: u32 = 80;
@@ -161,6 +164,7 @@ pub struct Boss {
     recent_i: usize,
     // --- look
     body_dy: f32,
+    recover_from: f32,
     tremble: i32,
     head_dy: f32,
     eyes: f32,
@@ -205,8 +209,8 @@ impl Boss {
             phase: 0,
             mode: Mode::Dormant,
             fists: [
-                Fist::new(0, x - 54.0, y + 8.0),
-                Fist::new(1, x + 54.0, y + 8.0),
+                Fist::new(0, x + l.fists[0].0 as f32 - 9.0, y + 8.0),
+                Fist::new(1, x + l.fists[1].0 as f32 + 9.0, y + 8.0),
             ],
             attack: None,
             plan_i: 0,
@@ -222,6 +226,7 @@ impl Boss {
             recent: [0; 16],
             recent_i: 0,
             body_dy: 2.0,
+            recover_from: 0.0,
             tremble: 0,
             head_dy: 3.0,
             eyes: 0.0,
@@ -950,9 +955,9 @@ impl Boss {
             f.limp();
         }
         let fx = &mut *ctx.fx;
-        fx.freeze(10);
-        fx.shake(0.5);
-        fx.flash(0.15);
+        fx.freeze(5);
+        fx.shake(0.3);
+        fx.flash(0.08);
         fx.sound("boss_crack");
     }
 
@@ -963,25 +968,22 @@ impl Boss {
         let window_end = 38 + tempo.window;
         let fx = &mut *ctx.fx;
         self.eyes = 0.5 + 0.2 * ((t as f32) * 0.2).sin();
-        if t < 16 {
-            // knees buckle (accelerating)
-            let k = (t + 1) as f32 / 16.0;
-            self.body_dy = KNEEL * k * k;
-            self.head_dy = 2.0 * k;
-            if t < 6 {
-                self.tremble = if t % 2 == 0 { 2 } else { -2 };
-            }
-        } else if t == 16 {
-            self.body_dy = KNEEL;
+        if t < window_end + 14 {
+            self.body_dy = kneel::drop(t, kneel_depth(), pose::rig().fold_max as f32);
+            self.head_dy = 2.0 * self.body_dy / kneel_depth();
+        }
+        if t == kneel::CONTACT {
             fx.sound_vol("boss_slam", 0.9);
             fx.shake(0.45);
             fx.freeze(4);
-            for s in [-1.0, 1.0] {
-                rubble(fx, bx + s * 20.0, by + 2.0, 16, 1.5);
-                fx.particles
-                    .dust(&mut fx.rng, bx + s * 20.0, by + 2.0, 10, F4);
-                hazards::crater(fx, bx + s * 20.0, by + 3.0, 8, 400);
+            // Load arrives at the planted supports, not the empty central arch.
+            for (x, y) in self.support_contacts() {
+                rubble(fx, x, y, 12, 1.2);
+                fx.particles.dust(&mut fx.rng, x, y, 10, F4);
             }
+        }
+        if t < 17 {
+            self.heart.out = 0.0;
         } else if (17..38).contains(&t) {
             // Tick 17 holds the closed socket before the opening ramp. Skipping it here
             // would fall into the full-out window, then snap back at tick 18.
@@ -1009,15 +1011,15 @@ impl Boss {
             self.heart.out = 0.0;
             if t == window_end + 14 {
                 fx.sound_vol("boss_crack", 0.5);
-                for f in self.fists.iter_mut() {
-                    f.go_home();
-                }
             }
-            self.body_dy = KNEEL * (1.0 - ease_in_out((t - window_end - 13) as f32 / 20.0));
-            self.head_dy = 2.0 * self.body_dy / KNEEL;
+            self.body_dy = kneel::rise(kneel_depth(), t - window_end - 14);
+            self.head_dy = 2.0 * self.body_dy / kneel_depth();
         } else {
             // window missed: back to the fight, weak points restored
             self.body_dy = 0.0;
+            for f in &mut self.fists {
+                f.go_home();
+            }
             self.mode = Mode::Fight;
             self.cool = 40;
             self.heart.hits = 0;
@@ -1058,11 +1060,9 @@ impl Boss {
             if self.hp <= 0 {
                 self.start_dying(ctx);
             } else {
+                self.recover_from = self.body_dy;
                 self.mode = Mode::Transition(0);
                 self.attack = None;
-                for f in self.fists.iter_mut() {
-                    f.go_home();
-                }
             }
             return;
         }
@@ -1076,7 +1076,7 @@ impl Boss {
         // the heart is yanked back in, the Warden rises
         self.heart.out = (self.heart.out - 0.12).max(0.0);
         if t > 6 {
-            self.body_dy = (self.body_dy - 1.0).max(0.0);
+            self.body_dy = kneel::rise(self.recover_from, t - 7);
         }
         if t == 0 {
             fx.sound("boss_crack");
@@ -1085,6 +1085,9 @@ impl Boss {
             fx.shake(0.5);
         }
         if t == 26 {
+            for f in &mut self.fists {
+                f.go_home();
+            }
             // next phase: the roar
             self.phase = (self.phase + 1).min(2);
             self.heart.hits = 0;
@@ -1495,7 +1498,9 @@ impl Boss {
     pub fn sort_y(&self) -> f32 {
         let (px, py) = self.player;
         let (bx, by) = self.base();
-        let over_body = (px - bx).abs() < 60.0 && py > by - 112.0 && py < by + 16.0;
+        let (width, height) = layout().body_size;
+        let over_body = (px - bx).abs() < width as f32 * 0.5
+            && py > by - height as f32 && py < by + 16.0;
         if !over_body {
             for f in &self.fists {
                 if (f.x - px).abs() < 24.0 && (f.y - py).abs() < 30.0 && (f.y > py || f.z > 16.0) {
@@ -1658,7 +1663,8 @@ impl Boss {
         } else {
             0.55
         };
-        f.shadow(f.sx(bx), f.sy(by + 1.0), 38, 8, sh_k);
+        let foot_width = (l.body_size.0 as f32 * (38.0 / 120.0)).round() as i32;
+        f.shadow(f.sx(bx), f.sy(by + 1.0), foot_width, 8, sh_k);
         for fi in &self.fists {
             if dying_t.map(|t| t > crumble_t(fi.side)).unwrap_or(false) {
                 continue;
@@ -1704,11 +1710,20 @@ impl Boss {
             };
             let fold = if kneel > 0.0 {
                 spr_frame(art::BODY, &[self.body_fold_anim()], 0)
-                    .map(|source| (source, kneel.clamp(0.0, KNEEL) as i32))
+                    .map(|source| (source, kneel.clamp(0.0, pose::rig().fold_max as f32) as i32))
             } else {
                 None
             };
-            art::draw_cracks(f, body, sx, sy, &bl, &self.cracks, lit, edge, core, fold);
+            let transported;
+            let cracks = if material::uses_slate_body() && pose::step(self.heart.out) > 0 {
+                transported = self.cracks.iter().take(lit).filter_map(|&(x, y, w)|
+                    pose::transport(x, y, self.heart.out).map(|(x, y)| (x, y, w)))
+                    .collect::<Vec<_>>();
+                transported.as_slice()
+            } else {
+                &self.cracks[..lit.min(self.cracks.len())]
+            };
+            art::draw_cracks(f, body, sx, sy, &bl, cracks, cracks.len(), edge, core, fold);
         }
         // the chest socket: light pours out when the heart is out
         if heart_out {
@@ -1801,7 +1816,7 @@ impl Boss {
 
     /// Return a restrained one-pixel breathing offset.
     fn breath(&self) -> f32 {
-        if matches!(self.mode, Mode::Dormant | Mode::Dying(_)) {
+        if pose::rig().integrated_head || matches!(self.mode, Mode::Dormant | Mode::Dying(_)) {
             return 0.0;
         }
         if ((self.t as f32) * 0.035).sin() > 0.4 {
@@ -1811,19 +1826,50 @@ impl Boss {
         }
     }
 
-    /// Native stone joints carry the torso's existing combat motion. Its upper
-    /// attachments follow `body_dy`; the piers fold inside their source cell by
-    /// that same amount, keeping complete planted feet on the original ground.
-    /// This is a pose lookup only: attacks and heart punish windows retain their
-    /// original clocks, and older art overrides keep their authored fallback.
-    fn body_sprite(&self) -> Spr {
-        let damaged = self.phase >= 2;
-        let opening = self.heart.out > 0.12;
-        let fold = self.body_dy.round().clamp(0.0, KNEEL) as usize;
-        if fold > 0 {
-            if let Some(s) = spr_frame(art::BODY, &[self.body_fold_anim()], fold) {
-                return s;
+    /// Actual sole ink on the current ground line, shared by load-transfer effects.
+    fn support_contacts(&self) -> Vec<(f32, f32)> {
+        let body = self.body_sprite();
+        let row = body.anchor.1 - self.body_dy.round() as i32;
+        let mut contacts = Vec::new();
+        for (left, right) in [(0, body.anchor.0), (body.anchor.0, body.cell.w)] {
+            // The native left sole ends one pixel above the right sole. Each
+            // foot has its own lowest ink row on the common ground plane.
+            let xs: Vec<_> = (row-3..=row).rev().find_map(|y| {
+                let xs:Vec<_>=(left..right).filter(|&x|body.cell.at(x,y).a).collect();
+                (!xs.is_empty()).then_some(xs)
+            }).unwrap_or_default();
+            if let (Some(&first), Some(&last)) = (xs.first(), xs.last()) {
+                contacts.push((
+                    self.body.x + (first + last) as f32 * 0.5 - body.anchor.0 as f32,
+                    self.body.y,
+                ));
             }
+        }
+        contacts
+    }
+
+    /// One continuous masonry assembly through every attack. Native pier folds
+    /// keep the feet planted; the same two sluice leaves retract into their
+    /// jambs as the heart emerges. Independently generated brace/opening shapes
+    /// must not replace the guardian's architecture on a single combat tick.
+    fn body_sprite(&self) -> Spr {
+        if !material::uses_slate_body() {
+            return self.legacy_body_sprite();
+        }
+        let fold = self.body_dy.round().clamp(0.0, pose::rig().fold_max as f32) as usize;
+        let source = spr_frame(art::BODY, &[self.body_fold_anim()], fold)
+            .unwrap_or_else(|| spr(art::BODY, &self.body_anims(), self.t, true));
+        pose::sluice(source, self.phase >= 2, self.heart.out)
+    }
+
+    /// Artist overrides that supply a different masonry family retain their
+    /// original pose keys as well as their matching part material.
+    fn legacy_body_sprite(&self) -> Spr {
+        let fold = self.body_dy.round().clamp(0.0, pose::rig().fold_max as f32) as usize;
+        if fold > 0
+            && let Some(s) = spr_frame(art::BODY, &[self.body_fold_anim()], fold)
+        {
+            return s;
         }
         let bracing = matches!(self.mode, Mode::Fight)
             && (self.fists.iter().any(|f| matches!(f.st,
@@ -1832,27 +1878,23 @@ impl Boss {
                 || self.beams.iter().any(|b| b.charging())
                 || matches!(self.attack, Some(Attack::Summon { t: 12..=72 })
                     | Some(Attack::Rain { t: 18..=38, .. })));
-        let pose = match (damaged, opening, bracing) {
+        let pose = match (self.phase >= 2, self.heart.out > 0.12, bracing) {
             (true, true, _) => Some("damaged_opening"),
             (false, true, _) => Some("opening"),
             (true, false, true) => Some("damaged_brace"),
             (false, false, true) => Some("brace"),
             _ => None,
         };
-        if let Some(s) = pose.and_then(|p| spr_frame(art::BODY, &[p], 0)) {
-            return s;
-        }
-        spr(art::BODY, &self.body_anims(), self.t, true)
+        pose.and_then(|p| spr_frame(art::BODY, &[p], 0))
+            .unwrap_or_else(|| spr(art::BODY, &self.body_anims(), self.t, true))
     }
 
     /// Shared pose identity for the native torso and its fracture provenance.
     fn body_fold_anim(&self) -> &'static str {
-        match (self.phase >= 2, self.heart.out > 0.12) {
-            (false, false) => "awake_fold",
-            (false, true) => "opening_fold",
-            (true, false) => "damaged_fold",
-            (true, true) => "damaged_opening_fold",
+        if !material::uses_slate_body() && self.heart.out > 0.12 {
+            return if self.phase >= 2 { "damaged_opening_fold" } else { "opening_fold" };
         }
+        if self.phase >= 2 { "damaged_fold" } else { "awake_fold" }
     }
 
     /// Select intact, awakened or damaged stone for this phase.
@@ -1888,7 +1930,11 @@ impl Boss {
         };
         let roaring = self.head_dy < -1.5;
         let head = spr(art::HEAD, &self.head_anims(), head_t, !roaring);
-        let dy = if roaring {
+        let dy = if pose::rig().integrated_head {
+            // The brow, cheeks and collar are one stone construction. Roaring
+            // changes its recessed iris, never lifts a helmet off the torso.
+            0.0
+        } else if roaring {
             let peak = *ROAR_PEAK.get_or_init(|| {
                 art::peak_lift(art::HEAD, "roar", spr(art::HEAD, &["idle"], 0, true))
             });
@@ -2171,7 +2217,9 @@ impl Boss {
             let socket = layout().heart;
             let x = bx + socket.0 as f32 + self.tremble as f32;
             let y = by + socket.1 as f32 + self.body_dy.round();
-            f.add_light_3d_w(x, front, (front - y).max(0.0), 76.0, HEART_LIGHT, 0.45 * self.heart.out);
+            let height = (front - y).max(0.0);
+            let radius = if pose::rig().integrated_head { 76.0f32.max(height + 24.0) } else { 76.0 };
+            f.add_light_3d_w(x, front, height, radius, HEART_LIGHT, 0.45 * self.heart.out);
         }
         for fi in &self.fists {
             if fi.crystal_hp <= 0 || self.dying > crumble_t(fi.side) { continue; }
@@ -2241,6 +2289,7 @@ fn native_part_light(f: &mut Frame, s: Spr, x: f32, y: f32, flip: bool,
     let wx = (ox + if flip { s.cell.w - 1 - px } else { px }) as f32 + 0.5;
     let wy = (oy + py) as f32 + 0.5;
     let height = (ground_y - wy).max(0.0);
+    let radius = if pose::rig().integrated_head { radius.max(height + 28.0) } else { radius };
     f.add_light_3d_w(wx, wy + height, height, radius, color, intensity);
 }
 
@@ -2435,6 +2484,12 @@ fn barrier(f: &mut Frame, (x, y): (f32, f32), t: u32) {
 mod tests;
 
 #[cfg(test)]
+mod cohesion_audit;
+
+#[cfg(test)]
+mod kneel_tests;
+
+#[cfg(test)]
 mod torso_pose_tests {
     use super::*;
 
@@ -2450,13 +2505,13 @@ mod torso_pose_tests {
                 b.heart.out = if opening { 1.0 } else { 0.0 };
                 b.body_dy = 0.0;
                 let standing = b.body_sprite();
-                for depth in 0..=16 {
+                for depth in 0..=pose::rig().fold_max {
                     b.body_dy = depth as f32;
                     let folded = b.body_sprite();
-                    assert_eq!(folded.anchor, (60, 109));
+                    assert_eq!(folded.anchor, standing.anchor);
                     assert_eq!(art::bottom(folded) + depth, 0, "phase {phase}, opening {opening}, fold {depth}");
-                    for y in 0..30 {
-                        for x in 0..120 {
+                    for y in 0..pose::rig().fixed_upper_rows {
+                        for x in 0..standing.cell.w {
                             let (a, p) = (standing.cell.at(x, y), folded.cell.at(x, y));
                             assert_eq!((a.a, a.c), (p.a, p.c));
                         }
@@ -2466,21 +2521,21 @@ mod torso_pose_tests {
         }
     }
 
-    /// Real fist anticipation and heart exposure select structural keys;
-    /// renderer time cannot make a static torso play unrelated frames.
+    /// A fist can brace without replacing the supporting masonry. The chest
+    /// opens inside the same shell and renderer time cannot change its pose.
     #[test]
     fn native_torso_keys_follow_attack_and_heart_states() {
         let mut b = Boss::new(192.0, 150.0);
         b.mode = Mode::Fight;
         b.body_dy = 0.0;
         b.fists[0].st = St::Lock(4);
-        let brace = spr_frame(art::BODY, &["brace"], 0).unwrap();
-        assert!(std::ptr::eq(b.body_sprite().cell, brace.cell));
+        let standing = spr_frame(art::BODY, &["awake_fold"], 0).unwrap();
+        assert!(std::ptr::eq(b.body_sprite().cell, standing.cell));
         b.mode = Mode::Stagger(45);
-        b.body_dy = KNEEL;
+        b.body_dy = kneel_depth();
         b.heart.out = 1.0;
-        let open = spr_frame(art::BODY, &["opening_fold"], 16).unwrap();
-        assert!(std::ptr::eq(b.body_sprite().cell, open.cell));
+        let open = b.body_sprite();
+        assert!(!std::ptr::eq(open.cell, standing.cell));
         b.t += 137;
         assert!(std::ptr::eq(b.body_sprite().cell, open.cell));
     }
@@ -2491,15 +2546,47 @@ mod torso_pose_tests {
     #[test]
     fn native_torso_fractures_follow_the_articulated_piers() {
         let source = spr_frame(art::BODY, &["awake_fold"], 0).unwrap();
-        let folded = spr_frame(art::BODY, &["awake_fold"], 16).unwrap();
-        for ((x, y), (dx, dy)) in [((75, 81), (77, 65)), ((63, 81), (65, 65))] {
-            assert_eq!(art::fold_crack(source, 16, x, y), Some((dx, dy)));
+        let rig = pose::rig();
+        let depth=rig.fold_max;
+        let folded = spr_frame(art::BODY, &["awake_fold"], depth as usize).unwrap();
+        for side in [false, true] {
+            let y = if rig.articulated_legs {rig.sole_top+2} else {rig.pier_top+10};
+            let range = if side { rig.center..source.cell.w } else { 0..rig.center };
+            let pixels: Vec<_> = range.filter(|&x| source.cell.at(x, y).a).collect();
+            let x = pixels[pixels.len() / 2];
+            let spread=if rig.articulated_legs {0} else {depth/8};
+            let (dx, dy) = (x + if side { spread } else { -spread }, y-depth);
+            assert_eq!(art::fold_crack(source, depth, x, y), Some((dx, dy)));
             let (a, b) = (source.cell.at(x, y), folded.cell.at(dx, dy));
             assert_eq!((a.a, a.c), (b.a, b.c));
+            assert_eq!(art::fold_crack(source, depth, dx, dy), None,
+                "foreground pier must cover the stationary apron fracture");
         }
-        assert!(source.cell.at(73, 91).a);
-        assert_eq!(art::fold_crack(source, 16, 75, 75), None);
-        assert_eq!(art::fold_crack(source, 16, 60, 49), Some((60, 49)));
+        let socket = (source.anchor.0 + layout().heart.0, source.anchor.1 + layout().heart.1);
+        assert_eq!(art::fold_crack(source, depth, socket.0, socket.1), Some(socket));
+    }
+
+    #[test]
+    fn integrated_head_stays_seated_through_breath_and_roar() {
+        if !pose::rig().integrated_head { return; }
+        let mut b = Boss::new(192.0, 200.0);
+        b.mode = Mode::Fight;
+        b.body_dy = 0.0;
+        b.head_dy = 0.0;
+        let (_, x, y) = b.head_part();
+        for t in [0, 8, 22, 40, 80, 130] {
+            b.t = t;
+            for lift in [3.0, 0.0, -2.0, -4.0, -8.0] {
+                b.head_dy = lift;
+                let (_, hx, hy) = b.head_part();
+                assert_eq!((hx, hy, b.breath()), (x, y, 0.0));
+            }
+        }
+        b.body_dy = kneel_depth();
+        assert_eq!(b.head_part().2, y + kneel_depth());
+        b.body_dy = 0.0;
+        let height = b.body.y - b.framing_top().unwrap();
+        assert!((160.0..=180.0).contains(&height), "native guardian height: {height}");
     }
 }
 
@@ -2549,7 +2636,7 @@ mod surface_light_tests {
         assert!(closed.radius > closed.height, "socket light must reach past its altitude");
         b.mode = Mode::Stagger(45);
         b.heart.out = 1.0;
-        b.body_dy = KNEEL;
+        b.body_dy = kneel_depth();
         let opening = light_frame(&b);
         assert_eq!(opening.point_lights.len(), 2);
         let open = opening.point_lights[0];
@@ -2571,7 +2658,7 @@ mod surface_light_tests {
             b.phase = phase;
             b.mode = Mode::Stagger(16);
             b.t = 16;
-            b.body_dy = KNEEL;
+            b.body_dy = kneel_depth();
             b.head_dy = 2.0;
             for fist in &mut b.fists {
                 fist.crystal_hp = 0;
@@ -2581,6 +2668,7 @@ mod surface_light_tests {
             let (mut hits, mut projectiles) = (Vec::new(), Vec::new());
             let (mut previous_out, mut previous_source_y) = (0.0, None);
             let mut closed_source_y = None;
+            let mut closed_socket_y = None;
             let mut first_heart_hurtbox = None;
             for tick in 16..=38 {
                 fx.sounds.clear();
@@ -2595,9 +2683,13 @@ mod surface_light_tests {
                 let source = light_frame(&b).point_lights[0];
                 if tick <= 17 {
                     assert_eq!(b.heart.out, 0.0, "the kneel hold must keep the heart in its socket");
-                    if let Some(y) = closed_source_y {
-                        assert_eq!(source.y, y, "the hold tick prematurely moved the native heart light");
-                    } else { closed_source_y = Some(source.y); }
+                    let socket_y=source.y-b.body_dy.round();
+                    if let Some(y) = closed_socket_y {
+                        assert_eq!(socket_y, y, "the heart light left its closed socket during body settlement");
+                    } else {
+                        closed_socket_y=Some(socket_y);
+                        closed_source_y=Some(source.y);
+                    }
                 }
                 if let Some(y) = previous_source_y {
                     // The authored pulse moves its emitting facet by up to two native pixels;

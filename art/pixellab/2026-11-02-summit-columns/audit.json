@@ -1,0 +1,6 @@
+{
+  "status": "complete: contact-ink revision",
+  "supersedes": "Rejected contact-only and flat-base passes",
+  "audit": "contact-ink/audit.json",
+  "comparison": "contact-ink/comparison.html"
+}

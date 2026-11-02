@@ -107,7 +107,7 @@ pub fn spr(sheet_name: &str, names: &[&str], ticks: u32, looping: bool) -> Spr {
             let cell = s.cell(a, a.frame_at(ticks, looping));
             if !cell.is_empty() {
                 return Spr {
-                    cell,
+                    cell: super::material::part(sheet_name, cell),
                     anchor: s.anchor_of(a),
                 };
             }
@@ -133,7 +133,7 @@ pub fn spr_frame(sheet_name: &str, names: &[&str], i: usize) -> Option<Spr> {
         return None;
     }
     Some(Spr {
-        cell,
+        cell: super::material::part(sheet_name, cell),
         anchor: s.anchor_of(a),
     })
 }
@@ -276,11 +276,14 @@ pub fn blit(f: &mut Frame, s: Spr, sx: i32, sy: i32, l: &Look) {
             // Rebuild the native foot from the visible kneel cut; hidden rows
             // cannot move the volume in front of its physical ground plane.
             let mut clipped = cell.clone();
-            for p in &mut clipped.px[first_hidden * cell.w as usize..] { *p=Px::default(); }
-            let clipped_base=crate::gfx::surface::base(&clipped,s.anchor,sy+f.cam_y,0.0);
-            let airborne=(base-clipped_base).max(0.0);
-            caster.foot=crate::gfx::surface::foot_profile(&clipped,s.anchor,sy+f.cam_y,airborne,None);
-            caster.min_height=airborne;
+            for p in &mut clipped.px[first_hidden * cell.w as usize..] {
+                *p = Px::default();
+            }
+            let clipped_base = crate::gfx::surface::base(&clipped, s.anchor, sy + f.cam_y, 0.0);
+            let airborne = (base - clipped_base).max(0.0);
+            caster.foot =
+                crate::gfx::surface::foot_profile(&clipped, s.anchor, sy + f.cam_y, airborne, None);
+            caster.min_height = airborne;
         }
     }
     if ox > crate::gfx::WI || oy > crate::gfx::HI || ox + cell.w < 0 || oy + cell.h < 0 {
@@ -303,9 +306,12 @@ pub fn blit(f: &mut Frame, s: Spr, sx: i32, sy: i32, l: &Look) {
             // Eyes and the fist weak points remain authored combat cues, even
             // when the surrounding stone opens around Glint. Intrinsic alpha
             // still controls dissolving parts and their motion trails.
-            let alpha = l.reveal.filter(|_| !p.emit).map_or(l.alpha, |focus| l.alpha.min(l.ground_y.map_or_else(
-                || focus.scenery_alpha(px + f.cam_x, py + f.cam_y),
-                |depth| focus.scenery_alpha_at_depth(px + f.cam_x, py + f.cam_y, depth))));
+            let alpha = l.reveal.filter(|_| !p.emit).map_or(l.alpha, |focus| {
+                l.alpha.min(l.ground_y.map_or_else(
+                    || focus.scenery_alpha(px + f.cam_x, py + f.cam_y),
+                    |depth| focus.scenery_alpha_at_depth(px + f.cam_x, py + f.cam_y, depth),
+                ))
+            });
             if alpha < 1.0 && alpha <= bayer4(px + f.cam_x, py + f.cam_y) {
                 continue;
             }
@@ -363,22 +369,33 @@ pub fn solid_at(cell: &Cell, x: i32, y: i32) -> bool {
 /// Transport a fracture through the same rigid culvert joints as the native
 /// torso exporter. The moving piers cover stationary apron cracks beneath them.
 pub fn fold_crack(source: Spr, depth: i32, x: i32, y: i32) -> Option<(i32, i32)> {
-    let spread = depth / 8;
-    if y >= 81 {
-        return Some((x + if x < 60 { -spread } else { spread }, y - depth));
+    if !(0..source.cell.w).contains(&x) || !(0..source.cell.h).contains(&y) {
+        return None;
     }
-    let source_y = y + depth;
-    if (81..110).contains(&source_y) {
-        let source_x = if x < 60 - spread {
-            Some(x + spread)
-        } else if x >= 60 + spread {
-            Some(x - spread)
-        } else {
-            None
-        };
-        if source_x.is_some_and(|sx| source.cell.at(sx, source_y).a) {
+    let rig = super::pose::rig();
+    if rig.articulated_legs {
+        if y >= rig.sole_top {
+            // Soles stay fixed in world space, including their surface cracks.
+            return Some((x, y-depth));
+        }
+        if depth > 0 && y >= rig.joint_top {
+            // Standing-plane fractures are hidden by the turned knee/thigh
+            // faces, rather than painted across a newly articulated joint.
             return None;
         }
+        return Some((x,y));
+    }
+    let spread = depth / 8;
+    if (rig.pier_top..rig.pier_bottom).contains(&y) {
+        let dest = (x + if x < rig.center { -spread } else { spread }, y - depth);
+        return ((0..source.cell.w).contains(&dest.0) && (0..source.cell.h).contains(&dest.1))
+            .then_some(dest);
+    }
+    if rig
+        .pier_source(x, y, depth)
+        .is_some_and(|(x, y)| source.cell.at(x, y).a)
+    {
+        return None;
     }
     Some((x, y))
 }
@@ -399,7 +416,9 @@ pub fn draw_cracks(
 ) {
     let (ox, oy) = origin(s.cell, s.anchor, sx, sy, l.flip);
     for &(x, y, w) in cracks.iter().take(n) {
-        let Some((x, y)) = fold.map_or(Some((x, y)), |(source, depth)| fold_crack(source, depth, x, y)) else {
+        let Some((x, y)) = fold.map_or(Some((x, y)), |(source, depth)| {
+            fold_crack(source, depth, x, y)
+        }) else {
             continue;
         };
         if !solid_at(s.cell, x, y) {
@@ -410,9 +429,12 @@ pub fn draw_cracks(
         if py > l.clip_y {
             continue;
         }
-        if l.reveal.is_some_and(|focus| l.ground_y.map_or_else(
-            || !focus.allows_scenery(px + f.cam_x, py + f.cam_y),
-            |depth| !focus.allows_scenery_at_depth(px + f.cam_x, py + f.cam_y, depth))) {
+        if l.reveal.is_some_and(|focus| {
+            l.ground_y.map_or_else(
+                || !focus.allows_scenery(px + f.cam_x, py + f.cam_y),
+                |depth| !focus.allows_scenery_at_depth(px + f.cam_x, py + f.cam_y, depth),
+            )
+        }) {
             continue;
         }
         f.put_glow(px, py, if w == 0 { core } else { color });
@@ -761,8 +783,8 @@ mod tests {
         assert_eq!(material.kind, 3);
         // The visible cut has ground extent38..40. Its front voxel center
         // is39.5; projected pixel center21.5 therefore has height18.
-        assert_eq!(caster.foot[0],[38.0,40.0]);
-        assert_eq!(caster.min_height,17.0);
+        assert_eq!(caster.foot[0], [38.0, 40.0]);
+        assert_eq!(caster.min_height, 17.0);
         assert!((material.height - 18.0).abs() < 0.0001);
         assert_eq!(frame.surfaces[12 * crate::gfx::W + 10].kind, 0);
     }
@@ -834,9 +856,8 @@ mod tests {
                 }
                 for flip in [false, true] {
                     let (ox, oy) = origin(s.cell, s.anchor, 160, 120, flip);
-                    let screen = |x: i32, y: i32| {
-                        (ox + if flip { s.cell.w - 1 - x } else { x }, oy + y)
-                    };
+                    let screen =
+                        |x: i32, y: i32| (ox + if flip { s.cell.w - 1 - x } else { x }, oy + y);
                     let min_x = emitters.iter().map(|&(x, y)| screen(x, y).0).min().unwrap();
                     let max_x = emitters.iter().map(|&(x, y)| screen(x, y).0).max().unwrap();
                     let min_y = emitters.iter().map(|&(x, y)| screen(x, y).1).min().unwrap();
@@ -851,8 +872,12 @@ mod tests {
                     };
                     for &(x, y) in &emitters {
                         let (px, py) = screen(x, y);
-                        assert_eq!(focus.scenery_alpha(px + baseline.cam_x, py + baseline.cam_y), 0.0,
-                            "native cue must exercise the fully cleared reveal center: {sheet_name}, row {}, frame {frame}", anim.row);
+                        assert_eq!(
+                            focus.scenery_alpha(px + baseline.cam_x, py + baseline.cam_y),
+                            0.0,
+                            "native cue must exercise the fully cleared reveal center: {sheet_name}, row {}, frame {frame}",
+                            anim.row
+                        );
                     }
                     // Dormant irises retain their authored engraving, partial emission
                     // retains its intensity, and real dissolve alpha still applies.
@@ -868,26 +893,52 @@ mod tests {
                                 ..Default::default()
                             };
                             blit(&mut baseline, s, 160, 120, &look);
-                            blit(&mut revealed, s, 160, 120, &Look { reveal: Some(focus), ..look });
+                            blit(
+                                &mut revealed,
+                                s,
+                                160,
+                                120,
+                                &Look {
+                                    reveal: Some(focus),
+                                    ..look
+                                },
+                            );
                             for &(x, y) in &emitters {
                                 let (px, py) = screen(x, y);
                                 let idx = py as usize * crate::gfx::W + px as usize;
-                                assert_eq!(revealed.albedo[idx], baseline.albedo[idx],
-                                    "reveal changed native cue color: {sheet_name}, row {}, frame {frame}, emit {emit}, alpha {alpha}, flip {flip}, source ({x}, {y})", anim.row);
-                                assert_eq!(revealed.emissive[idx], baseline.emissive[idx],
-                                    "reveal changed native cue emission: {sheet_name}, row {}, frame {frame}, emit {emit}, alpha {alpha}, flip {flip}, source ({x}, {y})", anim.row);
+                                assert_eq!(
+                                    revealed.albedo[idx], baseline.albedo[idx],
+                                    "reveal changed native cue color: {sheet_name}, row {}, frame {frame}, emit {emit}, alpha {alpha}, flip {flip}, source ({x}, {y})",
+                                    anim.row
+                                );
+                                assert_eq!(
+                                    revealed.emissive[idx], baseline.emissive[idx],
+                                    "reveal changed native cue emission: {sheet_name}, row {}, frame {frame}, emit {emit}, alpha {alpha}, flip {flip}, source ({x}, {y})",
+                                    anim.row
+                                );
                                 checked_emitters += usize::from(baseline.albedo[idx] != background);
                             }
-                            cleared_stone += baseline.albedo.iter().zip(&revealed.albedo)
-                                .filter(|(before, after)| **before != background && **after == background)
+                            cleared_stone += baseline
+                                .albedo
+                                .iter()
+                                .zip(&revealed.albedo)
+                                .filter(|(before, after)| {
+                                    **before != background && **after == background
+                                })
                                 .count();
                         }
                     }
                 }
             }
         }
-        assert!(checked_emitters > 0, "native {sheet_name} contains no exercised emissive cue");
-        assert!(cleared_stone > 0, "native {sheet_name} never exercised stone removal");
+        assert!(
+            checked_emitters > 0,
+            "native {sheet_name} contains no exercised emissive cue"
+        );
+        assert!(
+            cleared_stone > 0,
+            "native {sheet_name} never exercised stone removal"
+        );
     }
 
     #[test]

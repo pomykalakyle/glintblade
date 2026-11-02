@@ -64,6 +64,8 @@ pub struct State {
     pub aim: (f32, f32),
     /// Past positions (x, y, hover) for the curling tail, newest first.
     pub trail: [(f32, f32, f32); TAIL],
+    /// Anatomical facing only. The shot vector, orbit and recoil stay continuous.
+    visual_dir: Dir,
     seed: u32,
     appearance: u8,
 }
@@ -101,6 +103,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         volley: 0,
         aim: (0.0, 1.0),
         trail: [(x, y, HOVER); TAIL],
+        visual_dir: Dir::Down,
         seed,
         appearance: super::variation::appearance(x, y),
     };
@@ -123,6 +126,11 @@ pub fn update(b: &mut Body, s: &mut State, ctx: &mut EnemyCtx) {
     }
     let (px, py) = ctx.player;
     let d = b.dist_to(px, py);
+
+    if b.stun == 0 {
+        let aim = if s.mode == Mode::Drift { b.dir_to(px, py) } else { s.aim };
+        s.visual_dir = s.visual_dir.stable_from_vec(aim.0, aim.1);
+    }
 
     // Struck: tumble with the knockback, no attacking.
     if b.stun > 0 {
@@ -365,7 +373,15 @@ fn sheet_cell(b: &Body, s: &State, t: u64) -> Option<(&'static Cell, (i32, i32))
     let sh = sheet(SHEET)?;
     let (names, ticks, looping) = anim_for(b, s);
     let ticks = if s.mode == Mode::Drift && b.stun == 0 { t as u32 } else { ticks };
-    let a = names.iter().find_map(|n| sh.anim(n).or_else(|| sh.dir_anim(n, Dir::Down).map(|(a, _)| a)))?;
+    let a = if super::variation::reference_pose() {
+        // The frozen unsuffixed silhouette owns the original combat RNG path.
+        names.iter().find_map(|n| sh.anim(n))
+    } else {
+        // Every anatomical bearing is native, including left-facing wing/cage
+        // overlaps. No cardinal or unsuffixed fallback can hide missing rows.
+        let dir = s.visual_dir;
+        names.iter().find_map(|n| sh.anim(&format!("{n}_{}", dir.suffix())))
+    }?;
     let idle = ["idle", "float", "fly", "move"]
         .iter()
         .any(|base| a.name == *base || a.name.starts_with(&format!("{base}_")));
@@ -383,6 +399,12 @@ fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32)) {
     let gathering = s.mode == Mode::Windup || (s.mode == Mode::Recoil && s.mode_t < 10);
     let cell = &fallback()[if gathering { 4 } else { frame }];
     (cell, (cell.w / 2, cell.h - 1))
+}
+
+/// Audit the same immutable native pose used by drawing and death debris.
+pub(crate) fn audit_pose(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool) {
+    let (cell, anchor) = current_cell(b, s, t);
+    (cell, anchor, false)
 }
 
 /// Draw the flame body, a restrained tail, and its motivated light.
@@ -559,6 +581,46 @@ mod tests {
     use crate::fx::Fx;
     use crate::world::{Zone, ZoneId};
 
+    #[test]
+    fn visual_facing_tracks_aim_without_mutating_historical_body_state() {
+        let zone = Zone::new(ZoneId::Glasswater, 32, 32);
+        for direction in Dir::ALL {
+            let (mut b, mut s) = spawn(100.0, 100.0);
+            let original_face = b.face;
+            let mut fx = Fx::new(739);
+            let mut hits = Vec::new();
+            let mut projectiles = Vec::new();
+            let aim = direction.vec();
+            update(&mut b, &mut s, &mut EnemyCtx {
+                player: (100.0 + aim.0 * 72.0, 100.0 + aim.1 * 72.0),
+                player_alive: true, zone: &zone, fx: &mut fx,
+                hits: &mut hits, projectiles: &mut projectiles, t: 1,
+            });
+            assert_eq!(b.face, original_face, "{direction:?}: visual yaw must not alter gameplay state");
+            assert_eq!(s.visual_dir, direction);
+        }
+    }
+
+    #[test]
+    fn every_native_wisp_appearance_and_behavior_resolves_its_exact_eightway_row() {
+        let sh = sheet(SHEET).unwrap();
+        for dir in Dir::ALL {
+            for (mode, stun, base) in [(Mode::Drift, 0, "idle"), (Mode::Windup, 0, "windup"),
+                                      (Mode::Recoil, 0, "attack"), (Mode::Drift, 12, "hurt")] {
+                let (mut b, mut s) = spawn(100.0, 100.0);
+                b.face = dir.vec(); b.stun = stun; s.visual_dir = dir; s.mode = mode;
+                let a = sh.anim(&format!("{base}_{}", dir.suffix())).expect("native eight-way flame anatomy");
+                for appearance in 0..3 {
+                    s.appearance = appearance;
+                    let (cell, anchor) = current_cell(&b, &s, 0);
+                    assert!(std::ptr::eq(cell, super::super::variation::cell(SHEET, sh.cell(a, 0), appearance)));
+                    assert_eq!(anchor, sh.anchor_of(a));
+                    assert!(!cell.is_empty());
+                }
+            }
+        }
+    }
+
     /// All luminous archetypes stop submitting both their source and caster on
     /// a real lethal hit; death-particle flashes remain separate transient FX.
     #[test]
@@ -635,44 +697,47 @@ mod tests {
         use crate::gfx::W;
         let sh = sheet(SHEET).unwrap();
         let mut checked = 0;
-        for name in ["idle", "windup", "attack", "hurt"] {
-            let a = sh.anim(name).unwrap();
-            let mut elapsed = 0;
-            for pose in 0..a.frames {
-                for appearance in 0..3 {
-                    let (mut b, mut s) = spawn(192.73, 120.81);
-                    s.appearance = appearance;
-                    s.mode = match name { "windup" => Mode::Windup, "attack" => Mode::Recoil, _ => Mode::Drift };
-                    s.mode_t = if name == "windup" { (elapsed * WINDUP).div_ceil(a.total_ticks()) } else { elapsed };
-                    s.t = elapsed;
-                    if name == "hurt" { b.stun = 12 - elapsed; }
-                    let mut f = Frame::new();
-                    f.begin(Rgb::gray(0.5), Rgb::BLACK);
-                    f.surface_lighting = true;
-                    f.t = if name == "idle" { u64::from(elapsed) } else { u64::from(71 + elapsed) };
-                    f.surfaces.fill(Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 });
-                    let (cell, _) = current_cell(&b, &s, f.t);
-                    assert!(std::ptr::eq(cell, super::super::variation::cell(SHEET, sh.cell(a, pose), appearance)),
-                        "fixture must draw {name} pose{pose} appearance{appearance}");
-                    draw(&b, &s, &mut f);
-                    assert_eq!(f.point_lights.len(), 1);
-                    let light = f.point_lights[0];
-                    let core = light.y.floor() as usize * W + light.x.floor() as usize;
-                    assert!(f.emissive[core].max_c() > 0.0,
-                        "source left emitting ink in {name} pose{pose} appearance{appearance}");
-                    assert!(crate::gfx::lighting::point_visibility(&f, light).iter().all(|&v| v == 255),
-                        "flame blocked itself in {name} pose{pose} appearance{appearance}");
-                    let floor = (b.y.floor() as usize + 12) * W + b.x.floor() as usize + 20;
-                    assert_eq!((f.surfaces[floor].owner, f.surfaces[floor].height), (0, 0.0));
-                    crate::gfx::surface::apply(&mut f);
-                    assert!(f.light[floor].luma() > 0.03,
-                        "flame failed to light nearby floor in {name} pose{pose} appearance{appearance}");
-                    checked += 1;
+        for dir in Dir::ALL {
+            for name in ["idle", "windup", "attack", "hurt"] {
+                let a = sh.anim(&format!("{name}_{}", dir.suffix())).unwrap();
+                let mut elapsed = 0;
+                for pose in 0..a.frames {
+                    for appearance in 0..3 {
+                        let (mut b, mut s) = spawn(192.73, 120.81);
+                        b.face = dir.vec(); s.visual_dir = dir;
+                        s.appearance = appearance;
+                        s.mode = match name { "windup" => Mode::Windup, "attack" => Mode::Recoil, _ => Mode::Drift };
+                        s.mode_t = if name == "windup" { (elapsed * WINDUP).div_ceil(a.total_ticks()) } else { elapsed };
+                        s.t = elapsed;
+                        if name == "hurt" { b.stun = 12 - elapsed; }
+                        let mut f = Frame::new();
+                        f.begin(Rgb::gray(0.5), Rgb::BLACK);
+                        f.surface_lighting = true;
+                        f.t = if name == "idle" { u64::from(elapsed) } else { u64::from(71 + elapsed) };
+                        f.surfaces.fill(Surface { normal: [0.0, 0.0, 1.0], height: 0.0, owner: 0, kind: 1 });
+                        let (cell, _) = current_cell(&b, &s, f.t);
+                        assert!(std::ptr::eq(cell, super::super::variation::cell(SHEET, sh.cell(a, pose), appearance)),
+                            "fixture must draw {name} pose{pose} appearance{appearance}");
+                        draw(&b, &s, &mut f);
+                        assert_eq!(f.point_lights.len(), 1);
+                        let light = f.point_lights[0];
+                        let core = light.y.floor() as usize * W + light.x.floor() as usize;
+                        assert!(f.emissive[core].max_c() > 0.0,
+                            "source left emitting ink in {name} pose{pose} appearance{appearance}");
+                        assert!(crate::gfx::lighting::point_visibility(&f, light).iter().all(|&v| v == 255),
+                            "flame blocked itself in {name} pose{pose} appearance{appearance}");
+                        let floor = (b.y.floor() as usize + 12) * W + b.x.floor() as usize + 20;
+                        assert_eq!((f.surfaces[floor].owner, f.surfaces[floor].height), (0, 0.0));
+                        crate::gfx::surface::apply(&mut f);
+                        assert!(f.light[floor].luma() > 0.03,
+                            "flame failed to light nearby floor in {name} pose{pose} appearance{appearance}");
+                        checked += 1;
+                    }
+                    elapsed += a.durations[pose];
                 }
-                elapsed += a.durations[pose];
             }
         }
-        assert_eq!(checked, 54);
+        assert_eq!(checked, 432);
     }
 
     #[test]

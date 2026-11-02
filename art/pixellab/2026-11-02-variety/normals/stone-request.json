@@ -1,0 +1,11 @@
+{
+  "image": "normals/stone-input.png",
+  "kind": "object",
+  "mode": "pro",
+  "convention": "opengl",
+  "strength": 0.65,
+  "outline_rounding": 0.2,
+  "part_shapes": 0.55,
+  "surface_detail": 0.04,
+  "detail_softness": 1
+}

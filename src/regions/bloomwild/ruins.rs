@@ -4,6 +4,45 @@ use super::{Map, mat, pal, tc};
 use crate::util::hash2;
 use crate::world::{Prop, Zone};
 
+/// Static appearances are chosen before foot contact is baked. Nearby ruins
+/// avoid the same broken outline, while least-used choices keep the full set visible.
+#[derive(Default)]
+struct RuinVariety {
+    placed: Vec<(&'static str, &'static str, f32, f32)>,
+}
+
+impl RuinVariety {
+    fn choose(&mut self, base: &'static str, x: f32, y: f32) -> &'static str {
+        let names: &[&'static str] = match base {
+            "pillar_broken_short" => &[
+                "pillar_broken_short", "pillar_broken_short_b", "pillar_broken_short_c",
+                "pillar_broken_short_d", "pillar_broken_short_e", "pillar_broken_short_f",
+            ],
+            "wall_low" => &[
+                "wall_low", "wall_low_b", "wall_low_c", "wall_low_d", "wall_low_e", "wall_low_f",
+            ],
+            _ => return base,
+        };
+        let Some(sheet) = crate::gfx::sheet("bloomwild_ruins") else { return base };
+        let available: Vec<_> = names.iter().copied().filter(|name| sheet.has(name)).collect();
+        if available.is_empty() { return base; }
+        let preferred = (hash2(x as i32, y as i32, 781) * available.len() as f32) as usize % available.len();
+        let (_, selected) = available.iter().enumerate().min_by_key(|&(i, name)| {
+            let mut nearby = 0;
+            let mut uses = 0;
+            for &(kind, prior, px, py) in &self.placed {
+                if kind == base && prior == *name {
+                    uses += 1;
+                    if (x - px).abs() <= 192.0 && (y - py).abs() <= 108.0 { nearby += 1; }
+                }
+            }
+            (nearby, uses, (i + available.len() - preferred) % available.len())
+        }).unwrap();
+        self.placed.push((base, selected, x, y));
+        selected
+    }
+}
+
 /// Place scenery with static ground shade; breakables receive removable renderer shadows.
 fn place(
     z: &mut Zone,
@@ -17,49 +56,12 @@ fn place(
 ) {
     let p = Prop::new(sheet, anim, x, y);
     bake_prop_shadow(z, mask, &p);
-    bake_base_contact(z, mask, &p);
     z.props.push(p);
 }
 
-/// Bed a real native foot into its material. The narrow, broken contact follows
-/// opaque support columns; it cannot become an oval decal hanging over the sky.
-fn bake_base_contact(z: &mut Zone, mask: &[u8], p: &Prop) {
-    if !matches!(p.sheet, "bloomwild_trees" | "bloomwild_sapling" | "bloomwild_ruins" | "bloomwild_arch" | "bloomwild_aqueduct") {
-        return;
-    }
-    let Some(s) = p.sheet() else { return };
-    let Some(a) = s.anim(&p.anim) else { return };
-    let Some([left, _, right, foot]) = p.collision_bounds() else { return };
-    let cell = s.cell(a, 0);
-    let (ax, ay) = s.anchor_of(a);
-    let base_x = p.x.floor() as i32;
-    let base_y = p.y.floor() as i32;
-    for wx in left.floor() as i32..right.ceil() as i32 {
-        let sx = if p.flip { cell.w - 1 - (wx - base_x + ax) } else { wx - base_x + ax };
-        let Some(bottom) = (0..cell.h).rev().find(|&y| cell.at(sx, y).a) else { continue };
-        let wy = base_y + bottom - ay;
-        if wy < foot as i32 - 6 { continue; }
-        for d in 1..=2 {
-            let y = wy + d;
-            if wx < 0 || y < 0 || wx >= z.pw || y >= z.ph { continue; }
-            let i = (y * z.pw + wx) as usize;
-            if z.ground[i].r < 0.0 { continue; }
-            let h = hash2(wx, y, 864);
-            match mask[i] {
-                mat::GRASS if d == 1 || h > 0.66 => {
-                    // Damp root/stone contact, then a few warm soil grains and
-                    // moss patches. Existing lawn color still shows through.
-                    let shade = if d == 1 { pal::TEAL[0] } else { pal::EARTH[1] };
-                    z.ground[i] = z.ground[i].lerp(shade, if d == 1 { 0.48 } else { 0.22 });
-                }
-                mat::SLAB | mat::PATH if d == 1 && h > 0.28 => {
-                    z.ground[i] = z.ground[i].lerp(pal::EARTH[1], 0.25);
-                }
-                _ => {}
-            }
-        }
-    }
-}
+// Ground-contact ink is corrected on the authored sprite support, without
+// painting a fixed teal/soil underline into the receiving landscape. Physical
+// native cast shadows continue through the lighting field below.
 
 fn bake_prop_shadow(z: &mut Zone, mask: &[u8], p: &Prop) {
     // Both ordinary placement and aqueduct openings use this helper. A baked
@@ -125,6 +127,7 @@ pub(super) fn title_garden(z: &mut Zone, mask: &[u8]) -> Vec<Prop> {
 /// Build the broken architecture and tree groves from explicit map landmarks.
 pub fn build(z: &mut Zone, m: &Map, mask: &[u8]) -> Vec<Prop> {
     let mut canopies = Vec::new();
+    let mut variety = RuinVariety::default();
     let mut tree_index = 0;
     for &(ch, tx, ty) in &m.marks {
         let (x, y) = match (ch, tx, ty) {
@@ -176,31 +179,27 @@ pub fn build(z: &mut Zone, m: &Map, mask: &[u8]) -> Vec<Prop> {
                     _ => variants[(hash2(tx, ty, 702) * 3.0) as usize % 3],
                 };
                 let anim = if crate::gfx::sheet("bloomwild_ruins").is_some_and(|s| s.has(candidate)) { candidate } else { "pillar" };
+                let anim = variety.choose(anim, x, y);
                 place(z, mask, "bloomwild_ruins", anim, x, y, 7, 38);
             }
-            'q' => place(
-                z,
-                mask,
-                "bloomwild_ruins",
-                if hash2(tx, ty, 3) > 0.5 {
+            'q' => {
+                let anim = variety.choose(if hash2(tx, ty, 3) > 0.5 {
                     "pillar_broken_short"
                 } else {
                     "pillar_broken_tall"
-                },
-                x,
-                y,
-                7,
-                18,
-            ),
+                }, x, y);
+                place(z, mask, "bloomwild_ruins", anim, x, y, 7, 18);
+            }
             'r' => place(z, mask, "bloomwild_props", "boulder_large", x, y, 11, 10),
             'w' | 'W' => {
                 // Adjacent map marks describe a wall course, not overlapping full sprites.
                 if (tx + ty) % 2 == 0 {
+                    let anim = variety.choose(if ch == 'W' { "wall_tall" } else { "wall_low" }, x, y);
                     place(
                         z,
                         mask,
                         "bloomwild_ruins",
-                        if ch == 'W' { "wall_tall" } else { "wall_low" },
+                        anim,
                         x,
                         y,
                         15,
@@ -220,7 +219,7 @@ pub fn build(z: &mut Zone, m: &Map, mask: &[u8]) -> Vec<Prop> {
     let mut span = Prop::new("bloomwild_arch", "arch_span", x, y);
     span.canopy = true;
     canopies.push(span);
-    opening(z, mask, &mut canopies);
+    opening(z, mask, &mut canopies, &mut variety);
     // A lone statue at the lower waterfall is the route's quiet overlook.
     place(z, mask, "bloomwild_ruins", "statue", 776.0, 650.0, 10, 38);
     // Urns sit beside the path and column bases, never across the route.
@@ -283,7 +282,7 @@ pub fn build(z: &mut Zone, m: &Map, mask: &[u8]) -> Vec<Prop> {
 }
 
 /// Frame the landing with a complete distributor ruin and a rooted wind-combed tree.
-fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
+fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>, variety: &mut RuinVariety) {
     // The landing camera sees y=588..804: keep the tall fin's crown inside that view.
     // Leave daylight between the fins even with the artist's wider upper masses.
     // A shorter surviving pier and low channel make a single broken waterworks mass.
@@ -295,7 +294,6 @@ fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
         bake_prop_shadow(z, mask, &body);
         for (anim,x) in [("left_pier",299.0),("right_pier",370.0)] {
             let pier = Prop::new("bloomwild_aqueduct", anim, x, 710.0);
-            bake_base_contact(z, mask, &pier);
             z.props.push(pier);
         }
         let mut canopy = Prop::new("bloomwild_aqueduct", "canopy", 335.0, 710.0);
@@ -305,7 +303,8 @@ fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
         place(z, mask, "bloomwild_waterworks", "fin", 299.0, 710.0, 6, 109);
         place(z, mask, "bloomwild_waterworks", "fin", 335.0, 720.0, 6, 109);
         place(z, mask, "bloomwild_ruins", "pillar", 362.0, 715.0, 7, 44);
-        place(z, mask, "bloomwild_ruins", "wall_low", 331.0, 716.0, 15, 20);
+        let anim = variety.choose("wall_low", 331.0, 716.0);
+        place(z, mask, "bloomwild_ruins", anim, 331.0, 716.0, 15, 20);
         place(z, mask, "bloomwild_ruins", "drum", 277.0, 725.0, 12, 8);
     }
 
@@ -314,11 +313,12 @@ fn opening(z: &mut Zone, mask: &[u8], canopies: &mut Vec<Prop>) {
     let mut crown = Prop::new("bloomwild_trees", "a_canopy", 110.0, 678.0);
     crown.canopy = true;
     canopies.push(crown);
+    let stump = variety.choose("pillar_broken_short", 102.0, 722.0);
     place(
         z,
         mask,
         "bloomwild_ruins",
-        "pillar_broken_short",
+        stump,
         102.0,
         722.0,
         7,
@@ -368,5 +368,185 @@ pub fn draw_canopies(canopies: &[Prop], f: &mut crate::gfx::Frame, player: Optio
                     .a
             }));
         p.draw(f, t, if under { 0.35 } else { 1.0 });
+    }
+}
+
+#[cfg(test)]
+mod variety_tests {
+    use super::*;
+    use crate::gfx::{Frame, Rgb, sheet};
+
+    #[test]
+    fn static_ruin_shapes_are_distributed_before_contact_baking() {
+        let (zone, _) = crate::regions::bloomwild::build();
+        for base in ["pillar_broken_short", "wall_low"] {
+            let props: Vec<_> = zone.props.iter().filter(|p| p.sheet == "bloomwild_ruins"
+                && (p.anim == base || p.anim.starts_with(&format!("{base}_")))).collect();
+            assert_eq!(props.len(), 11, "{base}: keep the authored object population");
+            let mut counts = std::collections::BTreeMap::new();
+            for p in &props {
+                *counts.entry(&p.anim).or_insert(0) += 1;
+                let s = p.sheet().unwrap();
+                assert_eq!(s.anim(&p.anim).unwrap().frames, 1, "stone appearances cannot animate");
+            }
+            assert!(counts.len() >= 5, "{base}: use the new native shapes");
+            assert!(counts.values().all(|&n| n <= 3), "{base}: too many copies of one shape: {counts:?}");
+            for (i, a) in props.iter().enumerate() {
+                for b in &props[i + 1..] {
+                    if (a.x - b.x).abs() <= 192.0 && (a.y - b.y).abs() <= 108.0 {
+                        assert_ne!(a.anim, b.anim, "nearby {base} repeat at {},{} and {},{}", a.x, a.y, b.x, b.y);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn every_appended_stone_keeps_its_support_and_upright_shading() {
+        let s = sheet("bloomwild_ruins").unwrap();
+        for (prefix, first_preserved_row) in [("pillar_broken_short", 40), ("wall_low", 45)] {
+            let reference_anim = s.anim(prefix).unwrap();
+            let reference = s.cell(reference_anim, 0);
+            let original = Prop::new("bloomwild_ruins", prefix, 180.0, 170.0);
+            let mut checked = 0;
+            for a in s.anims.values().filter(|a| a.name.starts_with(&format!("{prefix}_"))) {
+                checked += 1;
+                let cell = s.cell(a, 0);
+                let p = Prop::new("bloomwild_ruins", &a.name, 180.0, 170.0);
+                assert_eq!(p.sort_y(), original.sort_y());
+                assert_eq!(p.collision_bounds(), original.collision_bounds());
+                for y in first_preserved_row..cell.h {
+                    for x in 0..cell.w {
+                        let (before, after) = (reference.at(x, y), cell.at(x, y));
+                        assert_eq!((before.a, before.c, before.emit), (after.a, after.c, after.emit));
+                        assert_eq!(reference.surface[(y * cell.w + x) as usize].n,
+                            cell.surface[(y * cell.w + x) as usize].n);
+                    }
+                }
+                let mut f = Frame::new();
+                f.begin(Rgb::BLACK, Rgb::WHITE);
+                f.surface_lighting = true;
+                p.draw(&mut f, 0, 1.0);
+                assert_eq!(f.surface_casters.len(), 1, "{} needs a native caster", a.name);
+                assert_eq!(f.surface_casters[0].base, p.sort_y(), "{} detached shadow", a.name);
+                let (ax, ay) = s.anchor_of(a);
+                let samples = a.json.get("normal_samples").and_then(|v| v.as_array())
+                    .expect("new masonry needs authored cap/front/side acceptance points");
+                assert!(samples.len() >= 3, "{}: too few geometric face checks", a.name);
+                for sample in samples {
+                    let x = sample["xy"][0].as_i64().unwrap() as i32;
+                    let y = sample["xy"][1].as_i64().unwrap() as i32;
+                    assert!(cell.at(x, y).a);
+                    let screen = (170 + y - ay) as usize * crate::gfx::W + (180 + x - ax) as usize;
+                    let actual = f.surfaces[screen].normal;
+                    let expected: [f32; 3] = std::array::from_fn(|i| sample["world_normal"][i].as_f64().unwrap() as f32);
+                    let length = actual.iter().map(|n| n * n).sum::<f32>().sqrt();
+                    let dot = actual.iter().zip(expected).map(|(a, b)| a * b).sum::<f32>() / length;
+                    assert!(dot > 0.999, "{}/{}: wrong physical face normal {:?}", a.name, sample["plane"], actual);
+                }
+                for y in 0..cell.h { for x in 0..cell.w {
+                    if !cell.at(x, y).a { continue; }
+                    let screen = (170 + y - ay) as usize * crate::gfx::W + (180 + x - ax) as usize;
+                    assert_eq!(f.surfaces[screen].normal,
+                        cell.surface[(y * cell.w + x) as usize].upright(false), "{} uses wrong normal basis", a.name);
+                } }
+            }
+            assert!(checked >= 4, "{prefix}: missing native variants");
+        }
+    }
+
+    #[test]
+    fn original_and_variant_feet_stamp_the_authored_shared_surface_planes() {
+        let s = sheet("bloomwild_ruins").unwrap();
+        let profiles = s.json.get("shared_foot_normals").and_then(|v| v.as_array())
+            .expect("original masonry feet need authored surface-plane profiles");
+        assert_eq!(profiles.len(), 2, "cover both shared structural feet");
+        let alignment = |actual: [f32; 3], expected: [f32; 3]| {
+            let length = actual.iter().map(|n| n * n).sum::<f32>().sqrt();
+            actual.iter().zip(expected).map(|(a, b)| a * b).sum::<f32>() / length
+        };
+        let mut sample_count = 0;
+        for (template, first_row, regression, minimum_shapes) in [
+            ("pillar_broken_short", 40, [20, 50], 5),
+            ("wall_low", 45, [34, 46], 6),
+        ] {
+            let profile = profiles.iter().find(|p| p["template"].as_str() == Some(template))
+                .expect("every original structural foot needs its own profile");
+            assert_eq!(profile["first_row"].as_i64(), Some(first_row));
+            let samples = profile["samples"].as_array().expect("shared foot acceptance points");
+            assert!(!samples.is_empty(), "{template}: empty shared foot profile");
+            sample_count += samples.len();
+            let regression_sample = samples.iter().find(|sample| {
+                sample["xy"][0].as_i64() == Some(regression[0])
+                    && sample["xy"][1].as_i64() == Some(regression[1])
+            }).expect("retain the formerly upward-facing vertical-front regression point");
+            for (axis, expected) in [0.0, 1.0, 0.0].into_iter().enumerate() {
+                assert_eq!(regression_sample["world_normal"][axis].as_f64(), Some(expected),
+                    "{template}: the broad vertical front must face south, not upward");
+            }
+
+            let prefix = format!("{template}_");
+            let mut checked = 0;
+            for a in s.anims.values().filter(|a| a.name == template || a.name.starts_with(&prefix)) {
+                checked += 1;
+                let cell = s.cell(a, 0);
+                let (ax, ay) = s.anchor_of(a);
+                for flip in [false, true] {
+                    let prop = Prop::new("bloomwild_ruins", &a.name, 180.0, 170.0).flipped(flip);
+                    let mut f = Frame::new();
+                    f.begin(Rgb::BLACK, Rgb::WHITE);
+                    f.surface_lighting = true;
+                    prop.draw(&mut f, 0, 1.0);
+                    for sample in samples {
+                        let x = sample["xy"][0].as_i64().unwrap() as i32;
+                        let y = sample["xy"][1].as_i64().unwrap() as i32;
+                        assert!(y >= first_row as i32 && y < cell.h && x >= 0 && x < cell.w,
+                            "{}: shared-foot sample outside the retained support", a.name);
+                        assert!(cell.at(x, y).a, "{}: shared-foot sample must cover real stone", a.name);
+                        let mut expected: [f32; 3] = std::array::from_fn(|i| {
+                            sample["world_normal"][i].as_f64().unwrap() as f32
+                        });
+                        if flip { expected[0] = -expected[0]; }
+                        let decoded = cell.surface[(y * cell.w + x) as usize].upright(flip);
+                        assert!(alignment(decoded, expected) > 0.999,
+                            "{}/{} at {x},{y}: decoded foot face {:?}, expected {:?}",
+                            a.name, sample["plane"], decoded, expected);
+                        let px = 180 + if flip { ax - x } else { x - ax };
+                        let surface = f.surfaces[Frame::idx(px, 170 + y - ay).unwrap()];
+                        assert_ne!(surface.kind, 0, "{}: Prop::draw omitted the foot surface", a.name);
+                        assert_eq!(surface.normal, decoded,
+                            "{}: Prop::draw changed the decoded shared-foot normal, flip={flip}", a.name);
+                        assert!(alignment(surface.normal, expected) > 0.999,
+                            "{}/{}: rendered shared-foot face uses the wrong world basis", a.name, sample["plane"]);
+                    }
+                }
+            }
+            assert!(checked >= minimum_shapes, "{template}: original or named variants are missing");
+        }
+        assert!(sample_count >= 33, "retain the authored cap, bevel and vertical-front checks");
+    }
+
+    #[test]
+    fn entire_extended_atlases_load_the_exact_paired_normal_texels() {
+        use crate::assets::{decode_png, get};
+        use crate::gfx::surface::NormalPixel;
+        for name in ["bloomwild_grass", "bloomwild_ruins"] {
+            let (w, h, art) = decode_png(get(&format!("sprites/{name}.png")).unwrap()).unwrap();
+            let (nw, nh, normals) = decode_png(get(&format!("normals/{name}.png")).unwrap()).unwrap();
+            assert_eq!((w, h), (nw, nh), "{name}: a mismatch silently discards ALL native normals");
+            assert!(art.chunks_exact(4).zip(normals.chunks_exact(4)).all(|(a, n)| a[3] == n[3]));
+            let s = sheet(name).unwrap();
+            for a in s.anims.values() { for frame in 0..a.frames {
+                let cell = s.cell(a, frame);
+                for y in 0..cell.h { for x in 0..cell.w {
+                    let p = cell.at(x, y);
+                    if !p.a { continue; }
+                    let uv = (((a.row as i32 * cell.h + y) * w as i32 + frame as i32 * cell.w + x) * 4) as usize;
+                    let expected = NormalPixel::decode([normals[uv], normals[uv + 1], normals[uv + 2]], true, p.emit);
+                    assert_eq!(cell.surface[(y * cell.w + x) as usize].n, expected.n,
+                        "{name}/{} frame{frame} at{x},{y}: wrong or fallback normal", a.name);
+                } }
+            } }
+        }
     }
 }

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "description": "Edit ONLY the lower foundation of this abandoned cave water distributor. Preserve its entire upper cistern, trough and inspection arch from rows0 through77 EXACTLY. The present two rectangular legs terminate in an abrupt cropped horizontal edge. Rebuild rows78 to107 as convincing three-dimensional eroded masonry entering a cave floor: continue the broad front and inner side planes into unequal partly buried bottom courses. A low irregular BANK OF CAVE SLATE AND COMPACTED MINERAL SILT laps over the bottom of each leg, with a few large attached fractured stones becoming smaller and flatter toward the floor. Taper the bank into open space, use coherent broad sloping top faces and short broken vertical returns, avoid a platform, slab, rail or symmetric decorative border. Native TOP-DOWN RPG projection: horizontal east-west front edges, depth straight up screen, uprights vertical. Two substantial separate supports with a CLEAR OPEN central arch walkway from x71 to88. Lower stone muted grey blue, broad quiet clusters, dark blue slate shadow, no glossy highlights. Integrate the bottom into irregular floor contact visually; do not merely add a shadow. Isolated TRANSPARENT native144x112 pixel-art asset, keep outer margins clear. No blur, gradients or antialias, no decorative moss/twinkles or fantasy roots.",
+    "images_base64": [
+      "assets/sprites/round13_landmarks_distributor.png at submission; saved input below"
+    ],
+    "width": 144,
+    "height": 112,
+    "no_background": true,
+    "seed": 252103
+  },
+  "receipt": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 627a080e-f14c-4d6d-af2e-b84faa7d0a4f\njob_id: 627a080e-f14c-4d6d-af2e-b84faa7d0a4f\nmode: text\nframes: 1\nsize: 144x112px\ntransparent: True\nedit: Edit ONLY the lower foundation of this abandoned cave water distributor. Preserve its entire upper cistern, trough and inspection arch from rows0 through77 EXACTLY. The present two rectangular legs terminate in an abrupt cropped horizontal edge. Rebuild rows78 to107 as convincing three-dimensional eroded masonry entering a cave floor: continue the broad front and inner side planes into unequal partly buried bottom courses. A low irregular BANK OF CAVE SLATE AND COMPACTED MINERAL SILT laps over the bottom of each leg, with a few large attached fractured stones becoming smaller and flatter toward the floor. Taper the bank into open space, use coherent broad sloping top faces and short broken vertical returns, avoid a platform, slab, rail or symmetric decorative border. Native TOP-DOWN RPG projection: horizontal east-west front edges, depth straight up screen, uprights vertical. Two substantial separate supports with a CLEAR OPEN central arch walkway from x71 to88. Lower stone muted grey blue, broad quiet clusters, dark blue slate shadow, no glossy highlights. Integrate the bottom into irregular floor contact visually; do not merely add a shadow. Isolated TRANSPARENT native144x112 pixel-art asset, keep outer margins clear. No blur, gradients or antialias, no decorative moss/twinkles or fantasy roots.\nseed: 252103\nasset_id: 7f348fd9-aa54-5d11-9a0f-786447826ca5\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"627a080e-f14c-4d6d-af2e-b84faa7d0a4f\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/627a080e-f14c-4d6d-af2e-b84faa7d0a4f/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

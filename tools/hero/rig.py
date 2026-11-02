@@ -46,7 +46,8 @@ def overlay(dst, src):
                 dst.px[y][x] = src.px[y][x]
 
 # scarf knot (where the engine's code-drawn tail starts), in grid coords of the body part
-KNOT = {"down": (8, 9), "right": (3, 9), "up": (8, 9)}
+KNOT = {"down": (8, 9), "right": (3, 9), "up": (8, 9),
+        "down_right": (5, 9), "up_right": (5, 9)}
 
 
 def grid_of(table, name):
@@ -120,7 +121,7 @@ def scarf_knot(c, d, flipped):
     pts = [(x, y) for y in range(CELL) for x in range(CELL) if c.px[y][x] in "TtSs"]
     if not pts:
         return None
-    if d == "right":
+    if d in ("right", "down_right", "up_right"):
         top = min(y for _, y in pts)
         band = [(x, y) for x, y in pts if y <= top + 1]
         return min(band)
@@ -221,4 +222,11 @@ def frame(spec):
             knot = (OX + kx + bp[1] + SHIFT[0], OY + ky + bp[2] + SHIFT[1])
     if flip:
         knot = (2 * ANCHOR[0] - knot[0], knot[1])
-    return out, {"knot": list(knot), "tip": list(tip) if tip else None, "clipped": clipped}
+    # Native anatomical volume before the held sword is composited. A downward
+    # non-emissive blade edge must never be inferred as a boot/contact surface.
+    support = []
+    for x in range(CELL):
+        ys = [y for y in range(CELL) if body.px[y][x] != "."]
+        support.append([min(ys), max(ys) + 1] if ys else None)
+    return out, {"knot": list(knot), "tip": list(tip) if tip else None,
+                 "support_spans": support, "clipped": clipped, "source_spec": spec}

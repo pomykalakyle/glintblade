@@ -1,0 +1,27 @@
+{
+  "sources": {
+    "art/pixellab/2026-11-02-ravine/raw/candidate-0.png": "b831d1d4ff257de6b86156d70726f52e555f50e5153fb80b44d48fc95573dd49",
+    "art/pixellab/2026-11-02-ravine/raw/candidate-3.png": "76ba4ee8d1620a5dae772e2bfc0e7f9312a23e92b94d2565ae8b94d7c6139340",
+    "art/pixellab/2026-11-02-ravine/raw/normal-pro.png": "ca5f50540fd7389e13e02d46d34657b3459ec92053c7150fa44fea88f159be64"
+  },
+  "outputs": {
+    "assets/sprites/glasswater_ravine.png": "06ee15fbac3cd058a24ed861481d55a23086c1ebadc55c89da0b13f3774a46e9",
+    "assets/sprites/glasswater_ravine.json": "b2a62e31021b3efa398003f74a715d0c5f3551ebdfd5bd9109f4e3b4dd75e84c",
+    "assets/normals/glasswater_ravine.png": "39123d0528b04d4d61ac590dd0656ff58ebe6db2456b7a2e4580df00cc63cf77"
+  },
+  "dimensions": [
+    256,
+    704
+  ],
+  "frames": 2,
+  "alpha_values": [
+    255
+  ],
+  "source_pixels_unchanged": true,
+  "quilt": {
+    "patch_height": 128,
+    "overlap": 32,
+    "cut": "minimum squared RGB error, connected native pixels"
+  },
+  "normal_maximum_tilt_degrees": 24.017
+}

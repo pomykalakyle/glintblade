@@ -1,0 +1,18 @@
+{
+  "cell": [
+    128,
+    704
+  ],
+  "anchor": [
+    0,
+    0
+  ],
+  "anims": {
+    "body": {
+      "row": 0,
+      "frames": 2,
+      "fps": 1
+    }
+  },
+  "notes": "Native PixelLab slate candidates0/3; minimum-error32px overlaps extend each face to704px, exact source pixels without resizing. Normals follow identical provenance. Upright OpenGL mineral normals registered1:1. Sources/receipts: art/pixellab/2026-11-02-ravine. Scoped exporter: tools/pixellab/glasswater_ravine.py."
+}

@@ -925,6 +925,7 @@ mod tests {
             w, h: rows.len() as i32, anchor: (0, 0), x: 8.0, y: 2.0, base: 8.0,
             flip: false, owner: 7, opacity: 1.0,
             foot: Arc::from(vec![[5.0, 8.0]; w as usize]), min_height: 0.0,
+            reflectivity: 0.0,
         }
     }
 

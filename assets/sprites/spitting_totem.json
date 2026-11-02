@@ -1,107 +1,1198 @@
 {
- "cell": [
-  28,
-  36
- ],
- "anchor": [
-  14,
-  33
- ],
- "emissive": [
-  "#d48670",
-  "#efb68a"
- ],
- "anims": {
-  "idle_down": {
-   "row": 0,
-   "frames": 4,
-   "durations": [
+  "cell": [
+    28,
+    36
+  ],
+  "anchor": [
+    14,
+    33
+  ],
+  "emissive": [
+    "#d48670",
+    "#efb68a"
+  ],
+  "anims": {
+    "idle_down": {
+      "row": 0,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ]
+    },
+    "windup_down": {
+      "row": 1,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ]
+    },
+    "attack_down": {
+      "row": 2,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ]
+    },
+    "hurt_down": {
+      "row": 3,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ]
+    },
+    "idle_up": {
+      "row": 4,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ]
+    },
+    "windup_up": {
+      "row": 5,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ]
+    },
+    "attack_up": {
+      "row": 6,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ]
+    },
+    "hurt_up": {
+      "row": 7,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ]
+    },
+    "idle_up_right": {
+      "row": 8,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ]
+      ]
+    },
+    "windup_up_right": {
+      "row": 9,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ]
+      ]
+    },
+    "attack_up_right": {
+      "row": 10,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ]
+      ]
+    },
+    "hurt_up_right": {
+      "row": 11,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          -0.70710678
+        ],
+        [
+          0.70710678,
+          -0.70710678
+        ]
+      ]
+    },
+    "idle_right": {
+      "row": 12,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    "windup_right": {
+      "row": 13,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    "attack_right": {
+      "row": 14,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    "hurt_right": {
+      "row": 15,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    "idle_down_right": {
+      "row": 16,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "windup_down_right": {
+      "row": 17,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "attack_down_right": {
+      "row": 18,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "hurt_down_right": {
+      "row": 19,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          0.70710678,
+          0.70710678
+        ],
+        [
+          0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "idle_down_left": {
+      "row": 20,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "windup_down_left": {
+      "row": 21,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "attack_down_left": {
+      "row": 22,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "hurt_down_left": {
+      "row": 23,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          0.70710678
+        ],
+        [
+          -0.70710678,
+          0.70710678
+        ]
+      ]
+    },
+    "idle_left": {
+      "row": 24,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ]
+      ]
+    },
+    "windup_left": {
+      "row": 25,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ]
+      ]
+    },
+    "attack_left": {
+      "row": 26,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ]
+      ]
+    },
+    "hurt_left": {
+      "row": 27,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -1,
+          0
+        ],
+        [
+          -1,
+          0
+        ]
+      ]
+    },
+    "idle_up_left": {
+      "row": 28,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ]
+      ]
+    },
+    "windup_up_left": {
+      "row": 29,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ]
+      ]
+    },
+    "attack_up_left": {
+      "row": 30,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ]
+      ]
+    },
+    "hurt_up_left": {
+      "row": 31,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ],
+      "native_eightway": true,
+      "maw": [
+        [
+          13,
+          21
+        ],
+        [
+          13,
+          21
+        ]
+      ],
+      "aim": [
+        [
+          -0.70710678,
+          -0.70710678
+        ],
+        [
+          -0.70710678,
+          -0.70710678
+        ]
+      ]
+    }
+  },
+  "notes": "Style V2: fractured basalt distributor fin with one long dark slot and a dark outlet slot lit from within (heat lines its floor and inner ends); no face, crown ornaments or copper bands. Palette: palettes_v2.json Cinder basalt/obsidian/lava. Original 28x36 cells, (14,33) anchor, facing sets, durations and footprint retained. The idle emissive centroid remains (13,20.7777778), preserving the source-derived projectile origin. Only the outlet block recoils; heat and droplets are source-bound. Native eight-way extension: projected articulated anatomy and native facet normals. Historical rows retained. Fixed totem lower plinth and gameplay projectile launch unchanged; furnace vanes turn around fixed firing pivot.",
+  "light": {
+    "color": "#d48670",
+    "radius": 28,
+    "offset": [
+      0,
+      -13
+    ]
+  },
+  "footprint": [
     12,
-    10,
-    12,
-    10
-   ]
-  },
-  "windup_down": {
-   "row": 1,
-   "frames": 5,
-   "durations": [
-    10,
-    8,
-    8,
-    7,
-    7
-   ]
-  },
-  "attack_down": {
-   "row": 2,
-   "frames": 4,
-   "durations": [
-    4,
-    6,
-    8,
-    10
-   ]
-  },
-  "hurt_down": {
-   "row": 3,
-   "frames": 2,
-   "durations": [
-    6,
-    10
-   ]
-  },
-  "idle_up": {
-   "row": 4,
-   "frames": 4,
-   "durations": [
-    12,
-    10,
-    12,
-    10
-   ]
-  },
-  "windup_up": {
-   "row": 5,
-   "frames": 5,
-   "durations": [
-    10,
-    8,
-    8,
-    7,
-    7
-   ]
-  },
-  "attack_up": {
-   "row": 6,
-   "frames": 4,
-   "durations": [
-    4,
-    6,
-    8,
-    10
-   ]
-  },
-  "hurt_up": {
-   "row": 7,
-   "frames": 2,
-   "durations": [
-    6,
-    10
-   ]
+    5
+  ],
+  "eightway": {
+    "directions": [
+      "up",
+      "up_right",
+      "right",
+      "down_right",
+      "down",
+      "down_left",
+      "left",
+      "up_left"
+    ],
+    "recipe": "tools/eightway/cinder.py",
+    "native_parts": true,
+    "legacy_rows_preserved": 8,
+    "death": "selected pose debris; legacy reference stream retained",
+    "fixed_chassis": true
   }
- },
- "notes": "Style V2: fractured basalt distributor fin with one long dark slot and a dark outlet slot lit from within (heat lines its floor and inner ends); no face, crown ornaments or copper bands. Palette: palettes_v2.json Cinder basalt/obsidian/lava. Original 28x36 cells, (14,33) anchor, facing sets, durations and footprint retained. The idle emissive centroid remains (13,20.7777778), preserving the source-derived projectile origin. Only the outlet block recoils; heat and droplets are source-bound.",
- "light": {
-  "color": "#d48670",
-  "radius": 28,
-  "offset": [
-   0,
-   -13
-  ]
- },
- "footprint": [
-  12,
-  5
- ]
 }

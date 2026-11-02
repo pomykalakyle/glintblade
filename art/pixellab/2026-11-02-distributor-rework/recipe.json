@@ -1,0 +1,318 @@
+{
+  "source": "originals/candidate-2.png",
+  "source_sha256": "c69c95529c675cd9444467fc186bd887de1a39cb4f1b7424c3a1320a6d65135e",
+  "anchor": [
+    79,
+    103
+  ],
+  "support_depth": 8,
+  "edits": [
+    {
+      "operation": "clear",
+      "rect": [
+        24,
+        76,
+        33,
+        85
+      ],
+      "reason": "Remove detached generated chip, not part of structural support."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        40,
+        22,
+        118,
+        27
+      ],
+      "color": "#222d3d",
+      "reason": "Cistern inner back wall, distinct from horizontal bed."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        40,
+        28,
+        118,
+        39
+      ],
+      "color": "#364657",
+      "reason": "Empty horizontal cistern floor; broad quiet material cluster, not black window."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        40,
+        28,
+        43,
+        39
+      ],
+      "color": "#222d3d",
+      "reason": "Inset bed shadow along inner west wall."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        116,
+        22,
+        118,
+        39
+      ],
+      "color": "#424956",
+      "reason": "Inner east return of cistern."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        41,
+        22,
+        43,
+        27
+      ],
+      "color": "#364657",
+      "reason": "Inner west return of cistern."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        48,
+        37,
+        111,
+        39
+      ],
+      "color": "#424956",
+      "reason": "Dry sediment at near edge of basin; does not emit."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        85,
+        35,
+        105,
+        36
+      ],
+      "color": "#424956",
+      "reason": "One coherent dry mineral shelf in cistern bed."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        56,
+        49,
+        61,
+        55
+      ],
+      "color": "#1c2838",
+      "reason": "Three recessed south outlet mouths make header water distribution readable."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        56,
+        56,
+        62,
+        56
+      ],
+      "color": "#627582",
+      "reason": "Exposed lip beneath each outlet."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        77,
+        49,
+        82,
+        55
+      ],
+      "color": "#1c2838",
+      "reason": "Three recessed south outlet mouths make header water distribution readable."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        77,
+        56,
+        83,
+        56
+      ],
+      "color": "#627582",
+      "reason": "Exposed lip beneath each outlet."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        98,
+        49,
+        103,
+        55
+      ],
+      "color": "#1c2838",
+      "reason": "Three recessed south outlet mouths make header water distribution readable."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        98,
+        56,
+        104,
+        56
+      ],
+      "color": "#627582",
+      "reason": "Exposed lip beneath each outlet."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        44,
+        28,
+        115,
+        39
+      ],
+      "color": "#4c6070",
+      "reason": "Expose the horizontal dry basin floor at native cave exposure; separate it from the black inner rear wall."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        48,
+        36,
+        72,
+        39
+      ],
+      "color": "#627582",
+      "reason": "Quiet pale sediment plate on the near horizontal bed, aligned to its real floor."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        74,
+        38,
+        109,
+        39
+      ],
+      "color": "#627582",
+      "reason": "Shallow mineral residue connects the bed to the front spill notch, without glow."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        88,
+        32,
+        109,
+        34
+      ],
+      "color": "#424956",
+      "reason": "One restrained silt island in the cistern floor, not a uniform display panel."
+    },
+    {
+      "operation": "clear",
+      "rect": [
+        92,
+        17,
+        103,
+        20
+      ],
+      "reason": "Failed rear rim removes the perfect framed sign silhouette."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        95,
+        21,
+        103,
+        22
+      ],
+      "color": "#627582",
+      "reason": "Lower surviving broken rear coping, still a horizontal stone cap."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        77,
+        39,
+        81,
+        43
+      ],
+      "color": "#4c6070",
+      "reason": "A worn overflow notch crosses the near cistern rim above the middle outlet."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        78,
+        44,
+        80,
+        48
+      ],
+      "color": "#73858b",
+      "reason": "Dry mineral trail links basin notch to middle spill mouth."
+    },
+    {
+      "operation": "rectangle",
+      "rect": [
+        79,
+        46,
+        81,
+        48
+      ],
+      "color": "#627582",
+      "reason": "Broadened but quiet residue at the outlet neck."
+    },
+    {
+      "operation": "restore",
+      "rect": [
+        0,
+        78,
+        143,
+        111
+      ],
+      "reason": "Restore native candidate2 lower stone volume; discard the hand-built widened root/base workaround. Upper square-on cistern/arch projection corrections remain."
+    },
+    {
+      "operation": "clear",
+      "rect": [
+        24,
+        76,
+        33,
+        85
+      ],
+      "reason": "Retain prior documented detached-chip removal; this fragment is not a structural support."
+    },
+    {
+      "operation": "contact_ink",
+      "rects": [
+        [
+          31,
+          96,
+          56,
+          99
+        ],
+        [
+          103,
+          96,
+          128,
+          99
+        ],
+        [
+          58,
+          93,
+          66,
+          93
+        ],
+        [
+          91,
+          93,
+          101,
+          93
+        ]
+      ],
+      "from": [
+        "#1c2838",
+        "#222d3d"
+      ],
+      "to": "#424956",
+      "reason": "Explicit authored ground-contact strokes: the thick ink/dark band along the two native outer soles and the recessed inner pier soles. Replace only those ink pixels with the existing adjacent masonry material. Preserve top/lateral outlines, raised cap edges, arch/cavity lines, alpha and geometric normals. This is not a lowest-alpha-column eraser."
+    }
+  ],
+  "selection": "Native candidate2 keeps its corrected square-on cistern, outlets and inspection arch. Restore the original generated lower stone faces; discard the successive hand-built bases and the staged rubble/shoulder workaround. Explicit authored contact bands replace only dark ink with adjacent masonry material, with identical alpha and geometric normals to that restored native volume. Runtime contact AO and apron bedding are disabled for this one asset; physical casts remain."
+}

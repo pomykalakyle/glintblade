@@ -1,0 +1,11 @@
+{
+  "final": "native-contact-ink correction",
+  "files": {
+    "assets/sprites/round13_landmarks_distributor.png": "bdb9190ab8da31d5bcbf34ab08d8b3c143deb2e57cf00ea5e05e21289137b029",
+    "assets/sprites/round13_landmarks_distributor.json": "01a958cab35d4f5a30df28ecb67016b59b4cdf1c77b15b1edb09b5f7ac0be793",
+    "assets/normals/round13_landmarks_distributor.png": "b3b1a33d48a0f3509673fae13ff40a5b956b8fc3e5720861093b04ae96d640d9"
+  },
+  "rgb_contact_changes": 227,
+  "verification": "/home/krp/.t3/scratch/2026-11-02-fix-glasswater-stone-structure-perspective-0b961023/audit/contact-ink/verification.json",
+  "rejected_generated_footer": "originals/foundation-edit.png"
+}

@@ -37,6 +37,28 @@ evidence. `round13_motion_audit.py` ranks temporal changes in actual native
 captures for human/agent inspection. Neither tool treats a small numerical
 difference or a successful asset check as a visual sign-off.
 
+Bloomwild's November 2 variety pass is archived in `art/pixellab/2026-11-02-variety/`.
+`bloomwild_variety.py` appends ten native leaf silhouettes, four short broken-column
+shapes and five low-wall shapes with paired normal texels. Every original albedo
+row, support pixel, collision and animation field stays exact. The only original
+normal changes correct explicitly annotated short-column rows 40–55 and low-wall
+rows 45–55; their variants inherit the same corrected support normals.
+The archived `prepare_sources.py` replays integer registration and geometric
+face corrections without API calls. Broad stone caps/fronts/sides have explicit
+world-space planes; small bevels retain generated detail. Normal RGB remains
+OpenGL tangent data: upright stone maps R/B/G to world X/Y/Z, while low leaves
+map R/-G/B. New stone manifests carry 125 upper-face acceptance samples, plus 33
+shared-foot samples checked on the original and every matching variant.
+
+Grass chooses one stable appearance at planting time, balances use across the
+18-frame atlas and avoids identical fans within 24px horizontally/12px vertically.
+Stone variants use static named rows and are selected before base contact is baked.
+Rebuild both full albedo and normal atlases together: mismatched dimensions cause
+the runtime to fall back for the entire sheet. `GLINT_SPRITES` replaces art/metadata
+but not embedded normals, so use a rebuilt binary for lighting review. Scoped
+export tests are `test_bloomwild_variety.py`; runtime checks cover actual walking,
+slashing, moving daylight, normal texture registration and native shadow bases.
+
 Round5 used 40 more included generations. Round6 used 170: 100 for the six botanical/mineral
 skins (including rejected recolor/cropped-dome studies), 60 for fire/spirit skins, and 10 for
 four native garden floor studies. The account balance after round6 is 639 used / 1,361 remaining

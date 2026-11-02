@@ -1,0 +1,171 @@
+{
+ "cell": [
+  40,
+  24
+ ],
+ "anchor": [
+  20,
+  20
+ ],
+ "emissive": [
+  "#d48670",
+  "#efb68a"
+ ],
+ "anims": {
+  "idle_right": {
+   "row": 0,
+   "frames": 4,
+   "durations": [
+    14,
+    10,
+    14,
+    10
+   ]
+  },
+  "move_right": {
+   "row": 1,
+   "frames": 6,
+   "durations": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ]
+  },
+  "windup_right": {
+   "row": 2,
+   "frames": 4,
+   "durations": [
+    4,
+    6,
+    6,
+    6
+   ]
+  },
+  "attack_right": {
+   "row": 3,
+   "frames": 4,
+   "durations": [
+    3,
+    4,
+    4,
+    6
+   ]
+  },
+  "hurt_right": {
+   "row": 4,
+   "frames": 2,
+   "durations": [
+    6,
+    10
+   ]
+  },
+  "idle_down": {
+   "row": 5,
+   "frames": 4,
+   "durations": [
+    14,
+    10,
+    14,
+    10
+   ]
+  },
+  "move_down": {
+   "row": 6,
+   "frames": 4,
+   "durations": [
+    6,
+    6,
+    6,
+    6
+   ]
+  },
+  "windup_down": {
+   "row": 7,
+   "frames": 4,
+   "durations": [
+    4,
+    6,
+    6,
+    6
+   ]
+  },
+  "attack_down": {
+   "row": 8,
+   "frames": 4,
+   "durations": [
+    3,
+    4,
+    4,
+    6
+   ]
+  },
+  "hurt_down": {
+   "row": 9,
+   "frames": 2,
+   "durations": [
+    6,
+    10
+   ]
+  },
+  "idle_up": {
+   "row": 10,
+   "frames": 4,
+   "durations": [
+    14,
+    10,
+    14,
+    10
+   ]
+  },
+  "move_up": {
+   "row": 11,
+   "frames": 4,
+   "durations": [
+    6,
+    6,
+    6,
+    6
+   ]
+  },
+  "windup_up": {
+   "row": 12,
+   "frames": 4,
+   "durations": [
+    4,
+    6,
+    6,
+    6
+   ]
+  },
+  "attack_up": {
+   "row": 13,
+   "frames": 4,
+   "durations": [
+    3,
+    4,
+    4,
+    6
+   ]
+  },
+  "hurt_up": {
+   "row": 14,
+   "frames": 2,
+   "durations": [
+    6,
+    10
+   ]
+  }
+ },
+ "notes": "Style V2: lean ash/obsidian hound with a deep loaded chest, straight planted forelegs, a ridge of obsidian plates over high withers, a pointed ear and tapered muzzle, one hot eye and restrained salmon seams. Front keys turn the head three-quarters to the hound's right: a low projecting muzzle, one small far ear, the head joined to a loaded shoulder with the rump behind it, and a dark jaw slot with no bright mouth block. Back views are 3/4 standing poses that keep the ears and plate ridge. Palette: palettes_v2.json Cinder obsidian/basalt/lava. Original 40x24 cells, (20,20) anchor, animation rows and durations retained. Vertical windup folds the hindquarters; leap extends the spine. ember_hound.rs maps the flight frames through Lunge and holds the landing on Skid.",
+ "light": {
+  "color": "#d48670",
+  "radius": 14,
+  "offset": [
+   2,
+   -9
+  ]
+ }
+}

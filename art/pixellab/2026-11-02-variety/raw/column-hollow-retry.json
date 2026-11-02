@@ -1,0 +1,19 @@
+{
+  "request": {
+    "description": "Create a different silhouette of the SAME short ruined limestone column on its stepped square plinth. A deeply broken center divides the shaft top into two unequal blunt remnants, with the right remnant lower; no arch or extra block. Keep its exact native pixel density, oblique top-down projection, weathered pale gray limestone and muted moss, light from upper-left. PRESERVE original stepped plinth and support pixels in rows40..53 unchanged. Only change the short shaft above that, fractured upper edge, stone joints and cracks. Transparent48x56 canvas; clear margins, two clear bottom gutter rows; no detached rubble, plant or cast shadow. Same scale and same object. This is a LOW STUMP: keep the highest opaque stone below y=17 on the 48x56 canvas, roughly matching the reference's short height. Do not grow a tall pillar.",
+    "width": 48,
+    "height": 56,
+    "no_background": true,
+    "seed": 73113,
+    "reference": "references/column.png"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 4adb3cb3-7b8c-44b3-89ea-76c1d7ccd1a0\njob_id: 4adb3cb3-7b8c-44b3-89ea-76c1d7ccd1a0\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Create a different silhouette of the SAME short ruined limestone column on its stepped square plinth. A deeply broken center divides the shaft top into two unequal blunt remnants, with the right remnant lower; no arch or extra block. Keep its exact native pixel density, oblique top-down projection, weathered pale gray limestone and muted moss, light from upper-left. PRESERVE original stepped plinth and support pixels in rows40..53 unchanged. Only change the short shaft above that, fractured upper edge, stone joints and cracks. Transparent48x56 canvas; clear margins, two clear bottom gutter rows; no detached rubble, plant or cast shadow. Same scale and same object. This is a LOW STUMP: keep the highest opaque stone below y=17 on the 48x56 canvas, roughly matching the reference's short height. Do not grow a tall pillar.\nseed: 73113\nasset_id: 953fe07a-c583-5907-a5b4-fe8d27f3a12b\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"4adb3cb3-7b8c-44b3-89ea-76c1d7ccd1a0\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/4adb3cb3-7b8c-44b3-89ea-76c1d7ccd1a0/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

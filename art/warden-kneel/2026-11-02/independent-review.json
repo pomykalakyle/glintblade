@@ -1,0 +1,26 @@
+{
+  "scope": "Read-only independent rendered visual and timing review of vulnerable kneel, not death",
+  "candidate": "/home/krp/Projects/glintblade/out/warden-kneel",
+  "verdict": "No production must-fix found in fall, vulnerable hold, ordinary recovery, or sampled real input pilot.",
+  "checks": [
+    "Viewed actual 3x diagnostic p1/p2/p3 fall, impact and heart-open poses plus authored before/after and all27 knee depths.",
+    "Independently composed and inspected full-foot temporal fall and rise sheets.",
+    "Checked 510-state manifest: body contact bottoms remain ground-aligned; fixed support contacts per group; fixed fist X/Y during all fall/rise captures.",
+    "Impact body maximum depth26 occurs Stagger16 and matching boss_slam/hitstop; settling 25,24,23,24 is a short coherent rebound.",
+    "Fists land at Stagger14 before body at16, a plausible brace; no horizontal teleport in recorded fall/rise.",
+    "Recovery keeps fists at z0 through upright Stagger362; Return starts only next state.",
+    "Viewed real input pilot ticks638,650,658,670,860,1172 and original860: revised planted folds replace static compressed columns; torso remains solid, open heart remains readable.",
+    "New triangular upper legs and angled shins remain readable as load-bearing hinges at native scale; no floor sinking or body alpha slicing observed."
+  ],
+  "finding": {
+    "severity": "Audit fixture, not production",
+    "detail": "Original p1_clear/p2_clear fast-forwarded mode to Stagger50 immediately after start_stagger; fists remained Limp0/z13 and fell during already-rising transition, causing double boss_slam at clear027/Transition13.",
+    "owner_response": "Root fixed fixtures to advance naturally to Stagger50 and is recapturing poses-v2.",
+    "recheck_limit": "Corrected phase-clear artifacts were not available at reviewer handoff; root should verify new manifests keep z0 until upright and no replay landing."
+  },
+  "artifacts": [
+    "fall-with-complete-feet.png",
+    "rise-temporal.png"
+  ],
+  "modifications": "Private review images/report only; no shared source, assets, build or external coordination."
+}

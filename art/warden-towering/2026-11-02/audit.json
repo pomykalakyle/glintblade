@@ -1,0 +1,169 @@
+{
+  "completed_at": "2026-11-02T21:16:55.628817+00:00",
+  "status": "implemented-installed-verified",
+  "design": {
+    "resting_assembly_height_before_px": 116,
+    "resting_assembly_height_after_px": 164,
+    "height_increase_percent": 41.38,
+    "body_cell_before": [
+      120,
+      112
+    ],
+    "body_cell_after": [
+      144,
+      160
+    ],
+    "head_cell_before": [
+      44,
+      44
+    ],
+    "head_cell_after": [
+      64,
+      64
+    ],
+    "native_pixels": true,
+    "description": "Recessed eye under a heavy masonry brow; open cheek planes continue into chest pilasters and sloped shoulder buttresses. No separate chin, head pedestal, independent stone-head lift or bob. Angled elbows and tapered forearms retain architectural mass.",
+    "history_diagnosis": "The previous wide native torso was paired with an older visor/chin head; shared palette alone did not resolve the stacked silhouettes.",
+    "rig": {
+      "schema": 2,
+      "gate": [
+        52,
+        67,
+        92,
+        96
+      ],
+      "pier_top": 129,
+      "pier_bottom": 158,
+      "center": 72,
+      "apron": [
+        61,
+        114,
+        82,
+        129
+      ],
+      "fixed_upper_rows": 46,
+      "integrated_head": true
+    }
+  },
+  "visual_coverage": {
+    "captures": 496,
+    "diagnostic": 348,
+    "real_play_camera": 148,
+    "alive_native_blade_hud_checks": 146,
+    "hero_safe": 148,
+    "full_fitting_compositions": 37,
+    "fitting_crowns_preserved": 37,
+    "all_grounded_poses": 496,
+    "manifest": "/home/krp/Projects/glintblade/out/warden-towering/poses-current/manifest.json",
+    "independent_art_review": "V2 upper structure approved in diagnostic and actual game frames; V3 removed remaining unsupported pelvic tabs. Upper sculpture and head byte-identical to approved V2.",
+    "camera_limits": "When native assembly and Glint exceed the 168px composition interval, existing camera prioritizes Glint, the blade and physical attack/edge cues. All cropped crowns were in nonfitting compositions.",
+    "motion": {
+      "capture_fps": 20,
+      "frames": 1302,
+      "simulation_ticks": 3906,
+      "victory": true,
+      "god_mode_for_coverage": true,
+      "inputs": "Normal moving, dodging and attack inputs; no injected boss damage.",
+      "video": "/home/krp/Projects/glintblade/out/warden-towering/full-fight-final.mp4",
+      "video_provenance": "Full V3 fight before concurrent Summit column install. Current-assets fight has identical complete trace, audio and milestone report; nine current-native milestone stills and all496 current-context poses also verified.",
+      "report": "/home/krp/Projects/glintblade/out/warden-towering/live-current/report.json"
+    }
+  },
+  "verification": {
+    "functional": {
+      "passed": 457,
+      "failed": 0,
+      "ignored": 7,
+      "filtered_performance_gates": 4
+    },
+    "functional_log": "/home/krp/Projects/glintblade/out/warden-towering/functional-current.log",
+    "boss_focused": {
+      "passed": 42,
+      "ignored": 3,
+      "log": "/home/krp/Projects/glintblade/out/warden-towering/boss-tests-final.log"
+    },
+    "exporter_tests": {
+      "passed": 5,
+      "log": "/home/krp/Projects/glintblade/out/warden-towering/exporter-final.log"
+    },
+    "native_build": "/home/krp/Projects/glintblade/out/warden-towering/native-current.log",
+    "wasm_build": "/home/krp/Projects/glintblade/out/warden-towering/wasm-current.log",
+    "capture_test": "/home/krp/Projects/glintblade/out/warden-towering/capture-current.log",
+    "performance_gates_excluded": [
+      "full_game_release_timing",
+      "actual_sword_break_full_render_timing",
+      "cinder_signature_render_timing",
+      "signature_live_game_stays_inside_eight_millisecond_budget"
+    ],
+    "fixture_changes": [
+      "Pilot checks actual native blade clearance throughout all3health bands and actual beam onsets/releases, independent of obsolete exact ticks and fitting-frame quota.",
+      "Separate real-Play phase2/3 beam fixture covers the full168px composition and knockback escape.",
+      "Existing exact terrain-DDA mask fixture gains one low source grazing the actual north dais so larger actor coverage cannot make the comparison vacuous."
+    ],
+    "format_and_diff_checks": "Scoped rustfmt edition2024 and git diff --check pass"
+  },
+  "installation": {
+    "receipt": "/home/krp/Projects/glintblade/art/warden-towering/2026-11-02/installed.json",
+    "files": {
+      "sprites/warden_body.png": {
+        "before": "3aa738b3d94e77fd0e21c4b89d39fe38c86aed3b170fdb11eb4fb135c7387f77",
+        "after": "7deb854660fee2c74ca628f24ed7996c6af6ddc33b363ed2f2f4b947dfd40197"
+      },
+      "sprites/warden_body.json": {
+        "before": "3694d1c24c90f81b8ff8d2073dda56e684f23ee7026a009d863c12648f9e5410",
+        "after": "55a1263217092444a975d3b2df295bffb58aee0eba508b4c0775806095c82620"
+      },
+      "sprites/warden_head.png": {
+        "before": "fe67c789cedacff81a295c4ed6a62a23410bcc73535c12a229b7fc26f997a281",
+        "after": "f7a4a7fe66d80da5331189792d705692e8dbc810f167295a300b61d03da89e74"
+      },
+      "sprites/warden_head.json": {
+        "before": "a8609a3c1b72593f04a2b76f6f3a6de55082c1f1ffbe3b04e6180f71a0c3dd3f",
+        "after": "3a3efe53c3d791d41fdc553750ae3aefaa0d97ac8e42c7e3af0d641096a50847"
+      },
+      "sprites/warden_layout.json": {
+        "before": "e85f68f2230775dd437435bfdcdd86b8f2e3a4db5ef50d45aabf996b15122937",
+        "after": "001db9676ab7a00775d8cae7a652ba4973b909a499c264c8a88fb7859058fe01"
+      },
+      "normals/warden_body.png": {
+        "before": "5295ab5d98af51751279e95ad6f7bb9a24a51e0aa2eb60a9295add91db408e10",
+        "after": "59dcbab6d0f537706903e2b316f620fe4e0c02615004178d8960ce456343cc68"
+      },
+      "normals/warden_head.png": {
+        "before": "29686a253ddec920746d5aa78bdefa4ba92b831ac84c6224ec482b1135d802ed",
+        "after": "1d65cc9f6b75fe6e786e9da3e597657cbd29810dd13c1b21818fc4d88d3f26ee"
+      }
+    },
+    "offline_exporter": "tools/warden/towering.py",
+    "exporter_hook": "Already reserved scoped hook in tools/pixellab/build_assets.py; no full exporter run.",
+    "shared_publishing": "No root README, browser packaging or publishing changes."
+  },
+  "artifacts": {
+    "comparison": "/home/krp/Projects/glintblade/out/warden-towering/comparison.html",
+    "current_assets": "/home/krp/Projects/glintblade/out/warden-towering/current-assets",
+    "current_assets_sha256": "/home/krp/Projects/glintblade/out/warden-towering/current-assets-sha256.json",
+    "baseline_assets": "/home/krp/Projects/glintblade/out/warden-towering/baseline-assets-v3",
+    "native": {
+      "path": "/home/krp/Projects/glintblade/out/warden-towering/glintblade-current",
+      "sha256": "1f9bbecb104c0fcf90912e5e18115ba70e670f1cbac9dddac7e8e94f6536a250"
+    },
+    "wasm": {
+      "path": "/home/krp/Projects/glintblade/out/warden-towering/glintblade-current.wasm",
+      "sha256": "39a2cd4b6672ec99c478faf56d04f31085a0edbad58f85d96df74ec91c8e33fc"
+    }
+  },
+  "source_sha256": {
+    "src/entities/boss.rs": "a6f2a58d371ebb3cf1926b9d1a24664d1d73481cb3848411ace5deb6c884d763",
+    "src/entities/boss/art.rs": "ea4dade531b75c55d39409eddbf5b2ecdd376dd0cadbea0ddebb4448180921e7",
+    "src/entities/boss/material.rs": "8ba76ccd833e8016a4ad5392945f34225b4c6954f63f65fbdefb53fb0aef2dc9",
+    "src/entities/boss/pose.rs": "6ea0be8dadb865ecfd764ce149a900e3f17cb2f7c1102d5c059e2547f15a5c76",
+    "src/entities/boss/death.rs": "d52734d03ba9bbd530fc2315690be6f42dfb6f49b3817226f432075cd3ace916",
+    "src/entities/boss/fist.rs": "a4c0c8a6b64ba4540a18ae52bf052911bee9da34b05197f8e9bcdbe489ad6acc",
+    "src/entities/boss/hazards.rs": "0e3987e09620ba30bbf056cafbcea948867a82b98710e440bc18fe107a1b25a7",
+    "src/entities/boss/tests.rs": "d027abc4b711d53c70d554256225ff79979ed360369098406939ded00e219fea",
+    "src/entities/boss/cohesion_audit.rs": "afd099c4138b50736822355aec169b59ca021851d3da0d7a94a5de1e3299d57c",
+    "src/tools.rs": "546bb4b14d2c483cd9a521c0c0e5c4c1f1daeb249bc0a0e79d8c59bd25c5cc36",
+    "tools/warden/towering.py": "f661bc891d0e8d417cf9c229ac61ee55d850408a176a94f1ac07ce884aa5aa96",
+    "tools/warden/test_towering.py": "f7b12bc8912ddea10069fa6bdbc0094bb927b612cb24d0b678d95ff125717983"
+  }
+}

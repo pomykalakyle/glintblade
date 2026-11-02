@@ -1,21 +1,69 @@
 {
-  "cell": [
-    48,
-    56
-  ],
   "anchor": [
     24,
     53
   ],
   "anims": {
-    "pillar": {
-      "row": 0,
-      "frames": 1,
-      "fps": 1,
+    "drum": {
+      "collision_rects": [
+        [
+          10,
+          45,
+          38,
+          46
+        ],
+        [
+          10,
+          46,
+          37,
+          47
+        ],
+        [
+          10,
+          47,
+          36,
+          48
+        ],
+        [
+          10,
+          48,
+          37,
+          49
+        ],
+        [
+          11,
+          49,
+          37,
+          50
+        ],
+        [
+          11,
+          50,
+          38,
+          51
+        ],
+        [
+          12,
+          51,
+          39,
+          52
+        ],
+        [
+          13,
+          52,
+          38,
+          53
+        ]
+      ],
       "footprint": [
         29,
-        10
+        8
       ],
+      "fps": 1,
+      "frames": 1,
+      "row": 3
+    },
+    "pillar": {
       "collision_rects": [
         [
           11,
@@ -89,292 +137,16 @@
           32,
           52
         ]
-      ]
-    },
-    "pillar_broken_tall": {
-      "row": 1,
-      "frames": 1,
-      "fps": 1,
-      "footprint": [
-        37,
-        10
       ],
-      "collision_rects": [
-        [
-          5,
-          44,
-          42,
-          48
-        ],
-        [
-          6,
-          48,
-          41,
-          49
-        ],
-        [
-          7,
-          49,
-          40,
-          50
-        ],
-        [
-          9,
-          50,
-          38,
-          51
-        ],
-        [
-          11,
-          51,
-          36,
-          52
-        ],
-        [
-          13,
-          52,
-          34,
-          53
-        ],
-        [
-          16,
-          53,
-          31,
-          54
-        ]
-      ]
-    },
-    "pillar_broken_short": {
-      "row": 2,
-      "frames": 1,
-      "fps": 1,
-      "footprint": [
-        37,
-        10
-      ],
-      "collision_rects": [
-        [
-          5,
-          44,
-          42,
-          48
-        ],
-        [
-          5,
-          48,
-          41,
-          49
-        ],
-        [
-          7,
-          49,
-          40,
-          50
-        ],
-        [
-          8,
-          50,
-          39,
-          51
-        ],
-        [
-          10,
-          51,
-          37,
-          52
-        ],
-        [
-          12,
-          52,
-          35,
-          53
-        ],
-        [
-          15,
-          53,
-          32,
-          54
-        ]
-      ]
-    },
-    "drum": {
-      "row": 3,
-      "frames": 1,
-      "fps": 1,
       "footprint": [
         29,
-        8
-      ],
-      "collision_rects": [
-        [
-          10,
-          45,
-          38,
-          46
-        ],
-        [
-          10,
-          46,
-          37,
-          47
-        ],
-        [
-          10,
-          47,
-          36,
-          48
-        ],
-        [
-          10,
-          48,
-          37,
-          49
-        ],
-        [
-          11,
-          49,
-          37,
-          50
-        ],
-        [
-          11,
-          50,
-          38,
-          51
-        ],
-        [
-          12,
-          51,
-          39,
-          52
-        ],
-        [
-          13,
-          52,
-          38,
-          53
-        ]
-      ]
-    },
-    "wall_low": {
-      "row": 4,
-      "frames": 1,
-      "fps": 1,
-      "footprint": [
-        42,
-        8
-      ],
-      "collision_rects": [
-        [
-          3,
-          45,
-          45,
-          50
-        ],
-        [
-          3,
-          50,
-          28,
-          51
-        ],
-        [
-          34,
-          50,
-          43,
-          51
-        ],
-        [
-          4,
-          51,
-          15,
-          52
-        ],
-        [
-          5,
-          52,
-          11,
-          53
-        ]
-      ]
-    },
-    "wall_tall": {
-      "row": 5,
-      "frames": 1,
-      "fps": 1,
-      "footprint": [
-        42,
-        8
-      ],
-      "collision_rects": [
-        [
-          3,
-          45,
-          45,
-          50
-        ],
-        [
-          3,
-          50,
-          37,
-          51
-        ],
-        [
-          40,
-          50,
-          43,
-          51
-        ],
-        [
-          3,
-          51,
-          23,
-          52
-        ],
-        [
-          16,
-          52,
-          17,
-          53
-        ],
-        [
-          19,
-          52,
-          22,
-          53
-        ]
-      ]
-    },
-    "statue": {
-      "row": 6,
-      "frames": 1,
-      "fps": 1,
-      "footprint": [
-        25,
-        8
-      ],
-      "collision_rects": [
-        [
-          12,
-          46,
-          37,
-          53
-        ],
-        [
-          12,
-          53,
-          36,
-          54
-        ]
-      ]
-    },
-    "pillar_b": {
-      "row": 7,
-      "frames": 1,
-      "fps": 1,
-      "footprint": [
-        30,
         10
       ],
+      "fps": 1,
+      "frames": 1,
+      "row": 0
+    },
+    "pillar_b": {
       "collision_rects": [
         [
           11,
@@ -460,16 +232,822 @@
           33,
           52
         ]
-      ]
-    },
-    "pillar_c": {
-      "row": 8,
-      "frames": 1,
-      "fps": 1,
+      ],
       "footprint": [
-        27,
+        30,
         10
       ],
+      "fps": 1,
+      "frames": 1,
+      "row": 7
+    },
+    "pillar_broken_short": {
+      "collision_rects": [
+        [
+          5,
+          44,
+          42,
+          48
+        ],
+        [
+          5,
+          48,
+          41,
+          49
+        ],
+        [
+          7,
+          49,
+          40,
+          50
+        ],
+        [
+          8,
+          50,
+          39,
+          51
+        ],
+        [
+          10,
+          51,
+          37,
+          52
+        ],
+        [
+          12,
+          52,
+          35,
+          53
+        ],
+        [
+          15,
+          53,
+          32,
+          54
+        ]
+      ],
+      "footprint": [
+        37,
+        10
+      ],
+      "fps": 1,
+      "frames": 1,
+      "row": 2
+    },
+    "pillar_broken_short_b": {
+      "collision_rects": [
+        [
+          5,
+          44,
+          42,
+          48
+        ],
+        [
+          5,
+          48,
+          41,
+          49
+        ],
+        [
+          7,
+          49,
+          40,
+          50
+        ],
+        [
+          8,
+          50,
+          39,
+          51
+        ],
+        [
+          10,
+          51,
+          37,
+          52
+        ],
+        [
+          12,
+          52,
+          35,
+          53
+        ],
+        [
+          15,
+          53,
+          32,
+          54
+        ]
+      ],
+      "footprint": [
+        37,
+        10
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "left shaft facet",
+          "world_normal": [
+            -0.5500000020323539,
+            0.835164653086091,
+            0.0
+          ],
+          "xy": [
+            11,
+            35
+          ]
+        },
+        {
+          "plane": "front left shaft facet",
+          "world_normal": [
+            -0.14999999950530002,
+            0.9886859967393137,
+            0.0
+          ],
+          "xy": [
+            20,
+            33
+          ]
+        },
+        {
+          "plane": "front left shaft facet",
+          "world_normal": [
+            -0.14999999950530002,
+            0.9886859967393137,
+            0.0
+          ],
+          "xy": [
+            22,
+            37
+          ]
+        },
+        {
+          "plane": "front right shaft facet",
+          "world_normal": [
+            0.199999999434319,
+            0.9797958972287404,
+            0.0
+          ],
+          "xy": [
+            25,
+            35
+          ]
+        },
+        {
+          "plane": "right shaft facet",
+          "world_normal": [
+            0.6,
+            0.8,
+            0.0
+          ],
+          "xy": [
+            30,
+            35
+          ]
+        },
+        {
+          "plane": "far right shaft facet",
+          "world_normal": [
+            0.9000000017081046,
+            0.4358898908272728,
+            0.0
+          ],
+          "xy": [
+            34,
+            34
+          ]
+        },
+        {
+          "plane": "broken near-horizontal cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            14,
+            27
+          ]
+        },
+        {
+          "plane": "broken near-horizontal cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            25,
+            28
+          ]
+        },
+        {
+          "plane": "broken near-horizontal cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            21,
+            30
+          ]
+        },
+        {
+          "plane": "rear spike front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            28,
+            20
+          ]
+        },
+        {
+          "plane": "rear spike right side",
+          "world_normal": [
+            0.8,
+            0.6,
+            0.0
+          ],
+          "xy": [
+            31,
+            21
+          ]
+        }
+      ],
+      "row": 9
+    },
+    "pillar_broken_short_c": {
+      "collision_rects": [
+        [
+          5,
+          44,
+          42,
+          48
+        ],
+        [
+          5,
+          48,
+          41,
+          49
+        ],
+        [
+          7,
+          49,
+          40,
+          50
+        ],
+        [
+          8,
+          50,
+          39,
+          51
+        ],
+        [
+          10,
+          51,
+          37,
+          52
+        ],
+        [
+          12,
+          52,
+          35,
+          53
+        ],
+        [
+          15,
+          53,
+          32,
+          54
+        ]
+      ],
+      "footprint": [
+        37,
+        10
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "left shaft facet",
+          "world_normal": [
+            -0.5500000020323539,
+            0.835164653086091,
+            0.0
+          ],
+          "xy": [
+            11,
+            35
+          ]
+        },
+        {
+          "plane": "front shaft remaining under fracture",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            15,
+            34
+          ]
+        },
+        {
+          "plane": "right surviving shaft facet",
+          "world_normal": [
+            0.7499999988918343,
+            0.6614378290226897,
+            0.0
+          ],
+          "xy": [
+            34,
+            37
+          ]
+        },
+        {
+          "plane": "upper rear right facet",
+          "world_normal": [
+            0.7499999988918343,
+            0.6614378290226897,
+            0.0
+          ],
+          "xy": [
+            28,
+            27
+          ]
+        },
+        {
+          "plane": "upper surviving cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            22,
+            25
+          ]
+        },
+        {
+          "plane": "upper surviving cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            14,
+            27
+          ]
+        },
+        {
+          "plane": "broad diagonal corner fracture slopes down toward right and front",
+          "world_normal": [
+            0.3499999988598679,
+            0.4999999983712399,
+            0.7921489774195587
+          ],
+          "xy": [
+            22,
+            34
+          ]
+        },
+        {
+          "plane": "broad diagonal corner fracture slopes down toward right and front",
+          "world_normal": [
+            0.3499999988598679,
+            0.4999999983712399,
+            0.7921489774195587
+          ],
+          "xy": [
+            25,
+            35
+          ]
+        },
+        {
+          "plane": "upper right oblique fracture",
+          "world_normal": [
+            0.4999999988698999,
+            0.19999999954795997,
+            0.8426149780955214
+          ],
+          "xy": [
+            28,
+            30
+          ]
+        }
+      ],
+      "row": 10
+    },
+    "pillar_broken_short_d": {
+      "collision_rects": [
+        [
+          5,
+          44,
+          42,
+          48
+        ],
+        [
+          5,
+          48,
+          41,
+          49
+        ],
+        [
+          7,
+          49,
+          40,
+          50
+        ],
+        [
+          8,
+          50,
+          39,
+          51
+        ],
+        [
+          10,
+          51,
+          37,
+          52
+        ],
+        [
+          12,
+          52,
+          35,
+          53
+        ],
+        [
+          15,
+          53,
+          32,
+          54
+        ]
+      ],
+      "footprint": [
+        37,
+        10
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "left stump front left facet",
+          "world_normal": [
+            -0.199999999434319,
+            0.9797958972287404,
+            0.0
+          ],
+          "xy": [
+            15,
+            30
+          ]
+        },
+        {
+          "plane": "left stump front left facet",
+          "world_normal": [
+            -0.199999999434319,
+            0.9797958972287404,
+            0.0
+          ],
+          "xy": [
+            16,
+            35
+          ]
+        },
+        {
+          "plane": "left stump far left facet",
+          "world_normal": [
+            -0.6,
+            0.8,
+            0.0
+          ],
+          "xy": [
+            10,
+            31
+          ]
+        },
+        {
+          "plane": "left stump inward right wall",
+          "world_normal": [
+            0.8,
+            0.6,
+            0.0
+          ],
+          "xy": [
+            20,
+            29
+          ]
+        },
+        {
+          "plane": "right stump frontal facet",
+          "world_normal": [
+            0.09999999971211233,
+            0.9949874371355538,
+            0.0
+          ],
+          "xy": [
+            27,
+            36
+          ]
+        },
+        {
+          "plane": "right stump outer side",
+          "world_normal": [
+            0.6499999988532946,
+            0.7599342086593529,
+            0.0
+          ],
+          "xy": [
+            33,
+            35
+          ]
+        },
+        {
+          "plane": "right stump far side",
+          "world_normal": [
+            0.9000000017081046,
+            0.4358898908272728,
+            0.0
+          ],
+          "xy": [
+            35,
+            35
+          ]
+        },
+        {
+          "plane": "left stump cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            15,
+            23
+          ]
+        },
+        {
+          "plane": "right stump cap",
+          "world_normal": [
+            0.10000000043674376,
+            0.20000000087348752,
+            0.9746794342568516
+          ],
+          "xy": [
+            30,
+            29
+          ]
+        },
+        {
+          "plane": "right stump lower fracture shelf",
+          "world_normal": [
+            0.15000000040710706,
+            0.4500000012213213,
+            0.8803408423892867
+          ],
+          "xy": [
+            25,
+            32
+          ]
+        }
+      ],
+      "row": 11
+    },
+    "pillar_broken_short_e": {
+      "collision_rects": [
+        [
+          5,
+          44,
+          42,
+          48
+        ],
+        [
+          5,
+          48,
+          41,
+          49
+        ],
+        [
+          7,
+          49,
+          40,
+          50
+        ],
+        [
+          8,
+          50,
+          39,
+          51
+        ],
+        [
+          10,
+          51,
+          37,
+          52
+        ],
+        [
+          12,
+          52,
+          35,
+          53
+        ],
+        [
+          15,
+          53,
+          32,
+          54
+        ]
+      ],
+      "footprint": [
+        37,
+        10
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "left surviving shaft facet",
+          "world_normal": [
+            -0.6499999988532946,
+            0.7599342086593529,
+            0.0
+          ],
+          "xy": [
+            11,
+            35
+          ]
+        },
+        {
+          "plane": "front surviving shaft below sloped fracture",
+          "world_normal": [
+            -0.14999999950530002,
+            0.9886859967393137,
+            0.0
+          ],
+          "xy": [
+            17,
+            35
+          ]
+        },
+        {
+          "plane": "front surviving shaft below sloped fracture",
+          "world_normal": [
+            -0.14999999950530002,
+            0.9886859967393137,
+            0.0
+          ],
+          "xy": [
+            22,
+            37
+          ]
+        },
+        {
+          "plane": "right frontal rim",
+          "world_normal": [
+            0.34999999992123426,
+            0.9367496997891893,
+            0.0
+          ],
+          "xy": [
+            27,
+            38
+          ]
+        },
+        {
+          "plane": "right surviving rim side",
+          "world_normal": [
+            0.8,
+            0.6,
+            0.0
+          ],
+          "xy": [
+            34,
+            38
+          ]
+        },
+        {
+          "plane": "left small surviving top cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            14,
+            26
+          ]
+        },
+        {
+          "plane": "left small surviving top cap",
+          "world_normal": [
+            0.0,
+            0.09999999971211233,
+            0.9949874371355538
+          ],
+          "xy": [
+            21,
+            24
+          ]
+        },
+        {
+          "plane": "large diagonal fracture slopes down toward right and front",
+          "world_normal": [
+            0.5000000004195079,
+            0.5000000004195079,
+            0.7071067805932738
+          ],
+          "xy": [
+            25,
+            25
+          ]
+        },
+        {
+          "plane": "large diagonal fracture slopes down toward right and front",
+          "world_normal": [
+            0.5000000004195079,
+            0.5000000004195079,
+            0.7071067805932738
+          ],
+          "xy": [
+            32,
+            29
+          ]
+        },
+        {
+          "plane": "large diagonal fracture slopes down toward right and front",
+          "world_normal": [
+            0.5000000004195079,
+            0.5000000004195079,
+            0.7071067805932738
+          ],
+          "xy": [
+            30,
+            32
+          ]
+        }
+      ],
+      "row": 12
+    },
+    "pillar_broken_tall": {
+      "collision_rects": [
+        [
+          5,
+          44,
+          42,
+          48
+        ],
+        [
+          6,
+          48,
+          41,
+          49
+        ],
+        [
+          7,
+          49,
+          40,
+          50
+        ],
+        [
+          9,
+          50,
+          38,
+          51
+        ],
+        [
+          11,
+          51,
+          36,
+          52
+        ],
+        [
+          13,
+          52,
+          34,
+          53
+        ],
+        [
+          16,
+          53,
+          31,
+          54
+        ]
+      ],
+      "footprint": [
+        37,
+        10
+      ],
+      "fps": 1,
+      "frames": 1,
+      "row": 1
+    },
+    "pillar_c": {
       "collision_rects": [
         [
           11,
@@ -531,8 +1109,1779 @@
           26,
           52
         ]
-      ]
+      ],
+      "footprint": [
+        27,
+        10
+      ],
+      "fps": 1,
+      "frames": 1,
+      "row": 8
+    },
+    "statue": {
+      "collision_rects": [
+        [
+          12,
+          46,
+          37,
+          53
+        ],
+        [
+          12,
+          53,
+          36,
+          54
+        ]
+      ],
+      "footprint": [
+        25,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "row": 6
+    },
+    "wall_low": {
+      "collision_rects": [
+        [
+          3,
+          45,
+          45,
+          50
+        ],
+        [
+          3,
+          50,
+          28,
+          51
+        ],
+        [
+          34,
+          50,
+          43,
+          51
+        ],
+        [
+          4,
+          51,
+          15,
+          52
+        ],
+        [
+          5,
+          52,
+          11,
+          53
+        ]
+      ],
+      "footprint": [
+        42,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "row": 4
+    },
+    "wall_low_b": {
+      "collision_rects": [
+        [
+          3,
+          45,
+          45,
+          50
+        ],
+        [
+          3,
+          50,
+          28,
+          51
+        ],
+        [
+          34,
+          50,
+          43,
+          51
+        ],
+        [
+          4,
+          51,
+          15,
+          52
+        ],
+        [
+          5,
+          52,
+          11,
+          53
+        ]
+      ],
+      "footprint": [
+        42,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            28,
+            42
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            33,
+            43
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            42,
+            43
+          ]
+        },
+        {
+          "plane": "left-fragment-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            6,
+            35
+          ]
+        },
+        {
+          "plane": "left-fragment-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            9,
+            39
+          ]
+        },
+        {
+          "plane": "left-fragment-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            5,
+            39
+          ]
+        },
+        {
+          "plane": "right-block-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            41,
+            29
+          ]
+        },
+        {
+          "plane": "right-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            41,
+            34
+          ]
+        },
+        {
+          "plane": "right-back-course-horizontal-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            40,
+            24
+          ]
+        },
+        {
+          "plane": "right-back-course-upright-band",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            39,
+            26
+          ]
+        },
+        {
+          "plane": "left-notch-remnant-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            6,
+            29
+          ]
+        },
+        {
+          "plane": "left-notch-remnant-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            7,
+            31
+          ]
+        },
+        {
+          "plane": "small-notch-bridge-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            17,
+            36
+          ]
+        },
+        {
+          "plane": "small-notch-bridge-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            38
+          ]
+        },
+        {
+          "plane": "small-notch-bridge-left-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            15,
+            35
+          ]
+        },
+        {
+          "plane": "central-surviving-block-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            34,
+            30
+          ]
+        },
+        {
+          "plane": "central-surviving-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            34,
+            34
+          ]
+        },
+        {
+          "plane": "central-surviving-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            32,
+            38
+          ]
+        },
+        {
+          "plane": "central-surviving-block-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            30,
+            31
+          ]
+        },
+        {
+          "plane": "central-surviving-block-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            27,
+            35
+          ]
+        }
+      ],
+      "row": 13
+    },
+    "wall_low_c": {
+      "collision_rects": [
+        [
+          3,
+          45,
+          45,
+          50
+        ],
+        [
+          3,
+          50,
+          28,
+          51
+        ],
+        [
+          34,
+          50,
+          43,
+          51
+        ],
+        [
+          4,
+          51,
+          15,
+          52
+        ],
+        [
+          5,
+          52,
+          11,
+          53
+        ]
+      ],
+      "footprint": [
+        42,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            28,
+            42
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            33,
+            43
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            42,
+            43
+          ]
+        },
+        {
+          "plane": "left-fragment-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            6,
+            35
+          ]
+        },
+        {
+          "plane": "left-fragment-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            9,
+            39
+          ]
+        },
+        {
+          "plane": "left-fragment-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            5,
+            39
+          ]
+        },
+        {
+          "plane": "central-block-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            29,
+            30
+          ]
+        },
+        {
+          "plane": "central-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            30,
+            37
+          ]
+        },
+        {
+          "plane": "central-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            29,
+            34
+          ]
+        },
+        {
+          "plane": "central-block-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            21,
+            35
+          ]
+        },
+        {
+          "plane": "right-block-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            41,
+            29
+          ]
+        },
+        {
+          "plane": "right-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            41,
+            34
+          ]
+        },
+        {
+          "plane": "stepped-back-course-horizontal-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            40,
+            24
+          ]
+        },
+        {
+          "plane": "stepped-back-course-horizontal-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            25,
+            26
+          ]
+        },
+        {
+          "plane": "stepped-back-course-front-band",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            39,
+            26
+          ]
+        },
+        {
+          "plane": "stepped-back-course-front-band",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            27,
+            27
+          ]
+        },
+        {
+          "plane": "stepped-back-course-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            16,
+            29
+          ]
+        }
+      ],
+      "row": 14
+    },
+    "wall_low_d": {
+      "collision_rects": [
+        [
+          3,
+          45,
+          45,
+          50
+        ],
+        [
+          3,
+          50,
+          28,
+          51
+        ],
+        [
+          34,
+          50,
+          43,
+          51
+        ],
+        [
+          4,
+          51,
+          15,
+          52
+        ],
+        [
+          5,
+          52,
+          11,
+          53
+        ]
+      ],
+      "footprint": [
+        42,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            28,
+            42
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            33,
+            43
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            42,
+            43
+          ]
+        },
+        {
+          "plane": "left-fragment-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            6,
+            35
+          ]
+        },
+        {
+          "plane": "left-fragment-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            9,
+            39
+          ]
+        },
+        {
+          "plane": "left-fragment-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            5,
+            39
+          ]
+        },
+        {
+          "plane": "high-right-remnant-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            40,
+            21
+          ]
+        },
+        {
+          "plane": "high-right-remnant-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            41,
+            25
+          ]
+        },
+        {
+          "plane": "high-right-remnant-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            36,
+            24
+          ]
+        },
+        {
+          "plane": "lower-right-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            41,
+            34
+          ]
+        },
+        {
+          "plane": "narrow-middle-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            35,
+            34
+          ]
+        },
+        {
+          "plane": "narrow-middle-block-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            32,
+            31
+          ]
+        },
+        {
+          "plane": "low-gap-shard-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            16,
+            40
+          ]
+        }
+      ],
+      "row": 15
+    },
+    "wall_low_e": {
+      "collision_rects": [
+        [
+          3,
+          45,
+          45,
+          50
+        ],
+        [
+          3,
+          50,
+          28,
+          51
+        ],
+        [
+          34,
+          50,
+          43,
+          51
+        ],
+        [
+          4,
+          51,
+          15,
+          52
+        ],
+        [
+          5,
+          52,
+          11,
+          53
+        ]
+      ],
+      "footprint": [
+        42,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            28,
+            42
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            33,
+            43
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            42,
+            43
+          ]
+        },
+        {
+          "plane": "left-fragment-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            6,
+            35
+          ]
+        },
+        {
+          "plane": "left-fragment-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            9,
+            39
+          ]
+        },
+        {
+          "plane": "left-fragment-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            5,
+            39
+          ]
+        },
+        {
+          "plane": "central-block-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            29,
+            30
+          ]
+        },
+        {
+          "plane": "central-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            30,
+            37
+          ]
+        },
+        {
+          "plane": "central-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            29,
+            34
+          ]
+        },
+        {
+          "plane": "central-block-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            21,
+            35
+          ]
+        },
+        {
+          "plane": "tall-block-horizontal-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            37,
+            17
+          ]
+        },
+        {
+          "plane": "tall-block-horizontal-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            39,
+            16
+          ]
+        },
+        {
+          "plane": "tall-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            39,
+            22
+          ]
+        },
+        {
+          "plane": "tall-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            38,
+            25
+          ]
+        },
+        {
+          "plane": "tall-block-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            34,
+            21
+          ]
+        },
+        {
+          "plane": "tall-block-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            32,
+            23
+          ]
+        },
+        {
+          "plane": "short-back-course-horizontal-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            21,
+            26
+          ]
+        },
+        {
+          "plane": "short-back-course-front-band",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            22,
+            27
+          ]
+        },
+        {
+          "plane": "short-back-course-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            16,
+            29
+          ]
+        },
+        {
+          "plane": "lower-right-block-cut-cap",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            42,
+            29
+          ]
+        },
+        {
+          "plane": "lower-right-block-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            41,
+            34
+          ]
+        }
+      ],
+      "row": 16
+    },
+    "wall_low_f": {
+      "collision_rects": [
+        [
+          3,
+          45,
+          45,
+          50
+        ],
+        [
+          3,
+          50,
+          28,
+          51
+        ],
+        [
+          34,
+          50,
+          43,
+          51
+        ],
+        [
+          4,
+          51,
+          15,
+          52
+        ],
+        [
+          5,
+          52,
+          11,
+          53
+        ]
+      ],
+      "footprint": [
+        42,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "normal_samples": [
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            28,
+            42
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            33,
+            43
+          ]
+        },
+        {
+          "plane": "retained-course-fronts-above-foot",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            42,
+            43
+          ]
+        },
+        {
+          "plane": "long-collapsed-slab-cut-top",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            20,
+            28
+          ]
+        },
+        {
+          "plane": "long-collapsed-slab-cut-top",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            13,
+            30
+          ]
+        },
+        {
+          "plane": "long-collapsed-slab-cut-top",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            29,
+            26
+          ]
+        },
+        {
+          "plane": "collapsed-slab-upright-front-rim",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            19,
+            33
+          ]
+        },
+        {
+          "plane": "collapsed-slab-upright-front-rim",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            27,
+            31
+          ]
+        },
+        {
+          "plane": "collapsed-slab-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            5,
+            31
+          ]
+        },
+        {
+          "plane": "right-slab-cut-top",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            39,
+            26
+          ]
+        },
+        {
+          "plane": "right-slab-short-front-rim",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            40,
+            30
+          ]
+        },
+        {
+          "plane": "central-support-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            30,
+            37
+          ]
+        },
+        {
+          "plane": "central-support-dark-left-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            23,
+            36
+          ]
+        },
+        {
+          "plane": "right-support-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            41,
+            34
+          ]
+        }
+      ],
+      "row": 17
+    },
+    "wall_tall": {
+      "collision_rects": [
+        [
+          3,
+          45,
+          45,
+          50
+        ],
+        [
+          3,
+          50,
+          37,
+          51
+        ],
+        [
+          40,
+          50,
+          43,
+          51
+        ],
+        [
+          3,
+          51,
+          23,
+          52
+        ],
+        [
+          16,
+          52,
+          17,
+          53
+        ],
+        [
+          19,
+          52,
+          22,
+          53
+        ]
+      ],
+      "footprint": [
+        42,
+        8
+      ],
+      "fps": 1,
+      "frames": 1,
+      "row": 5
     }
   },
-  "notes": "PixelLab native structure family: Selected native source pixels, no resampling or palette filtering.; New stone bases use visible-width colliders; routes verified in real-input tour.; Embossed high-contrast terrace candidates rejected after real native camera and whole-zone review; selected quiet shadowed facade edit.; Broken-column native feet repaired in PixelLab: original upper40 rows remain exact; registered lower14 native source rows close into beveled chipped stone with2 transparent gutter rows.; exact opaque native base collision spans."
+  "cell": [
+    48,
+    56
+  ],
+  "notes": "PixelLab native structure family: Selected native source pixels, no resampling or palette filtering.; New stone bases use visible-width colliders; routes verified in real-input tour.; Embossed high-contrast terrace candidates rejected after real native camera and whole-zone review; selected quiet shadowed facade edit.; Broken-column native feet repaired in PixelLab: original upper40 rows remain exact; registered lower14 native source rows close into beveled chipped stone with2 transparent gutter rows.; exact opaque native base collision spans.",
+  "shared_foot_normals": [
+    {
+      "first_row": 40,
+      "normal_planes": "normal-planes/column-foot.json",
+      "normal_planes_sha256": "8847285c29e3884bef4a09df4a51f210c183fe01f26f9b3f64e104c01c1effa7",
+      "samples": [
+        {
+          "plane": "shared shaft foot left facet",
+          "world_normal": [
+            -0.5500000020323539,
+            0.835164653086091,
+            0.0
+          ],
+          "xy": [
+            13,
+            41
+          ]
+        },
+        {
+          "plane": "shared shaft foot front and inset collar front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            41
+          ]
+        },
+        {
+          "plane": "shared shaft foot front and inset collar front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            23,
+            43
+          ]
+        },
+        {
+          "plane": "shared shaft foot right facet",
+          "world_normal": [
+            0.6,
+            0.8,
+            0.0
+          ],
+          "xy": [
+            29,
+            41
+          ]
+        },
+        {
+          "plane": "upper collar vertical front rim",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            46
+          ]
+        },
+        {
+          "plane": "upper collar vertical front rim",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            23,
+            47
+          ]
+        },
+        {
+          "plane": "upper collar left rim",
+          "world_normal": [
+            -0.5000000016387101,
+            0.8660254028383291,
+            0.0
+          ],
+          "xy": [
+            13,
+            46
+          ]
+        },
+        {
+          "plane": "upper collar right rim",
+          "world_normal": [
+            0.6499999988532946,
+            0.7599342086593529,
+            0.0
+          ],
+          "xy": [
+            33,
+            45
+          ]
+        },
+        {
+          "plane": "lower plinth broad vertical front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            50
+          ]
+        },
+        {
+          "plane": "lower plinth broad vertical front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            23,
+            51
+          ]
+        },
+        {
+          "plane": "lower plinth broad vertical front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            52
+          ]
+        },
+        {
+          "plane": "lower plinth front left facet",
+          "world_normal": [
+            -0.5000000016387101,
+            0.8660254028383291,
+            0.0
+          ],
+          "xy": [
+            12,
+            49
+          ]
+        },
+        {
+          "plane": "lower plinth front left facet",
+          "world_normal": [
+            -0.5000000016387101,
+            0.8660254028383291,
+            0.0
+          ],
+          "xy": [
+            15,
+            50
+          ]
+        },
+        {
+          "plane": "lower plinth far left end",
+          "world_normal": [
+            -0.8,
+            0.6,
+            0.0
+          ],
+          "xy": [
+            7,
+            46
+          ]
+        },
+        {
+          "plane": "lower plinth right end",
+          "world_normal": [
+            0.700000001426857,
+            0.7141428414556853,
+            0.0
+          ],
+          "xy": [
+            35,
+            48
+          ]
+        },
+        {
+          "plane": "lower plinth right end",
+          "world_normal": [
+            0.700000001426857,
+            0.7141428414556853,
+            0.0
+          ],
+          "xy": [
+            32,
+            50
+          ]
+        },
+        {
+          "plane": "upper plinth dark left end",
+          "world_normal": [
+            -0.8499999989444547,
+            0.5267826893458318,
+            0.0
+          ],
+          "xy": [
+            8,
+            42
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            10,
+            41
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            15,
+            44
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            23,
+            45
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            35,
+            42
+          ]
+        },
+        {
+          "plane": "lower plinth narrow horizontal ledge",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            22,
+            48
+          ]
+        }
+      ],
+      "template": "pillar_broken_short"
+    },
+    {
+      "first_row": 45,
+      "normal_planes": "normal-planes/wall-foot.json",
+      "normal_planes_sha256": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+      "samples": [
+        {
+          "plane": "left-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            10,
+            46
+          ]
+        },
+        {
+          "plane": "left-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            9,
+            49
+          ]
+        },
+        {
+          "plane": "left-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            8,
+            50
+          ]
+        },
+        {
+          "plane": "left-course-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            4,
+            46
+          ]
+        },
+        {
+          "plane": "left-course-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            5,
+            49
+          ]
+        },
+        {
+          "plane": "central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            24,
+            46
+          ]
+        },
+        {
+          "plane": "central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            21,
+            48
+          ]
+        },
+        {
+          "plane": "central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            22,
+            49
+          ]
+        },
+        {
+          "plane": "right-central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            34,
+            46
+          ]
+        },
+        {
+          "plane": "right-central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            33,
+            45
+          ]
+        },
+        {
+          "plane": "rightmost-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            42,
+            46
+          ]
+        }
+      ],
+      "template": "wall_low"
+    }
+  ]
 }

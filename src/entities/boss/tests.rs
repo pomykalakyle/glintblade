@@ -379,7 +379,7 @@ fn part_contours_preserve_approved_attachments() {
     let idle = spr(art::HEAD, &["idle"], 0, true);
     assert_eq!(
         art::peak_lift(art::HEAD, "roar", idle),
-        3,
+        if pose::rig().integrated_head { 0 } else { 3 },
         "coordinate changed roar motion with the artist"
     );
 }
@@ -520,7 +520,7 @@ fn warden_stone_reveal_preserves_native_casters_and_combat_sources_across_poses(
     for (phase, kneel, state, height) in [
         (0, 0.0, St::Rest, 20.0),
         (2, 0.0, St::Drop(2), 24.0),
-        (2, KNEEL, St::Stuck(10, 80), 0.0),
+        (2, kneel_depth(), St::Stuck(10, 80), 0.0),
     ] {
         let mut b = Boss::new(192.0, 180.0);
         b.mode = Mode::Fight;

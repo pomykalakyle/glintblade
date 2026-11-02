@@ -14,8 +14,8 @@
 //! Any hit staggers it and cancels a crouch. Death bursts it into pixels along the killing
 //! blow, with the hot crack pixels flying as embers, a few slow rising cinders and a burn mark.
 //!
-//! Art: the `ember_hound` sheet (idle/move/windup/attack/hurt, `_right` mirrored for left;
-//! `_down`/`_up` used when present). Without the sheet, a hand-placed fallback is drawn.
+//! Art: the `ember_hound` sheet has native eight-way idle/move/windup/attack/hurt poses.
+//! Without the sheet, a hand-placed fallback is drawn.
 
 use super::EnemyCtx;
 use crate::combat::{Hit, Shape, Team};
@@ -91,7 +91,9 @@ pub struct State {
     lunge_ticks: u32,
     recover_ticks: u32,
     hit_id: u32,
-    /// Facing left (for side-view sheets).
+    /// Visual sector is independent of precise combat aim.
+    facing: Dir,
+    /// Facing left (for legacy cosmetic particles).
     left: bool,
     prev: (f32, f32),
     /// Crack heat: 0 normal, 1 white-hot (telegraph), negative = cooled after a lunge.
@@ -124,6 +126,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         lunge_ticks: 12,
         recover_ticks: RECOVER_TICKS,
         hit_id: 0,
+        facing: Dir::Down,
         left: h(5) < 0.5,
         prev: (x, y),
         heat: 0.0,
@@ -270,11 +273,11 @@ pub fn update(b: &mut Body, s: &mut State, ctx: &mut EnemyCtx) {
             s.heat = approach(s.heat, -0.55, 0.06);
             // panting: ash puffs from the muzzle
             if s.pt % 12 == 3 {
+                let (mx, mz) = muzzle_source(b, s);
                 let fx = &mut *ctx.fx;
-                let mx = b.x + if s.left { -9.0 } else { 9.0 };
                 fx.particles.add(
-                    Particle::new(mx, b.y)
-                        .z(8.0)
+                    Particle::new(b.x + mx, b.y)
+                        .z(mz)
                         .vel(if s.left { -0.25 } else { 0.25 }, 0.0, 0.35)
                         .color(ASH_PALE)
                         .fade_to(ASH)
@@ -327,6 +330,7 @@ pub fn update(b: &mut Body, s: &mut State, ctx: &mut EnemyCtx) {
     if b.face.0.abs() > 0.2 {
         s.left = b.face.0 < 0.0;
     }
+    s.facing = s.facing.stable_from_vec(b.face.0, b.face.1);
 }
 
 fn launch(b: &mut Body, s: &mut State, fx: &mut Fx) {
@@ -686,18 +690,35 @@ fn anim_ticks(s: &State, a: &Anim) -> u32 {
     }
 }
 
+/// Exact runtime pose for the headless eight-way visual audit.
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) fn audit_pose(b: &Body, s: &State, _t: u64) -> (&'static Cell, (i32, i32), bool) {
+    current_cell(b, s)
+}
+
 /// The cell to draw now: (cell, anchor, flip).
 fn current_cell(b: &Body, s: &State) -> (&'static Cell, (i32, i32), bool) {
     if let Some(sh) = sheet("ember_hound") {
         let dir = if has_vertical(sh) {
-            Dir::from_vec(b.face.0, b.face.1)
+            if super::variation::reference_pose() {
+                super::variation::legacy_dir(b.face.0, b.face.1)
+            } else {
+                s.facing.stable_from_vec(b.face.0, b.face.1)
+            }
         } else if s.left {
             Dir::Left
         } else {
             Dir::Right
         };
         let (names, looping) = anim_names(b, s);
-        if let Some((a, flip)) = pick(sh, names, dir).or_else(|| pick(sh, &["idle", "move"], dir)) {
+        // The historical left pose was the right cell plus a draw mirror.
+        // Explicit new left rows must not change reference pixel iteration.
+        let selected = if super::variation::reference_pose() && dir == Dir::Left {
+            pick(sh, names, Dir::Right).or_else(|| pick(sh, &["idle", "move"], Dir::Right)).map(|(a, _)| (a, true))
+        } else {
+            pick(sh, names, dir).or_else(|| pick(sh, &["idle", "move"], dir))
+        };
+        if let Some((a, flip)) = selected {
             let f = a.frame_at(anim_ticks(s, a), looping);
             return (leg_contour(super::variation::cell("ember_hound", sh.cell(a, f), s.appearance)), sh.anchor_of(a), flip);
         }
@@ -778,6 +799,23 @@ fn eye_offset(cell: &Cell, anchor: (i32, i32), flip: bool, point: Option<(i32, i
     (lx - ax, y - anchor.1)
 }
 
+/// Diagonal panting follows the authored mouth part, without changing the
+/// existing particle clock, random stream, or cardinal source positions.
+fn muzzle_source(b: &Body, s: &State) -> (f32, f32) {
+    if let Some(sh) = sheet("ember_hound") {
+        let dir = s.facing.stable_from_vec(b.face.0, b.face.1);
+        let (names, looping) = anim_names(b, s);
+        if let Some((a, flip)) = pick(sh, names, dir) {
+            if let Some((x,y)) = a.point("muzzle", a.frame_at(anim_ticks(s,a),looping)) {
+                let anchor = sh.anchor_of(a);
+                let dx = (x-anchor.0) as f32;
+                return (if flip { -dx } else { dx }, (anchor.1-y) as f32);
+            }
+        }
+    }
+    (if s.left { -9.0 } else { 9.0 }, 8.0)
+}
+
 pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let air = b.z.max(0.0);
     let srx = (7.0 - air * 0.25).max(4.0) as i32;
@@ -794,15 +832,15 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let shiver = if s.phase == Phase::Crouch && s.pt >= LOCK_AT && (s.pt / 2) % 2 == 0 { if s.left { 1.0 } else { -1.0 } } else { 0.0 };
     let (x, y) = (b.x + shiver, b.y - air);
     let gain = (1.0 + s.heat * 0.9).max(0.35);
-    let o = DrawOpts { actor: true, foot_depth: 4, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flip, flash: snappy(b.flash), emit_gain: gain, ..Default::default() };
+    let o = DrawOpts { actor: true, foot_full_width: true, foot_depth: 4, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flip, flash: snappy(b.flash), emit_gain: gain, ..Default::default() };
     f.sprite_w(cell, anchor, x, y, &o);
 
     // eye glint at aim lock: a four-point star that pops and shrinks
     if s.glint > 0 {
         let point = sheet("ember_hound").and_then(|sh| {
-            let dir = if s.left { Dir::Left } else { Dir::Right };
+            let dir = s.facing.stable_from_vec(b.face.0, b.face.1);
             let (a, _) = pick(sh, anim_names(b, s).0, dir)?;
-            a.point("eye", 0)
+            a.point("eye", a.frame_at(anim_ticks(s, a), anim_names(b, s).1))
         });
         let (ex, ey) = eye_offset(cell, anchor, flip, point);
         let (sx, sy) = (f.sx(x) + ex, f.sy(y) + ey);
@@ -831,7 +869,10 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
         if let Some((lx, ly)) = ember_source(cell, anchor, flip) {
             let r = 34.0 + h.max(0.0) * 14.0;
             let i = (0.48 + h * 0.48).max(0.12);
-            f.add_light_3d_w(x + lx, b.y, air - ly, r, ORA, i);
+            // Match sprite_w's native floor rule even at fractional positions
+            // and on airborne frames; the source must sit on its real ink.
+            let ground = b.y.floor();
+            f.add_light_3d_w(x.floor() + lx, ground, ground - y.floor() - ly, r, ORA, i);
         }
     } else {
         let r = 9.0 + h.max(0.0) * 6.0;
@@ -1012,6 +1053,87 @@ fn snappy(flash: f32) -> f32 {
 mod tests {
     use super::*;
     use crate::world::{Zone, ZoneId};
+
+    #[test]
+    fn eightway_hound_frames_normals_and_native_lights_are_complete() {
+        use crate::gfx::W;
+        let sh = sheet("ember_hound").expect("production hound");
+        for dir in Dir::ALL {
+            for base in ["idle", "move", "windup", "attack", "hurt"] {
+                let (a, flip) = sh.dir_anim(base, dir).expect("authored eight-way row");
+                assert_eq!(a.name, format!("{base}_{}", dir.suffix()));
+                assert!(!flip, "Cinder rows have explicit native left poses");
+                for frame in 0..a.frames {
+                    for appearance in 0..3 {
+                        let cell = super::super::variation::cell("ember_hound", sh.cell(a, frame), appearance);
+                        assert!(!cell.is_empty());
+                        assert!(cell.px.iter().zip(cell.surface.iter()).all(|(p,n)| p.a == n.a && p.emit == n.emit));
+                        assert!(cell.surface.iter().filter(|p| p.a).any(|p| p.n[0].abs() > 10), "native volume must have side normals");
+                    }
+                }
+            }
+            for appearance in 0..3 {
+                let (mut b, mut s) = spawn(192.73, 120.81);
+                b.face = dir.vec();
+                b.z = 2.37;
+                s.facing = dir;
+                s.appearance = appearance;
+                // The old north idle's first key is deliberately dark. Its
+                // second key exposes a real hot seam in every appearance.
+                s.t = 14;
+                let mut f = Frame::new();
+                f.begin(Rgb::gray(0.5), Rgb::BLACK);
+                f.surface_lighting = true;
+                draw(&b, &s, &mut f);
+                let light = f.point_lights.last().expect("actual ember source");
+                let index = light.y.floor() as usize * W + light.x.floor() as usize;
+                assert!(f.emissive[index].max_c() > 0.0, "{dir:?} skin{appearance} source left fractional airborne native ink");
+                let (cell,anchor,_) = current_cell(&b,&s);
+                let expected = crate::gfx::surface::foot_profile_with_depth(cell,anchor,(b.y-b.z).floor() as i32,b.z,None,4);
+                assert_eq!(&*f.surface_casters.last().unwrap().foot,&*expected,"all native paw columns participate in support");
+                assert_eq!(b.r,RADIUS,"visual support cannot change collision");
+            }
+        }
+    }
+
+    #[test]
+    fn diagonal_ghost_and_stopped_pose_keep_native_facing() {
+        let (mut b, mut s) = spawn(192.0, 120.0);
+        s.facing = Dir::UpRight;
+        b.face = Dir::UpRight.vec();
+        s.phase = Phase::Lunge;
+        s.lunge_ticks = 12;
+        let (cell, anchor, flip) = current_cell(&b, &s);
+        s.ghosts.push(Ghost { x:b.x, y:b.y, cell, anchor, flip, life:0.8 });
+        b.face = Dir::Right.vec();
+        assert!(std::ptr::eq(s.ghosts[0].cell, cell));
+        assert!(!std::ptr::eq(current_cell(&b,&s).0, cell));
+        s.facing = Dir::UpRight;
+        b.face = (0.0,0.0);
+        s.phase = Phase::Recover;
+        let sh = sheet("ember_hound").unwrap();
+        let a = sh.anim("idle_up_right").unwrap();
+        let expected = leg_contour(super::super::variation::cell("ember_hound",sh.cell(a,a.frame_at(s.pt,true)),s.appearance));
+        assert!(std::ptr::eq(current_cell(&b,&s).0,expected));
+        let p=a.point("muzzle",a.frame_at(s.pt,true)).expect("native diagonal muzzle");
+        assert_eq!(muzzle_source(&b,&s),((p.0-sh.anchor.0) as f32,(sh.anchor.1-p.1) as f32));
+    }
+
+    #[test]
+    fn death_reference_retains_the_original_mirrored_cardinal_cell() {
+        let (mut b, mut s) = spawn(192.0,120.0);
+        b.face=(-1.0,-0.5);
+        s.facing=Dir::UpLeft;
+        s.appearance=0;
+        s.phase=Phase::Crouch;
+        s.pt=8;
+        let (cell,anchor,flip)=super::super::variation::with_reference_pose(||current_cell(&b,&s));
+        let sh=sheet("ember_hound").unwrap();
+        let a=sh.anim("windup_right").unwrap();
+        assert!(std::ptr::eq(cell,leg_contour(sh.cell(a,a.frame_at(s.pt,false)))));
+        assert_eq!(anchor,sh.anchor_of(a));
+        assert!(flip);
+    }
 
     /// The final crouch locks its lane, and a hit cancels the pending bite.
     #[test]

@@ -227,7 +227,321 @@
     6,
     6
    ]
+  },
+  "idle_up_right": {
+   "row": 15,
+   "frames": 6,
+   "fps": 8,
+   "durations": [
+    10,
+    8,
+    10,
+    14,
+    4,
+    10
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
+  },
+  "move_up_right": {
+   "row": 16,
+   "frames": 6,
+   "fps": 12,
+   "durations": [
+    5,
+    3,
+    4,
+    4,
+    3,
+    5
+   ],
+   "airborne": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "notes": "one hop per loop (24 ticks). Frames 1-4 are airborne: move the entity only then, so the base never slides Native articulated quarter view; world timing and launch sites retained."
+  },
+  "windup_up_right": {
+   "row": 17,
+   "frames": 6,
+   "fps": 15,
+   "durations": [
+    4,
+    5,
+    4,
+    3,
+    4,
+    4
+   ],
+   "notes": "telegraph: side view rears up; front/back views pull back into a wide braced crouch with roots dug in. Thorns fan out, mask slits turn dried rose (matte), jaw opens, then a shiver. 24 ticks; hold the last frame if the windup runs longer Native articulated quarter view; world timing and launch sites retained."
+  },
+  "attack_up_right": {
+   "row": 18,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    3,
+    3,
+    4,
+    8
+   ],
+   "hit_frames": [
+    0,
+    1,
+    2
+   ],
+   "notes": "headbutt; frames 0-2 cover the engine's 10-tick lunge, frame 3 is the follow-through Native articulated quarter view; world timing and launch sites retained."
+  },
+  "hurt_up_right": {
+   "row": 19,
+   "frames": 2,
+   "fps": 10,
+   "durations": [
+    6,
+    6
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
+  },
+  "idle_down_right": {
+   "row": 20,
+   "frames": 6,
+   "fps": 8,
+   "durations": [
+    10,
+    8,
+    10,
+    14,
+    4,
+    10
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
+  },
+  "move_down_right": {
+   "row": 21,
+   "frames": 6,
+   "fps": 12,
+   "durations": [
+    5,
+    3,
+    4,
+    4,
+    3,
+    5
+   ],
+   "airborne": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "notes": "one hop per loop (24 ticks). Frames 1-4 are airborne: move the entity only then, so the base never slides Native articulated quarter view; world timing and launch sites retained."
+  },
+  "windup_down_right": {
+   "row": 22,
+   "frames": 6,
+   "fps": 15,
+   "durations": [
+    4,
+    5,
+    4,
+    3,
+    4,
+    4
+   ],
+   "notes": "telegraph: side view rears up; front/back views pull back into a wide braced crouch with roots dug in. Thorns fan out, mask slits turn dried rose (matte), jaw opens, then a shiver. 24 ticks; hold the last frame if the windup runs longer Native articulated quarter view; world timing and launch sites retained."
+  },
+  "attack_down_right": {
+   "row": 23,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    3,
+    3,
+    4,
+    8
+   ],
+   "hit_frames": [
+    0,
+    1,
+    2
+   ],
+   "notes": "headbutt; frames 0-2 cover the engine's 10-tick lunge, frame 3 is the follow-through Native articulated quarter view; world timing and launch sites retained."
+  },
+  "hurt_down_right": {
+   "row": 24,
+   "frames": 2,
+   "fps": 10,
+   "durations": [
+    6,
+    6
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
+  },
+  "idle_down_left": {
+   "row": 25,
+   "frames": 6,
+   "fps": 8,
+   "durations": [
+    10,
+    8,
+    10,
+    14,
+    4,
+    10
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
+  },
+  "move_down_left": {
+   "row": 26,
+   "frames": 6,
+   "fps": 12,
+   "durations": [
+    5,
+    3,
+    4,
+    4,
+    3,
+    5
+   ],
+   "airborne": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "notes": "one hop per loop (24 ticks). Frames 1-4 are airborne: move the entity only then, so the base never slides Native articulated quarter view; world timing and launch sites retained."
+  },
+  "windup_down_left": {
+   "row": 27,
+   "frames": 6,
+   "fps": 15,
+   "durations": [
+    4,
+    5,
+    4,
+    3,
+    4,
+    4
+   ],
+   "notes": "telegraph: side view rears up; front/back views pull back into a wide braced crouch with roots dug in. Thorns fan out, mask slits turn dried rose (matte), jaw opens, then a shiver. 24 ticks; hold the last frame if the windup runs longer Native articulated quarter view; world timing and launch sites retained."
+  },
+  "attack_down_left": {
+   "row": 28,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    3,
+    3,
+    4,
+    8
+   ],
+   "hit_frames": [
+    0,
+    1,
+    2
+   ],
+   "notes": "headbutt; frames 0-2 cover the engine's 10-tick lunge, frame 3 is the follow-through Native articulated quarter view; world timing and launch sites retained."
+  },
+  "hurt_down_left": {
+   "row": 29,
+   "frames": 2,
+   "fps": 10,
+   "durations": [
+    6,
+    6
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
+  },
+  "idle_up_left": {
+   "row": 30,
+   "frames": 6,
+   "fps": 8,
+   "durations": [
+    10,
+    8,
+    10,
+    14,
+    4,
+    10
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
+  },
+  "move_up_left": {
+   "row": 31,
+   "frames": 6,
+   "fps": 12,
+   "durations": [
+    5,
+    3,
+    4,
+    4,
+    3,
+    5
+   ],
+   "airborne": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "notes": "one hop per loop (24 ticks). Frames 1-4 are airborne: move the entity only then, so the base never slides Native articulated quarter view; world timing and launch sites retained."
+  },
+  "windup_up_left": {
+   "row": 32,
+   "frames": 6,
+   "fps": 15,
+   "durations": [
+    4,
+    5,
+    4,
+    3,
+    4,
+    4
+   ],
+   "notes": "telegraph: side view rears up; front/back views pull back into a wide braced crouch with roots dug in. Thorns fan out, mask slits turn dried rose (matte), jaw opens, then a shiver. 24 ticks; hold the last frame if the windup runs longer Native articulated quarter view; world timing and launch sites retained."
+  },
+  "attack_up_left": {
+   "row": 33,
+   "frames": 4,
+   "fps": 15,
+   "durations": [
+    3,
+    3,
+    4,
+    8
+   ],
+   "hit_frames": [
+    0,
+    1,
+    2
+   ],
+   "notes": "headbutt; frames 0-2 cover the engine's 10-tick lunge, frame 3 is the follow-through Native articulated quarter view; world timing and launch sites retained."
+  },
+  "hurt_up_left": {
+   "row": 34,
+   "frames": 2,
+   "fps": 10,
+   "durations": [
+    6,
+    6
+   ],
+   "notes": " Native articulated quarter view; world timing and launch sites retained."
   }
  },
- "notes": "Style v2: pointed dried-rose seed bulb carried head-low on two hooked root canes, its hard ivory seed point leading as the ram. One dark husk seam and one recessed slit; front and back views are an almond pointed at both ends with the sprout on top. Upper-left rim light over a dark underside plane, open limb gaps, no glow. Reviewed hop, brace, lunge and hurt timings retained. Cell dimensions, anchor and animation metadata retained; _right mirrors for left."
+ "notes": "Style v2: pointed dried-rose seed bulb carried head-low on two hooked root canes, its hard ivory seed point leading as the ram. One dark husk seam and one recessed slit; front and back views are an almond pointed at both ends with the sprout on top. Upper-left rim light over a dark underside plane, open limb gaps, no glow. Reviewed hop, brace, lunge and hurt timings retained. Cell dimensions, anchor and animation metadata retained; _right mirrors for left.",
+ "eightway": {
+  "directions": [
+   "up",
+   "up_right",
+   "right",
+   "down_right",
+   "down",
+   "down_left",
+   "left",
+   "up_left"
+  ],
+  "method": "authored joint chains, native volume planes, masks and separately anchored leaves",
+  "original_rows": 15
+ }
 }

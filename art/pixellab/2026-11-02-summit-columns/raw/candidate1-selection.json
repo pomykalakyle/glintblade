@@ -1,0 +1,42 @@
+{
+  "generator": "PixelLab edit_image a8209e74-3343-4a80-af6d-70754e074bc8; native lower-foot edits; original upper76rows restored",
+  "normal_generator": "PixelLab Pro OpenGL37cb5a31-f1ba-479b-aa24-7a011785a4a9 plus explicit physical bearing-face normals",
+  "variants": {
+    "4": {
+      "image": "selected/pier-4.png",
+      "normal": "normals/pier-4.png",
+      "image_sha256": "73536c0832778b803daec1ccbeb2cc14a873efa0bd13d5ada284c5165f04f694",
+      "normal_sha256": "ac5bba0406459566d0874d9efc9fea682a245e4a72aaca39b8a3b22de57b3f28",
+      "replace_from_row": 76,
+      "support_first_row": 84,
+      "planes": []
+    },
+    "2": {
+      "image": "selected/pier-2.png",
+      "normal": "normals/pier-2.png",
+      "image_sha256": "529d5570b6f4cbb0c7d9d7b6e1ce94983f8a121e9169d537ce3e1b7e3e2de5a9",
+      "normal_sha256": "63ef0e89e4d7f98c6323d3ddbec761b64800240599e9ab7e48c2b9b681384369",
+      "replace_from_row": 76,
+      "support_first_row": 87,
+      "planes": []
+    },
+    "1": {
+      "image": "selected/pier-1.png",
+      "normal": "normals/pier-1.png",
+      "image_sha256": "bf7f141e7c2efb4342c1e5269b69ac7662edd84a10c7925762bbe33b0af1caef",
+      "normal_sha256": "8005ee46e6021579e6e7e96b86fde61c4957942244d6b593f23e10bd5c58a212",
+      "replace_from_row": 76,
+      "support_first_row": 84,
+      "planes": []
+    },
+    "3": {
+      "image": "selected/pier-3.png",
+      "normal": "normals/pier-3.png",
+      "image_sha256": "f054668629331192f6c72f5145f4c6f41a9a654d283b9d3f359ce993759c748a",
+      "normal_sha256": "42db1d5fd5fdf3fd8e7a6b2a0286aa76174ba5283468228858ec9137d2a4ca9a",
+      "replace_from_row": 76,
+      "support_first_row": 97,
+      "planes": []
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "scope": "Glasswater actor matched trios",
+  "files": [
+    {
+      "path": "sprites/crystal_beetle.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/crystal_beetle.png",
+      "before_sha256": "fda1edfcc9c5953de671d91afa8ce49ce53fcb925dd18100c5c7bc9089740307",
+      "sha256": "52385a5a21c29e79e879c0883bfc7efa4059c9d217c64aef3fcfb62c20438dcb"
+    },
+    {
+      "path": "sprites/crystal_beetle.json",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/crystal_beetle.json",
+      "before_sha256": "51f48b9d2aadcd0d79c091632fcc266ee041474eaf9c48e82e4da3124d04b8d0",
+      "sha256": "48da1515e16004688d6aec35a00d3def681484028e6d02b9d4521047b9bf448a"
+    },
+    {
+      "path": "normals/crystal_beetle.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/normals/crystal_beetle.png",
+      "before_sha256": "a0679d401e9363d867cdac803bb533246829ff0668cf1dc32fd3b1e75df3ac6f",
+      "sha256": "d828ba9d50b306823bbe51663c93484d20fecb25fe228f7385f12a005a5ba74a"
+    },
+    {
+      "path": "sprites/crystal_beetle_v1.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/crystal_beetle_v1.png",
+      "before_sha256": "cad5e7d42e39ca44ca7634432da093752b952fd7597e12c2ad5e7abb6e9de0eb",
+      "sha256": "9faa05dced594caae00f55404789b13540e056137095124c0638ef3e5c4f293b"
+    },
+    {
+      "path": "sprites/crystal_beetle_v1.json",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/crystal_beetle_v1.json",
+      "before_sha256": "2d2a4b0986f4a91f3c7091473c01efe3e25ef4fba98ea4eea9f5257303008e9a",
+      "sha256": "91f996031759e0436d05cd9d859fd190f284234cdf62e714f5f91c700fb7820d"
+    },
+    {
+      "path": "normals/crystal_beetle_v1.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/normals/crystal_beetle_v1.png",
+      "before_sha256": "699f5e84462d075e3e0b923862fbebcf254d849ec86e278d5634c6b4dc7c58ee",
+      "sha256": "74c05cf2d709d701727ecddcbdc4ff91aa1265b3eb6249d983e70e442cf4f59e"
+    },
+    {
+      "path": "sprites/crystal_beetle_v2.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/crystal_beetle_v2.png",
+      "before_sha256": "ced9503dcb37994819347b3feb2ceb20ca753f34f5fee57e271409f0177eee89",
+      "sha256": "d4b86b2f96afb0a39793e3566fe185fe6a94eba728adc0fe83fcb9813c2ed470"
+    },
+    {
+      "path": "sprites/crystal_beetle_v2.json",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/crystal_beetle_v2.json",
+      "before_sha256": "b9ac2493734dd40b10259c0e4706dc34b94deb01ae325911b3b6bb02237ffe8f",
+      "sha256": "74071128ebfb2b1f6092b9e0856ed1b2a784ee4b965100b6a0d265bc34ec526e"
+    },
+    {
+      "path": "normals/crystal_beetle_v2.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/normals/crystal_beetle_v2.png",
+      "before_sha256": "2dd79b6f2a01bb79928d5534c5fbd4965367c0a5d52e01b374e88da3ff578d8e",
+      "sha256": "8744919e221bfe57171a78bbda5bce3e0a3b82040351fad143cfd0042cc5f4d0"
+    },
+    {
+      "path": "sprites/wisp.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/wisp.png",
+      "before_sha256": "350f00713ba96954182df5f350156483ee95912788fef9d5c8fd0c27636b1243",
+      "sha256": "3a2f58468e2b7d21af471f116446951f2395891d8028e28ce07edcdbed11aeaa"
+    },
+    {
+      "path": "sprites/wisp.json",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/wisp.json",
+      "before_sha256": "b0fda9e5db739cf9967bb12e171e4cbf79fd5096aa798abb32ff79261ca3ee88",
+      "sha256": "bdf5eea00ed22e9b630e1e58fd5acb8b1f371495dc87cd46c8743dec086cec7d"
+    },
+    {
+      "path": "normals/wisp.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/normals/wisp.png",
+      "before_sha256": "32415135cd04494a93f26ad5f4264ebd00da5f8fff61c17fe3b788cf7407fb6a",
+      "sha256": "ac6948e0a3a72f52c4eca2524382696ddf6cda364f37e5dcafb980838b420e98"
+    },
+    {
+      "path": "sprites/wisp_v1.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/wisp_v1.png",
+      "before_sha256": "fd0cb9837052ec15295f2046cfee8b6a529df014166f462c93319a364a52142d",
+      "sha256": "ae1f9d81f03078264d9359ac506011cc9b0e0b81d61e4be66a4e9db9b7654e62"
+    },
+    {
+      "path": "sprites/wisp_v1.json",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/wisp_v1.json",
+      "before_sha256": "ce4d097f4d8a5d69725e8cd09481a2f904fb888bfa6f34f6b26bf253b881afc7",
+      "sha256": "2bbd2cdad62c62c3aedb86192eff2dceecd1eea0a63becbccf26fa60318ec8a7"
+    },
+    {
+      "path": "normals/wisp_v1.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/normals/wisp_v1.png",
+      "before_sha256": "0fcbad90e86ee72c048d23c587d61f456724d8aeaffce94681ee3dcfeece38e2",
+      "sha256": "c0df11d209d809c49cff64f883fbbd4eca8e0ac7bcfa57ed4fc826fd5cb718e6"
+    },
+    {
+      "path": "sprites/wisp_v2.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/wisp_v2.png",
+      "before_sha256": "41a095b9f84c686ddfa8a5ae09a466f16095ba53e1b786d162eb1e3af3461381",
+      "sha256": "28f243bc455b94c2d818e648c9ea5018f0050aed63b5763b9e58386564b4ec0b"
+    },
+    {
+      "path": "sprites/wisp_v2.json",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/sprites/wisp_v2.json",
+      "before_sha256": "48ed94498943f30d6f3f04030098e05c3fa46e18e2cbe15344e57feea780ba75",
+      "sha256": "c7c16433f21999df3e0048fd3f641ab90a8cdc3236fbc3f26c4beea0abfdad07"
+    },
+    {
+      "path": "normals/wisp_v2.png",
+      "source": "/home/krp/.t3/scratch/2026-11-02-kyle-explicitly-requests-a-separate-cf5da931/lanes/glasswater/v5/normals/wisp_v2.png",
+      "before_sha256": "d469a1dc17cb363abd591c4bd995f0c8369e519ee1791578b4b97c2e4e99be87",
+      "sha256": "c5f0b714b256d93b0bb4a7db6fce2243fe9ffa661db70bf72c07ae9b5f75ec91"
+    }
+  ]
+}

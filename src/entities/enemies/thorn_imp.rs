@@ -91,6 +91,8 @@ pub struct State {
     started: bool,
     idle_off: u32,
     appearance: u8,
+    /// Visual-only sector memory; projectile aim and release coordinates stay precise.
+    facing: Dir,
 }
 
 /// An active lob and its ground warning, kept together until impact or cancellation.
@@ -135,6 +137,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         moving: false,
         started: false,
         appearance: super::variation::appearance(x, y),
+        facing: Dir::Down,
         idle_off: rng.irange(0, 40) as u32,
         rng,
     };
@@ -293,6 +296,7 @@ pub fn update(b: &mut Body, s: &mut State, ctx: &mut EnemyCtx) {
 
     let (ox, oy) = (b.x, b.y);
     let blocked = b.integrate(ctx.zone);
+    s.facing = s.facing.stable_from_vec(b.face.0, b.face.1);
     let stalled = blocked && (b.x - ox).abs() + (b.y - oy).abs() < 0.4;
     // Backing into a wall or a ledge: cornered.
     if retreating && stalled {
@@ -354,8 +358,9 @@ fn seed_px(cell: &Cell) -> Option<(f32, f32)> {
 
 /// Read the release tick and follow-through length from the directional throw animation.
 fn throw_timing(b: &Body) -> (u32, u32) {
+    // Cardinal metadata is immutable gameplay data, independent of visual facing.
     if let Some(sh) = sheet(SHEET)
-        && let Some((a, _)) = kit::find(sh, &["throw", "attack"], Dir::from_vec(b.face.0, b.face.1))
+        && let Some((a, _)) = kit::find(sh, &["throw", "attack"], super::variation::legacy_dir(b.face.0, b.face.1))
     {
         let frame = a.json.get("release_frame").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
         let tick = a.durations.iter().take(frame.min(a.frames - 1)).sum::<u32>().max(1);
@@ -366,8 +371,9 @@ fn throw_timing(b: &Body) -> (u32, u32) {
 
 /// Release position authored by the artist, mirrored for left-facing throws.
 fn release_hand(b: &Body, s: &State) -> (f32, f32, f32) {
+    // Preserve the exact old launch site for every continuous attack aim.
     if let Some(sh) = sheet(SHEET)
-        && let Some((a, flip)) = kit::find(sh, &["throw", "attack"], Dir::from_vec(b.face.0, b.face.1))
+        && let Some((a, flip)) = kit::find(sh, &["throw", "attack"], super::variation::legacy_dir(b.face.0, b.face.1))
         && let Some((x, y)) = a.point("release_offset", a.frame_at(s.pt, false))
     {
         return (b.x + if flip { -x } else { x } as f32, b.y, -y as f32 + b.z);
@@ -595,7 +601,7 @@ fn mask_px(c: &Cell, x: i32, y: i32) -> bool {
 
 /// Resolve the sheet pose, anchor, and mirror for the current behavior.
 fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool) {
-    let dir = Dir::from_vec(b.face.0, b.face.1);
+    let dir = if super::variation::reference_pose() { super::variation::legacy_dir(b.face.0, b.face.1) } else { s.facing.stable_from_vec(b.face.0, b.face.1) };
     if let Some(sh) = sheet(SHEET) {
         let progress = |name: &str, pt: u32, len: u32| -> usize {
             let n = sh.anim(&format!("{name}_right")).or_else(|| sh.anim(name)).map(|a| a.frames).unwrap_or(1);
@@ -615,6 +621,17 @@ fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool
             Phase::Flee => (&["flee", "panic", "run", "move", "idle"], Sel::Loop(s.pt * 2)),
             Phase::Hurt => (&["hurt", "idle"], Sel::Once(s.pt)),
         };
+        // The legacy launch site can be side-biased within a diagonal visual
+        // sector. Only the articulated arm changes; body/mask/feet stay native
+        // quarter-facing, and precise projectile coordinates remain unchanged.
+        let side_hand = !super::variation::reference_pose()
+            && matches!(dir, Dir::UpRight | Dir::DownRight | Dir::DownLeft | Dir::UpLeft)
+            && matches!(super::variation::legacy_dir(b.face.0, b.face.1), Dir::Right | Dir::Left);
+        let names = match s.phase {
+            Phase::Windup if side_hand => &["windup_side", "windup"][..],
+            Phase::Throw if side_hand => &["attack_side", "attack"][..],
+            _ => names,
+        };
         if let Some((a, flip)) = kit::find(sh, names, dir) {
             let i = match sel {
                 Sel::Loop(k) => a.frame_at(k, true),
@@ -625,8 +642,17 @@ fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool
         }
     }
     let c = if matches!(s.phase, Phase::Windup) { fallback_cell(true) } else { fallback_cell(false) };
-    (c, (c.w / 2, c.h - 1), dir == Dir::Left)
+    (c, (c.w / 2, c.h - 1), dir.vec().0 < 0.0)
 }
+
+/// Read-only hooks used by the headless eight-direction render audit.
+#[allow(dead_code)]
+pub(crate) fn audit_state(s: &State) -> (&'static str, u32, Dir) {
+    (match s.phase { Phase::Notice => "notice", Phase::Skulk => "skulk", Phase::Windup => "windup", Phase::Throw => "throw", Phase::Flee => "flee", Phase::Hurt => "hurt" }, s.pt, s.facing)
+}
+
+#[allow(dead_code)]
+pub(crate) fn audit_pose(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool) { current_cell(b, s, t) }
 
 enum Sel {
     Loop(u32),
@@ -731,6 +757,37 @@ fn fallback_cell(arm_up: bool) -> &'static Cell {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn eightway_native_imp_keeps_every_continuous_launch_site() {
+        let (mut b,mut s)=spawn(120.0,120.0);
+        s.set(Phase::Throw,THROW);s.pt=3;
+        for degree in 0..360 {
+            let a=(degree as f32).to_radians();b.face=(a.cos(),a.sin());s.facing=Dir::from_vec(b.face.0,b.face.1);
+            let expected=if b.face.0.abs()>b.face.1.abs()*1.05 { (if b.face.0>0.0 {9.0}else{-9.0},9.0) } else if b.face.1<0.0 {(1.0,21.0)} else {(3.0,1.0)};
+            let old_face=b.face;let p=release_hand(&b,&s);
+            assert_eq!(p,(120.0+expected.0,120.0,expected.1),"angle {degree}");
+            assert_eq!(throw_timing(&b),(3,22));
+            assert_eq!(b.face,old_face,"visual selection cannot quantize attack aim");
+        }
+    }
+
+    #[test]
+    fn eightway_native_imp_seed_stays_in_registered_hand_for_all_skins() {
+        let sh=sheet(SHEET).unwrap();let (mut b,mut s)=spawn(120.0,120.0);
+        s.set(Phase::Windup,WINDUP);s.pt=WINDUP-1;
+        for (x,y) in [(1.0,-1.0),(1.1,-1.0),(-1.0,-1.0),(-1.1,-1.0),(1.0,1.0),(1.1,1.0),(-1.0,1.0),(-1.1,1.0)] {
+            b.face=(x,y);s.facing=Dir::from_vec(x,y);
+            let legacy=super::super::variation::legacy_dir(x,y);
+            let (old,old_flip)=kit::find(sh,&["windup"],legacy).unwrap();let src=sh.cell(old,old.frames-1);let seed=seed_px(src).unwrap();
+            let expected_x=if old_flip { sh.anchor_of(old).0 as f32-seed.0 }else{seed.0-sh.anchor_of(old).0 as f32};
+            for appearance in 0..3 {
+                s.appearance=appearance;let (cell,anchor,flip)=current_cell(&b,&s,0);let actual=seed_px(cell).expect("held native seed");
+                let actual_x=if flip {anchor.0 as f32-actual.0}else{actual.0-anchor.0 as f32};
+                assert_eq!((actual_x,anchor.1 as f32-actual.1),(expected_x,sh.anchor_of(old).1 as f32-seed.1),"face{x},{y} skin{appearance}");
+            }
+        }
+    }
 
     /// A throw releases exactly on the authored release frame, after the full windup.
     #[test]

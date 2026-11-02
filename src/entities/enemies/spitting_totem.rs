@@ -86,6 +86,8 @@ pub struct State {
     pub phase: Phase,
     pub pt: u32,
     pub t: u32,
+    /// Stable visual sector; precise aiming and launch coordinates stay continuous.
+    facing: Dir,
     home: (f32, f32),
     charge_len: u32,
     cooldown: u32,
@@ -111,6 +113,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
         phase: Phase::Cooldown,
         pt: 0,
         t: (hash2(seed as i32, 1, 3) * 100.0) as u32,
+        facing: Dir::Down,
         home: (x, y),
         charge_len: CHARGE_FIRST,
         cooldown: 30 + (hash2(seed as i32, 2, 3) * 50.0) as u32,
@@ -154,6 +157,7 @@ pub fn update(b: &mut Body, s: &mut State, ctx: &mut EnemyCtx) {
     s.prev_player = (px, py);
     let d = b.dist_to(px, py);
     b.face = b.dir_to(px, py);
+    s.facing = s.facing.stable_from_vec(b.face.0, b.face.1);
 
     if !s.noticed {
         // it wakes: the maw flares once
@@ -693,10 +697,21 @@ fn pick<'a>(sh: &'a Sheet, names: &[&str], dir: Dir) -> Option<(&'a Anim, bool)>
     names.iter().find_map(|n| sh.dir_anim(n, dir))
 }
 
+/// Exact runtime pose for the headless eight-way visual audit.
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) fn audit_pose(b: &Body, s: &State, _t: u64) -> (&'static Cell, (i32, i32), bool) {
+    let (cell, anchor) = current_cell(b, s);
+    (cell, anchor, false)
+}
+
 /// The cell to draw now (cell, anchor).
 fn current_cell(b: &Body, s: &State) -> (&'static Cell, (i32, i32)) {
     if let Some(sh) = sheet("spitting_totem") {
-        let dir = if b.face.1 < -0.35 { Dir::Up } else { Dir::Down };
+        let dir = if super::variation::reference_pose() {
+            if b.face.1 < -0.35 { Dir::Up } else { Dir::Down }
+        } else {
+            s.facing.stable_from_vec(b.face.0, b.face.1)
+        };
         let hurt = b.stun > 6 && sh.dir_anim("hurt", dir).is_some();
         let found = if hurt {
             pick(sh, &["hurt"], dir).map(|(a, _)| (a, ((1.0 - b.flash) / 0.12).round().max(0.0) as u32, false))
@@ -831,7 +846,7 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     let heat = (s.heat + flick).max(0.0);
     let gain = 0.75 + heat * 0.85;
     let (x, y) = (b.x + jx as f32, b.y);
-    let o = DrawOpts { actor: true, foot_depth: 5, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flash: snappy(b.flash) * 0.7, emit_gain: gain, ..Default::default() };
+    let o = DrawOpts { actor: true, foot_full_width: true, foot_depth: 5, foot_half_w: b.r, ground_y: Some(b.y.floor()), elevation: b.z, flash: snappy(b.flash) * 0.7, emit_gain: gain, ..Default::default() };
     f.sprite_w(cell, anchor, x, y, &o);
     let (sx, sy) = (f.sx(x), f.sy(y));
 
@@ -843,9 +858,10 @@ pub fn draw(b: &Body, s: &State, f: &mut Frame) {
     }
 
     // white-hot core in the maw at the end of a charge and on the spit
-    let (mx, mz) = maw();
-    let (cx, cy) = (sx + mx.round() as i32, sy - mz.round() as i32);
-    if heat > 0.75 {
+    let visual_maw = maw_source(cell, anchor);
+    let (mx, mz) = visual_maw.map(|(x, y)| (x, -y)).unwrap_or_else(maw);
+    let (cx, cy) = (sx + mx.floor() as i32, sy - mz.ceil() as i32);
+    if heat > 0.75 && visual_maw.is_some() {
         f.put_glow(cx, cy, HOT.lerp(YEL, ((heat - 0.75) * 2.0).min(1.0)));
         if heat > 1.0 {
             f.put_glow(cx - 1, cy, HOT);
@@ -1004,6 +1020,49 @@ fn snappy(flash: f32) -> f32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn eightway_furnace_pose_normal_and_outlet_coverage() {
+        let sh = sheet("spitting_totem").expect("production furnace");
+        let legacy_launch = maw();
+        for dir in Dir::ALL {
+            let (mut b, mut s) = spawn(192.73,120.81);
+            b.face = dir.vec();
+            s.facing = dir;
+            for base in ["idle","windup","attack","hurt"] {
+                let (a,flip) = sh.dir_anim(base,dir).expect("complete native furnace directions");
+                assert_eq!(a.name, format!("{base}_{}",dir.suffix()));
+                assert!(!flip,"Cinder has explicit native left rows");
+                for frame in 0..a.frames {
+                    for appearance in 0..3 {
+                        let cell = super::super::variation::cell("spitting_totem", sh.cell(a,frame), appearance);
+                        assert!(!cell.is_empty());
+                        assert!(cell.px.iter().zip(cell.surface.iter()).all(|(p,n)| p.a == n.a && p.emit == n.emit));
+                        if let Some((x,y)) = a.point("maw",frame) {
+                            assert!((x as f32 - sh.anchor.0 as f32 - legacy_launch.0).abs() <= 1.0);
+                            assert!((sh.anchor.1 as f32 - y as f32 - legacy_launch.1).abs() <= 1.0);
+                        }
+                    }
+                }
+            }
+            s.phase=Phase::Cooldown;
+            for appearance in 0..3 {
+                s.appearance=appearance;
+                let a=sh.dir_anim("idle",dir).unwrap().0;
+                s.t=a.durations[..3].iter().sum();
+                assert!(maw_source(current_cell(&b,&s).0,sh.anchor).is_none(),"{dir:?} skin{appearance} dark pose invented emission");
+                let mut f=Frame::new();
+                f.begin(Rgb::gray(0.5),Rgb::BLACK);
+                f.surface_lighting=true;
+                draw(&b,&s,&mut f);
+                let (cell,anchor)=current_cell(&b,&s);
+                let expected=crate::gfx::surface::foot_profile_with_depth(cell,anchor,b.y.floor() as i32,b.z,None,5);
+                assert_eq!(&*f.surface_casters.last().unwrap().foot,&*expected,"native full-width plinth support");
+                assert_eq!(b.r,RADIUS,"visual support cannot change collision");
+            }
+        }
+        assert_eq!(maw(),legacy_launch,"visual turning cannot change physical lob origin");
+    }
 
     /// The last idle pose deliberately closes its glowing outlet. A dark
     /// authored frame must extinguish its source, then relight with real ink.

@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry"
+    }
+  ],
+  "isError": true
+}

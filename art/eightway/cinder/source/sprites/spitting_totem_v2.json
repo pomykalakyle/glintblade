@@ -1,0 +1,109 @@
+{
+  "cell": [
+    28,
+    36
+  ],
+  "anchor": [
+    14,
+    33
+  ],
+  "emissive": [
+    "#d48670",
+    "#efb68a"
+  ],
+  "anims": {
+    "idle_down": {
+      "row": 0,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ]
+    },
+    "windup_down": {
+      "row": 1,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ]
+    },
+    "attack_down": {
+      "row": 2,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ]
+    },
+    "hurt_down": {
+      "row": 3,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ]
+    },
+    "idle_up": {
+      "row": 4,
+      "frames": 4,
+      "durations": [
+        12,
+        10,
+        12,
+        10
+      ]
+    },
+    "windup_up": {
+      "row": 5,
+      "frames": 5,
+      "durations": [
+        10,
+        8,
+        8,
+        7,
+        7
+      ]
+    },
+    "attack_up": {
+      "row": 6,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        8,
+        10
+      ]
+    },
+    "hurt_up": {
+      "row": 7,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ]
+    }
+  },
+  "notes": "Round 6 full-animation native PixelLab alternate skin. Ash ceramic kiln with broad arched ribs, dark backplate and inset fixed firing outlet. All original animation rows/counts/durations, cell/anchor, behavior and exact authored combat cue positions retained. See art/pixellab/2026-11-01-round6/enemies/fire-spirit for raw generation, prompts, receipts and native assembly recipe.",
+  "light": {
+    "color": "#d48670",
+    "radius": 28,
+    "offset": [
+      0,
+      -13
+    ]
+  },
+  "footprint": [
+    12,
+    5
+  ],
+  "variant_source": "spitting_totem",
+  "variant_design": "Ash ceramic kiln with broad arched ribs, dark backplate and inset fixed firing outlet."
+}

@@ -15,6 +15,8 @@ pub struct Basic {
     pub phase_t: u32,
     pub dir: (f32, f32),
     pub hit_id: u32,
+    /// Visual facing has its own hysteresis; attack direction stays precise.
+    pub visual_dir: Option<Dir>,
 }
 
 pub struct Params {
@@ -78,6 +80,8 @@ pub fn update(b: &mut Body, s: &mut Basic, ctx: &mut EnemyCtx, p: &Params) {
         }
     }
     b.integrate(ctx.zone);
+    let previous = s.visual_dir.unwrap_or(Dir::from_vec(b.face.0, b.face.1));
+    s.visual_dir = Some(previous.stable_from_vec(b.face.0, b.face.1));
 }
 
 pub fn anim_name(s: &Basic) -> &'static str {
@@ -91,7 +95,7 @@ pub fn anim_name(s: &Basic) -> &'static str {
 
 pub fn draw(b: &Body, s: &Basic, f: &mut Frame, p: &Params) {
     f.shadow(f.sx(b.x), f.sy(b.y), p.size / 2 + 1, 2, 0.4);
-    let dir = Dir::from_vec(b.face.0, b.face.1);
+    let dir = s.visual_dir.unwrap_or_else(|| Dir::from_vec(b.face.0, b.face.1));
     let name = if b.stun > 0 { "hurt" } else { anim_name(s) };
     if let Some(sh) = sheet(p.sheet)
         && let Some((a, flip)) = sh.dir_anim(name, dir).or_else(|| sh.dir_anim("idle", dir))
@@ -110,7 +114,7 @@ pub fn draw(b: &Body, s: &Basic, f: &mut Frame, p: &Params) {
 
 /// Burst the current frame into pixels.
 pub fn burst(b: &Body, s: &Basic, ctx: &mut EnemyCtx, p: &Params) {
-    let dir = Dir::from_vec(b.face.0, b.face.1);
+    let dir = s.visual_dir.unwrap_or_else(|| Dir::from_vec(b.face.0, b.face.1));
     if let Some(sh) = sheet(p.sheet)
         && let Some((a, flip)) = sh.dir_anim("hurt", dir).or_else(|| sh.dir_anim("idle", dir))
     {

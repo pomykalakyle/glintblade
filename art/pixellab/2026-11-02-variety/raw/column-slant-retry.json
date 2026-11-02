@@ -1,0 +1,19 @@
+{
+  "request": {
+    "description": "Create a different silhouette of the SAME short ruined limestone column on its stepped square plinth. The surviving short shaft has a broad sloping fracture from high rear-left to low front-right, with two large chips and sparse cracks. Keep its exact native pixel density, oblique top-down projection, weathered pale gray limestone and muted moss, light from upper-left. PRESERVE original stepped plinth and support pixels in rows40..53 unchanged. Only change the short shaft above that, fractured upper edge, stone joints and cracks. Transparent48x56 canvas; clear margins, two clear bottom gutter rows; no detached rubble, plant or cast shadow. Same scale and same object. This is a LOW STUMP: keep the highest opaque stone below y=17 on the 48x56 canvas, roughly matching the reference's short height. Do not grow a tall pillar.",
+    "width": 48,
+    "height": 56,
+    "no_background": true,
+    "seed": 73114,
+    "reference": "references/column.png"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: ae0eb30e-8bd9-47c8-b68f-3fdce3665ffe\njob_id: ae0eb30e-8bd9-47c8-b68f-3fdce3665ffe\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Create a different silhouette of the SAME short ruined limestone column on its stepped square plinth. The surviving short shaft has a broad sloping fracture from high rear-left to low front-right, with two large chips and sparse cracks. Keep its exact native pixel density, oblique top-down projection, weathered pale gray limestone and muted moss, light from upper-left. PRESERVE original stepped plinth and support pixels in rows40..53 unchanged. Only change the short shaft above that, fractured upper edge, stone joints and cracks. Transparent48x56 canvas; clear margins, two clear bottom gutter rows; no detached rubble, plant or cast shadow. Same scale and same object. This is a LOW STUMP: keep the highest opaque stone below y=17 on the 48x56 canvas, roughly matching the reference's short height. Do not grow a tall pillar.\nseed: 73114\nasset_id: 992e6e6a-0216-5ebc-862a-787e83358d27\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"ae0eb30e-8bd9-47c8-b68f-3fdce3665ffe\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/ae0eb30e-8bd9-47c8-b68f-3fdce3665ffe/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+      }
+    ],
+    "isError": false
+  }
+}

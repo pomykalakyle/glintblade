@@ -98,6 +98,8 @@ pub struct State {
     /// Idle animation offset so a group doesn't breathe in sync.
     idle_off: u32,
     appearance: u8,
+    /// Visual-only sector memory. Exact behavior and attack aim stay in Body::face.
+    facing: Dir,
 }
 
 impl State {
@@ -115,7 +117,7 @@ pub fn spawn(x: f32, y: f32) -> (Body, State) {
     let orbit = if rng.chance(0.5) { 1.0 } else { -1.0 };
     let cool = rng.irange(20, 70) as u32;
     let idle_off = rng.irange(0, 40) as u32;
-    let s = State { phase: Phase::Notice, pt: 0, len: 0, hop: (0.0, 0.0), aim: (0.0, 1.0), hit_id: 0, rng, orbit, cool, commit: 0.0, trail: Vec::new(), butt_frame: None, started: false, idle_off, appearance: super::variation::appearance(x, y) };
+    let s = State { phase: Phase::Notice, pt: 0, len: 0, hop: (0.0, 0.0), aim: (0.0, 1.0), hit_id: 0, rng, orbit, cool, commit: 0.0, trail: Vec::new(), butt_frame: None, started: false, idle_off, appearance: super::variation::appearance(x, y), facing: Dir::Down };
     (Body::new(x, y, 4.0, HP), s)
 }
 
@@ -296,6 +298,7 @@ pub fn update(b: &mut Body, s: &mut State, ctx: &mut EnemyCtx) {
     }
 
     let blocked = b.integrate(ctx.zone);
+    s.facing = s.facing.stable_from_vec(b.face.0, b.face.1);
 
     // Smacked into a wall mid-lunge: bonk, bounce back, see stars.
     if s.phase == Phase::Butt && blocked && s.pt > 1 && s.pt < 7 {
@@ -485,7 +488,7 @@ pub fn on_death(b: &Body, s: &State, ctx: &mut EnemyCtx) {
 
 /// The sprite cell for the current pose: (cell, anchor, flip). `t` animates idle poses.
 fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool) {
-    let dir = Dir::from_vec(b.face.0, b.face.1);
+    let dir = if super::variation::reference_pose() { super::variation::legacy_dir(b.face.0, b.face.1) } else { s.facing.stable_from_vec(b.face.0, b.face.1) };
     if let Some(sh) = sheet(SHEET) {
         let (names, frame): (&[&str], Frame_) = match s.phase {
             Phase::Notice if b.z > 0.0 => (&["move"], Frame_::Fixed(1)),
@@ -522,8 +525,17 @@ fn current_cell(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool
         }
     }
     let c = fallback_cell();
-    (c, (c.w / 2, c.h - 1), dir == Dir::Left)
+    (c, (c.w / 2, c.h - 1), dir.vec().0 < 0.0)
 }
+
+/// Read-only hooks used by the headless eight-direction render audit.
+#[allow(dead_code)]
+pub(crate) fn audit_state(s: &State) -> (&'static str, u32, Dir) {
+    (match s.phase { Phase::Notice => "notice", Phase::Rest => "rest", Phase::Hop => "hop", Phase::Windup => "windup", Phase::Butt => "butt", Phase::Recover => "recover", Phase::Dizzy => "dizzy", Phase::Hurt => "hurt" }, s.pt, s.facing)
+}
+
+#[allow(dead_code)]
+pub(crate) fn audit_pose(b: &Body, s: &State, t: u64) -> (&'static Cell, (i32, i32), bool) { current_cell(b, s, t) }
 
 enum Frame_ {
     Loop(u32),
@@ -832,6 +844,26 @@ pub(super) mod kit {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn eightway_native_sproutling_frames_keep_hop_clock_and_appearance() {
+        let sh=sheet(SHEET).expect("sproutling");
+        for dir in Dir::ALL {
+            for base in ["idle", "move", "windup", "attack", "hurt"] {
+                let (a,flip)=kit::find(sh,&[base],dir).expect("complete native facing");
+                assert_eq!(a.durations,sh.anim(&format!("{base}_right")).unwrap().durations);
+                assert_eq!(flip,dir==Dir::Left,"diagonals have explicit registered poses");
+                for appearance in 0..3 {
+                    for i in 0..a.frames {
+                        let c=super::super::variation::cell(SHEET,sh.cell(a,i),appearance);
+                        assert!(!c.is_empty());
+                        assert!(c.px.iter().zip(c.surface.iter()).all(|(p,n)|p.a==n.a));
+                    }
+                }
+            }
+        }
+        assert_eq!((hop_timing().start,hop_timing().end,hop_timing().total),(5,19,24));
+    }
 
     /// The alert treatment may improve material value, never actor coverage,
     /// authored surface response, leaf camouflage or a combat emission mask.

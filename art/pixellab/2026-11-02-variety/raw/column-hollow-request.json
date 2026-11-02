@@ -1,0 +1,8 @@
+{
+  "description": "Create a different silhouette of the SAME short ruined limestone column on its stepped square plinth. A deeply broken center divides the shaft top into two unequal blunt remnants, with the right remnant lower; no arch or extra block. Keep its exact native pixel density, oblique top-down projection, weathered pale gray limestone and muted moss, light from upper-left. PRESERVE original stepped plinth and support pixels in rows40..53 unchanged. Only change the short shaft above that, fractured upper edge, stone joints and cracks. Transparent48x56 canvas; clear margins, two clear bottom gutter rows; no detached rubble, plant or cast shadow. Same scale and same object.",
+  "width": 48,
+  "height": 56,
+  "no_background": true,
+  "seed": 73113,
+  "reference": "references/column.png"
+}

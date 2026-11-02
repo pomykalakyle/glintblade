@@ -240,7 +240,7 @@ mod tests {
     /// Every native tree/ruin foot must stop Glint from all four directions and when mirrored.
     #[test]
     fn native_tree_and_ruin_supports_stop_real_player_from_all_sides() {
-        let cases = [
+        let mut cases = vec![
             ("bloomwild_trees", "a_trunk", 12), ("bloomwild_trees", "b_trunk", 12),
             ("bloomwild_trees", "c_trunk", 12), ("bloomwild_trees", "d_trunk", 12),
             ("bloomwild_trees", "e_trunk", 8),
@@ -263,6 +263,15 @@ mod tests {
             ("cinder_props", "urn_tall", 4), ("cinder_props", "urn_squat", 4),
             ("cinder_props", "lava_rock", 4), ("cinder_props", "shard_small", 3),
         ];
+        // Every appended ruin appearance must exercise real walking/dashing,
+        // rather than merely inheriting its template's footprint metadata.
+        cases.extend(sheet("bloomwild_ruins").unwrap().anims.values().filter_map(|a| {
+            if a.name.starts_with("pillar_broken_short_") {
+                Some(("bloomwild_ruins", a.name.as_str(), 10))
+            } else if a.name.starts_with("wall_low_") {
+                Some(("bloomwild_ruins", a.name.as_str(), 8))
+            } else { None }
+        }));
         for (name, anim, depth) in cases {
             for flip in [false, true] {
                 let prop = Prop::new(name, anim, 160.0, 160.0).flipped(flip);
@@ -323,8 +332,8 @@ mod tests {
     #[test]
     fn broken_column_feet_finish_inside_the_native_cell() {
         let s = sheet("bloomwild_ruins").unwrap();
-        for name in ["pillar_broken_tall", "pillar_broken_short"] {
-            let anim = s.anim(name).unwrap();
+        for anim in s.anims.values().filter(|a| a.name == "pillar_broken_tall" || a.name.starts_with("pillar_broken_short")) {
+            let name = anim.name.as_str();
             let cell = s.cell(anim, 0);
             assert!((cell.h - 2..cell.h).all(|y| (0..cell.w).all(|x| !cell.at(x, y).a)),
                 "{name}: a completed footing needs clear space below its silhouette; the old shaft hit row55");

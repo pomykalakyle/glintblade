@@ -1,0 +1,217 @@
+{
+  "leaves": [
+    {
+      "name": "leaves-arched",
+      "image": "selected/leaves-arched.png",
+      "normal": "normals/leaves-arched.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-split",
+      "image": "selected/leaves-split.png",
+      "normal": "normals/leaves-split.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-triple",
+      "image": "selected/leaves-triple.png",
+      "normal": "normals/leaves-triple.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-shallow-curl",
+      "image": "selected/leaves-shallow-curl.png",
+      "normal": "normals/leaves-shallow-curl.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-shallow-five",
+      "image": "selected/leaves-shallow-five.png",
+      "normal": "normals/leaves-shallow-five.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-shallow-left",
+      "image": "selected/leaves-shallow-left.png",
+      "normal": "normals/leaves-shallow-left.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-shallow-pair",
+      "image": "selected/leaves-shallow-pair.png",
+      "normal": "normals/leaves-shallow-pair.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-shallow-right",
+      "image": "selected/leaves-shallow-right.png",
+      "normal": "normals/leaves-shallow-right.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-shallow-spread",
+      "image": "selected/leaves-shallow-spread.png",
+      "normal": "normals/leaves-shallow-spread.png",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "leaves-shallow-young",
+      "image": "selected/leaves-shallow-young.png",
+      "normal": "normals/leaves-shallow-young.png",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "columns": [
+    {
+      "name": "pillar_broken_short_b",
+      "image": "selected/column-scallop.png",
+      "normal": "normals/column-scallop.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 40,
+      "normal_planes": "normal-planes/column-scallop.json"
+    },
+    {
+      "name": "pillar_broken_short_c",
+      "image": "selected/column-corner.png",
+      "normal": "normals/column-corner.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 40,
+      "normal_planes": "normal-planes/column-corner.json"
+    },
+    {
+      "name": "pillar_broken_short_d",
+      "image": "selected/column-hollow.png",
+      "normal": "normals/column-hollow.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 40,
+      "normal_planes": "normal-planes/column-hollow.json"
+    },
+    {
+      "name": "pillar_broken_short_e",
+      "image": "selected/column-slant.png",
+      "normal": "normals/column-slant.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 40,
+      "normal_planes": "normal-planes/column-slant.json"
+    }
+  ],
+  "walls": [
+    {
+      "name": "wall_low_b",
+      "image": "selected/wall-notch.png",
+      "normal": "normals/wall-notch.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 45,
+      "normal_planes": "normal-planes/wall-notch.json"
+    },
+    {
+      "name": "wall_low_c",
+      "image": "selected/wall-step.png",
+      "normal": "normals/wall-step.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 45,
+      "normal_planes": "normal-planes/wall-step.json"
+    },
+    {
+      "name": "wall_low_d",
+      "image": "selected/wall-gap.png",
+      "normal": "normals/wall-gap.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 45,
+      "normal_planes": "normal-planes/wall-gap.json"
+    },
+    {
+      "name": "wall_low_e",
+      "image": "selected/wall-lean.png",
+      "normal": "normals/wall-lean.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 45,
+      "normal_planes": "normal-planes/wall-lean.json"
+    },
+    {
+      "name": "wall_low_f",
+      "image": "selected/wall-sag.png",
+      "normal": "normals/wall-sag.png",
+      "offset": [
+        0,
+        0
+      ],
+      "preserve_from_row": 45,
+      "normal_planes": "normal-planes/wall-sag.json"
+    }
+  ],
+  "notes": [
+    "Ten new low native leaf fans, four broken stump shapes, five low wall shapes.",
+    "Rejected tall plants and a tall column fragment; no scaling, recoloring or mirroring.",
+    "Integer registration preserves every accepted source pixel above each retained base.",
+    "Shared original short-column and low-wall foot normals have scoped geometric corrections; art and collision stay exact."
+  ],
+  "shared_feet": [
+    {
+      "template": "pillar_broken_short",
+      "image": "references/column.png",
+      "first_row": 40,
+      "normal_planes": "normal-planes/column-foot.json"
+    },
+    {
+      "template": "wall_low",
+      "image": "references/wall.png",
+      "first_row": 45,
+      "normal_planes": "normal-planes/wall-foot.json"
+    }
+  ]
+}

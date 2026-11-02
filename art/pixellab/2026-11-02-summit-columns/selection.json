@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-02",
+  "direction": "Kyle: keep solid original column volume and top/side outlines; remove only the ground-facing dark border. No added bases or replacement underline.",
+  "final_method": "Original native geometry, upper art, anchors and support restored. Extend each contact face through its bottom ink using the same source column, without borrowing highlights across corners.",
+  "normal_correction": "Separate diagnosed defect: all179 repaired edge texels had downward-rounded source normals. Retain upper maps; author the existing base caps and two returns with physical world normals instead of a downward cushion.",
+  "baseline_sha256": {
+    "baseline/sprites/summit_pillars.png": "c37311d153ac512842f53ae1eccb7eca0baad7d1daf4a9f9310ae9cea3b5b5f5",
+    "baseline/sprites/summit_pillars.json": "5ff1ffae7ff4cee14a783e82a732fcb231103219a526db90e6f5950c22ab0805",
+    "baseline/sprites/summit_stones.png": "6ef26abda1834ff1e37d57854bdf82dcbb47b174dce7714a48de66eb5aee2d6e",
+    "baseline/sprites/summit_stones.json": "3d25b0999dd16382e3e53a3c5cbb4454a055c09b8f6a4152db5d342fabe2fb30",
+    "baseline/normals/summit_pillars.png": "319a0de610d0bdd49bbe0e9664933897fabcd7c540f995497421ff09c5a271b7",
+    "baseline/normals/summit_stones.png": "625cf993d9f426d6bc974ce9b6957fefecff44f10d916aba78cc0f8a122de9b3"
+  },
+  "superseded": [
+    "Contact-only two-pixel AO was imperceptible.",
+    "Common replacement plinths read as display platforms.",
+    "One-row rectangular feet flattened the original dimensional bases.",
+    "Private splayed/socket trial discarded after Kyle clarified contact ink."
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "cell": [
+    24,
+    32
+  ],
+  "anchor": [
+    12,
+    15
+  ],
+  "emissive": [
+    "#e2d8e9"
+  ],
+  "anims": {
+    "whole": {
+      "row": 0,
+      "frames": 4,
+      "fps": 4.62,
+      "durations": [
+        18,
+        10,
+        14,
+        10
+      ],
+      "loop": true
+    },
+    "cracked": {
+      "row": 1,
+      "frames": 4,
+      "fps": 4.62,
+      "durations": [
+        18,
+        10,
+        14,
+        10
+      ],
+      "loop": true
+    },
+    "badly_cracked": {
+      "row": 2,
+      "frames": 4,
+      "fps": 7.06,
+      "durations": [
+        6,
+        10,
+        4,
+        14
+      ],
+      "loop": true
+    },
+    "shattered": {
+      "row": 3,
+      "frames": 4,
+      "fps": 15.0,
+      "durations": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "loop": true
+    }
+  },
+  "light": {
+    "color": "#e2d8e9",
+    "radius": 28,
+    "offset": [
+      0,
+      0
+    ]
+  },
+  "notes": "The cut iris heart in the gate's valve ring. Anchor = gem centre. A step-cut gem: bright upper-left edge, pale left facets, mid right facets and one dark lower-right facet. Only the table core and the bright edge are emissive. badly_cracked stutters and has lost its lower-right facet. shattered: the facets split off a blazing core (use it for the death burst). This is the Warden's light source: one point light."
+}

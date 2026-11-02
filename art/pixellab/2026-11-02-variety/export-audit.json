@@ -1,0 +1,1971 @@
+{
+  "allowed_metadata_change": "bloomwild_grass/body.frames extends for appended leaves",
+  "dimensions": {
+    "bloomwild_grass": [
+      576,
+      32
+    ],
+    "bloomwild_ruins": [
+      48,
+      1008
+    ]
+  },
+  "families": {
+    "columns": {
+      "added_count": 4,
+      "diversity": [
+        {
+          "a": "pillar_broken_short",
+          "b": "pillar_broken_short_b",
+          "silhouette_iou": 0.869792,
+          "visible_pixel_change_fraction": 0.532292
+        },
+        {
+          "a": "pillar_broken_short",
+          "b": "pillar_broken_short_c",
+          "silhouette_iou": 0.976663,
+          "visible_pixel_change_fraction": 0.476079
+        },
+        {
+          "a": "pillar_broken_short",
+          "b": "pillar_broken_short_d",
+          "silhouette_iou": 0.881838,
+          "visible_pixel_change_fraction": 0.508753
+        },
+        {
+          "a": "pillar_broken_short",
+          "b": "pillar_broken_short_e",
+          "silhouette_iou": 0.948922,
+          "visible_pixel_change_fraction": 0.490352
+        },
+        {
+          "a": "pillar_broken_short_b",
+          "b": "pillar_broken_short_c",
+          "silhouette_iou": 0.886576,
+          "visible_pixel_change_fraction": 0.532778
+        },
+        {
+          "a": "pillar_broken_short_b",
+          "b": "pillar_broken_short_d",
+          "silhouette_iou": 0.846386,
+          "visible_pixel_change_fraction": 0.549197
+        },
+        {
+          "a": "pillar_broken_short_b",
+          "b": "pillar_broken_short_e",
+          "silhouette_iou": 0.881148,
+          "visible_pixel_change_fraction": 0.539959
+        },
+        {
+          "a": "pillar_broken_short_c",
+          "b": "pillar_broken_short_d",
+          "silhouette_iou": 0.88913,
+          "visible_pixel_change_fraction": 0.511957
+        },
+        {
+          "a": "pillar_broken_short_c",
+          "b": "pillar_broken_short_e",
+          "silhouette_iou": 0.964892,
+          "visible_pixel_change_fraction": 0.491506
+        },
+        {
+          "a": "pillar_broken_short_d",
+          "b": "pillar_broken_short_e",
+          "silhouette_iou": 0.899676,
+          "visible_pixel_change_fraction": 0.515642
+        }
+      ],
+      "variants": [
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 7,
+          "image": "selected/column-scallop.png",
+          "minimum_normal_blue": 128,
+          "name": "pillar_broken_short_b",
+          "normal": "normals/column-scallop.png",
+          "normal_length_range": [
+            0.99502,
+            1.005781
+          ],
+          "normal_planes": "normal-planes/column-scallop.json",
+          "normal_planes_sha256": "d0b4402e7271fadcec1f2d661472799146913d3889d3167a5268f43688d131e8",
+          "normal_sample_count": 11,
+          "normal_sample_minimum_dot": 0.999984622,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 957,
+          "preserve_from_row": 40
+        },
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 7,
+          "image": "selected/column-corner.png",
+          "minimum_normal_blue": 128,
+          "name": "pillar_broken_short_c",
+          "normal": "normals/column-corner.png",
+          "normal_length_range": [
+            0.994897,
+            1.005598
+          ],
+          "normal_planes": "normal-planes/column-corner.json",
+          "normal_planes_sha256": "88b172e2a5259dd6caadd4585d692b2371e7b2cf0d84fafd91696b05de328b2d",
+          "normal_sample_count": 9,
+          "normal_sample_minimum_dot": 0.999984622,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 856,
+          "preserve_from_row": 40
+        },
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 7,
+          "image": "selected/column-hollow.png",
+          "minimum_normal_blue": 128,
+          "name": "pillar_broken_short_d",
+          "normal": "normals/column-hollow.png",
+          "normal_length_range": [
+            0.994773,
+            1.005598
+          ],
+          "normal_planes": "normal-planes/column-hollow.json",
+          "normal_planes_sha256": "ce3f40b9b33f2b06f4685245c368a520006972757db9b724dfa26bb3b5914ada",
+          "normal_sample_count": 10,
+          "normal_sample_minimum_dot": 0.999989608,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 882,
+          "preserve_from_row": 40
+        },
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 7,
+          "image": "selected/column-slant.png",
+          "minimum_normal_blue": 128,
+          "name": "pillar_broken_short_e",
+          "normal": "normals/column-slant.png",
+          "normal_length_range": [
+            0.994958,
+            1.005598
+          ],
+          "normal_planes": "normal-planes/column-slant.json",
+          "normal_planes_sha256": "71dc5e95872348c2f26a25d8dab7f7cbbab6ee051c80b71eeefc781c84b10a2d",
+          "normal_sample_count": 10,
+          "normal_sample_minimum_dot": 0.999989542,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 879,
+          "preserve_from_row": 40
+        }
+      ]
+    },
+    "leaves": {
+      "added_count": 10,
+      "diversity": [
+        {
+          "a": "baseline_leaf_0",
+          "b": "baseline_leaf_1",
+          "silhouette_iou": 0.722581,
+          "visible_pixel_change_fraction": 0.76129
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "baseline_leaf_2",
+          "silhouette_iou": 0.726984,
+          "visible_pixel_change_fraction": 0.777778
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "baseline_leaf_3",
+          "silhouette_iou": 0.732441,
+          "visible_pixel_change_fraction": 0.769231
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "baseline_leaf_4",
+          "silhouette_iou": 0.754045,
+          "visible_pixel_change_fraction": 0.7411
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "baseline_leaf_5",
+          "silhouette_iou": 0.752475,
+          "visible_pixel_change_fraction": 0.722772
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "baseline_leaf_6",
+          "silhouette_iou": 0.699681,
+          "visible_pixel_change_fraction": 0.811502
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "baseline_leaf_7",
+          "silhouette_iou": 0.744262,
+          "visible_pixel_change_fraction": 0.731148
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.661184,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-split",
+          "silhouette_iou": 0.717042,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.659016,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.585209,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.632353,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.659933,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.650641,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.646667,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.637037,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_0",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.603774,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "baseline_leaf_2",
+          "silhouette_iou": 0.90099,
+          "visible_pixel_change_fraction": 0.650165
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "baseline_leaf_3",
+          "silhouette_iou": 0.815182,
+          "visible_pixel_change_fraction": 0.646865
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "baseline_leaf_4",
+          "silhouette_iou": 0.881967,
+          "visible_pixel_change_fraction": 0.498361
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "baseline_leaf_5",
+          "silhouette_iou": 0.902027,
+          "visible_pixel_change_fraction": 0.574324
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "baseline_leaf_6",
+          "silhouette_iou": 0.84918,
+          "visible_pixel_change_fraction": 0.577049
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "baseline_leaf_7",
+          "silhouette_iou": 0.873754,
+          "visible_pixel_change_fraction": 0.598007
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.715655,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-split",
+          "silhouette_iou": 0.831715,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.781457,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.640625,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.570957,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.62037,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.683077,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.664557,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.54902,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_1",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.528428,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "baseline_leaf_3",
+          "silhouette_iou": 0.848185,
+          "visible_pixel_change_fraction": 0.455446
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "baseline_leaf_4",
+          "silhouette_iou": 0.921053,
+          "visible_pixel_change_fraction": 0.526316
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "baseline_leaf_5",
+          "silhouette_iou": 0.922819,
+          "visible_pixel_change_fraction": 0.5
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "baseline_leaf_6",
+          "silhouette_iou": 0.888158,
+          "visible_pixel_change_fraction": 0.664474
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "baseline_leaf_7",
+          "silhouette_iou": 0.900662,
+          "visible_pixel_change_fraction": 0.52649
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.747604,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-split",
+          "silhouette_iou": 0.87013,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.808581,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.641104,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.547771,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.651235,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.687879,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.639144,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.55627,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_2",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.531148,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "baseline_leaf_4",
+          "silhouette_iou": 0.86,
+          "visible_pixel_change_fraction": 0.563333
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "baseline_leaf_5",
+          "silhouette_iou": 0.854237,
+          "visible_pixel_change_fraction": 0.542373
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "baseline_leaf_6",
+          "silhouette_iou": 0.832776,
+          "visible_pixel_change_fraction": 0.648829
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "baseline_leaf_7",
+          "silhouette_iou": 0.876712,
+          "visible_pixel_change_fraction": 0.496575
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.686084,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-split",
+          "silhouette_iou": 0.803279,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.745819,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.590625,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.591696,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.595611,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.68038,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.694352,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.584775,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_3",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.575,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "baseline_leaf_5",
+          "silhouette_iou": 0.955479,
+          "visible_pixel_change_fraction": 0.407534
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "baseline_leaf_6",
+          "silhouette_iou": 0.932432,
+          "visible_pixel_change_fraction": 0.581081
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "baseline_leaf_7",
+          "silhouette_iou": 0.952218,
+          "visible_pixel_change_fraction": 0.409556
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.781046,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-split",
+          "silhouette_iou": 0.919732,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.863481,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.634969,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.566343,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.665625,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.734375,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.643077,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.570033,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_4",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.534653,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "baseline_leaf_6",
+          "silhouette_iou": 0.908163,
+          "visible_pixel_change_fraction": 0.673469
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "baseline_leaf_7",
+          "silhouette_iou": 0.968421,
+          "visible_pixel_change_fraction": 0.277193
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.774086,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-split",
+          "silhouette_iou": 0.889262,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.844828,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.646688,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.576667,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.657143,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.721519,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.655063,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.585859,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_5",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.549488,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "baseline_leaf_7",
+          "silhouette_iou": 0.918089,
+          "visible_pixel_change_fraction": 0.65529
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.720257,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-split",
+          "silhouette_iou": 0.855263,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.804714,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.634375,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.524116,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.644654,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.692547,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.652997,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.568106,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_6",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.552901,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-arched",
+          "silhouette_iou": 0.765677,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-split",
+          "silhouette_iou": 0.886288,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.848276,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.639498,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.554098,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.655063,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.708464,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.658228,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.578595,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "baseline_leaf_7",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.552901,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-split",
+          "silhouette_iou": 0.79,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.755172,
+          "visible_pixel_change_fraction": 0.989655
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.61039,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.536082,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.605178,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.726667,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.557994,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.508475,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-arched",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.486111,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-triple",
+          "silhouette_iou": 0.823729,
+          "visible_pixel_change_fraction": 0.989831
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.625387,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.545455,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.630435,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.747604,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.623457,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.54902,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-split",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.503289,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-triple",
+          "b": "leaves-shallow-curl",
+          "silhouette_iou": 0.577778,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-triple",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.508418,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-triple",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.603226,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-triple",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.696078,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-triple",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.561129,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-triple",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.491639,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-triple",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.454237,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-curl",
+          "b": "leaves-shallow-five",
+          "silhouette_iou": 0.50519,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-curl",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.657534,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-curl",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.686667,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-curl",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.622074,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-curl",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.603704,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-curl",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.496403,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-five",
+          "b": "leaves-shallow-left",
+          "silhouette_iou": 0.581818,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-five",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.554422,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-five",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.585455,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-five",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.542169,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-five",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.516529,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-left",
+          "b": "leaves-shallow-pair",
+          "silhouette_iou": 0.669967,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-left",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.569579,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-left",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.62782,
+          "visible_pixel_change_fraction": 0.996241
+        },
+        {
+          "a": "leaves-shallow-left",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.529412,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-pair",
+          "b": "leaves-shallow-right",
+          "silhouette_iou": 0.61465,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-pair",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.590909,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-pair",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.474747,
+          "visible_pixel_change_fraction": 0.996633
+        },
+        {
+          "a": "leaves-shallow-right",
+          "b": "leaves-shallow-spread",
+          "silhouette_iou": 0.613383,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-right",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.635294,
+          "visible_pixel_change_fraction": 1.0
+        },
+        {
+          "a": "leaves-shallow-spread",
+          "b": "leaves-shallow-young",
+          "silhouette_iou": 0.629464,
+          "visible_pixel_change_fraction": 1.0
+        }
+      ],
+      "variants": [
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-arched.png",
+          "minimum_normal_blue": 208,
+          "name": "leaves-arched",
+          "normal": "normals/leaves-arched.png",
+          "normal_length_range": [
+            0.994711,
+            1.004435
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 254,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-split.png",
+          "minimum_normal_blue": 214,
+          "name": "leaves-split",
+          "normal": "normals/leaves-split.png",
+          "normal_length_range": [
+            0.994958,
+            1.004496
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 283,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-triple.png",
+          "minimum_normal_blue": 206,
+          "name": "leaves-triple",
+          "normal": "normals/leaves-triple.png",
+          "normal_length_range": [
+            0.995947,
+            1.004557
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 255,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-shallow-curl.png",
+          "minimum_normal_blue": 213,
+          "name": "leaves-shallow-curl",
+          "normal": "normals/leaves-shallow-curl.png",
+          "normal_length_range": [
+            0.995885,
+            1.004373
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 242,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-shallow-five.png",
+          "minimum_normal_blue": 211,
+          "name": "leaves-shallow-five",
+          "normal": "normals/leaves-shallow-five.png",
+          "normal_length_range": [
+            0.995515,
+            1.00523
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 193,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-shallow-left.png",
+          "minimum_normal_blue": 208,
+          "name": "leaves-shallow-left",
+          "normal": "normals/leaves-shallow-left.png",
+          "normal_length_range": [
+            0.995885,
+            1.005414
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 242,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-shallow-pair.png",
+          "minimum_normal_blue": 213,
+          "name": "leaves-shallow-pair",
+          "normal": "normals/leaves-shallow-pair.png",
+          "normal_length_range": [
+            0.995082,
+            1.005108
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 264,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-shallow-right.png",
+          "minimum_normal_blue": 215,
+          "name": "leaves-shallow-right",
+          "normal": "normals/leaves-shallow-right.png",
+          "normal_length_range": [
+            0.995885,
+            1.005108
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 243,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-shallow-spread.png",
+          "minimum_normal_blue": 204,
+          "name": "leaves-shallow-spread",
+          "normal": "normals/leaves-shallow-spread.png",
+          "normal_length_range": [
+            0.995762,
+            1.005965
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 191,
+          "preserve_from_row": null
+        },
+        {
+          "alpha_matches": true,
+          "image": "selected/leaves-shallow-young.png",
+          "minimum_normal_blue": 215,
+          "name": "leaves-shallow-young",
+          "normal": "normals/leaves-shallow-young.png",
+          "normal_length_range": [
+            0.995082,
+            1.004802
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 174,
+          "preserve_from_row": null
+        }
+      ]
+    },
+    "walls": {
+      "added_count": 5,
+      "diversity": [
+        {
+          "a": "wall_low",
+          "b": "wall_low_b",
+          "silhouette_iou": 0.83145,
+          "visible_pixel_change_fraction": 0.754237
+        },
+        {
+          "a": "wall_low",
+          "b": "wall_low_c",
+          "silhouette_iou": 1.0,
+          "visible_pixel_change_fraction": 0.742857
+        },
+        {
+          "a": "wall_low",
+          "b": "wall_low_d",
+          "silhouette_iou": 0.78463,
+          "visible_pixel_change_fraction": 0.752372
+        },
+        {
+          "a": "wall_low",
+          "b": "wall_low_e",
+          "silhouette_iou": 0.891821,
+          "visible_pixel_change_fraction": 0.770449
+        },
+        {
+          "a": "wall_low",
+          "b": "wall_low_f",
+          "silhouette_iou": 0.885379,
+          "visible_pixel_change_fraction": 0.76444
+        },
+        {
+          "a": "wall_low_b",
+          "b": "wall_low_c",
+          "silhouette_iou": 0.83145,
+          "visible_pixel_change_fraction": 0.754237
+        },
+        {
+          "a": "wall_low_b",
+          "b": "wall_low_d",
+          "silhouette_iou": 0.853457,
+          "visible_pixel_change_fraction": 0.721362
+        },
+        {
+          "a": "wall_low_b",
+          "b": "wall_low_e",
+          "silhouette_iou": 0.746407,
+          "visible_pixel_change_fraction": 0.779374
+        },
+        {
+          "a": "wall_low_b",
+          "b": "wall_low_f",
+          "silhouette_iou": 0.807033,
+          "visible_pixel_change_fraction": 0.764653
+        },
+        {
+          "a": "wall_low_c",
+          "b": "wall_low_d",
+          "silhouette_iou": 0.78463,
+          "visible_pixel_change_fraction": 0.742884
+        },
+        {
+          "a": "wall_low_c",
+          "b": "wall_low_e",
+          "silhouette_iou": 0.891821,
+          "visible_pixel_change_fraction": 0.770449
+        },
+        {
+          "a": "wall_low_c",
+          "b": "wall_low_f",
+          "silhouette_iou": 0.885379,
+          "visible_pixel_change_fraction": 0.731047
+        },
+        {
+          "a": "wall_low_d",
+          "b": "wall_low_e",
+          "silhouette_iou": 0.762324,
+          "visible_pixel_change_fraction": 0.767606
+        },
+        {
+          "a": "wall_low_d",
+          "b": "wall_low_f",
+          "silhouette_iou": 0.694323,
+          "visible_pixel_change_fraction": 0.772052
+        },
+        {
+          "a": "wall_low_e",
+          "b": "wall_low_f",
+          "silhouette_iou": 0.804082,
+          "visible_pixel_change_fraction": 0.722449
+        }
+      ],
+      "variants": [
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 5,
+          "image": "selected/wall-notch.png",
+          "minimum_normal_blue": 128,
+          "name": "wall_low_b",
+          "normal": "normals/wall-notch.png",
+          "normal_length_range": [
+            0.994649,
+            1.005598
+          ],
+          "normal_planes": "normal-planes/wall-notch.json",
+          "normal_planes_sha256": "231b3c8c2da5abdb1598241754136ad758f5751b51ae922e072669eb7799c58c",
+          "normal_sample_count": 20,
+          "normal_sample_minimum_dot": 0.999984622,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 930,
+          "preserve_from_row": 45
+        },
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 5,
+          "image": "selected/wall-step.png",
+          "minimum_normal_blue": 128,
+          "name": "wall_low_c",
+          "normal": "normals/wall-step.png",
+          "normal_length_range": [
+            0.995329,
+            1.004986
+          ],
+          "normal_planes": "normal-planes/wall-step.json",
+          "normal_planes_sha256": "e19d3d42ad0071595f6a02fd128ba5d43c9c522a20bd61843f700806be6bafcd",
+          "normal_sample_count": 17,
+          "normal_sample_minimum_dot": 0.999984622,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 1015,
+          "preserve_from_row": 45
+        },
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 5,
+          "image": "selected/wall-gap.png",
+          "minimum_normal_blue": 128,
+          "name": "wall_low_d",
+          "normal": "normals/wall-gap.png",
+          "normal_length_range": [
+            0.995268,
+            1.004986
+          ],
+          "normal_planes": "normal-planes/wall-gap.json",
+          "normal_planes_sha256": "376d953c6d83ea145a3cbfb850937f0fdd6ec8abe90bb6d75d1fbe5a5bb33564",
+          "normal_sample_count": 13,
+          "normal_sample_minimum_dot": 0.999984622,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 866,
+          "preserve_from_row": 45
+        },
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 5,
+          "image": "selected/wall-lean.png",
+          "minimum_normal_blue": 128,
+          "name": "wall_low_e",
+          "normal": "normals/wall-lean.png",
+          "normal_length_range": [
+            0.994773,
+            1.005536
+          ],
+          "normal_planes": "normal-planes/wall-lean.json",
+          "normal_planes_sha256": "b0a552d0240ec591afcb714f02cf7784a4b2c8e0e7a7800c2d81c9990f0110c3",
+          "normal_sample_count": 21,
+          "normal_sample_minimum_dot": 0.999984622,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 1136,
+          "preserve_from_row": 45
+        },
+        {
+          "alpha_matches": true,
+          "collision_rectangles": 5,
+          "image": "selected/wall-sag.png",
+          "minimum_normal_blue": 128,
+          "name": "wall_low_f",
+          "normal": "normals/wall-sag.png",
+          "normal_length_range": [
+            0.99502,
+            1.004986
+          ],
+          "normal_planes": "normal-planes/wall-sag.json",
+          "normal_planes_sha256": "198bb37a6a13aa2ed7541220891fa0ab83d1fe357d367eed7d38515c2fef33e7",
+          "normal_sample_count": 14,
+          "normal_sample_minimum_dot": 0.999984622,
+          "offset": [
+            0,
+            0
+          ],
+          "opaque_pixels": 1074,
+          "preserve_from_row": 45
+        }
+      ]
+    }
+  },
+  "legacy_albedo_pixels_preserved": true,
+  "legacy_animation_metadata_preserved": true,
+  "legacy_normal_changed_pixels": 454,
+  "legacy_normal_pixels_preserved_except_shared_feet": true,
+  "legacy_pixels_preserved": false,
+  "output_sha256": {
+    "normals/bloomwild_grass.png": "90f1ed272981b952653bedb708730c752d0ed9fe49663dca310ef04b7594e8e5",
+    "normals/bloomwild_ruins.png": "7d1c935a27c728255655538bb878d8d42394322f26dcd20a543546de5b8223a7",
+    "sprites/bloomwild_grass.json": "2fc5facf92be7a09687d34639f0191ac906cd6f2c362545711ef9d489f15b5d7",
+    "sprites/bloomwild_grass.png": "7fd1123d61bf4ac74155cf1a5345b11346d42854f8bbf6d08246821d62e05cff",
+    "sprites/bloomwild_ruins.json": "10a552ddaf2582ff8cef5408068b1e7039e60c11f79d02747ce61ac1045ca630",
+    "sprites/bloomwild_ruins.png": "1983d91a9a7bdded46f314b6d39d2fd9e7ba4045538198623ef9e45c0fd5060e"
+  },
+  "processing": "Native integer translation shared by art and normals; exact optional baseline foot replacement. Explicit shared-foot polygon profiles may correct ONLY short-column and low-wall original support normals, inherited by their variants. All original albedo/alpha, other normal pixels and animation fields preserved. No resizing, filtering, mirroring, rotation, palette changes, or API calls.",
+  "schema": 1,
+  "selection_sha256": "572a5bca024221240373be0828e69f6a01e5acc4991af663ccad6aa7c0f80929",
+  "shared_foot_normals": [
+    {
+      "allowed_opaque_polygon_pixels": 331,
+      "changed_pixels": 331,
+      "first_row": 40,
+      "image": "references/column.png",
+      "normal_planes": "normal-planes/column-foot.json",
+      "normal_planes_sha256": "8847285c29e3884bef4a09df4a51f210c183fe01f26f9b3f64e104c01c1effa7",
+      "normal_sample_minimum_dot": 0.999984622,
+      "samples": [
+        {
+          "plane": "shared shaft foot left facet",
+          "world_normal": [
+            -0.5500000020323539,
+            0.835164653086091,
+            0.0
+          ],
+          "xy": [
+            13,
+            41
+          ]
+        },
+        {
+          "plane": "shared shaft foot front and inset collar front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            41
+          ]
+        },
+        {
+          "plane": "shared shaft foot front and inset collar front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            23,
+            43
+          ]
+        },
+        {
+          "plane": "shared shaft foot right facet",
+          "world_normal": [
+            0.6,
+            0.8,
+            0.0
+          ],
+          "xy": [
+            29,
+            41
+          ]
+        },
+        {
+          "plane": "upper collar vertical front rim",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            46
+          ]
+        },
+        {
+          "plane": "upper collar vertical front rim",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            23,
+            47
+          ]
+        },
+        {
+          "plane": "upper collar left rim",
+          "world_normal": [
+            -0.5000000016387101,
+            0.8660254028383291,
+            0.0
+          ],
+          "xy": [
+            13,
+            46
+          ]
+        },
+        {
+          "plane": "upper collar right rim",
+          "world_normal": [
+            0.6499999988532946,
+            0.7599342086593529,
+            0.0
+          ],
+          "xy": [
+            33,
+            45
+          ]
+        },
+        {
+          "plane": "lower plinth broad vertical front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            50
+          ]
+        },
+        {
+          "plane": "lower plinth broad vertical front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            23,
+            51
+          ]
+        },
+        {
+          "plane": "lower plinth broad vertical front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            20,
+            52
+          ]
+        },
+        {
+          "plane": "lower plinth front left facet",
+          "world_normal": [
+            -0.5000000016387101,
+            0.8660254028383291,
+            0.0
+          ],
+          "xy": [
+            12,
+            49
+          ]
+        },
+        {
+          "plane": "lower plinth front left facet",
+          "world_normal": [
+            -0.5000000016387101,
+            0.8660254028383291,
+            0.0
+          ],
+          "xy": [
+            15,
+            50
+          ]
+        },
+        {
+          "plane": "lower plinth far left end",
+          "world_normal": [
+            -0.8,
+            0.6,
+            0.0
+          ],
+          "xy": [
+            7,
+            46
+          ]
+        },
+        {
+          "plane": "lower plinth right end",
+          "world_normal": [
+            0.700000001426857,
+            0.7141428414556853,
+            0.0
+          ],
+          "xy": [
+            35,
+            48
+          ]
+        },
+        {
+          "plane": "lower plinth right end",
+          "world_normal": [
+            0.700000001426857,
+            0.7141428414556853,
+            0.0
+          ],
+          "xy": [
+            32,
+            50
+          ]
+        },
+        {
+          "plane": "upper plinth dark left end",
+          "world_normal": [
+            -0.8499999989444547,
+            0.5267826893458318,
+            0.0
+          ],
+          "xy": [
+            8,
+            42
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            10,
+            41
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            15,
+            44
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            23,
+            45
+          ]
+        },
+        {
+          "plane": "upper collar horizontal cap shoulders and front",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            35,
+            42
+          ]
+        },
+        {
+          "plane": "lower plinth narrow horizontal ledge",
+          "world_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "xy": [
+            22,
+            48
+          ]
+        }
+      ],
+      "template": "pillar_broken_short"
+    },
+    {
+      "allowed_opaque_polygon_pixels": 123,
+      "changed_pixels": 123,
+      "first_row": 45,
+      "image": "references/wall.png",
+      "normal_planes": "normal-planes/wall-foot.json",
+      "normal_planes_sha256": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+      "normal_sample_minimum_dot": 0.999984622,
+      "samples": [
+        {
+          "plane": "left-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            10,
+            46
+          ]
+        },
+        {
+          "plane": "left-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            9,
+            49
+          ]
+        },
+        {
+          "plane": "left-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            8,
+            50
+          ]
+        },
+        {
+          "plane": "left-course-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            4,
+            46
+          ]
+        },
+        {
+          "plane": "left-course-dark-end",
+          "world_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            5,
+            49
+          ]
+        },
+        {
+          "plane": "central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            24,
+            46
+          ]
+        },
+        {
+          "plane": "central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            21,
+            48
+          ]
+        },
+        {
+          "plane": "central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            22,
+            49
+          ]
+        },
+        {
+          "plane": "right-central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            34,
+            46
+          ]
+        },
+        {
+          "plane": "right-central-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            33,
+            45
+          ]
+        },
+        {
+          "plane": "rightmost-course-upright-front",
+          "world_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "xy": [
+            42,
+            46
+          ]
+        }
+      ],
+      "template": "wall_low"
+    }
+  ],
+  "source_sha256": {
+    "baseline/hashes.json": "8ac0234f0ae1bcce40ee4e2a0685530ea824b7ab849f3943985fc57581b7d014",
+    "baseline/normals/bloomwild_grass.png": "afe0f9d75bf12c50fc6ae2242a78175a7bf7efba798297ea6fe033956e9d8b18",
+    "baseline/normals/bloomwild_ruins.png": "76389849d795a9a83cb540d3dd8315a304cfd8639ed6b9c561837a97fa93869a",
+    "baseline/sprites/bloomwild_grass.json": "eccff529de47964daac29fb735d7642fba266a7f04e1131bd00bf1d9096d88ff",
+    "baseline/sprites/bloomwild_grass.png": "3914477ac5698e74ce7dc03cb3436a0d1254fc13450725bb6cd22f90e62262d6",
+    "baseline/sprites/bloomwild_ruins.json": "386810b1e2da52b1c3478e050073ec0e4179aedd7c53224e1531081c5eae7d79",
+    "baseline/sprites/bloomwild_ruins.png": "675c949d66175b2568db2bc4e558795f53341e859566775fd4321395e2923655",
+    "normal-planes/column-corner.json": "88b172e2a5259dd6caadd4585d692b2371e7b2cf0d84fafd91696b05de328b2d",
+    "normal-planes/column-foot.json": "8847285c29e3884bef4a09df4a51f210c183fe01f26f9b3f64e104c01c1effa7",
+    "normal-planes/column-hollow.json": "ce3f40b9b33f2b06f4685245c368a520006972757db9b724dfa26bb3b5914ada",
+    "normal-planes/column-scallop.json": "d0b4402e7271fadcec1f2d661472799146913d3889d3167a5268f43688d131e8",
+    "normal-planes/column-slant.json": "71dc5e95872348c2f26a25d8dab7f7cbbab6ee051c80b71eeefc781c84b10a2d",
+    "normal-planes/wall-foot.json": "f97a7afa893f64574967be188f9b6e8ec6b46e4a3c3226b85bf8e7eb8afacc65",
+    "normal-planes/wall-gap.json": "376d953c6d83ea145a3cbfb850937f0fdd6ec8abe90bb6d75d1fbe5a5bb33564",
+    "normal-planes/wall-lean.json": "b0a552d0240ec591afcb714f02cf7784a4b2c8e0e7a7800c2d81c9990f0110c3",
+    "normal-planes/wall-notch.json": "231b3c8c2da5abdb1598241754136ad758f5751b51ae922e072669eb7799c58c",
+    "normal-planes/wall-sag.json": "198bb37a6a13aa2ed7541220891fa0ab83d1fe357d367eed7d38515c2fef33e7",
+    "normal-planes/wall-step.json": "e19d3d42ad0071595f6a02fd128ba5d43c9c522a20bd61843f700806be6bafcd",
+    "normals/column-corner.png": "0bc5499d0a0761d88ddd7a723f21a5934737b22f8583f6c65fbc2b650ce34bcd",
+    "normals/column-hollow.png": "8cb64f9679bfa93312a9d57288edc2fb28a66c88c28dc18ec96cc55fe954dc98",
+    "normals/column-scallop.png": "f24771bc6c65ec991bd33cff0dd80edb3f02cbd11eed5480847dcb600317a569",
+    "normals/column-slant.png": "5a4a4602fc7515ed88334c37affec418e1845720350c873cdf278d0b7ad245df",
+    "normals/leaves-arched.png": "5b1a55eec1373b44d73541e287836154837cdc1f4db4ebd22c9eb305e3375063",
+    "normals/leaves-shallow-curl.png": "e39600d5d0899ee2224c0fec3ce7a82c6deb069eb3283343c5b1e0ec8472b9c8",
+    "normals/leaves-shallow-five.png": "4810e18a5fb6c6a7241706fb9fa471d5d4af4f3a5cc927ab12f66f31d4306145",
+    "normals/leaves-shallow-left.png": "e27256de3dc2018a13516d1d3233fc73c92831255cd6fa8d9bf7fb176965434e",
+    "normals/leaves-shallow-pair.png": "0ce8c51756f06c77f28e72cba416d2686b52e891381547d63abb15571f06b385",
+    "normals/leaves-shallow-right.png": "7d22003d60152803cf83985bde083ef1bc443a94c482370979151837b8b006cb",
+    "normals/leaves-shallow-spread.png": "b9b6717d28ed2ef22e8c9ea86c91709adff54ec67d69812e781ad8037145c1c4",
+    "normals/leaves-shallow-young.png": "5a9068151d0a12fa9b129afe3c0bf18c91a64e51d871553cd88dc9ffedab1301",
+    "normals/leaves-split.png": "3ae67aaa3ab9c924219ae6e122b53a37d5dd88400e59eceefaaaf832a74b254f",
+    "normals/leaves-triple.png": "08e250ce12ef6d6208811c090924e40c59673339964e79cae79d276c547eee78",
+    "normals/wall-gap.png": "3d02ec95650046a6870d66d55da3e6056b40a4b93ba389b1a38f8288bdbf6ee7",
+    "normals/wall-lean.png": "b362fef43fb3e29752e1371085a6cf25b6b828b6bf330ea3af83ae4aa09c52d8",
+    "normals/wall-notch.png": "34aeb812e237688551483af913bc75984b8ea27bfa02ad26d657625b27c07fed",
+    "normals/wall-sag.png": "f1f136a3518b927e62b52d4039106bfe659fd2348b5d58529699ba605fef0579",
+    "normals/wall-step.png": "4c1a2e9d82d89b1f0317be7db123309f3c0445489edb289b44aa9d65920c11a6",
+    "references/column.png": "c025fa2f84ca883e45fa919aa408c2a05f55f9007b5ab7f7195bff0c5028b511",
+    "references/wall.png": "e88da5e5a0597e11ede263c439d57cbf227f3a0bbaca5b773f4438a369c0ad29",
+    "selected/column-corner.png": "2eef6542b83b4b26b24bc570ff655b152aaca2f2b6bfea460b67ee517b1c49ab",
+    "selected/column-hollow.png": "eb1a518ad1571f65063e0fb2f41cdf29f1f562468c6ad36109f6632c492e34cd",
+    "selected/column-scallop.png": "6724c7107c8bcab218fe18ed1a95150bcaa8a204a4ef667be5ad07ffb263e438",
+    "selected/column-slant.png": "340db03373d399536814557f61363afe8aedd1de9161b7df0a6694d8f0f42d6d",
+    "selected/leaves-arched.png": "90bb0b3ef043e8b6eb936eee7aabf6181ae445fdddaea98a916120f63cd73977",
+    "selected/leaves-shallow-curl.png": "d9bd0351899b9e1482a7fa25ed4925cc0cf7be05cf126f0ad4fb5a07e60a7640",
+    "selected/leaves-shallow-five.png": "326165e53c9d59ecb4516d6f7e2e0e82c6bf74fc0c34dc042904a601521c2b48",
+    "selected/leaves-shallow-left.png": "4caf5e339f5644aa65ba758272abf6518778bc34a6b14dc649cfc4e0a56a95c7",
+    "selected/leaves-shallow-pair.png": "c198f555fc606ca672d347846ba3e7997c143f29d7bd187cd314481a66d8a75a",
+    "selected/leaves-shallow-right.png": "11e342961ff7991f4a29aec0023603bb0011189262388950c92b7d7552e4f85b",
+    "selected/leaves-shallow-spread.png": "a3542db36ac7dcdd17f3ee88640b52050e476f6c85f616f41ecfc6b8679e6ad7",
+    "selected/leaves-shallow-young.png": "c2af316fd326bee73c72dc3a00deb0e6f0b828b05e302596f78d1775b415877a",
+    "selected/leaves-split.png": "23d6b6bc8a6fdb225cf79d17a939e5af17033fc7646b2a9eed4ebe7d8f95cd4e",
+    "selected/leaves-triple.png": "7d0036c368b5ee71aef66cc20a312faa83be3b813fc25da1310567c6e928005e",
+    "selected/wall-gap.png": "473eec90abe09e716ad28bd585e4694901cb8794e74b8114efbb156b68a4665a",
+    "selected/wall-lean.png": "46eaf7f09d2b84a56d4711e470ff425b542865b1403144aaba4e044382170d08",
+    "selected/wall-notch.png": "7519b4f5943468bb2fc93a8b315602f0e3ec2e58555c0c34dc8b2ba95ddbc440",
+    "selected/wall-sag.png": "2d63a4c5420056b5eb94912498391c33fa50daf6f834b5e1e4aa4729cecbb528",
+    "selected/wall-step.png": "1bcb79226a6cf8646dad2bebde827592ac7be5b38be131ba9e9b1aa5c597008d",
+    "selection.json": "2b1e16ea2bcd552a59fcf68a88d69b228fb2b63ce71845dc96e10a88011c6cb5"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "cell": [
+    120,
+    112
+  ],
+  "anchor": [
+    60,
+    109
+  ],
+  "emissive": [],
+  "anims": {
+    "idle": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "awake": {
+      "row": 0,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "damaged": {
+      "row": 2,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "brace": {
+      "row": 4,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "damaged_brace": {
+      "row": 5,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "opening": {
+      "row": 1,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "damaged_opening": {
+      "row": 3,
+      "frames": 1,
+      "fps": 1.0,
+      "durations": [
+        60
+      ],
+      "loop": false
+    },
+    "awake_fold": {
+      "row": 0,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "opening_fold": {
+      "row": 1,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "damaged_fold": {
+      "row": 2,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    },
+    "damaged_opening_fold": {
+      "row": 3,
+      "frames": 17,
+      "fps": 1.0,
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": false
+    }
+  },
+  "notes": "Sculptural Weir Keeper. PixelLab B's thick planar towers, projecting buttresses, recessed valve and native culvert piers. Brace and opening are separately generated native structural keys. The top30 rows, collar and crystal seats never animate; the valve center stays (60,49). *_fold frame index is the existing body_dy rounded to 0..16, not elapsed time: two rigid culvert piers fold up and splay by 0..2 native pixels while the upper torso follows its original combat path. Every normal follows the same native part remapping. Anchor, collision, heart windows, and head/fist animation are unchanged. 13 native slate shades; no torso emission. Empty atlas cells are intentional."
+}

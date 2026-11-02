@@ -1,0 +1,128 @@
+{
+  "status": "SUPERSEDED: Kyle rejected the flat base pass",
+  "supersedes": "contact-only first pass, visually rejected by Kyle",
+  "final_change": "Original upper76nativealbedo rows and anchors retained. Remove bulky shoes/common display slab; continue shafts into individual fitted ashlar beds with one exposed front row, real floor gaps, physical planar shaft/bed normals, exact independent bed collision.",
+  "scope": [
+    "assets/sprites/summit_{pillars,stones}.{png,json}",
+    "assets/normals/summit_{pillars,stones}.png",
+    "src/regions/summit.rs",
+    "src/regions/summit/columns.rs",
+    "tools/pixellab/{summit_columns.py,test_summit_columns.py,build_summit.py}",
+    "art/pixellab/2026-11-02-summit-columns/"
+  ],
+  "art_pipeline": {
+    "final": "Original native PixelLab source + explicit authored native-grid reconstruction; no image resampling",
+    "rejected_trials": [
+      "twoPixelLab4-frame shared-bearing edits",
+      "first generated smooth pedestal",
+      "flat common slab with authored normals, rejected by independent reviewer atnative1x"
+    ],
+    "subscription_generations": 21,
+    "final_receipt": "installed.json"
+  },
+  "reviews": {
+    "diagnosis": "Tall separate shoe faces, bright collar rails and deep shaft/base seams explained detachment; a universal perspective mismatch was not established.",
+    "candidate3": "Rejected: shared slab still reads as a display stand.",
+    "candidate4": "Independent acceptance at actual384x216arrival,west,northwest; broken tops/slots retained, real floor gaps, no blocking visual defect in supplied views."
+  },
+  "verification": {
+    "summit_tests": "20passed,0failed",
+    "export_tests": "5passed,0failed; upperart/anchors, exactsupport, matchingmasks, geometricnormal samples, deterministic6fileexport",
+    "normal_samples": 32,
+    "scoped_rebuild": "build_summit hook reproduces all6installedfiles byte-for-byte",
+    "native": "releasebin+lib passed",
+    "wasm": "release wasm32-unknown-unknown bin passed",
+    "broader_functional": "ok. 455 passed; 0 failed; 8 ignored; 0 measured; 3 filtered out; finished in 65.94s",
+    "excluded": "3existingtiming gates;8manual/ignored tests",
+    "route": "1183connectedfloor tiles,arrival\u2192Warden10.7s;bedcontacts/blocking/behind-shaftmotion pass",
+    "visual": "5matched noherocameras,fullregion;97actualinputframes(after) and97matchedbeforeframes,includingblade,brazier,Wardenlighting andforegroundreveal;whitealbedooverhead/front/left/right controls"
+  },
+  "pair_provenance": {
+    "same_renderer_summit_hero_boss_sources": true,
+    "other_source_edit_during_pair": [
+      "src/entities/enemies/wisp.rs"
+    ],
+    "note": "Only enemies/wisp.rs changed during paired builds; no Wisp exists in the Summit captures.",
+    "summit_asset_changes": [
+      "normals/summit_pillars.png",
+      "normals/summit_stones.png",
+      "sprites/summit_pillars.json",
+      "sprites/summit_pillars.png",
+      "sprites/summit_stones.json",
+      "sprites/summit_stones.png"
+    ],
+    "other_asset_changes_in_later_live_inventory": [
+      "normals/round13_landmarks_distributor.png",
+      "sprites/round13_landmarks_distributor.json",
+      "sprites/round13_landmarks_distributor.png"
+    ],
+    "all_other_summit_and_warden_assets_identical": true,
+    "asset_note": "The distributor owner installed its three Glasswater files during final verification. They are not loaded by any Summit capture; all Summit/Warden/hero assets besides the scoped six match the paired baseline snapshot."
+  },
+  "gameplay": {
+    "arrival-motion": {
+      "reports_equal": false,
+      "different_keys": [
+        "end_pos",
+        "trace"
+      ],
+      "before_end_pos": [
+        133.13108825683594,
+        776.0114135742188
+      ],
+      "after_end_pos": [
+        150.4903564453125,
+        793.310302734375
+      ],
+      "note": "Smaller exact fitted beds open space previously blocked by oversized shoes; nativebedcollisionchecks and complete route pass."
+    },
+    "west-motion": {
+      "reports_equal": false,
+      "different_keys": [
+        "end_pos",
+        "trace"
+      ],
+      "before_end_pos": [
+        437.4362487792969,
+        554.4999389648438
+      ],
+      "after_end_pos": [
+        437.5952453613281,
+        554.4999389648438
+      ],
+      "note": "Smaller exact fitted beds open space previously blocked by oversized shoes; nativebedcollisionchecks and complete route pass."
+    },
+    "warden": {
+      "reports_equal": true,
+      "different_keys": [],
+      "before_end_pos": [
+        585.0,
+        325.8175964355469
+      ],
+      "after_end_pos": [
+        585.0,
+        325.8175964355469
+      ],
+      "note": "Fullreportmatchesincludingaudio,traceandendstate."
+    }
+  },
+  "sha256": {
+    "/home/krp/Projects/glintblade/src/regions/summit.rs": "c23564529b9b30c723e93e930565117d6211610d7f999d525d4312d5b6c95399",
+    "/home/krp/Projects/glintblade/src/regions/summit/columns.rs": "8b27733a60c46edef8459a1a3cbb069221278568e477a9af0a3bbac324d33fc9",
+    "/home/krp/Projects/glintblade/tools/pixellab/summit_columns.py": "b5dccb4673dfa835f7d31d4643eb0deb24cfb27a094b0858c38efccd2d3346f1",
+    "/home/krp/Projects/glintblade/tools/pixellab/build_summit.py": "b3e5b30a1d74b0a7e1a6308294f127db9f357b8d82605358dd3b209d47739d44",
+    "/home/krp/Projects/glintblade/tools/pixellab/test_summit_columns.py": "ed47b0f1e1baac38744ab77348b8b46f9d156480e71c58649ad52612a9abc426",
+    "/home/krp/Projects/glintblade/art/pixellab/2026-11-02-summit-columns/selection.json": "c5a3392008c4ff12dad4b7d1254c6c3757bc6fd5d521ecbab9125681c9fc0076",
+    "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/v2/audit/glintblade-before-final": "df735c7c33bdc26e84a3594ddb6bb65991c593d7a53028db5fbf66e5a0bfe4ac",
+    "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/v2/audit/glintblade-after-final": "903ba5720c3446c0345820c6fb0c46de358a3fcc6e1842e6a55c3c8d1b949450",
+    "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/target-v2/wasm32-unknown-unknown/release/glintblade.wasm": "2a2ab1442237a47c4b63f50f53f8b1263fc17ec479e97766ae41f88d5e021103"
+  },
+  "evidence": {
+    "native_scene_pairs": "evidence/",
+    "comparison": "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/v2/audit/comparison.html",
+    "normal_controls": "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/v2/audit/light-controls",
+    "captures": "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/v2",
+    "logs": "/home/krp/.t3/scratch/2026-11-02-kyle-s-request-the-columns-25bd9b9f/v2/audit"
+  },
+  "current_audit": "/home/krp/Projects/glintblade/art/pixellab/2026-11-02-summit-columns/contact-ink/audit.json"
+}

@@ -1,0 +1,19 @@
+{
+  "files": {
+    "sprites/bloomwild_grass.png": "7fd1123d61bf4ac74155cf1a5345b11346d42854f8bbf6d08246821d62e05cff",
+    "sprites/bloomwild_grass.json": "2fc5facf92be7a09687d34639f0191ac906cd6f2c362545711ef9d489f15b5d7",
+    "sprites/bloomwild_ruins.png": "1983d91a9a7bdded46f314b6d39d2fd9e7ba4045538198623ef9e45c0fd5060e",
+    "sprites/bloomwild_ruins.json": "10a552ddaf2582ff8cef5408068b1e7039e60c11f79d02747ce61ac1045ca630",
+    "normals/bloomwild_grass.png": "90f1ed272981b952653bedb708730c752d0ed9fe49663dca310ef04b7594e8e5",
+    "normals/bloomwild_ruins.png": "7d1c935a27c728255655538bb878d8d42394322f26dcd20a543546de5b8223a7"
+  },
+  "matched_staged_output": true,
+  "previous_active_assets_matched_install_receipt": true,
+  "changed_files": [
+    "sprites/bloomwild_ruins.json",
+    "normals/bloomwild_ruins.png"
+  ],
+  "installed_at_utc": "2026-11-02T21:08:34.459702+00:00",
+  "original_albedo_preserved": true,
+  "scoped_original_normal_texels_corrected": 454
+}

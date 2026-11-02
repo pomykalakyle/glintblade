@@ -10,6 +10,35 @@ const SPECIES: [&str; 6] = ["sproutling", "thorn_imp", "crystal_beetle", "wisp",
 
 thread_local! {
     static REFERENCE_SKIN: std::cell::Cell<Option<u8>> = const { std::cell::Cell::new(None) };
+    static REFERENCE_POSE: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
+}
+
+/// The retained cardinal art advances the historical simulation random stream.
+/// Live debris still uses the complete facing and appearance shown on screen.
+pub(super) fn reference_pose() -> bool {
+    REFERENCE_POSE.with(|v| v.get())
+}
+
+pub(super) fn with_reference_pose<T>(f: impl FnOnce() -> T) -> T {
+    struct Restore(bool);
+    impl Drop for Restore {
+        fn drop(&mut self) { REFERENCE_POSE.with(|v| v.set(self.0)); }
+    }
+    let _restore = Restore(REFERENCE_POSE.with(|v| v.replace(true)));
+    f()
+}
+
+/// Original selector for retained random-stream receipts and gameplay outlets.
+/// Visual selection uses the shared eight-way contract instead.
+pub(super) fn legacy_dir(x: f32, y: f32) -> crate::gfx::Dir {
+    use crate::gfx::Dir;
+    if x.abs() > y.abs() * 1.05 {
+        if x > 0.0 { Dir::Right } else { Dir::Left }
+    } else if y < 0.0 {
+        Dir::Up
+    } else {
+        Dir::Down
+    }
 }
 
 /// Evaluate an effect with a reference skin. The guard also restores normal

@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "scope": [
+    "src/entities/enemies/sproutling.rs",
+    "src/entities/enemies/thorn_imp.rs",
+    "tools/eightway/botanical_assets.py",
+    "tools/eightway/botanical_verify.py",
+    "art/eightway/botanical"
+  ],
+  "production_albedo": "Authored native polygons, quarter-facing mask grids and independently articulated limb chains; no bitmap scaling or whole-character rotation. Two first PixelLab sheet-edit studies were rejected for preserving side profiles.",
+  "production_normals": "Six PixelLab Lite OpenGL bakes of all unique new frames. Exact albedo-grid registration; unchanged3x3 material transports preserve reflected body volumes around asymmetric fixed launch arms; repeated art shares exact normals. Existing cardinal normal rows are byte-preserved.",
+  "actors": [
+    {
+      "archetype": "sproutling",
+      "appearances": [
+        "seed bulb",
+        "broad oatcap fungus with dark gills and rose/ivory lichen",
+        "camellia petals with sage sepals"
+      ],
+      "animations": [
+        "idle",
+        "move",
+        "windup",
+        "attack",
+        "hurt"
+      ],
+      "states": {
+        "Notice": "idle or airborne move1",
+        "Rest": "idle",
+        "Hop": "move",
+        "Windup": "windup with final-frame shiver",
+        "Butt": "attack",
+        "Recover": "attack2/3 then idle",
+        "Dizzy": "hurt1",
+        "Hurt": "hurt",
+        "death": "current visual pose native debris",
+        "afterimages": "attack0 in locked aim"
+      },
+      "new_frames_per_appearance": 96
+    },
+    {
+      "archetype": "thorn_imp",
+      "appearances": [
+        "long seed-husk mask",
+        "forked birch mask with rose lichen mantle",
+        "broad bracken mask with raffia shoulder folds"
+      ],
+      "animations": [
+        "idle",
+        "move",
+        "windup",
+        "attack",
+        "hurt",
+        "windup_side diagonal-only hand variant",
+        "attack_side diagonal-only hand variant"
+      ],
+      "states": {
+        "Notice": "idle",
+        "Skulk": "move or idle",
+        "Windup": "windup; side arm variant when legacy gameplay launch site is horizontal-biased",
+        "Throw": "attack; side arm variant when legacy gameplay launch site is horizontal-biased",
+        "Flee": "move at doubled phase clock",
+        "Hurt": "hurt",
+        "death": "current visual pose native mask debris"
+      },
+      "new_frames_per_appearance": 112
+    }
+  ],
+  "directions": [
+    "up",
+    "up_right",
+    "right",
+    "down_right",
+    "down",
+    "down_left",
+    "left",
+    "up_left"
+  ],
+  "legacy_rows": "Original rows0–14 retained exactly. W retains anchor-correct runtime mirror of E. Main diagonal rows15–34 are explicit in every look. Imp diagonal-only fixed-launch-arm rows35–42 retain the exact same body anatomy.",
+  "immutable_gameplay": [
+    "frame durations and frame counts",
+    "hop airborne indices and support heights",
+    "windup/lock/throw/recovery timings",
+    "precise attack aim",
+    "projectile release tick and old exact launch site over all360angles",
+    "movement/collision/normalization/control bindings",
+    "appearance mapping",
+    "simulation RNG via parent's reference-pose guard"
+  ],
+  "directionless": [
+    "seed spin/projectile animation",
+    "dust and matte lock cues",
+    "landing rings",
+    "dizzy husk marks",
+    "settled death particles after pose-derived burst"
+  ],
+  "review": "Independent contract and coverage reviewers cleared revised anatomical silhouettes after rejecting the initial oatcap crown, upright launch and collapsed rear-quarter variant anatomy. Final normal/contact audit and actual engine lighting evidence are separate gates.",
+  "rebuild": "uv run --with pillow --with numpy python tools/eightway/botanical_assets.py --out <private-directory>",
+  "verify": "uv run --with pillow --with numpy python tools/eightway/botanical_verify.py --assets <private-directory> --out <report.json>",
+  "asset_installation": "Staged six scoped PNG/JSON albedos and six normal PNGs only. Coordinator owns install; no full exporter, registry or shared environment file changed.",
+  "evidence": "audit/coverage.json; audit/verification.json; audit/*-all-frames-native.png; audit/*-all-frames-3x.png;36authored-state motion sweep GIFs incl6extra Imp hand-variant sweeps."
+}

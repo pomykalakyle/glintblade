@@ -1,0 +1,90 @@
+{
+  "notes": "Offsets are [dx, dy] from the body anchor (the Warden's ground position, body pixel (60, 109)) to each part's own anchor. Mirrored parts are flipped horizontally around their anchor (anchor x becomes cell_w - 1 - x). Draw in draw_order (back to front). The fists float: move them freely during attacks (a slam lands where the fist anchor is). Assembled height: about 120 px from the crystal tips to the feet, 114 px to the top of the hood.",
+  "body": {
+    "sheet": "warden_body",
+    "offset": [
+      0,
+      0
+    ]
+  },
+  "parts": {
+    "crystal_left": {
+      "sheet": "warden_crystal",
+      "offset": [
+        -36,
+        -100
+      ],
+      "mirror": false
+    },
+    "crystal_right": {
+      "sheet": "warden_crystal",
+      "offset": [
+        36,
+        -100
+      ],
+      "mirror": true
+    },
+    "head": {
+      "sheet": "warden_head",
+      "offset": [
+        0,
+        -75
+      ],
+      "mirror": false
+    },
+    "heart": {
+      "sheet": "warden_heart",
+      "offset": [
+        0,
+        -60
+      ],
+      "mirror": false
+    },
+    "fist_left": {
+      "sheet": "warden_fist",
+      "offset": [
+        -45,
+        -11
+      ],
+      "mirror": true
+    },
+    "fist_right": {
+      "sheet": "warden_fist",
+      "offset": [
+        45,
+        -11
+      ],
+      "mirror": false
+    }
+  },
+  "draw_order": [
+    "body",
+    "crystal_left",
+    "crystal_right",
+    "head",
+    "heart",
+    "fist_left",
+    "fist_right"
+  ],
+  "hurtboxes": {
+    "notes": "Suggested vulnerable circles, [dx, dy, r] from the body anchor.",
+    "heart": [
+      0,
+      -60,
+      9
+    ],
+    "crystal_left": [
+      -35,
+      -110,
+      7
+    ],
+    "crystal_right": [
+      35,
+      -110,
+      7
+    ]
+  },
+  "bob": {
+    "notes": "Suggested idle breathing: body, head, heart and crystals rise 1 px together every ~1 s; fists bob on their own (baked in)."
+  }
+}

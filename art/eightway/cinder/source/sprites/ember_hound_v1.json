@@ -1,0 +1,173 @@
+{
+  "cell": [
+    40,
+    24
+  ],
+  "anchor": [
+    20,
+    20
+  ],
+  "emissive": [
+    "#d48670",
+    "#efb68a"
+  ],
+  "anims": {
+    "idle_right": {
+      "row": 0,
+      "frames": 4,
+      "durations": [
+        14,
+        10,
+        14,
+        10
+      ]
+    },
+    "move_right": {
+      "row": 1,
+      "frames": 6,
+      "durations": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    "windup_right": {
+      "row": 2,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        6,
+        6
+      ]
+    },
+    "attack_right": {
+      "row": 3,
+      "frames": 4,
+      "durations": [
+        3,
+        4,
+        4,
+        6
+      ]
+    },
+    "hurt_right": {
+      "row": 4,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ]
+    },
+    "idle_down": {
+      "row": 5,
+      "frames": 4,
+      "durations": [
+        14,
+        10,
+        14,
+        10
+      ]
+    },
+    "move_down": {
+      "row": 6,
+      "frames": 4,
+      "durations": [
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    "windup_down": {
+      "row": 7,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        6,
+        6
+      ]
+    },
+    "attack_down": {
+      "row": 8,
+      "frames": 4,
+      "durations": [
+        3,
+        4,
+        4,
+        6
+      ]
+    },
+    "hurt_down": {
+      "row": 9,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ]
+    },
+    "idle_up": {
+      "row": 10,
+      "frames": 4,
+      "durations": [
+        14,
+        10,
+        14,
+        10
+      ]
+    },
+    "move_up": {
+      "row": 11,
+      "frames": 4,
+      "durations": [
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    "windup_up": {
+      "row": 12,
+      "frames": 4,
+      "durations": [
+        4,
+        6,
+        6,
+        6
+      ]
+    },
+    "attack_up": {
+      "row": 13,
+      "frames": 4,
+      "durations": [
+        3,
+        4,
+        4,
+        6
+      ]
+    },
+    "hurt_up": {
+      "row": 14,
+      "frames": 2,
+      "durations": [
+        6,
+        10
+      ]
+    }
+  },
+  "notes": "Round 6 full-animation native PixelLab alternate skin. Ivory rib armor, a broad ceramic shoulder, bone brow and dark flexible joints. All original animation rows/counts/durations, cell/anchor, behavior and exact authored combat cue positions retained. See art/pixellab/2026-11-01-round6/enemies/fire-spirit for raw generation, prompts, receipts and native assembly recipe.",
+  "light": {
+    "color": "#d48670",
+    "radius": 14,
+    "offset": [
+      2,
+      -9
+    ]
+  },
+  "variant_source": "ember_hound",
+  "variant_design": "Ivory rib armor, a broad ceramic shoulder, bone brow and dark flexible joints."
+}

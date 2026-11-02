@@ -861,6 +861,7 @@ mod tests {
             opacity: 1.0,
             foot: Arc::from([]),
             min_height: 0.0,
+            reflectivity: 0.0,
         }
     }
 

@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 3f07a68f-5b59-4956-964d-fffc6dff91b0\njob_id: 3f07a68f-5b59-4956-964d-fffc6dff91b0\nmode: text\nframes: 1\nsize: 48x56px\ntransparent: True\nedit: Make a native pixel-art variation of this SAME short broken limestone column on its stepped square plinth. Change the broken shaft into an asymmetric jagged split with one taller left remnant and a deep diagonal missing chunk on the right. Keep the same weathered pale gray limestone, muted moss, exact oblique top-down projection, crisp pixel size, scale and upper-left light. Keep the entire bottom stepped plinth and its support pixels unchanged, especially rows40..53; the object must still finish at y53 with two transparent bottom gutter rows. Alter only the upper broken stone silhouette and cracks; avoid adding glowing bits, rubble heaps or new objects. 48x56 transparent canvas with generous clear margins, native one-pixel edges.\nseed: 73021\nasset_id: ef9813cc-192b-5d0a-9eb3-c2962da0956e\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"3f07a68f-5b59-4956-964d-fffc6dff91b0\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/3f07a68f-5b59-4956-964d-fffc6dff91b0/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    }
+  ],
+  "isError": false
+}

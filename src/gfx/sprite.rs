@@ -215,23 +215,31 @@ impl Sheet {
         anim.anchor.unwrap_or(self.anchor)
     }
 
-    /// Resolve a directional anim: tries `{base}_{dir}`; left uses `_right` mirrored; falls back to
-    /// `{base}_right`, `{base}_down`, then `{base}`. Returns the anim and whether to flip.
+    /// Resolve an authored facing, preferring its own row over a mirrored right-facing row.
+    /// Diagonals never fall back to a cardinal pose. A base with no directional rows is
+    /// directionless and is returned without a flip. Legacy cardinal requests retain
+    /// their right/down/unsuffixed fallback while assets migrate.
     pub fn dir_anim(&self, base: &str, dir: Dir) -> Option<(&Anim, bool)> {
-        // A dedicated `_left` anim (re-shaded for upper-left light) beats a mirrored `_right`.
-        if dir == Dir::Left
-            && let Some(a) = self.anims.get(&format!("{base}_left"))
-        {
+        if let Some(a) = self.anims.get(&format!("{base}_{}", dir.suffix())) {
             return Some((a, false));
         }
-        let (suffix, flip) = match dir {
-            Dir::Down => ("down", false),
-            Dir::Up => ("up", false),
-            Dir::Right => ("right", false),
-            Dir::Left => ("right", true),
+        let mirrored = match dir {
+            Dir::Left => Some(Dir::Right),
+            Dir::UpLeft => Some(Dir::UpRight),
+            Dir::DownLeft => Some(Dir::DownRight),
+            _ => None,
         };
-        if let Some(a) = self.anims.get(&format!("{base}_{suffix}")) {
-            return Some((a, flip));
+        if let Some(right) = mirrored
+            && let Some(a) = self.anims.get(&format!("{base}_{}", right.suffix()))
+        {
+            return Some((a, true));
+        }
+        let directional = Dir::ALL.iter().any(|d| self.anims.contains_key(&format!("{base}_{}", d.suffix())));
+        if !directional {
+            return self.anims.get(base).map(|a| (a, false));
+        }
+        if matches!(dir, Dir::UpRight | Dir::DownRight | Dir::DownLeft | Dir::UpLeft) {
+            return None;
         }
         if let Some(a) = self.anims.get(&format!("{base}_right")) {
             return Some((a, dir == Dir::Left));
@@ -243,31 +251,79 @@ impl Sheet {
     }
 }
 
-/// Four-way facing used to pick directional anims.
+/// Eight-way visual facing. World/screen Y increases south; gameplay aim stays continuous.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Dir {
     Down,
     Up,
     Left,
     Right,
+    UpRight,
+    DownRight,
+    DownLeft,
+    UpLeft,
 }
 
 impl Dir {
-    pub fn from_vec(x: f32, y: f32) -> Dir {
-        if x.abs() > y.abs() * 1.05 {
-            if x > 0.0 { Dir::Right } else { Dir::Left }
-        } else if y < 0.0 {
-            Dir::Up
-        } else {
-            Dir::Down
+    /// Clockwise from north, independent of the enum's legacy cardinal discriminants.
+    pub const ALL: [Dir; 8] = [Dir::Up, Dir::UpRight, Dir::Right, Dir::DownRight, Dir::Down, Dir::DownLeft, Dir::Left, Dir::UpLeft];
+
+    pub const fn suffix(self) -> &'static str {
+        match self {
+            Dir::Down => "down",
+            Dir::Up => "up",
+            Dir::Left => "left",
+            Dir::Right => "right",
+            Dir::UpRight => "up_right",
+            Dir::DownRight => "down_right",
+            Dir::DownLeft => "down_left",
+            Dir::UpLeft => "up_left",
         }
     }
+
+    /// Nearest 45-degree sector; a zero or non-finite vector has deterministic south facing.
+    pub fn from_vec(x: f32, y: f32) -> Dir {
+        if !x.is_finite() || !y.is_finite() || (x == 0.0 && y == 0.0) {
+            return Dir::Down;
+        }
+        let sector = (y.atan2(x) / std::f32::consts::FRAC_PI_4 + 0.5).floor() as i32;
+        match sector.rem_euclid(8) {
+            0 => Dir::Right,
+            1 => Dir::DownRight,
+            2 => Dir::Down,
+            3 => Dir::DownLeft,
+            4 => Dir::Left,
+            5 => Dir::UpLeft,
+            6 => Dir::Up,
+            _ => Dir::UpRight,
+        }
+    }
+
+    /// Keep idle facing and add three degrees of hysteresis beyond the current half-sector.
+    /// This chooses artwork only: callers must retain their original movement/attack vectors.
+    pub fn stable_from_vec(self, x: f32, y: f32) -> Dir {
+        if !x.is_finite() || !y.is_finite() || (x == 0.0 && y == 0.0) {
+            return self;
+        }
+        // Scale before dot/cross so finite huge and subnormal vectors behave identically.
+        let scale = x.abs().max(y.abs());
+        let (x, y) = (x / scale, y / scale);
+        let (px, py) = self.vec();
+        let delta = (px * y - py * x).atan2(px * x + py * y).abs();
+        if delta <= 25.5_f32.to_radians() { self } else { Dir::from_vec(x, y) }
+    }
+
     pub fn vec(self) -> (f32, f32) {
+        let d = std::f32::consts::FRAC_1_SQRT_2;
         match self {
             Dir::Down => (0.0, 1.0),
             Dir::Up => (0.0, -1.0),
             Dir::Left => (-1.0, 0.0),
             Dir::Right => (1.0, 0.0),
+            Dir::UpRight => (d, -d),
+            Dir::DownRight => (d, d),
+            Dir::DownLeft => (-d, d),
+            Dir::UpLeft => (-d, -d),
         }
     }
 }
@@ -495,10 +551,15 @@ pub struct DrawOpts {
     pub ground_y: Option<f32>,
     /// Low foliage uses the top-facing native normal frame rather than an upright facade.
     pub floor_normals: bool,
+    /// Restrained direct-light reflections on native faces; no ambient or emission gain.
+    pub reflectivity: f32,
     /// Native sole selection stays within the actual body, excluding weapons.
     pub foot_half_w: f32,
     pub foot_depth: i32,
     pub foot_full_width: bool,
+    /// Rig-authored body bounds per native source column, before held weapons.
+    /// Intervals use pixel edges [top, bottom); [-1, -1] is an empty column.
+    pub native_support: Option<&'static [[i32; 2]]>,
     /// 0..1 material hit flash, preserving the silhouette edge and authored emission mask.
     pub flash: f32,
     /// Blend toward a color by an amount.
@@ -524,7 +585,7 @@ pub struct DrawOpts {
 
 impl Default for DrawOpts {
     fn default() -> Self {
-        DrawOpts { flip: false, actor: false, elevation: 0.0, ground_y: None, floor_normals: false, foot_half_w: 6.0, foot_depth: 5, foot_full_width: false, flash: 0.0, tint: None, alpha: 1.0, shadow_alpha: None, unlit: false, emit_gain: 1.0, silhouette: None, silhouette_glow: false, reveal: None, reveal_depth: None }
+        DrawOpts { flip: false, actor: false, elevation: 0.0, ground_y: None, floor_normals: false, reflectivity: 0.0, foot_half_w: 6.0, foot_depth: 5, foot_full_width: false, native_support: None, flash: 0.0, tint: None, alpha: 1.0, shadow_alpha: None, unlit: false, emit_gain: 1.0, silhouette: None, silhouette_glow: false, reveal: None, reveal_depth: None }
     }
 }
 
@@ -532,6 +593,40 @@ impl DrawOpts {
     pub fn flip(flip: bool) -> DrawOpts {
         DrawOpts { flip, ..Default::default() }
     }
+}
+
+/// Select soles from the rig's body volume, so a shaded sword crossing the feet
+/// cannot lower the receiving plane. Columns stay in native source order; the
+/// caster mirrors both its normals and this profile together at sampling time.
+pub(crate) fn native_support_profile(
+    cell: &Cell, anchor: (i32, i32), sy_world: i32, o: &DrawOpts,
+) -> Option<Arc<[[f32; 2]]>> {
+    let source = o.native_support?;
+    if cell.w <= 0 || source.len() != cell.w as usize { return None; }
+    let radius = o.foot_half_w.ceil() as i32;
+    let (left, right) = if o.foot_full_width { (0, cell.w) } else {
+        ((anchor.0 - radius).max(0), (anchor.0 + radius + 1).min(cell.w))
+    };
+    let valid = |s: [i32; 2]| s[0] >= 0 && s[0] < s[1] && s[1] <= cell.h;
+    let bottom = (left..right).filter_map(|x| {
+        let s = source[x as usize]; valid(s).then_some(s[1])
+    }).max()?;
+    let top = bottom - o.foot_depth.max(1);
+    let offset = (sy_world - anchor.1) as f32 + o.elevation;
+    let mut spans = vec![[f32::NAN; 2]; source.len()];
+    for x in left..right {
+        let s = source[x as usize];
+        if valid(s) && s[1] > top {
+            spans[x as usize] = [offset + s[0].max(top) as f32, offset + s[1] as f32];
+        }
+    }
+    let known: Vec<_> = spans.iter().enumerate().filter(|(_,s)|s[0].is_finite()).map(|(i,s)|(i,*s)).collect();
+    for (x, span) in spans.iter_mut().enumerate() {
+        if !span[0].is_finite() {
+            *span = known.iter().min_by_key(|(i,_)|i.abs_diff(x)).map(|(_,s)|*s)?;
+        }
+    }
+    Some(spans.into())
 }
 
 impl Frame {
@@ -548,13 +643,25 @@ impl Frame {
         let owner = if self.surface_lighting && !o.unlit && o.silhouette.is_none() {
             super::surface::register(self, cell, anchor, sx, sy, o.flip, base - ordinary_base, o.shadow_alpha.unwrap_or(o.alpha))
         } else { 0 };
+        if owner != 0 {
+            self.surface_casters.last_mut().unwrap().reflectivity = o.reflectivity.clamp(0.0, 1.0);
+        }
         if owner!=0 && o.actor {
             let caster=self.surface_casters.last_mut().unwrap();
-            caster.foot=super::surface::foot_profile_with_depth(cell,anchor,sy+self.cam_y,o.elevation,if o.foot_full_width {None}else{Some(o.foot_half_w)},o.foot_depth);
+            caster.foot=native_support_profile(cell,anchor,sy+self.cam_y,o).unwrap_or_else(||
+                super::surface::foot_profile_with_depth(cell,anchor,sy+self.cam_y,o.elevation,if o.foot_full_width {None}else{Some(o.foot_half_w)},o.foot_depth));
             caster.min_height=o.elevation.max(0.0);
         }
         let ox = sx - if o.flip { cell.w - 1 - anchor.0 } else { anchor.0 };
         let oy = sy - anchor.1;
+        // Retain native scene art before viewport/reveal rejection. Nearby
+        // characters and blockers remain present outside the direct view.
+        if owner != 0 && self.capture_reflection_sources
+            && self.visible((ox + self.cam_x) as f32, (oy + self.cam_y) as f32,
+                cell.w as f32, cell.h as f32, 160.0)
+        {
+            super::reflection::capture_source(self, cell, owner, o);
+        }
         if ox > super::frame::WI || oy > super::frame::HI || ox + cell.w < 0 || oy + cell.h < 0 {
             return;
         }
@@ -626,6 +733,172 @@ impl Frame {
         let cell = s.cell(a, a.frame_at(ticks, true));
         self.sprite_w(cell, s.anchor_of(a), wx, wy, o);
         true
+    }
+}
+
+#[cfg(test)]
+mod direction_tests {
+    use super::*;
+
+    #[test]
+    fn native_body_support_excludes_a_shaded_blade_before_surface_stamping() {
+        // The boot ends at row 3; the deliberately nonemissive sword crosses
+        // the same body column down to row 7. Its pixels still shade and cast.
+        let c = Cell::from_ascii(&["..bb.", "..bb.", ".bbb.", "..bb.", "..s..", "..s..", "..s..", "..s.."],
+            &[('b', rgb(0x708080)), ('s', rgb(0x429aa9))], &[]);
+        static SUPPORT: [[i32;2];5] = [[-1,-1], [2,3], [0,4], [0,4], [-1,-1]];
+        for flip in [false,true] { for elevation in [0.0,7.25] {
+            let mut f=Frame::new();f.surface_lighting=true;
+            f.sprite(&c,(2,3),100,100,&DrawOpts{actor:true,flip,elevation,
+                native_support:Some(&SUPPORT),foot_half_w:2.0,foot_depth:3,..Default::default()});
+            let caster=&f.surface_casters[0];
+            assert!(caster.foot.iter().all(|s|s[0].is_finite()&&s[1]>s[0]&&s[1]<=101.0+elevation));
+            assert_eq!(caster.foot[2],[98.0+elevation,101.0+elevation]);
+            assert!(caster.pixels[(7*c.w+2)as usize].a,"the low blade still casts");
+            let sword_x=if flip {100}else{100};
+            let surface=f.surfaces[104*super::super::frame::W+sword_x];
+            assert!(surface.height<=elevation,"weapon must not pull the body foot plane downward");
+        } }
+    }
+
+    fn sheet_with(names: &[&str]) -> Sheet {
+        let mut anims = HashMap::new();
+        let mut cells = Vec::new();
+        for (row, name) in names.iter().enumerate() {
+            anims.insert((*name).to_owned(), Anim {
+                name: (*name).to_owned(), row, frames: 1, fps: 10.0, durations: vec![6],
+                anchor: None, json: serde_json::json!({}),
+            });
+            cells.push(vec![Cell::from_ascii(&[".aa..", "aaaa.", "..a..", ".aa.."], &[('a', rgb(0x708080))], &[])]);
+        }
+        Sheet { name: "direction_fixture".to_owned(), cell_w: 5, cell_h: 4,
+            anchor: (2, 3), cells, anims, json: serde_json::json!({}) }
+    }
+
+    #[test]
+    fn eight_way_centers_vectors_and_names_round_trip() {
+        let mut names = HashSet::new();
+        for dir in Dir::ALL {
+            let (x, y) = dir.vec();
+            assert!((x * x + y * y - 1.0).abs() < 0.000_001, "{dir:?} must be a unit vector");
+            assert_eq!(Dir::from_vec(x, y), dir);
+            assert!(names.insert(dir.suffix()), "each facing needs a unique atlas suffix");
+            assert_eq!(Dir::from_vec(x * f32::MAX, y * f32::MAX), dir);
+            assert_eq!(Dir::from_vec(x * f32::MIN_POSITIVE, y * f32::MIN_POSITIVE), dir);
+            assert_eq!(Dir::from_vec(x * f32::from_bits(4), y * f32::from_bits(4)), dir);
+        }
+        assert_eq!(Dir::ALL.map(Dir::suffix), ["up", "up_right", "right", "down_right", "down", "down_left", "left", "up_left"]);
+        for (x, y) in [(0.0, 0.0), (-0.0, 0.0), (f32::NAN, 1.0), (1.0, f32::INFINITY)] {
+            assert_eq!(Dir::from_vec(x, y), Dir::Down);
+        }
+    }
+
+    #[test]
+    fn eight_way_sector_boundaries_use_the_nearest_pose() {
+        let clockwise = [Dir::Right, Dir::DownRight, Dir::Down, Dir::DownLeft, Dir::Left, Dir::UpLeft, Dir::Up, Dir::UpRight];
+        for sector in 0..8 {
+            for degrees in [-22.4_f32, 0.0, 22.4] {
+                let a = (sector as f32 * 45.0 + degrees).to_radians();
+                assert_eq!(Dir::from_vec(a.cos(), a.sin()), clockwise[sector]);
+            }
+            let a = (sector as f32 * 45.0 + 22.6).to_radians();
+            assert_eq!(Dir::from_vec(a.cos(), a.sin()), clockwise[(sector + 1) % 8]);
+        }
+    }
+
+    #[test]
+    fn eight_way_hysteresis_stops_boundary_chatter_but_allows_turns() {
+        for (index, dir) in Dir::ALL.into_iter().enumerate() {
+            let angle = index as f32 * 45.0 - 90.0;
+            for delta in [-25.4_f32, -22.6, 0.0, 22.6, 25.4] {
+                let a = (angle + delta).to_radians();
+                assert_eq!(dir.stable_from_vec(a.cos(), a.sin()), dir);
+            }
+            for delta in [-25.6_f32, 25.6, 90.0, 180.0] {
+                let a = (angle + delta).to_radians();
+                assert_eq!(dir.stable_from_vec(a.cos(), a.sin()), Dir::from_vec(a.cos(), a.sin()));
+            }
+            assert_eq!(dir.stable_from_vec(0.0, 0.0), dir, "stopping must not reset facing");
+            assert_eq!(dir.stable_from_vec(f32::NAN, 1.0), dir);
+            let (x, y) = dir.vec();
+            assert_eq!(dir.stable_from_vec(x * f32::MAX, y * f32::MAX), dir);
+            assert_eq!(dir.stable_from_vec(x * f32::MIN_POSITIVE, y * f32::MIN_POSITIVE), dir);
+            assert_eq!(dir.stable_from_vec(x * f32::from_bits(4), y * f32::from_bits(4)), dir);
+        }
+        let a = 26.0_f32.to_radians();
+        let turned = Dir::Right.stable_from_vec(a.cos(), a.sin());
+        assert_eq!(turned, Dir::DownRight);
+        let a = 22.0_f32.to_radians();
+        assert_eq!(turned.stable_from_vec(a.cos(), a.sin()), turned, "the reverse boundary also needs hysteresis");
+    }
+
+    #[test]
+    fn eight_way_lookup_prefers_native_left_rows_and_corresponding_mirrors() {
+        let names: Vec<_> = Dir::ALL.iter().map(|d| format!("run_{}", d.suffix())).collect();
+        let sh = sheet_with(&names.iter().map(String::as_str).collect::<Vec<_>>());
+        for dir in Dir::ALL {
+            let (anim, flip) = sh.dir_anim("run", dir).unwrap();
+            assert_eq!(anim.name, format!("run_{}", dir.suffix()));
+            assert!(!flip);
+        }
+        let sh = sheet_with(&["run_up_right", "run_down_right", "run_right"]);
+        for (dir, expected) in [(Dir::UpLeft, "run_up_right"), (Dir::DownLeft, "run_down_right"), (Dir::Left, "run_right")] {
+            let (anim, flip) = sh.dir_anim("run", dir).unwrap();
+            assert_eq!(anim.name, expected);
+            assert!(flip);
+        }
+    }
+
+    #[test]
+    fn eight_way_lookup_exposes_missing_diagonals_and_preserves_directionless_effects() {
+        let sh = sheet_with(&["run_right", "run_down", "run", "pulse"]);
+        for dir in [Dir::UpRight, Dir::DownRight, Dir::DownLeft, Dir::UpLeft] {
+            assert!(sh.dir_anim("run", dir).is_none(), "{dir:?} must not silently use a cardinal or base pose");
+        }
+        for dir in Dir::ALL {
+            let (anim, flip) = sh.dir_anim("pulse", dir).unwrap();
+            assert_eq!(anim.name, "pulse");
+            assert!(!flip, "a radial effect must not change when an actor turns");
+        }
+        let sh = sheet_with(&["run_up_right", "run_down_left"]);
+        assert!(sh.dir_anim("run", Dir::DownRight).is_none(), "right-facing rows do not borrow an unrelated diagonal");
+        assert!(sh.dir_anim("run", Dir::UpLeft).unwrap().1);
+    }
+
+    #[test]
+    fn eight_way_mirror_registers_native_normals_and_support_with_the_same_anchor() {
+        let mut sh = sheet_with(&["run_up_right"]);
+        let native = super::super::surface::NormalPixel::decode([190, 170, 235], true, false);
+        {
+            let cell = &mut sh.cells[0][0];
+            cell.surface = cell.px.iter().map(|p| super::super::surface::NormalPixel { a: p.a, ..native }).collect::<Vec<_>>().into();
+        }
+        let cell = &sh.cells[0][0];
+        let draw = |dir| {
+            let mut f = Frame::new();
+            f.begin(Rgb::BLACK, Rgb::WHITE);
+            f.surface_lighting = true;
+            let (anim, flip) = sh.dir_anim("run", dir).unwrap();
+            f.sprite(sh.cell(anim, 0), sh.anchor_of(anim), 100, 100, &DrawOpts { actor: true, flip, ..Default::default() });
+            f
+        };
+        let right = draw(Dir::UpRight);
+        let left = draw(Dir::UpLeft);
+        for y in 0..cell.h { for x in 0..cell.w {
+            if !cell.at(x, y).a { continue; }
+            let ir = ((100 - sh.anchor.1 + y) as usize * crate::gfx::W) + (100 - sh.anchor.0 + x) as usize;
+            let il = ((100 - sh.anchor.1 + y) as usize * crate::gfx::W) + (100 + sh.anchor.0 - x) as usize;
+            assert_eq!(right.albedo[ir], left.albedo[il]);
+            assert_eq!(left.surfaces[il].normal, native.upright(true));
+            assert_eq!(right.surfaces[ir].normal, native.upright(false));
+            assert_eq!(right.surfaces[ir].height, left.surfaces[il].height);
+            assert_ne!(left.surfaces[il].owner, 0);
+        }}
+        let (r, l) = (&right.surface_casters[0], &left.surface_casters[0]);
+        assert_eq!((r.x, r.y, r.base), (l.x, l.y, l.base));
+        assert_eq!(r.anchor, l.anchor);
+        assert_eq!(r.foot, l.foot, "support is indexed by native columns and mirrored with its caster");
+        assert!(!r.flip && l.flip);
     }
 }
 

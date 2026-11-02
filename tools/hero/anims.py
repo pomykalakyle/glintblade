@@ -159,7 +159,12 @@ def tip_fix(d, mode, hdx=0, hdy=0):
     'stream' = flicked straight out behind, 'up' = flicked up-back (fast moves)."""
     if mode == "droop":
         return []
-    if d == "right":
+    if d in ("down_right", "up_right"):
+        # The native diagonal hood has a short trailing tip on its screen-left
+        # edge, rather than the side/front hood's different tip coordinates.
+        fx = {"stream": [(1, 4, "_"), (0, 3, "2")],
+              "up": [(1, 4, "_"), (0, 2, "2"), (1, 3, "2")]}[mode]
+    elif d == "right":
         fx = {"stream": [(0, 3, "_"), (-1, 2, "2")],
               "up": [(0, 3, "_"), (-1, 1, "2"), (0, 2, "2")]}[mode]
     elif d == "down":
@@ -214,7 +219,8 @@ def run(d):
 
 
 # ----------------------------------------------------------------------------- pose builder
-SHOULDERS = {"down": [(15, 23), (25, 23)], "right": [(21, 23)], "up": [(15, 23), (25, 23)]}
+SHOULDERS = {"down": [(15, 23), (25, 23)], "right": [(21, 23)], "up": [(15, 23), (25, 23)],
+             "down_right": [(17, 23), (25, 24)], "up_right": [(17, 23), (25, 23)]}
 
 
 def pose(d, hand, k, length=None, hood_dx=0, hood_dy=0, top_slide=0, squash=0, stretch=0,

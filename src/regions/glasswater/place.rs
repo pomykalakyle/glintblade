@@ -19,6 +19,8 @@ use crate::entities::EnemyKind;
 use crate::gfx::{Rgb, rgb, sheet};
 use crate::world::{TILE, Tile, Zone};
 
+mod distributor;
+
 const T: f32 = TILE as f32;
 const VIOLET_LIGHT: Rgb = rgb(0xcdc3db);
 
@@ -155,8 +157,7 @@ impl P<'_> {
     /// metadata blocks only the native feet on the grove's dry right bank.
     fn distributor(&mut self) {
         if sheet("round13_landmarks_distributor").is_some_and(|s| s.has("body")) {
-            self.z.props.push(crate::world::Prop::new(
-                "round13_landmarks_distributor", "body", 1304.0, 252.0));
+            distributor::place(self.z);
         } else {
             self.spire(85.4, 10.2, 30, 173);
         }

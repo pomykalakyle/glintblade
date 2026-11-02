@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "id: 552cdcc5-611a-4ab4-b01a-4699852d9c8c\njob_id: 552cdcc5-611a-4ab4-b01a-4699852d9c8c\nmode: text\nframes: 1\nsize: 32x32px\ntransparent: True\nedit: Create a different silhouette of the SAME tiny low lanceolate-leaf ground clump. Arrange five longer spear-shaped leaves as a narrow open upright fan, with two low outer leaves and clear gaps. Match the exact muted sage, slate-green and ivory palette, small native one-pixel edges and upper-left shading of the reference. This remains the same species and size of low plant: no flowers, fern, bush, soil or cast shadow. Transparent32x32 canvas; all opaque art inside x2..29,y15..28; rooted center at16,28. Empty upper half. No scaling, enlarged pixel blocks or blur.\nseed: 73100\nasset_id: 1f3933b1-ae46-5e8f-9555-479d9f7e1e4d\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"552cdcc5-611a-4ab4-b01a-4699852d9c8c\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/552cdcc5-611a-4ab4-b01a-4699852d9c8c/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    }
+  ],
+  "isError": false
+}

@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "id: f10bb49d-40f9-499c-ac17-912c6955d812\njob_id: f10bb49d-40f9-499c-ac17-912c6955d812\nmode: text\nframes: 1\nsize: 32x32px\ntransparent: True\nedit: Create a different silhouette of this SAME tiny low lanceolate-leaf ground clump for a top-down pixel-art garden. Change the fan into two separated small leaf rosettes with fewer longer pointed leaves and visible gaps. Keep the exact restrained slate-green, sage and ivory palette, crisp native one-pixel art and upper-left lighting of the reference. It must still look like the same species and size of low plant, NOT a new shrub, flower or fern. Transparent background, no cast shadow or soil. Place all opaque artwork within x=2..29 and y=15..28 of this 32x32 canvas; root at (16,28), clear empty upper half. No enlargement or blurring.\nseed: 73011\nasset_id: 1bed1c2d-ba41-520b-ba16-e12c0bcbadb2\nasset_status: pending (saved when generation completes)\ncost: ~10 generations\nstatus: processing (~30-90s)\n\nhint: get_image(job_id=\"f10bb49d-40f9-499c-ac17-912c6955d812\")\nwithout get_image: GET https://api.pixellab.ai/mcp/images/f10bb49d-40f9-499c-ac17-912c6955d812/download (423 + Retry-After until ready; ?index=N for the Nth of several images)"
+    }
+  ],
+  "isError": false
+}

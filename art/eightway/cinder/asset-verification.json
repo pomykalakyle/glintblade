@@ -1,0 +1,62 @@
+{
+  "ember_hound": {
+    "directions": 8,
+    "states": 5,
+    "frames": 156,
+    "normal_dimensions": [
+      240,
+      960
+    ],
+    "historical_rows_unchanged": true
+  },
+  "ember_hound_v1": {
+    "directions": 8,
+    "states": 5,
+    "frames": 156,
+    "normal_dimensions": [
+      240,
+      960
+    ],
+    "historical_rows_unchanged": true
+  },
+  "ember_hound_v2": {
+    "directions": 8,
+    "states": 5,
+    "frames": 156,
+    "normal_dimensions": [
+      240,
+      960
+    ],
+    "historical_rows_unchanged": true
+  },
+  "spitting_totem": {
+    "directions": 8,
+    "states": 4,
+    "frames": 120,
+    "normal_dimensions": [
+      140,
+      1152
+    ],
+    "historical_rows_unchanged": true
+  },
+  "spitting_totem_v1": {
+    "directions": 8,
+    "states": 4,
+    "frames": 120,
+    "normal_dimensions": [
+      140,
+      1152
+    ],
+    "historical_rows_unchanged": true
+  },
+  "spitting_totem_v2": {
+    "directions": 8,
+    "states": 4,
+    "frames": 120,
+    "normal_dimensions": [
+      140,
+      1152
+    ],
+    "historical_rows_unchanged": true
+  }
+}

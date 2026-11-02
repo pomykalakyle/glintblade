@@ -1,0 +1,54 @@
+{
+  "cell": [
+    44,
+    44
+  ],
+  "anchor": [
+    22,
+    41
+  ],
+  "emissive": [
+    "#e2d8e9"
+  ],
+  "anims": {
+    "idle": {
+      "row": 0,
+      "frames": 4,
+      "fps": 1.56,
+      "durations": [
+        14,
+        50,
+        40,
+        50
+      ],
+      "loop": true
+    },
+    "flare": {
+      "row": 1,
+      "frames": 4,
+      "fps": 5.85,
+      "durations": [
+        6,
+        5,
+        6,
+        24
+      ],
+      "loop": false
+    },
+    "roar": {
+      "row": 2,
+      "frames": 6,
+      "fps": 6.92,
+      "durations": [
+        12,
+        6,
+        8,
+        5,
+        5,
+        16
+      ],
+      "loop": false
+    }
+  },
+  "notes": "A heavy level lintel over a dark recess with one narrow iris slit in a black socket; the slit's ends dip and the iris is a low dome resting on the lower lid, watching the ground in front. Anchor = the neck point (bottom centre). idle: the eye watches: a short heavy blink, open, a slow glance left, back. flare: the slit fills and blazes (telegraph before an attack). roar: dip with the eye squinted, lift 2/3/3/3 with a 1 px rumble as it snaps open, settle; the lintel lifts one more pixel at the peak so the slit opens taller. The lift is baked into the frames (peak 3 px), so the body's dark neck notch shows under the head."
+}

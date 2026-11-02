@@ -1,0 +1,11 @@
+Warden towering and head-integration review
+
+V1 rejected: closed helmet rim, collar shelf and straight wall-like arms still separated the head from the body.
+V2: removed the rim and shelf; extended same-material and same-normal cheek planes into the chest and shoulders; added substantial elbows and tapered forearms. Independent actual-game review accepted the head integration and imposing scale.
+V3: removed 362 unsupported fixed pelvic pixels per body key after full-kneel review found two pale hanging tabs. Head, upper body, arms and complete feet remain byte-identical to approved V2. All deep folds validate against the runtime apron mask.
+
+Native size: 164px from resting assembly top to ground, versus 116px before. Glint and camera scale unchanged.
+Current render audit: 496 poses, 148 normal game-camera views, 37 full-fitting compositions. Every pose remains planted; every living weapon clears the HUD; every fitting crown remains visible.
+Independent motion review inspected the full fight, opening/recovery and death sheets. The head remains structurally attached; death disintegrates the complete mass without surviving slabs. Body collapse is limited to 6,000 accepted particles to preserve room for the other parts.
+
+See audit.json for exact artifacts, test results, hashes and the normal-camera composition limit.

@@ -1,0 +1,11 @@
+Vulnerable Warden kneel audit and implementation
+
+The original was a vertical telescope: complete rigid piers stayed upright while the upper assembly slid down. Feet also shifted sideways, grounded fists skated to arbitrary positions, and body contact effects appeared late in the empty arch.
+
+The replacement uses articulated knee/thigh/shin poses over the original fixed sole pixels. The upper assembly lowers 24px, compresses to 26px at impact and settles. Hands lose lift without horizontal relocation; spent grounded hands do not land twice. Body sound, hitstop and dust coincide with maximum compression at the visible supports. Both recovery routes extend the same joint poses and release hands after upright.
+
+The first art draft had a 0-to-1 joint replacement. The neutral standing joints were reauthored to share the same mesh, removing that swap while retaining the upper 113 native rows and original soles. Independent actual-game review found no production must-fix. It identified one synthetic phase-clear capture issue; fresh corrected captures confirm its removal.
+
+Gameplay heart reach, damage and usable vulnerability interval remain covered by real-update tests across all three entry paths. Final death mechanics were not part of this request.
+
+See audit.json for exact provenance, checks, remaining performance exclusions, videos and comparison artifacts.

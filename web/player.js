@@ -90,7 +90,7 @@
   }
   async function fetchGame() {
     download = new AbortController();
-    const response = await fetch('glintblade.wasm?v=web-fit-r10', { signal: download.signal });
+    const response = await fetch('glintblade.wasm?v=controls-r12', { signal: download.signal });
     if (!response.ok) throw new Error(`Download failed: ${response.status}`);
     const total = Number(response.headers.get('content-length')) || 0;
     if (!response.body) return response.arrayBuffer();

@@ -41,10 +41,21 @@ async def main():
         async def snap(name):
             data=await frame.evaluate("() => new Promise(r=>requestAnimationFrame(()=>{wasm_exports.frame();r(canvas.toDataURL('image/png'))}))")
             (OUT/name).write_bytes(base64.b64decode(data.split(',')[1]))
-        await press('Tab','Tab')
-        await page.wait_for_timeout(200)
-        await snap('colemak-title.png')
+        # Fresh loads remain WASD. N/E must work without selecting Colemak first.
+        await snap('fresh-wasd-title.png')
         await press('Enter','Enter');await page.wait_for_timeout(5400)
+        for label,code,typed,want in [('fresh-software-slash','KeyJ','n',78),('fresh-firmware-slash','KeyN','n',78),('fresh-software-dash','KeyK','e',69),('fresh-firmware-dash','KeyE','e',69)]:
+            await frame.evaluate('keylog.length=0')
+            await dispatch('keyDown',code,typed);await page.wait_for_timeout(65)
+            await snap(label+'.png')
+            await dispatch('keyUp',code,typed)
+            log=await frame.evaluate('keylog')
+            report['checks'][label]=any(e[0]=='down' and e[1]==want for e in log) and any(e[0]=='up' and e[1]==want for e in log)
+            await page.wait_for_timeout(700)
+        # The existing movement selector still works on the pause screen.
+        await press('Escape','Escape');await press('Tab','Tab')
+        await page.wait_for_timeout(200);await snap('colemak-pause.png')
+        await press('Escape','Escape');await page.wait_for_timeout(200)
         # Actual trusted software-layout events: physical J/K type N/E.
         for label,code,typed,want in [('software-slash','KeyJ','n',78),('firmware-slash','KeyN','n',78),('software-dash','KeyK','e',69),('firmware-dash','KeyE','e',69)]:
             await frame.evaluate('keylog.length=0')

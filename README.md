@@ -110,14 +110,14 @@ cargo run --release
 | Action | Keys |
 | --- | --- |
 | Move | W A S D or arrow keys |
-| Slash (tap three times for a combo) | J, or left mouse |
+| Slash (tap three times for a combo) | J / N, or left mouse |
 | Spin slash | Hold J, then release |
-| Dash | K or Space, or right mouse |
+| Dash | K / E or Space, or right mouse |
 | Start | Enter or Space |
 | Pause | Esc or P |
 | Fullscreen | F |
 
-For Colemak-DH, press Tab on the title or pause screen: W/A/R/S move, N slashes and E dashes. The browser follows typed letters with both software and firmware layouts. The desktop option is `cargo run --release -- --colemak`. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
+N slash and E dash also work immediately after a fresh load. For Colemak-DH movement, press Tab on the title or pause screen: W/A/R/S move. The browser follows typed letters with both software and firmware layouts. The desktop option is `cargo run --release -- --colemak`. `--mute` turns the sound off. Gamepad support is built in, but no one has tried it with a real controller.
 
 ## How it was made
 

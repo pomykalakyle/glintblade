@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "fresh-software-slash": true,
+    "fresh-firmware-slash": true,
+    "fresh-software-dash": true,
+    "fresh-firmware-dash": true,
+    "software-slash": true,
+    "firmware-slash": true,
+    "software-dash": true,
+    "firmware-dash": true,
+    "software-up": true,
+    "software-left": true,
+    "software-down": true,
+    "software-right": true,
+    "firmware-down": true,
+    "firmware-right": true,
+    "semicolon-pause": true,
+    "colon-pause": true,
+    "changed-keyup-releases-original": true,
+    "shared-physical-hold": true,
+    "last-physical-release": true,
+    "blur-clears-letter": true,
+    "arrow-preserved": true,
+    "no-runtime-error": true,
+    "game-ready": true
+  },
+  "errors": []
+}

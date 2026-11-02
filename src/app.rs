@@ -119,8 +119,11 @@ fn sample_input(gil: &mut Option<Gamepads>, pad: &mut PadState) -> Raw {
     if is_key_down(KeyCode::Down) || is_key_down(kd) {
         my += 1.0;
     }
-    let mut attack = is_key_down(ka) || is_key_down(KeyCode::X) || is_key_down(KeyCode::Z) || is_mouse_button_down(MouseButton::Left);
+    // N/E remain usable after a fresh browser load, just like the X/C aliases.
+    // Layout selection changes movement and labels; it must not gate these actions.
+    let mut attack = is_key_down(ka) || is_key_down(KeyCode::N) || is_key_down(KeyCode::X) || is_key_down(KeyCode::Z) || is_mouse_button_down(MouseButton::Left);
     let mut dash = is_key_down(kdash)
+        || is_key_down(KeyCode::E)
         || is_key_down(KeyCode::Space)
         || is_key_down(KeyCode::LeftShift)
         || is_key_down(KeyCode::C)

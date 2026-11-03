@@ -513,26 +513,11 @@ impl Play {
         }
     }
 
-    /// Keep the small portal frame coherent when its arch falls inside the context opening.
-    /// Restore it smoothly after crossing its foot, matching scenery's depth transition.
-    fn gate_visibility_alpha(x: f32, y: f32, reveal: Option<crate::gfx::sprite::SpriteFocus>) -> f32 {
-        reveal.map_or(1.0, |focus| {
-            let horizontal = ((focus.x - x).abs() - 12.0) / 20.0;
-            let vertical = ((focus.ground_y - (y - 16.0)).abs() - 16.0) / 24.0;
-            let edge = horizontal.max(vertical).clamp(0.0, 1.0);
-            let proximity = edge * edge * (3.0 - 2.0 * edge);
-            let passed = ((focus.ground_y - y) / 12.0).clamp(0.0, 1.0);
-            let restored = passed * passed * (3.0 - 2.0 * passed);
-            proximity + (1.0 - proximity) * restored
-        })
-    }
-
     fn draw_gate(&self, f: &mut Frame, t: u64) {
         let Some((x, y)) = self.zone.gate else { return };
         let reveal = if !self.hide_player {
             self.player.foreground_focus()
         } else { None };
-        let alpha = Self::gate_visibility_alpha(x, y, reveal);
         let anim = match self.gate {
             Gate::Closed => "closed",
             Gate::Opening(_) => "opening",
@@ -543,7 +528,7 @@ impl Play {
             _ => t as u32,
         };
         if sheet("gate").and_then(|s| s.anim(anim)).is_some() {
-            f.anim_w("gate", anim, ticks, x, y, &DrawOpts { alpha, reveal, reveal_depth: Some(y),
+            f.anim_w("gate", anim, ticks, x, y, &DrawOpts { reveal, reveal_depth: Some(y),
                 shadow_alpha: reveal.map(|_| 1.0), ..Default::default() });
             return;
         }
@@ -552,8 +537,7 @@ impl Play {
         let (cam_x, cam_y) = (f.cam_x, f.cam_y);
         let visible = |px, py| {
             let (wx, wy) = (px + cam_x, py + cam_y);
-            alpha > crate::util::bayer4(wx, wy)
-                && reveal.is_none_or(|focus| focus.allows_scenery_at_depth(wx, wy, y))
+            reveal.is_none_or(|focus| focus.allows_scenery_at_depth(wx, wy, y))
         };
         // Keep the no-asset fallback on the same presentation mask as the native gate.
         for (rx, ry, w, h) in [(sx - 14, sy - 30, 4, 30), (sx + 10, sy - 30, 4, 30), (sx - 14, sy - 34, 28, 4)] {
@@ -768,7 +752,8 @@ mod tests {
                     }
                 } }
                 assert!(hidden > 30, "{id:?} {state:?} must cover real hero pixels: {hidden}");
-                assert!(recovered * 3 >= hidden * 2, "{id:?} {state:?}: {recovered}/{hidden} restored");
+                assert!(recovered * 2 >= hidden && (hidden - recovered) * 4 >= hidden,
+                    "{id:?} {state:?}: retain the gate while revealing Glint: {recovered}/{hidden}");
                 assert!(context_recovered > 16,
                     "{id:?} {state:?} must reveal surrounding space beyond the body: {context_recovered}");
                 assert_eq!(opaque.surface_casters.len(), revealed.surface_casters.len());
@@ -781,7 +766,7 @@ mod tests {
     }
 
     #[test]
-    fn native_gate_fades_as_a_coherent_frame_near_glint_and_stays_solid_at_distance() {
+    fn native_gate_remains_partially_visible_near_glint_and_solid_at_distance() {
         let mut play = Play::new(ZoneId::Bloomwild, &PlayOpts { god: true, peaceful: true });
         let (gate_x, gate_y) = play.zone.gate.unwrap();
         for offset in [-96.0, -12.0, 0.0, 12.0, 96.0] {
@@ -804,10 +789,17 @@ mod tests {
                 play.draw_gate(&mut opaque, 90);
                 play.hide_player = false;
                 play.draw_gate(&mut revealed, 90);
-                let expected = if offset.abs() <= 12.0 { &hero } else { &opaque };
-                assert_eq!(revealed.albedo, expected.albedo, "no orphan frame rails: {state:?}, offset {offset}");
-                assert_eq!(revealed.emissive, expected.emissive, "no orphan gate glow: {state:?}, offset {offset}");
-                assert_eq!(revealed.actor_pixels, expected.actor_pixels);
+                if offset.abs() <= 12.0 {
+                    let visible = opaque.albedo.iter().zip(&hero.albedo).filter(|(a,b)| a != b).count();
+                    let retained = opaque.albedo.iter().zip(&hero.albedo).zip(&revealed.albedo)
+                        .filter(|((a,b),c)| a != b && a == c).count();
+                    assert!(retained * 4 >= visible && retained < visible,
+                        "{state:?}, offset {offset}: gate must stay partially visible: {retained}/{visible}");
+                } else {
+                    assert_eq!(revealed.albedo, opaque.albedo);
+                    assert_eq!(revealed.emissive, opaque.emissive);
+                    assert_eq!(revealed.actor_pixels, opaque.actor_pixels);
+                }
                 assert_eq!(opaque.surface_casters.len(), revealed.surface_casters.len());
                 for (a, b) in opaque.surface_casters.iter().zip(&revealed.surface_casters) {
                     assert_eq!(a.opacity, b.opacity);
@@ -818,23 +810,35 @@ mod tests {
     }
 
     #[test]
-    fn gate_frame_depth_restoration_is_continuous_at_its_foot() {
-        let hero = sheet("hero").unwrap();
-        let idle = hero.anim("idle_down").unwrap();
-        let mut focus = crate::gfx::sprite::SpriteFocus {
-            cell: hero.cell(idle, 0), anchor: hero.anchor_of(idle), flip: false,
-            x: 408.0, y: 72.0, ground_y: 72.0,
-        };
-        let mut previous = 0.0;
-        for step in 0..=120 {
-            focus.ground_y = 72.0 + step as f32 / 10.0;
-            let alpha = Play::gate_visibility_alpha(408.0, 72.0, Some(focus));
-            assert!(alpha >= previous && alpha - previous < 0.025,
-                "gate foot crossing must restore gradually: {previous} -> {alpha}");
-            previous = alpha;
+    fn exit_gate_never_fades_when_glint_is_in_front_in_any_region_or_state() {
+        for id in [ZoneId::Bloomwild, ZoneId::Glasswater, ZoneId::Cinder] {
+            let mut play = Play::new(id, &PlayOpts { god: true, peaceful: true });
+            let (x, y) = play.zone.gate.unwrap();
+            for delta in [0.0, 0.1, 1.0, 6.0, 12.0] {
+                play.player = Player::new(x, y + delta);
+                for state in [Gate::Closed, Gate::Opening(20), Gate::Open] {
+                    play.gate = state;
+                    let make = || {
+                        let mut f = Frame::new();
+                        f.cam_x = x as i32 - 160;
+                        f.cam_y = y as i32 - 120;
+                        f.begin(Rgb::BLACK, Rgb::WHITE);
+                        f.surface_lighting = true;
+                        play.player.draw(&mut f);
+                        f
+                    };
+                    let mut opaque = make();
+                    let mut revealed = make();
+                    play.hide_player = true;
+                    play.draw_gate(&mut opaque, 90);
+                    play.hide_player = false;
+                    play.draw_gate(&mut revealed, 90);
+                    assert_eq!(revealed.albedo, opaque.albedo, "{id:?}/{state:?} faded with Glint in front at {delta}");
+                    assert_eq!(revealed.emissive, opaque.emissive);
+                    assert_eq!(revealed.actor_pixels, opaque.actor_pixels);
+                }
+            }
         }
-        assert_eq!(previous, 1.0);
-        assert_eq!(Play::gate_visibility_alpha(408.0, 72.0, None), 1.0);
     }
 
     /// Reach legal ground behind the foreground tree using ordinary movement. The old
@@ -876,7 +880,7 @@ mod tests {
             if !opaque.actor_pixels[i] { hidden += 1; recovered += usize::from(revealed.actor_pixels[i]); }
         }}
         assert!(hidden >= 8, "the fixture must actually exercise foreground wood: {hidden} hidden pixels");
-        assert!(recovered * 3 >= hidden * 2, "Glint must retain >=2/3 of the previously hidden body pixels: {recovered}/{hidden}");
+        assert!(recovered * 2 >= hidden && recovered < hidden, "foreground wood must stay partially visible over Glint: {recovered}/{hidden}");
         let mut context_recovered = 0;
         for y in 0..H { for x in 0..W {
             if !focus.covers(x as i32 + cx, y as i32 + cy) {

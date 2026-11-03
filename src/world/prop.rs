@@ -146,7 +146,7 @@ mod tests {
     }
 
     #[test]
-    fn broken_press_reveal_leaves_no_detached_crown_and_retains_full_caster() {
+    fn broken_press_reveal_retains_native_ink_and_full_physical_caster() {
         let hero = sheet("hero").unwrap();
         let idle = hero.anim("idle_down").unwrap();
         for flip in [false, true] {
@@ -164,12 +164,14 @@ mod tests {
             for offset in [-96.0, -14.0, 0.0, 14.0, 96.0] {
                 let focus = crate::gfx::sprite::SpriteFocus {
                     cell: hero.cell(idle, 0), anchor: hero.anchor_of(idle), flip: false,
-                    x: press.x + offset, y: press.sort_y() - 2.0, ground_y: press.sort_y() - 2.0,
+                    x: press.x + offset, y: press.sort_y() - 10.0, ground_y: press.sort_y() - 10.0,
                 };
                 let revealed = draw(Some(focus));
                 if offset.abs() < 20.0 {
-                    assert!(revealed.albedo.iter().all(|&c| c == Rgb::BLACK),
-                        "the native crown and foot flecks must clear together with the middle");
+                    let original = opaque.albedo.iter().filter(|&&c| c != Rgb::BLACK).count();
+                    let retained = revealed.albedo.iter().filter(|&&c| c != Rgb::BLACK).count();
+                    assert!(retained * 4 >= original && retained < original,
+                        "the small press must remain partially visible: {retained}/{original}");
                 } else {
                     assert_eq!(revealed.albedo, opaque.albedo, "distant press remains intact");
                 }
@@ -184,7 +186,7 @@ mod tests {
     }
 
     #[test]
-    fn small_press_restores_continuously_without_changing_other_prop_visibility() {
+    fn depth_fade_finishes_at_the_foot_and_never_erases_scenery() {
         let press = Prop::new("cinder_foundry", "broken_press", 200.0, 180.0);
         let hero = sheet("hero").unwrap();
         let idle = hero.anim("idle_down").unwrap();
@@ -192,17 +194,16 @@ mod tests {
             cell: hero.cell(idle, 0), anchor: hero.anchor_of(idle), flip: false,
             x: press.x, y: press.sort_y(), ground_y: press.sort_y(),
         };
-        let mut previous = 0.0;
+        let mut previous = 0.375;
         for step in 0..=120 {
-            focus.ground_y = press.sort_y() + step as f32 / 10.0;
-            let alpha = press.coherent_context_alpha(Some(focus));
+            focus.ground_y = press.sort_y() - 6.0 + step as f32 / 10.0;
+            let alpha = focus.scenery_alpha_at_depth(200, 160, press.sort_y());
             assert!(alpha >= previous && alpha - previous < 0.025);
+            assert!(alpha >= 0.375);
+            if focus.ground_y >= press.sort_y() { assert_eq!(alpha, 1.0); }
             previous = alpha;
         }
         assert_eq!(previous, 1.0);
-        assert_eq!(press.coherent_context_alpha(None), 1.0);
-        let other = Prop::new("cinder_foundry", "press", press.x, press.y);
-        assert_eq!(other.coherent_context_alpha(Some(focus)), 1.0);
     }
 
     #[test]
@@ -530,22 +531,6 @@ impl Prop {
         self.draw_revealed(f, t, alpha, None);
     }
 
-    /// This compact machine has a detached-looking crown if only its middle
-    /// enters the spatial opening. Fade its whole native shape near Glint,
-    /// using the same horizontal reach and twelve-pixel foot restoration.
-    fn coherent_context_alpha(&self, reveal: Option<crate::gfx::sprite::SpriteFocus>) -> f32 {
-        if self.sheet != "cinder_foundry" || self.anim != "broken_press" { return 1.0; }
-        reveal.map_or(1.0, |focus| {
-            let horizontal = ((focus.x - self.x).abs() - 20.0) / 12.0;
-            let vertical = ((focus.ground_y - (self.sort_y() - 24.0)).abs() - 24.0) / 40.0;
-            let edge = horizontal.max(vertical).clamp(0.0, 1.0);
-            let proximity = edge * edge * (3.0 - 2.0 * edge);
-            let passed = ((focus.ground_y - self.sort_y()) / 12.0).clamp(0.0, 1.0);
-            let restored = passed * passed * (3.0 - 2.0 * passed);
-            proximity + (1.0 - proximity) * restored
-        })
-    }
-
     /// Open nearby context while preserving the rest of the scenery and its physical cover.
     pub fn draw_revealed(&self, f: &mut Frame, t: u64, alpha: f32, reveal: Option<crate::gfx::sprite::SpriteFocus>) {
         if !self.alive {
@@ -562,7 +547,6 @@ impl Prop {
         let floor_normals = self.sheet == "bloomwild_growth_low"
             || self.sheet == "bloomwild_props" && matches!(self.anim.as_str(),
                 "bush_a" | "bush_b" | "bush_bloom" | "flowers_a" | "flowers_b");
-        let alpha = alpha * self.coherent_context_alpha(reveal);
         let o = DrawOpts { floor_normals, ground_y: self.canopy.then_some(self.y.floor()), flip: self.flip, flash: self.flash, alpha, shadow_alpha: (self.canopy || reveal.is_some()).then_some(1.0), reveal, reveal_depth: (!self.canopy).then_some(self.sort_y()), ..Default::default() };
         f.sprite_w(cell, s.anchor_of(a), self.x + wob, self.y, &o);
     }

@@ -512,7 +512,7 @@ mod tests {
     }
 
     #[test]
-    fn native_crystal_tip_clears_with_its_stem_instead_of_floating_above_glint() {
+    fn native_crystal_tip_remains_partially_visible_with_its_stem() {
         let (zone, region) = build();
         let player = crate::entities::Player::new(1280.0, 296.0);
         let (cell, anchor, flip) = player.current_cell().unwrap();
@@ -528,17 +528,22 @@ mod tests {
         let mut revealed = frame();
         region.draw_item(&zone, &mut opaque, 26, 90);
         region.draw_item_revealed(&zone, &mut revealed, 26, 90, Some(focus));
-        let mut native_tip = 0;
-        // Actual pale tip identified in the native beauty capture, with its
-        // stem inside the opening. Keeping sparse tip pixels looks detached.
+        let (mut native_tip, mut retained, mut exposed) = (0, 0, 0);
+        // Actual pale tip identified in the native beauty capture. Both the
+        // tip and stem now keep material inside the partial opening.
         for y in 70..89 { for x in 169..181 {
             let i = y * crate::gfx::W + x;
             if opaque.albedo[i] == background { continue; }
             native_tip += 1;
-            assert_eq!(revealed.albedo[i], background, "crystal tip remained detached at {x},{y}");
-            assert_eq!(revealed.emissive[i], Rgb::BLACK);
+            if revealed.albedo[i] == opaque.albedo[i] { retained += 1; }
+            else {
+                assert_eq!(revealed.albedo[i], background);
+                assert_eq!(revealed.emissive[i], Rgb::BLACK);
+                exposed += 1;
+            }
         } }
         assert!(native_tip >= 8, "fixture must contain the actual narrow crystal tip");
+        assert!(retained > 0 && exposed > 0, "crystal tip should remain partially visible: {retained}/{native_tip}");
     }
 
     #[test]

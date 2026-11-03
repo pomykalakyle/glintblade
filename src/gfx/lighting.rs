@@ -1285,7 +1285,7 @@ mod retained_surface_tests {
         let (mut sky, mut ground, mut shaped_ground) = (0, 0, 0);
         for y in 0..zone.ph { for x in 0..zone.pw {
             let j = (y * zone.pw + x) as usize;
-            if !field.raised[j] || focus.scenery_alpha(x, y) != 0.0 { continue; }
+            if !field.raised[j] || focus.allows_scenery_at_depth(x, y, zone.props[0].sort_y()) { continue; }
             let i = y as usize * W + x as usize;
             if zone.ground[j].r < 0.0 {
                 assert_eq!(revealed.surfaces[i].kind, 0);

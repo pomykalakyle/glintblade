@@ -874,8 +874,8 @@ mod tests {
                         let (px, py) = screen(x, y);
                         assert_eq!(
                             focus.scenery_alpha(px + baseline.cam_x, py + baseline.cam_y),
-                            0.0,
-                            "native cue must exercise the fully cleared reveal center: {sheet_name}, row {}, frame {frame}",
+                            0.375,
+                            "native cue must exercise the strongest partial reveal: {sheet_name}, row {}, frame {frame}",
                             anim.row
                         );
                     }

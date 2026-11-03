@@ -195,8 +195,11 @@ mod tests {
             // Changing the camera phase exercises a world-anchored dither, while
             // the context area follows both the rendered pose and its ground position.
             for camera in [(0, 0), (13, 9)] {
+                // The short post must still overlap airborne feet; taller scenery
+                // exercises the full-strength opening farther behind its ground plane.
+                let ground_y = if matches!(kind, ItemKind::Post) { 167 } else { 160 };
                 let focus = SpriteFocus { cell, anchor, flip, x: 120.0,
-                    y: (169 - elevation) as f32, ground_y: 169.0 };
+                    y: (ground_y - elevation) as f32, ground_y: ground_y as f32 };
                 let hero_frame = || {
                     let mut f = Frame::new();
                     (f.cam_x, f.cam_y) = camera;
@@ -240,9 +243,10 @@ mod tests {
                         context_restored += 1;
                     }
                 }
-                assert!(hidden > 0 && restored > 0, "actual hero must be revealed through {kind:?}, flip {flip}, elevation {elevation}");
+                assert!(hidden > 0 && restored > 0 && restored < hidden,
+                    "retain scenery while revealing the hero through {kind:?}, flip {flip}, elevation {elevation}: {restored}/{hidden}");
                 assert!(context_restored > 0, "surrounding space must be revealed through {kind:?}");
-                if matches!(kind, ItemKind::Pillar(_) | ItemKind::Monolith(_)) {
+                if matches!(kind, ItemKind::Pillar(_) | ItemKind::Monolith(0)) {
                     assert!(outside_art > 0, "distant portions of {kind:?} must remain opaque");
                 }
                 assert_eq!(revealed.shade, opaque.shade, "reveal must preserve physical shadows");

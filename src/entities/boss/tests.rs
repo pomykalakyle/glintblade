@@ -539,12 +539,12 @@ fn warden_stone_reveal_preserves_native_casters_and_combat_sources_across_poses(
         let head_mid = (art::top(head) + art::bottom(head)) / 2;
         let fist_mid = (art::top(fist) + art::bottom(fist)) / 2;
         let targets = [
-            (b.body.x, b.body.y - 32.0),
-            (hx, hy + head_mid as f32 + 15.0),
-            (b.fists[0].x, b.fists[0].y - height + (lift + fist_mid) as f32 + 15.0),
-            (b.heart_pos().0, b.heart_pos().1 + 15.0),
+            (b.body.x, b.body.y - 32.0, b.body.y + 1.0),
+            (hx, hy + head_mid as f32 + 15.0, b.body.y + 1.0),
+            (b.fists[0].x, b.fists[0].y - height + (lift + fist_mid) as f32 + 15.0, b.fists[0].y + 2.0),
+            (b.heart_pos().0, b.heart_pos().1 + 15.0, b.body.y + 1.0),
         ];
-        for (px, py) in targets {
+        for (px, py, depth) in targets {
             let focus = SpriteFocus { cell: hero.cell(anim, 0), anchor: hero.anchor_of(anim),
                 flip: false, x: px, y: py, ground_y: py };
             let mut opaque = make_frame();
@@ -553,7 +553,13 @@ fn warden_stone_reveal_preserves_native_casters_and_combat_sources_across_poses(
             b.draw_revealed(&mut revealed, Some(focus));
             let changed = opaque.albedo.iter().zip(&revealed.albedo)
                 .filter(|(a, c)| a != c).count();
-            assert!(changed > 20, "phase {phase}, kneel {kneel}, target {px},{py}: no stone opening");
+            if py <= depth - 6.0 {
+                assert!(changed > 20, "phase {phase}, kneel {kneel}, target {px},{py}: no stone opening");
+            }
+            let front_depth = b.fists.iter().map(|fi| fi.y + 2.0).fold(b.body.y + 1.0, f32::max);
+            if py >= front_depth {
+                assert_eq!(changed, 0, "the Warden must stay opaque when Glint is in front of all stone parts");
+            }
             let mut opened_background = 0;
             for (i, (before, after)) in opaque.albedo.iter().zip(&revealed.albedo).enumerate() {
                 if before == after { continue; }
@@ -563,7 +569,9 @@ fn warden_stone_reveal_preserves_native_casters_and_combat_sources_across_poses(
                 // or a native combat emitter whose dark source remains protected.
                 if *after == BACKGROUND { opened_background += 1; }
             }
-            assert!(opened_background > 20, "stone opening exposed no useful surroundings");
+            if py <= depth - 6.0 {
+                assert!(opened_background > 20, "stone opening exposed no useful surroundings");
+            }
 
             // Check fracture masking on the actual native torso, independently of
             // the protected emitters and restored parts in the assembled boss.

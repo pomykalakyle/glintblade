@@ -489,9 +489,9 @@ pub struct SpriteFocus {
 }
 
 impl SpriteFocus {
-    /// A clear center exposes the nearby floor; three short ordered-dither steps join
-    /// it to intact scenery. Position owns the contour, so idle/sword frames cannot
-    /// make it breathe. In the air a vertical capsule keeps the landing ground visible.
+    /// Keep six of every sixteen scenery pixels even at the center of the opening.
+    /// Position owns the contour, so idle/sword frames cannot make it breathe.
+    /// In the air a vertical capsule keeps the landing ground visible.
     pub fn scenery_alpha(&self, wx: i32, wy: i32) -> f32 {
         let dx = (wx - self.x.floor() as i32).abs();
         let body_center = self.y.floor() as i32 - 19;
@@ -500,18 +500,47 @@ impl SpriteFocus {
         let bottom = body_center.max(ground_center);
         let dy = if wy < top { top - wy } else { (wy - bottom).max(0) };
         if dx >= 32 || dy >= 40 { return 1.0; }
-        // Rounded shoulders clear slender upper branches and crystal tips along
+        // Rounded shoulders thin slender upper branches and crystal tips along
         // with their stems. Integer fourth-power distances keep the contour on
         // the native grid, with the same restrained horizontal reach.
         let nx = dx * dx * 1024 / (32 * 32);
         let ny = dy * dy * 1024 / (40 * 40);
         let distance = nx * nx + ny * ny;
         const EDGE: i32 = 1024 * 1024;
-        if distance < EDGE * 49 / 100 { 0.0 }
-        else if distance < EDGE * 67 / 100 { 0.25 }
-        else if distance < EDGE * 85 / 100 { 0.5 }
-        else if distance < EDGE { 0.75 }
+        if distance < EDGE * 49 / 100 { 0.375 }
+        else if distance < EDGE * 67 / 100 { 0.5 }
+        else if distance < EDGE * 85 / 100 { 0.625 }
+        else if distance < EDGE { 0.8125 }
         else { 1.0 }
+    }
+
+    /// Exact current actor ink, including facing, native anchor and airborne position.
+    pub fn contains(&self, wx: i32, wy: i32) -> bool {
+        let ox = self.x.floor() as i32 - if self.flip {
+            self.cell.w - 1 - self.anchor.0
+        } else { self.anchor.0 };
+        let x = wx - ox;
+        self.cell.at(if self.flip { self.cell.w - 1 - x } else { x },
+            wy - self.y.floor() as i32 + self.anchor.1).a
+    }
+
+    /// Nearby scenery only needs a visibility aid if its painted pixels cover the hero.
+    pub fn overlaps(&self, cell: &Cell, anchor: (i32, i32), x: i32, y: i32, flip: bool) -> bool {
+        let ox = x - if flip { cell.w - 1 - anchor.0 } else { anchor.0 };
+        let oy = y - anchor.1;
+        let hx = self.x.floor() as i32 - if self.flip {
+            self.cell.w - 1 - self.anchor.0
+        } else { self.anchor.0 };
+        let hy = self.y.floor() as i32 - self.anchor.1;
+        for wy in oy.max(hy)..(oy + cell.h).min(hy + self.cell.h) {
+            for wx in ox.max(hx)..(ox + cell.w).min(hx + self.cell.w) {
+                let sx = wx - ox;
+                if self.contains(wx, wy) && cell.at(if flip { cell.w - 1 - sx } else { sx }, wy - oy).a {
+                    return true;
+                }
+            }
+        }
+        false
     }
 
     /// The whole context opening, including its stepped transition.
@@ -524,14 +553,13 @@ impl SpriteFocus {
         self.scenery_alpha(wx, wy) > bayer4(wx, wy)
     }
 
-    /// Restore a prop over twelve ground pixels after passing its foot, rather
-    /// than switching the entire opening at the sort boundary. Distant scenery
-    /// behind Glint stays solid; overhead canopies omit this depth fade.
+    /// Restore opacity over the final six pixels BEFORE reaching the foot.
+    /// Equal-depth and background scenery stay intact. Overhead canopies omit depth.
     pub fn scenery_alpha_at_depth(&self, wx: i32, wy: i32, sort_y: f32) -> f32 {
-        let passed = ((self.ground_y - sort_y) / 12.0).clamp(0.0, 1.0);
-        let restored = passed * passed * (3.0 - 2.0 * passed);
+        let behind = ((sort_y - self.ground_y) / 6.0).clamp(0.0, 1.0);
+        let strength = behind * behind * (3.0 - 2.0 * behind);
         let alpha = self.scenery_alpha(wx, wy);
-        alpha + (1.0 - alpha) * restored
+        1.0 - (1.0 - alpha) * strength
     }
 
     pub fn allows_scenery_at_depth(&self, wx: i32, wy: i32, sort_y: f32) -> bool {
@@ -665,6 +693,10 @@ impl Frame {
         if ox > super::frame::WI || oy > super::frame::HI || ox + cell.w < 0 || oy + cell.h < 0 {
             return;
         }
+        let reveal = o.reveal.filter(|focus| {
+            o.reveal_depth.is_none_or(|depth| depth > focus.ground_y)
+                && focus.overlaps(cell, anchor, sx + self.cam_x, sy + self.cam_y, o.flip)
+        });
         for y in 0..cell.h {
             let py = oy + y;
             if !(0..super::frame::HI).contains(&py) {
@@ -679,7 +711,7 @@ impl Frame {
                 if !(0..super::frame::WI).contains(&px) {
                     continue;
                 }
-                let alpha = o.reveal.map_or(o.alpha, |focus| o.alpha.min(o.reveal_depth.map_or_else(
+                let alpha = reveal.map_or(o.alpha, |focus| o.alpha.min(o.reveal_depth.map_or_else(
                     || focus.scenery_alpha(px + self.cam_x, py + self.cam_y),
                     |depth| focus.scenery_alpha_at_depth(px + self.cam_x, py + self.cam_y, depth))));
                 if alpha < 1.0 && alpha <= bayer4(px + self.cam_x, py + self.cam_y) {

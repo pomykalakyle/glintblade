@@ -71,8 +71,8 @@ pub fn render_world_focused(
     items.extend(ritems.into_iter().map(|(y, id)| (y, Item::Region(id))));
     items.extend(ext.iter().map(|&(y, id)| (y, Item::Ext(id))));
     items.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
-    // The spatial opening recedes naturally as Glint moves past scenery. Gating it
-    // on sort depth would restore an entire cutout abruptly at the feet crossing.
+    // Ordinary scenery restores before its sort depth; only overhead canopies
+    // can cover Glint independently of their roots' depth.
     for (_, it) in items {
         match it {
             Item::Prop(i) => {

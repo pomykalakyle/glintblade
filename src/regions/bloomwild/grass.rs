@@ -105,7 +105,10 @@ fn native_variants(tufts: &[Tuft], frames: usize) -> Vec<usize> {
 #[allow(clippy::too_many_arguments)]
 fn put_leaf(f: &mut Frame, x: i32, y: i32, color: Rgb, normal: [f32; 3], kind: u8, root_y: i32, reveal: Option<SpriteFocus>) {
     let (wx, wy) = (x + f.cam_x, y + f.cam_y);
-    if reveal.is_some_and(|focus| !focus.allows_scenery_at_depth(wx, wy, root_y as f32)) {
+    // Short, sparse leaves need no ground-clearing window. Thin only the ink
+    // actually covering Glint, and retain half the blades over his silhouette.
+    if reveal.is_some_and(|focus| root_y as f32 > focus.ground_y
+        && focus.contains(wx, wy) && crate::util::bayer4(wx, wy) >= 0.5) {
         return;
     }
     if let Some(i) = Frame::idx(x, y) { f.emissive[i] = Rgb::BLACK; }
@@ -522,8 +525,8 @@ mod tests {
             }
             let (wx, wy) = (i as i32 % crate::gfx::W as i32 + base.cam_x,
                 i as i32 / crate::gfx::W as i32 + base.cam_y);
-            if !focus.covers(wx, wy) {
-                assert_eq!(revealed.albedo[i], opaque.albedo[i], "grass outside the context opening must remain opaque");
+            if !focus.contains(wx, wy) {
+                assert_eq!(revealed.albedo[i], opaque.albedo[i], "grass outside the actual hero ink must remain opaque");
                 assert_eq!(revealed.surfaces[i].normal, opaque.surfaces[i].normal);
                 assert_eq!(revealed.surfaces[i].height, opaque.surfaces[i].height);
                 assert_eq!(revealed.surfaces[i].owner, opaque.surfaces[i].owner);
@@ -535,8 +538,9 @@ mod tests {
             }
         }
         assert!(hidden >= minimum, "fixture must exercise actual foreground leaves: {hidden}");
-        assert!(recovered * 3 >= hidden * 2, "grass must retain >=2/3 of the hidden hero: {recovered}/{hidden}");
-        assert!(context_recovered > 4, "grass must expose actual surroundings as well as the hero: {context_recovered}");
+        assert!(recovered * 3 >= hidden && recovered * 4 <= hidden * 3,
+            "grass must reveal the hero while retaining visible blades: {recovered}/{hidden}");
+        assert_eq!(context_recovered, 0, "grass must not disappear from the surrounding ground");
     }
 
     #[test]
@@ -582,6 +586,15 @@ mod tests {
             grass.draw_revealed(&mut revealed, ID << 24, 61, Some(focus));
             check_reveal(&base, &opaque, &revealed, focus, 12);
 
+
+            for ground_y in [80.0, 80.1, 81.0, 86.0, 92.0] {
+                let in_front = SpriteFocus { ground_y, ..focus };
+                let mut background = hero_frame(focus, physical, (7, 9));
+                grass.draw_revealed(&mut background, ID << 24, 61, Some(in_front));
+                assert_eq!(background.albedo, opaque.albedo, "background grass faded at {ground_y}");
+                assert_eq!(background.emissive, opaque.emissive);
+                assert_eq!(background.actor_pixels, opaque.actor_pixels);
+            }
             let distant = SpriteFocus { x: focus.x + 100.0, ..focus };
             let mut background = hero_frame(focus, physical, (7, 9));
             grass.draw_revealed(&mut background, ID << 24, 61, Some(distant));

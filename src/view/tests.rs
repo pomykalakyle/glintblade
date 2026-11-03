@@ -85,6 +85,7 @@ fn assert_local_reveal(opaque: &Frame, revealed: &Frame, pose: SpriteFocus, labe
     }
     let mut hidden = 0;
     let mut recovered = 0;
+    let mut retained = 0;
     for (x, y) in hero_pixels(pose) {
         if Frame::idx(x - opaque.cam_x, y - opaque.cam_y).is_none() { continue; }
         if at(opaque, x, y) == HERO_INK { continue; }
@@ -94,10 +95,12 @@ fn assert_local_reveal(opaque: &Frame, revealed: &Frame, pose: SpriteFocus, labe
             recovered += 1;
         } else {
             assert_eq!(at(revealed, x, y), at(opaque, x, y), "{label}: opaque dither pixel changed");
+            retained += 1;
         }
     }
     assert!(hidden > 40, "{label}: fixture must actually obscure the hero, got {hidden}");
     assert!(recovered > 25 && changed >= recovered, "{label}: no useful foreground reveal");
+    assert!(retained * 4 >= hidden, "{label}: too little occluding scenery retained: {retained}/{hidden}");
     assert_physical_casters_unchanged(opaque, revealed, label);
 }
 
@@ -132,16 +135,7 @@ fn foreground_native_scenery_reveals_the_hero_in_every_land_region() {
         let zone = fixture(id, vec![prop]);
         let opaque = render(&zone, &NoRegion, Some(pose), None, None, (0, 0));
         let revealed = render(&zone, &NoRegion, Some(pose), Some(pose), None, (0, 0));
-        if sheet == "cinder_foundry" && anim == "broken_press" {
-            // The small machine clears as one shape, including its crown
-            // outside the common opening. Its physical cast stays present.
-            let without = render(&fixture(id, Vec::new()), &NoRegion,
-                Some(pose), Some(pose), None, (0, 0));
-            assert_eq!(revealed.albedo, without.albedo, "no detached press pieces");
-            assert_physical_casters_unchanged(&opaque, &revealed, "coherent small press");
-        } else {
-            assert_local_reveal(&opaque, &revealed, pose, &format!("{sheet}/{anim}"));
-        }
+        assert_local_reveal(&opaque, &revealed, pose, &format!("{sheet}/{anim}"));
     }
 }
 
@@ -214,7 +208,7 @@ fn contextual_opening_keeps_its_width_across_facing_and_action_poses() {
 }
 
 #[test]
-fn native_press_cap_clears_with_its_upright_instead_of_floating_above_glint() {
+fn native_press_cap_and_upright_remain_partially_visible() {
     let zone = fixture(ZoneId::Cinder, vec![
         Prop::new("cinder_foundry", "press", 621.0, 450.0),
     ]);
@@ -223,16 +217,19 @@ fn native_press_cap_clears_with_its_upright_instead_of_floating_above_glint() {
     let bare = render(&fixture(ZoneId::Cinder, Vec::new()), &NoRegion, None, None, None, camera);
     let opaque = render(&zone, &NoRegion, None, None, None, camera);
     let revealed = render(&zone, &NoRegion, None, Some(pose), None, camera);
-    let mut native_cap = 0;
-    // Native cap coordinates from the frozen beauty probe. A thin top left
-    // outside an elliptical opening previously survived without its upright.
+    let (mut native_cap, mut retained_cap, mut exposed_cap) = (0, 0, 0);
+    // Native cap coordinates from the frozen beauty probe. The cap and shaft
+    // now retain scenery pixels throughout the opening.
     for y in 61..85 { for x in 194..212 {
         let i = y * W + x;
         if opaque.albedo[i] == bare.albedo[i] { continue; }
         native_cap += 1;
-        assert_eq!(revealed.albedo[i], bare.albedo[i], "press cap floated at {x},{y}");
+        retained_cap += usize::from(revealed.albedo[i] == opaque.albedo[i]);
+        exposed_cap += usize::from(revealed.albedo[i] == bare.albedo[i]);
     } }
     assert!(native_cap >= 40, "fixture must exercise the native press cap");
+    assert!(retained_cap * 4 >= native_cap && exposed_cap > 10,
+        "cap must remain visible through the opening: {retained_cap}/{native_cap}");
 }
 
 #[test]
@@ -261,59 +258,49 @@ fn background_pillar_stays_intact_after_glint_has_passed_its_foot() {
 }
 
 #[test]
-fn contextual_ground_remains_open_when_actor_crosses_native_scenery_sort_depth() {
-    let prop = Prop::new("cinder_foundry", "press", 180.0, 170.0);
-    let depth = prop.sort_y();
-    let zone = fixture(ZoneId::Cinder, vec![prop,
-        Prop::new("cinder_foundry", "press", 80.0, 170.0),
-    ]);
-    let before = hero(175.0, depth - 1.0);
-    let after = hero(175.0, depth);
-    let before_opaque = render(&zone, &NoRegion, Some(before), None, None, (0, 0));
-    let after_opaque = render(&zone, &NoRegion, Some(after), None, None, (0, 0));
-    let before_focus = render(&zone, &NoRegion, Some(before), Some(before), None, (0, 0));
-    let after_focus = render(&zone, &NoRegion, Some(after), Some(after), None, (0, 0));
-    let ground = render(&fixture(ZoneId::Cinder, Vec::new()), &NoRegion, None, None, None, (0, 0));
-
-    // The hero still crosses the prop in painter order; only the surrounding opening
-    // persists across that boundary instead of disappearing in one large flash.
-    let hidden_before = hero_pixels(before).into_iter()
-        .filter(|&(x, y)| at(&before_opaque, x, y) != HERO_INK).count();
-    assert!(hidden_before > 40, "sort-crossing fixture must begin with native scenery in front of the hero");
-    for (x, y) in hero_pixels(after) {
-        assert_eq!(at(&after_opaque, x, y), HERO_INK,
-            "equal-depth actor must paint after scenery even without reveal at {x},{y}");
-        assert_eq!(at(&after_focus, x, y), HERO_INK,
-            "context reveal changed the actor's painter order at {x},{y}");
-    }
-
-    let mut bodies = hero_pixels(before);
-    bodies.extend(hero_pixels(after));
-    let (mut opened_before, mut opened_after, mut persistent, mut distant) = (0, 0, 0, 0);
-    for y in 70..195 {
-        for x in 40..235 {
-            if (x - before.x as i32).abs() >= 64
-                && at(&before_opaque, x, y) != at(&ground, x, y)
-            {
-                assert_eq!(at(&before_focus, x, y), at(&before_opaque, x, y));
-                assert_eq!(at(&after_focus, x, y), at(&after_opaque, x, y));
-                distant += 1;
+fn scenery_restores_before_glint_crosses_its_foot_in_every_land_region() {
+    for (id, name, anim) in [
+        (ZoneId::Bloomwild, "bloomwild_ruins", "pillar"),
+        (ZoneId::Cinder, "cinder_foundry", "press"),
+        (ZoneId::Cinder, "cinder_foundry", "broken_press"),
+        (ZoneId::Summit, "summit_pillars", "pillar_0"),
+    ] {
+        let prop = Prop::new(name, anim, 180.0, 170.0);
+        let depth = prop.sort_y();
+        let zone = fixture(id, vec![prop]);
+        for delta in [-12.0, -6.0, -1.0, 0.0, 0.1, 1.0, 6.0, 12.0] {
+            let pose = hero(180.0, depth + delta);
+            let opaque = render(&zone, &NoRegion, Some(pose), None, None, (0, 0));
+            let revealed = render(&zone, &NoRegion, Some(pose), Some(pose), None, (0, 0));
+            if delta >= 0.0 {
+                assert_eq!(revealed.albedo, opaque.albedo, "{name}/{anim}: fading at foot delta {delta}");
+                assert_eq!(revealed.emissive, opaque.emissive);
+            } else if delta <= -6.0 {
+                assert_ne!(revealed.albedo, opaque.albedo, "{name}/{anim}: foreground must still reveal Glint");
             }
-            let gap = bodies.iter().map(|&(hx, hy)| (x - hx).abs().max((y - hy).abs())).min().unwrap();
-            if gap < 8 || at(&before_opaque, x, y) == at(&ground, x, y)
-                || at(&after_opaque, x, y) == at(&ground, x, y) { continue; }
-            let was_open = at(&before_focus, x, y) == at(&ground, x, y);
-            let stays_open = at(&after_focus, x, y) == at(&ground, x, y);
-            opened_before += usize::from(was_open);
-            opened_after += usize::from(stays_open);
-            persistent += usize::from(was_open && stays_open);
+            assert_physical_casters_unchanged(&opaque, &revealed, name);
         }
     }
-    assert!(opened_before >= 100 && opened_after >= 100,
-        "sort crossing lost surrounding ground: {opened_before} -> {opened_after} pixels");
-    assert!(persistent * 4 >= opened_before * 3 && persistent * 4 >= opened_after * 3,
-        "one-pixel depth crossing popped the opening: {opened_before} -> {opened_after}, only {persistent} persisted");
-    assert!(distant >= 300, "fixture must also exercise intact scenery beyond the local window");
+}
+
+#[test]
+fn nearby_scenery_without_actual_hero_overlap_stays_opaque() {
+    let zone = fixture(ZoneId::Cinder, vec![Prop::new("cinder_foundry", "press", 180.0, 170.0)]);
+    // Find a native pose whose context reaches real press ink, but whose body does not.
+    let prop = &zone.props[0];
+    let s = prop.sheet().unwrap();
+    let anim = s.anim(&prop.anim).unwrap();
+    let cell = s.cell(anim, anim.frame_at(prop.t0, true));
+    let anchor = s.anchor_of(anim);
+    let source_at = |x, y| cell.at(x - 180 + anchor.0, y - 170 + anchor.1).a;
+    let pose = (190..270).map(|x| hero(x as f32, 150.0)).find(|pose| {
+        hero_pixels(*pose).iter().all(|&(x,y)| !source_at(x,y))
+            && (100..230).any(|y| (100..270).any(|x| source_at(x,y) && pose.covers(x,y)))
+    }).expect("real scenery inside the context radius without actual actor overlap");
+    let opaque = render(&zone, &NoRegion, Some(pose), None, None, (0, 0));
+    let revealed = render(&zone, &NoRegion, Some(pose), Some(pose), None, (0, 0));
+    assert_eq!(revealed.albedo, opaque.albedo);
+    assert_eq!(revealed.emissive, opaque.emissive);
 }
 
 #[test]
@@ -331,8 +318,7 @@ fn stacked_scenery_keeps_one_world_aligned_reveal_through_camera_facing_and_airb
             let ordinary_opaque = render(&ordinary, &NoRegion, Some(pose), None, None, (0, 0));
             let ordinary_revealed = render(&ordinary, &NoRegion, Some(pose), Some(pose), None, (0, 0));
             assert_local_reveal(&ordinary_opaque, &ordinary_revealed, pose, "underlying foundry sprite");
-            assert_eq!(revealed.albedo, ordinary_revealed.albedo,
-                "the coherent small press must clear without changing the underlying world dither");
+            assert_local_reveal(&opaque, &revealed, pose, "stacked foundry sprites");
             assert_physical_casters_unchanged(&opaque, &revealed, "stacked foundry sprites");
             let shifted = render(&zone, &NoRegion, Some(pose), Some(pose), None, (7, 5));
             for y in 70..185 {
